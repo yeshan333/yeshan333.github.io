@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html>
+<head hexo-theme='https://volantis.js.org/#2.6.5'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- 页面元数据 -->
+  
+    <title>使用docker-compose编排前后端分离应用 - ShanSan</title>
+  
+    <meta name="keywords" content="docker,服务编排,DevOps">
+  
+  
+    <meta name="description" content="几个月过去了，是时候把当初的 🚩 干掉了。
+顺便提高下 docker 的熟练度，得闲看下原理🚩（假期看过，没总结…）。
+重装了波系统（Windows 2004 版本），这个版本下，Docker Desktop 是以 WSL2 为 backend 的，不用 Hyper -V 了，舒服了很多。
+细品了下（又摸鱼搞...">
+  
+
+  <!-- feed -->
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13/css/all.min.css">
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+
+  
+
+  
+  <link rel="shortcut icon" type='image/x-icon' href="https://img.vim-cn.com/bb/db444be0b7fda59c69d5c64167f9668b0b66bd.png">
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css">
+  
+
+  <!-- import link -->
+  
+
+  
+  
+    
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+  
+</head>
+
+<body>
+  
+  <div id="loading-bar-wrapper">
+  <div id="loading-bar"></div>
+</div>
+<header class="l_header shadow blur">
+  <div class='container'>
+  <div class='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h'>
+        <li><a class="s-comment fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+          
+          
+            <red>S</red><green>h</green><blue>a</blue><yellow>n</yellow><red>S</red><green>h</green><blue>a</blue><yellow>n</yellow>
+          
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-home fa-fw'></i>首页
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" 
+                  
+                  
+                  >
+                  <i class='fas fa-ellipsis-v fa-fw'></i>与我相关
+                </a>
+                
+                  <ul class="list-v">
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://github.com/yeshan333
+                  
+                  
+                  
+                    id="https:githubcomyeshan333"
+                  >
+                  <i class='fab fa-github-square fa-fw'></i>Github
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://slide.shan333.cn
+                  
+                  
+                  
+                    id="https:slideshan333cn"
+                  >
+                  <i class='fab fa-slideshare fa-fw'></i>slides
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://shansan.top/knowledge-base/
+                  
+                  
+                  
+                    id="https:shansantopknowledge-base"
+                  >
+                  <i class='far fa-sticky-note fa-fw'></i>notes
+                </a>
+                
+              </li>
+            
+          
+                    
+                  </ul>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/PyChina/
+                  
+                  
+                  
+                    id="PyChina"
+                  >
+                  <i class='fab fa-python fa-fw'></i>中国蟒
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/cloud-native/
+                  
+                  
+                  
+                    id="cloud-native"
+                  >
+                  <i class='fas fa-cloud fa-fw'></i>云原生
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="寻你所想" />
+        </form>
+      </div>
+
+			<ul class='switcher nav-list-h'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-home fa-fw'></i>首页
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" 
+                  
+                  
+                  >
+                  <i class='fas fa-ellipsis-v fa-fw'></i>与我相关
+                </a>
+                
+                  <ul class="list-v">
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://github.com/yeshan333
+                  
+                  
+                  
+                    id="https:githubcomyeshan333"
+                  >
+                  <i class='fab fa-github-square fa-fw'></i>Github
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://slide.shan333.cn
+                  
+                  
+                  
+                    id="https:slideshan333cn"
+                  >
+                  <i class='fab fa-slideshare fa-fw'></i>slides
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://shansan.top/knowledge-base/
+                  
+                  
+                  
+                    id="https:shansantopknowledge-base"
+                  >
+                  <i class='far fa-sticky-note fa-fw'></i>notes
+                </a>
+                
+              </li>
+            
+          
+                    
+                  </ul>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/PyChina/
+                  
+                  
+                  
+                    id="PyChina"
+                  >
+                  <i class='fab fa-python fa-fw'></i>中国蟒
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/cloud-native/
+                  
+                  
+                  
+                    id="cloud-native"
+                  >
+                  <i class='fas fa-cloud fa-fw'></i>云原生
+                </a>
+                
+              </li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</header>
+
+<script>setLoadingBarProgress(40);</script>
+
+
+
+  <div class="l_body nocover">
+    <div class='body-wrapper'>
+      
+
+<div class='l_main'>
+  
+
+  
+    <article id="post" class="post white-box reveal shadow article-type-post" itemscope itemprop="blogPost">
+      
+
+
+  <section class='meta'>
+    
+      
+      
+      <div class="meta" id="header-meta">
+        
+          
+  <h1 class="title">
+    <a href="/2020/06/28/%E4%BD%BF%E7%94%A8docker-compose%E7%BC%96%E6%8E%92%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E5%BA%94%E7%94%A8/">
+      使用docker-compose编排前后端分离应用
+    </a>
+  </h1>
+
+
+        
+        <div class='new-meta-box'>
+          
+            
+          
+            
+              
+<div class='new-meta-item author'>
+  <a href="https://github.com/yeshan333" target="_blank" rel="nofollow noopener">
+    <img src="https://img.vim-cn.com/a3/caa9ef084c4f562b82b1cca6e978c0dca58c5f.png">
+    <p>yeshan333</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+  
+  <div class='new-meta-item category'>
+    <a href='/categories/docker/' rel="nofollow">
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <p>docker</p>
+    </a>
+  </div>
+
+
+            
+          
+            
+              <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>文章首发于：2020年6月28日</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+
+            
+          
+        </div>
+        
+          <hr>
+        
+      </div>
+    
+  </section>
+
+
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          
+          <p>几个月过去了，是时候把当初的 <a href="https://github.com/yeshan333/Flask-React-ToDoList#%E6%9B%B4%E6%96%B0%E8%AE%A1%E5%88%92" target="_blank" rel="noopener">🚩</a> 干掉了。</p>
+<p>顺便提高下 docker 的熟练度，得闲看下原理🚩（假期看过，没总结…）。</p>
+<p>重装了波系统（Windows 2004 版本），这个版本下，Docker Desktop 是以 WSL2 为 backend 的，不用 Hyper -V 了，舒服了很多。</p>
+<p>细品了下（又摸鱼搞 DevOps），跑这个前后端分离项目需要到的容器还挺多，4 个左右（后端 REST 服务、数据库服务、前端服务），前端服务上了两个容器『貌似没必要』，一个用来过渡，一个跑挂着 SPA 的 Nginx。</p>
+<p>这次祭出了 Docker Compose，毕竟容器有点“小多”，单单用命令费劲。</p>
+<a id="more"></a>
+
+<h2 id="Demo-实战"><a href="#Demo-实战" class="headerlink" title="Demo 实战"></a>Demo 实战</h2><ul>
+<li>Demo 地址：<a href="https://github.com/yeshan333/Flask-React-ToDoList" target="_blank" rel="noopener">https://github.com/yeshan333/Flask-React-ToDoList</a></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/yeshan333/Flask-React-ToDoList</span><br><span class="line"><span class="built_in">cd</span> Flask-React-ToDoList</span><br><span class="line">git checkout docker</span><br></pre></td></tr></table></figure>
+
+<h3 id="1、先给后端服务写个-Dockerfile"><a href="#1、先给后端服务写个-Dockerfile" class="headerlink" title="1、先给后端服务写个 Dockerfile"></a>1、先给后端服务写个 Dockerfile</h3><p>这个项目的后端服务是用 Flask 写的，Dockerfile 如下所示：</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> python:<span class="number">3.8</span>-alpine</span><br><span class="line"></span><br><span class="line"><span class="keyword">LABEL</span><span class="bash"> maintainer = <span class="string">"yeshan &lt;yeshan1329441308@gmail.com&gt;"</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">5000</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Keeps Python from generating .pyc files in the container</span></span><br><span class="line"><span class="keyword">ENV</span> PYTHONDONTWRITEBYTECODE <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Turns off buffering for easier container logging</span></span><br><span class="line"><span class="keyword">ENV</span> PYTHONUNBUFFERED <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Install pip requirements</span></span><br><span class="line"><span class="keyword">ADD</span><span class="bash"> requirements.txt .</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> python -m pip install -r requirements.txt</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="bash"> /app</span></span><br><span class="line"><span class="keyword">ADD</span><span class="bash"> . /app</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># production web server</span></span><br><span class="line"><span class="keyword">CMD</span><span class="bash"> [<span class="string">"gunicorn"</span>, <span class="string">"--bind"</span>, <span class="string">"0.0.0.0:5000"</span>, <span class="string">"app:app"</span>]</span></span><br><span class="line"><span class="comment"># CMD ["flask", "run", "--host", "0.0.0.0", "--port", "5000"]</span></span><br></pre></td></tr></table></figure>
+
+<p>生产环境下，Flask 自带的服务器不够骚，所以这里上 gunicorn。</p>
+<h3 id="2、再给前端-React-SPA-写个-Dockerfile"><a href="#2、再给前端-React-SPA-写个-Dockerfile" class="headerlink" title="2、再给前端 React-SPA 写个 Dockerfile"></a>2、再给前端 React-SPA 写个 Dockerfile</h3><p>前端使用 React 编写「想起初学那时候抽组件那叫一个痛苦」，Dockerfile 如下</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> node:<span class="number">12.18</span>-alpine as frontend-react</span><br><span class="line"></span><br><span class="line"><span class="keyword">LABEL</span><span class="bash"> maintainer = <span class="string">"yeshan &lt;yeshan1329441308@gmail.com&gt;"</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">ENV</span> NODE_ENV production</span><br><span class="line"></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="bash"> /usr/src/app</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> [<span class="string">"package.json"</span>, <span class="string">"package-lock.json*"</span>, <span class="string">"npm-shrinkwrap.json*"</span>, <span class="string">"./"</span>]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> npm install &amp;&amp; npm install -g serve</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> . .</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> npm run build</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">5000</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">CMD</span><span class="bash"> [<span class="string">"serve"</span>, <span class="string">"-l"</span>, <span class="string">"tcp://0.0.0.0:5000"</span>, <span class="string">"-s"</span>, <span class="string">"build"</span>]</span></span><br></pre></td></tr></table></figure>
+
+<p>原来想的是直接使用 react-script 自带的 HTTP 服务器的，前端应用也在容器跑，但是这个 HTTP 服务器不够骚，为了生产环境，还是上 Nginx 了。为了调试，使用 serve 套一下构建好的页面。</p>
+<h3 id="3、编写-docker-compose-yml-对容器进行编排"><a href="#3、编写-docker-compose-yml-对容器进行编排" class="headerlink" title="3、编写 docker-compose.yml 对容器进行编排"></a>3、编写 docker-compose.yml 对容器进行编排</h3><p>接下来的编排文件才是大头，调试了半天『🤣连接 MongoDB😂』。这个 URI 连接字符串试了多种操作，比如：<code>connection = MongoClient(&quot;mongodb://mongo:27017/&quot;)</code>、<code>connection = MongoClient(&quot;mongo:27017&quot;)</code>，最后还是看文档解决的，这…，文档还是香的。</p>
+<p>原来 compose v2 以上，使用 compose 进行编排时，会默认建立一个网络（bridge 类型），连接各个容器，<code>主机名和容器名相同</code>，后面指定了下<code>container_name: flask_backend</code>、<code>container_name: mongo_database</code>才在 flask_backend 容器 <code>ping</code> 通 MongoDB 服务。</p>
+<p>文档原文如下：</p>
+<blockquote>
+<p>By default Compose sets up a single network for your app. Each container for a service joins the default network and is both reachable by other containers on that network, and discoverable by them at a hostname identical to the container name.<a href="https://docs.docker.com/compose/networking/" target="_blank" rel="noopener">🔗</a></p>
+</blockquote>
+<p>OK，看下这个小 demo 的编排文件：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">'3.4'</span></span><br><span class="line"></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">backend:</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">flask_backend</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">backend</span></span><br><span class="line">    <span class="attr">build:</span></span><br><span class="line">      <span class="attr">context:</span> <span class="string">./backend</span></span><br><span class="line">      <span class="attr">dockerfile:</span> <span class="string">Dockerfile</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">"5000:5000"</span></span><br><span class="line">    <span class="attr">depends_on:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">database</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">database:</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">mongo_database</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">mongo</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">data:/data/db</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">frontend:</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">frontend-react</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">frontend</span></span><br><span class="line">    <span class="attr">build:</span></span><br><span class="line">      <span class="attr">context:</span> <span class="string">./frontend</span></span><br><span class="line">      <span class="attr">dockerfile:</span> <span class="string">Dockerfile</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">static:/usr/src/app/build</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">"3000:5000"</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">nginx:</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">webserver-nginx</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">nginx:latest</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">     <span class="bullet">-</span> <span class="string">"80:80"</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">     <span class="bullet">-</span> <span class="string">static:/usr/share/nginx/html</span></span><br><span class="line">    <span class="attr">command:</span> <span class="string">"/bin/bash -c "</span><span class="string">nginx</span> <span class="string">-g</span> <span class="string">'daemon off;'</span><span class="string">"</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">volumes:</span></span><br><span class="line"><span class="string">  data:</span></span><br><span class="line"><span class="string">  static:</span></span><br></pre></td></tr></table></figure>
+
+<p>可以明显的看到，之前为前端 SPA 创建的容器只是为了做下过渡「通过 static volumn 进行过渡」。最终的应用还是挂在 Nginx 上的。通过 volume 做下持久存储。</p>
+<p>最后，跑下试试，看看效果如何。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 初始化数据库</span></span><br><span class="line">docker <span class="built_in">exec</span> -i  flask_backend flask create-database</span><br></pre></td></tr></table></figure>
+
+<div class="fancybox ">
+              <p><img src="https://s1.ax1x.com/2020/06/28/NRJe8x.png" alt="开始编排容器"></p><p><img src="https://s1.ax1x.com/2020/06/28/NRJxdH.png" alt="创建的网络与卷"></p><p><img src="https://s1.ax1x.com/2020/06/28/NRJaM8.png" alt="效果"></p>
+            </div>
+
+<p>收工，下一步就是做下服务抽离，部署到云原生的操作系统上-Kubernetes！🚩</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://docs.docker.com/compose/compose-file/#compose-documentation" target="_blank" rel="noopener">Compose file version 3 reference</a></li>
+<li><a href="https://docs.docker.com/compose/networking/" target="_blank" rel="noopener">Networking in Compose</a></li>
+<li><a href="https://code.visualstudio.com/docs/containers/quickstart-python" target="_blank" rel="noopener">Python in a container</a></li>
+<li><a href="https://yeasy.gitbook.io/docker_practice/" target="_blank" rel="noopener">docker-practice</a></li>
+<li><a href="https://www.npmjs.com/package/serve" target="_blank" rel="noopener">npm serve</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/69536325" target="_blank" rel="noopener">使用 Docker 部署 NodeJS + MongoDB 项目</a></li>
+<li><a href="https://segmentfault.com/a/1190000010415158" target="_blank" rel="noopener">Docker Nginx 部署 React</a></li>
+</ul>
+
+          
+            <div class='article_footer'>
+              
+                
+  
+    
+    
+
+
+
+  
+
+  
+    
+    
+
+
+
+  
+
+  
+    
+    
+
+<section class="widget copyright  desktop mobile">
+  <div class='content'>
+    
+      <blockquote>
+        
+          
+            <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+          
+        
+          
+            <p>我的博客即将同步至腾讯云+社区，邀请大家一同入驻：<a href="https://cloud.tencent.com/developer/support-plan?invite_code=1utoln9pyvwqu" target="_blank" rel="noopener">https://cloud.tencent.com/developer/support-plan?invite_code=1utoln9pyvwqu</a></p>
+
+          
+        
+      </blockquote>
+    
+  </div>
+</section>
+
+  
+
+  
+    
+    
+
+<section class="widget qrcode  desktop mobile">
+  
+
+  <div class='content article-entry'>
+    
+      
+        <div class='fancybox'><img src='https://cdn.jsdelivr.net/gh/ssmath/images-assets-cdn@master/mmqrcode1583939866281.png'
+        
+          height='64px'
+        ></div>
+      
+    
+      
+        <div class='fancybox'><img src='https://cdn.jsdelivr.net/gh/ssmath/images-assets-cdn@master/qrcode_1583939933465.jpg'
+        
+          height='64px'
+        ></div>
+      
+    
+  </div>
+</section>
+
+  
+
+
+              
+            </div>
+          
+        </div>
+        
+          
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-01-07T05:47:09+00:00">
+  <a class='notlink'>
+    <i class="fas fa-save fa-fw" aria-hidden="true"></i>
+    <p>最近更新时间：2021年1月7日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/docker/" rel="nofollow"><i class="fas fa-tags fa-fw" aria-hidden="true"></i><p>docker</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E6%9C%8D%E5%8A%A1%E7%BC%96%E6%8E%92/" rel="nofollow"><i class="fas fa-tags fa-fw" aria-hidden="true"></i><p>服务编排</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/DevOps/" rel="nofollow"><i class="fas fa-tags fa-fw" aria-hidden="true"></i><p>DevOps</p></a></div>
+
+
+        
+      
+        
+          
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://connect.qq.com/widget/shareqq/index.html?url=https://yeshan333.github.io/2020/06/28/%E4%BD%BF%E7%94%A8docker-compose%E7%BC%96%E6%8E%92%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E5%BA%94%E7%94%A8/&title=使用docker-compose编排前后端分离应用 - ShanSan&summary=几个月过去了，是时候把当初的 🚩 干掉了。
+顺便提高下 docker 的熟练度，得闲看下原理🚩（假期看过，没总结…）。
+重装了波系统（Windows 2004 版本），这个版本下，Docker Desktop 是以 WSL2 为 backend 的，不用 Hyper -V 了，舒服了很多。
+细品了下（又摸鱼搞 DevOps），跑这个前后端分离项目需要到的容器还挺多，4 个左右（后端 REST 服务、数据库服务、前端服务），前端服务上了两个容器『貌似没必要』，一个用来过渡，一个跑挂着 SPA 的 Nginx。
+这次祭出了 Docker Compose，毕竟容器有点“小多”，单单用命令费劲。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
+          
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://yeshan333.github.io/2020/06/28/%E4%BD%BF%E7%94%A8docker-compose%E7%BC%96%E6%8E%92%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E5%BA%94%E7%94%A8/&title=使用docker-compose编排前后端分离应用 - ShanSan&summary=几个月过去了，是时候把当初的 🚩 干掉了。
+顺便提高下 docker 的熟练度，得闲看下原理🚩（假期看过，没总结…）。
+重装了波系统（Windows 2004 版本），这个版本下，Docker Desktop 是以 WSL2 为 backend 的，不用 Hyper -V 了，舒服了很多。
+细品了下（又摸鱼搞 DevOps），跑这个前后端分离项目需要到的容器还挺多，4 个左右（后端 REST 服务、数据库服务、前端服务），前端服务上了两个容器『貌似没必要』，一个用来过渡，一个跑挂着 SPA 的 Nginx。
+这次祭出了 Docker Compose，毕竟容器有点“小多”，单单用命令费劲。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://service.weibo.com/share/share.php?url=https://yeshan333.github.io/2020/06/28/%E4%BD%BF%E7%94%A8docker-compose%E7%BC%96%E6%8E%92%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E5%BA%94%E7%94%A8/&title=使用docker-compose编排前后端分离应用 - ShanSan&summary=几个月过去了，是时候把当初的 🚩 干掉了。
+顺便提高下 docker 的熟练度，得闲看下原理🚩（假期看过，没总结…）。
+重装了波系统（Windows 2004 版本），这个版本下，Docker Desktop 是以 WSL2 为 backend 的，不用 Hyper -V 了，舒服了很多。
+细品了下（又摸鱼搞 DevOps），跑这个前后端分离项目需要到的容器还挺多，4 个左右（后端 REST 服务、数据库服务、前端服务），前端服务上了两个容器『貌似没必要』，一个用来过渡，一个跑挂着 SPA 的 Nginx。
+这次祭出了 Docker Compose，毕竟容器有点“小多”，单单用命令费劲。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </section>
+
+
+        
+        
+          <div class="prev-next">
+            
+              <a class='prev' href='/2020/07/08/React-Hooks-%E9%82%A3%E4%BA%9B%E4%BA%8B%E5%84%BF/'>
+                <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>React Hooks 那些事儿</p>
+                <p class='content'>翻了波之前写的文章还有笔记，发现关于前端的文章并不多（好歹也划水做过点前端开发）。巧了，最近没什么好话题可写，做下 React Hooks 学习笔记吧。
+Effect Hook不得不说 Hook...</p>
+              </a>
+            
+            
+              <a class='next' href='/2020/06/26/%E7%BB%99%20GitHub%20commit%20%E5%8A%A0%E4%B8%AA%E5%B0%8F%E7%BB%BF%E6%A0%87/'>
+                <p class='title'>给 GitHub commit 加个小绿标<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+                <p class='content'>最近一波重装系统啥都没了，最常用的 Git 配置肯定得安排回来的。记得之前给 git 的 commit 加了个签名，回想下为什么要给 commit 做下签名？因为它能让 GitHub 的 com...</p>
+              </a>
+            
+          </div>
+        
+      </section>
+    </article>
+  
+
+  
+    <!-- 显示推荐文章和评论 -->
+
+
+
+  <article class="post white-box reveal comments shadow">
+    <section class="article typo">
+      <p ct><i class='fas fa-comments'></i> 评论</p>
+      
+      
+      
+      
+      
+        <section id="comments">
+          <div id="valine_container" class="valine_thread">
+            <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+          </div>
+        </section>
+      
+      
+    </section>
+  </article>
+
+
+  
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+    processEscapes: true,
+    tags: "ams",
+    macros: {
+      href: "{}"
+    }
+  },
+  options: {
+    ignoreHtmlClass: "tex2jax_ignore|dno",
+    skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  }
+};
+</script>
+
+
+
+
+  <script>
+    window.subData = {
+      title: '使用docker-compose编排前后端分离应用',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class='l_side'>
+  
+  
+
+  
+    
+    
+
+
+  <section class="widget toc-wrapper shadow desktop mobile">
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Demo-实战"><span class="toc-text">Demo 实战</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、先给后端服务写个-Dockerfile"><span class="toc-text">1、先给后端服务写个 Dockerfile</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、再给前端-React-SPA-写个-Dockerfile"><span class="toc-text">2、再给前端 React-SPA 写个 Dockerfile</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、编写-docker-compose-yml-对容器进行编排"><span class="toc-text">3、编写 docker-compose.yml 对容器进行编排</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+  
+  <footer class="clearfix">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
+
+  
+    <meting-js
+      theme='#1BCDFC'
+      autoplay='false'
+      volume='0.7'
+      loop='all'
+      order='list'
+      fixed='false'
+      list-max-height='340px'
+      server='netease'
+      type='playlist'
+      id='3175833810'
+      list-folded='true'>
+    </meting-js>
+  
+
+
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+            
+              <a href="mailto:1329441308@qq.com"
+                class="social fas fa-envelope flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://github.com/yeshan333?tab=repositories"
+                class="social fab fa-github flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://music.163.com/#/my/m/music/playlist?id=2617691792"
+                class="social fas fa-music flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://www.zhihu.com/people/si-kong-ji-54/activities"
+                class="social fab fa-zhihu flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://yeshan333.github.io/sitemap.xml"
+                class="social fas fa-rss flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+        </div>
+      
+    
+      
+        <div><p>博客内容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+</div>
+      
+    
+      
+        本站使用
+        <a href="https://volantis.js.org/" target="_blank" class="codename">Volantis</a>
+        作为主题，总访问量为
+          <span id="busuanzi_value_site_pv"><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+          次
+        
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="https://shansan.top" target="_blank" rel="noopener">Copyright © 2018-2021 ShanSan</a></p>
+
+        </div>
+      
+    
+      
+        
+          <div><p><a href="http://www.beian.miit.gov.cn/" target="_blank" rel="noopener">桂ICP备19000444号</a></p>
+</div>
+        
+      
+    
+  </footer>
+
+<script>setLoadingBarProgress(80);</script>
+
+
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
+  
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4/dist/jquery.min.js"></script>
+
+
+  <script>
+    
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/" || "/";
+    if (!ROOT.endsWith('/')) ROOT += '/';
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/instant_page.js" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.6/dist/scrollreveal.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      ScrollReveal().reveal('.l_main .reveal', {
+        distance: '8px',
+        duration: '800',
+        interval: '100',
+        scale: '1'
+      });
+    });
+  </script>
+
+
+  
+<script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+  
+  
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js"></script>
+
+    <script type="text/javascript">
+      $(function(){
+        var imgs=["https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/B18FCBB3-67FD-48CC-B4F3-457BA145F17A.jpeg"];
+        if ('true' == 'true') {
+          function shuffle(arr){
+            /*From countercurrent-time*/
+            var n = arr.length;
+            while(n--) {
+              var index = Math.floor(Math.random() * n);
+              var temp = arr[index];
+              arr[index] = arr[n];
+              arr[n] = temp;
+            }
+          }
+          shuffle(imgs);
+        }
+        if ('.cover') {
+          $('.cover').backstretch(
+            imgs,
+          {
+            duration: "20000",
+            fade: "1500"
+          });
+        } else {
+          $.backstretch(
+            imgs,
+          {
+            duration: "20000",
+            fade: "1500"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js"></script>
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0/dist/Meting.min.js"></script>
+
+  
+
+
+
+
+
+
+
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4/dist/Valine.min.js"></script>
+
+  
+  <script>
+  var GUEST_INFO = ['nick','mail','link'];
+  var meta = 'nick,mail,link'.split(',').filter(function(item){
+    return GUEST_INFO.indexOf(item) > -1
+  });
+  var REQUIRED_FIELDS = ['nick','mail','link'];
+  var requiredFields = 'nick,mail'.split(',').filter(function(item){
+    return REQUIRED_FIELDS.indexOf(item) > -1
+  });
+  var valine = new Valine();
+  function emoji(path, idx, ext) {
+      return path + "/" + path + "-" + idx + "." + ext;
+  }
+  var emojiMaps = {};
+  for (var i = 1; i <= 54; i++) {
+    emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
+  }
+  for (var i = 1; i <= 101; i++) {
+    emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
+  }
+  for (var i = 1; i <= 116; i++) {
+    emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
+  }
+  for (var i = 1; i <= 125; i++) {
+    emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
+  }
+  for (var i = 1; i <= 4; i++) {
+    emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
+  }
+  valine.init({
+    el: '#valine_container',
+    meta: meta,
+    
+    appId: "S687AsCjGJKTPIvUJ8aPNX49-gzGzoHsz",
+    appKey: "bCwg3QuIfGytbeYw58L7ofRq",
+    placeholder: "快来评论吧~",
+    pageSize:'10',
+    avatar:'robohash',
+    lang:'zh-cn',
+    visitor: 'true',
+    highlight: 'true',
+    mathJax: 'false',
+    enableQQ: 'true',
+    requiredFields: requiredFields,
+    emojiCDN: 'https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/emoji/valine/',
+    emojiMaps: emojiMaps
+  })
+  </script>
+
+
+
+
+
+  
+<script src="/js/app.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2.6.4/js/search.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/comment_typing.js"></script>
+
+
+
+
+
+
+<!-- 复制 -->
+
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="fas fa-copy"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-check-circle');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('fa-check-circle');
+          $icon.addClass('fa-copy');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-times-circle');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('fa-times-circle');
+          $icon.addClass('fa-copy');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+
+
+<!-- fancybox -->
+
+  <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  let LAZY_LOAD_IMAGE = "";
+  $(".article-entry").find("div.fancybox").find("img").each(function () {
+      var element = document.createElement("a");
+      $(element).attr("data-fancybox", "gallery");
+      $(element).attr("href", $(this).attr("src"));
+      /* 图片采用懒加载处理时,
+       * 一般图片标签内会有个属性名来存放图片的真实地址，比如 data-original,
+       * 那么此处将原本的属性名src替换为对应属性名data-original,
+       * 修改如下
+       */
+       if (LAZY_LOAD_IMAGE) {
+         $(element).attr("href", $(this).attr("data-original"));
+       }
+      $(this).wrap(element);
+  });
+</script>
+
+
+
+
+
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yeshan333/jsDelivrCDN/piao.js" />
+<script type="text/javascript" src="https://cdn.staticfile.org/jquery/1.7.2/jquery.min.js" />
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yeshan333/jsDelivrCDN/attatkmouse.js" />
+
+
+  <script>setLoadingBarProgress(100);</script>
+</body>
+</html>

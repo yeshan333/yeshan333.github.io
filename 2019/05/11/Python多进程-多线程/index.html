@@ -1,0 +1,1279 @@
+<!DOCTYPE html>
+<html>
+<head hexo-theme='https://volantis.js.org/#2.6.5'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- 页面元数据 -->
+  
+    <title>Python多进程&amp;&amp;多线程（初步） - ShanSan</title>
+  
+    <meta name="keywords" content="Python">
+  
+  
+    <meta name="description" content="进程 &amp;&amp; 线程
+进程：进程是操作系统中执行的一个程序，操作系统以进程为单位分配存储空间，每个进程都有自己的地址空间、数据栈以及其他用于跟踪进程执行的辅助数据，操作系统管理所有进程的执行，为它们合理的分配资源。进程可以通过fork或者wpawn的方式来创建新的进程执行其他任务，不过新的进程有自己独...">
+  
+
+  <!-- feed -->
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13/css/all.min.css">
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+
+  
+
+  
+  <link rel="shortcut icon" type='image/x-icon' href="https://img.vim-cn.com/bb/db444be0b7fda59c69d5c64167f9668b0b66bd.png">
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css">
+  
+
+  <!-- import link -->
+  
+
+  
+  
+    
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+  
+</head>
+
+<body>
+  
+  <div id="loading-bar-wrapper">
+  <div id="loading-bar"></div>
+</div>
+<header class="l_header shadow blur">
+  <div class='container'>
+  <div class='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h'>
+        <li><a class="s-comment fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+          
+          
+            <red>S</red><green>h</green><blue>a</blue><yellow>n</yellow><red>S</red><green>h</green><blue>a</blue><yellow>n</yellow>
+          
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-home fa-fw'></i>首页
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" 
+                  
+                  
+                  >
+                  <i class='fas fa-ellipsis-v fa-fw'></i>与我相关
+                </a>
+                
+                  <ul class="list-v">
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://github.com/yeshan333
+                  
+                  
+                  
+                    id="https:githubcomyeshan333"
+                  >
+                  <i class='fab fa-github-square fa-fw'></i>Github
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://slide.shan333.cn
+                  
+                  
+                  
+                    id="https:slideshan333cn"
+                  >
+                  <i class='fab fa-slideshare fa-fw'></i>slides
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://shansan.top/knowledge-base/
+                  
+                  
+                  
+                    id="https:shansantopknowledge-base"
+                  >
+                  <i class='far fa-sticky-note fa-fw'></i>notes
+                </a>
+                
+              </li>
+            
+          
+                    
+                  </ul>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/PyChina/
+                  
+                  
+                  
+                    id="PyChina"
+                  >
+                  <i class='fab fa-python fa-fw'></i>中国蟒
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/cloud-native/
+                  
+                  
+                  
+                    id="cloud-native"
+                  >
+                  <i class='fas fa-cloud fa-fw'></i>云原生
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="寻你所想" />
+        </form>
+      </div>
+
+			<ul class='switcher nav-list-h'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-home fa-fw'></i>首页
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" 
+                  
+                  
+                  >
+                  <i class='fas fa-ellipsis-v fa-fw'></i>与我相关
+                </a>
+                
+                  <ul class="list-v">
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://github.com/yeshan333
+                  
+                  
+                  
+                    id="https:githubcomyeshan333"
+                  >
+                  <i class='fab fa-github-square fa-fw'></i>Github
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://slide.shan333.cn
+                  
+                  
+                  
+                    id="https:slideshan333cn"
+                  >
+                  <i class='fab fa-slideshare fa-fw'></i>slides
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://shansan.top/knowledge-base/
+                  
+                  
+                  
+                    id="https:shansantopknowledge-base"
+                  >
+                  <i class='far fa-sticky-note fa-fw'></i>notes
+                </a>
+                
+              </li>
+            
+          
+                    
+                  </ul>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/PyChina/
+                  
+                  
+                  
+                    id="PyChina"
+                  >
+                  <i class='fab fa-python fa-fw'></i>中国蟒
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/cloud-native/
+                  
+                  
+                  
+                    id="cloud-native"
+                  >
+                  <i class='fas fa-cloud fa-fw'></i>云原生
+                </a>
+                
+              </li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</header>
+
+<script>setLoadingBarProgress(40);</script>
+
+
+
+  <div class="l_body nocover">
+    <div class='body-wrapper'>
+      
+
+<div class='l_main'>
+  
+
+  
+    <article id="post" class="post white-box reveal shadow article-type-post" itemscope itemprop="blogPost">
+      
+
+
+  <section class='meta'>
+    
+      
+      
+      <div class="meta" id="header-meta">
+        
+          
+  <h1 class="title">
+    <a href="/2019/05/11/Python%E5%A4%9A%E8%BF%9B%E7%A8%8B-%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
+      Python多进程&&多线程（初步）
+    </a>
+  </h1>
+
+
+        
+        <div class='new-meta-box'>
+          
+            
+          
+            
+              
+<div class='new-meta-item author'>
+  <a href="https://github.com/yeshan333" target="_blank" rel="nofollow noopener">
+    <img src="https://img.vim-cn.com/a3/caa9ef084c4f562b82b1cca6e978c0dca58c5f.png">
+    <p>yeshan333</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+  
+  <div class='new-meta-item category'>
+    <a href='/categories/Python/' rel="nofollow">
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <p>Python</p>
+    </a>
+  </div>
+
+
+            
+          
+            
+              <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>文章首发于：2019年5月11日</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+
+            
+          
+        </div>
+        
+          <hr>
+        
+      </div>
+    
+  </section>
+
+
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          
+          <h1 id="进程-amp-amp-线程"><a href="#进程-amp-amp-线程" class="headerlink" title="进程 &amp;&amp; 线程"></a>进程 &amp;&amp; 线程</h1><blockquote>
+<p>进程：进程是操作系统中执行的一个程序，操作系统以进程为单位分配存储空间，每个进程都有自己的地址空间、数据栈以及其他用于跟踪进程执行的辅助数据，操作系统管理所有进程的执行，为它们合理的分配资源。进程可以通过fork或者wpawn的方式来创建新的进程执行其他任务，不过新的进程有自己独立的内存空间和数据栈，所以必须通过进程间的通信机制（IPC，Inter Process Communication）来实现数据共享，具体的方式包括管道、信号、套接字、共享内存等。</p>
+</blockquote>
+<blockquote>
+<p>线程：进程的一个执行单元。线程在同一个进程中执行，共享程序的上下文。一个进程中的各个线程与主线程共享同一片数据空间，因而相比与独立的进程，线程间的信息共享和通信更为容易。线程一般是以并发的方式执行的。注意在单核CPU系统中，真正的并发是不可能的，所以新城的执行实际上是这样规划的：每个线程执行一小会，然后让步给其他线程的任务（再次排队等候更多的CPU执行时间）。在整个线程的执行过程中，每个线程执行它自己的特定的任务，在必要时和其他进程进行结果通信。</p>
+</blockquote>
+<h1 id="Python多进程（使用multiprocessing）"><a href="#Python多进程（使用multiprocessing）" class="headerlink" title="Python多进程（使用multiprocessing）"></a>Python多进程（使用multiprocessing）</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> time <span class="keyword">import</span> time, sleep</span><br><span class="line"><span class="keyword">from</span> random <span class="keyword">import</span> randint</span><br><span class="line"><span class="keyword">from</span> multiprocessing <span class="keyword">import</span> Process</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">my_task</span><span class="params">(name)</span>:</span></span><br><span class="line">    sleep_time = randint(<span class="number">1</span>,<span class="number">10</span>)</span><br><span class="line">    sleep(sleep_time)</span><br><span class="line">    print(<span class="string">"你叫了一声%s，它鸟你用了%d秒"</span> % (name, sleep_time))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    start = time()</span><br><span class="line">    process_1 = Process(target=my_task, args=[<span class="string">"yeshan"</span>, ])</span><br><span class="line">    process_2 = Process(target=my_task, args=[<span class="string">"foel"</span>, ])</span><br><span class="line">    <span class="comment"># 启动进程</span></span><br><span class="line">    process_1.start()</span><br><span class="line">    process_2.start()</span><br><span class="line">    <span class="comment"># 等待进程执行结束</span></span><br><span class="line">    process_1.join()</span><br><span class="line">    process_2.join()</span><br><span class="line">    end = time()</span><br><span class="line">    print(<span class="string">"一共花费了%f秒"</span> % (end-start))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<p><img src="https://s2.ax1x.com/2019/05/14/EIcIMt.png" alt="EIcIMt.png"></p>
+<p>我们通过Process类创建了进程对象，通过<code>target</code>参数我们传入一个函数来表示进程启动后要执行的代码，后面的<code>args</code>是一个元组，它代表了传递给函数的参数。<br>Process对象的start方法用来启动进程，join方法表示等待进程执行结束。</p>
+<h1 id="Python多线程（使用threading）"><a href="#Python多线程（使用threading）" class="headerlink" title="Python多线程（使用threading）"></a>Python多线程（使用threading）</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment">#-*- coding:utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> time <span class="keyword">import</span> time, sleep</span><br><span class="line"><span class="keyword">from</span> random <span class="keyword">import</span> randint</span><br><span class="line"><span class="keyword">from</span> threading <span class="keyword">import</span> Thread</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">download</span><span class="params">(filename)</span>:</span></span><br><span class="line">    print(<span class="string">"开始下载 %s ..."</span> % filename)</span><br><span class="line">    download_time = randint(<span class="number">1</span>,<span class="number">10</span>)</span><br><span class="line">    sleep(download_time)</span><br><span class="line">    print(<span class="string">"下载完成！耗时 %d 秒"</span> % download_time)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    start = time()</span><br><span class="line"></span><br><span class="line">    t1 = Thread(target=download, args=(<span class="string">'黑暗地宫'</span>,))</span><br><span class="line">    t1.start()</span><br><span class="line"></span><br><span class="line">    t2 = Thread(target=download, args=(<span class="string">'通天'</span>,))</span><br><span class="line">    t2.start()</span><br><span class="line"></span><br><span class="line">    t1.join()</span><br><span class="line">    t2.join()</span><br><span class="line"></span><br><span class="line">    end = time()</span><br><span class="line"></span><br><span class="line">    print(<span class="string">"下载总共耗时 %.3f 秒"</span> % (end-start))</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s2.ax1x.com/2019/05/21/VSTFr4.png" alt="VSTFr4.png"></p>
+<p>** 继承Thread类，实现自定义线程类 **</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#-*- coding:utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> time <span class="keyword">import</span> time, sleep</span><br><span class="line"><span class="keyword">from</span> random <span class="keyword">import</span> randint</span><br><span class="line"><span class="keyword">from</span> threading <span class="keyword">import</span> Thread</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DownLoadTask</span><span class="params">(Thread)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, filename)</span>:</span></span><br><span class="line">        super().__init__() <span class="comment">#初始化父类的构造函数</span></span><br><span class="line">        self._filename = filename <span class="comment"># 私有的</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">(self)</span>:</span></span><br><span class="line">        print(<span class="string">"开始下载 %s ..."</span> % self._filename)</span><br><span class="line">        download_time = randint(<span class="number">1</span>,<span class="number">10</span>)</span><br><span class="line">        sleep(download_time)</span><br><span class="line">        print(<span class="string">"%s下载完成！耗时 %d 秒"</span> % (self._filename, download_time))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    strat = time()</span><br><span class="line"></span><br><span class="line">    t1 = DownLoadTask(<span class="string">"从菜鸟到菜鸡"</span>)</span><br><span class="line">    t1.start()</span><br><span class="line"></span><br><span class="line">    t2 = DownLoadTask(<span class="string">"去哪里啊弟弟"</span>)</span><br><span class="line">    t2.start()</span><br><span class="line"></span><br><span class="line">    t1.join()</span><br><span class="line">    t2.join()</span><br><span class="line"></span><br><span class="line">    end = time()</span><br><span class="line"></span><br><span class="line">    print(<span class="string">"下载完成，总共耗费 %.3f 秒"</span> % (end-strat))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s2.ax1x.com/2019/05/21/VSTiMF.png" alt="VSTiMF.png"></p>
+<h2 id="线程间的通信"><a href="#线程间的通信" class="headerlink" title="线程间的通信"></a>线程间的通信</h2><blockquote>
+<p>因为多个线程可以共享进程的内存空间，因此要实现多个线程间的通信相对简单，大家能想到的最直接的办法就是设置一个全局变量，多个线程共享这个全局变量即可。但是当多个线程共享同一个变量（我们通常称之为“资源”）的时候，很有可能产生不可控的结果从而导致程序失效甚至崩溃。如果一个资源被多个线程竞争使用，那么我们通常称之为“临界资源”，对“临界资源”的访问需要加上保护，否则资源会处于“混乱”的状态。在这种情况下，“锁”就可以派上用场了。我们可以通过“锁”来保护“临界资源”，只有获得“锁”的线程才能访问“临界资源”，而其他没有得到“锁”的线程只能被阻塞起来，直到获得“锁”的线程释放了“锁”，其他线程才有机会获得“锁”，进而访问被保护的“临界资源”。</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> time <span class="keyword">import</span> sleep</span><br><span class="line"><span class="keyword">from</span> threading <span class="keyword">import</span> Thread, Lock</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Account</span><span class="params">(object)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self._balance = <span class="number">0</span></span><br><span class="line">        self._lock = Lock()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">deposit</span><span class="params">(self, money)</span>:</span></span><br><span class="line">        <span class="comment"># 先获取锁才能获取后面的代码</span></span><br><span class="line">        self._lock.acquire()</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="comment"># 计算存款后的余额</span></span><br><span class="line">            new_balance = self._balance + money</span><br><span class="line">            <span class="comment"># 模拟受理存款业务需要0.01秒的时间</span></span><br><span class="line">            sleep(<span class="number">0.01</span>)</span><br><span class="line">            <span class="comment"># 修改账户余额</span></span><br><span class="line">            self._balance = new_balance</span><br><span class="line">        <span class="keyword">finally</span>:</span><br><span class="line">            self._lock.release()</span><br><span class="line"></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">balance</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self._balance</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AddMoneyThread</span><span class="params">(Thread)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, account, money)</span>:</span></span><br><span class="line">        super().__init__()</span><br><span class="line">        self._account = account</span><br><span class="line">        self._money = money</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">(self)</span>:</span></span><br><span class="line">        self._account.deposit(self._money)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    account = Account()</span><br><span class="line">    threads = []</span><br><span class="line">    <span class="comment"># 创建100个存款的线程向同一个账户中存钱</span></span><br><span class="line">    <span class="keyword">for</span> _ <span class="keyword">in</span> range(<span class="number">100</span>):</span><br><span class="line">        t = AddMoneyThread(account, <span class="number">1</span>)</span><br><span class="line">        threads.append(t)</span><br><span class="line">        t.start()</span><br><span class="line">    <span class="comment"># 等所有存款的线程都执行完毕</span></span><br><span class="line">    <span class="keyword">for</span> t <span class="keyword">in</span> threads:</span><br><span class="line">        t.join()</span><br><span class="line">    print(<span class="string">'账户余额为: ￥%d元'</span> % account.balance)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+
+<p>输出结果为100块，不用锁为2块</p>
+<p>** Python内置装饰器 property **</p>
+<p><strong>* property装饰器一般存在于类中，可以将一个函数定义成一个属性，属性的值就是该函数return的内容 *</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="comment"># 把一个方法变成属性</span></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">score</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self._score</span><br><span class="line"></span><br><span class="line">    <span class="comment"># setter把一个方法变成一个可控属性用于赋值</span></span><br><span class="line"><span class="meta">    @score.setter</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">score</span><span class="params">(self, value)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> isinstance(value, int):</span><br><span class="line">            <span class="keyword">raise</span> ValueError(<span class="string">'score must be an integer!'</span>)</span><br><span class="line">        <span class="keyword">if</span> value &lt; <span class="number">0</span> <span class="keyword">or</span> value &gt; <span class="number">100</span>:</span><br><span class="line">            <span class="keyword">raise</span> ValueError(<span class="string">'score must between 0 ~ 100!'</span>)</span><br><span class="line">        self._score = value</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/yeshan333/blog_images/master/posts/21.png" alt="https://raw.githubusercontent.com/yeshan333/blog_images/master/posts/21.png"></p>
+<p><img src="https://raw.githubusercontent.com/yeshan333/blog_images/master/posts/22.png" alt="https://raw.githubusercontent.com/yeshan333/blog_images/master/posts/22.png"></p>
+<hr>
+<p>参考：</p>
+<p><a href="https://zhuanlan.zhihu.com/p/65968462?utm_source=qq&utm_medium=social&utm_oi=908413169096077312" target="_blank" rel="noopener">一篇文章搞懂装饰器的用法</a></p>
+<p><a href="https://github.com/jackfrued/Python-100-Days/blob/master/Day01-15/Day13/%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B.md" target="_blank" rel="noopener">https://github.com/jackfrued/Python-100-Days/blob/master/Day01-15/Day13/%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B.md</a></p>
+
+          
+            <div class='article_footer'>
+              
+                
+  
+    
+    
+
+
+
+  
+
+  
+    
+    
+
+
+
+  
+
+  
+    
+    
+
+<section class="widget copyright  desktop mobile">
+  <div class='content'>
+    
+      <blockquote>
+        
+          
+            <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+          
+        
+          
+            <p>我的博客即将同步至腾讯云+社区，邀请大家一同入驻：<a href="https://cloud.tencent.com/developer/support-plan?invite_code=1utoln9pyvwqu" target="_blank" rel="noopener">https://cloud.tencent.com/developer/support-plan?invite_code=1utoln9pyvwqu</a></p>
+
+          
+        
+      </blockquote>
+    
+  </div>
+</section>
+
+  
+
+  
+    
+    
+
+<section class="widget qrcode  desktop mobile">
+  
+
+  <div class='content article-entry'>
+    
+      
+        <div class='fancybox'><img src='https://cdn.jsdelivr.net/gh/ssmath/images-assets-cdn@master/mmqrcode1583939866281.png'
+        
+          height='64px'
+        ></div>
+      
+    
+      
+        <div class='fancybox'><img src='https://cdn.jsdelivr.net/gh/ssmath/images-assets-cdn@master/qrcode_1583939933465.jpg'
+        
+          height='64px'
+        ></div>
+      
+    
+  </div>
+</section>
+
+  
+
+
+              
+            </div>
+          
+        </div>
+        
+          
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-01-07T05:47:09+00:00">
+  <a class='notlink'>
+    <i class="fas fa-save fa-fw" aria-hidden="true"></i>
+    <p>最近更新时间：2021年1月7日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Python/" rel="nofollow"><i class="fas fa-tags fa-fw" aria-hidden="true"></i><p>Python</p></a></div>
+
+
+        
+      
+        
+          
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://connect.qq.com/widget/shareqq/index.html?url=https://yeshan333.github.io/2019/05/11/Python%E5%A4%9A%E8%BF%9B%E7%A8%8B-%E5%A4%9A%E7%BA%BF%E7%A8%8B/&title=Python多进程&&多线程（初步） - ShanSan&summary=进程 &amp;&amp; 线程
+进程：进程是操作系统中执行的一个程序，操作系统以进程为单位分配存储空间，每个进程都有自己的地址空间、数据栈以及其他用于跟踪进程执行的辅助数据，操作系统管理所有进程的执行，为它们合理的分配资源。进程可以通过fork或者wpawn的方式来创建新的进程执行其他任务，不过新的进程有自己独立的内存空间和数据栈，所以必须通过进程间的通信机制（IPC，Inter Process Communication）来实现数据共享，具体的方式包括管道、信号、套接字、共享内存等。
+
+
+线程：进程的一个执行单元。线程在同一个进程中执行，共享程序的上下文。一个进程中的各个线程与主线程共享同一片数据空间，因而相比与独立的进程，线程间的信息共享和通信更为容易。线程一般是以并发的方式执行的。注意在单核CPU系统中，真正的并发是不可能的，所以新城的执行实际上是这样规划的：每个线程执行一小会，然后让步给其他线程的任务（再次排队等候更多的CPU执行时间）。在整个线程的执行过程中，每个线程执行它自己的特定的任务，在必要时和其他进程进行结果通信。
+
+Python多进程（使用multiprocessing）1234567891011121314151617181920212223242526from time import time, sleepfrom random import randintfrom multiprocessing import Processdef my_task(name):    sleep_time = randint(1,10)    sleep(sleep_time)    print("你叫了一声%s，它鸟你用了%d秒" % (name, sleep_time))def main():    start = time()    process_1 = Process(target=my_task, args=["yeshan", ])    process_2 = Process(target=my_task, args=["foel", ])    # 启动进程    process_1.start()    process_2.start()    # 等待进程执行结束    process_1.join()    process_2.join()    end = time()    print("一共花费了%f秒" % (end-start))if __name__ == '__main__':    main()"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
+          
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://yeshan333.github.io/2019/05/11/Python%E5%A4%9A%E8%BF%9B%E7%A8%8B-%E5%A4%9A%E7%BA%BF%E7%A8%8B/&title=Python多进程&&多线程（初步） - ShanSan&summary=进程 &amp;&amp; 线程
+进程：进程是操作系统中执行的一个程序，操作系统以进程为单位分配存储空间，每个进程都有自己的地址空间、数据栈以及其他用于跟踪进程执行的辅助数据，操作系统管理所有进程的执行，为它们合理的分配资源。进程可以通过fork或者wpawn的方式来创建新的进程执行其他任务，不过新的进程有自己独立的内存空间和数据栈，所以必须通过进程间的通信机制（IPC，Inter Process Communication）来实现数据共享，具体的方式包括管道、信号、套接字、共享内存等。
+
+
+线程：进程的一个执行单元。线程在同一个进程中执行，共享程序的上下文。一个进程中的各个线程与主线程共享同一片数据空间，因而相比与独立的进程，线程间的信息共享和通信更为容易。线程一般是以并发的方式执行的。注意在单核CPU系统中，真正的并发是不可能的，所以新城的执行实际上是这样规划的：每个线程执行一小会，然后让步给其他线程的任务（再次排队等候更多的CPU执行时间）。在整个线程的执行过程中，每个线程执行它自己的特定的任务，在必要时和其他进程进行结果通信。
+
+Python多进程（使用multiprocessing）1234567891011121314151617181920212223242526from time import time, sleepfrom random import randintfrom multiprocessing import Processdef my_task(name):    sleep_time = randint(1,10)    sleep(sleep_time)    print("你叫了一声%s，它鸟你用了%d秒" % (name, sleep_time))def main():    start = time()    process_1 = Process(target=my_task, args=["yeshan", ])    process_2 = Process(target=my_task, args=["foel", ])    # 启动进程    process_1.start()    process_2.start()    # 等待进程执行结束    process_1.join()    process_2.join()    end = time()    print("一共花费了%f秒" % (end-start))if __name__ == '__main__':    main()"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://service.weibo.com/share/share.php?url=https://yeshan333.github.io/2019/05/11/Python%E5%A4%9A%E8%BF%9B%E7%A8%8B-%E5%A4%9A%E7%BA%BF%E7%A8%8B/&title=Python多进程&&多线程（初步） - ShanSan&summary=进程 &amp;&amp; 线程
+进程：进程是操作系统中执行的一个程序，操作系统以进程为单位分配存储空间，每个进程都有自己的地址空间、数据栈以及其他用于跟踪进程执行的辅助数据，操作系统管理所有进程的执行，为它们合理的分配资源。进程可以通过fork或者wpawn的方式来创建新的进程执行其他任务，不过新的进程有自己独立的内存空间和数据栈，所以必须通过进程间的通信机制（IPC，Inter Process Communication）来实现数据共享，具体的方式包括管道、信号、套接字、共享内存等。
+
+
+线程：进程的一个执行单元。线程在同一个进程中执行，共享程序的上下文。一个进程中的各个线程与主线程共享同一片数据空间，因而相比与独立的进程，线程间的信息共享和通信更为容易。线程一般是以并发的方式执行的。注意在单核CPU系统中，真正的并发是不可能的，所以新城的执行实际上是这样规划的：每个线程执行一小会，然后让步给其他线程的任务（再次排队等候更多的CPU执行时间）。在整个线程的执行过程中，每个线程执行它自己的特定的任务，在必要时和其他进程进行结果通信。
+
+Python多进程（使用multiprocessing）1234567891011121314151617181920212223242526from time import time, sleepfrom random import randintfrom multiprocessing import Processdef my_task(name):    sleep_time = randint(1,10)    sleep(sleep_time)    print("你叫了一声%s，它鸟你用了%d秒" % (name, sleep_time))def main():    start = time()    process_1 = Process(target=my_task, args=["yeshan", ])    process_2 = Process(target=my_task, args=["foel", ])    # 启动进程    process_1.start()    process_2.start()    # 等待进程执行结束    process_1.join()    process_2.join()    end = time()    print("一共花费了%f秒" % (end-start))if __name__ == '__main__':    main()"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </section>
+
+
+        
+        
+          <div class="prev-next">
+            
+              <a class='prev' href='/2019/05/22/Jupyter-Notebooks%E7%9A%84%E7%AE%80%E5%8D%95%E4%BA%86%E8%A7%A3/'>
+                <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>Jupyter Notebooks的简单了解</p>
+                <p class='content'>
+玩Python这么久了，连Jupyter都不会，有点捞，今天补一补这方面的操作。。。。
+
+Jupyter Notebooks&ensp;&ensp;Jupyter Notebooks 是一款开...</p>
+              </a>
+            
+            
+              <a class='next' href='/2019/04/23/HTTPie%E7%9A%84%E4%BD%BF%E7%94%A8/'>
+                <p class='title'>HTTPie的使用<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+                <p class='content'>
+HTTPie（发音为aitch-tee-tee-pie）是一个命令行HTTP客户端。其目标是使与Web服务的CLI交互尽可能人性化。它提供了一个简单的http命令，允许使用简单自然的语法发送任...</p>
+              </a>
+            
+          </div>
+        
+      </section>
+    </article>
+  
+
+  
+    <!-- 显示推荐文章和评论 -->
+
+
+
+  <article class="post white-box reveal comments shadow">
+    <section class="article typo">
+      <p ct><i class='fas fa-comments'></i> 评论</p>
+      
+      
+      
+      
+      
+        <section id="comments">
+          <div id="valine_container" class="valine_thread">
+            <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+          </div>
+        </section>
+      
+      
+    </section>
+  </article>
+
+
+  
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+
+  <script>
+    window.subData = {
+      title: 'Python多进程&&多线程（初步）',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class='l_side'>
+  
+  
+
+  
+    
+    
+
+
+  <section class="widget toc-wrapper shadow desktop mobile">
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#进程-amp-amp-线程"><span class="toc-text">进程 &amp;&amp; 线程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Python多进程（使用multiprocessing）"><span class="toc-text">Python多进程（使用multiprocessing）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Python多线程（使用threading）"><span class="toc-text">Python多线程（使用threading）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#线程间的通信"><span class="toc-text">线程间的通信</span></a></li></ol></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+  
+  <footer class="clearfix">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
+
+  
+    <meting-js
+      theme='#1BCDFC'
+      autoplay='false'
+      volume='0.7'
+      loop='all'
+      order='list'
+      fixed='false'
+      list-max-height='340px'
+      server='netease'
+      type='playlist'
+      id='3175833810'
+      list-folded='true'>
+    </meting-js>
+  
+
+
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+            
+              <a href="mailto:1329441308@qq.com"
+                class="social fas fa-envelope flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://github.com/yeshan333?tab=repositories"
+                class="social fab fa-github flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://music.163.com/#/my/m/music/playlist?id=2617691792"
+                class="social fas fa-music flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://www.zhihu.com/people/si-kong-ji-54/activities"
+                class="social fab fa-zhihu flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://yeshan333.github.io/sitemap.xml"
+                class="social fas fa-rss flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+        </div>
+      
+    
+      
+        <div><p>博客内容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+</div>
+      
+    
+      
+        本站使用
+        <a href="https://volantis.js.org/" target="_blank" class="codename">Volantis</a>
+        作为主题，总访问量为
+          <span id="busuanzi_value_site_pv"><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+          次
+        
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="https://shansan.top" target="_blank" rel="noopener">Copyright © 2018-2021 ShanSan</a></p>
+
+        </div>
+      
+    
+      
+        
+          <div><p><a href="http://www.beian.miit.gov.cn/" target="_blank" rel="noopener">桂ICP备19000444号</a></p>
+</div>
+        
+      
+    
+  </footer>
+
+<script>setLoadingBarProgress(80);</script>
+
+
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
+  
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4/dist/jquery.min.js"></script>
+
+
+  <script>
+    
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/" || "/";
+    if (!ROOT.endsWith('/')) ROOT += '/';
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/instant_page.js" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.6/dist/scrollreveal.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      ScrollReveal().reveal('.l_main .reveal', {
+        distance: '8px',
+        duration: '800',
+        interval: '100',
+        scale: '1'
+      });
+    });
+  </script>
+
+
+  
+<script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+  
+  
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js"></script>
+
+    <script type="text/javascript">
+      $(function(){
+        var imgs=["https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/B18FCBB3-67FD-48CC-B4F3-457BA145F17A.jpeg"];
+        if ('true' == 'true') {
+          function shuffle(arr){
+            /*From countercurrent-time*/
+            var n = arr.length;
+            while(n--) {
+              var index = Math.floor(Math.random() * n);
+              var temp = arr[index];
+              arr[index] = arr[n];
+              arr[n] = temp;
+            }
+          }
+          shuffle(imgs);
+        }
+        if ('.cover') {
+          $('.cover').backstretch(
+            imgs,
+          {
+            duration: "20000",
+            fade: "1500"
+          });
+        } else {
+          $.backstretch(
+            imgs,
+          {
+            duration: "20000",
+            fade: "1500"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js"></script>
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0/dist/Meting.min.js"></script>
+
+  
+
+
+
+
+
+
+
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4/dist/Valine.min.js"></script>
+
+  
+  <script>
+  var GUEST_INFO = ['nick','mail','link'];
+  var meta = 'nick,mail,link'.split(',').filter(function(item){
+    return GUEST_INFO.indexOf(item) > -1
+  });
+  var REQUIRED_FIELDS = ['nick','mail','link'];
+  var requiredFields = 'nick,mail'.split(',').filter(function(item){
+    return REQUIRED_FIELDS.indexOf(item) > -1
+  });
+  var valine = new Valine();
+  function emoji(path, idx, ext) {
+      return path + "/" + path + "-" + idx + "." + ext;
+  }
+  var emojiMaps = {};
+  for (var i = 1; i <= 54; i++) {
+    emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
+  }
+  for (var i = 1; i <= 101; i++) {
+    emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
+  }
+  for (var i = 1; i <= 116; i++) {
+    emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
+  }
+  for (var i = 1; i <= 125; i++) {
+    emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
+  }
+  for (var i = 1; i <= 4; i++) {
+    emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
+  }
+  valine.init({
+    el: '#valine_container',
+    meta: meta,
+    
+    appId: "S687AsCjGJKTPIvUJ8aPNX49-gzGzoHsz",
+    appKey: "bCwg3QuIfGytbeYw58L7ofRq",
+    placeholder: "快来评论吧~",
+    pageSize:'10',
+    avatar:'robohash',
+    lang:'zh-cn',
+    visitor: 'true',
+    highlight: 'true',
+    mathJax: 'false',
+    enableQQ: 'true',
+    requiredFields: requiredFields,
+    emojiCDN: 'https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/emoji/valine/',
+    emojiMaps: emojiMaps
+  })
+  </script>
+
+
+
+
+
+  
+<script src="/js/app.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2.6.4/js/search.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/comment_typing.js"></script>
+
+
+
+
+
+
+<!-- 复制 -->
+
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="fas fa-copy"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-check-circle');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('fa-check-circle');
+          $icon.addClass('fa-copy');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-times-circle');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('fa-times-circle');
+          $icon.addClass('fa-copy');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+
+
+<!-- fancybox -->
+
+  <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  let LAZY_LOAD_IMAGE = "";
+  $(".article-entry").find("div.fancybox").find("img").each(function () {
+      var element = document.createElement("a");
+      $(element).attr("data-fancybox", "gallery");
+      $(element).attr("href", $(this).attr("src"));
+      /* 图片采用懒加载处理时,
+       * 一般图片标签内会有个属性名来存放图片的真实地址，比如 data-original,
+       * 那么此处将原本的属性名src替换为对应属性名data-original,
+       * 修改如下
+       */
+       if (LAZY_LOAD_IMAGE) {
+         $(element).attr("href", $(this).attr("data-original"));
+       }
+      $(this).wrap(element);
+  });
+</script>
+
+
+
+
+
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yeshan333/jsDelivrCDN/piao.js" />
+<script type="text/javascript" src="https://cdn.staticfile.org/jquery/1.7.2/jquery.min.js" />
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yeshan333/jsDelivrCDN/attatkmouse.js" />
+
+
+  <script>setLoadingBarProgress(100);</script>
+</body>
+</html>

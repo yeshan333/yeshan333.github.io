@@ -1,0 +1,1429 @@
+<!DOCTYPE html>
+<html>
+<head hexo-theme='https://volantis.js.org/#2.6.5'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- 页面元数据 -->
+  
+    <title>(译)通过 Git 和 Angular 了解语义化提交信息 - ShanSan</title>
+  
+    <meta name="keywords" content="Git,工程化,译文">
+  
+  
+    <meta name="description" content="受传统提交规范和 Angular 约定的启发，让我们来解释语义化提交术语，并演示提交信息的实际示例。
+许多项目决定以某种约定方式来标准化它们的提交信息。这种做法并不是新出现的，但在最近几年中越来越多地得到了应用。而且很可能您已经在某些项目中遇到过这样的提交消息。">
+  
+
+  <!-- feed -->
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13/css/all.min.css">
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+
+  
+
+  
+  <link rel="shortcut icon" type='image/x-icon' href="https://img.vim-cn.com/bb/db444be0b7fda59c69d5c64167f9668b0b66bd.png">
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css">
+  
+
+  <!-- import link -->
+  
+
+  
+  
+    
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+  
+</head>
+
+<body>
+  
+  <div id="loading-bar-wrapper">
+  <div id="loading-bar"></div>
+</div>
+<header class="l_header shadow blur">
+  <div class='container'>
+  <div class='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h'>
+        <li><a class="s-comment fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+          
+          
+            <red>S</red><green>h</green><blue>a</blue><yellow>n</yellow><red>S</red><green>h</green><blue>a</blue><yellow>n</yellow>
+          
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-home fa-fw'></i>首页
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" 
+                  
+                  
+                  >
+                  <i class='fas fa-ellipsis-v fa-fw'></i>与我相关
+                </a>
+                
+                  <ul class="list-v">
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://github.com/yeshan333
+                  
+                  
+                  
+                    id="https:githubcomyeshan333"
+                  >
+                  <i class='fab fa-github-square fa-fw'></i>Github
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://slide.shan333.cn
+                  
+                  
+                  
+                    id="https:slideshan333cn"
+                  >
+                  <i class='fab fa-slideshare fa-fw'></i>slides
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://shansan.top/knowledge-base/
+                  
+                  
+                  
+                    id="https:shansantopknowledge-base"
+                  >
+                  <i class='far fa-sticky-note fa-fw'></i>notes
+                </a>
+                
+              </li>
+            
+          
+                    
+                  </ul>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/PyChina/
+                  
+                  
+                  
+                    id="PyChina"
+                  >
+                  <i class='fab fa-python fa-fw'></i>中国蟒
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/cloud-native/
+                  
+                  
+                  
+                    id="cloud-native"
+                  >
+                  <i class='fas fa-cloud fa-fw'></i>云原生
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="寻你所想" />
+        </form>
+      </div>
+
+			<ul class='switcher nav-list-h'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-home fa-fw'></i>首页
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" 
+                  
+                  
+                  >
+                  <i class='fas fa-ellipsis-v fa-fw'></i>与我相关
+                </a>
+                
+                  <ul class="list-v">
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://github.com/yeshan333
+                  
+                  
+                  
+                    id="https:githubcomyeshan333"
+                  >
+                  <i class='fab fa-github-square fa-fw'></i>Github
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://slide.shan333.cn
+                  
+                  
+                  
+                    id="https:slideshan333cn"
+                  >
+                  <i class='fab fa-slideshare fa-fw'></i>slides
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://shansan.top/knowledge-base/
+                  
+                  
+                  
+                    id="https:shansantopknowledge-base"
+                  >
+                  <i class='far fa-sticky-note fa-fw'></i>notes
+                </a>
+                
+              </li>
+            
+          
+                    
+                  </ul>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/PyChina/
+                  
+                  
+                  
+                    id="PyChina"
+                  >
+                  <i class='fab fa-python fa-fw'></i>中国蟒
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/cloud-native/
+                  
+                  
+                  
+                    id="cloud-native"
+                  >
+                  <i class='fas fa-cloud fa-fw'></i>云原生
+                </a>
+                
+              </li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</header>
+
+<script>setLoadingBarProgress(40);</script>
+
+
+
+  <div class="l_body nocover">
+    <div class='body-wrapper'>
+      
+
+<div class='l_main'>
+  
+
+  
+    <article id="post" class="post white-box reveal shadow article-type-post" itemscope itemprop="blogPost">
+      
+
+
+  <section class='meta'>
+    
+      
+      
+        <a title='(译)通过 Git 和 Angular 了解语义化提交信息' href='/2020/06/04/%E8%AF%91-%E9%80%9A%E8%BF%87-Git-%E5%92%8C-Angular-%E4%BA%86%E8%A7%A3%E8%AF%AD%E4%B9%89%E5%8C%96%E6%8F%90%E4%BA%A4%E4%BF%A1%E6%81%AF/'><img class='thumbnail' src='https://img.vim-cn.com/d1/2602cfd9aba0a8ae85261ff2af4f0fccb6efa1.jpg'></a>
+      
+      <div class="meta" id="header-meta">
+        
+          
+  <h1 class="title">
+    <a href="/2020/06/04/%E8%AF%91-%E9%80%9A%E8%BF%87-Git-%E5%92%8C-Angular-%E4%BA%86%E8%A7%A3%E8%AF%AD%E4%B9%89%E5%8C%96%E6%8F%90%E4%BA%A4%E4%BF%A1%E6%81%AF/">
+      (译)通过 Git 和 Angular 了解语义化提交信息
+    </a>
+  </h1>
+
+
+        
+        <div class='new-meta-box'>
+          
+            
+          
+            
+              
+<div class='new-meta-item author'>
+  <a href="https://github.com/yeshan333" target="_blank" rel="nofollow noopener">
+    <img src="https://img.vim-cn.com/a3/caa9ef084c4f562b82b1cca6e978c0dca58c5f.png">
+    <p>yeshan333</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+  
+  <div class='new-meta-item category'>
+    <a href='/categories/Git/' rel="nofollow">
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <p>Git</p>
+    </a>
+  </div>
+
+
+            
+          
+            
+              <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>文章首发于：2020年6月4日</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+
+            
+          
+        </div>
+        
+          <hr>
+        
+      </div>
+    
+  </section>
+
+
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          
+          <p>受传统提交规范和 Angular 约定的启发，让我们来解释语义化提交术语，并演示提交信息的实际示例。</p>
+<p>许多项目决定以某种约定方式来标准化它们的提交信息。这种做法并不是新出现的，但在最近几年中越来越多地得到了应用。而且很可能您已经在某些项目中遇到过这样的提交消息。</p>
+<a id="more"></a>
+
+<p>最早出现的规范之一来自与 AngularJS 项目。这个项目团队创建了一个详细的<a href="https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y/edit#" target="_blank" rel="noopener">文档</a>，其中指定了他们应该提交的目标和方式。这些提交约定非常流行，有些您可能通过 <a href="http://karma-runner.github.io/4.0/dev/git-commit-msg.html" target="_blank" rel="noopener">Karma</a> 指南遇到过。但是，还有一些不同的约定，像 <a href="https://contribute.jquery.org/commits-and-pull-requests/#commit-guidelines" target="_blank" rel="noopener">jQuery</a>, <a href="https://github.com/jshint/jshint/blob/master/CONTRIBUTING.md#commit-message-guidelines" target="_blank" rel="noopener">JSHint</a>, <a href="https://github.com/emberjs/ember.js/blob/master/CONTRIBUTING.md#commit-tagging" target="_blank" rel="noopener">Ember</a>, <a href="https://github.com/angular/angular/blob/master/CONTRIBUTING.md#-commit-message-guidelines" target="_blank" rel="noopener">Angular</a>(一个受AngularJS 提交规范启发的增强版约定)，甚至<a href="https://github.com/conventional-changelog/conventional-changelog/tree/master/packages" target="_blank" rel="noopener">更多</a>:</p>
+<p><img src="https://d33wubrfki0l68.cloudfront.net/eb16595d0c6862c0c013a36c339317a4d82bdce7/9195b/images/posts/2019-11-01-understanding-semantic-commit-messages-using-git-and-angular/conventions-diagram.png" alt="Commit convention variations"></p>
+<p>可以清楚地看到上面各种各样的提交约定，这无疑构成了一个标准化官方规范的正当理由。<a href="https://www.conventionalcommits.org/zh-hans/v1.0.0-beta.4/" target="_blank" rel="noopener">约定式提交</a>就是这样一种规范，它在实践中简化了 Angular 约定，并简化指出了提交消息规范的要点。</p>
+<p>在本文中，我们将介绍“语义化提交”背后的概念，并使用 Git 和 Angular 的提交约定来演示具体的例子。声明一下，我们使用它们只是为了澄清概念——意味着版本控制工具和规范的选择取决于您。</p>
+<p>那我们就开始吧！👨🏻‍🏫</p>
+<h1 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h1><p>让我们从定义开始:</p>
+<blockquote>
+<p>语义化提交是<strong>遵循着特定约定</strong>并具有人类和机器可读含义的提交消息</p>
+</blockquote>
+<p>这意味着，它只是提交消息的指导方针，因此:</p>
+<ul>
+<li>提交消息是语义化的：因为它们被划分为有意义的类型，标识了提交(commit)的意图</li>
+<li>提交消息是约定俗成的：对于开发者和工具，它们有着统一的结构和良好的类型标识</li>
+</ul>
+<p>此外，当我们通常需要执行以下操作时，语义化提交可能会派上用场：</p>
+<ol>
+<li>允许维护人员和贡献者轻松地浏览项目历史并理解提交的意图，同时通过提交消息类型忽略不重要的更改</li>
+<li>强制提交信息的结构，鼓励有针对特定目的的小型提交</li>
+<li>直接提交信息的主体，不必话大段话去解说</li>
+<li>根据提交信息类型自动更新包版本号(Bump the package version)</li>
+<li>自动生成日志(CHANGELOGs)和 release 说明</li>
+</ol>
+<p>最后，语义化提交致力于实现更好的可读性和自动化，以及速度的提高。</p>
+<p>话虽如此，我们中的一些人可能不接受这些消息约定，认为它们是可读的或提供信息的，这显然是有意义的。所以如果我们也不需要这些附带的好处，那在项目中执行这样的规范显然是没有意义的。</p>
+<p>好了，是时候了解我们如何实际遵循这些约定了。</p>
+<p>免责声明：从这一刻起，我们将引用 Angular 提交信息约定及其好处。</p>
+<h2 id="提交信息的格式"><a href="#提交信息的格式" class="headerlink" title="提交信息的格式"></a>提交信息的格式</h2><p>Angular 规范要求根据以下结构来构造提交消息(Commit Message):</p>
+<p><img src="https://d33wubrfki0l68.cloudfront.net/ab6c349cef44ee6b617234b4f2574b978ef2fa3e/42749/images/posts/2019-11-01-understanding-semantic-commit-messages-using-git-and-angular/commit-message-format-by-angular.png" alt="The commit message format according to Angular conventions"></p>
+<p>上图向我们说明了提交消息由三个部分组成 —— header、body 和 footer 。</p>
+<h3 id="Header"><a href="#Header" class="headerlink" title="Header"></a>Header</h3><p>Header 是<strong>强制</strong>要求的一行，它简单地描述了更改的目的(最多100个字符)。<br>更好的是，它本身由三部分组成:</p>
+<ol>
+<li>类型(Type)：标识更改类型的短前缀</li>
+<li>范围(Scope)：可选项，表明 Commit 影响的范围</li>
+<li>主体(Subject)：表示对实际更改的简明描述</li>
+</ol>
+<p>实际上，就 Git 而言，它就是提交消息的首行：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m "fix(core): remove deprecated and defunct wtf* apis"</span><br></pre></td></tr></table></figure>
+
+<p>我们插入单行消息，并用 <code>:</code> 分隔。当 <code>fix</code>和 <code>core</code>（受影响的包）分别是类型和范围时，我们将左分区假设称为“前缀”。另一方面，右分区显然构成了主体(Subject)。</p>
+<p>简而言之，上述消息含义是：<em>“本次更改通过移除不推荐使用(deprecated)和不存在的 wtf * api 修复了来自Core软件包的错误”</em>。</p>
+<h3 id="Body"><a href="#Body" class="headerlink" title="Body"></a>Body</h3><p>主体(Body)是<strong>可选</strong>行，用于介绍本次更改背后的动机或仅描述一些更详细的信息。</p>
+<p>让我们以上述的例子为例，并添加一个主体：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m "fix(core): remove deprecated and defunct wtf* apis" -m "These apis have been deprecated in v8, so they should stick around till v10, but since they are defunct we are removing them early so that they don't take up payload size."</span><br></pre></td></tr></table></figure>
+
+<p>现在，我们在消息上附加了几句话，详细说明了此提交(Commit)目的。</p>
+<p>请注意以下几点：</p>
+<ul>
+<li>我们使用了多个<code>-m</code>来连接段落而不是简单的行</li>
+<li>头部和主体应该用空白行分隔（根据这些段落，这显然是正确的）</li>
+</ul>
+<p><strong>注意</strong>：尽管我们可以使用其他方式将消息分成几行，但为了简单起见，我们将在下一个示例中继续使用多个 <code>-m</code>（展示了一个与shell无关的解决方案）。</p>
+<h3 id="Footer"><a href="#Footer" class="headerlink" title="Footer"></a>Footer</h3><p>尾部(Footer)是<strong>可选</strong>行，其中提到了由于更改而产生的影响，例如：宣布重大更改、链接关闭已解决的问题(issues)、提及贡献者等等。</p>
+<p>这是上述带有尾部(footer)的提交消息：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m "fix(core): remove deprecated and defunct wtf* apis" -m "These apis have been deprecated in v8, so they should stick around till v10, but since they are defunct we are removing them early so that they don't take up payload size." -m "PR Close #33949"</span><br></pre></td></tr></table></figure>
+
+<p>在本例中，我们只是简单地添加了对相关拉请求(pull request)的引用，而没有添加其他内容。</p>
+<p>最后，让我们查看完整的提交日志：</p>
+<img src="https://d33wubrfki0l68.cloudfront.net/f477a323548298d5e4d42bc7be6f8a62aad62250/27eec/images/posts/2019-11-01-understanding-semantic-commit-messages-using-git-and-angular/final-commit-message.png" alt="Showing the commit log in one piece">
+
+<p>正如您可能会推断的，此<a href="https://github.com/angular/angular/commit/cf420194ed91076afb66d9179245b9dbaabc4fd4" target="_blank" rel="noopener">提交</a>实际上是 Angular 存储库中存在的。</p>
+<h2 id="常见类型"><a href="#常见类型" class="headerlink" title="常见类型"></a>常见类型</h2><p>除了定义提交消息格式外，Angular 的提交消息约定还指定了一个有用的类型列表，其中包含了各种各样的更改。</p>
+<p>在开始之前，我们应该区分如下两种类型：</p>
+<ul>
+<li>开发(Development)：一种维护类型，它对变更进行分类，面向开发人员，这些变更实际上并不影响产品代码，而是影响内部的开发环境和工作流程(workflows)</li>
+<li>生产(Production)：一种增强类型，用于对仅影响产品代码的最终用户(end users)进行更改分类</li>
+</ul>
+<p>现在，让我们介绍和解释这些类型。</p>
+<p><strong>注意</strong>：以下示例直接取自Angular存储库的提交日志。</p>
+<h3 id="👷构建"><a href="#👷构建" class="headerlink" title="👷构建"></a>👷构建</h3><p>构建类型 <code>build</code>(以前称为<code>chore</code>)用于识别与构建系统相关的<strong>开发</strong>更改(涉及脚本、配置或工具)和包依赖项(dependencies)。</p>
+<p>例子：</p>
+<img src="https://d33wubrfki0l68.cloudfront.net/241c157655b2a391d15b49f46d5eca5e3568a6e4/402a5/images/posts/2019-11-01-understanding-semantic-commit-messages-using-git-and-angular/examples-of-build-type.png" alt="Examples of commit messages with `build` type">
+
+<h3 id="💚ci"><a href="#💚ci" class="headerlink" title="💚ci"></a>💚ci</h3><p><code>ci</code>类型用于识别与持续集成和部署系统相关的开发更改——包括脚本、配置或工具。</p>
+<p>例子：</p>
+<img src="https://d33wubrfki0l68.cloudfront.net/2d7b17c202f31f63a6eec7e46df2d18ea7868d6a/e8324/images/posts/2019-11-01-understanding-semantic-commit-messages-using-git-and-angular/examples-of-ci-type.png" alt="Examples of commit messages with `ci` type">
+
+<h3 id="📝文档docs"><a href="#📝文档docs" class="headerlink" title="📝文档docs"></a>📝文档docs</h3><p>文档类型用于识别与项目相关的文档更改——无论是针对最终用户的外部更改(对于库)还是针对开发人员的内部更改。</p>
+<p>例子：</p>
+<img src="https://d33wubrfki0l68.cloudfront.net/bc74f1e6bd91dd88c6d622ce8804f77be4718836/1d37a/images/posts/2019-11-01-understanding-semantic-commit-messages-using-git-and-angular/examples-of-docs-type.png" alt="Examples of commit messages with `docs` type">
+
+<h3 id="✨特性"><a href="#✨特性" class="headerlink" title="✨特性"></a>✨特性</h3><p>该<code>feat</code>类型用于标识生产环境相关的新的向后兼容能力(backward-compatible)或功能的更改。</p>
+<p>例子：</p>
+<img src="https://d33wubrfki0l68.cloudfront.net/942e86121f5c88e50462b05d80dd6e372dce96b3/c26af/images/posts/2019-11-01-understanding-semantic-commit-messages-using-git-and-angular/examples-of-feat-type.png" alt="Examples of commit messages with `feat` type">
+
+<h3 id="🐛修复"><a href="#🐛修复" class="headerlink" title="🐛修复"></a>🐛修复</h3><p><code>fix</code>类型用于标识生产环境相关向后兼容(backward-compatible)的 bug 修复(bug fixes)</p>
+<p>例子：</p>
+<img src="https://d33wubrfki0l68.cloudfront.net/69f22fa96e84fc5c1a09bf3055d8447224c9a9fc/ca58b/images/posts/2019-11-01-understanding-semantic-commit-messages-using-git-and-angular/examples-of-fix-type.png" alt="Examples of commit messages with `fix` type">
+
+<h3 id="⚡️性能"><a href="#⚡️性能" class="headerlink" title="⚡️性能"></a>⚡️性能</h3><p><code>perf</code>类型用于标识生产环境相关向后兼容的<strong>性能</strong>(performance)改进相关的产品更改。</p>
+<p>例子：</p>
+<img src="https://d33wubrfki0l68.cloudfront.net/661b70093cf0b94cae4129bc44257ea239caa3db/e060d/images/posts/2019-11-01-understanding-semantic-commit-messages-using-git-and-angular/examples-of-perf-type.png" alt="Examples of commit messages with `perf` type">
+
+<h3 id="♻️重构"><a href="#♻️重构" class="headerlink" title="♻️重构"></a>♻️重构</h3><p><code>refactor</code>类型用于识别与修改代码库相关的开发更改，这些更改既没有添加功能，也没有修复 bug —— 例如删除冗余代码、简化代码、重命名变量等等。</p>
+<p>例子：</p>
+<img src="https://d33wubrfki0l68.cloudfront.net/b9d8ae7afa8a026445a2ac28b92a90595115e523/5b26d/images/posts/2019-11-01-understanding-semantic-commit-messages-using-git-and-angular/examples-of-refactor-type.png" alt="Examples of commit messages with `refactor` type">
+
+<h3 id="🎨风格"><a href="#🎨风格" class="headerlink" title="🎨风格"></a>🎨风格</h3><p><code>style</code>类型用于标识代码样式变动相关的开发更改，而不考虑其含义——例如缩进、分号、引号、结尾逗号等等。</p>
+<p>例子：</p>
+<img src="https://d33wubrfki0l68.cloudfront.net/ad8400fbbbeb00a2809c4d0805adee32026254c2/8f851/images/posts/2019-11-01-understanding-semantic-commit-messages-using-git-and-angular/examples-of-style-type.png" alt="Examples of commit messages with `style` type">
+
+<h3 id="✅测试"><a href="#✅测试" class="headerlink" title="✅测试"></a>✅测试</h3><p><code>test</code>类型用于标识与测试相关的开发更改——例如重构现有测试或添加新测试。</p>
+<p>例子：</p>
+<img src="https://d33wubrfki0l68.cloudfront.net/db341477c4a017c37929c5fe80ffec77d37bcc10/cac60/images/posts/2019-11-01-understanding-semantic-commit-messages-using-git-and-angular/examples-of-test-type.png" alt="Examples of commit messages with `test` type">
+
+<h2 id="好处"><a href="#好处" class="headerlink" title="好处"></a>好处</h2><p>现在我们已经熟悉了这些约定，让我们看看从中收获的两种好处。</p>
+<h3 id="浏览历史变更记录"><a href="#浏览历史变更记录" class="headerlink" title="浏览历史变更记录"></a>浏览历史变更记录</h3><p>Git 为我们提供了浏览存储库提交历史的能力，所以我们就可以知道实际发生了什么，谁做了贡献等等。</p>
+<p>让我们看看这些约定是如何简化我们对这些记录的浏览:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log --oneline --grep "^feat\|^fix\|^perf"</span><br></pre></td></tr></table></figure>
+
+<p>我们使用提交消息类型来过滤，因此只显示生产更改(所有以 <code>feat</code>、<code>fix</code> 或 <code>perf</code>开头的消息)。</p>
+<p>另一个例子:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log --oneline --grep "^feat" | wc -l</span><br></pre></td></tr></table></figure>
+
+<p>我们只打印 <code>feat</code> 更改的总数。</p>
+<p>上述的关键是提交消息格式非常结构化，这使得我们在扫描或过滤提交历史记录时能够有效地依赖于此格式。</p>
+<p>即，更加迅速!💪🏻</p>
+<h3 id="自动发布"><a href="#自动发布" class="headerlink" title="自动发布"></a>自动发布</h3><p>提交消息格式对于自动化发布过程的步骤也很有用。</p>
+<p>事实上，这可能是因为像<a href="https://github.com/conventional-changelog/standard-version" target="_blank" rel="noopener">Standard Version</a>和<a href="https://github.com/semantic-release/semantic-release" target="_blank" rel="noopener">Semantic Versioning</a>这样的工具严格遵循语义化的版本规范和特定的信息提交约定(分别是传统的提交约定和 Angular 约定)。它们之间的主要区别在于 <a href="https://github.com/conventional-changelog/standard-version#how-is-standard-version-different-from-semantic-release" target="_blank" rel="noopener">approach</a>，但是让我们关注语义化发布(Semantic Release)。</p>
+<p>因此，基于提交信息(特别是类型)——语义化发布(Semantic Release)能够给我们提供以下能力:</p>
+<ul>
+<li>转到下一个语义化包版本(发生重大变更时-补丁发布、监控到新特性和性能的优化)</li>
+<li>创建一个包含生产环境相关发布信息的 CHANGELOG 文件</li>
+<li>为新的发布版本创建一个 Git tag</li>
+<li>将release artifact发布(Publish)到 npm 注册中心</li>
+</ul>
+<p>酷吧?</p>
+<p>例如，Ionic 的<a href="https://github.com/ionic-team/angular-toolkit" target="_blank" rel="noopener">angular-toolkit</a>项目，集成了语义化发布来自动化发布过程(在此遵循 Angular 的提交约定):</p>
+<img src="https://d33wubrfki0l68.cloudfront.net/ac174adb87bdd863ccd14b588b25d444504fefb8/d1d92/images/posts/2019-11-01-understanding-semantic-commit-messages-using-git-and-angular/example-of-release-note.png" alt="An example of a generated release version">
+
+<p>正如我们所注意到的，发布的版本是基于 tag 和注释生成的——但重点是，这是<strong>自动</strong>完成的。🤖</p>
+<h2 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h2><p>为了充分利用语义化提交(semantic commit)，让我们来看一些东西。</p>
+<h3 id="使用Emojis"><a href="#使用Emojis" class="headerlink" title="使用Emojis"></a>使用Emojis</h3><p>将表情符号附加到提交消息可能会进一步提高可读性，这样我们就可以在浏览提交历史时非常快速和容易地识别它们。💯</p>
+<p>请参阅以下链接:</p>
+<ul>
+<li><a href="https://gitmoji.carloscuesta.me/" target="_blank" rel="noopener">gitmoji</a></li>
+<li><a href="https://github.com/dannyfritz/commit-message-emoji" target="_blank" rel="noopener">Commit Message Emoji 👋</a></li>
+</ul>
+<h3 id="CLI工具"><a href="#CLI工具" class="headerlink" title="CLI工具"></a>CLI工具</h3><p><a href="https://github.com/commitizen/cz-cli" target="_blank" rel="noopener">Commitizen</a> 是一个通过命令行强制格式化提交信息的工具:</p>
+<img src="https://d33wubrfki0l68.cloudfront.net/de5e032567b4cccae05bafd47636c4b20f84868d/61d9f/images/posts/2019-11-01-understanding-semantic-commit-messages-using-git-and-angular/commitizen-example.png" alt="Semantic commit message using the command line">
+
+<h3 id="检查器-Linter"><a href="#检查器-Linter" class="headerlink" title="检查器(Linter)"></a>检查器(Linter)</h3><p><a href="https://github.com/conventional-changelog/commitlint" target="_blank" rel="noopener">commitlint</a> 是一个保证提交消息格式符合约定的工具:</p>
+<img src="https://d33wubrfki0l68.cloudfront.net/e71e415ceec4372fb6130d6f5501291362abb1be/1c7f0/images/posts/2019-11-01-understanding-semantic-commit-messages-using-git-and-angular/commitlint-example.png" alt="Linting the commit messages">
+
+<h3 id="VSCode扩展"><a href="#VSCode扩展" class="headerlink" title="VSCode扩展"></a>VSCode扩展</h3><p>如果你想使用一个可定制的<a href="https://github.com/nitayneeman/vscode-git-semantic-commit" target="_blank" rel="noopener">VScode扩展</a>，那么下面的内容可能会让你感兴趣:</p>
+<img src="https://github.com/nitayneeman/vscode-git-semantic-commit/blob/master/images/examples/preview.gif?raw=true" alt="Semantic commit message using the Command Palette">
+
+<hr>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>我们今天介绍了“语义化提交”这个术语，并通过遵循 Angular 提交消息约定的具体例子，解释了这种消息的结构。</p>
+<p>概括要点:</p>
+<ul>
+<li>语义化提交是对开发人员和工具都有重要意义的提交信息方式，它们遵循特定的约定</li>
+<li>语义化提交(以及基于它的工具)有助于提高可读性、速度和自动化</li>
+<li>Conventional Commits 是一个详细描述语义提交的规范，遵循轻量级约定</li>
+<li>Angular 的指导原则详细描述了遵循项目约定的语义化提交，包括:<ul>
+<li>包含 header、body 和 footer 的信息格式</li>
+<li>与开发和生产相关的提交更改的类型</li>
+</ul>
+</li>
+<li>我们可以利用信息约定轻松浏览提交历史</li>
+<li>我们可以从这些规范收获自动化发布流程(release process)的好处</li>
+</ul>
+<p>最后，不管您是否决定采用这些约定,您可能会偶尔遇到它们，所以请记住上面的几点。😉</p>
+<blockquote>
+<ul>
+<li>原文地址：<a href="https://nitayneeman.com/posts/understanding-semantic-commit-messages-using-git-and-angular/#motivation" target="_blank" rel="noopener">Understanding Semantic Commit Messages Using Git and Angular</a></li>
+<li>原文作者：<a href="https://github.com/nitayneeman" target="_blank" rel="noopener">Nitay Neeman</a></li>
+<li>译文首发于：<a href="https://seven-innovation-base.github.io/Git-IN-ACTION-docs/" target="_blank" rel="noopener">Seven innovation base/Git-IN-ACTION-docs</a></li>
+<li>译者：<a href="https://github.com/MrGo123" target="_blank" rel="noopener">MrGo123</a></li>
+<li>校对者：<a href="https://github.com/yeshan333" target="_blank" rel="noopener">yeshan333</a></li>
+</ul>
+</blockquote>
+
+          
+            <div class='article_footer'>
+              
+                
+  
+    
+    
+
+
+
+  
+
+  
+    
+    
+
+
+
+  
+
+  
+    
+    
+
+<section class="widget copyright  desktop mobile">
+  <div class='content'>
+    
+      <blockquote>
+        
+          
+            <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+          
+        
+          
+            <p>我的博客即将同步至腾讯云+社区，邀请大家一同入驻：<a href="https://cloud.tencent.com/developer/support-plan?invite_code=1utoln9pyvwqu" target="_blank" rel="noopener">https://cloud.tencent.com/developer/support-plan?invite_code=1utoln9pyvwqu</a></p>
+
+          
+        
+      </blockquote>
+    
+  </div>
+</section>
+
+  
+
+  
+    
+    
+
+<section class="widget qrcode  desktop mobile">
+  
+
+  <div class='content article-entry'>
+    
+      
+        <div class='fancybox'><img src='https://cdn.jsdelivr.net/gh/ssmath/images-assets-cdn@master/mmqrcode1583939866281.png'
+        
+          height='64px'
+        ></div>
+      
+    
+      
+        <div class='fancybox'><img src='https://cdn.jsdelivr.net/gh/ssmath/images-assets-cdn@master/qrcode_1583939933465.jpg'
+        
+          height='64px'
+        ></div>
+      
+    
+  </div>
+</section>
+
+  
+
+
+              
+            </div>
+          
+        </div>
+        
+          
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-01-07T05:47:09+00:00">
+  <a class='notlink'>
+    <i class="fas fa-save fa-fw" aria-hidden="true"></i>
+    <p>最近更新时间：2021年1月7日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Git/" rel="nofollow"><i class="fas fa-tags fa-fw" aria-hidden="true"></i><p>Git</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/" rel="nofollow"><i class="fas fa-tags fa-fw" aria-hidden="true"></i><p>工程化</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E8%AF%91%E6%96%87/" rel="nofollow"><i class="fas fa-tags fa-fw" aria-hidden="true"></i><p>译文</p></a></div>
+
+
+        
+      
+        
+          
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://connect.qq.com/widget/shareqq/index.html?url=https://yeshan333.github.io/2020/06/04/%E8%AF%91-%E9%80%9A%E8%BF%87-Git-%E5%92%8C-Angular-%E4%BA%86%E8%A7%A3%E8%AF%AD%E4%B9%89%E5%8C%96%E6%8F%90%E4%BA%A4%E4%BF%A1%E6%81%AF/&title=(译)通过 Git 和 Angular 了解语义化提交信息 - ShanSan&pics=https://img.vim-cn.com/d1/2602cfd9aba0a8ae85261ff2af4f0fccb6efa1.jpg&summary=受传统提交规范和 Angular 约定的启发，让我们来解释语义化提交术语，并演示提交信息的实际示例。
+许多项目决定以某种约定方式来标准化它们的提交信息。这种做法并不是新出现的，但在最近几年中越来越多地得到了应用。而且很可能您已经在某些项目中遇到过这样的提交消息。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
+          
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://yeshan333.github.io/2020/06/04/%E8%AF%91-%E9%80%9A%E8%BF%87-Git-%E5%92%8C-Angular-%E4%BA%86%E8%A7%A3%E8%AF%AD%E4%B9%89%E5%8C%96%E6%8F%90%E4%BA%A4%E4%BF%A1%E6%81%AF/&title=(译)通过 Git 和 Angular 了解语义化提交信息 - ShanSan&pics=https://img.vim-cn.com/d1/2602cfd9aba0a8ae85261ff2af4f0fccb6efa1.jpg&summary=受传统提交规范和 Angular 约定的启发，让我们来解释语义化提交术语，并演示提交信息的实际示例。
+许多项目决定以某种约定方式来标准化它们的提交信息。这种做法并不是新出现的，但在最近几年中越来越多地得到了应用。而且很可能您已经在某些项目中遇到过这样的提交消息。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://service.weibo.com/share/share.php?url=https://yeshan333.github.io/2020/06/04/%E8%AF%91-%E9%80%9A%E8%BF%87-Git-%E5%92%8C-Angular-%E4%BA%86%E8%A7%A3%E8%AF%AD%E4%B9%89%E5%8C%96%E6%8F%90%E4%BA%A4%E4%BF%A1%E6%81%AF/&title=(译)通过 Git 和 Angular 了解语义化提交信息 - ShanSan&pics=https://img.vim-cn.com/d1/2602cfd9aba0a8ae85261ff2af4f0fccb6efa1.jpg&summary=受传统提交规范和 Angular 约定的启发，让我们来解释语义化提交术语，并演示提交信息的实际示例。
+许多项目决定以某种约定方式来标准化它们的提交信息。这种做法并不是新出现的，但在最近几年中越来越多地得到了应用。而且很可能您已经在某些项目中遇到过这样的提交消息。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </section>
+
+
+        
+        
+          <div class="prev-next">
+            
+              <a class='prev' href='/2020/06/21/%E5%B0%86Web%E5%BA%94%E7%94%A8%E4%B8%A2%E7%BB%99%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B/'>
+                <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>将 Web 应用丢给守护进程</p>
+                <p class='content'>最近老是要把 Web App/Service 部署在个人的服务器上进行测试，发现自己不怎么熟悉「前提：不上 docker ，逃~」，特写此文章来纪念下🤔👀（之前部署的  Web App/Se...</p>
+              </a>
+            
+            
+              <a class='next' href='/2020/05/19/%E4%BA%86%E8%A7%A3%E4%B8%80%E6%B3%A2%E7%BB%8F%E5%85%B8%E7%9A%84-IO-%E6%A8%A1%E5%9E%8B/'>
+                <p class='title'>了解一波经典的 I/O 模型<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+                <p class='content'>最近读了波网络 I/O 相关的文章，做下总结、摘录。（未完）
+经典 I/O 模型
+
+            阻塞式 I/O（blocking I/O）
+            
+
+       ...</p>
+              </a>
+            
+          </div>
+        
+      </section>
+    </article>
+  
+
+  
+    <!-- 显示推荐文章和评论 -->
+
+
+
+  <article class="post white-box reveal comments shadow">
+    <section class="article typo">
+      <p ct><i class='fas fa-comments'></i> 评论</p>
+      
+      
+      
+      
+      
+        <section id="comments">
+          <div id="valine_container" class="valine_thread">
+            <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+          </div>
+        </section>
+      
+      
+    </section>
+  </article>
+
+
+  
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+    processEscapes: true,
+    tags: "ams",
+    macros: {
+      href: "{}"
+    }
+  },
+  options: {
+    ignoreHtmlClass: "tex2jax_ignore|dno",
+    skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  }
+};
+</script>
+
+
+
+
+  <script>
+    window.subData = {
+      title: '(译)通过 Git 和 Angular 了解语义化提交信息',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class='l_side'>
+  
+  
+
+  
+    
+    
+
+
+  <section class="widget toc-wrapper shadow desktop mobile">
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#动机"><span class="toc-text">动机</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#提交信息的格式"><span class="toc-text">提交信息的格式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Header"><span class="toc-text">Header</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Body"><span class="toc-text">Body</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Footer"><span class="toc-text">Footer</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常见类型"><span class="toc-text">常见类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#👷构建"><span class="toc-text">👷构建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#💚ci"><span class="toc-text">💚ci</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#📝文档docs"><span class="toc-text">📝文档docs</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#✨特性"><span class="toc-text">✨特性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#🐛修复"><span class="toc-text">🐛修复</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#⚡️性能"><span class="toc-text">⚡️性能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#♻️重构"><span class="toc-text">♻️重构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#🎨风格"><span class="toc-text">🎨风格</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#✅测试"><span class="toc-text">✅测试</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#好处"><span class="toc-text">好处</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#浏览历史变更记录"><span class="toc-text">浏览历史变更记录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#自动发布"><span class="toc-text">自动发布</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其它"><span class="toc-text">其它</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#使用Emojis"><span class="toc-text">使用Emojis</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CLI工具"><span class="toc-text">CLI工具</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#检查器-Linter"><span class="toc-text">检查器(Linter)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#VSCode扩展"><span class="toc-text">VSCode扩展</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li></ol></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+  
+  <footer class="clearfix">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
+
+  
+    <meting-js
+      theme='#1BCDFC'
+      autoplay='false'
+      volume='0.7'
+      loop='all'
+      order='list'
+      fixed='false'
+      list-max-height='340px'
+      server='netease'
+      type='playlist'
+      id='3175833810'
+      list-folded='true'>
+    </meting-js>
+  
+
+
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+            
+              <a href="mailto:1329441308@qq.com"
+                class="social fas fa-envelope flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://github.com/yeshan333?tab=repositories"
+                class="social fab fa-github flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://music.163.com/#/my/m/music/playlist?id=2617691792"
+                class="social fas fa-music flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://www.zhihu.com/people/si-kong-ji-54/activities"
+                class="social fab fa-zhihu flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://yeshan333.github.io/sitemap.xml"
+                class="social fas fa-rss flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+        </div>
+      
+    
+      
+        <div><p>博客内容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+</div>
+      
+    
+      
+        本站使用
+        <a href="https://volantis.js.org/" target="_blank" class="codename">Volantis</a>
+        作为主题，总访问量为
+          <span id="busuanzi_value_site_pv"><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+          次
+        
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="https://shansan.top" target="_blank" rel="noopener">Copyright © 2018-2021 ShanSan</a></p>
+
+        </div>
+      
+    
+      
+        
+          <div><p><a href="http://www.beian.miit.gov.cn/" target="_blank" rel="noopener">桂ICP备19000444号</a></p>
+</div>
+        
+      
+    
+  </footer>
+
+<script>setLoadingBarProgress(80);</script>
+
+
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
+  
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4/dist/jquery.min.js"></script>
+
+
+  <script>
+    
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/" || "/";
+    if (!ROOT.endsWith('/')) ROOT += '/';
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/instant_page.js" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.6/dist/scrollreveal.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      ScrollReveal().reveal('.l_main .reveal', {
+        distance: '8px',
+        duration: '800',
+        interval: '100',
+        scale: '1'
+      });
+    });
+  </script>
+
+
+  
+<script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+  
+  
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js"></script>
+
+    <script type="text/javascript">
+      $(function(){
+        var imgs=["https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/B18FCBB3-67FD-48CC-B4F3-457BA145F17A.jpeg"];
+        if ('true' == 'true') {
+          function shuffle(arr){
+            /*From countercurrent-time*/
+            var n = arr.length;
+            while(n--) {
+              var index = Math.floor(Math.random() * n);
+              var temp = arr[index];
+              arr[index] = arr[n];
+              arr[n] = temp;
+            }
+          }
+          shuffle(imgs);
+        }
+        if ('.cover') {
+          $('.cover').backstretch(
+            imgs,
+          {
+            duration: "20000",
+            fade: "1500"
+          });
+        } else {
+          $.backstretch(
+            imgs,
+          {
+            duration: "20000",
+            fade: "1500"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js"></script>
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0/dist/Meting.min.js"></script>
+
+  
+
+
+
+
+
+
+
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4/dist/Valine.min.js"></script>
+
+  
+  <script>
+  var GUEST_INFO = ['nick','mail','link'];
+  var meta = 'nick,mail,link'.split(',').filter(function(item){
+    return GUEST_INFO.indexOf(item) > -1
+  });
+  var REQUIRED_FIELDS = ['nick','mail','link'];
+  var requiredFields = 'nick,mail'.split(',').filter(function(item){
+    return REQUIRED_FIELDS.indexOf(item) > -1
+  });
+  var valine = new Valine();
+  function emoji(path, idx, ext) {
+      return path + "/" + path + "-" + idx + "." + ext;
+  }
+  var emojiMaps = {};
+  for (var i = 1; i <= 54; i++) {
+    emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
+  }
+  for (var i = 1; i <= 101; i++) {
+    emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
+  }
+  for (var i = 1; i <= 116; i++) {
+    emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
+  }
+  for (var i = 1; i <= 125; i++) {
+    emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
+  }
+  for (var i = 1; i <= 4; i++) {
+    emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
+  }
+  valine.init({
+    el: '#valine_container',
+    meta: meta,
+    
+    appId: "S687AsCjGJKTPIvUJ8aPNX49-gzGzoHsz",
+    appKey: "bCwg3QuIfGytbeYw58L7ofRq",
+    placeholder: "快来评论吧~",
+    pageSize:'10',
+    avatar:'robohash',
+    lang:'zh-cn',
+    visitor: 'true',
+    highlight: 'true',
+    mathJax: 'false',
+    enableQQ: 'true',
+    requiredFields: requiredFields,
+    emojiCDN: 'https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/emoji/valine/',
+    emojiMaps: emojiMaps
+  })
+  </script>
+
+
+
+
+
+  
+<script src="/js/app.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2.6.4/js/search.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/comment_typing.js"></script>
+
+
+
+
+
+
+<!-- 复制 -->
+
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="fas fa-copy"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-check-circle');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('fa-check-circle');
+          $icon.addClass('fa-copy');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-times-circle');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('fa-times-circle');
+          $icon.addClass('fa-copy');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+
+
+<!-- fancybox -->
+
+  <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  let LAZY_LOAD_IMAGE = "";
+  $(".article-entry").find("div.fancybox").find("img").each(function () {
+      var element = document.createElement("a");
+      $(element).attr("data-fancybox", "gallery");
+      $(element).attr("href", $(this).attr("src"));
+      /* 图片采用懒加载处理时,
+       * 一般图片标签内会有个属性名来存放图片的真实地址，比如 data-original,
+       * 那么此处将原本的属性名src替换为对应属性名data-original,
+       * 修改如下
+       */
+       if (LAZY_LOAD_IMAGE) {
+         $(element).attr("href", $(this).attr("data-original"));
+       }
+      $(this).wrap(element);
+  });
+</script>
+
+
+
+
+
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yeshan333/jsDelivrCDN/piao.js" />
+<script type="text/javascript" src="https://cdn.staticfile.org/jquery/1.7.2/jquery.min.js" />
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yeshan333/jsDelivrCDN/attatkmouse.js" />
+
+
+  <script>setLoadingBarProgress(100);</script>
+</body>
+</html>

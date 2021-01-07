@@ -1,0 +1,1335 @@
+<!DOCTYPE html>
+<html>
+<head hexo-theme='https://volantis.js.org/#2.6.5'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- 页面元数据 -->
+  
+    <title>Serialization and Deserialization - ShanSan</title>
+  
+    <meta name="keywords" content="Python,Json">
+  
+  
+    <meta name="description" content="序列化与反序列化
+Serialization：Data Structure/Object –&gt; Binary StringDeserialization：Binary String –&gt; Data Structure/ObjectGoals：Cross-platform Communication、P...">
+  
+
+  <!-- feed -->
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13/css/all.min.css">
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+
+  
+
+  
+  <link rel="shortcut icon" type='image/x-icon' href="https://img.vim-cn.com/bb/db444be0b7fda59c69d5c64167f9668b0b66bd.png">
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css">
+  
+
+  <!-- import link -->
+  
+
+  
+  
+    
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+  
+</head>
+
+<body>
+  
+  <div id="loading-bar-wrapper">
+  <div id="loading-bar"></div>
+</div>
+<header class="l_header shadow blur">
+  <div class='container'>
+  <div class='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h'>
+        <li><a class="s-comment fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+          
+          
+            <red>S</red><green>h</green><blue>a</blue><yellow>n</yellow><red>S</red><green>h</green><blue>a</blue><yellow>n</yellow>
+          
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-home fa-fw'></i>首页
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" 
+                  
+                  
+                  >
+                  <i class='fas fa-ellipsis-v fa-fw'></i>与我相关
+                </a>
+                
+                  <ul class="list-v">
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://github.com/yeshan333
+                  
+                  
+                  
+                    id="https:githubcomyeshan333"
+                  >
+                  <i class='fab fa-github-square fa-fw'></i>Github
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://slide.shan333.cn
+                  
+                  
+                  
+                    id="https:slideshan333cn"
+                  >
+                  <i class='fab fa-slideshare fa-fw'></i>slides
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://shansan.top/knowledge-base/
+                  
+                  
+                  
+                    id="https:shansantopknowledge-base"
+                  >
+                  <i class='far fa-sticky-note fa-fw'></i>notes
+                </a>
+                
+              </li>
+            
+          
+                    
+                  </ul>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/PyChina/
+                  
+                  
+                  
+                    id="PyChina"
+                  >
+                  <i class='fab fa-python fa-fw'></i>中国蟒
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/cloud-native/
+                  
+                  
+                  
+                    id="cloud-native"
+                  >
+                  <i class='fas fa-cloud fa-fw'></i>云原生
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="寻你所想" />
+        </form>
+      </div>
+
+			<ul class='switcher nav-list-h'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-home fa-fw'></i>首页
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" 
+                  
+                  
+                  >
+                  <i class='fas fa-ellipsis-v fa-fw'></i>与我相关
+                </a>
+                
+                  <ul class="list-v">
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://github.com/yeshan333
+                  
+                  
+                  
+                    id="https:githubcomyeshan333"
+                  >
+                  <i class='fab fa-github-square fa-fw'></i>Github
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://slide.shan333.cn
+                  
+                  
+                  
+                    id="https:slideshan333cn"
+                  >
+                  <i class='fab fa-slideshare fa-fw'></i>slides
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://shansan.top/knowledge-base/
+                  
+                  
+                  
+                    id="https:shansantopknowledge-base"
+                  >
+                  <i class='far fa-sticky-note fa-fw'></i>notes
+                </a>
+                
+              </li>
+            
+          
+                    
+                  </ul>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/PyChina/
+                  
+                  
+                  
+                    id="PyChina"
+                  >
+                  <i class='fab fa-python fa-fw'></i>中国蟒
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/cloud-native/
+                  
+                  
+                  
+                    id="cloud-native"
+                  >
+                  <i class='fas fa-cloud fa-fw'></i>云原生
+                </a>
+                
+              </li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</header>
+
+<script>setLoadingBarProgress(40);</script>
+
+
+
+  <div class="l_body nocover">
+    <div class='body-wrapper'>
+      
+
+<div class='l_main'>
+  
+
+  
+    <article id="post" class="post white-box reveal shadow article-type-post" itemscope itemprop="blogPost">
+      
+
+
+  <section class='meta'>
+    
+      
+        
+
+  
+    <meting-js
+      mini='true'
+      autoplay='false'
+      volume='0.7'
+      loop='all'
+      order='list'
+      server='netease'
+      type='song'
+      id='31877127'>
+    </meting-js>
+  
+
+
+      
+      
+      <div class="meta" id="header-meta">
+        
+          
+  <h1 class="title">
+    <a href="/2019/11/25/Serialization-and-Deserialization/">
+      Serialization and Deserialization
+    </a>
+  </h1>
+
+
+        
+        <div class='new-meta-box'>
+          
+            
+          
+            
+              
+<div class='new-meta-item author'>
+  <a href="https://github.com/yeshan333" target="_blank" rel="nofollow noopener">
+    <img src="https://img.vim-cn.com/a3/caa9ef084c4f562b82b1cca6e978c0dca58c5f.png">
+    <p>yeshan333</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+  
+  <div class='new-meta-item category'>
+    <a href='/categories/Python/' rel="nofollow">
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <p>Python</p>
+    </a>
+  </div>
+
+
+            
+          
+            
+              <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>文章首发于：2019年11月25日</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+
+            
+          
+        </div>
+        
+          <hr>
+        
+      </div>
+    
+  </section>
+
+
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          
+          <h1 id="序列化与反序列化"><a href="#序列化与反序列化" class="headerlink" title="序列化与反序列化"></a>序列化与反序列化</h1><blockquote>
+<p>Serialization：Data Structure/Object –&gt; Binary String<br>Deserialization：Binary String –&gt; Data Structure/Object<br>Goals：Cross-platform Communication、Persistent Storage and More</p>
+</blockquote>
+<h1 id="Python中对象的序列化与反序列化"><a href="#Python中对象的序列化与反序列化" class="headerlink" title="Python中对象的序列化与反序列化"></a>Python中对象的序列化与反序列化</h1><h2 id="pickle-module"><a href="#pickle-module" class="headerlink" title="pickle module"></a>pickle module</h2><blockquote>
+<p>pickle 仅可用于 Python，pickle所使用的数据流格式仅可用于 Python<br>pickle 模块可以将复杂对象转换为字节流，也可以将字节流转换为具有相同内部结构的对象。<br>可被pickling和unpickling的对象：<a href="https://docs.python.org/zh-cn/3/library/pickle.html#what-can-be-pickled-and-unpickled" target="_blank" rel="noopener">https://docs.python.org/zh-cn/3/library/pickle.html#what-can-be-pickled-and-unpickled</a></p>
+</blockquote>
+<p>pickle提供了优秀的方法方便我们对对象进行pickling（封存）和unpickling（解封）</p>
+<a id="more"></a>
+
+<h3 id="使用dumps和loads方法进行序列化和反序列化"><a href="#使用dumps和loads方法进行序列化和反序列化" class="headerlink" title="使用dumps和loads方法进行序列化和反序列化"></a>使用dumps和loads方法进行序列化和反序列化</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> pickle</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>person = dict(name=<span class="string">'shan'</span>, age=<span class="number">20</span>, sex=<span class="string">"man"</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>pickle.dumps(person)  <span class="comment"># dumps方法会将obj序列化为bytes返回</span></span><br><span class="line"><span class="string">b'\x80\x03&#125;q\x00(X\x04\x00\x00\x00nameq\x01X\x04\x00\x00\x00shanq\x02X\x03\x00\x00\x00ageq\x03K\x14X\x03\x00\x00\x00sexq\x04X\x03\x00\x00\x00manq\x05u.</span></span><br><span class="line"><span class="string">&gt;&gt;&gt;</span></span><br><span class="line"><span class="string">&gt;&gt;&gt; with open("dump.txt","wb") as f:</span></span><br><span class="line"><span class="string">...     pickle.dump(person, f)</span></span><br><span class="line"><span class="string">...</span></span><br><span class="line"><span class="string">&gt;&gt;&gt; f = open("dump.txt","rb")</span></span><br><span class="line"><span class="string">&gt;&gt;&gt; d = pickle.load(f)</span></span><br><span class="line"><span class="string">&gt;&gt;&gt; f.close()</span></span><br><span class="line"><span class="string">&gt;&gt;&gt; d</span></span><br><span class="line"><span class="string">&#123;'</span>name<span class="string">': '</span>shan<span class="string">', '</span>age<span class="string">': 20, '</span>sex<span class="string">': '</span>man<span class="string">'&#125;</span></span><br><span class="line"><span class="string">&gt;&gt;&gt; pickle.loads(pickle.dumps(d))</span></span><br><span class="line"><span class="string">&#123;'</span>name<span class="string">': '</span>shan<span class="string">', '</span>age<span class="string">': 20, '</span>sex<span class="string">': '</span>man<span class="string">'&#125;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><a href="https://docs.python.org/zh-cn/3/library/pickle.html#pickle.dump" target="_blank" rel="noopener">https://docs.python.org/zh-cn/3/library/pickle.html#pickle.dump</a></li>
+<li>bytes对象是由单个字节组成的不可变序列</li>
+<li>使用<code>dump</code>方法可将序列化的对象写入file obj</li>
+<li>load用于还原封存生成的bytes_object，loads方法用于还原从文件中读取的封存对象</li>
+</ul>
+<h2 id="json-module"><a href="#json-module" class="headerlink" title="json module"></a>json module</h2><blockquote>
+<p>相比于pickle，json只能表示内置类型的子集，不能表示自定义的类<br>json格式的文件的易读性更好<br>Python json模块提供的API与pickle模块很相似</p>
+</blockquote>
+<h3 id="使用dumps和loads进行序列化和反序列化"><a href="#使用dumps和loads进行序列化和反序列化" class="headerlink" title="使用dumps和loads进行序列化和反序列化"></a>使用dumps和loads进行序列化和反序列化</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> json</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>person = dict(name=<span class="string">'shan'</span>, age=<span class="number">20</span>, sex=<span class="string">"man"</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>json.dumps(person)</span><br><span class="line"><span class="string">'&#123;"name": "shan", "age": 20, "sex": "man"&#125;'</span></span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>json_str = json.dumps(person)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>json.loads(json_str)</span><br><span class="line">&#123;<span class="string">'name'</span>: <span class="string">'shan'</span>, <span class="string">'age'</span>: <span class="number">20</span>, <span class="string">'sex'</span>: <span class="string">'man'</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>dumps方法会将obj转换为标准格式的JSON str并返回</li>
+<li>loads方法可将包含JSON文档的str、bytes或者bytearray反序列化为Python对象</li>
+</ul>
+<h3 id="自定义对象的序列化与反序列化"><a href="#自定义对象的序列化与反序列化" class="headerlink" title="自定义对象的序列化与反序列化"></a>自定义对象的序列化与反序列化</h3><blockquote>
+<p>对于自定义对象的序列化和反序列化操作需要我们实现专门的encoder和decoder<br>需要用到dumps方法的default参数和loads方法的object_hook参数<br><a href="https://docs.python.org/3/library/json.html#json.loads" target="_blank" rel="noopener">https://docs.python.org/3/library/json.html#json.loads</a><br><a href="https://docs.python.org/3/library/json.html#json.loads" target="_blank" rel="noopener">https://docs.python.org/3/library/json.html#json.loads</a></p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> json</span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">Student</span><span class="params">(object)</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, name, age, score)</span>:</span></span><br><span class="line"><span class="meta">... </span>        self.name = name</span><br><span class="line"><span class="meta">... </span>        self.age = age</span><br><span class="line"><span class="meta">... </span>        self.score = score</span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">student2dict</span><span class="params">(std)</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">return</span> &#123;</span><br><span class="line"><span class="meta">... </span>        <span class="string">'name'</span>: std.name,</span><br><span class="line"><span class="meta">... </span>        <span class="string">'age'</span>: std.age,</span><br><span class="line"><span class="meta">... </span>        <span class="string">'score'</span>: std.score</span><br><span class="line"><span class="meta">... </span>    &#125;</span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">dict2student</span><span class="params">(d)</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">return</span> Student(d[<span class="string">'name'</span>], d[<span class="string">'age'</span>], d[<span class="string">'score'</span>])</span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = Student(<span class="string">'Bob'</span>, <span class="number">20</span>, <span class="number">88</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(json.dumps(s, default=student2dict))</span><br><span class="line">&#123;<span class="string">"name"</span>: <span class="string">"Bob"</span>, <span class="string">"age"</span>: <span class="number">20</span>, <span class="string">"score"</span>: <span class="number">88</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>json_str = json.dumps(s, default=student2dict)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(json.loads(json_str, object_hook=dict2student))</span><br><span class="line">&lt;__main__.Student object at <span class="number">0x000001B101675198</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>json.loads(json_str, object_hook=dict2student)</span><br><span class="line">&lt;__main__.Student object at <span class="number">0x000001B101675128</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>old = json.loads(json_str, object_hook=dict2student)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>old.name</span><br><span class="line"><span class="string">'Bob'</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="third-party-module：marshmallow"><a href="#third-party-module：marshmallow" class="headerlink" title="third-party module：marshmallow"></a>third-party module：marshmallow</h2><blockquote>
+<p>marshmallow is an ORM/ODM/framework-agnostic library for converting complex datatypes, such as objects, to and from native Python datatypes.</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> datetime <span class="keyword">as</span> dt</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> marshmallow</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> dataclasses <span class="keyword">import</span> dataclass</span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> marshmallow <span class="keyword">import</span> Schema, fields</span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>@dataclass</span><br><span class="line"><span class="meta">... </span><span class="class"><span class="keyword">class</span> <span class="title">Album</span>:</span></span><br><span class="line"><span class="meta">... </span>    title: str</span><br><span class="line"><span class="meta">... </span>    release_date: dt.date</span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">AlbumSchema</span><span class="params">(Schema)</span>:</span></span><br><span class="line"><span class="meta">... </span>    title = fields.Str()</span><br><span class="line"><span class="meta">... </span>    release_date = fields.Date()</span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>album = Album(<span class="string">"Seven Innovation Base"</span>, dt.date(<span class="number">2019</span>, <span class="number">11</span>, <span class="number">23</span>))</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>schema = AlbumSchema()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>data = schema.dump(album)  <span class="comment"># obj -&gt; dict</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>data</span><br><span class="line">&#123;<span class="string">'title'</span>: <span class="string">'Seven Innovation Base'</span>, <span class="string">'release_date'</span>: <span class="string">'2019-11-23'</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>data_str = schema.dumps(album)  <span class="comment"># obj -&gt; str</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>data_str</span><br><span class="line"><span class="string">'&#123;"title": "Seven Innovation Base", "release_date": "2019-11-23"&#125;'</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>使用 marshmallow 可以很方便的对自定义对象进行序列化和反序列化</li>
+<li>对object进行在序列化之前，需要为object创建一个schema,schema中的字段名必须与自定义的object中的成员一致</li>
+<li>dumps method：obj -&gt; str, dump method：obj -&gt; dict</li>
+<li>反序列化的 dict -&gt; obj 需要使用decorator：<code>post_load</code>自己实现</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> marshmallow <span class="keyword">import</span> Schema, fields, post_load</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, name, email)</span>:</span></span><br><span class="line">        self.name = name</span><br><span class="line">        self.email = email</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">"&lt;User(name=&#123;self.name!r&#125;)&gt;"</span>.format(self=self)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UserSchema</span><span class="params">(Schema)</span>:</span></span><br><span class="line">    name = fields.Str()</span><br><span class="line">    email = fields.Email()</span><br><span class="line"></span><br><span class="line"><span class="meta">    @post_load</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">make_user</span><span class="params">(self, data, **kwargs)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> User(**data)</span><br><span class="line"></span><br><span class="line">user_data = &#123;</span><br><span class="line">    <span class="string">"email"</span>: <span class="string">"ken@yahoo.com"</span>,</span><br><span class="line">    <span class="string">"name"</span>: <span class="string">"Ken"</span>,</span><br><span class="line">&#125;</span><br><span class="line">schema = UserSchema()</span><br><span class="line">result = schema.load(user_data)</span><br><span class="line">print(result)  <span class="comment"># 输出结果：&lt;User(name='Ken')&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
+<li><a href="https://www.infoq.cn/article/serialization-and-deserialization" target="_blank" rel="noopener">序列化与反序列化</a></li>
+<li><a href="https://docs.python.org/zh-cn/3/library/pickle.html" target="_blank" rel="noopener">pickle module</a></li>
+<li><a href="https://docs.python.org/zh-cn/3/library/json.html#module-json" target="_blank" rel="noopener">json module</a></li>
+<li><a href="https://docs.python.org/zh-cn/3/library/stdtypes.html#bytes" target="_blank" rel="noopener">bytes</a></li>
+<li><a href="https://blog.igevin.info/posts/restful-api-get-started-to-write/" target="_blank" rel="noopener">RESTful API编写指南</a></li>
+<li><a href="https://blog.igevin.info/posts/flask-rest-serialize-deserialize/" target="_blank" rel="noopener">Flask RESTful API开发之序列化与反序列化</a></li>
+<li><a href="https://marshmallow.readthedocs.io/en/stable/quickstart.html" target="_blank" rel="noopener">marshmallow</a></li>
+</ul>
+
+          
+            <div class='article_footer'>
+              
+                
+  
+    
+    
+
+
+
+  
+
+  
+    
+    
+
+
+
+  
+
+  
+    
+    
+
+<section class="widget copyright  desktop mobile">
+  <div class='content'>
+    
+      <blockquote>
+        
+          
+            <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+          
+        
+          
+            <p>我的博客即将同步至腾讯云+社区，邀请大家一同入驻：<a href="https://cloud.tencent.com/developer/support-plan?invite_code=1utoln9pyvwqu" target="_blank" rel="noopener">https://cloud.tencent.com/developer/support-plan?invite_code=1utoln9pyvwqu</a></p>
+
+          
+        
+      </blockquote>
+    
+  </div>
+</section>
+
+  
+
+  
+    
+    
+
+<section class="widget qrcode  desktop mobile">
+  
+
+  <div class='content article-entry'>
+    
+      
+        <div class='fancybox'><img src='https://cdn.jsdelivr.net/gh/ssmath/images-assets-cdn@master/mmqrcode1583939866281.png'
+        
+          height='64px'
+        ></div>
+      
+    
+      
+        <div class='fancybox'><img src='https://cdn.jsdelivr.net/gh/ssmath/images-assets-cdn@master/qrcode_1583939933465.jpg'
+        
+          height='64px'
+        ></div>
+      
+    
+  </div>
+</section>
+
+  
+
+
+              
+            </div>
+          
+        </div>
+        
+          
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-01-07T05:47:09+00:00">
+  <a class='notlink'>
+    <i class="fas fa-save fa-fw" aria-hidden="true"></i>
+    <p>最近更新时间：2021年1月7日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Python/" rel="nofollow"><i class="fas fa-tags fa-fw" aria-hidden="true"></i><p>Python</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Json/" rel="nofollow"><i class="fas fa-tags fa-fw" aria-hidden="true"></i><p>Json</p></a></div>
+
+
+        
+      
+        
+          
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://connect.qq.com/widget/shareqq/index.html?url=https://yeshan333.github.io/2019/11/25/Serialization-and-Deserialization/&title=Serialization and Deserialization - ShanSan&summary=序列化与反序列化
+Serialization：Data Structure/Object –&gt; Binary StringDeserialization：Binary String –&gt; Data Structure/ObjectGoals：Cross-platform Communication、Persistent Storage and More
+
+Python中对象的序列化与反序列化pickle module
+pickle 仅可用于 Python，pickle所使用的数据流格式仅可用于 Pythonpickle 模块可以将复杂对象转换为字节流，也可以将字节流转换为具有相同内部结构的对象。可被pickling和unpickling的对象：https://docs.python.org/zh-cn/3/library/pickle.html#what-can-be-pickled-and-unpickled
+
+pickle提供了优秀的方法方便我们对对象进行pickling（封存）和unpickling（解封）"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
+          
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://yeshan333.github.io/2019/11/25/Serialization-and-Deserialization/&title=Serialization and Deserialization - ShanSan&summary=序列化与反序列化
+Serialization：Data Structure/Object –&gt; Binary StringDeserialization：Binary String –&gt; Data Structure/ObjectGoals：Cross-platform Communication、Persistent Storage and More
+
+Python中对象的序列化与反序列化pickle module
+pickle 仅可用于 Python，pickle所使用的数据流格式仅可用于 Pythonpickle 模块可以将复杂对象转换为字节流，也可以将字节流转换为具有相同内部结构的对象。可被pickling和unpickling的对象：https://docs.python.org/zh-cn/3/library/pickle.html#what-can-be-pickled-and-unpickled
+
+pickle提供了优秀的方法方便我们对对象进行pickling（封存）和unpickling（解封）"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://service.weibo.com/share/share.php?url=https://yeshan333.github.io/2019/11/25/Serialization-and-Deserialization/&title=Serialization and Deserialization - ShanSan&summary=序列化与反序列化
+Serialization：Data Structure/Object –&gt; Binary StringDeserialization：Binary String –&gt; Data Structure/ObjectGoals：Cross-platform Communication、Persistent Storage and More
+
+Python中对象的序列化与反序列化pickle module
+pickle 仅可用于 Python，pickle所使用的数据流格式仅可用于 Pythonpickle 模块可以将复杂对象转换为字节流，也可以将字节流转换为具有相同内部结构的对象。可被pickling和unpickling的对象：https://docs.python.org/zh-cn/3/library/pickle.html#what-can-be-pickled-and-unpickled
+
+pickle提供了优秀的方法方便我们对对象进行pickling（封存）和unpickling（解封）"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </section>
+
+
+        
+        
+          <div class="prev-next">
+            
+              <a class='prev' href='/2019/11/28/heart/'>
+                <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>❤Thanksgiving❤</p>
+                <p class='content'>
+</p>
+              </a>
+            
+            
+              <a class='next' href='/2019/11/14/map-filter-reduce/'>
+                <p class='title'>map-filter-reduce<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+                <p class='content'>
+听说函数式编程很⑥，咱也不知道，咱也不晓得，还没实际用过。emmm。。。。，先mark下Python中和函数式编程有关的部分功能先，又开始水了，立个flag🚩：慢慢完善
+
+map先看下Pyt...</p>
+              </a>
+            
+          </div>
+        
+      </section>
+    </article>
+  
+
+  
+    <!-- 显示推荐文章和评论 -->
+
+
+
+  <article class="post white-box reveal comments shadow">
+    <section class="article typo">
+      <p ct><i class='fas fa-comments'></i> 评论</p>
+      
+      
+      
+      
+      
+        <section id="comments">
+          <div id="valine_container" class="valine_thread">
+            <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+          </div>
+        </section>
+      
+      
+    </section>
+  </article>
+
+
+  
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+    processEscapes: true,
+    tags: "ams",
+    macros: {
+      href: "{}"
+    }
+  },
+  options: {
+    ignoreHtmlClass: "tex2jax_ignore|dno",
+    skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  }
+};
+</script>
+
+
+
+
+  <script>
+    window.subData = {
+      title: 'Serialization and Deserialization',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class='l_side'>
+  
+  
+
+  
+    
+    
+
+
+  <section class="widget toc-wrapper shadow desktop mobile">
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#序列化与反序列化"><span class="toc-text">序列化与反序列化</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Python中对象的序列化与反序列化"><span class="toc-text">Python中对象的序列化与反序列化</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#pickle-module"><span class="toc-text">pickle module</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#使用dumps和loads方法进行序列化和反序列化"><span class="toc-text">使用dumps和loads方法进行序列化和反序列化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#json-module"><span class="toc-text">json module</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#使用dumps和loads进行序列化和反序列化"><span class="toc-text">使用dumps和loads进行序列化和反序列化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#自定义对象的序列化与反序列化"><span class="toc-text">自定义对象的序列化与反序列化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#third-party-module：marshmallow"><span class="toc-text">third-party module：marshmallow</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#References"><span class="toc-text">References</span></a></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+  
+  <footer class="clearfix">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
+
+  
+    <meting-js
+      theme='#1BCDFC'
+      autoplay='false'
+      volume='0.7'
+      loop='all'
+      order='list'
+      fixed='false'
+      list-max-height='340px'
+      server='netease'
+      type='playlist'
+      id='3175833810'
+      list-folded='true'>
+    </meting-js>
+  
+
+
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+            
+              <a href="mailto:1329441308@qq.com"
+                class="social fas fa-envelope flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://github.com/yeshan333?tab=repositories"
+                class="social fab fa-github flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://music.163.com/#/my/m/music/playlist?id=2617691792"
+                class="social fas fa-music flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://www.zhihu.com/people/si-kong-ji-54/activities"
+                class="social fab fa-zhihu flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://yeshan333.github.io/sitemap.xml"
+                class="social fas fa-rss flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+        </div>
+      
+    
+      
+        <div><p>博客内容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+</div>
+      
+    
+      
+        本站使用
+        <a href="https://volantis.js.org/" target="_blank" class="codename">Volantis</a>
+        作为主题，总访问量为
+          <span id="busuanzi_value_site_pv"><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+          次
+        
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="https://shansan.top" target="_blank" rel="noopener">Copyright © 2018-2021 ShanSan</a></p>
+
+        </div>
+      
+    
+      
+        
+          <div><p><a href="http://www.beian.miit.gov.cn/" target="_blank" rel="noopener">桂ICP备19000444号</a></p>
+</div>
+        
+      
+    
+  </footer>
+
+<script>setLoadingBarProgress(80);</script>
+
+
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
+  
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4/dist/jquery.min.js"></script>
+
+
+  <script>
+    
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/" || "/";
+    if (!ROOT.endsWith('/')) ROOT += '/';
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/instant_page.js" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.6/dist/scrollreveal.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      ScrollReveal().reveal('.l_main .reveal', {
+        distance: '8px',
+        duration: '800',
+        interval: '100',
+        scale: '1'
+      });
+    });
+  </script>
+
+
+  
+<script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+  
+  
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js"></script>
+
+    <script type="text/javascript">
+      $(function(){
+        var imgs=["https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/B18FCBB3-67FD-48CC-B4F3-457BA145F17A.jpeg"];
+        if ('true' == 'true') {
+          function shuffle(arr){
+            /*From countercurrent-time*/
+            var n = arr.length;
+            while(n--) {
+              var index = Math.floor(Math.random() * n);
+              var temp = arr[index];
+              arr[index] = arr[n];
+              arr[n] = temp;
+            }
+          }
+          shuffle(imgs);
+        }
+        if ('.cover') {
+          $('.cover').backstretch(
+            imgs,
+          {
+            duration: "20000",
+            fade: "1500"
+          });
+        } else {
+          $.backstretch(
+            imgs,
+          {
+            duration: "20000",
+            fade: "1500"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js"></script>
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0/dist/Meting.min.js"></script>
+
+  
+
+
+
+
+
+
+
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4/dist/Valine.min.js"></script>
+
+  
+  <script>
+  var GUEST_INFO = ['nick','mail','link'];
+  var meta = 'nick,mail,link'.split(',').filter(function(item){
+    return GUEST_INFO.indexOf(item) > -1
+  });
+  var REQUIRED_FIELDS = ['nick','mail','link'];
+  var requiredFields = 'nick,mail'.split(',').filter(function(item){
+    return REQUIRED_FIELDS.indexOf(item) > -1
+  });
+  var valine = new Valine();
+  function emoji(path, idx, ext) {
+      return path + "/" + path + "-" + idx + "." + ext;
+  }
+  var emojiMaps = {};
+  for (var i = 1; i <= 54; i++) {
+    emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
+  }
+  for (var i = 1; i <= 101; i++) {
+    emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
+  }
+  for (var i = 1; i <= 116; i++) {
+    emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
+  }
+  for (var i = 1; i <= 125; i++) {
+    emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
+  }
+  for (var i = 1; i <= 4; i++) {
+    emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
+  }
+  valine.init({
+    el: '#valine_container',
+    meta: meta,
+    
+    appId: "S687AsCjGJKTPIvUJ8aPNX49-gzGzoHsz",
+    appKey: "bCwg3QuIfGytbeYw58L7ofRq",
+    placeholder: "快来评论吧~",
+    pageSize:'10',
+    avatar:'robohash',
+    lang:'zh-cn',
+    visitor: 'true',
+    highlight: 'true',
+    mathJax: 'false',
+    enableQQ: 'true',
+    requiredFields: requiredFields,
+    emojiCDN: 'https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/emoji/valine/',
+    emojiMaps: emojiMaps
+  })
+  </script>
+
+
+
+
+
+  
+<script src="/js/app.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2.6.4/js/search.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/comment_typing.js"></script>
+
+
+
+
+
+
+<!-- 复制 -->
+
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="fas fa-copy"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-check-circle');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('fa-check-circle');
+          $icon.addClass('fa-copy');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-times-circle');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('fa-times-circle');
+          $icon.addClass('fa-copy');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+
+
+<!-- fancybox -->
+
+  <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  let LAZY_LOAD_IMAGE = "";
+  $(".article-entry").find("div.fancybox").find("img").each(function () {
+      var element = document.createElement("a");
+      $(element).attr("data-fancybox", "gallery");
+      $(element).attr("href", $(this).attr("src"));
+      /* 图片采用懒加载处理时,
+       * 一般图片标签内会有个属性名来存放图片的真实地址，比如 data-original,
+       * 那么此处将原本的属性名src替换为对应属性名data-original,
+       * 修改如下
+       */
+       if (LAZY_LOAD_IMAGE) {
+         $(element).attr("href", $(this).attr("data-original"));
+       }
+      $(this).wrap(element);
+  });
+</script>
+
+
+
+
+
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yeshan333/jsDelivrCDN/piao.js" />
+<script type="text/javascript" src="https://cdn.staticfile.org/jquery/1.7.2/jquery.min.js" />
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yeshan333/jsDelivrCDN/attatkmouse.js" />
+
+
+  <script>setLoadingBarProgress(100);</script>
+</body>
+</html>

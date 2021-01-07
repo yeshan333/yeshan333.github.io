@@ -1,0 +1,1371 @@
+<!DOCTYPE html>
+<html>
+<head hexo-theme='https://volantis.js.org/#2.6.5'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- 页面元数据 -->
+  
+    <title>Python面向对象 - ShanSan</title>
+  
+    <meta name="keywords" content="Python">
+  
+  
+    <meta name="description" content="
+对象：一个自包含的实体，用一组可识别的特性和行为来标识
+类：具有相同的属性和功能的对象的抽象的集合
+实例：一个真实的对象，实例化就是创建对象的过程
+多态：可对不同类型的对象执行相同的操作，而这些操作就像“被施了魔法”一样能够正常运行
+封装：对外部隐藏有关对象工作原理的细节
+继承：可基于通用类创建专用类
+
+多态
+...">
+  
+
+  <!-- feed -->
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13/css/all.min.css">
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+
+  
+
+  
+  <link rel="shortcut icon" type='image/x-icon' href="https://img.vim-cn.com/bb/db444be0b7fda59c69d5c64167f9668b0b66bd.png">
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css">
+  
+
+  <!-- import link -->
+  
+
+  
+  
+    
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+  
+</head>
+
+<body>
+  
+  <div id="loading-bar-wrapper">
+  <div id="loading-bar"></div>
+</div>
+<header class="l_header shadow blur">
+  <div class='container'>
+  <div class='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h'>
+        <li><a class="s-comment fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+          
+          
+            <red>S</red><green>h</green><blue>a</blue><yellow>n</yellow><red>S</red><green>h</green><blue>a</blue><yellow>n</yellow>
+          
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-home fa-fw'></i>首页
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" 
+                  
+                  
+                  >
+                  <i class='fas fa-ellipsis-v fa-fw'></i>与我相关
+                </a>
+                
+                  <ul class="list-v">
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://github.com/yeshan333
+                  
+                  
+                  
+                    id="https:githubcomyeshan333"
+                  >
+                  <i class='fab fa-github-square fa-fw'></i>Github
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://slide.shan333.cn
+                  
+                  
+                  
+                    id="https:slideshan333cn"
+                  >
+                  <i class='fab fa-slideshare fa-fw'></i>slides
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://shansan.top/knowledge-base/
+                  
+                  
+                  
+                    id="https:shansantopknowledge-base"
+                  >
+                  <i class='far fa-sticky-note fa-fw'></i>notes
+                </a>
+                
+              </li>
+            
+          
+                    
+                  </ul>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/PyChina/
+                  
+                  
+                  
+                    id="PyChina"
+                  >
+                  <i class='fab fa-python fa-fw'></i>中国蟒
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/cloud-native/
+                  
+                  
+                  
+                    id="cloud-native"
+                  >
+                  <i class='fas fa-cloud fa-fw'></i>云原生
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="寻你所想" />
+        </form>
+      </div>
+
+			<ul class='switcher nav-list-h'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-home fa-fw'></i>首页
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" 
+                  
+                  
+                  >
+                  <i class='fas fa-ellipsis-v fa-fw'></i>与我相关
+                </a>
+                
+                  <ul class="list-v">
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://github.com/yeshan333
+                  
+                  
+                  
+                    id="https:githubcomyeshan333"
+                  >
+                  <i class='fab fa-github-square fa-fw'></i>Github
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://slide.shan333.cn
+                  
+                  
+                  
+                    id="https:slideshan333cn"
+                  >
+                  <i class='fab fa-slideshare fa-fw'></i>slides
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://shansan.top/knowledge-base/
+                  
+                  
+                  
+                    id="https:shansantopknowledge-base"
+                  >
+                  <i class='far fa-sticky-note fa-fw'></i>notes
+                </a>
+                
+              </li>
+            
+          
+                    
+                  </ul>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/PyChina/
+                  
+                  
+                  
+                    id="PyChina"
+                  >
+                  <i class='fab fa-python fa-fw'></i>中国蟒
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/cloud-native/
+                  
+                  
+                  
+                    id="cloud-native"
+                  >
+                  <i class='fas fa-cloud fa-fw'></i>云原生
+                </a>
+                
+              </li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</header>
+
+<script>setLoadingBarProgress(40);</script>
+
+
+
+  <div class="l_body nocover">
+    <div class='body-wrapper'>
+      
+
+<div class='l_main'>
+  
+
+  
+    <article id="post" class="post white-box reveal shadow article-type-post" itemscope itemprop="blogPost">
+      
+
+
+  <section class='meta'>
+    
+      
+      
+      <div class="meta" id="header-meta">
+        
+          
+  <h1 class="title">
+    <a href="/2019/05/24/Python%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">
+      Python面向对象
+    </a>
+  </h1>
+
+
+        
+        <div class='new-meta-box'>
+          
+            
+          
+            
+              
+<div class='new-meta-item author'>
+  <a href="https://github.com/yeshan333" target="_blank" rel="nofollow noopener">
+    <img src="https://img.vim-cn.com/a3/caa9ef084c4f562b82b1cca6e978c0dca58c5f.png">
+    <p>yeshan333</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+  
+  <div class='new-meta-item category'>
+    <a href='/categories/Python/' rel="nofollow">
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <p>Python</p>
+    </a>
+  </div>
+
+
+            
+          
+            
+              <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>文章首发于：2019年5月24日</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+
+            
+          
+        </div>
+        
+          <hr>
+        
+      </div>
+    
+  </section>
+
+
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          
+          <ul>
+<li>对象：一个自包含的实体，用一组可识别的特性和行为来标识</li>
+<li>类：具有相同的属性和功能的对象的抽象的集合</li>
+<li>实例：一个真实的对象，实例化就是创建对象的过程</li>
+<li>多态：可对不同类型的对象执行相同的操作，而这些操作就像“被施了魔法”一样能够正常运行</li>
+<li>封装：对外部隐藏有关对象工作原理的细节</li>
+<li>继承：可基于通用类创建专用类</li>
+</ul>
+<h1 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h1><ul>
+<li>多态可以让我们在不知道变量指向哪种对象时，也能够对其执行操作，且操作的行为将随对象所属的类型（类）而异。每当不知道对象是什么样就能对其执行操作，都是多态在起作用</li>
+<li>多态以 继承 和 重写 父类方法 为前提</li>
+<li>多态是调用方法的技巧，不会影响到类的内部设计</li>
+<li>多态性即向不同的对象发送同一个消息，不同的对象在接收时会产生不同的行为（即方法）</li>
+<li>听说Python天然就多态</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,name,sex)</span>:</span></span><br><span class="line">        self.name = name</span><br><span class="line">        self.sex = sex</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">print_title</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> self.sex == <span class="string">"male"</span>:</span><br><span class="line">            print(<span class="string">"man"</span>)</span><br><span class="line">        <span class="keyword">elif</span> self.sex == <span class="string">"female"</span>:</span><br><span class="line">            print(<span class="string">"woman"</span>)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Child</span><span class="params">(Person)</span>:</span>                <span class="comment"># Child 继承 Person</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">print_title</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> self.sex == <span class="string">"male"</span>:</span><br><span class="line">            print(<span class="string">"boy"</span>)</span><br><span class="line">        <span class="keyword">elif</span> self.sex == <span class="string">"female"</span>:</span><br><span class="line">            print(<span class="string">"girl"</span>)</span><br><span class="line"></span><br><span class="line">May = Child(<span class="string">"May"</span>,<span class="string">"female"</span>)</span><br><span class="line">Peter = Person(<span class="string">"Peter"</span>,<span class="string">"male"</span>)</span><br><span class="line"></span><br><span class="line">print(May.name,May.sex,Peter.name,Peter.sex)</span><br><span class="line"><span class="comment"># 同一消息</span></span><br><span class="line">May.print_title()</span><br><span class="line">Peter.print_title()</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<h1 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h1><ul>
+<li><p>封装指的是向外部隐藏不必要的细节。与多态有点像，他们都是抽象的原则。<strong>多态让你无需知道对象所属的类（对象的类型）就能调用其方法。封装让你无需知道对象的构造就能够使用它。</strong></p>
+</li>
+<li><p>实现封装可以对类内的属性和方法的访问加以限制。就像C++类使用private、protected一样对类的成员访问进行限制一样</p>
+</li>
+<li><p>默认情况下，Python中的属性和方法都是公开的，可以在对象外部访问</p>
+</li>
+</ul>
+<h2 id="私有变量"><a href="#私有变量" class="headerlink" title="私有变量"></a>私有变量</h2><ul>
+<li>Python并没有真正的私有化支持，但可用下划线得到伪私有。</li>
+<li>在Python定义私有变量只需在变量名或函数名前加上两个下划线<code>__</code>,例如<code>__name</code>。那种仅限在一个对象内部访问的“私有”变量在Python中并不存在</li>
+<li>使用双下划线将方法或属性变为私有时，在内部，Python将以双下划线开头的名字都进行转换，即在开头加上一个下划线和类名。但这样的私有变量或方法还是可以访问的，访问形式如：实例名._类名<strong>变量名、实例名._类名</strong>方法名()</li>
+<li>以单下划线开头的时保护成员变量，只有本类和子类成员实例能访问这些变量</li>
+</ul>
+<p><a href="https://imgchr.com/i/VPgYDA" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/05/23/VPgYDA.png" alt="VPgYDA.png"></a></p>
+<h2 id="property装饰器、slots魔法"><a href="#property装饰器、slots魔法" class="headerlink" title="property装饰器、slots魔法"></a>property装饰器、<strong>slots</strong>魔法</h2><ul>
+<li>我们可以使用property装饰器对属性进行封装、通过getter和setter方法进行属性的访问和修改</li>
+<li>Python是一门动态语言，可以在程序运行时给对象绑定属性和方法，也可以对已经绑定的属性和方法进行解绑定，我们可以使用<strong>slots</strong>魔法限定对象可以绑定的属性</li>
+</ul>
+<p><img src="https://s2.ax1x.com/2019/05/31/V1PM1x.png" alt="V1PM1x.png"></p>
+<p><img src="https://s2.ax1x.com/2019/05/31/V1PK91.png" alt="V1PK91.png"></p>
+<h1 id="继承-amp-amp-派生"><a href="#继承-amp-amp-派生" class="headerlink" title="继承&amp;&amp;派生"></a>继承&amp;&amp;派生</h1><ul>
+<li><p>一个新类从已有类那里获得其已有特性，这种现象称为继承。从一个已有类（父类，Python叫超类）产生一个新的子类，称为类的派生。要指顶定超类，可在class语句中的类名后加上超类名，并将其用原括括起来</p>
+</li>
+<li><p>一个类可以继承多个类（多重继承）。但是，如果多个超类以不同的方式实现了同一个方法（即有多个同名的方法），必须在class语句中小心排列这些类，因为位于前面的类的方法将覆盖位于后面的类的方法</p>
+</li>
+<li><p>对子类的实例调用方法（或访问其属性）时，如果找不到该方法或者属性，将在父类中查找</p>
+</li>
+<li><p>在子类中可以重写超类的方法（包括构造函数），重写构造函数时，要确保在子类的构造函数中调用超类的构造函数，否则可能无法正确的初始化对象</p>
+</li>
+<li><p>Python中所有的方法实际上是virtual的</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,name)</span>:</span></span><br><span class="line">        print(<span class="string">"我叫&#123;&#125;"</span>.format(name))</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span><span class="params">(Person)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,name)</span>:</span></span><br><span class="line">        <span class="comment"># 使用super函数调用父类构造函数</span></span><br><span class="line">        super().__init__(name) <span class="comment"># 也可以写成这样：Person.__init__(self,name)</span></span><br><span class="line">        print(<span class="string">"我是一个学生！"</span>)</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s2.ax1x.com/2019/05/23/VPB0O0.png" alt="VPB0O0.png"></p>
+<h1 id="抽象基类"><a href="#抽象基类" class="headerlink" title="抽象基类"></a>抽象基类</h1><ul>
+<li>抽象基类是不能（至少是不应该）实例化的类，其职责是定义子类应该实现的一组抽象方法。Python可通过引入ABC模块实现抽象基类，使用<code>@abstractmethod</code>装饰器将方法标记为抽象的。例如：</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Basic</span>&#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">talk</span><span class="params">()</span> <span class="keyword">const</span> </span>= <span class="number">0</span>;<span class="comment">//纯虚函数</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> abc <span class="keyword">import</span> ABC, abstractmethod</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Basic</span><span class="params">(ABC)</span>:</span></span><br><span class="line"><span class="meta">    @abstractmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">talk</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>抽象类（即包含抽象方法的类）最重要的特征是不能实例化。如果派生出的类没有重写talk方法，那么派生出的类也是抽象的，不能实例化。</li>
+</ul>
+<h1 id="鸭子类型"><a href="#鸭子类型" class="headerlink" title="鸭子类型"></a><a href="https://baike.baidu.com/item/%E9%B8%AD%E5%AD%90%E7%B1%BB%E5%9E%8B/10845665?fr=aladdin" target="_blank" rel="noopener">鸭子类型</a></h1><blockquote>
+<p>“鸭子类型”的语言是这么推断的：一只鸟走起来像鸭子、游起泳来像鸭子、叫起来也像鸭子，那它就可以被当做鸭子。也就是说，它不关注对象的类型，而是关注对象具有的行为(方法)。<br>例如，在不使用鸭子类型的语言中，我们可以编写一个函数，它接受一个类型为鸭的对象，并调用它的走和叫方法。在使用鸭子类型的语言中，这样的一个函数可以接受一个任意类型的对象，并调用它的走和叫方法。如果这些需要被调用的方法不存在，那么将引发一个运行时错误。任何拥有这样的正确的走和叫方法的对象都可被函数接受的这种行为引出了以上表述，这种决定类型的方式因此得名</p>
+</blockquote>
+<p><strong>鸭子类型的关注点在对象的行为，而不在对象的类型</strong></p>
+<p><img src="https://s2.ax1x.com/2019/05/24/VF9D3V.png" alt="VF9D3V.png"></p>
+<p>参考：<a href="https://zhuanlan.zhihu.com/p/59299729" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/59299729</a></p>
+<h1 id="类方法、静态方法"><a href="#类方法、静态方法" class="headerlink" title="类方法、静态方法"></a>类方法、静态方法</h1><ul>
+<li>类方法：使用@classmethod装饰器定义。<code>类方法将类本身作为对象进行操作</code>,类方法的第一个参数必须是当前类对象（一般命名为<code>cls</code>,用于传递类的属性和方法），实例对象和类对象都可以调用类方法。</li>
+<li>静态方法：使用@staticmethod装饰器定义。没有self和cls参数。在方法中不能使用类或实例任何属性和方法。实例和对象都可以调用静态方法。</li>
+</ul>
+<p><img src="https://s2.ax1x.com/2019/05/31/V1PQc6.png" alt="V1PQc6.png"></p>
+<p><img src="https://s2.ax1x.com/2019/05/31/V1PmN9.png" alt="V1PmN9.png"></p>
+<p>参考：</p>
+<ul>
+<li><a href="https://github.com/jackfrued/Python-100-Days/blob/master/Day01-15/Day09/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%BF%9B%E9%98%B6.md" target="_blank" rel="noopener">https://github.com/jackfrued/Python-100-Days/blob/master/Day01-15/Day09/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%BF%9B%E9%98%B6.md</a></li>
+</ul>
+
+          
+            <div class='article_footer'>
+              
+                
+  
+    
+    
+
+
+
+  
+
+  
+    
+    
+
+
+
+  
+
+  
+    
+    
+
+<section class="widget copyright  desktop mobile">
+  <div class='content'>
+    
+      <blockquote>
+        
+          
+            <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+          
+        
+          
+            <p>我的博客即将同步至腾讯云+社区，邀请大家一同入驻：<a href="https://cloud.tencent.com/developer/support-plan?invite_code=1utoln9pyvwqu" target="_blank" rel="noopener">https://cloud.tencent.com/developer/support-plan?invite_code=1utoln9pyvwqu</a></p>
+
+          
+        
+      </blockquote>
+    
+  </div>
+</section>
+
+  
+
+  
+    
+    
+
+<section class="widget qrcode  desktop mobile">
+  
+
+  <div class='content article-entry'>
+    
+      
+        <div class='fancybox'><img src='https://cdn.jsdelivr.net/gh/ssmath/images-assets-cdn@master/mmqrcode1583939866281.png'
+        
+          height='64px'
+        ></div>
+      
+    
+      
+        <div class='fancybox'><img src='https://cdn.jsdelivr.net/gh/ssmath/images-assets-cdn@master/qrcode_1583939933465.jpg'
+        
+          height='64px'
+        ></div>
+      
+    
+  </div>
+</section>
+
+  
+
+
+              
+            </div>
+          
+        </div>
+        
+          
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-05-31T12:54:40+00:00">
+  <a class='notlink'>
+    <i class="fas fa-save fa-fw" aria-hidden="true"></i>
+    <p>最近更新时间：2019年5月31日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Python/" rel="nofollow"><i class="fas fa-tags fa-fw" aria-hidden="true"></i><p>Python</p></a></div>
+
+
+        
+      
+        
+          
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://connect.qq.com/widget/shareqq/index.html?url=https://yeshan333.github.io/2019/05/24/Python%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/&title=Python面向对象 - ShanSan&summary=
+对象：一个自包含的实体，用一组可识别的特性和行为来标识
+类：具有相同的属性和功能的对象的抽象的集合
+实例：一个真实的对象，实例化就是创建对象的过程
+多态：可对不同类型的对象执行相同的操作，而这些操作就像“被施了魔法”一样能够正常运行
+封装：对外部隐藏有关对象工作原理的细节
+继承：可基于通用类创建专用类
+
+多态
+多态可以让我们在不知道变量指向哪种对象时，也能够对其执行操作，且操作的行为将随对象所属的类型（类）而异。每当不知道对象是什么样就能对其执行操作，都是多态在起作用
+多态以 继承 和 重写 父类方法 为前提
+多态是调用方法的技巧，不会影响到类的内部设计
+多态性即向不同的对象发送同一个消息，不同的对象在接收时会产生不同的行为（即方法）
+听说Python天然就多态
+
+12345678910111213141516171819202122232425class Person(object):    def __init__(self,name,sex):        self.name = name        self.sex = sex    def print_title(self):        if self.sex == "male":            print("man")        elif self.sex == "female":            print("woman")class Child(Person):                # Child 继承 Person    def print_title(self):        if self.sex == "male":            print("boy")        elif self.sex == "female":            print("girl")May = Child("May","female")Peter = Person("Peter","male")print(May.name,May.sex,Peter.name,Peter.sex)# 同一消息May.print_title()Peter.print_title()"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
+          
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://yeshan333.github.io/2019/05/24/Python%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/&title=Python面向对象 - ShanSan&summary=
+对象：一个自包含的实体，用一组可识别的特性和行为来标识
+类：具有相同的属性和功能的对象的抽象的集合
+实例：一个真实的对象，实例化就是创建对象的过程
+多态：可对不同类型的对象执行相同的操作，而这些操作就像“被施了魔法”一样能够正常运行
+封装：对外部隐藏有关对象工作原理的细节
+继承：可基于通用类创建专用类
+
+多态
+多态可以让我们在不知道变量指向哪种对象时，也能够对其执行操作，且操作的行为将随对象所属的类型（类）而异。每当不知道对象是什么样就能对其执行操作，都是多态在起作用
+多态以 继承 和 重写 父类方法 为前提
+多态是调用方法的技巧，不会影响到类的内部设计
+多态性即向不同的对象发送同一个消息，不同的对象在接收时会产生不同的行为（即方法）
+听说Python天然就多态
+
+12345678910111213141516171819202122232425class Person(object):    def __init__(self,name,sex):        self.name = name        self.sex = sex    def print_title(self):        if self.sex == "male":            print("man")        elif self.sex == "female":            print("woman")class Child(Person):                # Child 继承 Person    def print_title(self):        if self.sex == "male":            print("boy")        elif self.sex == "female":            print("girl")May = Child("May","female")Peter = Person("Peter","male")print(May.name,May.sex,Peter.name,Peter.sex)# 同一消息May.print_title()Peter.print_title()"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://service.weibo.com/share/share.php?url=https://yeshan333.github.io/2019/05/24/Python%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/&title=Python面向对象 - ShanSan&summary=
+对象：一个自包含的实体，用一组可识别的特性和行为来标识
+类：具有相同的属性和功能的对象的抽象的集合
+实例：一个真实的对象，实例化就是创建对象的过程
+多态：可对不同类型的对象执行相同的操作，而这些操作就像“被施了魔法”一样能够正常运行
+封装：对外部隐藏有关对象工作原理的细节
+继承：可基于通用类创建专用类
+
+多态
+多态可以让我们在不知道变量指向哪种对象时，也能够对其执行操作，且操作的行为将随对象所属的类型（类）而异。每当不知道对象是什么样就能对其执行操作，都是多态在起作用
+多态以 继承 和 重写 父类方法 为前提
+多态是调用方法的技巧，不会影响到类的内部设计
+多态性即向不同的对象发送同一个消息，不同的对象在接收时会产生不同的行为（即方法）
+听说Python天然就多态
+
+12345678910111213141516171819202122232425class Person(object):    def __init__(self,name,sex):        self.name = name        self.sex = sex    def print_title(self):        if self.sex == "male":            print("man")        elif self.sex == "female":            print("woman")class Child(Person):                # Child 继承 Person    def print_title(self):        if self.sex == "male":            print("boy")        elif self.sex == "female":            print("girl")May = Child("May","female")Peter = Person("Peter","male")print(May.name,May.sex,Peter.name,Peter.sex)# 同一消息May.print_title()Peter.print_title()"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </section>
+
+
+        
+        
+          <div class="prev-next">
+            
+              <a class='prev' href='/2019/06/08/%E6%90%9C%E7%B4%A2%E6%8A%80%E5%B7%A7/'>
+                <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>搜索技巧</p>
+                <p class='content'>
+
+搜索也是门学问啊，GFW之下，世道艰难。 (ノ~、)
+
+
+
+百度高级搜索技巧双引号精确匹配
+格式：”搜索词”
+
+在查询词两边加上双引号表示查询词不能被拆分。
+
+减号（-）不含特定查询
+格式：...</p>
+              </a>
+            
+            
+              <a class='next' href='/2019/05/22/Jupyter-Notebooks%E7%9A%84%E7%AE%80%E5%8D%95%E4%BA%86%E8%A7%A3/'>
+                <p class='title'>Jupyter Notebooks的简单了解<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+                <p class='content'>
+玩Python这么久了，连Jupyter都不会，有点捞，今天补一补这方面的操作。。。。
+
+Jupyter Notebooks&ensp;&ensp;Jupyter Notebooks 是一款开...</p>
+              </a>
+            
+          </div>
+        
+      </section>
+    </article>
+  
+
+  
+    <!-- 显示推荐文章和评论 -->
+
+
+
+  <article class="post white-box reveal comments shadow">
+    <section class="article typo">
+      <p ct><i class='fas fa-comments'></i> 评论</p>
+      
+      
+      
+      
+      
+        <section id="comments">
+          <div id="valine_container" class="valine_thread">
+            <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+          </div>
+        </section>
+      
+      
+    </section>
+  </article>
+
+
+  
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+
+  <script>
+    window.subData = {
+      title: 'Python面向对象',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class='l_side'>
+  
+  
+
+  
+    
+    
+
+
+  <section class="widget toc-wrapper shadow desktop mobile">
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#多态"><span class="toc-text">多态</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#封装"><span class="toc-text">封装</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#私有变量"><span class="toc-text">私有变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#property装饰器、slots魔法"><span class="toc-text">property装饰器、slots魔法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#继承-amp-amp-派生"><span class="toc-text">继承&amp;&amp;派生</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#抽象基类"><span class="toc-text">抽象基类</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#鸭子类型"><span class="toc-text">鸭子类型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#类方法、静态方法"><span class="toc-text">类方法、静态方法</span></a></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+  
+  <footer class="clearfix">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
+
+  
+    <meting-js
+      theme='#1BCDFC'
+      autoplay='false'
+      volume='0.7'
+      loop='all'
+      order='list'
+      fixed='false'
+      list-max-height='340px'
+      server='netease'
+      type='playlist'
+      id='3175833810'
+      list-folded='true'>
+    </meting-js>
+  
+
+
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+            
+              <a href="mailto:1329441308@qq.com"
+                class="social fas fa-envelope flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://github.com/yeshan333?tab=repositories"
+                class="social fab fa-github flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://music.163.com/#/my/m/music/playlist?id=2617691792"
+                class="social fas fa-music flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://www.zhihu.com/people/si-kong-ji-54/activities"
+                class="social fab fa-zhihu flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://yeshan333.github.io/sitemap.xml"
+                class="social fas fa-rss flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+        </div>
+      
+    
+      
+        <div><p>博客内容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+</div>
+      
+    
+      
+        本站使用
+        <a href="https://volantis.js.org/" target="_blank" class="codename">Volantis</a>
+        作为主题，总访问量为
+          <span id="busuanzi_value_site_pv"><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+          次
+        
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="https://shansan.top" target="_blank" rel="noopener">Copyright © 2018-2021 ShanSan</a></p>
+
+        </div>
+      
+    
+      
+        
+          <div><p><a href="http://www.beian.miit.gov.cn/" target="_blank" rel="noopener">桂ICP备19000444号</a></p>
+</div>
+        
+      
+    
+  </footer>
+
+<script>setLoadingBarProgress(80);</script>
+
+
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
+  
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4/dist/jquery.min.js"></script>
+
+
+  <script>
+    
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/" || "/";
+    if (!ROOT.endsWith('/')) ROOT += '/';
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/instant_page.js" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.6/dist/scrollreveal.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      ScrollReveal().reveal('.l_main .reveal', {
+        distance: '8px',
+        duration: '800',
+        interval: '100',
+        scale: '1'
+      });
+    });
+  </script>
+
+
+  
+<script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+  
+  
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js"></script>
+
+    <script type="text/javascript">
+      $(function(){
+        var imgs=["https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/B18FCBB3-67FD-48CC-B4F3-457BA145F17A.jpeg"];
+        if ('true' == 'true') {
+          function shuffle(arr){
+            /*From countercurrent-time*/
+            var n = arr.length;
+            while(n--) {
+              var index = Math.floor(Math.random() * n);
+              var temp = arr[index];
+              arr[index] = arr[n];
+              arr[n] = temp;
+            }
+          }
+          shuffle(imgs);
+        }
+        if ('.cover') {
+          $('.cover').backstretch(
+            imgs,
+          {
+            duration: "20000",
+            fade: "1500"
+          });
+        } else {
+          $.backstretch(
+            imgs,
+          {
+            duration: "20000",
+            fade: "1500"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js"></script>
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0/dist/Meting.min.js"></script>
+
+  
+
+
+
+
+
+
+
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4/dist/Valine.min.js"></script>
+
+  
+  <script>
+  var GUEST_INFO = ['nick','mail','link'];
+  var meta = 'nick,mail,link'.split(',').filter(function(item){
+    return GUEST_INFO.indexOf(item) > -1
+  });
+  var REQUIRED_FIELDS = ['nick','mail','link'];
+  var requiredFields = 'nick,mail'.split(',').filter(function(item){
+    return REQUIRED_FIELDS.indexOf(item) > -1
+  });
+  var valine = new Valine();
+  function emoji(path, idx, ext) {
+      return path + "/" + path + "-" + idx + "." + ext;
+  }
+  var emojiMaps = {};
+  for (var i = 1; i <= 54; i++) {
+    emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
+  }
+  for (var i = 1; i <= 101; i++) {
+    emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
+  }
+  for (var i = 1; i <= 116; i++) {
+    emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
+  }
+  for (var i = 1; i <= 125; i++) {
+    emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
+  }
+  for (var i = 1; i <= 4; i++) {
+    emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
+  }
+  valine.init({
+    el: '#valine_container',
+    meta: meta,
+    
+    appId: "S687AsCjGJKTPIvUJ8aPNX49-gzGzoHsz",
+    appKey: "bCwg3QuIfGytbeYw58L7ofRq",
+    placeholder: "快来评论吧~",
+    pageSize:'10',
+    avatar:'robohash',
+    lang:'zh-cn',
+    visitor: 'true',
+    highlight: 'true',
+    mathJax: 'false',
+    enableQQ: 'true',
+    requiredFields: requiredFields,
+    emojiCDN: 'https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/emoji/valine/',
+    emojiMaps: emojiMaps
+  })
+  </script>
+
+
+
+
+
+  
+<script src="/js/app.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2.6.4/js/search.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/comment_typing.js"></script>
+
+
+
+
+
+
+<!-- 复制 -->
+
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="fas fa-copy"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-check-circle');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('fa-check-circle');
+          $icon.addClass('fa-copy');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-times-circle');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('fa-times-circle');
+          $icon.addClass('fa-copy');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+
+
+<!-- fancybox -->
+
+  <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  let LAZY_LOAD_IMAGE = "";
+  $(".article-entry").find("div.fancybox").find("img").each(function () {
+      var element = document.createElement("a");
+      $(element).attr("data-fancybox", "gallery");
+      $(element).attr("href", $(this).attr("src"));
+      /* 图片采用懒加载处理时,
+       * 一般图片标签内会有个属性名来存放图片的真实地址，比如 data-original,
+       * 那么此处将原本的属性名src替换为对应属性名data-original,
+       * 修改如下
+       */
+       if (LAZY_LOAD_IMAGE) {
+         $(element).attr("href", $(this).attr("data-original"));
+       }
+      $(this).wrap(element);
+  });
+</script>
+
+
+
+
+
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yeshan333/jsDelivrCDN/piao.js" />
+<script type="text/javascript" src="https://cdn.staticfile.org/jquery/1.7.2/jquery.min.js" />
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yeshan333/jsDelivrCDN/attatkmouse.js" />
+
+
+  <script>setLoadingBarProgress(100);</script>
+</body>
+</html>

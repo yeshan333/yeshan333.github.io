@@ -1,0 +1,1391 @@
+<!DOCTYPE html>
+<html>
+<head hexo-theme='https://volantis.js.org/#2.6.5'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- 页面元数据 -->
+  
+    <title>了解一波经典的 I/O 模型 - ShanSan</title>
+  
+    <meta name="keywords" content="I/O模型">
+  
+  
+    <meta name="description" content="最近读了波网络 I/O 相关的文章，做下总结、摘录。（未完）
+经典 I/O 模型
+
+            阻塞式 I/O（blocking I/O）
+            
+
+            非阻塞式 I/O（non-blocking I/O）
+            
+
+            I/...">
+  
+
+  <!-- feed -->
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13/css/all.min.css">
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+
+  
+
+  
+  <link rel="shortcut icon" type='image/x-icon' href="https://img.vim-cn.com/bb/db444be0b7fda59c69d5c64167f9668b0b66bd.png">
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css">
+  
+
+  <!-- import link -->
+  
+
+  
+  
+    
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+  
+</head>
+
+<body>
+  
+  <div id="loading-bar-wrapper">
+  <div id="loading-bar"></div>
+</div>
+<header class="l_header shadow blur">
+  <div class='container'>
+  <div class='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h'>
+        <li><a class="s-comment fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+          
+          
+            <red>S</red><green>h</green><blue>a</blue><yellow>n</yellow><red>S</red><green>h</green><blue>a</blue><yellow>n</yellow>
+          
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-home fa-fw'></i>首页
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" 
+                  
+                  
+                  >
+                  <i class='fas fa-ellipsis-v fa-fw'></i>与我相关
+                </a>
+                
+                  <ul class="list-v">
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://github.com/yeshan333
+                  
+                  
+                  
+                    id="https:githubcomyeshan333"
+                  >
+                  <i class='fab fa-github-square fa-fw'></i>Github
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://slide.shan333.cn
+                  
+                  
+                  
+                    id="https:slideshan333cn"
+                  >
+                  <i class='fab fa-slideshare fa-fw'></i>slides
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://shansan.top/knowledge-base/
+                  
+                  
+                  
+                    id="https:shansantopknowledge-base"
+                  >
+                  <i class='far fa-sticky-note fa-fw'></i>notes
+                </a>
+                
+              </li>
+            
+          
+                    
+                  </ul>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/PyChina/
+                  
+                  
+                  
+                    id="PyChina"
+                  >
+                  <i class='fab fa-python fa-fw'></i>中国蟒
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/cloud-native/
+                  
+                  
+                  
+                    id="cloud-native"
+                  >
+                  <i class='fas fa-cloud fa-fw'></i>云原生
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="寻你所想" />
+        </form>
+      </div>
+
+			<ul class='switcher nav-list-h'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-home fa-fw'></i>首页
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" 
+                  
+                  
+                  >
+                  <i class='fas fa-ellipsis-v fa-fw'></i>与我相关
+                </a>
+                
+                  <ul class="list-v">
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://github.com/yeshan333
+                  
+                  
+                  
+                    id="https:githubcomyeshan333"
+                  >
+                  <i class='fab fa-github-square fa-fw'></i>Github
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://slide.shan333.cn
+                  
+                  
+                  
+                    id="https:slideshan333cn"
+                  >
+                  <i class='fab fa-slideshare fa-fw'></i>slides
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://shansan.top/knowledge-base/
+                  
+                  
+                  
+                    id="https:shansantopknowledge-base"
+                  >
+                  <i class='far fa-sticky-note fa-fw'></i>notes
+                </a>
+                
+              </li>
+            
+          
+                    
+                  </ul>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/PyChina/
+                  
+                  
+                  
+                    id="PyChina"
+                  >
+                  <i class='fab fa-python fa-fw'></i>中国蟒
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/cloud-native/
+                  
+                  
+                  
+                    id="cloud-native"
+                  >
+                  <i class='fas fa-cloud fa-fw'></i>云原生
+                </a>
+                
+              </li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</header>
+
+<script>setLoadingBarProgress(40);</script>
+
+
+
+  <div class="l_body nocover">
+    <div class='body-wrapper'>
+      
+
+<div class='l_main'>
+  
+
+  
+    <article id="post" class="post white-box reveal shadow article-type-post" itemscope itemprop="blogPost">
+      
+
+
+  <section class='meta'>
+    
+      
+      
+        <a title='了解一波经典的 I/O 模型' href='/2020/05/19/%E4%BA%86%E8%A7%A3%E4%B8%80%E6%B3%A2%E7%BB%8F%E5%85%B8%E7%9A%84-IO-%E6%A8%A1%E5%9E%8B/'><img class='thumbnail' src='https://mypic-1258313760.cos.ap-guangzhou.myqcloud.com/img/20200519233557.png'></a>
+      
+      <div class="meta" id="header-meta">
+        
+          
+  <h1 class="title">
+    <a href="/2020/05/19/%E4%BA%86%E8%A7%A3%E4%B8%80%E6%B3%A2%E7%BB%8F%E5%85%B8%E7%9A%84-IO-%E6%A8%A1%E5%9E%8B/">
+      了解一波经典的 I/O 模型
+    </a>
+  </h1>
+
+
+        
+        <div class='new-meta-box'>
+          
+            
+          
+            
+              
+<div class='new-meta-item author'>
+  <a href="https://github.com/yeshan333" target="_blank" rel="nofollow noopener">
+    <img src="https://img.vim-cn.com/a3/caa9ef084c4f562b82b1cca6e978c0dca58c5f.png">
+    <p>yeshan333</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+  
+  <div class='new-meta-item category'>
+    <a href='/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/' rel="nofollow">
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <p>操作系统/计算机网络</p>
+    </a>
+  </div>
+
+
+            
+          
+            
+              <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>文章首发于：2020年5月19日</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+
+            
+          
+        </div>
+        
+          <hr>
+        
+      </div>
+    
+  </section>
+
+
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          
+          <p>最近读了波网络 I/O 相关的文章，做下总结、摘录。（未完）</p>
+<h2 id="经典-I-O-模型"><a href="#经典-I-O-模型" class="headerlink" title="经典 I/O 模型"></a>经典 I/O 模型</h2><ul>
+<li><div class='checkbox red checked'><input type="checkbox" checked="checked"/>
+            <p>阻塞式 I/O（blocking I/O）</p>
+            </div></li>
+<li><div class='checkbox red checked'><input type="checkbox" checked="checked"/>
+            <p>非阻塞式 I/O（non-blocking I/O）</p>
+            </div></li>
+<li><div class='checkbox red'><input type="checkbox" />
+            <p>I/O 多路复用（I/O multiplexing）</p>
+            </div></li>
+<li><div class='checkbox cyan'><input type="checkbox" />
+            <p>信号驱动式 I/O（signal driven I/O）</p>
+            </div></li>
+<li><div class='checkbox cyan'><input type="checkbox" />
+            <p>异步 I/O（asynchronous I/O）</p>
+            </div>
+
+</li>
+</ul>
+<h3 id="阻塞式-I-O-模型"><a href="#阻塞式-I-O-模型" class="headerlink" title="阻塞式 I/O 模型"></a>阻塞式 I/O 模型</h3><p>对于阻塞式 I/O，以套接字（Socket）的输入操作为例。</p>
+<ul>
+<li>1、首先应用进程发起 I/O 系统调用后，应用进程阻塞，转到内核空间处理。</li>
+<li>2、之后，内核开始等待数据，等待数据到达之后，将内核中的数据拷贝到用户的缓冲区中，整个 I/O 处理完毕后返回进程。最后应用进程解除阻塞状态，处理数据。</li>
+</ul>
+<a id="more"></a>
+
+<p><img src="https://mypic-1258313760.cos.ap-guangzhou.myqcloud.com/img/20200519164453.png" alt="阻塞式示例"></p>
+<p>上图以 UDP 的 Socket 调用为例，进程调用 recvfrom 后，系统调用直到数据报到达且被复制到用户空间中或发生错误才返回。进程从调用开始到它返回的整段时间内是被阻塞的。recvfrom 成功返回后，应用进程开始处理数据报。</p>
+<blockquote>
+<p>默认情形，Linux/Unix 的所有 Socket 是阻塞的。</p>
+</blockquote>
+<p>附：基于 UDP 协议的 Socket 程序函数调用过程图</p>
+<p><img src="https://mypic-1258313760.cos.ap-guangzhou.myqcloud.com/img/20200519164642.png" alt="基于 UDP 协议的 Socket 程序函数调用过程图"></p>
+<blockquote>
+<p>一般情况下，服务端需要管理多个客户端连接（处理并发连接），而 recvfrom 只能监视单个 Socket。上图的阻塞式 I/O 模型表示的是一对一沟通的情形，使用多线程/进程 + 阻塞式 I/O 我们可以管理多个 Socket ，实现一对多服务。</p>
+</blockquote>
+<h3 id="非阻塞式-I-O-模型"><a href="#非阻塞式-I-O-模型" class="headerlink" title="非阻塞式 I/O 模型"></a>非阻塞式 I/O 模型</h3><p>在类 Unix 系统下，可以把一个 Socket 设置成非阻塞的。这意味着内核在数据报没有准备好时不会阻塞应用进程（睡眠态），而是返回一个错误。</p>
+<p><img src="https://mypic-1258313760.cos.ap-guangzhou.myqcloud.com/img/20200519170609.png" alt="非阻塞式 I/O 模型示例图"></p>
+<p>上图以 UDP 的 Socket 调用为例，进程反复调用 recvfrom（polling，轮询），无数据返回 EWOULDBLOCK 错误，直至数据报准备好。</p>
+<p>问题：<strong>单进程处理数据报，不同于阻塞I/O，由于需要反复 polling，非阻塞 I/O 会耗费大量的 CPU 资源，进程阻塞不耗费 CPU 资源</strong>。如果耍上了多进程，那耗费，是不可承受的。</p>
+<p>关于阻塞的原理，这篇文章有简单介绍<a href="https://zhuanlan.zhihu.com/p/63179839" target="_blank" rel="noopener">✔🔗</a>。</p>
+<h3 id="I-O-多路复用模型"><a href="#I-O-多路复用模型" class="headerlink" title="I/O 多路复用模型"></a>I/O 多路复用模型</h3><p>什么是多路复用？多路指的是多个通道，一般就是多个网络连接的 I/O；复用指的是多个通道复用在一个复用器上。</p>
+<p>引入多路复用机制的一个目的是为了处理多个网络连接 I/O。</p>
+<blockquote>
+<p>I/O多路复用方法的演进历程：select 模型-&gt; poll 模型-&gt; epoll 模型</p>
+</blockquote>
+<h4 id="select-模型"><a href="#select-模型" class="headerlink" title="select 模型"></a>select 模型</h4><p><img src="https://mypic-1258313760.cos.ap-guangzhou.myqcloud.com/img/20200519214552.png" alt="select多路复用示例"></p>
+<p>上图所示的整个用户进程一般一直是被阻塞的（blocking），即被 select（复用器） 所阻塞，多个 Socket 被注册在 select 中。进程阻塞于 select 调用，等待数据报套接字变为可读，一但 select 返回套接字可读，系统调用 recvfrom 把所读数据报复制到应用进程缓冲区。</p>
+<div class="note blue"><p>问题来了？为了处理多个网络连接 I/O，我们也可以通过多线程/进程的方式实现，多路复用的优势何在？这里的多路复用模型似乎比阻塞式 I/O 模型更为复杂，但它最大的优势在于用户可以在一个进程/线程内同时处理多个 socket 的 IO 请求。用户可以注册多个 socket，然后不断地调用 select 读取被激活的 socket，即可达到在同一个线程内同时处理多个 IO 请求的目的。（select 可接受的 socket 描述符数会有一定限制）</p></div>
+
+<div class="note red"><p>我们知道，操作系统多个进程/线程的开销维护还是蛮大的。对于高并发场景，如果一台机器要维护 1 万个连接（C10K问题），使用多线程/进程的方式处理，操作系统是无法承受的。如果维持 1 亿用户在线需要 10 万台服务器，成本那是相当的高。</p></div>
+
+<div class="note yellow"><p>$ 服务端单机最大 TCP 连接数=客户端 IP 数×客户端端口数 $，对于 IPv4，客户端的 IP 数最多为 2 的 32 次方，客户端的端口数最多为 2 的 16 次方。这只是理论上限，每个 TCP 连接的建立会受制于操作系统内存等因素的影响。</p></div>
+
+<h4 id="epoll-模型"><a href="#epoll-模型" class="headerlink" title="epoll 模型"></a>epoll 模型</h4><p>新模型的出现肯定是为了解决旧模型的问题，那么 select 模型有什么问题？每次 Socket 所在的文件描述符集合中有 Socket 发生变化的时候，select 都需要通过轮询的方式去检查，而 epoll 引入了 CallBack（回调）机制，当某个文件描述符发送变化的时候，主动通知。随着监听的 Socket 数据增加的时候，效率相比于 select 的轮询快多了。</p>
+<p>了解 epoll 的本质 -&gt; <a href="https://zhuanlan.zhihu.com/p/64138532" target="_blank" rel="noopener">如果这篇文章说不清epoll的本质，那就过来掐死我吧！ （2）</a></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://book.douban.com/subject/4859464/" target="_blank" rel="noopener">《UNIX网络编程 卷1：套接字联网API》</a></li>
+<li><a href="https://time.geekbang.org/column/article/9293" target="_blank" rel="noopener">趣谈网络协议</a></li>
+<li><a href="https://time.geekbang.org/column/article/204696" target="_blank" rel="noopener">RPC实战与核心原理</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/63179839" target="_blank" rel="noopener">如果这篇文章说不清epoll的本质，那就过来掐死我吧！</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/54580385" target="_blank" rel="noopener">5种网络IO模型（有图，很清楚）</a></li>
+<li><a href="https://book.douban.com/subject/25773187/" target="_blank" rel="noopener">《Nginx高性能Web服务器详解》</a></li>
+</ul>
+
+          
+            <div class='article_footer'>
+              
+                
+  
+    
+    
+
+
+
+  
+
+  
+    
+    
+
+
+
+  
+
+  
+    
+    
+
+<section class="widget copyright  desktop mobile">
+  <div class='content'>
+    
+      <blockquote>
+        
+          
+            <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+          
+        
+          
+            <p>我的博客即将同步至腾讯云+社区，邀请大家一同入驻：<a href="https://cloud.tencent.com/developer/support-plan?invite_code=1utoln9pyvwqu" target="_blank" rel="noopener">https://cloud.tencent.com/developer/support-plan?invite_code=1utoln9pyvwqu</a></p>
+
+          
+        
+      </blockquote>
+    
+  </div>
+</section>
+
+  
+
+  
+    
+    
+
+<section class="widget qrcode  desktop mobile">
+  
+
+  <div class='content article-entry'>
+    
+      
+        <div class='fancybox'><img src='https://cdn.jsdelivr.net/gh/ssmath/images-assets-cdn@master/mmqrcode1583939866281.png'
+        
+          height='64px'
+        ></div>
+      
+    
+      
+        <div class='fancybox'><img src='https://cdn.jsdelivr.net/gh/ssmath/images-assets-cdn@master/qrcode_1583939933465.jpg'
+        
+          height='64px'
+        ></div>
+      
+    
+  </div>
+</section>
+
+  
+
+
+              
+            </div>
+          
+        </div>
+        
+          
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-01-07T05:47:09+00:00">
+  <a class='notlink'>
+    <i class="fas fa-save fa-fw" aria-hidden="true"></i>
+    <p>最近更新时间：2021年1月7日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/I-O%E6%A8%A1%E5%9E%8B/" rel="nofollow"><i class="fas fa-tags fa-fw" aria-hidden="true"></i><p>I/O模型</p></a></div>
+
+
+        
+      
+        
+          
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://connect.qq.com/widget/shareqq/index.html?url=https://yeshan333.github.io/2020/05/19/%E4%BA%86%E8%A7%A3%E4%B8%80%E6%B3%A2%E7%BB%8F%E5%85%B8%E7%9A%84-IO-%E6%A8%A1%E5%9E%8B/&title=了解一波经典的 I/O 模型 - ShanSan&pics=https://mypic-1258313760.cos.ap-guangzhou.myqcloud.com/img/20200519233557.png&summary=最近读了波网络 I/O 相关的文章，做下总结、摘录。（未完）
+经典 I/O 模型
+
+            阻塞式 I/O（blocking I/O）
+            
+
+            非阻塞式 I/O（non-blocking I/O）
+            
+
+            I/O 多路复用（I/O multiplexing）
+            
+
+            信号驱动式 I/O（signal driven I/O）
+            
+
+            异步 I/O（asynchronous I/O）
+            
+
+
+
+阻塞式 I/O 模型对于阻塞式 I/O，以套接字（Socket）的输入操作为例。
+
+1、首先应用进程发起 I/O 系统调用后，应用进程阻塞，转到内核空间处理。
+2、之后，内核开始等待数据，等待数据到达之后，将内核中的数据拷贝到用户的缓冲区中，整个 I/O 处理完毕后返回进程。最后应用进程解除阻塞状态，处理数据。
+"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
+          
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://yeshan333.github.io/2020/05/19/%E4%BA%86%E8%A7%A3%E4%B8%80%E6%B3%A2%E7%BB%8F%E5%85%B8%E7%9A%84-IO-%E6%A8%A1%E5%9E%8B/&title=了解一波经典的 I/O 模型 - ShanSan&pics=https://mypic-1258313760.cos.ap-guangzhou.myqcloud.com/img/20200519233557.png&summary=最近读了波网络 I/O 相关的文章，做下总结、摘录。（未完）
+经典 I/O 模型
+
+            阻塞式 I/O（blocking I/O）
+            
+
+            非阻塞式 I/O（non-blocking I/O）
+            
+
+            I/O 多路复用（I/O multiplexing）
+            
+
+            信号驱动式 I/O（signal driven I/O）
+            
+
+            异步 I/O（asynchronous I/O）
+            
+
+
+
+阻塞式 I/O 模型对于阻塞式 I/O，以套接字（Socket）的输入操作为例。
+
+1、首先应用进程发起 I/O 系统调用后，应用进程阻塞，转到内核空间处理。
+2、之后，内核开始等待数据，等待数据到达之后，将内核中的数据拷贝到用户的缓冲区中，整个 I/O 处理完毕后返回进程。最后应用进程解除阻塞状态，处理数据。
+"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://service.weibo.com/share/share.php?url=https://yeshan333.github.io/2020/05/19/%E4%BA%86%E8%A7%A3%E4%B8%80%E6%B3%A2%E7%BB%8F%E5%85%B8%E7%9A%84-IO-%E6%A8%A1%E5%9E%8B/&title=了解一波经典的 I/O 模型 - ShanSan&pics=https://mypic-1258313760.cos.ap-guangzhou.myqcloud.com/img/20200519233557.png&summary=最近读了波网络 I/O 相关的文章，做下总结、摘录。（未完）
+经典 I/O 模型
+
+            阻塞式 I/O（blocking I/O）
+            
+
+            非阻塞式 I/O（non-blocking I/O）
+            
+
+            I/O 多路复用（I/O multiplexing）
+            
+
+            信号驱动式 I/O（signal driven I/O）
+            
+
+            异步 I/O（asynchronous I/O）
+            
+
+
+
+阻塞式 I/O 模型对于阻塞式 I/O，以套接字（Socket）的输入操作为例。
+
+1、首先应用进程发起 I/O 系统调用后，应用进程阻塞，转到内核空间处理。
+2、之后，内核开始等待数据，等待数据到达之后，将内核中的数据拷贝到用户的缓冲区中，整个 I/O 处理完毕后返回进程。最后应用进程解除阻塞状态，处理数据。
+"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </section>
+
+
+        
+        
+          <div class="prev-next">
+            
+              <a class='prev' href='/2020/06/04/%E8%AF%91-%E9%80%9A%E8%BF%87-Git-%E5%92%8C-Angular-%E4%BA%86%E8%A7%A3%E8%AF%AD%E4%B9%89%E5%8C%96%E6%8F%90%E4%BA%A4%E4%BF%A1%E6%81%AF/'>
+                <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>(译)通过 Git 和 Angular 了解语义化提交信息</p>
+                <p class='content'>受传统提交规范和 Angular 约定的启发，让我们来解释语义化提交术语，并演示提交信息的实际示例。
+许多项目决定以某种约定方式来标准化它们的提交信息。这种做法并不是新出现的，但在最近几年中越来...</p>
+              </a>
+            
+            
+              <a class='next' href='/2020/04/06/%E5%8F%AF%E6%89%A9%E5%B1%95%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B9%8B%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/'>
+                <p class='title'>『笔记』可扩展架构设计之消息队列<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+                <p class='content'>前言众所周知，开发低耦合系统是软件开发的终极目标之一。低耦合的系统更加容易扩展，低耦合的模块更加容易复用，更易于维护和管理。我们知道，消息队列的主要功能就是收发消息，但是它的作用不仅仅只是解决应...</p>
+              </a>
+            
+          </div>
+        
+      </section>
+    </article>
+  
+
+  
+    <!-- 显示推荐文章和评论 -->
+
+
+
+  <article class="post white-box reveal comments shadow">
+    <section class="article typo">
+      <p ct><i class='fas fa-comments'></i> 评论</p>
+      
+      
+      
+      
+      
+        <section id="comments">
+          <div id="valine_container" class="valine_thread">
+            <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+          </div>
+        </section>
+      
+      
+    </section>
+  </article>
+
+
+  
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+    processEscapes: true,
+    tags: "ams",
+    macros: {
+      href: "{}"
+    }
+  },
+  options: {
+    ignoreHtmlClass: "tex2jax_ignore|dno",
+    skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  }
+};
+</script>
+
+
+
+
+  <script>
+    window.subData = {
+      title: '了解一波经典的 I/O 模型',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class='l_side'>
+  
+  
+
+  
+    
+    
+
+
+  <section class="widget toc-wrapper shadow desktop mobile">
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#经典-I-O-模型"><span class="toc-text">经典 I&#x2F;O 模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#阻塞式-I-O-模型"><span class="toc-text">阻塞式 I&#x2F;O 模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#非阻塞式-I-O-模型"><span class="toc-text">非阻塞式 I&#x2F;O 模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#I-O-多路复用模型"><span class="toc-text">I&#x2F;O 多路复用模型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#select-模型"><span class="toc-text">select 模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#epoll-模型"><span class="toc-text">epoll 模型</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+  
+  <footer class="clearfix">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
+
+  
+    <meting-js
+      theme='#1BCDFC'
+      autoplay='false'
+      volume='0.7'
+      loop='all'
+      order='list'
+      fixed='false'
+      list-max-height='340px'
+      server='netease'
+      type='playlist'
+      id='3175833810'
+      list-folded='true'>
+    </meting-js>
+  
+
+
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+            
+              <a href="mailto:1329441308@qq.com"
+                class="social fas fa-envelope flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://github.com/yeshan333?tab=repositories"
+                class="social fab fa-github flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://music.163.com/#/my/m/music/playlist?id=2617691792"
+                class="social fas fa-music flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://www.zhihu.com/people/si-kong-ji-54/activities"
+                class="social fab fa-zhihu flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://yeshan333.github.io/sitemap.xml"
+                class="social fas fa-rss flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+        </div>
+      
+    
+      
+        <div><p>博客内容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+</div>
+      
+    
+      
+        本站使用
+        <a href="https://volantis.js.org/" target="_blank" class="codename">Volantis</a>
+        作为主题，总访问量为
+          <span id="busuanzi_value_site_pv"><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+          次
+        
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="https://shansan.top" target="_blank" rel="noopener">Copyright © 2018-2021 ShanSan</a></p>
+
+        </div>
+      
+    
+      
+        
+          <div><p><a href="http://www.beian.miit.gov.cn/" target="_blank" rel="noopener">桂ICP备19000444号</a></p>
+</div>
+        
+      
+    
+  </footer>
+
+<script>setLoadingBarProgress(80);</script>
+
+
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
+  
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4/dist/jquery.min.js"></script>
+
+
+  <script>
+    
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/" || "/";
+    if (!ROOT.endsWith('/')) ROOT += '/';
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/instant_page.js" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.6/dist/scrollreveal.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      ScrollReveal().reveal('.l_main .reveal', {
+        distance: '8px',
+        duration: '800',
+        interval: '100',
+        scale: '1'
+      });
+    });
+  </script>
+
+
+  
+<script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+  
+  
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js"></script>
+
+    <script type="text/javascript">
+      $(function(){
+        var imgs=["https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/B18FCBB3-67FD-48CC-B4F3-457BA145F17A.jpeg"];
+        if ('true' == 'true') {
+          function shuffle(arr){
+            /*From countercurrent-time*/
+            var n = arr.length;
+            while(n--) {
+              var index = Math.floor(Math.random() * n);
+              var temp = arr[index];
+              arr[index] = arr[n];
+              arr[n] = temp;
+            }
+          }
+          shuffle(imgs);
+        }
+        if ('.cover') {
+          $('.cover').backstretch(
+            imgs,
+          {
+            duration: "20000",
+            fade: "1500"
+          });
+        } else {
+          $.backstretch(
+            imgs,
+          {
+            duration: "20000",
+            fade: "1500"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js"></script>
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0/dist/Meting.min.js"></script>
+
+  
+
+
+
+
+
+
+
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4/dist/Valine.min.js"></script>
+
+  
+  <script>
+  var GUEST_INFO = ['nick','mail','link'];
+  var meta = 'nick,mail,link'.split(',').filter(function(item){
+    return GUEST_INFO.indexOf(item) > -1
+  });
+  var REQUIRED_FIELDS = ['nick','mail','link'];
+  var requiredFields = 'nick,mail'.split(',').filter(function(item){
+    return REQUIRED_FIELDS.indexOf(item) > -1
+  });
+  var valine = new Valine();
+  function emoji(path, idx, ext) {
+      return path + "/" + path + "-" + idx + "." + ext;
+  }
+  var emojiMaps = {};
+  for (var i = 1; i <= 54; i++) {
+    emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
+  }
+  for (var i = 1; i <= 101; i++) {
+    emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
+  }
+  for (var i = 1; i <= 116; i++) {
+    emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
+  }
+  for (var i = 1; i <= 125; i++) {
+    emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
+  }
+  for (var i = 1; i <= 4; i++) {
+    emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
+  }
+  valine.init({
+    el: '#valine_container',
+    meta: meta,
+    
+    appId: "S687AsCjGJKTPIvUJ8aPNX49-gzGzoHsz",
+    appKey: "bCwg3QuIfGytbeYw58L7ofRq",
+    placeholder: "快来评论吧~",
+    pageSize:'10',
+    avatar:'robohash',
+    lang:'zh-cn',
+    visitor: 'true',
+    highlight: 'true',
+    mathJax: 'false',
+    enableQQ: 'true',
+    requiredFields: requiredFields,
+    emojiCDN: 'https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/emoji/valine/',
+    emojiMaps: emojiMaps
+  })
+  </script>
+
+
+
+
+
+  
+<script src="/js/app.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2.6.4/js/search.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/comment_typing.js"></script>
+
+
+
+
+
+
+<!-- 复制 -->
+
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="fas fa-copy"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-check-circle');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('fa-check-circle');
+          $icon.addClass('fa-copy');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-times-circle');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('fa-times-circle');
+          $icon.addClass('fa-copy');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+
+
+<!-- fancybox -->
+
+  <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  let LAZY_LOAD_IMAGE = "";
+  $(".article-entry").find("div.fancybox").find("img").each(function () {
+      var element = document.createElement("a");
+      $(element).attr("data-fancybox", "gallery");
+      $(element).attr("href", $(this).attr("src"));
+      /* 图片采用懒加载处理时,
+       * 一般图片标签内会有个属性名来存放图片的真实地址，比如 data-original,
+       * 那么此处将原本的属性名src替换为对应属性名data-original,
+       * 修改如下
+       */
+       if (LAZY_LOAD_IMAGE) {
+         $(element).attr("href", $(this).attr("data-original"));
+       }
+      $(this).wrap(element);
+  });
+</script>
+
+
+
+
+
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yeshan333/jsDelivrCDN/piao.js" />
+<script type="text/javascript" src="https://cdn.staticfile.org/jquery/1.7.2/jquery.min.js" />
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yeshan333/jsDelivrCDN/attatkmouse.js" />
+
+
+  <script>setLoadingBarProgress(100);</script>
+</body>
+</html>

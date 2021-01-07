@@ -1,0 +1,1301 @@
+<!DOCTYPE html>
+<html>
+<head hexo-theme='https://volantis.js.org/#2.6.5'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- 页面元数据 -->
+  
+    <title>简单感受下Python内置数据类型常用操作的性能 - ShanSan</title>
+  
+    <meta name="keywords" content="Python">
+  
+  
+    <meta name="description" content="生成一个列表的几种方式的性能对比12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152# -*- coding: utf-8 -*-from timeit import Time...">
+  
+
+  <!-- feed -->
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13/css/all.min.css">
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+
+  
+
+  
+  <link rel="shortcut icon" type='image/x-icon' href="https://img.vim-cn.com/bb/db444be0b7fda59c69d5c64167f9668b0b66bd.png">
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css">
+  
+
+  <!-- import link -->
+  
+
+  
+  
+    
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+  
+</head>
+
+<body>
+  
+  <div id="loading-bar-wrapper">
+  <div id="loading-bar"></div>
+</div>
+<header class="l_header shadow blur">
+  <div class='container'>
+  <div class='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h'>
+        <li><a class="s-comment fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+          
+          
+            <red>S</red><green>h</green><blue>a</blue><yellow>n</yellow><red>S</red><green>h</green><blue>a</blue><yellow>n</yellow>
+          
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-home fa-fw'></i>首页
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" 
+                  
+                  
+                  >
+                  <i class='fas fa-ellipsis-v fa-fw'></i>与我相关
+                </a>
+                
+                  <ul class="list-v">
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://github.com/yeshan333
+                  
+                  
+                  
+                    id="https:githubcomyeshan333"
+                  >
+                  <i class='fab fa-github-square fa-fw'></i>Github
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://slide.shan333.cn
+                  
+                  
+                  
+                    id="https:slideshan333cn"
+                  >
+                  <i class='fab fa-slideshare fa-fw'></i>slides
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://shansan.top/knowledge-base/
+                  
+                  
+                  
+                    id="https:shansantopknowledge-base"
+                  >
+                  <i class='far fa-sticky-note fa-fw'></i>notes
+                </a>
+                
+              </li>
+            
+          
+                    
+                  </ul>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/PyChina/
+                  
+                  
+                  
+                    id="PyChina"
+                  >
+                  <i class='fab fa-python fa-fw'></i>中国蟒
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/cloud-native/
+                  
+                  
+                  
+                    id="cloud-native"
+                  >
+                  <i class='fas fa-cloud fa-fw'></i>云原生
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="寻你所想" />
+        </form>
+      </div>
+
+			<ul class='switcher nav-list-h'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-home fa-fw'></i>首页
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" 
+                  
+                  
+                  >
+                  <i class='fas fa-ellipsis-v fa-fw'></i>与我相关
+                </a>
+                
+                  <ul class="list-v">
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://github.com/yeshan333
+                  
+                  
+                  
+                    id="https:githubcomyeshan333"
+                  >
+                  <i class='fab fa-github-square fa-fw'></i>Github
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://slide.shan333.cn
+                  
+                  
+                  
+                    id="https:slideshan333cn"
+                  >
+                  <i class='fab fa-slideshare fa-fw'></i>slides
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://shansan.top/knowledge-base/
+                  
+                  
+                  
+                    id="https:shansantopknowledge-base"
+                  >
+                  <i class='far fa-sticky-note fa-fw'></i>notes
+                </a>
+                
+              </li>
+            
+          
+                    
+                  </ul>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/PyChina/
+                  
+                  
+                  
+                    id="PyChina"
+                  >
+                  <i class='fab fa-python fa-fw'></i>中国蟒
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/cloud-native/
+                  
+                  
+                  
+                    id="cloud-native"
+                  >
+                  <i class='fas fa-cloud fa-fw'></i>云原生
+                </a>
+                
+              </li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</header>
+
+<script>setLoadingBarProgress(40);</script>
+
+
+
+  <div class="l_body nocover">
+    <div class='body-wrapper'>
+      
+
+<div class='l_main'>
+  
+
+  
+    <article id="post" class="post white-box reveal shadow article-type-post" itemscope itemprop="blogPost">
+      
+
+
+  <section class='meta'>
+    
+      
+        
+
+  
+    <meting-js
+      mini='true'
+      autoplay='false'
+      volume='0.7'
+      loop='all'
+      order='list'
+      server='tencent'
+      type='song'
+      id='003et2lV2tX3b8'>
+    </meting-js>
+  
+
+
+      
+      
+      <div class="meta" id="header-meta">
+        
+          
+  <h1 class="title">
+    <a href="/2019/10/02/%E7%AE%80%E5%8D%95%E4%BA%86%E8%A7%A3%E4%B8%8BPython%E5%86%85%E7%BD%AE%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E7%9A%84%E6%80%A7%E8%83%BD/">
+      简单感受下Python内置数据类型常用操作的性能
+    </a>
+  </h1>
+
+
+        
+        <div class='new-meta-box'>
+          
+            
+          
+            
+              
+<div class='new-meta-item author'>
+  <a href="https://github.com/yeshan333" target="_blank" rel="nofollow noopener">
+    <img src="https://img.vim-cn.com/a3/caa9ef084c4f562b82b1cca6e978c0dca58c5f.png">
+    <p>yeshan333</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+  
+  <div class='new-meta-item category'>
+    <a href='/categories/Python/' rel="nofollow">
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <p>Python</p>
+    </a>
+  </div>
+
+
+            
+          
+            
+              <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>文章首发于：2019年10月2日</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+
+            
+          
+        </div>
+        
+          <hr>
+        
+      </div>
+    
+  </section>
+
+
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          
+          <h1 id="生成一个列表的几种方式的性能对比"><a href="#生成一个列表的几种方式的性能对比" class="headerlink" title="生成一个列表的几种方式的性能对比"></a>生成一个列表的几种方式的性能对比</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> timeit <span class="keyword">import</span> Timer</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 列表常用操作性能测试</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 迭代 + '+'</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test1</span><span class="params">()</span>:</span></span><br><span class="line">    l = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1000</span>):</span><br><span class="line">        l = l + [i]</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line"><span class="comment"># 迭代 + append</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test2</span><span class="params">()</span>:</span></span><br><span class="line">    l = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1000</span>):</span><br><span class="line">        l.append(i)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 列表生成式</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test3</span><span class="params">()</span>:</span></span><br><span class="line">    l = [i <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1000</span>)]</span><br><span class="line"></span><br><span class="line"><span class="comment"># list构造函数 + range</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test4</span><span class="params">()</span>:</span></span><br><span class="line">    l = list(range(<span class="number">1000</span>))</span><br><span class="line"></span><br><span class="line">t1 = Timer(<span class="string">"test1()"</span>, <span class="string">"from __main__ import test1"</span>)</span><br><span class="line"><span class="comment"># print("concat %f seconds" % t1.timeit(number=1000))</span></span><br><span class="line"></span><br><span class="line">t2 = Timer(<span class="string">"test2()"</span>, <span class="string">"from __main__ import test2"</span>)</span><br><span class="line"><span class="comment"># print("concat %f seconds" % t2.timeit(number=1000))</span></span><br><span class="line"></span><br><span class="line">t3 = Timer(<span class="string">"test3()"</span>, <span class="string">"from __main__ import test3"</span>)</span><br><span class="line"><span class="comment"># print("concat %f seconds" % t3.timeit(number=1000))</span></span><br><span class="line"></span><br><span class="line">t4 = Timer(<span class="string">"test4()"</span>, <span class="string">"from __main__ import test4"</span>)</span><br><span class="line"><span class="comment"># print("concat %f seconds" % t4.timeit(number=1000))</span></span><br><span class="line"></span><br><span class="line">result = [t1.timeit(<span class="number">1000</span>), t2.timeit(<span class="number">1000</span>), t3.timeit(<span class="number">1000</span>), t4.timeit(<span class="number">1000</span>)]</span><br><span class="line">method = [<span class="string">"for+ '+'"</span>, <span class="string">"for + append"</span>, <span class="string">"list comprehension"</span>, <span class="string">"list + range"</span>]</span><br><span class="line"></span><br><span class="line">plt.bar(method, result, color=<span class="string">'rgby'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># plt.legend('concat time')</span></span><br><span class="line"><span class="comment"># print(zip(method, result))</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> x,y <span class="keyword">in</span> zip(method, result):</span><br><span class="line">    plt.text(x, y, <span class="string">"%fs"</span> % y)</span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/ssmath/mypic/img/20191002194307.png" alt="Cost time"></p>
+<a id="more"></a>
+
+<h1 id="list和dict的检索效率对比"><a href="#list和dict的检索效率对比" class="headerlink" title="list和dict的检索效率对比"></a>list和dict的检索效率对比</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">from</span> timeit <span class="keyword">import</span> Timer</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">lst_result = []</span><br><span class="line">d_result = []</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10000</span>,<span class="number">1000001</span>,<span class="number">20000</span>):</span><br><span class="line">    t = Timer(<span class="string">"random.randrange(%d) in x"</span> % i, <span class="string">"from __main__ import random,x"</span>)</span><br><span class="line"></span><br><span class="line">    x = list(range(i))</span><br><span class="line">    lst_time = t.timeit(number=<span class="number">1000</span>)</span><br><span class="line"></span><br><span class="line">    x = &#123;j:<span class="literal">None</span> <span class="keyword">for</span> j <span class="keyword">in</span> range(i)&#125;</span><br><span class="line">    d_time = t.timeit(number=<span class="number">1000</span>)</span><br><span class="line">    </span><br><span class="line">    lst_result.append(lst_time)</span><br><span class="line">    d_result.append(d_time)</span><br><span class="line">    print(<span class="string">"%d,%10.3f,%10.3f"</span> % (i, lst_time, d_time))</span><br><span class="line"></span><br><span class="line">test = [i <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10000</span>,<span class="number">1000001</span>,<span class="number">20000</span>)]</span><br><span class="line"></span><br><span class="line">plt.plot(test, lst_result, <span class="string">'ro'</span>)</span><br><span class="line">plt.plot(test, d_result, <span class="string">'bo'</span>)</span><br><span class="line"></span><br><span class="line">plt.legend([<span class="string">'List'</span>,<span class="string">'Dictionary'</span>])</span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/ssmath/mypic/img/20191002202553.png" alt="result plot"></p>
+<h1 id="del-list-index-与del-dict-key-性能对比"><a href="#del-list-index-与del-dict-key-性能对比" class="headerlink" title="del list[index]与del dict[key] 性能对比"></a>del list[index]与del dict[key] 性能对比</h1><blockquote>
+<p>average time complexity：$ O(n)\ \ vs\ \ O(1) $</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">from</span> timeit <span class="keyword">import</span> Timer</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">size = <span class="number">20000</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">l_result = []</span><br><span class="line">d_result = []</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(size):</span><br><span class="line">    test_list = [i <span class="keyword">for</span> i <span class="keyword">in</span> range(size)]</span><br><span class="line">    list_t = Timer(<span class="string">"del test_list[%d]"</span> % i,<span class="string">"from __main__ import test_list"</span>)</span><br><span class="line">    list_result = list_t.timeit(number=<span class="number">1</span>)</span><br><span class="line">    l_result.append(list_result)</span><br><span class="line"></span><br><span class="line">    test_dict = &#123;j:<span class="literal">None</span> <span class="keyword">for</span> j <span class="keyword">in</span> range(size)&#125;</span><br><span class="line">    dict_t = Timer(<span class="string">"del test_dict[%d]"</span> % i,<span class="string">"from __main__ import test_dict"</span>)</span><br><span class="line">    dict_result = dict_t.timeit(number=<span class="number">1</span>)</span><br><span class="line">    d_result.append(dict_result)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># print("%d,%f,%f" % (i, list_result, dict_result))</span></span><br><span class="line"></span><br><span class="line">plt.plot(range(size), l_result)</span><br><span class="line">plt.plot(range(size), d_result)</span><br><span class="line"></span><br><span class="line">plt.legend([<span class="string">'del list[index]'</span>, <span class="string">'del dict[key]'</span>])</span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/ssmath/mypic/img/20191002211901.png" alt="result"></p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><p><a href="https://www.matplotlib.org.cn/index.html" target="_blank" rel="noopener">matplotlib中文文档</a></p>
+</li>
+<li><p><a href="https://wiki.python.org/moin/TimeComplexity" target="_blank" rel="noopener">TimeComplexity<Python Wiki></a></p>
+</li>
+<li><p><a href="https://www.icourse163.org/course/PKU-1206307812" target="_blank" rel="noopener">北大数据结构与算法公开课</a></p>
+</li>
+<li><p><a href="https://docs.python.org/zh-cn/3/library/timeit.html" target="_blank" rel="noopener">Python timeit</a></p>
+</li>
+</ul>
+
+          
+            <div class='article_footer'>
+              
+                
+  
+    
+    
+
+
+
+  
+
+  
+    
+    
+
+
+
+  
+
+  
+    
+    
+
+<section class="widget copyright  desktop mobile">
+  <div class='content'>
+    
+      <blockquote>
+        
+          
+            <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+          
+        
+          
+            <p>我的博客即将同步至腾讯云+社区，邀请大家一同入驻：<a href="https://cloud.tencent.com/developer/support-plan?invite_code=1utoln9pyvwqu" target="_blank" rel="noopener">https://cloud.tencent.com/developer/support-plan?invite_code=1utoln9pyvwqu</a></p>
+
+          
+        
+      </blockquote>
+    
+  </div>
+</section>
+
+  
+
+  
+    
+    
+
+<section class="widget qrcode  desktop mobile">
+  
+
+  <div class='content article-entry'>
+    
+      
+        <div class='fancybox'><img src='https://cdn.jsdelivr.net/gh/ssmath/images-assets-cdn@master/mmqrcode1583939866281.png'
+        
+          height='64px'
+        ></div>
+      
+    
+      
+        <div class='fancybox'><img src='https://cdn.jsdelivr.net/gh/ssmath/images-assets-cdn@master/qrcode_1583939933465.jpg'
+        
+          height='64px'
+        ></div>
+      
+    
+  </div>
+</section>
+
+  
+
+
+              
+            </div>
+          
+        </div>
+        
+          
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-01-07T05:47:09+00:00">
+  <a class='notlink'>
+    <i class="fas fa-save fa-fw" aria-hidden="true"></i>
+    <p>最近更新时间：2021年1月7日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Python/" rel="nofollow"><i class="fas fa-tags fa-fw" aria-hidden="true"></i><p>Python</p></a></div>
+
+
+        
+      
+        
+          
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://connect.qq.com/widget/shareqq/index.html?url=https://yeshan333.github.io/2019/10/02/%E7%AE%80%E5%8D%95%E4%BA%86%E8%A7%A3%E4%B8%8BPython%E5%86%85%E7%BD%AE%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E7%9A%84%E6%80%A7%E8%83%BD/&title=简单感受下Python内置数据类型常用操作的性能 - ShanSan&summary=生成一个列表的几种方式的性能对比12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152# -*- coding: utf-8 -*-from timeit import Timerimport matplotlib.pyplot as plt# 列表常用操作性能测试# 迭代 + '+'def test1():    l = []    for i in range(1000):        l = l + [i]    # 迭代 + appenddef test2():    l = []    for i in range(1000):        l.append(i)# 列表生成式def test3():    l = [i for i in range(1000)]# list构造函数 + rangedef test4():    l = list(range(1000))t1 = Timer("test1()", "from __main__ import test1")# print("concat %f seconds" % t1.timeit(number=1000))t2 = Timer("test2()", "from __main__ import test2")# print("concat %f seconds" % t2.timeit(number=1000))t3 = Timer("test3()", "from __main__ import test3")# print("concat %f seconds" % t3.timeit(number=1000))t4 = Timer("test4()", "from __main__ import test4")# print("concat %f seconds" % t4.timeit(number=1000))result = [t1.timeit(1000), t2.timeit(1000), t3.timeit(1000), t4.timeit(1000)]method = ["for+ '+'", "for + append", "list comprehension", "list + range"]plt.bar(method, result, color='rgby')# plt.legend('concat time')# print(zip(method, result))for x,y in zip(method, result):    plt.text(x, y, "%fs" % y)plt.show()
+
+"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
+          
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://yeshan333.github.io/2019/10/02/%E7%AE%80%E5%8D%95%E4%BA%86%E8%A7%A3%E4%B8%8BPython%E5%86%85%E7%BD%AE%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E7%9A%84%E6%80%A7%E8%83%BD/&title=简单感受下Python内置数据类型常用操作的性能 - ShanSan&summary=生成一个列表的几种方式的性能对比12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152# -*- coding: utf-8 -*-from timeit import Timerimport matplotlib.pyplot as plt# 列表常用操作性能测试# 迭代 + '+'def test1():    l = []    for i in range(1000):        l = l + [i]    # 迭代 + appenddef test2():    l = []    for i in range(1000):        l.append(i)# 列表生成式def test3():    l = [i for i in range(1000)]# list构造函数 + rangedef test4():    l = list(range(1000))t1 = Timer("test1()", "from __main__ import test1")# print("concat %f seconds" % t1.timeit(number=1000))t2 = Timer("test2()", "from __main__ import test2")# print("concat %f seconds" % t2.timeit(number=1000))t3 = Timer("test3()", "from __main__ import test3")# print("concat %f seconds" % t3.timeit(number=1000))t4 = Timer("test4()", "from __main__ import test4")# print("concat %f seconds" % t4.timeit(number=1000))result = [t1.timeit(1000), t2.timeit(1000), t3.timeit(1000), t4.timeit(1000)]method = ["for+ '+'", "for + append", "list comprehension", "list + range"]plt.bar(method, result, color='rgby')# plt.legend('concat time')# print(zip(method, result))for x,y in zip(method, result):    plt.text(x, y, "%fs" % y)plt.show()
+
+"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://service.weibo.com/share/share.php?url=https://yeshan333.github.io/2019/10/02/%E7%AE%80%E5%8D%95%E4%BA%86%E8%A7%A3%E4%B8%8BPython%E5%86%85%E7%BD%AE%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E7%9A%84%E6%80%A7%E8%83%BD/&title=简单感受下Python内置数据类型常用操作的性能 - ShanSan&summary=生成一个列表的几种方式的性能对比12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152# -*- coding: utf-8 -*-from timeit import Timerimport matplotlib.pyplot as plt# 列表常用操作性能测试# 迭代 + '+'def test1():    l = []    for i in range(1000):        l = l + [i]    # 迭代 + appenddef test2():    l = []    for i in range(1000):        l.append(i)# 列表生成式def test3():    l = [i for i in range(1000)]# list构造函数 + rangedef test4():    l = list(range(1000))t1 = Timer("test1()", "from __main__ import test1")# print("concat %f seconds" % t1.timeit(number=1000))t2 = Timer("test2()", "from __main__ import test2")# print("concat %f seconds" % t2.timeit(number=1000))t3 = Timer("test3()", "from __main__ import test3")# print("concat %f seconds" % t3.timeit(number=1000))t4 = Timer("test4()", "from __main__ import test4")# print("concat %f seconds" % t4.timeit(number=1000))result = [t1.timeit(1000), t2.timeit(1000), t3.timeit(1000), t4.timeit(1000)]method = ["for+ '+'", "for + append", "list comprehension", "list + range"]plt.bar(method, result, color='rgby')# plt.legend('concat time')# print(zip(method, result))for x,y in zip(method, result):    plt.text(x, y, "%fs" % y)plt.show()
+
+"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </section>
+
+
+        
+        
+          <div class="prev-next">
+            
+              <a class='prev' href='/2019/10/11/%E4%BD%BF%E7%94%A8Microsoft-Edge-Beta%E5%B0%86%E7%BD%91%E9%A1%B5%E5%8F%98%E6%88%90%E5%BA%94%E7%94%A8/'>
+                <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>使用Microsoft Edge Beta将网页变成应用</p>
+                <p class='content'>
+今天无聊的我打开了装了很久都没用的Microsoft Edge Beta，一波乱戳，惊讶的发现Microsoft Edge Beta居然有将网页打包为应用的功能😂
+
+
+
+
+B站也有PC”客户...</p>
+              </a>
+            
+            
+              <a class='next' href='/2019/09/02/Python%E7%8E%AF%E5%A2%83%E7%AE%A1%E7%90%86/'>
+                <p class='title'>Python环境管理与项目依赖管理<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+                <p class='content'>
+个人简单记录下
+
+virtualenv + pip
+virtualenv是一个用于创建”隔离的ython运行环境”的工具，Docspip是Python的包管理工具，Docs
+
+12345678...</p>
+              </a>
+            
+          </div>
+        
+      </section>
+    </article>
+  
+
+  
+    <!-- 显示推荐文章和评论 -->
+
+
+
+  <article class="post white-box reveal comments shadow">
+    <section class="article typo">
+      <p ct><i class='fas fa-comments'></i> 评论</p>
+      
+      
+      
+      
+      
+        <section id="comments">
+          <div id="valine_container" class="valine_thread">
+            <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+          </div>
+        </section>
+      
+      
+    </section>
+  </article>
+
+
+  
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+    processEscapes: true,
+    tags: "ams",
+    macros: {
+      href: "{}"
+    }
+  },
+  options: {
+    ignoreHtmlClass: "tex2jax_ignore|dno",
+    skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  }
+};
+</script>
+
+
+
+
+  <script>
+    window.subData = {
+      title: '简单感受下Python内置数据类型常用操作的性能',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class='l_side'>
+  
+  
+
+  
+    
+    
+
+
+  <section class="widget toc-wrapper shadow desktop mobile">
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#生成一个列表的几种方式的性能对比"><span class="toc-text">生成一个列表的几种方式的性能对比</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#list和dict的检索效率对比"><span class="toc-text">list和dict的检索效率对比</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#del-list-index-与del-dict-key-性能对比"><span class="toc-text">del list[index]与del dict[key] 性能对比</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+  
+  <footer class="clearfix">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
+
+  
+    <meting-js
+      theme='#1BCDFC'
+      autoplay='false'
+      volume='0.7'
+      loop='all'
+      order='list'
+      fixed='false'
+      list-max-height='340px'
+      server='netease'
+      type='playlist'
+      id='3175833810'
+      list-folded='true'>
+    </meting-js>
+  
+
+
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+            
+              <a href="mailto:1329441308@qq.com"
+                class="social fas fa-envelope flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://github.com/yeshan333?tab=repositories"
+                class="social fab fa-github flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://music.163.com/#/my/m/music/playlist?id=2617691792"
+                class="social fas fa-music flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://www.zhihu.com/people/si-kong-ji-54/activities"
+                class="social fab fa-zhihu flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://yeshan333.github.io/sitemap.xml"
+                class="social fas fa-rss flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+        </div>
+      
+    
+      
+        <div><p>博客内容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+</div>
+      
+    
+      
+        本站使用
+        <a href="https://volantis.js.org/" target="_blank" class="codename">Volantis</a>
+        作为主题，总访问量为
+          <span id="busuanzi_value_site_pv"><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+          次
+        
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="https://shansan.top" target="_blank" rel="noopener">Copyright © 2018-2021 ShanSan</a></p>
+
+        </div>
+      
+    
+      
+        
+          <div><p><a href="http://www.beian.miit.gov.cn/" target="_blank" rel="noopener">桂ICP备19000444号</a></p>
+</div>
+        
+      
+    
+  </footer>
+
+<script>setLoadingBarProgress(80);</script>
+
+
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
+  
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4/dist/jquery.min.js"></script>
+
+
+  <script>
+    
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/" || "/";
+    if (!ROOT.endsWith('/')) ROOT += '/';
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/instant_page.js" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.6/dist/scrollreveal.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      ScrollReveal().reveal('.l_main .reveal', {
+        distance: '8px',
+        duration: '800',
+        interval: '100',
+        scale: '1'
+      });
+    });
+  </script>
+
+
+  
+<script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+  
+  
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js"></script>
+
+    <script type="text/javascript">
+      $(function(){
+        var imgs=["https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/B18FCBB3-67FD-48CC-B4F3-457BA145F17A.jpeg"];
+        if ('true' == 'true') {
+          function shuffle(arr){
+            /*From countercurrent-time*/
+            var n = arr.length;
+            while(n--) {
+              var index = Math.floor(Math.random() * n);
+              var temp = arr[index];
+              arr[index] = arr[n];
+              arr[n] = temp;
+            }
+          }
+          shuffle(imgs);
+        }
+        if ('.cover') {
+          $('.cover').backstretch(
+            imgs,
+          {
+            duration: "20000",
+            fade: "1500"
+          });
+        } else {
+          $.backstretch(
+            imgs,
+          {
+            duration: "20000",
+            fade: "1500"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js"></script>
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0/dist/Meting.min.js"></script>
+
+  
+
+
+
+
+
+
+
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4/dist/Valine.min.js"></script>
+
+  
+  <script>
+  var GUEST_INFO = ['nick','mail','link'];
+  var meta = 'nick,mail,link'.split(',').filter(function(item){
+    return GUEST_INFO.indexOf(item) > -1
+  });
+  var REQUIRED_FIELDS = ['nick','mail','link'];
+  var requiredFields = 'nick,mail'.split(',').filter(function(item){
+    return REQUIRED_FIELDS.indexOf(item) > -1
+  });
+  var valine = new Valine();
+  function emoji(path, idx, ext) {
+      return path + "/" + path + "-" + idx + "." + ext;
+  }
+  var emojiMaps = {};
+  for (var i = 1; i <= 54; i++) {
+    emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
+  }
+  for (var i = 1; i <= 101; i++) {
+    emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
+  }
+  for (var i = 1; i <= 116; i++) {
+    emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
+  }
+  for (var i = 1; i <= 125; i++) {
+    emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
+  }
+  for (var i = 1; i <= 4; i++) {
+    emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
+  }
+  valine.init({
+    el: '#valine_container',
+    meta: meta,
+    
+    appId: "S687AsCjGJKTPIvUJ8aPNX49-gzGzoHsz",
+    appKey: "bCwg3QuIfGytbeYw58L7ofRq",
+    placeholder: "快来评论吧~",
+    pageSize:'10',
+    avatar:'robohash',
+    lang:'zh-cn',
+    visitor: 'true',
+    highlight: 'true',
+    mathJax: 'false',
+    enableQQ: 'true',
+    requiredFields: requiredFields,
+    emojiCDN: 'https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/emoji/valine/',
+    emojiMaps: emojiMaps
+  })
+  </script>
+
+
+
+
+
+  
+<script src="/js/app.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2.6.4/js/search.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/comment_typing.js"></script>
+
+
+
+
+
+
+<!-- 复制 -->
+
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="fas fa-copy"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-check-circle');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('fa-check-circle');
+          $icon.addClass('fa-copy');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-times-circle');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('fa-times-circle');
+          $icon.addClass('fa-copy');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+
+
+<!-- fancybox -->
+
+  <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  let LAZY_LOAD_IMAGE = "";
+  $(".article-entry").find("div.fancybox").find("img").each(function () {
+      var element = document.createElement("a");
+      $(element).attr("data-fancybox", "gallery");
+      $(element).attr("href", $(this).attr("src"));
+      /* 图片采用懒加载处理时,
+       * 一般图片标签内会有个属性名来存放图片的真实地址，比如 data-original,
+       * 那么此处将原本的属性名src替换为对应属性名data-original,
+       * 修改如下
+       */
+       if (LAZY_LOAD_IMAGE) {
+         $(element).attr("href", $(this).attr("data-original"));
+       }
+      $(this).wrap(element);
+  });
+</script>
+
+
+
+
+
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yeshan333/jsDelivrCDN/piao.js" />
+<script type="text/javascript" src="https://cdn.staticfile.org/jquery/1.7.2/jquery.min.js" />
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yeshan333/jsDelivrCDN/attatkmouse.js" />
+
+
+  <script>setLoadingBarProgress(100);</script>
+</body>
+</html>

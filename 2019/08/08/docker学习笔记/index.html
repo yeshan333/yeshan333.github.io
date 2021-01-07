@@ -1,0 +1,1422 @@
+<!DOCTYPE html>
+<html>
+<head hexo-theme='https://volantis.js.org/#2.6.5'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- 页面元数据 -->
+  
+    <title>docker学习笔记 - ShanSan</title>
+  
+    <meta name="keywords" content="docker">
+  
+  
+    <meta name="description" content="
+Play With Docker一个免费使用的基于web界面的Docker环境
+
+常用docker命令可使用docker COMMAND --help查看命令的用法
+Docker镜像相关
+1、docker image pull：用于下载镜像，镜像从远程镜像仓库服务的仓库中下载，默认从Docker Hub的仓库中...">
+  
+
+  <!-- feed -->
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13/css/all.min.css">
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+
+  
+
+  
+  <link rel="shortcut icon" type='image/x-icon' href="https://img.vim-cn.com/bb/db444be0b7fda59c69d5c64167f9668b0b66bd.png">
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css">
+  
+
+  <!-- import link -->
+  
+
+  
+  
+    
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+  
+</head>
+
+<body>
+  
+  <div id="loading-bar-wrapper">
+  <div id="loading-bar"></div>
+</div>
+<header class="l_header shadow blur">
+  <div class='container'>
+  <div class='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h'>
+        <li><a class="s-comment fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+          
+          
+            <red>S</red><green>h</green><blue>a</blue><yellow>n</yellow><red>S</red><green>h</green><blue>a</blue><yellow>n</yellow>
+          
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-home fa-fw'></i>首页
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" 
+                  
+                  
+                  >
+                  <i class='fas fa-ellipsis-v fa-fw'></i>与我相关
+                </a>
+                
+                  <ul class="list-v">
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://github.com/yeshan333
+                  
+                  
+                  
+                    id="https:githubcomyeshan333"
+                  >
+                  <i class='fab fa-github-square fa-fw'></i>Github
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://slide.shan333.cn
+                  
+                  
+                  
+                    id="https:slideshan333cn"
+                  >
+                  <i class='fab fa-slideshare fa-fw'></i>slides
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://shansan.top/knowledge-base/
+                  
+                  
+                  
+                    id="https:shansantopknowledge-base"
+                  >
+                  <i class='far fa-sticky-note fa-fw'></i>notes
+                </a>
+                
+              </li>
+            
+          
+                    
+                  </ul>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/PyChina/
+                  
+                  
+                  
+                    id="PyChina"
+                  >
+                  <i class='fab fa-python fa-fw'></i>中国蟒
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/cloud-native/
+                  
+                  
+                  
+                    id="cloud-native"
+                  >
+                  <i class='fas fa-cloud fa-fw'></i>云原生
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="寻你所想" />
+        </form>
+      </div>
+
+			<ul class='switcher nav-list-h'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-home fa-fw'></i>首页
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" 
+                  
+                  
+                  >
+                  <i class='fas fa-ellipsis-v fa-fw'></i>与我相关
+                </a>
+                
+                  <ul class="list-v">
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://github.com/yeshan333
+                  
+                  
+                  
+                    id="https:githubcomyeshan333"
+                  >
+                  <i class='fab fa-github-square fa-fw'></i>Github
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://slide.shan333.cn
+                  
+                  
+                  
+                    id="https:slideshan333cn"
+                  >
+                  <i class='fab fa-slideshare fa-fw'></i>slides
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://shansan.top/knowledge-base/
+                  
+                  
+                  
+                    id="https:shansantopknowledge-base"
+                  >
+                  <i class='far fa-sticky-note fa-fw'></i>notes
+                </a>
+                
+              </li>
+            
+          
+                    
+                  </ul>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/PyChina/
+                  
+                  
+                  
+                    id="PyChina"
+                  >
+                  <i class='fab fa-python fa-fw'></i>中国蟒
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/cloud-native/
+                  
+                  
+                  
+                    id="cloud-native"
+                  >
+                  <i class='fas fa-cloud fa-fw'></i>云原生
+                </a>
+                
+              </li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</header>
+
+<script>setLoadingBarProgress(40);</script>
+
+
+
+  <div class="l_body nocover">
+    <div class='body-wrapper'>
+      
+
+<div class='l_main'>
+  
+
+  
+    <article id="post" class="post white-box reveal shadow article-type-post" itemscope itemprop="blogPost">
+      
+
+
+  <section class='meta'>
+    
+      
+      
+      <div class="meta" id="header-meta">
+        
+          
+  <h1 class="title">
+    <a href="/2019/08/08/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+      docker学习笔记
+    </a>
+  </h1>
+
+
+        
+        <div class='new-meta-box'>
+          
+            
+          
+            
+              
+<div class='new-meta-item author'>
+  <a href="https://github.com/yeshan333" target="_blank" rel="nofollow noopener">
+    <img src="https://img.vim-cn.com/a3/caa9ef084c4f562b82b1cca6e978c0dca58c5f.png">
+    <p>yeshan333</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+  
+  <div class='new-meta-item category'>
+    <a href='/categories/docker/' rel="nofollow">
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <p>docker</p>
+    </a>
+  </div>
+
+
+            
+          
+            
+              <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>文章首发于：2019年8月8日</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+
+            
+          
+        </div>
+        
+          <hr>
+        
+      </div>
+    
+  </section>
+
+
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          
+          <blockquote>
+<p><a href="https://labs.play-with-docker.com/" target="_blank" rel="noopener">Play With Docker一个免费使用的基于web界面的Docker环境</a></p>
+</blockquote>
+<h1 id="常用docker命令"><a href="#常用docker命令" class="headerlink" title="常用docker命令"></a>常用docker命令</h1><p><strong>可使用<code>docker COMMAND --help</code>查看命令的用法</strong></p>
+<h2 id="Docker镜像相关"><a href="#Docker镜像相关" class="headerlink" title="Docker镜像相关"></a>Docker镜像相关</h2><ul>
+<li>1、<code>docker image pull</code>：用于下载镜像，镜像从远程镜像仓库服务的仓库中下载，默认从Docker Hub的仓库中拉取</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 格式：docker pull [OPTIONS] NAME[:TAG|@DIGEST]</span></span><br><span class="line"><span class="comment"># 说明：如果给出tag，一般拉取latest，name一般为username/repository,digest为镜像摘要可不给出</span></span><br><span class="line">docker image pull ubuntu:latest</span><br><span class="line"><span class="comment"># 这个拉取标签为latest的ubuntu官方镜像，latest: Pulling from library/ubuntu，latest不一定是最新镜像</span></span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+
+<ul>
+<li><p>2、<code>docker image ls</code>：列出本地Docker主机上存储的镜像</p>
+</li>
+<li><p>3、<code>docker image inspect</code>：查看镜像的细节，包括镜像层数据和元数据</p>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># docker image inspect [OPTIONS] IMAGE [IMAGE...]</span></span><br><span class="line"><span class="comment"># inspect后一般跟repository name或image id</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>4、<code>docker image rm</code>：用于删除镜像。如果镜像存在关联的容器，并且容器处于运行(Up)或停止(Exit)状态时，不允许删除该镜像。rm后可跟repository或image id</p>
+</li>
+<li><p>5、<code>dicker image search</code>：从Docker Hub查找镜像</p>
+</li>
+<li><p>6、<code>docker image build</code>：根据Dockerfile构建镜像</p>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 例如：使用当前目录的 Dockerfile 创建镜像，标签为 runoob/ubuntu:v1。</span></span><br><span class="line">docker build -t yeshan333/ubuntu:latest .</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>7、<code>docker image history</code>：用于查看镜像构建的相关信息</li>
+</ul>
+<h2 id="Docker容器相关"><a href="#Docker容器相关" class="headerlink" title="Docker容器相关"></a>Docker容器相关</h2><ul>
+<li>1、<code>docker container run</code>：用于启动新容器</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 格式：docker run [OPTIONS] IMAGE [COMMAND] [ARG...]</span></span><br><span class="line"><span class="comment"># 常用options：</span></span><br><span class="line"><span class="comment"># -d: 后台运行容器，并返回容器ID；</span></span><br><span class="line"><span class="comment"># -i: 以交互模式运行容器，通常与 -t 同时使用；</span></span><br><span class="line"><span class="comment"># -t: 为容器重新分配一个伪输入终端，通常与 -i 同时使用；</span></span><br><span class="line"><span class="comment"># -P: 随机端口映射，容器内部端口随机映射到主机的高端口</span></span><br><span class="line"><span class="comment"># -p: 指定端口映射，格式为：主机(宿主)端口:容器端口</span></span><br><span class="line"><span class="comment"># --name="container-name": 为容器指定一个名称；</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例</span></span><br><span class="line">docker container run -it ubuntu:latest /bin/bash</span><br><span class="line"><span class="comment"># 说明：-it使容器具备交互性并与终端连接，命令最后表明运行容器中的Bash Shell程序</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>2、<code>docker container ls</code>：列出所有运行状态的容器可用<code>docker p</code>s代替，如果加个*<em>-a</em>附加参数，会列出所有容器（包括处于停止状态的容器）</p>
+</li>
+<li><p>3、<code>docker container stop</code>：停止运行中的容器，并将其状态设置为Exited(0)，stop后跟container name或container id</p>
+</li>
+<li><p>4、<code>docker container rm</code>：用于删除停止运行的容器，rm后跟container name或container id，使用-f参数可强制删除运行中的容器</p>
+</li>
+<li><p>5、<code>docker container exec</code>：用于连接一个处于运行状态的容器</p>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 例如：</span></span><br><span class="line">docker container <span class="built_in">exec</span> -t &lt;container-name or container-id&gt; bash</span><br><span class="line"><span class="comment"># 该命令会将docker主机中的shell连接到一个运行中的容器，在容器内部启动一个新的bash shell进程</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>6、<code>docker container start</code>：用于重启处于停止(Exited)状态的容器，start后跟container name或container id</p>
+</li>
+<li><p>7、<code>docker container inspect</code>：查看容器的配置信息和运行时信息，inspect后跟container name或container id</p>
+</li>
+<li><p>8、快捷键<code>Ctrl+PQ</code>用于断开docker主机的shell终端与容器终端的连接，并在退出后保证容器在后台运行</p>
+</li>
+</ul>
+<h1 id="应用容器化"><a href="#应用容器化" class="headerlink" title="应用容器化"></a>应用容器化</h1><blockquote>
+<p>(Containerizing|Dockerizing)即将应用整合到容器中并且运行的过程</p>
+</blockquote>
+<h2 id="应用容器化的一般步骤"><a href="#应用容器化的一般步骤" class="headerlink" title="应用容器化的一般步骤"></a>应用容器化的一般步骤</h2><ul>
+<li>1、编写应用代码</li>
+<li>2、创建Dockerfile，其中包括当前应用的描述、依赖以及如何运行这个应用</li>
+<li>3、对Dockerfile执行docker image build命令</li>
+<li>4、等待Docker将应用程序构建到Docker镜像中</li>
+</ul>
+<blockquote>
+<p>Once your app is containerized (made into a Docker image), you’re ready to ship it and run it as a container.《Docker Deep Dive》</p>
+</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/ssmath/mypic/img/20190808213453.png" alt="docker deep dive"></p>
+<h2 id="使用Dockerfile定制镜像"><a href="#使用Dockerfile定制镜像" class="headerlink" title="使用Dockerfile定制镜像"></a>使用Dockerfile定制镜像</h2><ul>
+<li><a href="https://docs.docker.com/develop/develop-images/dockerfile_best-practices/" target="_blank" rel="noopener">Dockerfile最佳实践</a></li>
+<li><a href="https://docker_practice.gitee.io/image/build.html" target="_blank" rel="noopener">使用Dockerfile定制镜像</a></li>
+</ul>
+<blockquote>
+<p>Dockerfile中以#开头的都是注释行，除注释之外，每一行都是一条指令<br>指令的的一般格式：INSTRUCTION argument，INSTRUCTION一般都为大写</p>
+</blockquote>
+<p>示例Dockerfile：<a href="https://github.com/yeshan333/psweb" target="_blank" rel="noopener">https://github.com/yeshan333/psweb</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">FROM alpine</span><br><span class="line"></span><br><span class="line">LABEL maintainer&#x3D;&quot;nigelpoulton@hotmail.com&quot;</span><br><span class="line"></span><br><span class="line"># Install Node and NPM</span><br><span class="line">RUN apk add --update nodejs nodejs-npm</span><br><span class="line"></span><br><span class="line"># Copy app to &#x2F;src</span><br><span class="line">COPY . &#x2F;src</span><br><span class="line"></span><br><span class="line">WORKDIR &#x2F;src</span><br><span class="line"></span><br><span class="line"># Install dependencies</span><br><span class="line">RUN  npm install</span><br><span class="line"></span><br><span class="line">EXPOSE 8080</span><br><span class="line"></span><br><span class="line">ENTRYPOINT [&quot;node&quot;, &quot;.&#x2F;app.js&quot;]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>说明：<ul>
+<li>每个Dockerfile文件文件的第一行一般都是<code>FROM</code>指令。<strong>FROM指定的镜像会作为当前镜像的一个基础镜像层，当前应用的剩余内容会作为新的镜像层添加到基础镜像层之上。</strong>，FROM建议引用官方镜像</li>
+<li>LABEL指定当前镜像维护者，给镜像使用者一个沟通渠道</li>
+<li><code>RUN apk add --update nodejs nodejs-npm</code>将当前应用的依赖安装到镜像中，RUN指令会新建一个镜像层存储这些内容</li>
+<li><code>COPY . /src</code>会将应用相关文件从构建上下文复制到当前镜像中，这会新建一个镜像层</li>
+<li><code>WORKDIR /src</code>会为Dockerfile中未执行的指令设置工作目录</li>
+<li><code>RUN  npm install</code>在当前工作目录中为应用安装依赖，这会新建一个镜像层</li>
+<li><code>EXPOSE 8080</code>对外提供一个web服务端口</li>
+<li><code>ENTRYPOINT [&quot;node&quot;, &quot;./app.js&quot;]</code>指定了当前镜像的入口程序，container运行时就会运行</li>
+</ul>
+</li>
+</ul>
+<h3 id="构建镜像"><a href="#构建镜像" class="headerlink" title="构建镜像"></a>构建镜像</h3><p>使用docker image build根据Dockerfile制作镜像，示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># -t用于指定制作好的镜像的名字及标签，通常 name:tag 或者 name</span><br><span class="line"># 最后的 . 表示使用当前目录作为构建上下文</span><br><span class="line">docker image build -t web:latest .</span><br></pre></td></tr></table></figure>
+
+<p><strong>使用<code>docker image history web:latest</code>可以查看构建镜像过程中执行了哪些指令</strong></p>
+<h3 id="推送镜像到Docker-Hub"><a href="#推送镜像到Docker-Hub" class="headerlink" title="推送镜像到Docker Hub"></a>推送镜像到Docker Hub</h3><ul>
+<li>推送镜像前建议使用以下命令给镜像打新标签<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># new-tag建议以自己的 DockerHub ID&#x2F;new-tag 的格式命名，方便推送到自己的repo</span><br><span class="line">docker image tag &lt;current-tag&gt; &lt;new-tag&gt;</span><br></pre></td></tr></table></figure></li>
+<li>使用<code>docker image push &lt;tag-name&gt;</code>推送镜像，推送前需要<code>docker login</code>,<strong>记得测试打包好的应用再推送！！！</strong></li>
+</ul>
+<h3 id="Dockerfile常用指令"><a href="#Dockerfile常用指令" class="headerlink" title="Dockerfile常用指令"></a>Dockerfile常用指令</h3><table>
+<thead>
+<tr>
+<th align="center">指令</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">FROM</td>
+<td align="center">指定要构建的镜像的基础镜像，一般为Dockerfile文件第一行</td>
+</tr>
+<tr>
+<td align="center">RUN</td>
+<td align="center">用于在镜像中执行命令，会新建一个镜像层</td>
+</tr>
+<tr>
+<td align="center">COPY</td>
+<td align="center">一般用于将应用代码copy到镜像中，这会新建一个镜像层</td>
+</tr>
+<tr>
+<td align="center">WORKDIR</td>
+<td align="center">用于设置Dockerfile中未执行的指令的工作目录</td>
+</tr>
+<tr>
+<td align="center">ENTRYPOINT</td>
+<td align="center">指定镜像以容器方式启动后默认运行的程序， ENTRYPOINT 的命令不会被docker run指定要执行的命令覆盖</td>
+</tr>
+<tr>
+<td align="center">CMD</td>
+<td align="center">指定容器启动时执行的命令，一个 Dockerfile 中只能有一个 CMD 指令，如果写了多个，那么只有最后一个会执行。CMD 和 ENTRYPOINT 同时存在时，CMD 中的内容会变成 ENTRYPOINT 中指令命令的默认参数，该参数可以被 docker run 时设置的命令覆盖</td>
+</tr>
+<tr>
+<td align="center">ENV</td>
+<td align="center">设置镜像中的环境变量</td>
+</tr>
+<tr>
+<td align="center">EXPOSE</td>
+<td align="center">记录应用所使用的网络端口</td>
+</tr>
+</tbody></table>
+<p>更多：</p>
+<ul>
+<li><a href="https://docker_practice.gitee.io/image/dockerfile/" target="_blank" rel="noopener">Dockerfile指令详解</a></li>
+<li><a href="https://docs.docker.com/engine/reference/builder/" target="_blank" rel="noopener">Dockerfile reference</a></li>
+</ul>
+<p align="middle">
+<a src="https://labs.play-with-docker.com/">
+<img src="https://cdn.jsdelivr.net/gh/ssmath/mypic/img/20190808232118.png"></a>
+</p>
+          
+            <div class='article_footer'>
+              
+                
+  
+    
+    
+
+
+
+  
+
+  
+    
+    
+
+
+
+  
+
+  
+    
+    
+
+<section class="widget copyright  desktop mobile">
+  <div class='content'>
+    
+      <blockquote>
+        
+          
+            <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+          
+        
+          
+            <p>我的博客即将同步至腾讯云+社区，邀请大家一同入驻：<a href="https://cloud.tencent.com/developer/support-plan?invite_code=1utoln9pyvwqu" target="_blank" rel="noopener">https://cloud.tencent.com/developer/support-plan?invite_code=1utoln9pyvwqu</a></p>
+
+          
+        
+      </blockquote>
+    
+  </div>
+</section>
+
+  
+
+  
+    
+    
+
+<section class="widget qrcode  desktop mobile">
+  
+
+  <div class='content article-entry'>
+    
+      
+        <div class='fancybox'><img src='https://cdn.jsdelivr.net/gh/ssmath/images-assets-cdn@master/mmqrcode1583939866281.png'
+        
+          height='64px'
+        ></div>
+      
+    
+      
+        <div class='fancybox'><img src='https://cdn.jsdelivr.net/gh/ssmath/images-assets-cdn@master/qrcode_1583939933465.jpg'
+        
+          height='64px'
+        ></div>
+      
+    
+  </div>
+</section>
+
+  
+
+
+              
+            </div>
+          
+        </div>
+        
+          
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-01-07T05:47:09+00:00">
+  <a class='notlink'>
+    <i class="fas fa-save fa-fw" aria-hidden="true"></i>
+    <p>最近更新时间：2021年1月7日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/docker/" rel="nofollow"><i class="fas fa-tags fa-fw" aria-hidden="true"></i><p>docker</p></a></div>
+
+
+        
+      
+        
+          
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://connect.qq.com/widget/shareqq/index.html?url=https://yeshan333.github.io/2019/08/08/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&title=docker学习笔记 - ShanSan&summary=
+Play With Docker一个免费使用的基于web界面的Docker环境
+
+常用docker命令可使用docker COMMAND --help查看命令的用法
+Docker镜像相关
+1、docker image pull：用于下载镜像，镜像从远程镜像仓库服务的仓库中下载，默认从Docker Hub的仓库中拉取
+
+1234# 格式：docker pull [OPTIONS] NAME[:TAG|@DIGEST]# 说明：如果给出tag，一般拉取latest，name一般为username/repository,digest为镜像摘要可不给出docker image pull ubuntu:latest# 这个拉取标签为latest的ubuntu官方镜像，latest: Pulling from library/ubuntu，latest不一定是最新镜像"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
+          
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://yeshan333.github.io/2019/08/08/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&title=docker学习笔记 - ShanSan&summary=
+Play With Docker一个免费使用的基于web界面的Docker环境
+
+常用docker命令可使用docker COMMAND --help查看命令的用法
+Docker镜像相关
+1、docker image pull：用于下载镜像，镜像从远程镜像仓库服务的仓库中下载，默认从Docker Hub的仓库中拉取
+
+1234# 格式：docker pull [OPTIONS] NAME[:TAG|@DIGEST]# 说明：如果给出tag，一般拉取latest，name一般为username/repository,digest为镜像摘要可不给出docker image pull ubuntu:latest# 这个拉取标签为latest的ubuntu官方镜像，latest: Pulling from library/ubuntu，latest不一定是最新镜像"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://service.weibo.com/share/share.php?url=https://yeshan333.github.io/2019/08/08/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&title=docker学习笔记 - ShanSan&summary=
+Play With Docker一个免费使用的基于web界面的Docker环境
+
+常用docker命令可使用docker COMMAND --help查看命令的用法
+Docker镜像相关
+1、docker image pull：用于下载镜像，镜像从远程镜像仓库服务的仓库中下载，默认从Docker Hub的仓库中拉取
+
+1234# 格式：docker pull [OPTIONS] NAME[:TAG|@DIGEST]# 说明：如果给出tag，一般拉取latest，name一般为username/repository,digest为镜像摘要可不给出docker image pull ubuntu:latest# 这个拉取标签为latest的ubuntu官方镜像，latest: Pulling from library/ubuntu，latest不一定是最新镜像"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </section>
+
+
+        
+        
+          <div class="prev-next">
+            
+              <a class='prev' href='/2019/09/02/Python%E7%8E%AF%E5%A2%83%E7%AE%A1%E7%90%86/'>
+                <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>Python环境管理与项目依赖管理</p>
+                <p class='content'>
+个人简单记录下
+
+virtualenv + pip
+virtualenv是一个用于创建”隔离的ython运行环境”的工具，Docspip是Python的包管理工具，Docs
+
+12345678...</p>
+              </a>
+            
+            
+              <a class='next' href='/2019/08/07/%E5%87%A0%E4%B8%AA%E4%B8%8D%E9%94%99%E7%9A%84Jupyter%20Notebook%E4%BA%91%E7%AB%AF%E5%B1%95%E7%A4%BA%E5%B9%B3%E5%8F%B0/'>
+                <p class='title'>几个不错的Jupyter Notebook云端展示平台<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+                <p class='content'>jupyter nbviewerURL:https://nbviewer.jupyter.org/
+
+结合Github的示例用法：https://nbviewer.jupyter.org/git...</p>
+              </a>
+            
+          </div>
+        
+      </section>
+    </article>
+  
+
+  
+    <!-- 显示推荐文章和评论 -->
+
+
+
+  <article class="post white-box reveal comments shadow">
+    <section class="article typo">
+      <p ct><i class='fas fa-comments'></i> 评论</p>
+      
+      
+      
+      
+      
+        <section id="comments">
+          <div id="valine_container" class="valine_thread">
+            <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+          </div>
+        </section>
+      
+      
+    </section>
+  </article>
+
+
+  
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+    processEscapes: true,
+    tags: "ams",
+    macros: {
+      href: "{}"
+    }
+  },
+  options: {
+    ignoreHtmlClass: "tex2jax_ignore|dno",
+    skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  }
+};
+</script>
+
+
+
+
+  <script>
+    window.subData = {
+      title: 'docker学习笔记',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class='l_side'>
+  
+  
+
+  
+    
+    
+
+
+  <section class="widget toc-wrapper shadow desktop mobile">
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#常用docker命令"><span class="toc-text">常用docker命令</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Docker镜像相关"><span class="toc-text">Docker镜像相关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Docker容器相关"><span class="toc-text">Docker容器相关</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#应用容器化"><span class="toc-text">应用容器化</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#应用容器化的一般步骤"><span class="toc-text">应用容器化的一般步骤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用Dockerfile定制镜像"><span class="toc-text">使用Dockerfile定制镜像</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#构建镜像"><span class="toc-text">构建镜像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#推送镜像到Docker-Hub"><span class="toc-text">推送镜像到Docker Hub</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Dockerfile常用指令"><span class="toc-text">Dockerfile常用指令</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+  
+  <footer class="clearfix">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
+
+  
+    <meting-js
+      theme='#1BCDFC'
+      autoplay='false'
+      volume='0.7'
+      loop='all'
+      order='list'
+      fixed='false'
+      list-max-height='340px'
+      server='netease'
+      type='playlist'
+      id='3175833810'
+      list-folded='true'>
+    </meting-js>
+  
+
+
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+            
+              <a href="mailto:1329441308@qq.com"
+                class="social fas fa-envelope flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://github.com/yeshan333?tab=repositories"
+                class="social fab fa-github flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://music.163.com/#/my/m/music/playlist?id=2617691792"
+                class="social fas fa-music flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://www.zhihu.com/people/si-kong-ji-54/activities"
+                class="social fab fa-zhihu flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://yeshan333.github.io/sitemap.xml"
+                class="social fas fa-rss flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+        </div>
+      
+    
+      
+        <div><p>博客内容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+</div>
+      
+    
+      
+        本站使用
+        <a href="https://volantis.js.org/" target="_blank" class="codename">Volantis</a>
+        作为主题，总访问量为
+          <span id="busuanzi_value_site_pv"><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+          次
+        
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="https://shansan.top" target="_blank" rel="noopener">Copyright © 2018-2021 ShanSan</a></p>
+
+        </div>
+      
+    
+      
+        
+          <div><p><a href="http://www.beian.miit.gov.cn/" target="_blank" rel="noopener">桂ICP备19000444号</a></p>
+</div>
+        
+      
+    
+  </footer>
+
+<script>setLoadingBarProgress(80);</script>
+
+
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
+  
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4/dist/jquery.min.js"></script>
+
+
+  <script>
+    
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/" || "/";
+    if (!ROOT.endsWith('/')) ROOT += '/';
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/instant_page.js" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.6/dist/scrollreveal.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      ScrollReveal().reveal('.l_main .reveal', {
+        distance: '8px',
+        duration: '800',
+        interval: '100',
+        scale: '1'
+      });
+    });
+  </script>
+
+
+  
+<script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+  
+  
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js"></script>
+
+    <script type="text/javascript">
+      $(function(){
+        var imgs=["https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/B18FCBB3-67FD-48CC-B4F3-457BA145F17A.jpeg"];
+        if ('true' == 'true') {
+          function shuffle(arr){
+            /*From countercurrent-time*/
+            var n = arr.length;
+            while(n--) {
+              var index = Math.floor(Math.random() * n);
+              var temp = arr[index];
+              arr[index] = arr[n];
+              arr[n] = temp;
+            }
+          }
+          shuffle(imgs);
+        }
+        if ('.cover') {
+          $('.cover').backstretch(
+            imgs,
+          {
+            duration: "20000",
+            fade: "1500"
+          });
+        } else {
+          $.backstretch(
+            imgs,
+          {
+            duration: "20000",
+            fade: "1500"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js"></script>
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0/dist/Meting.min.js"></script>
+
+  
+
+
+
+
+
+
+
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4/dist/Valine.min.js"></script>
+
+  
+  <script>
+  var GUEST_INFO = ['nick','mail','link'];
+  var meta = 'nick,mail,link'.split(',').filter(function(item){
+    return GUEST_INFO.indexOf(item) > -1
+  });
+  var REQUIRED_FIELDS = ['nick','mail','link'];
+  var requiredFields = 'nick,mail'.split(',').filter(function(item){
+    return REQUIRED_FIELDS.indexOf(item) > -1
+  });
+  var valine = new Valine();
+  function emoji(path, idx, ext) {
+      return path + "/" + path + "-" + idx + "." + ext;
+  }
+  var emojiMaps = {};
+  for (var i = 1; i <= 54; i++) {
+    emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
+  }
+  for (var i = 1; i <= 101; i++) {
+    emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
+  }
+  for (var i = 1; i <= 116; i++) {
+    emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
+  }
+  for (var i = 1; i <= 125; i++) {
+    emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
+  }
+  for (var i = 1; i <= 4; i++) {
+    emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
+  }
+  valine.init({
+    el: '#valine_container',
+    meta: meta,
+    
+    appId: "S687AsCjGJKTPIvUJ8aPNX49-gzGzoHsz",
+    appKey: "bCwg3QuIfGytbeYw58L7ofRq",
+    placeholder: "快来评论吧~",
+    pageSize:'10',
+    avatar:'robohash',
+    lang:'zh-cn',
+    visitor: 'true',
+    highlight: 'true',
+    mathJax: 'false',
+    enableQQ: 'true',
+    requiredFields: requiredFields,
+    emojiCDN: 'https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/emoji/valine/',
+    emojiMaps: emojiMaps
+  })
+  </script>
+
+
+
+
+
+  
+<script src="/js/app.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2.6.4/js/search.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/comment_typing.js"></script>
+
+
+
+
+
+
+<!-- 复制 -->
+
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="fas fa-copy"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-check-circle');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('fa-check-circle');
+          $icon.addClass('fa-copy');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-times-circle');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('fa-times-circle');
+          $icon.addClass('fa-copy');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+
+
+<!-- fancybox -->
+
+  <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  let LAZY_LOAD_IMAGE = "";
+  $(".article-entry").find("div.fancybox").find("img").each(function () {
+      var element = document.createElement("a");
+      $(element).attr("data-fancybox", "gallery");
+      $(element).attr("href", $(this).attr("src"));
+      /* 图片采用懒加载处理时,
+       * 一般图片标签内会有个属性名来存放图片的真实地址，比如 data-original,
+       * 那么此处将原本的属性名src替换为对应属性名data-original,
+       * 修改如下
+       */
+       if (LAZY_LOAD_IMAGE) {
+         $(element).attr("href", $(this).attr("data-original"));
+       }
+      $(this).wrap(element);
+  });
+</script>
+
+
+
+
+
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yeshan333/jsDelivrCDN/piao.js" />
+<script type="text/javascript" src="https://cdn.staticfile.org/jquery/1.7.2/jquery.min.js" />
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yeshan333/jsDelivrCDN/attatkmouse.js" />
+
+
+  <script>setLoadingBarProgress(100);</script>
+</body>
+</html>

@@ -1,0 +1,1377 @@
+<!DOCTYPE html>
+<html>
+<head hexo-theme='https://volantis.js.org/#2.6.5'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- 页面元数据 -->
+  
+    <title>简单耍一下-Kafka - ShanSan</title>
+  
+    <meta name="keywords" content="Kafka,消息引擎系统,流处理平台">
+  
+  
+    <meta name="description" content="
+趁着毕设初期，还能摸会儿🐟，了解波 Kafka。
+
+Kafka 术语一览
+Kafka，分布式消息引擎系统，主要功能是提供一套完备的消息发布与订阅解决方案。Kafka 也是一个分布式的、分区的、多副本的多订阅者，基于 Zookeeper 协调的分布式日志系统，可用于处理 Web 日志和消息服务。
+
+
+Topic...">
+  
+
+  <!-- feed -->
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13/css/all.min.css">
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+
+  
+
+  
+  <link rel="shortcut icon" type='image/x-icon' href="https://img.vim-cn.com/bb/db444be0b7fda59c69d5c64167f9668b0b66bd.png">
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css">
+  
+
+  <!-- import link -->
+  
+
+  
+  
+    
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+  
+</head>
+
+<body>
+  
+  <div id="loading-bar-wrapper">
+  <div id="loading-bar"></div>
+</div>
+<header class="l_header shadow blur">
+  <div class='container'>
+  <div class='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h'>
+        <li><a class="s-comment fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+          
+          
+            <red>S</red><green>h</green><blue>a</blue><yellow>n</yellow><red>S</red><green>h</green><blue>a</blue><yellow>n</yellow>
+          
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-home fa-fw'></i>首页
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" 
+                  
+                  
+                  >
+                  <i class='fas fa-ellipsis-v fa-fw'></i>与我相关
+                </a>
+                
+                  <ul class="list-v">
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://github.com/yeshan333
+                  
+                  
+                  
+                    id="https:githubcomyeshan333"
+                  >
+                  <i class='fab fa-github-square fa-fw'></i>Github
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://slide.shan333.cn
+                  
+                  
+                  
+                    id="https:slideshan333cn"
+                  >
+                  <i class='fab fa-slideshare fa-fw'></i>slides
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://shansan.top/knowledge-base/
+                  
+                  
+                  
+                    id="https:shansantopknowledge-base"
+                  >
+                  <i class='far fa-sticky-note fa-fw'></i>notes
+                </a>
+                
+              </li>
+            
+          
+                    
+                  </ul>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/PyChina/
+                  
+                  
+                  
+                    id="PyChina"
+                  >
+                  <i class='fab fa-python fa-fw'></i>中国蟒
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/cloud-native/
+                  
+                  
+                  
+                    id="cloud-native"
+                  >
+                  <i class='fas fa-cloud fa-fw'></i>云原生
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="寻你所想" />
+        </form>
+      </div>
+
+			<ul class='switcher nav-list-h'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-home fa-fw'></i>首页
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" 
+                  
+                  
+                  >
+                  <i class='fas fa-ellipsis-v fa-fw'></i>与我相关
+                </a>
+                
+                  <ul class="list-v">
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://github.com/yeshan333
+                  
+                  
+                  
+                    id="https:githubcomyeshan333"
+                  >
+                  <i class='fab fa-github-square fa-fw'></i>Github
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://slide.shan333.cn
+                  
+                  
+                  
+                    id="https:slideshan333cn"
+                  >
+                  <i class='fab fa-slideshare fa-fw'></i>slides
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://shansan.top/knowledge-base/
+                  
+                  
+                  
+                    id="https:shansantopknowledge-base"
+                  >
+                  <i class='far fa-sticky-note fa-fw'></i>notes
+                </a>
+                
+              </li>
+            
+          
+                    
+                  </ul>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/PyChina/
+                  
+                  
+                  
+                    id="PyChina"
+                  >
+                  <i class='fab fa-python fa-fw'></i>中国蟒
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/cloud-native/
+                  
+                  
+                  
+                    id="cloud-native"
+                  >
+                  <i class='fas fa-cloud fa-fw'></i>云原生
+                </a>
+                
+              </li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</header>
+
+<script>setLoadingBarProgress(40);</script>
+
+
+
+  <div class="l_body nocover">
+    <div class='body-wrapper'>
+      
+
+<div class='l_main'>
+  
+
+  
+    <article id="post" class="post white-box reveal shadow article-type-post" itemscope itemprop="blogPost">
+      
+
+
+  <section class='meta'>
+    
+      
+      
+        <a title='简单耍一下-Kafka' href='/2020/12/13/%E8%80%8D%E4%B8%80%E4%B8%8BKafka/'><img class='thumbnail' src='https://s3.ax1x.com/2020/12/14/rmcxoR.jpg'></a>
+      
+      <div class="meta" id="header-meta">
+        
+          
+  <h1 class="title">
+    <a href="/2020/12/13/%E8%80%8D%E4%B8%80%E4%B8%8BKafka/">
+      简单耍一下-Kafka
+    </a>
+  </h1>
+
+
+        
+        <div class='new-meta-box'>
+          
+            
+          
+            
+              
+<div class='new-meta-item author'>
+  <a href="https://github.com/yeshan333" target="_blank" rel="nofollow noopener">
+    <img src="https://img.vim-cn.com/a3/caa9ef084c4f562b82b1cca6e978c0dca58c5f.png">
+    <p>yeshan333</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+  
+  <div class='new-meta-item category'>
+    <a href='/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/Kafka/' rel="nofollow">
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <p>中间件/Kafka</p>
+    </a>
+  </div>
+
+
+            
+          
+            
+              <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>文章首发于：2020年12月13日</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+
+            
+          
+        </div>
+        
+          <hr>
+        
+      </div>
+    
+  </section>
+
+
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          
+          <blockquote>
+<p>趁着毕设初期，还能摸会儿🐟，了解波 Kafka。</p>
+</blockquote>
+<h2 id="Kafka-术语一览"><a href="#Kafka-术语一览" class="headerlink" title="Kafka 术语一览"></a>Kafka 术语一览</h2><blockquote>
+<p>Kafka，分布式消息引擎系统，主要功能是提供一套完备的消息发布与订阅解决方案。Kafka 也是一个分布式的、分区的、多副本的多订阅者，基于 Zookeeper 协调的分布式日志系统，可用于处理 Web 日志和消息服务。</p>
+</blockquote>
+<ul>
+<li>Topic：主题，承载消息（Record）的逻辑容器，每条发布到 Kafka 集群的消息都归属于某一个 Topic，实际应用中，不同的 topic 对应着不同的业务；</li>
+<li>Broker：Kafka 服务进程，一个 Kafka 集群由多个 Broker 服务进程组成，虽然多个 Broker 可在同一服务器上进行部署，但为了高可用，会将不同的 Broker 部署在不同的机器上；</li>
+<li>Partition：分区，一组有序的消息序列，一个 Topic 可以有多个分区，同一 Topic 下的 Partition 可以分布在不同的 Broker 中。Producer 生产的每一条消息都会被放到一个 Partition 中，每条消息在 Partition 中的位置信息由一个 Offset（偏移量）数据表征。Kafka 通过偏移量（Offset）来保证消息在分区内的顺序性；</li>
+</ul>
+<a id="more"></a>
+
+<ul>
+<li>Leader：每个 Partition 下可以配置多个 Replica（副本），Replica 由一个 Leader 和多个 Follower 组成，Leader 负责当前 Partition 消息的读写；</li>
+<li>Follower：用于同步 Leader 中的数据，数据冗余，Leader 失效时会从 Followers 中选取；</li>
+<li>Producer：生产者即数据的发布者。Producer 将消息发送给 Kafka 对应的 Topic 中，Broker 接收到消息后，会将消息存储到 Partition 中；</li>
+<li>Consumer：消费者，消费者可以消费多个 Topic 中的消息，一个 Topic 中的消息也可以被多个消费者消费；</li>
+<li>Consumer Group：消费者组，每一个消费者都会归属于某一个消费者组，如果未指定，则取默认的 Group；</li>
+<li>Consumer Offset：消费者位移，用于表示消费者的消费进度；</li>
+</ul>
+<p>与 Kafka 相关的几个问题：</p>
+<div class="tabs" id="kafka-problem"><ul class="nav-tabs"><li class="tab active"><a href="#kafka-problem-1">Kafka 实现高可用的手段</a></li><li class="tab"><a href="#kafka-problem-2">Kafka 实现伸缩性的手段</a></li><li class="tab"><a href="#kafka-problem-3">Zookeeper在Kafka中的作用</a></li><li class="tab"><a href="#kafka-problem-4">Kafka如何实现消息的有序</a></li></ul><div class="tab-content"><div class="tab-pane active" id="kafka-problem-1"><ul>
+<li>Broker 分布式部署</li>
+<li>备份机制（Replacation），把相同的数据拷贝到多台机器上。即 Kafka Replica，Leader Replica 提供数据的读写操作，Follower Replica 负责同步数据。</li>
+</ul></div><div class="tab-pane" id="kafka-problem-2"><p>Partition 机制，一个 Topic 划分为多个 Partition，防止单台 Broker 机器无法容纳太多的数据，Partition 机制与 Replica 机制联系紧密，每个 Partition 可以有多个 Replica（1 Leader + N Followers）。</p></div><div class="tab-pane" id="kafka-problem-3"><blockquote>
+<p>Zookeeper 可为分布式系统提供分布式配置服务、同步服务和命名注册服务。</p>
+</blockquote>
+<ul>
+<li><p>Broker 注册；</p>
+</li>
+<li><p>Topic 注册，Partition 与 Broker 信息的保存；</p>
+</li>
+<li><p>负载均衡服服务，Producer 与 Consumer 的负载均衡；</p>
+</li>
+<li><p>分区与消费者关系的管理；</p>
+</li>
+<li><p>…等</p>
+</li>
+<li><p><a href="https://zhuanlan.zhihu.com/p/41953232" target="_blank" rel="noopener">源码解说zookeeper在kafka中的作用</a></p>
+</li>
+</ul></div><div class="tab-pane" id="kafka-problem-4"><p>从前文可知，Kafka 的消息存储在 Topic 中，一个 Topic 又可以划分为多个 Partition，多 Partition 时，Kafka 只能保证 Partition 内的消息有序（Offset保证有序），如需保证 Topic 消息的有序，那么只能使用单个Partition了。如果仍要使用多个 Partition，消息的分区写入策略应选择按键（Key）保存。</p>
+<ul>
+<li><a href="https://www.cnblogs.com/listenfwind/p/12465409.html" target="_blank" rel="noopener">详细解析kafka之kafka分区和副本</a></li>
+</ul></div></div></div>
+
+<h2 id="通过-Go-体验一下-Kafka"><a href="#通过-Go-体验一下-Kafka" class="headerlink" title="通过 Go 体验一下 Kafka"></a>通过 Go 体验一下 Kafka</h2><h3 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h3><p>既然只是玩一下，不如使用 Docker 搭建 Kafka 环境吧，“即用即焚”。</p>
+<blockquote>
+<p>环境：Windows 10 Docker Desktop + WSL</p>
+</blockquote>
+<p>这里通过 Docker-Compose 搭建个单机版的 kafka 集群，编排文件如下：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">'3.4'</span></span><br><span class="line"></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">zoo1:</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">zookeeper-one</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">zookeeper:3.4.9</span></span><br><span class="line">    <span class="attr">hostname:</span> <span class="string">zoo1</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">"2181:2181"</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="attr">ZOO_MY_ID:</span> <span class="number">1</span></span><br><span class="line">      <span class="attr">ZOO_PORT:</span> <span class="number">2181</span></span><br><span class="line">      <span class="attr">ZOO_SERVERS:</span> <span class="string">server.1=zoo1:2888:3888</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./zk-single-kafka-single/zoo1/data:/data</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./zk-single-kafka-single/zoo1/datalog:/datalog</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">kafka1:</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">kafka-one</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">confluentinc/cp-kafka:5.3.1</span></span><br><span class="line">    <span class="attr">hostname:</span> <span class="string">kafka1</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">"9092:9092"</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="attr">KAFKA_ADVERTISED_LISTENERS:</span> <span class="string">LISTENER_DOCKER_INTERNAL://kafka1:19092,LISTENER_DOCKER_EXTERNAL://$&#123;DOCKER_HOST_IP:-127.0.0.1&#125;:9092</span></span><br><span class="line">      <span class="attr">KAFKA_LISTENER_SECURITY_PROTOCOL_MAP:</span> <span class="string">LISTENER_DOCKER_INTERNAL:PLAINTEXT,LISTENER_DOCKER_EXTERNAL:PLAINTEXT</span></span><br><span class="line">      <span class="attr">KAFKA_INTER_BROKER_LISTENER_NAME:</span> <span class="string">LISTENER_DOCKER_INTERNAL</span></span><br><span class="line">      <span class="attr">KAFKA_ZOOKEEPER_CONNECT:</span> <span class="string">"zoo1:2181"</span></span><br><span class="line">      <span class="attr">KAFKA_BROKER_ID:</span> <span class="number">1</span></span><br><span class="line">      <span class="attr">KAFKA_LOG4J_LOGGERS:</span> <span class="string">"kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"</span></span><br><span class="line">      <span class="attr">KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR:</span> <span class="number">1</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./zk-single-kafka-single/kafka1/data:/var/lib/kafka/data</span></span><br><span class="line">    <span class="attr">depends_on:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">zoo1</span></span><br></pre></td></tr></table></figure>
+
+<p>该编排文件来自：<a href="https://github.com/simplesteph/kafka-stack-docker-compose" target="_blank" rel="noopener">https://github.com/simplesteph/kafka-stack-docker-compose</a> 的 zk-single-kafka-single.yml。使用 <code>docker-compose up</code> 启动容器。</p>
+<p>编排文件中所使用到的镜像 <code>confluentinc/cp-kafka:5.3.1</code> 和 <code>zookeeper:3.4.9</code> 配置参考：</p>
+<ul>
+<li><a href="https://hub.docker.com/_/zookeeper" target="_blank" rel="noopener">https://hub.docker.com/_/zookeeper</a></li>
+<li><a href="https://hub.docker.com/r/confluentinc/cp-kafka" target="_blank" rel="noopener">https://hub.docker.com/r/confluentinc/cp-kafka</a></li>
+</ul>
+<p>Kafka 和 Zookeeper 容器启动后，配合 IDEA 的两个插件 <code>Kafkalytic</code> 和 <code>Zoolytic</code> ，我们可以很方便的观察集群的情况：</p>
+<div class="fancybox ">
+              <p><img src="https://s3.ax1x.com/2020/12/14/rmg9W6.png" alt="Cluster Management"></p>
+            </div>
+
+<p>通过 vscode 插件我们可以方便的对启动的容器进行管理（日志追踪、shell attach等）：</p>
+<div class="fancybox ">
+              <p><img src="https://s3.ax1x.com/2020/12/14/rnTN0P.png" alt="vscode docker plugin"></p>
+            </div>
+
+<p>通过 Kafka 自带的命令行工具可以查看 Topic：（先连接到 Kafka 容器：<code>docker exec -it kafka-one bash</code>）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">root@kafka1:/# kafka-topics --describe --zookeeper zoo1:2181</span><br><span class="line">Topic:__confluent.support.metrics       PartitionCount:1        ReplicationFactor:1     Configs:retention.ms=31536000000</span><br><span class="line">        Topic: __confluent.support.metrics      Partition: 0    Leader: 1       Replicas: 1      Isr: 1</span><br><span class="line">Topic:__consumer_offsets        PartitionCount:50       ReplicationFactor:1     Configs:s</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用-confluent-kafka-go-体验-Kafka"><a href="#使用-confluent-kafka-go-体验-Kafka" class="headerlink" title="使用 confluent-kafka-go 体验 Kafka"></a>使用 confluent-kafka-go 体验 Kafka</h3><p>Go 中有两个比较有名的 Go Client，即 <a href="https://github.com/segmentio/kafka-go" target="_blank" rel="noopener">kafka-go</a> 和 <a href="https://github.com/confluentinc/confluent-kafka-go" target="_blank" rel="noopener">confluent-kafka-go</a>。我都不熟悉😂，但是前面编排时用到了 confluent 公司的 Kafka 镜像，所以这里选用 <code>confluent-kafka-go</code> 创建 Client。confluent-kafka-go 项目的 example 拿来即用。</p>
+<p>1、创建 Go Module</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mkdir go-kafka-demo</span><br><span class="line">cd go-kafka-demo</span><br><span class="line">go mod init github.com/yeshan333/go-kafka-demo</span><br><span class="line">go get -u github.com/confluentinc/confluent-kafka-go</span><br></pre></td></tr></table></figure>
+
+<p>2、创建 Consumer。这个 Consumer 订阅的 Topic 为 myTopic。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// kafka_consumer.go</span></span><br><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line">	<span class="string">"github.com/confluentinc/confluent-kafka-go/kafka"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">	c, err := kafka.NewConsumer(&amp;kafka.ConfigMap&#123;</span><br><span class="line">		<span class="string">"bootstrap.servers"</span>: <span class="string">"localhost"</span>,</span><br><span class="line">		<span class="string">"group.id"</span>:          <span class="string">"myGroup"</span>,</span><br><span class="line">		<span class="string">"auto.offset.reset"</span>: <span class="string">"earliest"</span>,</span><br><span class="line">	&#125;)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="built_in">panic</span>(err)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	c.SubscribeTopics([]<span class="keyword">string</span>&#123;<span class="string">"myTopic"</span>, <span class="string">"^aRegex.*[Tt]opic"</span>&#125;, <span class="literal">nil</span>)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> &#123;</span><br><span class="line">		msg, err := c.ReadMessage(<span class="number">-1</span>)</span><br><span class="line">		<span class="keyword">if</span> err == <span class="literal">nil</span> &#123;</span><br><span class="line">			fmt.Printf(<span class="string">"Message on %s: %s\n"</span>, msg.TopicPartition, <span class="keyword">string</span>(msg.Value))</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="comment">// The client will automatically try to recover from all errors.</span></span><br><span class="line">			fmt.Printf(<span class="string">"Consumer error: %v (%v)\n"</span>, err, msg)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	c.Close()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>3、创建 Producer。这个 Producer 向 myTopic Topic 发送了 7 条消息。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// kafka_producer.go</span></span><br><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line">	<span class="string">"github.com/confluentinc/confluent-kafka-go/kafka"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">	p, err := kafka.NewProducer(&amp;kafka.ConfigMap&#123;<span class="string">"bootstrap.servers"</span>: <span class="string">"localhost"</span>&#125;)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="built_in">panic</span>(err)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">defer</span> p.Close()</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Delivery report handler for produced messages</span></span><br><span class="line">	<span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">		<span class="keyword">for</span> e := <span class="keyword">range</span> p.Events() &#123;</span><br><span class="line">			<span class="keyword">switch</span> ev := e.(<span class="keyword">type</span>) &#123;</span><br><span class="line">			<span class="keyword">case</span> *kafka.Message:</span><br><span class="line">				<span class="keyword">if</span> ev.TopicPartition.Error != <span class="literal">nil</span> &#123;</span><br><span class="line">					fmt.Printf(<span class="string">"Delivery failed: %v\n"</span>, ev.TopicPartition)</span><br><span class="line">				&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">					fmt.Printf(<span class="string">"Delivered message to %v\n"</span>, ev.TopicPartition)</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;()</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Produce messages to topic (asynchronously)</span></span><br><span class="line">	topic := <span class="string">"myTopic"</span></span><br><span class="line">	<span class="keyword">for</span> _, word := <span class="keyword">range</span> []<span class="keyword">string</span>&#123;<span class="string">"Welcome"</span>, <span class="string">"to"</span>, <span class="string">"the"</span>, <span class="string">"Confluent"</span>, <span class="string">"Kafka"</span>, <span class="string">"Golang"</span>, <span class="string">"client"</span>&#125; &#123;</span><br><span class="line">		p.Produce(&amp;kafka.Message&#123;</span><br><span class="line">			TopicPartition: kafka.TopicPartition&#123;Topic: &amp;topic, Partition: kafka.PartitionAny&#125;,</span><br><span class="line">			Value:          []<span class="keyword">byte</span>(word),</span><br><span class="line">		&#125;, <span class="literal">nil</span>)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Wait for message deliveries before shutting down</span></span><br><span class="line">	p.Flush(<span class="number">15</span> * <span class="number">1000</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>4、两个 terminal，先跑 Consumer，再跑 Producer。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> terminal 1</span></span><br><span class="line">go run kafka_consumer.go</span><br><span class="line"><span class="meta">#</span><span class="bash"> ternimal 2</span></span><br><span class="line">go run kafka_producer.go</span><br></pre></td></tr></table></figure>
+
+<div class="fancybox ">
+              <p><img src="https://s3.ax1x.com/2020/12/14/rmcYRK.png" alt="run result"></p>
+            </div>
+
+<p>收工，其他东西后续慢慢啃。本文源文件：<a href="https://github.com/yeshan333/go-kafka-demo" target="_blank" rel="noopener">https://github.com/yeshan333/go-kafka-demo</a></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://docs.confluent.io/clients-confluent-kafka-go/current/#go-example-code" target="_blank" rel="noopener">CONFLUENT-Kafka Go Client</a></li>
+<li><a href="http://kafka.apache.org/documentation/#operations" target="_blank" rel="noopener">Apache Kafka Operations</a></li>
+<li><a href="https://github.com/simplesteph/kafka-stack-docker-compose/blob/master/zk-single-kafka-single.yml" target="_blank" rel="noopener">kafka-stack-docker-compose</a></li>
+</ul>
+
+          
+            <div class='article_footer'>
+              
+                
+  
+    
+    
+
+
+
+  
+
+  
+    
+    
+
+
+
+  
+
+  
+    
+    
+
+<section class="widget copyright  desktop mobile">
+  <div class='content'>
+    
+      <blockquote>
+        
+          
+            <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+          
+        
+          
+            <p>我的博客即将同步至腾讯云+社区，邀请大家一同入驻：<a href="https://cloud.tencent.com/developer/support-plan?invite_code=1utoln9pyvwqu" target="_blank" rel="noopener">https://cloud.tencent.com/developer/support-plan?invite_code=1utoln9pyvwqu</a></p>
+
+          
+        
+      </blockquote>
+    
+  </div>
+</section>
+
+  
+
+  
+    
+    
+
+<section class="widget qrcode  desktop mobile">
+  
+
+  <div class='content article-entry'>
+    
+      
+        <div class='fancybox'><img src='https://cdn.jsdelivr.net/gh/ssmath/images-assets-cdn@master/mmqrcode1583939866281.png'
+        
+          height='64px'
+        ></div>
+      
+    
+      
+        <div class='fancybox'><img src='https://cdn.jsdelivr.net/gh/ssmath/images-assets-cdn@master/qrcode_1583939933465.jpg'
+        
+          height='64px'
+        ></div>
+      
+    
+  </div>
+</section>
+
+  
+
+
+              
+            </div>
+          
+        </div>
+        
+          
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-01-07T05:47:09+00:00">
+  <a class='notlink'>
+    <i class="fas fa-save fa-fw" aria-hidden="true"></i>
+    <p>最近更新时间：2021年1月7日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Kafka/" rel="nofollow"><i class="fas fa-tags fa-fw" aria-hidden="true"></i><p>Kafka</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E6%B6%88%E6%81%AF%E5%BC%95%E6%93%8E%E7%B3%BB%E7%BB%9F/" rel="nofollow"><i class="fas fa-tags fa-fw" aria-hidden="true"></i><p>消息引擎系统</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E6%B5%81%E5%A4%84%E7%90%86%E5%B9%B3%E5%8F%B0/" rel="nofollow"><i class="fas fa-tags fa-fw" aria-hidden="true"></i><p>流处理平台</p></a></div>
+
+
+        
+      
+        
+          
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://connect.qq.com/widget/shareqq/index.html?url=https://yeshan333.github.io/2020/12/13/%E8%80%8D%E4%B8%80%E4%B8%8BKafka/&title=简单耍一下-Kafka - ShanSan&pics=https://s3.ax1x.com/2020/12/14/rmcxoR.jpg&summary=
+趁着毕设初期，还能摸会儿🐟，了解波 Kafka。
+
+Kafka 术语一览
+Kafka，分布式消息引擎系统，主要功能是提供一套完备的消息发布与订阅解决方案。Kafka 也是一个分布式的、分区的、多副本的多订阅者，基于 Zookeeper 协调的分布式日志系统，可用于处理 Web 日志和消息服务。
+
+
+Topic：主题，承载消息（Record）的逻辑容器，每条发布到 Kafka 集群的消息都归属于某一个 Topic，实际应用中，不同的 topic 对应着不同的业务；
+Broker：Kafka 服务进程，一个 Kafka 集群由多个 Broker 服务进程组成，虽然多个 Broker 可在同一服务器上进行部署，但为了高可用，会将不同的 Broker 部署在不同的机器上；
+Partition：分区，一组有序的消息序列，一个 Topic 可以有多个分区，同一 Topic 下的 Partition 可以分布在不同的 Broker 中。Producer 生产的每一条消息都会被放到一个 Partition 中，每条消息在 Partition 中的位置信息由一个 Offset（偏移量）数据表征。Kafka 通过偏移量（Offset）来保证消息在分区内的顺序性；
+"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
+          
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://yeshan333.github.io/2020/12/13/%E8%80%8D%E4%B8%80%E4%B8%8BKafka/&title=简单耍一下-Kafka - ShanSan&pics=https://s3.ax1x.com/2020/12/14/rmcxoR.jpg&summary=
+趁着毕设初期，还能摸会儿🐟，了解波 Kafka。
+
+Kafka 术语一览
+Kafka，分布式消息引擎系统，主要功能是提供一套完备的消息发布与订阅解决方案。Kafka 也是一个分布式的、分区的、多副本的多订阅者，基于 Zookeeper 协调的分布式日志系统，可用于处理 Web 日志和消息服务。
+
+
+Topic：主题，承载消息（Record）的逻辑容器，每条发布到 Kafka 集群的消息都归属于某一个 Topic，实际应用中，不同的 topic 对应着不同的业务；
+Broker：Kafka 服务进程，一个 Kafka 集群由多个 Broker 服务进程组成，虽然多个 Broker 可在同一服务器上进行部署，但为了高可用，会将不同的 Broker 部署在不同的机器上；
+Partition：分区，一组有序的消息序列，一个 Topic 可以有多个分区，同一 Topic 下的 Partition 可以分布在不同的 Broker 中。Producer 生产的每一条消息都会被放到一个 Partition 中，每条消息在 Partition 中的位置信息由一个 Offset（偏移量）数据表征。Kafka 通过偏移量（Offset）来保证消息在分区内的顺序性；
+"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://service.weibo.com/share/share.php?url=https://yeshan333.github.io/2020/12/13/%E8%80%8D%E4%B8%80%E4%B8%8BKafka/&title=简单耍一下-Kafka - ShanSan&pics=https://s3.ax1x.com/2020/12/14/rmcxoR.jpg&summary=
+趁着毕设初期，还能摸会儿🐟，了解波 Kafka。
+
+Kafka 术语一览
+Kafka，分布式消息引擎系统，主要功能是提供一套完备的消息发布与订阅解决方案。Kafka 也是一个分布式的、分区的、多副本的多订阅者，基于 Zookeeper 协调的分布式日志系统，可用于处理 Web 日志和消息服务。
+
+
+Topic：主题，承载消息（Record）的逻辑容器，每条发布到 Kafka 集群的消息都归属于某一个 Topic，实际应用中，不同的 topic 对应着不同的业务；
+Broker：Kafka 服务进程，一个 Kafka 集群由多个 Broker 服务进程组成，虽然多个 Broker 可在同一服务器上进行部署，但为了高可用，会将不同的 Broker 部署在不同的机器上；
+Partition：分区，一组有序的消息序列，一个 Topic 可以有多个分区，同一 Topic 下的 Partition 可以分布在不同的 Broker 中。Producer 生产的每一条消息都会被放到一个 Partition 中，每条消息在 Partition 中的位置信息由一个 Offset（偏移量）数据表征。Kafka 通过偏移量（Offset）来保证消息在分区内的顺序性；
+"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </section>
+
+
+        
+        
+          <div class="prev-next">
+            
+              <a class='prev' href='/2021/01/01/2021-new-year/'>
+                <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>2021 Happy New Year</p>
+                <p class='content'>
+</p>
+              </a>
+            
+            
+              <a class='next' href='/2020/11/15/%E4%BD%BF%E7%94%A8tcpdump%E5%92%8Cwireshark%E7%9C%8B%E4%B8%8BTCP%E6%8F%A1%E6%89%8B/'>
+                <p class='title'>使用tcpdump和Wireshark看下TCP握手<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+                <p class='content'>tcpdump 和 Wireshark 是最常用的网络抓包和分析工具，作为经常和网络打交道的划水选手，怎么能不了解下呢？补篇博文回顾下相关操作。这里以 example.com 的一次 GET 请...</p>
+              </a>
+            
+          </div>
+        
+      </section>
+    </article>
+  
+
+  
+    <!-- 显示推荐文章和评论 -->
+
+
+
+  <article class="post white-box reveal comments shadow">
+    <section class="article typo">
+      <p ct><i class='fas fa-comments'></i> 评论</p>
+      
+      
+      
+      
+      
+        <section id="comments">
+          <div id="valine_container" class="valine_thread">
+            <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+          </div>
+        </section>
+      
+      
+    </section>
+  </article>
+
+
+  
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+    processEscapes: true,
+    tags: "ams",
+    macros: {
+      href: "{}"
+    }
+  },
+  options: {
+    ignoreHtmlClass: "tex2jax_ignore|dno",
+    skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  }
+};
+</script>
+
+
+
+
+  <script>
+    window.subData = {
+      title: '简单耍一下-Kafka',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class='l_side'>
+  
+  
+
+  
+    
+    
+
+
+  <section class="widget toc-wrapper shadow desktop mobile">
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Kafka-术语一览"><span class="toc-text">Kafka 术语一览</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#通过-Go-体验一下-Kafka"><span class="toc-text">通过 Go 体验一下 Kafka</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#环境搭建"><span class="toc-text">环境搭建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用-confluent-kafka-go-体验-Kafka"><span class="toc-text">使用 confluent-kafka-go 体验 Kafka</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+  
+  <footer class="clearfix">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
+
+  
+    <meting-js
+      theme='#1BCDFC'
+      autoplay='false'
+      volume='0.7'
+      loop='all'
+      order='list'
+      fixed='false'
+      list-max-height='340px'
+      server='netease'
+      type='playlist'
+      id='3175833810'
+      list-folded='true'>
+    </meting-js>
+  
+
+
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+            
+              <a href="mailto:1329441308@qq.com"
+                class="social fas fa-envelope flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://github.com/yeshan333?tab=repositories"
+                class="social fab fa-github flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://music.163.com/#/my/m/music/playlist?id=2617691792"
+                class="social fas fa-music flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://www.zhihu.com/people/si-kong-ji-54/activities"
+                class="social fab fa-zhihu flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://yeshan333.github.io/sitemap.xml"
+                class="social fas fa-rss flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+        </div>
+      
+    
+      
+        <div><p>博客内容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+</div>
+      
+    
+      
+        本站使用
+        <a href="https://volantis.js.org/" target="_blank" class="codename">Volantis</a>
+        作为主题，总访问量为
+          <span id="busuanzi_value_site_pv"><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+          次
+        
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="https://shansan.top" target="_blank" rel="noopener">Copyright © 2018-2021 ShanSan</a></p>
+
+        </div>
+      
+    
+      
+        
+          <div><p><a href="http://www.beian.miit.gov.cn/" target="_blank" rel="noopener">桂ICP备19000444号</a></p>
+</div>
+        
+      
+    
+  </footer>
+
+<script>setLoadingBarProgress(80);</script>
+
+
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
+  
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4/dist/jquery.min.js"></script>
+
+
+  <script>
+    
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/" || "/";
+    if (!ROOT.endsWith('/')) ROOT += '/';
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/instant_page.js" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.6/dist/scrollreveal.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      ScrollReveal().reveal('.l_main .reveal', {
+        distance: '8px',
+        duration: '800',
+        interval: '100',
+        scale: '1'
+      });
+    });
+  </script>
+
+
+  
+<script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+  
+  
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js"></script>
+
+    <script type="text/javascript">
+      $(function(){
+        var imgs=["https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/B18FCBB3-67FD-48CC-B4F3-457BA145F17A.jpeg"];
+        if ('true' == 'true') {
+          function shuffle(arr){
+            /*From countercurrent-time*/
+            var n = arr.length;
+            while(n--) {
+              var index = Math.floor(Math.random() * n);
+              var temp = arr[index];
+              arr[index] = arr[n];
+              arr[n] = temp;
+            }
+          }
+          shuffle(imgs);
+        }
+        if ('.cover') {
+          $('.cover').backstretch(
+            imgs,
+          {
+            duration: "20000",
+            fade: "1500"
+          });
+        } else {
+          $.backstretch(
+            imgs,
+          {
+            duration: "20000",
+            fade: "1500"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js"></script>
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0/dist/Meting.min.js"></script>
+
+  
+
+
+
+
+
+
+
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4/dist/Valine.min.js"></script>
+
+  
+  <script>
+  var GUEST_INFO = ['nick','mail','link'];
+  var meta = 'nick,mail,link'.split(',').filter(function(item){
+    return GUEST_INFO.indexOf(item) > -1
+  });
+  var REQUIRED_FIELDS = ['nick','mail','link'];
+  var requiredFields = 'nick,mail'.split(',').filter(function(item){
+    return REQUIRED_FIELDS.indexOf(item) > -1
+  });
+  var valine = new Valine();
+  function emoji(path, idx, ext) {
+      return path + "/" + path + "-" + idx + "." + ext;
+  }
+  var emojiMaps = {};
+  for (var i = 1; i <= 54; i++) {
+    emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
+  }
+  for (var i = 1; i <= 101; i++) {
+    emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
+  }
+  for (var i = 1; i <= 116; i++) {
+    emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
+  }
+  for (var i = 1; i <= 125; i++) {
+    emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
+  }
+  for (var i = 1; i <= 4; i++) {
+    emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
+  }
+  valine.init({
+    el: '#valine_container',
+    meta: meta,
+    
+    appId: "S687AsCjGJKTPIvUJ8aPNX49-gzGzoHsz",
+    appKey: "bCwg3QuIfGytbeYw58L7ofRq",
+    placeholder: "快来评论吧~",
+    pageSize:'10',
+    avatar:'robohash',
+    lang:'zh-cn',
+    visitor: 'true',
+    highlight: 'true',
+    mathJax: 'false',
+    enableQQ: 'true',
+    requiredFields: requiredFields,
+    emojiCDN: 'https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/emoji/valine/',
+    emojiMaps: emojiMaps
+  })
+  </script>
+
+
+
+
+
+  
+<script src="/js/app.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2.6.4/js/search.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/comment_typing.js"></script>
+
+
+
+
+
+
+<!-- 复制 -->
+
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="fas fa-copy"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-check-circle');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('fa-check-circle');
+          $icon.addClass('fa-copy');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-times-circle');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('fa-times-circle');
+          $icon.addClass('fa-copy');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+
+
+<!-- fancybox -->
+
+  <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  let LAZY_LOAD_IMAGE = "";
+  $(".article-entry").find("div.fancybox").find("img").each(function () {
+      var element = document.createElement("a");
+      $(element).attr("data-fancybox", "gallery");
+      $(element).attr("href", $(this).attr("src"));
+      /* 图片采用懒加载处理时,
+       * 一般图片标签内会有个属性名来存放图片的真实地址，比如 data-original,
+       * 那么此处将原本的属性名src替换为对应属性名data-original,
+       * 修改如下
+       */
+       if (LAZY_LOAD_IMAGE) {
+         $(element).attr("href", $(this).attr("data-original"));
+       }
+      $(this).wrap(element);
+  });
+</script>
+
+
+
+
+
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yeshan333/jsDelivrCDN/piao.js" />
+<script type="text/javascript" src="https://cdn.staticfile.org/jquery/1.7.2/jquery.min.js" />
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yeshan333/jsDelivrCDN/attatkmouse.js" />
+
+
+  <script>setLoadingBarProgress(100);</script>
+</body>
+</html>
