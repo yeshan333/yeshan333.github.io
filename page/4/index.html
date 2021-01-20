@@ -512,6 +512,134 @@
     
       
       
+        <a title='了解一波经典的 I/O 模型' href='/2020/05/19/%E4%BA%86%E8%A7%A3%E4%B8%80%E6%B3%A2%E7%BB%8F%E5%85%B8%E7%9A%84-IO-%E6%A8%A1%E5%9E%8B/'><img class='thumbnail' src='https://mypic-1258313760.cos.ap-guangzhou.myqcloud.com/img/20200519233557.png'></a>
+      
+      <div class="meta" id="header-meta">
+        
+          
+  <h2 class="title">
+    <a href="/2020/05/19/%E4%BA%86%E8%A7%A3%E4%B8%80%E6%B3%A2%E7%BB%8F%E5%85%B8%E7%9A%84-IO-%E6%A8%A1%E5%9E%8B/">
+      了解一波经典的 I/O 模型
+    </a>
+  </h2>
+
+
+        
+        <div class='new-meta-box'>
+          
+            
+          
+            
+              
+<div class='new-meta-item author'>
+  <a href="https://github.com/yeshan333" target="_blank" rel="nofollow noopener">
+    <img src="https://img.vim-cn.com/a3/caa9ef084c4f562b82b1cca6e978c0dca58c5f.png">
+    <p>yeshan333</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+  
+  <div class='new-meta-item category'>
+    <a href='/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/' rel="nofollow">
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <p>操作系统/计算机网络</p>
+    </a>
+  </div>
+
+
+            
+          
+            
+              <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>文章首发于：2020年5月19日</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/I-O%E6%A8%A1%E5%9E%8B/" rel="nofollow"><i class="fas fa-tags fa-fw" aria-hidden="true"></i><p>I/O模型</p></a></div>
+
+
+            
+          
+            
+              
+
+            
+          
+        </div>
+        
+          <hr>
+        
+      </div>
+    
+  </section>
+
+
+  <section class="article typo">
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近读了波网络 I/O 相关的文章，做下总结、摘录。（未完）</p>
+<h2 id="经典-I-O-模型"><a href="#经典-I-O-模型" class="headerlink" title="经典 I/O 模型"></a>经典 I/O 模型</h2><ul>
+<li><div class='checkbox red checked'><input type="checkbox" checked="checked"/>
+            <p>阻塞式 I/O（blocking I/O）</p>
+            </div></li>
+<li><div class='checkbox red checked'><input type="checkbox" checked="checked"/>
+            <p>非阻塞式 I/O（non-blocking I/O）</p>
+            </div></li>
+<li><div class='checkbox red'><input type="checkbox" />
+            <p>I/O 多路复用（I/O multiplexing）</p>
+            </div></li>
+<li><div class='checkbox cyan'><input type="checkbox" />
+            <p>信号驱动式 I/O（signal driven I/O）</p>
+            </div></li>
+<li><div class='checkbox cyan'><input type="checkbox" />
+            <p>异步 I/O（asynchronous I/O）</p>
+            </div>
+
+</li>
+</ul>
+<h3 id="阻塞式-I-O-模型"><a href="#阻塞式-I-O-模型" class="headerlink" title="阻塞式 I/O 模型"></a>阻塞式 I/O 模型</h3><p>对于阻塞式 I/O，以套接字（Socket）的输入操作为例。</p>
+<ul>
+<li>1、首先应用进程发起 I/O 系统调用后，应用进程阻塞，转到内核空间处理。</li>
+<li>2、之后，内核开始等待数据，等待数据到达之后，将内核中的数据拷贝到用户的缓冲区中，整个 I/O 处理完毕后返回进程。最后应用进程解除阻塞状态，处理数据。</li>
+</ul>
+      
+    </div>
+    
+      
+        <div class="button readmore">
+          <a href="/2020/05/19/%E4%BA%86%E8%A7%A3%E4%B8%80%E6%B3%A2%E7%BB%8F%E5%85%B8%E7%9A%84-IO-%E6%A8%A1%E5%9E%8B/">
+            阅读全文 <i class="fas fa-chevron-right"></i>
+          </a>
+        </div>
+      
+    
+  </section>
+</article>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <article class="post white-box shadow reveal ">
+  
+
+
+  <section class='meta'>
+    
+      
+      
         <a title='『笔记』可扩展架构设计之消息队列' href='/2020/04/06/%E5%8F%AF%E6%89%A9%E5%B1%95%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B9%8B%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/'><img class='thumbnail' src='https://i.loli.net/2020/04/06/sy4wmY5HUeFfONQ.png'></a>
       
       <div class="meta" id="header-meta">
@@ -939,119 +1067,6 @@
           </div>
         
       
-        
-          <div class='post-wrapper'>
-            <article class="post white-box shadow reveal ">
-  
-
-
-  <section class='meta'>
-    
-      
-      
-      <div class="meta" id="header-meta">
-        
-          
-  <h2 class="title">
-    <a href="/2020/01/13/React-Flask%E6%89%93%E9%80%A0%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/">
-      React+Flask打造前后端分离项目开发环境
-    </a>
-  </h2>
-
-
-        
-        <div class='new-meta-box'>
-          
-            
-          
-            
-              
-<div class='new-meta-item author'>
-  <a href="https://github.com/yeshan333" target="_blank" rel="nofollow noopener">
-    <img src="https://img.vim-cn.com/a3/caa9ef084c4f562b82b1cca6e978c0dca58c5f.png">
-    <p>yeshan333</p>
-  </a>
-</div>
-
-            
-          
-            
-              
-  
-  <div class='new-meta-item category'>
-    <a href='/categories/React/' rel="nofollow">
-      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
-      <p>React</p>
-    </a>
-  </div>
-
-
-            
-          
-            
-              <div class="new-meta-item date">
-  <a class='notlink'>
-    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>文章首发于：2020年1月13日</p>
-  </a>
-</div>
-
-            
-          
-            
-              
-  
-  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Flask/" rel="nofollow"><i class="fas fa-tags fa-fw" aria-hidden="true"></i><p>Flask</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/React/" rel="nofollow"><i class="fas fa-tags fa-fw" aria-hidden="true"></i><p>React</p></a></div>
-
-
-            
-          
-            
-              
-
-            
-          
-        </div>
-        
-          <hr>
-        
-      </div>
-    
-  </section>
-
-
-  <section class="article typo">
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
-<p>新的一年，开始水第一篇技术文。碰巧最近React玩得多，撸一篇文章纪念一下开发环境的搭建。🤔</p>
-</blockquote>
-<ul>
-<li>开篇两问：<ul>
-<li>什么是React？：React，用于构建用户界面的 JavaScript 库（官网复制粘贴，真香，不用怎么写template了，舒服</li>
-<li>什么是Flask？：一个使用Python编写的轻量级Web应用框架。用来写<a href="https://jimmysong.io/kubernetes-handbook/cloud-native/cloud-native-definition.html" target="_blank" rel="noopener">云原生应用</a>很香！</li>
-</ul>
-</li>
-</ul>
-<p>先看下最终的项目结构，如下：<a href="https://github.com/yeshan333/React-Flask--Development-Environment" target="_blank" rel="noopener">《项目源码》</a></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">├── app.py</span><br><span class="line">├── env</span><br><span class="line">|  ├── Include</span><br><span class="line">|  ├── Lib</span><br><span class="line">|  ├── LICENSE.txt</span><br><span class="line">|  ├── Scripts</span><br><span class="line">|  └── tcl</span><br><span class="line">├── frontend</span><br><span class="line">|  ├── build</span><br><span class="line">|  ├── node_modules</span><br><span class="line">|  ├── package-lock.json</span><br><span class="line">|  ├── package.json</span><br><span class="line">|  ├── public</span><br><span class="line">|  ├── README.md</span><br><span class="line">|  └── src</span><br><span class="line">├── static</span><br><span class="line">|  └── js</span><br><span class="line">└── templates</span><br><span class="line">   └── index.html</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    
-      
-        <div class="button readmore">
-          <a href="/2020/01/13/React-Flask%E6%89%93%E9%80%A0%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/">
-            阅读全文 <i class="fas fa-chevron-right"></i>
-          </a>
-        </div>
-      
-    
-  </section>
-</article>
-
-          </div>
-        
-      
     
   </section>
   
@@ -1224,6 +1239,11 @@ window.MathJax = {
             ><div class='name'>CSS</div><div class='badge'>(1)</div></a></li>
         
           <li><a class="flat-box"
+            title="/categories/DevOps/" href="/categories/DevOps/"
+            id="categoriesDevOps"
+            ><div class='name'>DevOps</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box"
             title="/categories/Flask/" href="/categories/Flask/"
             id="categoriesFlask"
             ><div class='name'>Flask</div><div class='badge'>(3)</div></a></li>
@@ -1365,7 +1385,7 @@ window.MathJax = {
 
 
     <div class='content'>
-      <a href="/tags/Algorithm/" style="font-size: 16.22px; color: #8a8a8a">Algorithm</a> <a href="/tags/Astronomy/" style="font-size: 15.11px; color: #919191">Astronomy</a> <a href="/tags/BeautifulSoup/" style="font-size: 14px; color: #999">BeautifulSoup</a> <a href="/tags/C/" style="font-size: 16.22px; color: #8a8a8a">C</a> <a href="/tags/CPP/" style="font-size: 24px; color: #555">CPP</a> <a href="/tags/CSS/" style="font-size: 14px; color: #999">CSS</a> <a href="/tags/DevOps/" style="font-size: 14px; color: #999">DevOps</a> <a href="/tags/Event-Loop/" style="font-size: 14px; color: #999">Event-Loop</a> <a href="/tags/Flask/" style="font-size: 17.33px; color: #828282">Flask</a> <a href="/tags/GDB/" style="font-size: 14px; color: #999">GDB</a> <a href="/tags/GPG/" style="font-size: 14px; color: #999">GPG</a> <a href="/tags/Git/" style="font-size: 18.44px; color: #7b7b7b">Git</a> <a href="/tags/HTML/" style="font-size: 15.11px; color: #919191">HTML</a> <a href="/tags/I-O%E6%A8%A1%E5%9E%8B/" style="font-size: 14px; color: #999">I/O模型</a> <a href="/tags/JavaScript/" style="font-size: 14px; color: #999">JavaScript</a> <a href="/tags/Json/" style="font-size: 14px; color: #999">Json</a> <a href="/tags/Jupyter/" style="font-size: 14px; color: #999">Jupyter</a> <a href="/tags/Kafka/" style="font-size: 14px; color: #999">Kafka</a> <a href="/tags/Latex/" style="font-size: 14px; color: #999">Latex</a> <a href="/tags/Linux/" style="font-size: 14px; color: #999">Linux</a> <a href="/tags/Load-Balance/" style="font-size: 14px; color: #999">Load Balance</a> <a href="/tags/MATLAB/" style="font-size: 14px; color: #999">MATLAB</a> <a href="/tags/Memory/" style="font-size: 14px; color: #999">Memory</a> <a href="/tags/Python/" style="font-size: 22.89px; color: #5d5d5d">Python</a> <a href="/tags/React/" style="font-size: 15.11px; color: #919191">React</a> <a href="/tags/Requests/" style="font-size: 15.11px; color: #919191">Requests</a> <a href="/tags/Scrapy/" style="font-size: 14px; color: #999">Scrapy</a> <a href="/tags/TCP/" style="font-size: 14px; color: #999">TCP</a> <a href="/tags/Wireshark/" style="font-size: 14px; color: #999">Wireshark</a> <a href="/tags/blog/" style="font-size: 21.78px; color: #646464">blog</a> <a href="/tags/debug/" style="font-size: 14px; color: #999">debug</a> <a href="/tags/docker/" style="font-size: 15.11px; color: #919191">docker</a> <a href="/tags/hexo/" style="font-size: 17.33px; color: #828282">hexo</a> <a href="/tags/markdown/" style="font-size: 17.33px; color: #828282">markdown</a> <a href="/tags/memory/" style="font-size: 14px; color: #999">memory</a> <a href="/tags/tcpdump/" style="font-size: 14px; color: #999">tcpdump</a> <a href="/tags/%E4%B8%8A%E4%B8%8B%E6%96%87/" style="font-size: 14px; color: #999">上下文</a> <a href="/tags/%E4%BF%A1%E6%81%AF%E6%A0%87%E8%AE%B0/" style="font-size: 14px; color: #999">信息标记</a> <a href="/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/" style="font-size: 14px; color: #999">函数式编程</a> <a href="/tags/%E5%8A%A0%E5%AF%86/" style="font-size: 14px; color: #999">加密</a> <a href="/tags/%E5%8D%8F%E7%A8%8B/" style="font-size: 14px; color: #999">协程</a> <a href="/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/" style="font-size: 14px; color: #999">工程化</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 15.11px; color: #919191">数据结构</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" style="font-size: 14px; color: #999">服务器进程管理</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E7%BC%96%E6%8E%92/" style="font-size: 14px; color: #999">服务编排</a> <a href="/tags/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/" style="font-size: 14px; color: #999">架构设计</a> <a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 14px; color: #999">正则表达式</a> <a href="/tags/%E6%B5%81%E5%A4%84%E7%90%86%E5%B9%B3%E5%8F%B0/" style="font-size: 14px; color: #999">流处理平台</a> <a href="/tags/%E6%B6%88%E6%81%AF%E5%BC%95%E6%93%8E%E7%B3%BB%E7%BB%9F/" style="font-size: 14px; color: #999">消息引擎系统</a> <a href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" style="font-size: 14px; color: #999">消息队列</a> <a href="/tags/%E6%B7%B1%E6%8B%B7%E8%B4%9D%E4%B8%8E%E6%B5%85%E6%8B%B7%E8%B4%9D/" style="font-size: 14px; color: #999">深拷贝与浅拷贝</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 19.56px; color: #737373">爬虫</a> <a href="/tags/%E7%8E%AF%E5%A2%83%E7%AE%A1%E7%90%86/" style="font-size: 14px; color: #999">环境管理</a> <a href="/tags/%E7%BA%BF%E7%A8%8B/" style="font-size: 14px; color: #999">线程</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E8%B7%AF/" style="font-size: 14px; color: #999">计算机网路</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 14px; color: #999">设计模式</a> <a href="/tags/%E8%AF%91%E6%96%87/" style="font-size: 14px; color: #999">译文</a> <a href="/tags/%E8%BF%9B%E7%A8%8B/" style="font-size: 14px; color: #999">进程</a> <a href="/tags/%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1/" style="font-size: 14px; color: #999">进程通信</a> <a href="/tags/%E9%9A%8F%E7%AC%94/" style="font-size: 20.67px; color: #6c6c6c">随笔</a> <a href="/tags/%E9%9A%90%E7%A7%81/" style="font-size: 14px; color: #999">隐私</a> <a href="/tags/%E9%9D%99%E6%80%81%E7%B1%BB%E5%9E%8B%E6%A3%80%E6%9F%A5/" style="font-size: 14px; color: #999">静态类型检查</a>
+      <a href="/tags/Algorithm/" style="font-size: 16.22px; color: #8a8a8a">Algorithm</a> <a href="/tags/Astronomy/" style="font-size: 15.11px; color: #919191">Astronomy</a> <a href="/tags/BeautifulSoup/" style="font-size: 14px; color: #999">BeautifulSoup</a> <a href="/tags/C/" style="font-size: 16.22px; color: #8a8a8a">C</a> <a href="/tags/CPP/" style="font-size: 24px; color: #555">CPP</a> <a href="/tags/CSS/" style="font-size: 14px; color: #999">CSS</a> <a href="/tags/DevOps/" style="font-size: 15.11px; color: #919191">DevOps</a> <a href="/tags/Event-Loop/" style="font-size: 14px; color: #999">Event-Loop</a> <a href="/tags/Flask/" style="font-size: 17.33px; color: #828282">Flask</a> <a href="/tags/GDB/" style="font-size: 14px; color: #999">GDB</a> <a href="/tags/GPG/" style="font-size: 14px; color: #999">GPG</a> <a href="/tags/Git/" style="font-size: 18.44px; color: #7b7b7b">Git</a> <a href="/tags/Github-Actions/" style="font-size: 14px; color: #999">Github Actions</a> <a href="/tags/HTML/" style="font-size: 15.11px; color: #919191">HTML</a> <a href="/tags/I-O%E6%A8%A1%E5%9E%8B/" style="font-size: 14px; color: #999">I/O模型</a> <a href="/tags/JavaScript/" style="font-size: 14px; color: #999">JavaScript</a> <a href="/tags/Json/" style="font-size: 14px; color: #999">Json</a> <a href="/tags/Jupyter/" style="font-size: 14px; color: #999">Jupyter</a> <a href="/tags/Kafka/" style="font-size: 14px; color: #999">Kafka</a> <a href="/tags/Latex/" style="font-size: 14px; color: #999">Latex</a> <a href="/tags/Linux/" style="font-size: 14px; color: #999">Linux</a> <a href="/tags/Load-Balance/" style="font-size: 14px; color: #999">Load Balance</a> <a href="/tags/MATLAB/" style="font-size: 14px; color: #999">MATLAB</a> <a href="/tags/Memory/" style="font-size: 14px; color: #999">Memory</a> <a href="/tags/Nginx/" style="font-size: 14px; color: #999">Nginx</a> <a href="/tags/Python/" style="font-size: 22.89px; color: #5d5d5d">Python</a> <a href="/tags/React/" style="font-size: 15.11px; color: #919191">React</a> <a href="/tags/Requests/" style="font-size: 15.11px; color: #919191">Requests</a> <a href="/tags/Scrapy/" style="font-size: 14px; color: #999">Scrapy</a> <a href="/tags/TCP/" style="font-size: 14px; color: #999">TCP</a> <a href="/tags/Wireshark/" style="font-size: 14px; color: #999">Wireshark</a> <a href="/tags/blog/" style="font-size: 21.78px; color: #646464">blog</a> <a href="/tags/debug/" style="font-size: 14px; color: #999">debug</a> <a href="/tags/docker/" style="font-size: 15.11px; color: #919191">docker</a> <a href="/tags/hexo/" style="font-size: 17.33px; color: #828282">hexo</a> <a href="/tags/markdown/" style="font-size: 17.33px; color: #828282">markdown</a> <a href="/tags/memory/" style="font-size: 14px; color: #999">memory</a> <a href="/tags/tcpdump/" style="font-size: 14px; color: #999">tcpdump</a> <a href="/tags/%E4%B8%8A%E4%B8%8B%E6%96%87/" style="font-size: 14px; color: #999">上下文</a> <a href="/tags/%E4%BF%A1%E6%81%AF%E6%A0%87%E8%AE%B0/" style="font-size: 14px; color: #999">信息标记</a> <a href="/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/" style="font-size: 14px; color: #999">函数式编程</a> <a href="/tags/%E5%8A%A0%E5%AF%86/" style="font-size: 14px; color: #999">加密</a> <a href="/tags/%E5%8D%8F%E7%A8%8B/" style="font-size: 14px; color: #999">协程</a> <a href="/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/" style="font-size: 14px; color: #999">工程化</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 15.11px; color: #919191">数据结构</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" style="font-size: 14px; color: #999">服务器进程管理</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E7%BC%96%E6%8E%92/" style="font-size: 14px; color: #999">服务编排</a> <a href="/tags/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/" style="font-size: 14px; color: #999">架构设计</a> <a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 14px; color: #999">正则表达式</a> <a href="/tags/%E6%B5%81%E5%A4%84%E7%90%86%E5%B9%B3%E5%8F%B0/" style="font-size: 14px; color: #999">流处理平台</a> <a href="/tags/%E6%B6%88%E6%81%AF%E5%BC%95%E6%93%8E%E7%B3%BB%E7%BB%9F/" style="font-size: 14px; color: #999">消息引擎系统</a> <a href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" style="font-size: 14px; color: #999">消息队列</a> <a href="/tags/%E6%B7%B1%E6%8B%B7%E8%B4%9D%E4%B8%8E%E6%B5%85%E6%8B%B7%E8%B4%9D/" style="font-size: 14px; color: #999">深拷贝与浅拷贝</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 19.56px; color: #737373">爬虫</a> <a href="/tags/%E7%8E%AF%E5%A2%83%E7%AE%A1%E7%90%86/" style="font-size: 14px; color: #999">环境管理</a> <a href="/tags/%E7%BA%BF%E7%A8%8B/" style="font-size: 14px; color: #999">线程</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E8%B7%AF/" style="font-size: 14px; color: #999">计算机网路</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 14px; color: #999">设计模式</a> <a href="/tags/%E8%AF%91%E6%96%87/" style="font-size: 14px; color: #999">译文</a> <a href="/tags/%E8%BF%9B%E7%A8%8B/" style="font-size: 14px; color: #999">进程</a> <a href="/tags/%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1/" style="font-size: 14px; color: #999">进程通信</a> <a href="/tags/%E9%9A%8F%E7%AC%94/" style="font-size: 20.67px; color: #6c6c6c">随笔</a> <a href="/tags/%E9%9A%90%E7%A7%81/" style="font-size: 14px; color: #999">隐私</a> <a href="/tags/%E9%9D%99%E6%80%81%E7%B1%BB%E5%9E%8B%E6%A3%80%E6%9F%A5/" style="font-size: 14px; color: #999">静态类型检查</a>
     </div>
   </section>
 
