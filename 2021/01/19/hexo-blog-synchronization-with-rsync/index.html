@@ -1,25 +1,32 @@
 <!DOCTYPE html>
-<html>
-<head hexo-theme='https://volantis.js.org/#2.6.5'>
+<html lang="zh-CN,en,zh-TW,default">
+  <head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/tree/4.3.1'>
   <meta charset="utf-8">
   <!-- SEO相关 -->
   
     
   
   <!-- 渲染优化 -->
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <meta name="renderer" content="webkit">
   <meta name="force-rendering" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
   <meta name="HandheldFriendly" content="True" >
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <link rel="preload" href="/css/first.css" as="style">
+  
 
   <!-- 页面元数据 -->
   
-    <title>使用 rsync-deploy-action 同步 Hexo 博客到个人服务器 - ShanSan</title>
+  <title>使用 rsync-deploy-action 同步 Hexo 博客到个人服务器 - ShanSan</title>
   
     <meta name="keywords" content="Github Actions,DevOps,Nginx">
   
+
   
     <meta name="description" content="前几天写了个基于 rsync 进行文件同步的 Action -&gt; rsync-deploy-action。目的有三个：
 
@@ -34,60 +41,85 @@
   
 
   <!-- link -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13/css/all.min.css">
   
-    
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
-
-  
-  
-    
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
-
-  
-
-  
-  <link rel="shortcut icon" type='image/x-icon' href="https://img.vim-cn.com/bb/db444be0b7fda59c69d5c64167f9668b0b66bd.png">
-  
-
-  
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css">
+    <link rel="shortcut icon" type='image/x-icon' href="https://img.vim-cn.com/bb/db444be0b7fda59c69d5c64167f9668b0b66bd.png">
   
 
   <!-- import link -->
   
 
   
-  
     
-<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/first.css">
 
   
 
-  <script>
-    function setLoadingBarProgress(num) {
-      document.getElementById('loading-bar').style.width=num+"%";
-    }
-  </script>
+  
+  <link rel="stylesheet" href="/css/style.css" media="print" onload="this.media='all';this.onload=null">
+  <noscript><link rel="stylesheet" href="/css/style.css"></noscript>
+  
+
+  <script id="loadcss"></script>
 
   
-  
+<script>
+if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode))
+    document.write(
+	'<style>'+
+		'html{'+
+			'overflow-x: hidden !important;'+
+			'overflow-y: hidden !important;'+
+		'}'+
+		'.kill-ie{'+
+			'text-align:center;'+
+			'height: 100%;'+
+			'margin-top: 15%;'+
+			'margin-bottom: 5500%;'+
+		'}'+
+	'</style>'+
+    '<div class="kill-ie">'+
+        '<h1><b>抱歉，您的浏览器无法访问本站</b></h1>'+
+        '<h3>微软已经于2016年终止了对 Internet Explorer (IE) 10 及更早版本的支持，<br/>'+
+        '继续使用存在极大的安全隐患，请使用当代主流的浏览器进行访问。</h3><br/>'+
+        '<a target="_blank" rel="noopener" href="https://www.microsoft.com/zh-cn/WindowsForBusiness/End-of-IE-support"><strong>了解详情 ></strong></a>'+
+    '</div>');
+</script>
+
+
+<noscript>
+	<style>
+		html{
+			overflow-x: hidden !important;
+			overflow-y: hidden !important;
+		}
+		.kill-noscript{
+			text-align:center;
+			height: 100%;
+			margin-top: 15%;
+			margin-bottom: 5500%;
+		}
+	</style>
+    <div class="kill-noscript">
+        <h1><b>抱歉，您的浏览器无法访问本站</b></h1>
+        <h3>本页面需要浏览器支持（启用）JavaScript</h3><br/>
+        <a target="_blank" rel="noopener" href="https://www.baidu.com/s?wd=启用JavaScript"><strong>了解详情 ></strong></a>
+    </div>
+</noscript>
+
 </head>
 
-<body>
-  
-  <div id="loading-bar-wrapper">
-  <div id="loading-bar"></div>
-</div>
-<header class="l_header shadow blur">
+  <body>
+    
+
+<header id="l_header" class="l_header auto shadow blur show" style='opacity: 0' >
   <div class='container'>
-  <div class='wrapper'>
+  <div id='wrapper'>
     <div class='nav-sub'>
       <p class="title"></p>
-      <ul class='switcher nav-list-h'>
-        <li><a class="s-comment fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+      <ul class='switcher nav-list-h m-phone' id="pjax-header-nav-list">
+        <li><a id="s-comment" class="fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
         
-          <li><a class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+          <li><a id="s-toc" class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
         
       </ul>
     </div>
@@ -98,27 +130,26 @@
           
           
           
-            <red>S</red><green>h</green><blue>a</blue><yellow>n</yellow><red>S</red><green>h</green><blue>a</blue><yellow>n</yellow>
-          
+            ShanSan
           
         </a>
       
 
 			<div class='menu navigation'>
-				<ul class='nav-list-h'>
+				<ul class='nav-list-h m-pc'>
           
           
           
             
             
               <li>
-                <a class="flat-box" href=/
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
                   
                   
                   
                     id="home"
                   >
-                  <i class='fas fa-home fa-fw'></i>首页
+                  <i class='fas fa-rss fa-fw'></i>博文
                 </a>
                 
               </li>
@@ -128,23 +159,7 @@
             
             
               <li>
-                <a class="flat-box" href=/categories/
-                  
-                  
-                  
-                    id="categories"
-                  >
-                  <i class='fas fa-folder-open fa-fw'></i>分类
-                </a>
-                
-              </li>
-            
-          
-          
-            
-            
-              <li>
-                <a class="flat-box" href=/archives/
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
                   
                   
                   
@@ -160,7 +175,7 @@
             
             
               <li>
-                <a class="flat-box" href=/friends/
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
                   
                   
                   
@@ -176,7 +191,7 @@
             
             
               <li>
-                <a class="flat-box" href=/about/
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
                   
                   
                   
@@ -192,7 +207,7 @@
             
             
               <li>
-                <a class="flat-box" 
+                <a class="menuitem flat-box faa-parent animated-hover" 
                   
                   
                   >
@@ -204,7 +219,7 @@
                       
             
               <li>
-                <a class="flat-box" href=https://github.com/yeshan333
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://github.com/yeshan333
                   
                   
                   
@@ -220,7 +235,7 @@
                       
             
               <li>
-                <a class="flat-box" href=https://slide.shan333.cn
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://slide.shan333.cn
                   
                   
                   
@@ -236,7 +251,7 @@
                       
             
               <li>
-                <a class="flat-box" href=https://shansan.top/knowledge-base/
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://shansan.top/knowledge-base/
                   
                   
                   
@@ -250,38 +265,6 @@
           
                     
                   </ul>
-                
-              </li>
-            
-          
-          
-            
-            
-              <li>
-                <a class="flat-box" href=/PyChina/
-                  
-                  
-                  
-                    id="PyChina"
-                  >
-                  <i class='fab fa-python fa-fw'></i>中国蟒
-                </a>
-                
-              </li>
-            
-          
-          
-            
-            
-              <li>
-                <a class="flat-box" href=/cloud-native/
-                  
-                  
-                  
-                    id="cloud-native"
-                  >
-                  <i class='fas fa-cloud fa-fw'></i>云原生
-                </a>
                 
               </li>
             
@@ -297,7 +280,7 @@
         </form>
       </div>
 
-			<ul class='switcher nav-list-h'>
+			<ul class='switcher nav-list-h m-phone'>
 				
 					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
 				
@@ -308,13 +291,13 @@
               
             
               <li>
-                <a class="flat-box" href=/
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
                   
                   
                   
                     id="home"
                   >
-                  <i class='fas fa-home fa-fw'></i>首页
+                  <i class='fas fa-rss fa-fw'></i>博文
                 </a>
                 
               </li>
@@ -324,23 +307,7 @@
               
             
               <li>
-                <a class="flat-box" href=/categories/
-                  
-                  
-                  
-                    id="categories"
-                  >
-                  <i class='fas fa-folder-open fa-fw'></i>分类
-                </a>
-                
-              </li>
-            
-          
-            
-              
-            
-              <li>
-                <a class="flat-box" href=/archives/
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
                   
                   
                   
@@ -356,7 +323,7 @@
               
             
               <li>
-                <a class="flat-box" href=/friends/
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
                   
                   
                   
@@ -372,7 +339,7 @@
               
             
               <li>
-                <a class="flat-box" href=/about/
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
                   
                   
                   
@@ -388,7 +355,7 @@
               
             
               <li>
-                <a class="flat-box" 
+                <a class="menuitem flat-box faa-parent animated-hover" 
                   
                   
                   >
@@ -400,7 +367,7 @@
                       
             
               <li>
-                <a class="flat-box" href=https://github.com/yeshan333
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://github.com/yeshan333
                   
                   
                   
@@ -416,7 +383,7 @@
                       
             
               <li>
-                <a class="flat-box" href=https://slide.shan333.cn
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://slide.shan333.cn
                   
                   
                   
@@ -432,7 +399,7 @@
                       
             
               <li>
-                <a class="flat-box" href=https://shansan.top/knowledge-base/
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://shansan.top/knowledge-base/
                   
                   
                   
@@ -451,38 +418,6 @@
             
           
             
-              
-            
-              <li>
-                <a class="flat-box" href=/PyChina/
-                  
-                  
-                  
-                    id="PyChina"
-                  >
-                  <i class='fab fa-python fa-fw'></i>中国蟒
-                </a>
-                
-              </li>
-            
-          
-            
-              
-            
-              <li>
-                <a class="flat-box" href=/cloud-native/
-                  
-                  
-                  
-                    id="cloud-native"
-                  >
-                  <i class='fas fa-cloud fa-fw'></i>云原生
-                </a>
-                
-              </li>
-            
-          
-            
           </ul>
         </li>
 			</ul>
@@ -491,112 +426,141 @@
   </div>
 </header>
 
-<script>setLoadingBarProgress(40);</script>
+    <div id="l_body">
+      <div id="l_cover">
+  
+    
+        <div id="full" class='cover-wrapper post dock' style="display: none;">
+          
+            <div class='cover-bg lazyload placeholder' data-bg="https://bing.ioliu.cn/v1/rand?w=1920&h=1200"></div>
+          
+          <div class='cover-body'>
+  <div class='top'>
+    
+    
+      <p class="title">花点时间多做点想做的事</p>
+    
+    
+      <p class="subtitle">created by yeshan333</p>
+    
+  </div>
+  <div class='bottom'>
+    <div class='menu navigation'>
+      <div class='list-h'>
+        
+          
+            <a href="/archives/"
+              
+              
+              id="archives">
+              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f4f0.svg'><p>博文</p>
+            </a>
+          
+            <a href="/about/"
+              
+              
+              id="about">
+              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0.1/assets/svg/1f0cf.svg'><p>关于我</p>
+            </a>
+          
+            <a href="/friends/"
+              
+              
+              id="friends">
+              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f9ec.svg'><p>友链</p>
+            </a>
+          
+        
+      </div>
+    </div>
+  </div>
+</div>
 
+          <div id="scroll-down" style="display: none;"><i class="fa fa-chevron-down scroll-down-effects"></i></div>
+        </div>
+    
+  
+  </div>
 
-
-  <div class="l_body nocover">
-    <div class='body-wrapper'>
-      
+      <div id="safearea">
+        <div class="body-wrapper" id="pjax-container">
+          
 
 <div class='l_main'>
+  <article class="article post white-box reveal md shadow article-type-post" id="post" itemscope itemprop="blogPost">
   
 
+
   
-    <article id="post" class="post white-box reveal shadow article-type-post" itemscope itemprop="blogPost">
-      
-
-
-  <section class='meta'>
+    <div class='headimg-div'>
+      <a class='headimg-a'>
+        <img class='headimg' src='https://s3.ax1x.com/2021/01/20/sfyNy4.png'/>
+      </a>
+    </div>
+  
+  <div class="article-meta" id="top">
     
-      
-      
-        <a title='使用 rsync-deploy-action 同步 Hexo 博客到个人服务器' href='/2021/01/19/hexo-blog-synchronization-with-rsync/'><img class='thumbnail' src='https://s3.ax1x.com/2021/01/20/sfyNy4.png'></a>
-      
-      <div class="meta" id="header-meta">
+    
+    
+      <h1 class="title">
+        使用 rsync-deploy-action 同步 Hexo 博客到个人服务器
+      </h1>
+      <div class='new-meta-box'>
         
           
-  <h1 class="title">
-    <a href="/2021/01/19/hexo-blog-synchronization-with-rsync/">
-      使用 rsync-deploy-action 同步 Hexo 博客到个人服务器
-    </a>
-  </h1>
-
-
-        
-        <div class='new-meta-box'>
-          
             
-          
-            
-              
 <div class='new-meta-item author'>
-  <a href="https://github.com/yeshan333" target="_blank" rel="nofollow noopener">
-    <img src="https://img.vim-cn.com/a3/caa9ef084c4f562b82b1cca6e978c0dca58c5f.png">
+  <a class='author' target="_blank" href="https://github.com/yeshan333" rel="nofollow noopener">
+    <img no-lazy src="https://img.vim-cn.com/a3/caa9ef084c4f562b82b1cca6e978c0dca58c5f.png">
     <p>yeshan333</p>
   </a>
 </div>
 
-            
           
-            
-              
-  
-  <div class='new-meta-item category'>
-    <a href='/categories/DevOps/' rel="nofollow">
-      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
-      <p>DevOps</p>
-    </a>
-  </div>
-
-
-            
+        
           
-            
-              <div class="new-meta-item date">
+            <div class="new-meta-item date">
   <a class='notlink'>
-    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>文章首发于：2021年1月19日</p>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>首发于：2021年1月19日</p>
   </a>
 </div>
 
-            
           
-            
-              
-
-            
-          
-        </div>
         
-          <hr>
+          
+            
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Github-Actions/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>Github Actions</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/DevOps/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>DevOps</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Nginx/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>Nginx</p></a></div>
+
+
+          
         
       </div>
     
-  </section>
+  </div>
 
 
-      <section class="article typo">
-        <div class="article-entry" itemprop="articleBody">
-          
-          <p>前几天写了个基于 rsync 进行文件同步的 Action -&gt; <a href="https://github.com/yeshan333/rsync-deploy-action" target="_blank" rel="noopener">rsync-deploy-action</a>。目的有三个：</p>
+  
+  
+  <p>前几天写了个基于 rsync 进行文件同步的 Action -&gt; <a target="_blank" rel="noopener" href="https://github.com/yeshan333/rsync-deploy-action">rsync-deploy-action</a>。目的有三个：</p>
 <ul>
-<li>1、深入了解波 <a href="https://docs.github.com/en/actions/creating-actions" target="_blank" rel="noopener">GitHub Actions</a>，感受下 GitHub 的文档；</li>
-<li>2、个人博客在我的腾讯云 CVM 服务器上是部署有一份的「域名：<a href="https://shan333.cn" target="_blank" rel="noopener">shan333.cn</a>」，之前的博客同步方式是通过 Linux 的定时任务，觉得不太行，当前博客的更新并没有那么频繁，没必要每隔几个小时就 <code>git pull</code> 一下，且服务器还挂着其他东西，性能还是有点损耗的，换成通过 rsync 进行主动推送的方式好点；</li>
+<li>1、深入了解波 <a target="_blank" rel="noopener" href="https://docs.github.com/en/actions/creating-actions">GitHub Actions</a>，感受下 GitHub 的文档；</li>
+<li>2、个人博客在我的腾讯云 CVM 服务器上是部署有一份的「域名：<a target="_blank" rel="noopener" href="https://shan333.cn">shan333.cn</a>」，之前的博客同步方式是通过 Linux 的定时任务，觉得不太行，当前博客的更新并没有那么频繁，没必要每隔几个小时就 <code>git pull</code> 一下，且服务器还挂着其他东西，性能还是有点损耗的，换成通过 rsync 进行主动推送的方式好点；</li>
 <li>3、熟悉波 SSH 协议和 rsync 协议。</li>
 </ul>
 <p>今天撸一篇文章简单记录下这次折腾。</p>
-<a id="more"></a>
+<span id="more"></span>
 
-<h2 id="rsync-deploy-action-的创建"><a href="#rsync-deploy-action-的创建" class="headerlink" title="rsync-deploy-action 的创建"></a>rsync-deploy-action 的创建</h2><p>挑 rsync 协议，不挑 FTP 或 scp 的新建 GitHub Actions 的部分原因是 rsync 可以做增量备份。GitHub Action 有三种类别，即 Docker container、JavaScript 和 Composite run steps。这次手撸的 Action 归属于 GitHub 官方文档介绍的 <a href="https://docs.github.com/en/actions/creating-actions/creating-a-docker-container-action" target="_blank" rel="noopener">Docker container action</a>。rsync-deploy-action 已经发布到 GitHub 的 Marketplace。源仓库地址：<a href="https://github.com/yeshan333/rsync-deploy-action" target="_blank" rel="noopener">https://github.com/yeshan333/rsync-deploy-action</a>。</p>
+<h2 id="rsync-deploy-action-的创建"><a href="#rsync-deploy-action-的创建" class="headerlink" title="rsync-deploy-action 的创建"></a>rsync-deploy-action 的创建</h2><p>挑 rsync 协议，不挑 FTP 或 scp 的新建 GitHub Actions 的部分原因是 rsync 可以做增量备份。GitHub Action 有三种类别，即 Docker container、JavaScript 和 Composite run steps。这次手撸的 Action 归属于 GitHub 官方文档介绍的 <a target="_blank" rel="noopener" href="https://docs.github.com/en/actions/creating-actions/creating-a-docker-container-action">Docker container action</a>。rsync-deploy-action 已经发布到 GitHub 的 Marketplace。源仓库地址：<a target="_blank" rel="noopener" href="https://github.com/yeshan333/rsync-deploy-action">https://github.com/yeshan333/rsync-deploy-action</a>。</p>
 <blockquote>
 <p>rsync 与其他文件传输工具（如 FTP 或 scp）不同，rsync 的最大特点是会检查发送方和接收方已有的文件，仅传输有变动的部分（默认规则是文件大小或修改时间有变动）。</p>
 </blockquote>
 <p>rsync-deploy-action 基于 SSH 协议进行文件的远程同步，从元数据文件 action.yml 可以看到，Action 支持 8 个参数「6个必选，2个可选」。</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">'rsync-deploy-action'</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">'Synchronize files to the remote server using the SSH private key'</span></span><br><span class="line"><span class="attr">inputs:</span></span><br><span class="line">  <span class="attr">ssh_login_username:</span></span><br><span class="line">    <span class="attr">description:</span> <span class="string">'SSH login username'</span></span><br><span class="line">    <span class="attr">required:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">remote_server_ip:</span></span><br><span class="line">    <span class="attr">description:</span> <span class="string">'remote server ip'</span></span><br><span class="line">    <span class="attr">required:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">ssh_port:</span></span><br><span class="line">    <span class="attr">description:</span> <span class="string">'remote server SSH port'</span></span><br><span class="line">    <span class="attr">required:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">default:</span> <span class="string">"22"</span></span><br><span class="line">  <span class="attr">ssh_private_key:</span></span><br><span class="line">    <span class="attr">description:</span> <span class="string">'login user SSH private key'</span></span><br><span class="line">    <span class="attr">required:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">source_path:</span></span><br><span class="line">    <span class="attr">description:</span> <span class="string">'The source storage path of the synchronous files'</span></span><br><span class="line">    <span class="attr">required:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">destination_path:</span></span><br><span class="line">    <span class="attr">description:</span> <span class="string">'The destination storage path of the synchronous files'</span></span><br><span class="line">    <span class="attr">required:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">ssh_args:</span></span><br><span class="line">    <span class="attr">description:</span> <span class="string">'SSH args'</span></span><br><span class="line">    <span class="attr">required:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">rsync_args:</span></span><br><span class="line">    <span class="attr">description:</span> <span class="string">'rsync args'</span></span><br><span class="line">    <span class="attr">required:</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="attr">outputs:</span></span><br><span class="line">  <span class="attr">start_time:</span></span><br><span class="line">    <span class="attr">description:</span> <span class="string">'Start time of synchronization'</span></span><br><span class="line">  <span class="attr">end_time:</span> <span class="comment"># id of output</span></span><br><span class="line">    <span class="attr">description:</span> <span class="string">'End time of synchronization'</span></span><br><span class="line"><span class="attr">runs:</span></span><br><span class="line">  <span class="attr">using:</span> <span class="string">'docker'</span></span><br><span class="line">  <span class="attr">image:</span> <span class="string">'Dockerfile'</span></span><br><span class="line">  <span class="attr">args:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">$&#123;&#123;</span> <span class="string">inputs.ssh_login_username</span> <span class="string">&#125;&#125;</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">$&#123;&#123;</span> <span class="string">inputs.remote_server_ip</span> <span class="string">&#125;&#125;</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">$&#123;&#123;</span> <span class="string">inputs.ssh_port</span> <span class="string">&#125;&#125;</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">$&#123;&#123;</span> <span class="string">inputs.ssh_private_key</span> <span class="string">&#125;&#125;</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">$&#123;&#123;</span> <span class="string">inputs.source_path</span> <span class="string">&#125;&#125;</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">$&#123;&#123;</span> <span class="string">inputs.destination_path</span> <span class="string">&#125;&#125;</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">$&#123;&#123;</span> <span class="string">inputs.ssh_args</span> <span class="string">&#125;&#125;</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">$&#123;&#123;</span> <span class="string">inputs.rsync_args</span> <span class="string">&#125;&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="attr">branding:</span></span><br><span class="line">  <span class="attr">icon:</span> <span class="string">'file'</span></span><br><span class="line">  <span class="attr">color:</span> <span class="string">'green'</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">&#x27;rsync-deploy-action&#x27;</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">&#x27;Synchronize files to the remote server using the SSH private key&#x27;</span></span><br><span class="line"><span class="attr">inputs:</span></span><br><span class="line">  <span class="attr">ssh_login_username:</span></span><br><span class="line">    <span class="attr">description:</span> <span class="string">&#x27;SSH login username&#x27;</span></span><br><span class="line">    <span class="attr">required:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">remote_server_ip:</span></span><br><span class="line">    <span class="attr">description:</span> <span class="string">&#x27;remote server ip&#x27;</span></span><br><span class="line">    <span class="attr">required:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">ssh_port:</span></span><br><span class="line">    <span class="attr">description:</span> <span class="string">&#x27;remote server SSH port&#x27;</span></span><br><span class="line">    <span class="attr">required:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">default:</span> <span class="string">&quot;22&quot;</span></span><br><span class="line">  <span class="attr">ssh_private_key:</span></span><br><span class="line">    <span class="attr">description:</span> <span class="string">&#x27;login user SSH private key&#x27;</span></span><br><span class="line">    <span class="attr">required:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">source_path:</span></span><br><span class="line">    <span class="attr">description:</span> <span class="string">&#x27;The source storage path of the synchronous files&#x27;</span></span><br><span class="line">    <span class="attr">required:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">destination_path:</span></span><br><span class="line">    <span class="attr">description:</span> <span class="string">&#x27;The destination storage path of the synchronous files&#x27;</span></span><br><span class="line">    <span class="attr">required:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">ssh_args:</span></span><br><span class="line">    <span class="attr">description:</span> <span class="string">&#x27;SSH args&#x27;</span></span><br><span class="line">    <span class="attr">required:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">rsync_args:</span></span><br><span class="line">    <span class="attr">description:</span> <span class="string">&#x27;rsync args&#x27;</span></span><br><span class="line">    <span class="attr">required:</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="attr">outputs:</span></span><br><span class="line">  <span class="attr">start_time:</span></span><br><span class="line">    <span class="attr">description:</span> <span class="string">&#x27;Start time of synchronization&#x27;</span></span><br><span class="line">  <span class="attr">end_time:</span> <span class="comment"># id of output</span></span><br><span class="line">    <span class="attr">description:</span> <span class="string">&#x27;End time of synchronization&#x27;</span></span><br><span class="line"><span class="attr">runs:</span></span><br><span class="line">  <span class="attr">using:</span> <span class="string">&#x27;docker&#x27;</span></span><br><span class="line">  <span class="attr">image:</span> <span class="string">&#x27;Dockerfile&#x27;</span></span><br><span class="line">  <span class="attr">args:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">$&#123;&#123;</span> <span class="string">inputs.ssh_login_username</span> <span class="string">&#125;&#125;</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">$&#123;&#123;</span> <span class="string">inputs.remote_server_ip</span> <span class="string">&#125;&#125;</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">$&#123;&#123;</span> <span class="string">inputs.ssh_port</span> <span class="string">&#125;&#125;</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">$&#123;&#123;</span> <span class="string">inputs.ssh_private_key</span> <span class="string">&#125;&#125;</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">$&#123;&#123;</span> <span class="string">inputs.source_path</span> <span class="string">&#125;&#125;</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">$&#123;&#123;</span> <span class="string">inputs.destination_path</span> <span class="string">&#125;&#125;</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">$&#123;&#123;</span> <span class="string">inputs.ssh_args</span> <span class="string">&#125;&#125;</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">$&#123;&#123;</span> <span class="string">inputs.rsync_args</span> <span class="string">&#125;&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="attr">branding:</span></span><br><span class="line">  <span class="attr">icon:</span> <span class="string">&#x27;file&#x27;</span></span><br><span class="line">  <span class="attr">color:</span> <span class="string">&#x27;green&#x27;</span></span><br></pre></td></tr></table></figure>
 
-<p>利用 rsync-deploy-action 的 Dockerfile 文件配合 <a href="https://github.com/yeshan333/github-actions-test-repo/runs/1709315134?check_suite_focus=true" target="_blank" rel="noopener">Action 执行日志</a>可以一窥 GitHub Actions 背后是如何执行的。 Action 的 <a href="https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idstepswith" target="_blank" rel="noopener">with</a> 参数的传递在一定程度上利用了 Dockerfile 的 ENTRYPOINT。</p>
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Container image that runs your code</span></span><br><span class="line"><span class="keyword">FROM</span> alpine:latest</span><br><span class="line"></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> apk update \</span></span><br><span class="line"><span class="bash"> &amp;&amp; apk upgrade \</span></span><br><span class="line"><span class="bash"> &amp;&amp; apk add --no-cache \</span></span><br><span class="line"><span class="bash">            rsync \</span></span><br><span class="line"><span class="bash">            openssh-client</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Copies your code file from your action repository to the filesystem path `/` of the container</span></span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> entrypoint.sh /entrypoint.sh</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> chmod +x /entrypoint.sh</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Code file to execute when the docker container starts up (`entrypoint.sh`)</span></span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="bash"> [<span class="string">"/entrypoint.sh"</span>]</span></span><br></pre></td></tr></table></figure>
+<p>利用 rsync-deploy-action 的 Dockerfile 文件配合 <a target="_blank" rel="noopener" href="https://github.com/yeshan333/github-actions-test-repo/runs/1709315134?check_suite_focus=true">Action 执行日志</a>可以一窥 GitHub Actions 背后是如何执行的。 Action 的 <a target="_blank" rel="noopener" href="https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idstepswith">with</a> 参数的传递在一定程度上利用了 Dockerfile 的 ENTRYPOINT。</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Container image that runs your code</span></span><br><span class="line"><span class="keyword">FROM</span> alpine:latest</span><br><span class="line"></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> apk update \</span></span><br><span class="line"><span class="bash"> &amp;&amp; apk upgrade \</span></span><br><span class="line"><span class="bash"> &amp;&amp; apk add --no-cache \</span></span><br><span class="line"><span class="bash">            rsync \</span></span><br><span class="line"><span class="bash">            openssh-client</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Copies your code file from your action repository to the filesystem path `/` of the container</span></span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> entrypoint.sh /entrypoint.sh</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> chmod +x /entrypoint.sh</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Code file to execute when the docker container starts up (`entrypoint.sh`)</span></span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="bash"> [<span class="string">&quot;/entrypoint.sh&quot;</span>]</span></span><br></pre></td></tr></table></figure>
 
 <p>接下来介绍下利用 rsync-deploy-action 进行 Hexo 博客同步到个人腾讯云 CVM 服务器的过程。</p>
 <h2 id="Hexo-博客同步到云服务器"><a href="#Hexo-博客同步到云服务器" class="headerlink" title="Hexo 博客同步到云服务器"></a>Hexo 博客同步到云服务器</h2><p>由于 rsync 是基于 SSH 协议的，rsync-deploy-action 需要使用到 SSH 私钥，所以需要先创建一个可以进行 SSH 远程登录的用户，不建议直接使用 root 用户。</p>
@@ -616,14 +580,14 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> root 用户下创建用户 github 并且指定 HOME 目录</span></span><br><span class="line">useradd -d /home/github github</span><br><span class="line"><span class="meta">#</span><span class="bash"> 也可以使用 adduser github，adduser会自动创建 HOME 目录等</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 设置 github 用户密码，用于后续 SSH 登录公钥的上传</span></span><br><span class="line">passwd github</span><br></pre></td></tr></table></figure>
 
 <p>3、在本地 PC 执行如下命令，创建用于登录的密钥对。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 生成密钥对</span></span><br><span class="line">ssh-keygen -t rsa -b 4096 -C "1329441308@qq.com"</span><br><span class="line"><span class="meta">#</span><span class="bash"> 将生成的公钥上传到云服务器，server_ip 为服务器 IP 地址，ssh_port 为 SSH 端口号</span></span><br><span class="line">cat ~/.ssh/id_rsa.pub | ssh github@server_ip -p ssh_port "mkdir -p ~/.ssh &amp;&amp; cat &gt;&gt; ~/.ssh/authorized_keys"</span><br><span class="line"><span class="meta">#</span><span class="bash"> ssh 密钥登录测试，server_ip 为服务器 IP 地址，ssh_port 为 SSH 端口号</span></span><br><span class="line">ssh -p ssh_port -i ~/.ssh/id_rsa github@server_ip</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 生成密钥对</span></span><br><span class="line">ssh-keygen -t rsa -b 4096 -C &quot;1329441308@qq.com&quot;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 将生成的公钥上传到云服务器，server_ip 为服务器 IP 地址，ssh_port 为 SSH 端口号</span></span><br><span class="line">cat ~/.ssh/id_rsa.pub | ssh github@server_ip -p ssh_port &quot;mkdir -p ~/.ssh &amp;&amp; cat &gt;&gt; ~/.ssh/authorized_keys&quot;</span><br><span class="line"><span class="meta">#</span><span class="bash"> ssh 密钥登录测试，server_ip 为服务器 IP 地址，ssh_port 为 SSH 端口号</span></span><br><span class="line">ssh -p ssh_port -i ~/.ssh/id_rsa github@server_ip</span><br></pre></td></tr></table></figure>
 
-<p>以上操作完成没问题之后，即可使用 <a href="https://github.com/yeshan333/rsync-deploy-action" target="_blank" rel="noopener">rsync-deploy-action</a> 了，后面以个人 Hexo 博客的同步为例子，简单看下如何使用此 Action。</p>
-<h3 id="Hexo-博客同步"><a href="#Hexo-博客同步" class="headerlink" title="Hexo 博客同步"></a>Hexo 博客同步</h3><p>个人 Hexo 博客之前已经配置过 GitHub Action 的 workflows 进行博客的自动部署「博客源仓库：<a href="https://github.com/yeshan333/actions-for-hexo-blog/blob/master/.github/workflows/hexo-ci.yaml#L54" target="_blank" rel="noopener">yeshan333/actions-for-hexo-blog</a>」，所以再添加个 step 给  rsync-deploy-action 即可启用博客同步。step 声明如下：</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">Site</span> <span class="string">CI</span></span><br><span class="line"></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line">  <span class="attr">pull_request:</span></span><br><span class="line">    <span class="attr">branches:</span> <span class="string">[master]</span></span><br><span class="line">  <span class="attr">push:</span></span><br><span class="line">    <span class="attr">branches:</span> <span class="string">[master]</span></span><br><span class="line"></span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="attr">build:</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">      <span class="string">......</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Release</span> <span class="string">to</span> <span class="string">GitHub</span> <span class="string">Pages</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">|</span></span><br><span class="line">          <span class="string">git</span> <span class="string">config</span> <span class="string">--global</span> <span class="string">user.email</span> <span class="string">"1329441308@qq.com"</span></span><br><span class="line">          <span class="string">git</span> <span class="string">config</span> <span class="string">--global</span> <span class="string">user.name</span> <span class="string">"yeshan333"</span></span><br><span class="line">          <span class="string">git</span> <span class="string">clone</span> <span class="string">git@github.com:yeshan333/yeshan333.github.io.git</span> <span class="string">.deploy_git</span></span><br><span class="line">          <span class="string">chmod</span> <span class="number">755</span> <span class="string">-R</span> <span class="string">.deploy_git</span></span><br><span class="line">          <span class="string">hexo</span> <span class="string">clean</span></span><br><span class="line">          <span class="string">hexo</span> <span class="string">generate</span></span><br><span class="line">          <span class="string">hexo</span> <span class="string">deploy</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Push</span> <span class="string">to</span> <span class="string">tencentyun</span> <span class="string">CVM</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">yeshan333/rsync-deploy-action@v1.0.0</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">ssh_login_username:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.SSH_LOGIN_USERNAME</span> <span class="string">&#125;&#125;</span></span><br><span class="line">          <span class="attr">remote_server_ip:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.REMOTE_SERVER_IP</span> <span class="string">&#125;&#125;</span></span><br><span class="line">          <span class="attr">ssh_port:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.SSH_PORT</span> <span class="string">&#125;&#125;</span></span><br><span class="line">          <span class="attr">ssh_private_key:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.SSH_PRIVATE_KEY</span> <span class="string">&#125;&#125;</span></span><br><span class="line">          <span class="attr">source_path:</span> <span class="string">./.deploy_git/*</span></span><br><span class="line">          <span class="attr">destination_path:</span> <span class="string">~/shan333.cn</span></span><br><span class="line">          <span class="attr">rsync_args:</span> <span class="string">--exclude="./.deploy_git/.git/*"</span></span><br></pre></td></tr></table></figure>
+<p>以上操作完成没问题之后，即可使用 <a target="_blank" rel="noopener" href="https://github.com/yeshan333/rsync-deploy-action">rsync-deploy-action</a> 了，后面以个人 Hexo 博客的同步为例子，简单看下如何使用此 Action。</p>
+<h3 id="Hexo-博客同步"><a href="#Hexo-博客同步" class="headerlink" title="Hexo 博客同步"></a>Hexo 博客同步</h3><p>个人 Hexo 博客之前已经配置过 GitHub Action 的 workflows 进行博客的自动部署「博客源仓库：<a target="_blank" rel="noopener" href="https://github.com/yeshan333/actions-for-hexo-blog/blob/master/.github/workflows/hexo-ci.yaml#L54">yeshan333/actions-for-hexo-blog</a>」，所以再添加个 step 给  rsync-deploy-action 即可启用博客同步。step 声明如下：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">Site</span> <span class="string">CI</span></span><br><span class="line"></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line">  <span class="attr">pull_request:</span></span><br><span class="line">    <span class="attr">branches:</span> [<span class="string">master</span>]</span><br><span class="line">  <span class="attr">push:</span></span><br><span class="line">    <span class="attr">branches:</span> [<span class="string">master</span>]</span><br><span class="line"></span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="attr">build:</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">      <span class="string">......</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Release</span> <span class="string">to</span> <span class="string">GitHub</span> <span class="string">Pages</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">|</span></span><br><span class="line">          <span class="string">git</span> <span class="string">config</span> <span class="string">--global</span> <span class="string">user.email</span> <span class="string">&quot;1329441308@qq.com&quot;</span></span><br><span class="line">          <span class="string">git</span> <span class="string">config</span> <span class="string">--global</span> <span class="string">user.name</span> <span class="string">&quot;yeshan333&quot;</span></span><br><span class="line">          <span class="string">git</span> <span class="string">clone</span> <span class="string">git@github.com:yeshan333/yeshan333.github.io.git</span> <span class="string">.deploy_git</span></span><br><span class="line">          <span class="string">chmod</span> <span class="number">755</span> <span class="string">-R</span> <span class="string">.deploy_git</span></span><br><span class="line">          <span class="string">hexo</span> <span class="string">clean</span></span><br><span class="line">          <span class="string">hexo</span> <span class="string">generate</span></span><br><span class="line">          <span class="string">hexo</span> <span class="string">deploy</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Push</span> <span class="string">to</span> <span class="string">tencentyun</span> <span class="string">CVM</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">yeshan333/rsync-deploy-action@v1.0.0</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">ssh_login_username:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.SSH_LOGIN_USERNAME</span> <span class="string">&#125;&#125;</span></span><br><span class="line">          <span class="attr">remote_server_ip:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.REMOTE_SERVER_IP</span> <span class="string">&#125;&#125;</span></span><br><span class="line">          <span class="attr">ssh_port:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.SSH_PORT</span> <span class="string">&#125;&#125;</span></span><br><span class="line">          <span class="attr">ssh_private_key:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.SSH_PRIVATE_KEY</span> <span class="string">&#125;&#125;</span></span><br><span class="line">          <span class="attr">source_path:</span> <span class="string">./.deploy_git/*</span></span><br><span class="line">          <span class="attr">destination_path:</span> <span class="string">~/shan333.cn</span></span><br><span class="line">          <span class="attr">rsync_args:</span> <span class="string">--exclude=&quot;./.deploy_git/.git/*&quot;</span></span><br></pre></td></tr></table></figure>
 
-<p>workflow 中名为 Push to tencentyun CVM 的 <a href="https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idstepswith" target="_blank" rel="noopener">step</a> 会将 .deploy_git 下的所有文件上传到云服务器「存放到 ~/shan333.cn 目录下」，熟悉 Hexo 的朋友应该知道 <code>hexo deploy</code> 生成的文件会放在 <code>.deploy_git</code> 目录下，这里用到了 Hexo 的一个 Plugin -&gt; <a href="https://www.npmjs.com/package/hexo-deployer-git" target="_blank" rel="noopener">hexo-deployer-git</a>。其实也可以将 <code>hexo generate</code> 生成的 <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">public</a> 目录下的所有文件同步到云服务器。</p>
-<p><a href="https://github.com/yeshan333/rsync-deploy-action" target="_blank" rel="noopener">rsync-deploy-action</a> 使用到的参数解释「有部分数据也算是隐私数据，这里意思下用了 GitHub 的 <a href="https://docs.github.com/en/actions/reference/encrypted-secrets" target="_blank" rel="noopener">repository secrets</a>」：</p>
+<p>workflow 中名为 Push to tencentyun CVM 的 <a target="_blank" rel="noopener" href="https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idstepswith">step</a> 会将 .deploy_git 下的所有文件上传到云服务器「存放到 ~/shan333.cn 目录下」，熟悉 Hexo 的朋友应该知道 <code>hexo deploy</code> 生成的文件会放在 <code>.deploy_git</code> 目录下，这里用到了 Hexo 的一个 Plugin -&gt; <a target="_blank" rel="noopener" href="https://www.npmjs.com/package/hexo-deployer-git">hexo-deployer-git</a>。其实也可以将 <code>hexo generate</code> 生成的 <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">public</a> 目录下的所有文件同步到云服务器。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/yeshan333/rsync-deploy-action">rsync-deploy-action</a> 使用到的参数解释「有部分数据也算是隐私数据，这里意思下用了 GitHub 的 <a target="_blank" rel="noopener" href="https://docs.github.com/en/actions/reference/encrypted-secrets">repository secrets</a>」：</p>
 <ul>
 <li>ssh_login_username：可以进行 SSH 密钥登录的用户名，即之前配置好的 <strong>github</strong> 用户。</li>
 <li>remote_server_ip：云服务器 IP</li>
@@ -632,109 +596,56 @@
 <li>destination_path：同步到云服务器的目标路径<code>~/shan333.cn</code>，即<code>/home/github/shan333.cn</code></li>
 <li>rsync_args：action 的可选参数，.git 目录是没必要同步上传的，排除掉</li>
 </ul>
-<p>“大功告成”。rsync 协议的更多介绍可参考：<a href="https://wangdoc.com/ssh/rsync.html" target="_blank" rel="noopener">WangDoc.com rsync</a>。</p>
-<h3 id="More"><a href="#More" class="headerlink" title="More"></a>More</h3><p>个人的腾讯云 CVM 服务器之前为了方便维护安装了个运维面板<a href="https://www.bt.cn/bbs/thread-19376-1-1.html" target="_blank" rel="noopener">BT.CN</a>，Hexo 博客是用过 Nginx Serving 的，但 Nginx 是通过运维面板安装的，默认的 user 为 www「宝塔对 Nginx 的配置文件进行了拆分」，但同步后的博客是放在 github 用户的 HOME 目录下的 shan333.cn 目录中的，www 无权限执行博客的相关文件（403 Forbidden），所以需要操作波给 www 用户可执行权限，让 Nginx Worker 可以 serving 博客：</p>
+<p>“大功告成”。rsync 协议的更多介绍可参考：<a target="_blank" rel="noopener" href="https://wangdoc.com/ssh/rsync.html">WangDoc.com rsync</a>。</p>
+<h3 id="More"><a href="#More" class="headerlink" title="More"></a>More</h3><p>个人的腾讯云 CVM 服务器之前为了方便维护安装了个运维面板<a target="_blank" rel="noopener" href="https://www.bt.cn/bbs/thread-19376-1-1.html">BT.CN</a>，Hexo 博客是用过 Nginx Serving 的，但 Nginx 是通过运维面板安装的，默认的 user 为 www「宝塔对 Nginx 的配置文件进行了拆分」，但同步后的博客是放在 github 用户的 HOME 目录下的 shan333.cn 目录中的，www 无权限执行博客的相关文件（403 Forbidden），所以需要操作波给 www 用户可执行权限，让 Nginx Worker 可以 serving 博客：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> root 用户下执行，github 目录下的所有文件 755 权限</span></span><br><span class="line">chmod -R 755 /home/github</span><br><span class="line"><span class="meta">#</span><span class="bash"> 将 www 用户添加到 github user group</span></span><br><span class="line">usermod www -G -a www</span><br></pre></td></tr></table></figure>
 
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><a href="https://github.com/features/actions" target="_blank" rel="noopener">GitHub Actions-Creating actions</a></li>
-<li><a href="https://docs.github.com/en/actions/reference#workflow-syntax" target="_blank" rel="noopener">GitHub Actions-Workflow syntax</a></li>
-<li><a href="https://wangdoc.com/ssh/key.html" target="_blank" rel="noopener">SSH 密钥登录-网道文档</a></li>
-<li><a href="https://serverfault.com/questions/707955/nginx-split-large-configuration-file" target="_blank" rel="noopener">nginx-split-large-configuration-file</a></li>
-<li><a href="https://docs.docker.com/engine/reference/builder/#entrypoint" target="_blank" rel="noopener">Dockerfile ENTRYPOINT</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/features/actions">GitHub Actions-Creating actions</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.github.com/en/actions/reference#workflow-syntax">GitHub Actions-Workflow syntax</a></li>
+<li><a target="_blank" rel="noopener" href="https://wangdoc.com/ssh/key.html">SSH 密钥登录-网道文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://serverfault.com/questions/707955/nginx-split-large-configuration-file">nginx-split-large-configuration-file</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.docker.com/engine/reference/builder/#entrypoint">Dockerfile ENTRYPOINT</a></li>
 </ul>
 
-          
-            <div class='article_footer'>
+  
+  
+    
+    <div class='footer'>
+      
+      
+      
+        <div class='copyright'>
+          <blockquote>
+            
               
-                
-  
-    
-    
-
-
-
-  
-
-  
-    
-    
-
-
-
-  
-
-  
-    
-    
-
-<section class="widget copyright  desktop mobile">
-  <div class='content'>
-    
-      <blockquote>
-        
-          
-            <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
-
-          
-        
-          
-            <p>我的博客即将同步至腾讯云+社区，邀请大家一同入驻：<a href="https://cloud.tencent.com/developer/support-plan?invite_code=1utoln9pyvwqu" target="_blank" rel="noopener">https://cloud.tencent.com/developer/support-plan?invite_code=1utoln9pyvwqu</a></p>
-
-          
-        
-      </blockquote>
-    
-  </div>
-</section>
-
-  
-
-  
-    
-    
-
-<section class="widget qrcode  desktop mobile">
-  
-
-  <div class='content article-entry'>
-    
-      
-        <div class='fancybox'><img src='https://cdn.jsdelivr.net/gh/ssmath/images-assets-cdn@master/mmqrcode1583939866281.png'
-        
-          height='64px'
-        ></div>
-      
-    
-      
-        <div class='fancybox'><img src='https://cdn.jsdelivr.net/gh/ssmath/images-assets-cdn@master/qrcode_1583939933465.jpg'
-        
-          height='64px'
-        ></div>
-      
-    
-  </div>
-</section>
-
-  
-
+                <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
 
               
-            </div>
-          
+            
+              
+                <p>我的博客即将同步至腾讯云+社区，邀请大家一同入驻：<a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/support-plan?invite_code=1utoln9pyvwqu">https://cloud.tencent.com/developer/support-plan?invite_code=1utoln9pyvwqu</a></p>
+
+              
+            
+          </blockquote>
         </div>
-        
-          
+      
+      
+    </div>
+  
+  
+    
 
 
-  <section class='meta' id="footer-meta">
+  <div class='article-meta' id="bottom">
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-02-26T14:07:28+00:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-03-10T06:09:02+00:00">
   <a class='notlink'>
-    <i class="fas fa-save fa-fw" aria-hidden="true"></i>
-    <p>最近更新时间：2021年2月26日</p>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2021年3月10日</p>
   </a>
 </div>
 
@@ -743,13 +654,8 @@
         
           
   
-  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Github-Actions/" rel="nofollow"><i class="fas fa-tags fa-fw" aria-hidden="true"></i><p>Github Actions</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/DevOps/" rel="nofollow"><i class="fas fa-tags fa-fw" aria-hidden="true"></i><p>DevOps</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Nginx/" rel="nofollow"><i class="fas fa-tags fa-fw" aria-hidden="true"></i><p>Nginx</p></a></div>
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Github-Actions/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>Github Actions</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/DevOps/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>DevOps</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Nginx/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>Nginx</p></a></div>
 
-
-        
-      
-        
-          
 
         
       
@@ -759,9 +665,9 @@
   <div class="-mob-share-list share-body">
     
       
-        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          href="http://connect.qq.com/widget/shareqq/index.html?url=https://yeshan333.github.io/2021/01/19/hexo-blog-synchronization-with-rsync/&title=使用 rsync-deploy-action 同步 Hexo 博客到个人服务器 - ShanSan&pics=https://s3.ax1x.com/2021/01/20/sfyNy4.png&summary=前几天写了个基于 rsync 进行文件同步的 Action -&gt; rsync-deploy-action。目的有三个：
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://yeshan333.github.io/2021/01/19/hexo-blog-synchronization-with-rsync/&title=使用 rsync-deploy-action 同步 Hexo 博客到个人服务器 - ShanSan&summary=前几天写了个基于 rsync 进行文件同步的 Action -&gt; rsync-deploy-action。目的有三个：
 
 1、深入了解波 GitHub Actions，感受下 GitHub 的文档；
 2、个人博客在我的腾讯云 CVM 服务器上是部署有一份的「域名：shan333.cn」，之前的博客同步方式是通过 Linux 的定时任务，觉得不太行，当前博客的更新并没有那么频繁，没必要每隔几个小时就 git pull 一下，且服务器还挂着其他东西，性能还是有点损耗的，换成通过 rsync 进行主动推送的方式好点；
@@ -771,15 +677,15 @@
           
           >
           
-            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qq.png">
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
           
         </a>
       
     
       
-        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://yeshan333.github.io/2021/01/19/hexo-blog-synchronization-with-rsync/&title=使用 rsync-deploy-action 同步 Hexo 博客到个人服务器 - ShanSan&pics=https://s3.ax1x.com/2021/01/20/sfyNy4.png&summary=前几天写了个基于 rsync 进行文件同步的 Action -&gt; rsync-deploy-action。目的有三个：
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://yeshan333.github.io/2021/01/19/hexo-blog-synchronization-with-rsync/&title=使用 rsync-deploy-action 同步 Hexo 博客到个人服务器 - ShanSan&summary=前几天写了个基于 rsync 进行文件同步的 Action -&gt; rsync-deploy-action。目的有三个：
 
 1、深入了解波 GitHub Actions，感受下 GitHub 的文档；
 2、个人博客在我的腾讯云 CVM 服务器上是部署有一份的「域名：shan333.cn」，之前的博客同步方式是通过 Linux 的定时任务，觉得不太行，当前博客的更新并没有那么频繁，没必要每隔几个小时就 git pull 一下，且服务器还挂着其他东西，性能还是有点损耗的，换成通过 rsync 进行主动推送的方式好点；
@@ -789,15 +695,15 @@
           
           >
           
-            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qzone.png">
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
           
         </a>
       
     
       
-        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          href="http://service.weibo.com/share/share.php?url=https://yeshan333.github.io/2021/01/19/hexo-blog-synchronization-with-rsync/&title=使用 rsync-deploy-action 同步 Hexo 博客到个人服务器 - ShanSan&pics=https://s3.ax1x.com/2021/01/20/sfyNy4.png&summary=前几天写了个基于 rsync 进行文件同步的 Action -&gt; rsync-deploy-action。目的有三个：
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://yeshan333.github.io/2021/01/19/hexo-blog-synchronization-with-rsync/&title=使用 rsync-deploy-action 同步 Hexo 博客到个人服务器 - ShanSan&summary=前几天写了个基于 rsync 进行文件同步的 Action -&gt; rsync-deploy-action。目的有三个：
 
 1、深入了解波 GitHub Actions，感受下 GitHub 的文档；
 2、个人博客在我的腾讯云 CVM 服务器上是部署有一份的「域名：shan333.cn」，之前的博客同步方式是通过 Linux 的定时任务，觉得不太行，当前博客的更新并没有那么频繁，没必要每隔几个小时就 git pull 一下，且服务器还挂着其他东西，性能还是有点损耗的，换成通过 rsync 进行主动推送的方式好点；
@@ -807,9 +713,13 @@
           
           >
           
-            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/weibo.png">
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
           
         </a>
+      
+    
+      
+    
       
     
   </div>
@@ -820,102 +730,109 @@
         
       
     </div>
-  </section>
+  </div>
 
 
-        
-        
-          <div class="prev-next">
-            
-            
-              <a class='next' href='/2021/01/06/2020-annual-reviewed/'>
-                <p class='title'>关注思考的过程，终将更加卓越 | 2020 年总结<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
-                <p class='content'>
+  
+  
+
+  
+    <div class="prev-next">
+      
+      
+        <a class='next' href='/2021/01/06/2020-annual-reviewed/'>
+          <p class='title'>关注思考的过程，终将更加卓越 | 2020 年总结<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>
 
 
 开篇碎语2020 年末和 2021 年初在掘金社区和 Twitter 看了诸多大佬的 2020 年总结「顺便膜拜 dalao 的同时学习波文法😀，方便写自己的年度总结」。
 2020 年 ...</p>
-              </a>
-            
-          </div>
-        
-      </section>
-    </article>
+        </a>
+      
+    </div>
+  
+</article>
+
+
   
 
-  
-    <!-- 显示推荐文章和评论 -->
+  <article class="post white-box reveal shadow" id="comments">
+    <p ct><i class='fas fa-comments'></i> 评论</p>
+    
+    <div id="valine_container" class="valine_thread">
+  <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+</div>
 
-
-
-  <article class="post white-box reveal comments shadow">
-    <section class="article typo">
-      <p ct><i class='fas fa-comments'></i> 评论</p>
-      
-      
-      
-      
-      
-        <section id="comments">
-          <div id="valine_container" class="valine_thread">
-            <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
-          </div>
-        </section>
-      
-      
-    </section>
   </article>
 
-
-  
-
-
-
-
-<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
-
-  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-<!-- MathJax配置，可通过单美元符号书写行内公式等 -->
-<script>
-window.MathJax = {
-  tex: {
-    inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
-    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
-    processEscapes: true,
-    tags: "ams",
-    macros: {
-      href: "{}"
-    }
-  },
-  options: {
-    ignoreHtmlClass: "tex2jax_ignore|dno",
-    skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-  }
-};
-</script>
 
 
 
 
   <script>
-    window.subData = {
-      title: '使用 rsync-deploy-action 同步 Hexo 博客到个人服务器',
-      tools: true
-    }
-  </script>
+  // https://github.com/theme-next/hexo-theme-next/blob/master/layout/_third-party/math/mathjax.swig
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.0/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    // 文章章节标题不能为 “MathJax” ，否则会报错。
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
 
 
 </div>
 <aside class='l_side'>
   
   
-
-  
     
     
 
 
-  <section class="widget toc-wrapper shadow desktop mobile">
+
+  <section class="widget toc-wrapper shadow desktop mobile" id="toc-div" >
     
   <header>
     
@@ -925,7 +842,7 @@ window.MathJax = {
 
 
     <div class='content'>
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#rsync-deploy-action-的创建"><span class="toc-text">rsync-deploy-action 的创建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hexo-博客同步到云服务器"><span class="toc-text">Hexo 博客同步到云服务器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SSH-密钥登录"><span class="toc-text">SSH 密钥登录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hexo-博客同步"><span class="toc-text">Hexo 博客同步</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#More"><span class="toc-text">More</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#rsync-deploy-action-%E7%9A%84%E5%88%9B%E5%BB%BA"><span class="toc-text">rsync-deploy-action 的创建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hexo-%E5%8D%9A%E5%AE%A2%E5%90%8C%E6%AD%A5%E5%88%B0%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-text">Hexo 博客同步到云服务器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SSH-%E5%AF%86%E9%92%A5%E7%99%BB%E5%BD%95"><span class="toc-text">SSH 密钥登录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hexo-%E5%8D%9A%E5%AE%A2%E5%90%8C%E6%AD%A5"><span class="toc-text">Hexo 博客同步</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#More"><span class="toc-text">More</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol>
     </div>
   </section>
 
@@ -936,8 +853,36 @@ window.MathJax = {
 </aside>
 
 
+
+		  
+		  <!--此文件用来存放一些不方便取值的变量-->
+<!--思路大概是将值藏到重加载的区域内-->
+
+<script>
+  window.pdata={}
+  pdata.ispage=true;
+  pdata.postTitle="使用 rsync-deploy-action 同步 Hexo 博客到个人服务器";
+  pdata.commentPath="";
+  pdata.commentPlaceholder="";
+  // header 这里无论是否开启pjax都需要
+  var l_header=document.getElementById("l_header");
   
-  <footer class="clearfix">
+  l_header.classList.add("show");
+  
+  
+    // cover
+    var cover_wrapper=document.querySelector('.cover-wrapper');
+    
+    cover_wrapper.id="none";
+    cover_wrapper.style.display="none";
+    
+  
+</script>
+
+        </div>
+        
+  
+  <footer class="footer clearfix">
     <br><br>
     
       
@@ -952,7 +897,7 @@ window.MathJax = {
       loop='all'
       order='list'
       fixed='false'
-      list-max-height='340px'
+      list-max-height='320px'
       server='netease'
       type='playlist'
       id='3175833810'
@@ -973,6 +918,7 @@ window.MathJax = {
                 class="social fas fa-envelope flat-btn"
                 target="_blank"
                 rel="external nofollow noopener noreferrer">
+                
               </a>
             
           
@@ -981,6 +927,7 @@ window.MathJax = {
                 class="social fab fa-github flat-btn"
                 target="_blank"
                 rel="external nofollow noopener noreferrer">
+                
               </a>
             
           
@@ -989,6 +936,7 @@ window.MathJax = {
                 class="social fas fa-music flat-btn"
                 target="_blank"
                 rel="external nofollow noopener noreferrer">
+                
               </a>
             
           
@@ -997,6 +945,7 @@ window.MathJax = {
                 class="social fab fa-zhihu flat-btn"
                 target="_blank"
                 rel="external nofollow noopener noreferrer">
+                
               </a>
             
           
@@ -1005,6 +954,7 @@ window.MathJax = {
                 class="social fas fa-rss flat-btn"
                 target="_blank"
                 rel="external nofollow noopener noreferrer">
+                
               </a>
             
           
@@ -1012,167 +962,383 @@ window.MathJax = {
       
     
       
-        <div><p>博客内容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+        <div><p>博客内容遵循 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
 </div>
       
     
       
         本站使用
-        <a href="https://volantis.js.org/" target="_blank" class="codename">Volantis</a>
-        作为主题，总访问量为
-          <span id="busuanzi_value_site_pv"><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
-          次
-        
+        <a href="https://github.com/volantis-x/hexo-theme-volantis/tree/4.3.1" target="_blank" class="codename">Volantis</a>
+        作为主题
       
     
       
         <div class='copyright'>
-        <p><a href="https://shansan.top" target="_blank" rel="noopener">Copyright © 2018-2021 ShanSan</a></p>
+        <p><a target="_blank" rel="noopener" href="https://shansan.top">Copyright © 2018-2021 ShanSan</a></p>
 
         </div>
       
     
       
         
-          <div><p><a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">桂ICP备19000444号</a></p>
+          <div><p><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">桂ICP备19000444号</a></p>
 </div>
         
       
     
   </footer>
 
-<script>setLoadingBarProgress(80);</script>
 
-
-      <script>setLoadingBarProgress(60);</script>
+        <a id="s-top" class="fas fa-arrow-up fa-fw" href="javascript:void(0)"></a>
+      </div>
     </div>
-    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
-  </div>
+    <div>
+      <script>
+/************这个文件存放不需要重载的全局变量和全局函数*********/
+window.volantis={};
+window.volantis.loadcss=document.getElementById("loadcss");
+/******************** Pjax ********************************/
+function VPjax(){
+	this.list=[] // 存放回调函数
+	this.start=()=>{
+	  for(var i=0;i<this.list.length;i++){
+		this.list[i].run();
+	  }
+	}
+	this.push=(fn,name)=>{
+		var f=new PjaxItem(fn,name);
+		this.list.push(f);
+	}
+	// 构造一个可以run的对象
+	function PjaxItem(fn,name){
+		// 函数名称
+		this.name = name || fn.name
+		// run方法
+		this.run=()=>{
+			fn()
+		}
+	}
+}
+volantis.pjax={}
+volantis.pjax.method={
+	complete: new VPjax(),
+	error: new VPjax(),
+	send: new VPjax()
+}
+volantis.pjax={
+	...volantis.pjax,
+	push: volantis.pjax.method.complete.push,
+	error: volantis.pjax.method.error.push,
+	send: volantis.pjax.method.send.push
+}
+/********************脚本懒加载函数********************************/
+// 已经加入了setTimeout
+function loadScript(src, cb) {
+	setTimeout(function() {
+		var HEAD = document.getElementsByTagName('head')[0] || document.documentElement;
+		var script = document.createElement('script');
+		script.setAttribute('type','text/javascript');
+		if (cb) script.onload = cb;
+		script.setAttribute('src', src);
+		HEAD.appendChild(script);
+	});
+}
+//https://github.com/filamentgroup/loadCSS
+var loadCSS = function( href, before, media, attributes ){
+	var doc = window.document;
+	var ss = doc.createElement( "link" );
+	var ref;
+	if( before ){
+		ref = before;
+	}
+	else {
+		var refs = ( doc.body || doc.getElementsByTagName( "head" )[ 0 ] ).childNodes;
+		ref = refs[ refs.length - 1];
+	}
+	var sheets = doc.styleSheets;
+	if( attributes ){
+		for( var attributeName in attributes ){
+			if( attributes.hasOwnProperty( attributeName ) ){
+				ss.setAttribute( attributeName, attributes[attributeName] );
+			}
+		}
+	}
+	ss.rel = "stylesheet";
+	ss.href = href;
+	ss.media = "only x";
+	function ready( cb ){
+		if( doc.body ){
+			return cb();
+		}
+		setTimeout(function(){
+			ready( cb );
+		});
+	}
+	ready( function(){
+		ref.parentNode.insertBefore( ss, ( before ? ref : ref.nextSibling ) );
+	});
+	var onloadcssdefined = function( cb ){
+		var resolvedHref = ss.href;
+		var i = sheets.length;
+		while( i-- ){
+			if( sheets[ i ].href === resolvedHref ){
+				return cb();
+			}
+		}
+		setTimeout(function() {
+			onloadcssdefined( cb );
+		});
+	};
+	function loadCB(){
+		if( ss.addEventListener ){
+			ss.removeEventListener( "load", loadCB );
+		}
+		ss.media = media || "all";
+	}
+	if( ss.addEventListener ){
+		ss.addEventListener( "load", loadCB);
+	}
+	ss.onloadcssdefined = onloadcssdefined;
+	onloadcssdefined( loadCB );
+	return ss;
+};
+</script>
+<script>
   
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.4/dist/jquery.min.js"></script>
+  loadCSS("https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14/css/all.min.css", window.volantis.loadcss);
+  
+  
+  
+  
+</script>
+<!-- required -->
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5/dist/jquery.min.js"></script>
+
+<script>
+  function pjax_fancybox() {
+    $(".md .gallery").find("img").each(function () { //渲染 fancybox
+      var element = document.createElement("a"); // a 标签
+      $(element).attr("class", "fancybox");
+      $(element).attr("pjax-fancybox", "");  // 过滤 pjax
+      $(element).attr("href", $(this).attr("src"));
+      if ($(this).attr("data-original")) {
+        $(element).attr("href", $(this).attr("data-original"));
+      }
+      $(element).attr("data-fancybox", "images");
+      var caption = "";   // 描述信息
+      if ($(this).attr('alt')) {  // 判断当前页面是否存在描述信息
+        $(element).attr('data-caption', $(this).attr('alt'));
+        caption = $(this).attr('alt');
+      }
+      var div = document.createElement("div");
+      $(div).addClass("fancybox");
+      $(this).wrap(div); // 最外层套 div ，其实主要作用还是 class 样式
+      var span = document.createElement("span");
+      $(span).addClass("image-caption");
+      $(span).text(caption); // 加描述
+      $(this).after(span);  // 再套一层描述
+      $(this).wrap(element);  // 最后套 a 标签
+    })
+    $(".md .gallery").find("img").fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+      closeClick: true,
+      helpers: {
+        overlay: {closeClick: true}
+      },
+      buttons: [
+        "zoom",
+        "close"
+      ]
+    });
+  };
+  function SCload_fancybox() {
+    if ($(".md .gallery").find("img").length == 0) return;
+    loadCSS("https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css", document.getElementById("loadcss"));
+    loadScript('https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', pjax_fancybox)
+  };
+  $(function () {
+    SCload_fancybox();
+  });
+  function Pjax_SCload_fancybox(){
+	if (typeof $.fancybox == "undefined") {
+	 SCload_fancybox();
+    } else {
+	 pjax_fancybox();
+    }
+  }
+  volantis.pjax.push(Pjax_SCload_fancybox)
+  volantis.pjax.send(()=>{
+      if (typeof $.fancybox != "undefined") {
+        $.fancybox.close();    // 关闭弹窗
+      }
+  },'fancybox')
+</script>
+
+
+<!-- internal -->
+
+
+
+
+<script>
+  function loadIssuesJS() {
+    if ($(".md").find(".issues-api").length == 0) return;
+	
+	  loadScript('/js/issues.js');
+	
+  };
+  $(function () {
+    loadIssuesJS();
+  });
+  volantis.pjax.push(()=>{
+	if (typeof IssuesAPI == "undefined") {
+	  loadIssuesJS();
+	}
+  },"IssuesJS")
+</script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 0
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    lazyLoadInstance.update();
+  });
+  document.addEventListener('pjax:complete', function () {
+    lazyLoadInstance.update();
+  });
+</script>
+
+
+
+
+  
+
+<script>
+  window.FPConfig = {
+	delay: 0,
+	ignoreKeywords: [],
+	maxRPS: 5,
+	hoverDelay: 25
+  };
+</script>
+<script defer src="https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"></script>
+
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+    var clipboard = new ClipboardJS('.btn-copy', {
+        target: function (trigger) {
+            return trigger.nextElementSibling
+        }
+    });
+    function wait(callback, seconds) {
+        var timelag = null;
+        timelag = window.setTimeout(callback, seconds)
+    }
+    function pjax_initCopyCode() {
+		if($(".highlight .code pre").length+$(".article pre code").length==0)return;
+        var copyHtml = '';
+        copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+        copyHtml += '<i class="fas fa-copy"></i><span>COPY</span>';
+        copyHtml += '</button>';
+        $(".highlight .code pre").before(copyHtml);
+        $(".article pre code").before(copyHtml);
+        clipboard.off('success').on('success', function (e) {
+            let $btn = $(e.trigger);
+            $btn.addClass('copied');
+            let $icon = $($btn.find('i'));
+            $icon.removeClass('fa-copy');
+            $icon.addClass('fa-check-circle');
+            let $span = $($btn.find('span'));
+            $span[0].innerText = 'COPIED';
+            wait(function () {
+                $icon.removeClass('fa-check-circle');
+                $icon.addClass('fa-copy');
+                $span[0].innerText = 'COPY'
+            }, 2000)
+        });
+        clipboard.off('error').on('error', function (e) {
+            e.clearSelection();
+            let $btn = $(e.trigger);
+            $btn.addClass('copy-failed');
+            let $icon = $($btn.find('i'));
+            $icon.removeClass('fa-copy');
+            $icon.addClass('fa-times-circle');
+            let $span = $($btn.find('span'));
+            $span[0].innerText = 'COPY FAILED';
+            wait(function () {
+                $icon.removeClass('fa-times-circle');
+                $icon.addClass('fa-copy');
+                $span[0].innerText = 'COPY'
+            }, 2000)
+        })
+    }
+    $(function () {
+        pjax_initCopyCode()
+    });
+	volantis.pjax.push(pjax_initCopyCode)
+</script>
+
+
+
+
 
 
   <script>
-    
-    var SEARCH_SERVICE = "hexo" || "hexo";
-    var ROOT = "/" || "/";
-    if (!ROOT.endsWith('/')) ROOT += '/';
-  </script>
+  let APlayerController = new Object();
+  APlayerController.id = '3175833810';  // 设定全局音乐播放ID
+  APlayerController.volume = '0.7';
+  loadCSS("https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css", window.volantis.loadcss);
+  // APlayer 需要在  MetingJS 之前加载
+  loadScript("https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js")
+  window.volantis.APlayerLoaded=0 // APlayer加载完成状态
+  var checkAPlayer = setInterval(function () {
+    if (!window.APlayer) return // APlayer加载完成？
+	  if ($("#safearea").css("display")!="block") return // 文章内容加载完成？ see: source/css/first.styl
+    clearInterval(checkAPlayer)
+	  if (!window.volantis.APlayerLoaded&&!window.MetingJSElement){ // APlayer只能加载一次
+      window.volantis.APlayerLoaded=1 // APlayer加载完成
+      loadScript("https://cdn.jsdelivr.net/npm/meting@2.0/dist/Meting.min.js") // 加载 MetingJS
+	  }
+  }, 2500) // 按照网速调节差分2.5s
+  // rightmenu see: layout/_partial/rightmenu.ejs
 
-
-  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/instant_page.js" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
-
-
-  <script src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.6/dist/scrollreveal.min.js"></script>
-  <script type="text/javascript">
-    $(function() {
-      ScrollReveal().reveal('.l_main .reveal', {
-        distance: '8px',
-        duration: '800',
-        interval: '100',
-        scale: '1'
-      });
-    });
-  </script>
-
-
-  
-<script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
-
-  <script type="text/javascript">
-    $(function() {
-      Waves.attach('.flat-btn', ['waves-button']);
-      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
-      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
-      Waves.attach('.flat-box', ['waves-block']);
-      Waves.attach('.float-box', ['waves-block', 'waves-float']);
-      Waves.attach('.waves-image');
-      Waves.init();
-    });
-  </script>
-
-
-  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
-
-
-
-  
-  
-  
-    
-<script src="https://cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js"></script>
-
-    <script type="text/javascript">
-      $(function(){
-        var imgs=["https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/B18FCBB3-67FD-48CC-B4F3-457BA145F17A.jpeg"];
-        if ('true' == 'true') {
-          function shuffle(arr){
-            /*From countercurrent-time*/
-            var n = arr.length;
-            while(n--) {
-              var index = Math.floor(Math.random() * n);
-              var temp = arr[index];
-              arr[index] = arr[n];
-              arr[n] = temp;
-            }
-          }
-          shuffle(imgs);
-        }
-        if ('.cover') {
-          $('.cover').backstretch(
-            imgs,
-          {
-            duration: "20000",
-            fade: "1500"
-          });
-        } else {
-          $.backstretch(
-            imgs,
-          {
-            duration: "20000",
-            fade: "1500"
-          });
-        }
-      });
-    </script>
-  
-
-
-
-  
-    
-<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js"></script>
-
-  
-    
-<script src="https://cdn.jsdelivr.net/npm/meting@2.0/dist/Meting.min.js"></script>
-
-  
-
-
-
-
+</script>
 
 
 
 
   
-    
-<script src="https://cdn.jsdelivr.net/npm/valine@1.4/dist/Valine.min.js"></script>
-
   
-  <script>
-  var GUEST_INFO = ['nick','mail','link'];
-  var meta = 'nick,mail,link'.split(',').filter(function(item){
-    return GUEST_INFO.indexOf(item) > -1
-  });
-  var REQUIRED_FIELDS = ['nick','mail','link'];
-  var requiredFields = 'nick,mail'.split(',').filter(function(item){
-    return REQUIRED_FIELDS.indexOf(item) > -1
-  });
-  var valine = new Valine();
+<script src="/js/valine.js"></script>
+
+
+<script>
   function emoji(path, idx, ext) {
-      return path + "/" + path + "-" + idx + "." + ext;
+    return path + "/" + path + "-" + idx + "." + ext;
   }
   var emojiMaps = {};
   for (var i = 1; i <= 54; i++) {
@@ -1190,25 +1356,29 @@ window.MathJax = {
   for (var i = 1; i <= 4; i++) {
     emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
   }
-  valine.init({
-    el: '#valine_container',
-    meta: meta,
-    
-    appId: "S687AsCjGJKTPIvUJ8aPNX49-gzGzoHsz",
-    appKey: "bCwg3QuIfGytbeYw58L7ofRq",
-    placeholder: "快来评论吧~",
-    pageSize:'10',
-    avatar:'robohash',
-    lang:'zh-cn',
-    visitor: 'true',
-    highlight: 'true',
-    mathJax: 'false',
-    enableQQ: 'true',
-    requiredFields: requiredFields,
-    emojiCDN: 'https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/emoji/valine/',
-    emojiMaps: emojiMaps
-  })
-  </script>
+  function pjax_valine() {
+    if(!document.querySelectorAll("#valine_container")[0])return;
+    let pagePlaceholder = pdata.commentPlaceholder || "快来评论吧~";
+    let path = pdata.commentPath;
+    if (path.length == 0) {
+      let defaultPath = '';
+      path = defaultPath || decodeURI(window.location.pathname);
+    }
+    var valine = new Valine();
+    valine.init(Object.assign({"path":null,"placeholder":"快来评论吧~","appId":"S687AsCjGJKTPIvUJ8aPNX49-gzGzoHsz","appKey":"bCwg3QuIfGytbeYw58L7ofRq","meta":["nick","mail","link"],"requiredFields":["nick","mail"],"enableQQ":true,"recordIP":false,"avatar":"robohash","pageSize":10,"lang":"zh-cn","highlight":true,"mathJax":false}, {
+      el: '#valine_container',
+      path: path,
+      placeholder: pagePlaceholder,
+      emojiCDN: 'https://cdn.jsdelivr.net/gh/volantis-x/cdn-emoji/valine/',
+      emojiMaps: emojiMaps,
+    }))
+  }
+  $(function () {
+    pjax_valine();
+  });
+  volantis.pjax.push(pjax_valine);
+</script>
+
 
 
 
@@ -1219,111 +1389,519 @@ window.MathJax = {
 
 
 
+<!-- optional -->
+
+  <script>
+const SearchServiceimagePath="https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@master/img/";
+const ROOT =  ("/" || "/").endsWith('/') ? ("/" || "/") : ("//" || "/" );
+
+$('.input.u-search-input').one('focus',function(){
+	
+		loadScript('https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@2.6.4/js/search.js',setSearchService);
+	
+})
+
+function listenSearch(){
   
-<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2.6.4/js/search.js"></script>
-
-
-
+    customSearch = new HexoSearch({
+      imagePath: SearchServiceimagePath
+    });
   
-<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/comment_typing.js"></script>
-
-
-
-
-
-
-<!-- 复制 -->
-
-  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
-<script>
-  function wait(callback, seconds) {
-    var timelag = null;
-    timelag = window.setTimeout(callback, seconds);
-  }
-  !function (e, t, a) {
-    var initCopyCode = function(){
-      var copyHtml = '';
-      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
-      copyHtml += '<i class="fas fa-copy"></i><span>COPY</span>';
-      copyHtml += '</button>';
-      $(".highlight .code pre").before(copyHtml);
-      $(".article pre code").before(copyHtml);
-      var clipboard = new ClipboardJS('.btn-copy', {
-        target: function(trigger) {
-          return trigger.nextElementSibling;
-        }
-      });
-      clipboard.on('success', function(e) {
-        let $btn = $(e.trigger);
-        $btn.addClass('copied');
-        let $icon = $($btn.find('i'));
-        $icon.removeClass('fa-copy');
-        $icon.addClass('fa-check-circle');
-        let $span = $($btn.find('span'));
-        $span[0].innerText = 'COPIED';
-        
-        wait(function () { // 等待两秒钟后恢复
-          $icon.removeClass('fa-check-circle');
-          $icon.addClass('fa-copy');
-          $span[0].innerText = 'COPY';
-        }, 2000);
-      });
-      clipboard.on('error', function(e) {
-        e.clearSelection();
-        let $btn = $(e.trigger);
-        $btn.addClass('copy-failed');
-        let $icon = $($btn.find('i'));
-        $icon.removeClass('fa-copy');
-        $icon.addClass('fa-times-circle');
-        let $span = $($btn.find('span'));
-        $span[0].innerText = 'COPY FAILED';
-        
-        wait(function () { // 等待两秒钟后恢复
-          $icon.removeClass('fa-times-circle');
-          $icon.addClass('fa-copy');
-          $span[0].innerText = 'COPY';
-        }, 2000);
-      });
-    }
-    initCopyCode();
-  }(window, document);
+}
+function setSearchService() {
+	listenSearch();
+	
+}
 </script>
 
 
 
 
-<!-- fancybox -->
 
-  <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
-<script>
-  let LAZY_LOAD_IMAGE = "";
-  $(".article-entry").find("div.fancybox").find("img").each(function () {
-      var element = document.createElement("a");
-      $(element).attr("data-fancybox", "gallery");
-      $(element).attr("href", $(this).attr("src"));
-      /* 图片采用懒加载处理时,
-       * 一般图片标签内会有个属性名来存放图片的真实地址，比如 data-original,
-       * 那么此处将原本的属性名src替换为对应属性名data-original,
-       * 修改如下
-       */
-       if (LAZY_LOAD_IMAGE) {
-         $(element).attr("href", $(this).attr("data-original"));
-       }
-      $(this).wrap(element);
+
+
+
+
+
+
+  <script defer>
+
+  const LCCounter = {
+    app_id: 'u9j57bwJod4EDmXWdxrwuqQT-MdYXbMMI',
+    app_key: 'jfHtEKVE24j0IVCGHbvuFClp',
+    custom_api_server: '',
+
+    // 查询存储的记录
+    getRecord(Counter, url, title) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({url})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
+            }
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {url, title: title, times: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
+        });
+      })
+    },
+
+    // 发起自增请求
+    increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
+          }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    },
+
+    // 构建自增请求体
+    buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "times": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    },
+
+    // 校验是否为有效的 UV
+    validUV() {
+      var key = 'LeanCloudUVTimestamp';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    },
+
+    addCount(Counter) {
+      var enableIncr = '' === 'true' && window.location.hostname !== 'localhost';
+      enableIncr = true;
+      var getterArr = [];
+      var incrArr = [];
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#lc-sv');
+      if (pvCtn || enableIncr) {
+        var pvGetter = this.getRecord(Counter, 'https://yeshan333.github.io' + '/#lc-sv', 'Visits').then((record) => {
+          incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-sv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + 1;
+              if (pvCtn) {
+                pvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#lc-uv');
+      if (uvCtn || enableIncr) {
+        var uvGetter = this.getRecord(Counter, 'https://yeshan333.github.io' + '/#lc-uv', 'Visitors').then((record) => {
+          var vuv = this.validUV();
+          vuv && incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-uv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + (vuv ? 1 : 0);
+              if (uvCtn) {
+                uvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 请求文章的浏览数，如果是当前页面就自增
+      var allPV = document.querySelectorAll('#lc-pv');
+      if (allPV.length > 0 || enableIncr) {
+        for (i = 0; i < allPV.length; i++) {
+          let pv = allPV[i];
+          let title = pv.getAttribute('data-title');
+          var url = 'https://yeshan333.github.io' + pv.getAttribute('data-path');
+          if (url) {
+            var viewGetter = this.getRecord(Counter, url, title).then((record) => {
+              // 是当前页面就自增
+              let curPath = window.location.pathname;
+              if (curPath.includes('index.html')) {
+                curPath = curPath.substring(0, curPath.lastIndexOf('index.html'));
+              }
+              if (pv.getAttribute('data-path') == curPath) {
+                incrArr.push(this.buildIncrement(record.objectId));
+              }
+              if (pv) {
+                var ele = pv.querySelector('#lc-pv #number');
+                if (ele) {
+                  if (pv.getAttribute('data-path') == curPath) {
+                    ele.innerText = (record.times || 0) + 1;
+                  } else {
+                    ele.innerText = record.times || 0;
+                  }
+                  pv.style.display = 'inline';
+                }
+              }
+            });
+            getterArr.push(viewGetter);
+          }
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && this.increment(Counter, incrArr);
+        })
+      }
+
+    },
+
+
+    fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': this.app_id,
+            'X-LC-Key': this.app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      this.addCount(Counter);
+    },
+
+    refreshCounter() {
+      var api_server = this.app_id.slice(-9) !== '-MdYXbMMI' ? this.custom_api_server : `https://${ this.app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+      if (api_server) {
+        this.fetchData(api_server);
+      } else {
+        fetch('https://app-router.leancloud.cn/2/route?appId=' + this.app_id)
+          .then(resp => resp.json())
+          .then(({api_server}) => {
+            this.fetchData('https://' + api_server);
+          });
+      }
+    }
+
+  };
+
+  LCCounter.refreshCounter();
+
+  document.addEventListener('pjax:complete', function () {
+    LCCounter.refreshCounter();
   });
 </script>
 
 
 
 
+  <script>
+const rootElement = document.documentElement;
+const darkModeStorageKey = "user-color-scheme";
+const rootElementDarkModeAttributeName = "data-user-color-scheme";
+
+const setLS = (k, v) => {
+    localStorage.setItem(k, v);
+};
+
+const removeLS = (k) => {
+    localStorage.removeItem(k);
+};
+
+const getLS = (k) => {
+    return localStorage.getItem(k);
+};
+
+const getModeFromCSSMediaQuery = () => {
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
+};
+
+const resetRootDarkModeAttributeAndLS = () => {
+  rootElement.removeAttribute(rootElementDarkModeAttributeName);
+  removeLS(darkModeStorageKey);
+};
+
+const validColorModeKeys = {
+  dark: true,
+  light: true,
+};
+
+const applyCustomDarkModeSettings = (mode) => {
+  const currentSetting = mode || getLS(darkModeStorageKey);
+
+  if (currentSetting === getModeFromCSSMediaQuery()) {
+    resetRootDarkModeAttributeAndLS();
+  } else if (validColorModeKeys[currentSetting]) {
+    rootElement.setAttribute(rootElementDarkModeAttributeName, currentSetting);
+  } else {
+    resetRootDarkModeAttributeAndLS();
+  }
+};
+
+const invertDarkModeObj = {
+  dark: "light",
+  light: "dark",
+};
+
+/**
+ * get target mode
+ */
+const toggleCustomDarkMode = () => {
+  let currentSetting = getLS(darkModeStorageKey);
+
+  if (validColorModeKeys[currentSetting]) {
+    currentSetting = invertDarkModeObj[currentSetting];
+  } else if (currentSetting === null) {
+    currentSetting = invertDarkModeObj[getModeFromCSSMediaQuery()];
+  } else {
+    return;
+  }
+  setLS(darkModeStorageKey, currentSetting);
+  return currentSetting;
+};
+
+/**
+ * bind click event for toggle button
+ */
+var btn=$("#wrapper .toggle-mode-btn,#rightmenu-wrapper .toggle-mode-btn");
+function bindToggleButton() {
+    btn.on('click',(e) => {
+      const mode = toggleCustomDarkMode();
+      applyCustomDarkModeSettings(mode);
+    });
+}
+
+applyCustomDarkModeSettings();
+document.addEventListener("DOMContentLoaded", bindToggleButton);
+volantis.pjax.push(bindToggleButton);
+volantis.pjax.send(()=>{
+	btn.unbind('click');
+},'toggle-mode-btn-unbind');
+</script>
 
 
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yeshan333/jsDelivrCDN/piao.js" />
-<script type="text/javascript" src="https://cdn.staticfile.org/jquery/1.7.2/jquery.min.js" />
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yeshan333/jsDelivrCDN/attatkmouse.js" />
-<script async defer data-domain="shansan.top" src="https://plausible.io/js/plausible.js" />
 
 
-  <script>setLoadingBarProgress(100);</script>
-</body>
+
+
+
+
+<script>
+function listennSidebarTOC() {
+  const navItems = document.querySelectorAll(".toc li");
+  if (!navItems.length) return;
+  const sections = [...navItems].map((element) => {
+    const link = element.querySelector(".toc-link");
+    const target = document.getElementById(
+      decodeURI(link.getAttribute("href")).replace("#", "")
+    );
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      window.scrollTo({
+		top: target.offsetTop + 100,
+		
+		behavior: "smooth"
+		
+	  });
+    });
+    return target;
+  });
+
+  function activateNavByIndex(target) {
+    if (target.classList.contains("active-current")) return;
+
+    document.querySelectorAll(".toc .active").forEach((element) => {
+      element.classList.remove("active", "active-current");
+    });
+    target.classList.add("active", "active-current");
+    let parent = target.parentNode;
+    while (!parent.matches(".toc")) {
+      if (parent.matches("li")) parent.classList.add("active");
+      parent = parent.parentNode;
+    }
+  }
+
+  function findIndex(entries) {
+    let index = 0;
+    let entry = entries[index];
+    if (entry.boundingClientRect.top > 0) {
+      index = sections.indexOf(entry.target);
+      return index === 0 ? 0 : index - 1;
+    }
+    for (; index < entries.length; index++) {
+      if (entries[index].boundingClientRect.top <= 0) {
+        entry = entries[index];
+      } else {
+        return sections.indexOf(entry.target);
+      }
+    }
+    return sections.indexOf(entry.target);
+  }
+
+  function createIntersectionObserver(marginTop) {
+    marginTop = Math.floor(marginTop + 10000);
+    let intersectionObserver = new IntersectionObserver(
+      (entries, observe) => {
+        let scrollHeight = document.documentElement.scrollHeight + 100;
+        if (scrollHeight > marginTop) {
+          observe.disconnect();
+          createIntersectionObserver(scrollHeight);
+          return;
+        }
+        let index = findIndex(entries);
+        activateNavByIndex(navItems[index]);
+      },
+      {
+        rootMargin: marginTop + "px 0px -100% 0px",
+        threshold: 0,
+      }
+    );
+    sections.forEach((element) => {
+      element && intersectionObserver.observe(element);
+    });
+  }
+  createIntersectionObserver(document.documentElement.scrollHeight);
+}
+
+document.addEventListener("DOMContentLoaded", listennSidebarTOC);
+document.addEventListener("pjax:success", listennSidebarTOC);
+</script>
+
+<!-- more -->
+
+  
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yeshan333/jsDelivrCDN/piao.js" />
+
+  <script type="text/javascript" src="https://cdn.staticfile.org/jquery/1.7.2/jquery.min.js" />
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yeshan333/jsDelivrCDN/attatkmouse.js" />
+
+  <script async defer data-domain="shansan.top" src="https://plausible.io/js/plausible.js" />
+
+
+
+ 
+	   
+	    
+
+
+<script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script>
+
+
+<script>
+    var pjax;
+    document.addEventListener('DOMContentLoaded', function () {
+      pjax = new Pjax({
+        elements: 'a[href]:not([href^="#"]):not([href="javascript:void(0)"]):not([pjax-fancybox])',
+        selectors: [
+          "title",
+          
+          "#pjax-container",
+          "#pjax-header-nav-list"
+        ],
+        cacheBust: false,   // url 地址追加时间戳，用以避免浏览器缓存
+        timeout: 5000
+      });
+    });
+
+    document.addEventListener('pjax:send', function (e) {
+      //window.stop(); // 相当于点击了浏览器的停止按钮
+
+      try {
+        var currentUrl = window.location.pathname;
+        var targetUrl = e.triggerElement.href;
+        var banUrl = [""];
+        if (banUrl[0] != "") {
+          banUrl.forEach(item => {
+            if(currentUrl.indexOf(item) != -1 || targetUrl.indexOf(item) != -1) {
+              window.location.href = targetUrl;
+            }
+          });
+        }
+      } catch (error) {}
+
+      window.subData = null; // 移除标题（用于一二级导航栏切换处）
+
+      volantis.$switcher.removeClass('active'); // 关闭移动端激活的搜索框
+      volantis.$header.removeClass('z_search-open'); // 关闭移动端激活的搜索框
+      volantis.$wrapper.removeClass('sub'); // 跳转页面时关闭二级导航
+
+      // 解绑事件 避免重复监听
+      volantis.$topBtn.unbind('click');
+      $('.menu a').unbind('click');
+      $(window).unbind('resize');
+      $(window).unbind('scroll');
+      $(document).unbind('scroll');
+      $(document).unbind('click');
+      $('body').unbind('click');
+	  // 使用 volantis.pjax.send 方法传入pjax:send回调函数 参见layout/_partial/scripts/global.ejs
+	  volantis.pjax.method.send.start();
+    });
+
+    document.addEventListener('pjax:complete', function () {
+      $('.nav-main').find('.list-v').not('.menu-phone').removeAttr("style",""); // 移除小尾巴的移除
+      $('.menu-phone.list-v').removeAttr("style",""); // 移除小尾巴的移除
+      $('script[data-pjax], .pjax-reload script').each(function () {
+        $(this).parent().append($(this).remove());
+      });
+      try{
+		// 使用 volantis.pjax.push 方法传入重载函数 参见layout/_partial/scripts/global.ejs
+		volantis.pjax.method.complete.start();
+      } catch (e) {
+        console.log(e);
+      }
+    });
+
+    document.addEventListener('pjax:error', function (e) {
+	  // 使用 volantis.pjax.error 方法传入pjax:error回调函数 参见layout/_partial/scripts/global.ejs
+	  volantis.pjax.method.error.start();
+      window.location.href = e.triggerElement.href;
+    });
+</script>
+ 
+	  
+    </div>
+  </body>
 </html>

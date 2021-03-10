@@ -1,23 +1,30 @@
 <!DOCTYPE html>
-<html>
-<head hexo-theme='https://volantis.js.org/#2.6.5'>
+<html lang="zh-CN,en,zh-TW,default">
+  <head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/tree/4.3.1'>
   <meta charset="utf-8">
   <!-- SEO相关 -->
   
     
   
   <!-- 渲染优化 -->
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <meta name="renderer" content="webkit">
   <meta name="force-rendering" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
   <meta name="HandheldFriendly" content="True" >
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <link rel="preload" href="/css/first.css" as="style">
+  
 
   <!-- 页面元数据 -->
   
-    <title>我的朋友们 - ShanSan</title>
+  <title>friends - ShanSan</title>
   
+
   
 
   <!-- feed -->
@@ -27,60 +34,85 @@
   
 
   <!-- link -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13/css/all.min.css">
   
-    
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
-
-  
-  
-    
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
-
-  
-
-  
-  <link rel="shortcut icon" type='image/x-icon' href="https://img.vim-cn.com/bb/db444be0b7fda59c69d5c64167f9668b0b66bd.png">
-  
-
-  
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css">
+    <link rel="shortcut icon" type='image/x-icon' href="https://img.vim-cn.com/bb/db444be0b7fda59c69d5c64167f9668b0b66bd.png">
   
 
   <!-- import link -->
   
 
   
-  
     
-<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/first.css">
 
   
 
-  <script>
-    function setLoadingBarProgress(num) {
-      document.getElementById('loading-bar').style.width=num+"%";
-    }
-  </script>
+  
+  <link rel="stylesheet" href="/css/style.css" media="print" onload="this.media='all';this.onload=null">
+  <noscript><link rel="stylesheet" href="/css/style.css"></noscript>
+  
+
+  <script id="loadcss"></script>
 
   
-  
+<script>
+if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode))
+    document.write(
+	'<style>'+
+		'html{'+
+			'overflow-x: hidden !important;'+
+			'overflow-y: hidden !important;'+
+		'}'+
+		'.kill-ie{'+
+			'text-align:center;'+
+			'height: 100%;'+
+			'margin-top: 15%;'+
+			'margin-bottom: 5500%;'+
+		'}'+
+	'</style>'+
+    '<div class="kill-ie">'+
+        '<h1><b>抱歉，您的浏览器无法访问本站</b></h1>'+
+        '<h3>微软已经于2016年终止了对 Internet Explorer (IE) 10 及更早版本的支持，<br/>'+
+        '继续使用存在极大的安全隐患，请使用当代主流的浏览器进行访问。</h3><br/>'+
+        '<a target="_blank" rel="noopener" href="https://www.microsoft.com/zh-cn/WindowsForBusiness/End-of-IE-support"><strong>了解详情 ></strong></a>'+
+    '</div>');
+</script>
+
+
+<noscript>
+	<style>
+		html{
+			overflow-x: hidden !important;
+			overflow-y: hidden !important;
+		}
+		.kill-noscript{
+			text-align:center;
+			height: 100%;
+			margin-top: 15%;
+			margin-bottom: 5500%;
+		}
+	</style>
+    <div class="kill-noscript">
+        <h1><b>抱歉，您的浏览器无法访问本站</b></h1>
+        <h3>本页面需要浏览器支持（启用）JavaScript</h3><br/>
+        <a target="_blank" rel="noopener" href="https://www.baidu.com/s?wd=启用JavaScript"><strong>了解详情 ></strong></a>
+    </div>
+</noscript>
+
 </head>
 
-<body>
-  
-  <div id="loading-bar-wrapper">
-  <div id="loading-bar"></div>
-</div>
-<header class="l_header shadow blur">
+  <body>
+    
+
+<header id="l_header" class="l_header auto shadow blur show" style='opacity: 0' >
   <div class='container'>
-  <div class='wrapper'>
+  <div id='wrapper'>
     <div class='nav-sub'>
       <p class="title"></p>
-      <ul class='switcher nav-list-h'>
-        <li><a class="s-comment fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+      <ul class='switcher nav-list-h m-phone' id="pjax-header-nav-list">
+        <li><a id="s-comment" class="fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
         
-          <li><a class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+          <li><a id="s-toc" class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
         
       </ul>
     </div>
@@ -91,27 +123,26 @@
           
           
           
-            <red>S</red><green>h</green><blue>a</blue><yellow>n</yellow><red>S</red><green>h</green><blue>a</blue><yellow>n</yellow>
-          
+            ShanSan
           
         </a>
       
 
 			<div class='menu navigation'>
-				<ul class='nav-list-h'>
+				<ul class='nav-list-h m-pc'>
           
           
           
             
             
               <li>
-                <a class="flat-box" href=/
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
                   
                   
                   
                     id="home"
                   >
-                  <i class='fas fa-home fa-fw'></i>首页
+                  <i class='fas fa-rss fa-fw'></i>博文
                 </a>
                 
               </li>
@@ -121,23 +152,7 @@
             
             
               <li>
-                <a class="flat-box" href=/categories/
-                  
-                  
-                  
-                    id="categories"
-                  >
-                  <i class='fas fa-folder-open fa-fw'></i>分类
-                </a>
-                
-              </li>
-            
-          
-          
-            
-            
-              <li>
-                <a class="flat-box" href=/archives/
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
                   
                   
                   
@@ -153,7 +168,7 @@
             
             
               <li>
-                <a class="flat-box" href=/friends/
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
                   
                   
                   
@@ -169,7 +184,7 @@
             
             
               <li>
-                <a class="flat-box" href=/about/
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
                   
                   
                   
@@ -185,7 +200,7 @@
             
             
               <li>
-                <a class="flat-box" 
+                <a class="menuitem flat-box faa-parent animated-hover" 
                   
                   
                   >
@@ -197,7 +212,7 @@
                       
             
               <li>
-                <a class="flat-box" href=https://github.com/yeshan333
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://github.com/yeshan333
                   
                   
                   
@@ -213,7 +228,7 @@
                       
             
               <li>
-                <a class="flat-box" href=https://slide.shan333.cn
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://slide.shan333.cn
                   
                   
                   
@@ -229,7 +244,7 @@
                       
             
               <li>
-                <a class="flat-box" href=https://shansan.top/knowledge-base/
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://shansan.top/knowledge-base/
                   
                   
                   
@@ -243,38 +258,6 @@
           
                     
                   </ul>
-                
-              </li>
-            
-          
-          
-            
-            
-              <li>
-                <a class="flat-box" href=/PyChina/
-                  
-                  
-                  
-                    id="PyChina"
-                  >
-                  <i class='fab fa-python fa-fw'></i>中国蟒
-                </a>
-                
-              </li>
-            
-          
-          
-            
-            
-              <li>
-                <a class="flat-box" href=/cloud-native/
-                  
-                  
-                  
-                    id="cloud-native"
-                  >
-                  <i class='fas fa-cloud fa-fw'></i>云原生
-                </a>
                 
               </li>
             
@@ -290,7 +273,7 @@
         </form>
       </div>
 
-			<ul class='switcher nav-list-h'>
+			<ul class='switcher nav-list-h m-phone'>
 				
 					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
 				
@@ -301,13 +284,13 @@
               
             
               <li>
-                <a class="flat-box" href=/
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
                   
                   
                   
                     id="home"
                   >
-                  <i class='fas fa-home fa-fw'></i>首页
+                  <i class='fas fa-rss fa-fw'></i>博文
                 </a>
                 
               </li>
@@ -317,23 +300,7 @@
               
             
               <li>
-                <a class="flat-box" href=/categories/
-                  
-                  
-                  
-                    id="categories"
-                  >
-                  <i class='fas fa-folder-open fa-fw'></i>分类
-                </a>
-                
-              </li>
-            
-          
-            
-              
-            
-              <li>
-                <a class="flat-box" href=/archives/
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
                   
                   
                   
@@ -349,7 +316,7 @@
               
             
               <li>
-                <a class="flat-box" href=/friends/
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
                   
                   
                   
@@ -365,7 +332,7 @@
               
             
               <li>
-                <a class="flat-box" href=/about/
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
                   
                   
                   
@@ -381,7 +348,7 @@
               
             
               <li>
-                <a class="flat-box" 
+                <a class="menuitem flat-box faa-parent animated-hover" 
                   
                   
                   >
@@ -393,7 +360,7 @@
                       
             
               <li>
-                <a class="flat-box" href=https://github.com/yeshan333
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://github.com/yeshan333
                   
                   
                   
@@ -409,7 +376,7 @@
                       
             
               <li>
-                <a class="flat-box" href=https://slide.shan333.cn
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://slide.shan333.cn
                   
                   
                   
@@ -425,7 +392,7 @@
                       
             
               <li>
-                <a class="flat-box" href=https://shansan.top/knowledge-base/
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://shansan.top/knowledge-base/
                   
                   
                   
@@ -444,38 +411,6 @@
             
           
             
-              
-            
-              <li>
-                <a class="flat-box" href=/PyChina/
-                  
-                  
-                  
-                    id="PyChina"
-                  >
-                  <i class='fab fa-python fa-fw'></i>中国蟒
-                </a>
-                
-              </li>
-            
-          
-            
-              
-            
-              <li>
-                <a class="flat-box" href=/cloud-native/
-                  
-                  
-                  
-                    id="cloud-native"
-                  >
-                  <i class='fas fa-cloud fa-fw'></i>云原生
-                </a>
-                
-              </li>
-            
-          
-            
           </ul>
         </li>
 			</ul>
@@ -484,825 +419,475 @@
   </div>
 </header>
 
-<script>setLoadingBarProgress(40);</script>
+    <div id="l_body">
+      <div id="l_cover">
+  
+    
+        <div id="full" class='cover-wrapper friends dock' style="display: none;">
+          
+            <div class='cover-bg lazyload placeholder' data-bg="https://bing.ioliu.cn/v1/rand?w=1920&h=1200"></div>
+          
+          <div class='cover-body'>
+  <div class='top'>
+    
+    
+      <p class="title">花点时间多做点想做的事</p>
+    
+    
+      <p class="subtitle">created by yeshan333</p>
+    
+  </div>
+  <div class='bottom'>
+    <div class='menu navigation'>
+      <div class='list-h'>
+        
+          
+            <a href="/archives/"
+              
+              
+              id="archives">
+              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f4f0.svg'><p>博文</p>
+            </a>
+          
+            <a href="/about/"
+              
+              
+              id="about">
+              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0.1/assets/svg/1f0cf.svg'><p>关于我</p>
+            </a>
+          
+            <a href="/friends/"
+              
+              
+              id="friends">
+              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f9ec.svg'><p>友链</p>
+            </a>
+          
+        
+      </div>
+    </div>
+  </div>
+</div>
 
+          <div id="scroll-down" style="display: none;"><i class="fa fa-chevron-down scroll-down-effects"></i></div>
+        </div>
+    
+  
+  </div>
 
-
-  <div class="l_body nocover">
-    <div class='body-wrapper'>
-      
+      <div id="safearea">
+        <div class="body-wrapper" id="pjax-container">
+          
 
 <div class='l_main'>
-  <article id="links" class="post white-box reveal shadow article-type-links" itemscope itemprop="blogPost">
+  <article id="friends" class="md post article article-entry l_friends white-box reveal shadow article-type-friends" itemscope itemprop="blogPost">
     
 
 
-  <section class='meta'>
+  
+  <div class="article-meta" id="top">
     
-      
-      
-      <div class="meta" id="header-meta">
+    
+    
+      <h1 class="title">
+        friends
+      </h1>
+      <div class='new-meta-box'>
         
           
-  <h1 class="title">
-    <a href="/friends/index.html">
-      我的朋友们
-    </a>
-  </h1>
-
-
-        
-        <div class='new-meta-box'>
-          
             
-          
-            
-              
 <div class='new-meta-item author'>
-  <a href="https://github.com/yeshan333" target="_blank" rel="nofollow noopener">
-    <img src="https://img.vim-cn.com/a3/caa9ef084c4f562b82b1cca6e978c0dca58c5f.png">
+  <a class='author' target="_blank" href="https://github.com/yeshan333" rel="nofollow noopener">
+    <img no-lazy src="https://img.vim-cn.com/a3/caa9ef084c4f562b82b1cca6e978c0dca58c5f.png">
     <p>yeshan333</p>
   </a>
 </div>
 
-            
           
-            
-              
-
-            
+        
           
-            
-              <div class="new-meta-item date">
+            <div class="new-meta-item date">
   <a class='notlink'>
-    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>文章首发于：2021年2月26日</p>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>首发于：2018年9月19日</p>
   </a>
 </div>
 
-            
           
-            
-              
-
-            
-          
-        </div>
         
-          <hr>
+          
+            
+
+          
         
       </div>
     
-  </section>
+  </div>
 
 
-      <section class="article article-entry l_friends">
+    
+    
+      
+        <div class='friends-group'>
+          <br>
+          <h2 class='friend-header'>
+            朋友们
+          </h2>
+          
+          
+            <div class='simpleuser-group'>
+              
+                
+                  <a class="simpleuser" target="_blank" rel="external nofollow noopener noreferrer" href="https://yufan.me/">
+                    <img src="https://img.vim-cn.com/13/a200df1e771666c7b4982ca5293c505640242a.png" class="lazyload" data-srcset="https://img.vim-cn.com/13/a200df1e771666c7b4982ca5293c505640242a.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="/>
+                    <span>雨帆</span>
+                  </a>
+                
+              
+                
+                  <a class="simpleuser" target="_blank" rel="external nofollow noopener noreferrer" href="https://xaoxuu.com/blog">
+                    <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/avatar/avatar.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/avatar/avatar.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="/>
+                    <span>xaoxuxu</span>
+                  </a>
+                
+              
+                
+                  <a class="simpleuser" target="_blank" rel="external nofollow noopener noreferrer" href="https://donlex.cn/">
+                    <img src="https://donlex.cn/images/avatar.png" class="lazyload" data-srcset="https://donlex.cn/images/avatar.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="/>
+                    <span>Don Lex</span>
+                  </a>
+                
+              
+                
+                  <a class="simpleuser" target="_blank" rel="external nofollow noopener noreferrer" href="https://2heng.xin/">
+                    <img src="https://view.moezx.cc/images/2018/03/27/avatar.th.jpg" class="lazyload" data-srcset="https://view.moezx.cc/images/2018/03/27/avatar.th.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="/>
+                    <span>Mashiro</span>
+                  </a>
+                
+              
+                
+                  <a class="simpleuser" target="_blank" rel="external nofollow noopener noreferrer" href="https://www.itrhx.com/">
+                    <img src="https://www.itrhx.com/images/trhx.png" class="lazyload" data-srcset="https://www.itrhx.com/images/trhx.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="/>
+                    <span>TRHX</span>
+                  </a>
+                
+              
+                
+                  <a class="simpleuser" target="_blank" rel="external nofollow noopener noreferrer" href="https://sxxkearth.github.io/">
+                    <img src="https://sxxkearth.github.io/img/avatar.svg" class="lazyload" data-srcset="https://sxxkearth.github.io/img/avatar.svg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="/>
+                    <span>嗜血星空earth</span>
+                  </a>
+                
+              
+                
+                  <a class="simpleuser" target="_blank" rel="external nofollow noopener noreferrer" href="https://lloyar.github.io/">
+                    <img src="https://gravatar.loli.net/avatar/f450e1597958dfb8b1eb52b4bb3d5c80?d=mp&v=1.3.6" class="lazyload" data-srcset="https://gravatar.loli.net/avatar/f450e1597958dfb8b1eb52b4bb3d5c80?d=mp&v=1.3.6" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="/>
+                    <span>Librarius's Blog</span>
+                  </a>
+                
+              
+                
+                  <a class="simpleuser" target="_blank" rel="external nofollow noopener noreferrer" href="https://www.hojun.cn/">
+                    <img src="https://cdn.jsdelivr.net/gh/honjun/ImageHosting/sina/006bYVyvgy1ftand2qurdj303c03cdfv.jpg" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/honjun/ImageHosting/sina/006bYVyvgy1ftand2qurdj303c03cdfv.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="/>
+                    <span>hojun</span>
+                  </a>
+                
+              
+                
+                  <a class="simpleuser" target="_blank" rel="external nofollow noopener noreferrer" href="http://sasuke.club/">
+                    <img src="https://img.vim-cn.com/71/96b29464a6b5ee3df28ddae5b22efc9a9137b3.png" class="lazyload" data-srcset="https://img.vim-cn.com/71/96b29464a6b5ee3df28ddae5b22efc9a9137b3.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="/>
+                    <span>悲伤的橘子树</span>
+                  </a>
+                
+              
+                
+                  <a class="simpleuser" target="_blank" rel="external nofollow noopener noreferrer" href="https://www.moonster.life">
+                    <img src="https://img.vim-cn.com/9b/f49b155fb62df9c626d83cef17afb2d0ccbb29.png" class="lazyload" data-srcset="https://img.vim-cn.com/9b/f49b155fb62df9c626d83cef17afb2d0ccbb29.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="/>
+                    <span>一去二三遥</span>
+                  </a>
+                
+              
+                
+                  <a class="simpleuser" target="_blank" rel="external nofollow noopener noreferrer" href="https://www.rinvay.cc/">
+                    <img src="https://gravatar.o0o.fun/avatar/0e17d3ec8d6fbbfce870d97b943ceef3?s=101&r=G&d=mm" class="lazyload" data-srcset="https://gravatar.o0o.fun/avatar/0e17d3ec8d6fbbfce870d97b943ceef3?s=101&r=G&d=mm" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="/>
+                    <span>Rinvay.H</span>
+                  </a>
+                
+              
+                
+                  <a class="simpleuser" target="_blank" rel="external nofollow noopener noreferrer" href="http://blog.oioweb.cn">
+                    <img src="https://secure.gravatar.com/avatar/b00b9da424a3ce9d9930576a04a31377?s=100&r=G&d=https://ww1.sinaimg.cn/large/005BYqpgly1fqttrevsfnj30hs0hswfp.jpg" class="lazyload" data-srcset="https://secure.gravatar.com/avatar/b00b9da424a3ce9d9930576a04a31377?s=100&r=G&d=https://ww1.sinaimg.cn/large/005BYqpgly1fqttrevsfnj30hs0hswfp.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="/>
+                    <span>教书先生</span>
+                  </a>
+                
+              
+                
+                  <a class="simpleuser" target="_blank" rel="external nofollow noopener noreferrer" href="https://liubo.design/">
+                    <img src="https://gravatar.loli.net/avatar/94d4496e69d67ea9dcb4266a258ba29b?d=mp&v=1.3.4" class="lazyload" data-srcset="https://gravatar.loli.net/avatar/94d4496e69d67ea9dcb4266a258ba29b?d=mp&v=1.3.4" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="/>
+                    <span>Bert Liu's Blog</span>
+                  </a>
+                
+              
+                
+                  <a class="simpleuser" target="_blank" rel="external nofollow noopener noreferrer" href="https://hawkinchina.github.io/">
+                    <img src="https://hawkinchina.github.io/images/jack.jpg" class="lazyload" data-srcset="https://hawkinchina.github.io/images/jack.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="/>
+                    <span>Hawk</span>
+                  </a>
+                
+              
+                
+                  <a class="simpleuser" target="_blank" rel="external nofollow noopener noreferrer" href="https://blog.happysec.cn/">
+                    <img src="https://p2.music.126.net/756LNzvUvOZr6GzkMMOGWQ==/109951163731450100.jpg?param=180y180" class="lazyload" data-srcset="https://p2.music.126.net/756LNzvUvOZr6GzkMMOGWQ==/109951163731450100.jpg?param=180y180" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="/>
+                    <span>情小北</span>
+                  </a>
+                
+              
+                
+                  <a class="simpleuser" target="_blank" rel="external nofollow noopener noreferrer" href="https://www.hoehub.com">
+                    <img src="https://cdn.v2ex.com/gravatar/dc1187890e4cc4ca1a41a83f4f7eb559?s=80&r=G" class="lazyload" data-srcset="https://cdn.v2ex.com/gravatar/dc1187890e4cc4ca1a41a83f4f7eb559?s=80&r=G" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="/>
+                    <span>Hoe's Notes</span>
+                  </a>
+                
+              
+                
+                  <a class="simpleuser" target="_blank" rel="external nofollow noopener noreferrer" href="https://sandsea.vip/">
+                    <img src="https://gravatar.loli.net/avatar/42db5e79d207c65b331f6261a834874f?d=mp&v=1.3.4" class="lazyload" data-srcset="https://gravatar.loli.net/avatar/42db5e79d207c65b331f6261a834874f?d=mp&v=1.3.4" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="/>
+                    <span>清秋</span>
+                  </a>
+                
+              
+                
+                  <a class="simpleuser" target="_blank" rel="external nofollow noopener noreferrer" href="https://catl07.github.io/">
+                    <img src="https://catl07.github.io/medias/logo.jpg" class="lazyload" data-srcset="https://catl07.github.io/medias/logo.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="/>
+                    <span>江陵博客</span>
+                  </a>
+                
+              
+                
+                  <a class="simpleuser" target="_blank" rel="external nofollow noopener noreferrer" href="https://blog.mebyz.cn/">
+                    <img src="https://secure.gravatar.com/avatar/01ada174c6b4be500b4729e39f86bc64?s=64&r=G&d=" class="lazyload" data-srcset="https://secure.gravatar.com/avatar/01ada174c6b4be500b4729e39f86bc64?s=64&r=G&d=" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="/>
+                    <span>半叶子</span>
+                  </a>
+                
+              
+                
+                  <a class="simpleuser" target="_blank" rel="external nofollow noopener noreferrer" href="https://itudo.cn/">
+                    <img src="https://cdn.jsdelivr.net/gh/ssmath/mypic/img/20191028172335.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/ssmath/mypic/img/20191028172335.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="/>
+                    <span>我爱吃土豆</span>
+                  </a>
+                
+              
+                
+                  <a class="simpleuser" target="_blank" rel="external nofollow noopener noreferrer" href="https://cwxyr.me">
+                    <img src="https://cdn2.sublimerui.top/2021/01/03/5db7a51e823a6.ico" class="lazyload" data-srcset="https://cdn2.sublimerui.top/2021/01/03/5db7a51e823a6.ico" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="/>
+                    <span>果子酱</span>
+                  </a>
+                
+              
+                
+                  <a class="simpleuser" target="_blank" rel="external nofollow noopener noreferrer" href="https://www.mapletown.xyz/">
+                    <img src="https://www.mapletown.xyz/pic.jpg" class="lazyload" data-srcset="https://www.mapletown.xyz/pic.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="/>
+                    <span>楓の街</span>
+                  </a>
+                
+              
+                
+                  <a class="simpleuser" target="_blank" rel="external nofollow noopener noreferrer" href="https://blog.yunbaodi.com">
+                    <img src="https://cdn.jsdelivr.net/gh/ssmath/picgo-pic/img/20210115123907.jpg" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/ssmath/picgo-pic/img/20210115123907.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="/>
+                    <span>云宝地</span>
+                  </a>
+                
+              
+                
+                  <a class="simpleuser" target="_blank" rel="external nofollow noopener noreferrer" href="https://sunhang.top/">
+                    <img src="https://cdn.jsdelivr.net/gh/2662419405/CDN@1.0/sh.jpg" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/2662419405/CDN@1.0/sh.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="/>
+                    <span>残梦</span>
+                  </a>
+                
+              
+                
+                  <a class="simpleuser" target="_blank" rel="external nofollow noopener noreferrer" href="https://www.lvshaomei.club/">
+                    <img src="https://www.lvshaomei.club/images/banner/labia.jpeg" class="lazyload" data-srcset="https://www.lvshaomei.club/images/banner/labia.jpeg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="/>
+                    <span>lvlv's blog</span>
+                  </a>
+                
+              
+                
+                  <a class="simpleuser" target="_blank" rel="external nofollow noopener noreferrer" href="https://www.zhwei.cn/">
+                    <img src="https://www.zhwei.cn/favicon.ico" class="lazyload" data-srcset="https://www.zhwei.cn/favicon.ico" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="/>
+                    <span>HONGWEI</span>
+                  </a>
+                
+              
+                
+                  <a class="simpleuser" target="_blank" rel="external nofollow noopener noreferrer" href="https://www.sgyzyun.club/">
+                    <img src="https://cdn.jsdelivr.net/gh/SGYZ0910/CDN@1.1.7/images/lcx.jpg" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/SGYZ0910/CDN@1.1.7/images/lcx.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="/>
+                    <span>洛尘曦</span>
+                  </a>
+                
+              
+                
+                  <a class="simpleuser" target="_blank" rel="external nofollow noopener noreferrer" href="https://removeif.github.io/">
+                    <img src="https://removeif.github.io/images/avatar.jpg" class="lazyload" data-srcset="https://removeif.github.io/images/avatar.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="/>
+                    <span>辣椒の酱</span>
+                  </a>
+                
+              
+                
+                  <a class="simpleuser" target="_blank" rel="external nofollow noopener noreferrer" href="https://www.zhangxiong.net/">
+                    <img src="https://img.vim-cn.com/e0/aea27ce2dc27f3685d3fe662d1497a44cec231.jpg" class="lazyload" data-srcset="https://img.vim-cn.com/e0/aea27ce2dc27f3685d3fe662d1497a44cec231.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="/>
+                    <span>张雄</span>
+                  </a>
+                
+              
+                
+                  <a class="simpleuser" target="_blank" rel="external nofollow noopener noreferrer" href="https://zy68.top">
+                    <img src="https://cdn.jsdelivr.net/gh/MrGo123/asset@2020-1-2-1.0/headPortrait/mybloghp.jpg" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/MrGo123/asset@2020-1-2-1.0/headPortrait/mybloghp.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="/>
+                    <span>MrGo123</span>
+                  </a>
+                
+              
+                
+                  <a class="simpleuser" target="_blank" rel="external nofollow noopener noreferrer" href="https://www.nykee.cn/">
+                    <img src="https://image.nykee.cn/nykee.png" class="lazyload" data-srcset="https://image.nykee.cn/nykee.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="/>
+                    <span>Nykee</span>
+                  </a>
+                
+              
+                
+                  <a class="simpleuser" target="_blank" rel="external nofollow noopener noreferrer" href="https://blog.imyan.ren/">
+                    <img src="https://s3.ax1x.com/2020/11/16/DEa9gA.png" class="lazyload" data-srcset="https://s3.ax1x.com/2020/11/16/DEa9gA.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="/>
+                    <span>Nykee</span>
+                  </a>
+                
+              
+                
+                  <a class="simpleuser" target="_blank" rel="external nofollow noopener noreferrer" href="https://redhat123456.github.io/">
+                    <img src="https://avatars.githubusercontent.com/u/57751257?s=460&u=634fb3d9085fd46aead74e7d0db0ae3d1d933f3f&v=4" class="lazyload" data-srcset="https://avatars.githubusercontent.com/u/57751257?s=460&u=634fb3d9085fd46aead74e7d0db0ae3d1d933f3f&v=4" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="/>
+                    <span>Tanger</span>
+                  </a>
+                
+              
+            </div>
+          
+        </div>
+      
+        <div class='friends-group'>
+          <br>
+          <h2 class='friend-header'>
+            失踪的dalao
+          </h2>
+          
+          
+            <div class='simpleuser-group'>
+              
+                
+                  <a class="simpleuser" target="_blank" rel="external nofollow noopener noreferrer" href="https://jiaobantang.github.io/">
+                    <img src="https://s1.ax1x.com/2018/12/20/FDgJr6.png" class="lazyload" data-srcset="https://s1.ax1x.com/2018/12/20/FDgJr6.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="/>
+                    <span>搅拌糖°</span>
+                  </a>
+                
+              
+            </div>
+          
+        </div>
+      
+    
+    <br><br>
+    <a target="_blank" rel="noopener" href="https://www.foreverblog.cn/"><img src="https://img.vim-cn.com/28/1b6143e016a95a7560a29f4e444a1a4c03434c.png" class="lazyload" data-srcset="https://img.vim-cn.com/28/1b6143e016a95a7560a29f4e444a1a4c03434c.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></a>
+
+
+<span class='p center logo cyan'>友链🔗随缘添加哦</span>
+
+<!-- ![我爱我国](https://cdn.jsdelivr.net/gh/ssmath/mypic/img/20190804211620.jpg) -->
+    
+
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
         
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-03-10T06:09:02+00:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2021年3月10日</p>
+  </a>
+</div>
+
+        
+      
         
           
-            
-              <div class='friends-group'>
-                
-                  <br>
-                  <h3 class='friend-header'>
-                    
-                      <i class="fas fa-user-tie fa-fw" aria-hidden="true"></i>
-                    
-                    朋友们
-                  </h3>
-                  
-                
-                <div class='friend-content'>
-                  
-                    <a class='friend-card' style='background:#3E74C9; color:#fff'
-                      target="_blank" rel="external nofollow noopener noreferrer" href='https://yufan.me/'>
-                      <div class='friend-left'>
-                        
-                          <img class='avatar' src='https://img.vim-cn.com/13/a200df1e771666c7b4982ca5293c505640242a.png'/>
-                        
-                      </div>
-                      <div class='friend-right'>
-                        <p class="friend-name">雨帆</p>
-                        
-                          <div class='friend-tags-wrapper'>
-                          
-                            <p class="tags"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>Java</p>
-                          
-                            <p class="tags"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>C#</p>
-                          
-                          </div>
-                        
-                        
-                      </div>
-                    </a>
-                  
-                    <a class='friend-card' style='background:#3E74C9; color:#fff'
-                      target="_blank" rel="external nofollow noopener noreferrer" href='https://xaoxuu.com/blog'>
-                      <div class='friend-left'>
-                        
-                          <img class='avatar' src='https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/avatar/avatar.png'/>
-                        
-                      </div>
-                      <div class='friend-right'>
-                        <p class="friend-name">xaoxuxu</p>
-                        
-                          <div class='friend-tags-wrapper'>
-                          
-                            <p class="tags"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>IOS</p>
-                          
-                          </div>
-                        
-                        
-                      </div>
-                    </a>
-                  
-                    <a class='friend-card' style='background:#3E74C9; color:#fff'
-                      target="_blank" rel="external nofollow noopener noreferrer" href='https://donlex.cn/'>
-                      <div class='friend-left'>
-                        
-                          <img class='avatar' src='https://donlex.cn/images/avatar.png'/>
-                        
-                      </div>
-                      <div class='friend-right'>
-                        <p class="friend-name">Don Lex</p>
-                        
-                          <div class='friend-tags-wrapper'>
-                          
-                            <p class="tags"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>Java</p>
-                          
-                            <p class="tags"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>Python</p>
-                          
-                          </div>
-                        
-                        
-                      </div>
-                    </a>
-                  
-                    <a class='friend-card' style='background:#3E74C9; color:#fff'
-                      target="_blank" rel="external nofollow noopener noreferrer" href='https://2heng.xin/'>
-                      <div class='friend-left'>
-                        
-                          <img class='avatar' src='https://view.moezx.cc/images/2018/03/27/avatar.th.jpg'/>
-                        
-                      </div>
-                      <div class='friend-right'>
-                        <p class="friend-name">Mashiro</p>
-                        
-                          <div class='friend-tags-wrapper'>
-                          
-                            <p class="tags"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>Web前端</p>
-                          
-                          </div>
-                        
-                        
-                      </div>
-                    </a>
-                  
-                    <a class='friend-card' style='background:#3E74C9; color:#fff'
-                      target="_blank" rel="external nofollow noopener noreferrer" href='https://www.itrhx.com/'>
-                      <div class='friend-left'>
-                        
-                          <img class='avatar' src='https://www.itrhx.com/images/trhx.png'/>
-                        
-                      </div>
-                      <div class='friend-right'>
-                        <p class="friend-name">TRHX</p>
-                        
-                          <div class='friend-tags-wrapper'>
-                          
-                            <p class="tags"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>Python</p>
-                          
-                          </div>
-                        
-                        
-                      </div>
-                    </a>
-                  
-                    <a class='friend-card' style='background:#3E74C9; color:#fff'
-                      target="_blank" rel="external nofollow noopener noreferrer" href='https://sxxkearth.github.io/'>
-                      <div class='friend-left'>
-                        
-                          <img class='avatar' src='https://sxxkearth.github.io/img/avatar.svg'/>
-                        
-                      </div>
-                      <div class='friend-right'>
-                        <p class="friend-name">嗜血星空earth</p>
-                        
-                          <div class='friend-tags-wrapper'>
-                          
-                            <p class="tags"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>BIM学习者</p>
-                          
-                          </div>
-                        
-                        
-                      </div>
-                    </a>
-                  
-                    <a class='friend-card' style='background:#3E74C9; color:#fff'
-                      target="_blank" rel="external nofollow noopener noreferrer" href='https://lloyar.github.io/'>
-                      <div class='friend-left'>
-                        
-                          <img class='avatar' src='https://gravatar.loli.net/avatar/f450e1597958dfb8b1eb52b4bb3d5c80?d=mp&v=1.3.6'/>
-                        
-                      </div>
-                      <div class='friend-right'>
-                        <p class="friend-name">Librarius's Blog</p>
-                        
-                          <div class='friend-tags-wrapper'>
-                          
-                            <p class="tags"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>C#</p>
-                          
-                            <p class="tags"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>HLSL</p>
-                          
-                          </div>
-                        
-                        
-                      </div>
-                    </a>
-                  
-                    <a class='friend-card' style='background:#3E74C9; color:#fff'
-                      target="_blank" rel="external nofollow noopener noreferrer" href='https://www.hojun.cn/'>
-                      <div class='friend-left'>
-                        
-                          <img class='avatar' src='https://cdn.jsdelivr.net/gh/honjun/ImageHosting/sina/006bYVyvgy1ftand2qurdj303c03cdfv.jpg'/>
-                        
-                      </div>
-                      <div class='friend-right'>
-                        <p class="friend-name">hojun</p>
-                        
-                          <div class='friend-tags-wrapper'>
-                          
-                            <p class="tags"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>Web开发</p>
-                          
-                          </div>
-                        
-                        
-                      </div>
-                    </a>
-                  
-                    <a class='friend-card' style='background:#3E74C9; color:#fff'
-                      target="_blank" rel="external nofollow noopener noreferrer" href='http://sasuke.club/'>
-                      <div class='friend-left'>
-                        
-                          <img class='avatar' src='https://img.vim-cn.com/71/96b29464a6b5ee3df28ddae5b22efc9a9137b3.png'/>
-                        
-                      </div>
-                      <div class='friend-right'>
-                        <p class="friend-name">悲伤的橘子树</p>
-                        
-                          <div class='friend-tags-wrapper'>
-                          
-                            <p class="tags"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>Springboot</p>
-                          
-                          </div>
-                        
-                        
-                      </div>
-                    </a>
-                  
-                    <a class='friend-card' style='background:#3E74C9; color:#fff'
-                      target="_blank" rel="external nofollow noopener noreferrer" href='https://www.moonster.life'>
-                      <div class='friend-left'>
-                        
-                          <img class='avatar' src='https://img.vim-cn.com/9b/f49b155fb62df9c626d83cef17afb2d0ccbb29.png'/>
-                        
-                      </div>
-                      <div class='friend-right'>
-                        <p class="friend-name">一去二三遥</p>
-                        
-                          <div class='friend-tags-wrapper'>
-                          
-                            <p class="tags"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>Java</p>
-                          
-                            <p class="tags"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>摄影</p>
-                          
-                          </div>
-                        
-                        
-                      </div>
-                    </a>
-                  
-                    <a class='friend-card' style='background:#3E74C9; color:#fff'
-                      target="_blank" rel="external nofollow noopener noreferrer" href='https://www.rinvay.cc/'>
-                      <div class='friend-left'>
-                        
-                          <img class='avatar' src='https://gravatar.o0o.fun/avatar/0e17d3ec8d6fbbfce870d97b943ceef3?s=101&r=G&d=mm'/>
-                        
-                      </div>
-                      <div class='friend-right'>
-                        <p class="friend-name">Rinvay.H</p>
-                        
-                          <div class='friend-tags-wrapper'>
-                          
-                            <p class="tags"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>运维大佬</p>
-                          
-                          </div>
-                        
-                        
-                      </div>
-                    </a>
-                  
-                    <a class='friend-card' style='background:#3E74C9; color:#fff'
-                      target="_blank" rel="external nofollow noopener noreferrer" href='http://blog.oioweb.cn'>
-                      <div class='friend-left'>
-                        
-                          <img class='avatar' src='https://secure.gravatar.com/avatar/b00b9da424a3ce9d9930576a04a31377?s=100&r=G&d=https://ww1.sinaimg.cn/large/005BYqpgly1fqttrevsfnj30hs0hswfp.jpg'/>
-                        
-                      </div>
-                      <div class='friend-right'>
-                        <p class="friend-name">教书先生</p>
-                        
-                          <div class='friend-tags-wrapper'>
-                          
-                            <p class="tags"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>Web开发</p>
-                          
-                          </div>
-                        
-                        
-                      </div>
-                    </a>
-                  
-                    <a class='friend-card' style='background:#3E74C9; color:#fff'
-                      target="_blank" rel="external nofollow noopener noreferrer" href='https://liubo.design/'>
-                      <div class='friend-left'>
-                        
-                          <img class='avatar' src='https://gravatar.loli.net/avatar/94d4496e69d67ea9dcb4266a258ba29b?d=mp&v=1.3.4'/>
-                        
-                      </div>
-                      <div class='friend-right'>
-                        <p class="friend-name">Bert Liu's Blog</p>
-                        
-                          <div class='friend-tags-wrapper'>
-                          
-                            <p class="tags"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>室内设计</p>
-                          
-                          </div>
-                        
-                        
-                      </div>
-                    </a>
-                  
-                    <a class='friend-card' style='background:#3E74C9; color:#fff'
-                      target="_blank" rel="external nofollow noopener noreferrer" href='https://hawkinchina.github.io/'>
-                      <div class='friend-left'>
-                        
-                          <img class='avatar' src='https://hawkinchina.github.io/images/jack.jpg'/>
-                        
-                      </div>
-                      <div class='friend-right'>
-                        <p class="friend-name">Hawk</p>
-                        
-                          <div class='friend-tags-wrapper'>
-                          
-                            <p class="tags"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>C++</p>
-                          
-                          </div>
-                        
-                        
-                      </div>
-                    </a>
-                  
-                    <a class='friend-card' style='background:#3E74C9; color:#fff'
-                      target="_blank" rel="external nofollow noopener noreferrer" href='https://blog.happysec.cn/'>
-                      <div class='friend-left'>
-                        
-                          <img class='avatar' src='https://p2.music.126.net/756LNzvUvOZr6GzkMMOGWQ==/109951163731450100.jpg?param=180y180'/>
-                        
-                      </div>
-                      <div class='friend-right'>
-                        <p class="friend-name">情小北</p>
-                        
-                          <div class='friend-tags-wrapper'>
-                          
-                            <p class="tags"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>Web安全</p>
-                          
-                          </div>
-                        
-                        
-                      </div>
-                    </a>
-                  
-                    <a class='friend-card' style='background:#3E74C9; color:#fff'
-                      target="_blank" rel="external nofollow noopener noreferrer" href='https://www.hoehub.com'>
-                      <div class='friend-left'>
-                        
-                          <img class='avatar' src='https://cdn.v2ex.com/gravatar/dc1187890e4cc4ca1a41a83f4f7eb559?s=80&r=G'/>
-                        
-                      </div>
-                      <div class='friend-right'>
-                        <p class="friend-name">Hoe's Notes</p>
-                        
-                          <div class='friend-tags-wrapper'>
-                          
-                            <p class="tags"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>后端开发</p>
-                          
-                          </div>
-                        
-                        
-                      </div>
-                    </a>
-                  
-                    <a class='friend-card' style='background:#3E74C9; color:#fff'
-                      target="_blank" rel="external nofollow noopener noreferrer" href='https://sandsea.vip/'>
-                      <div class='friend-left'>
-                        
-                          <img class='avatar' src='https://gravatar.loli.net/avatar/42db5e79d207c65b331f6261a834874f?d=mp&v=1.3.4'/>
-                        
-                      </div>
-                      <div class='friend-right'>
-                        <p class="friend-name">清秋</p>
-                        
-                          <div class='friend-tags-wrapper'>
-                          
-                            <p class="tags"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>Python</p>
-                          
-                          </div>
-                        
-                        
-                      </div>
-                    </a>
-                  
-                    <a class='friend-card' style='background:#3E74C9; color:#fff'
-                      target="_blank" rel="external nofollow noopener noreferrer" href='https://catl07.github.io/'>
-                      <div class='friend-left'>
-                        
-                          <img class='avatar' src='https://catl07.github.io/medias/logo.jpg'/>
-                        
-                      </div>
-                      <div class='friend-right'>
-                        <p class="friend-name">江陵博客</p>
-                        
-                          <div class='friend-tags-wrapper'>
-                          
-                            <p class="tags"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>Linux</p>
-                          
-                          </div>
-                        
-                        
-                      </div>
-                    </a>
-                  
-                    <a class='friend-card' style='background:#3E74C9; color:#fff'
-                      target="_blank" rel="external nofollow noopener noreferrer" href='https://blog.mebyz.cn/'>
-                      <div class='friend-left'>
-                        
-                          <img class='avatar' src='https://secure.gravatar.com/avatar/01ada174c6b4be500b4729e39f86bc64?s=64&r=G&d='/>
-                        
-                      </div>
-                      <div class='friend-right'>
-                        <p class="friend-name">半叶子</p>
-                        
-                          <div class='friend-tags-wrapper'>
-                          
-                            <p class="tags"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>C</p>
-                          
-                          </div>
-                        
-                        
-                      </div>
-                    </a>
-                  
-                    <a class='friend-card' style='background:#3E74C9; color:#fff'
-                      target="_blank" rel="external nofollow noopener noreferrer" href='https://itudo.cn/'>
-                      <div class='friend-left'>
-                        
-                          <img class='avatar' src='https://cdn.jsdelivr.net/gh/ssmath/mypic/img/20191028172335.png'/>
-                        
-                      </div>
-                      <div class='friend-right'>
-                        <p class="friend-name">我爱吃土豆</p>
-                        
-                          <div class='friend-tags-wrapper'>
-                          
-                            <p class="tags"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>一个爱吃土豆的程序员</p>
-                          
-                          </div>
-                        
-                        
-                      </div>
-                    </a>
-                  
-                    <a class='friend-card' style='background:#3E74C9; color:#fff'
-                      target="_blank" rel="external nofollow noopener noreferrer" href='https://cwxyr.me'>
-                      <div class='friend-left'>
-                        
-                          <img class='avatar' src='https://cdn2.sublimerui.top/2021/01/03/5db7a51e823a6.ico'/>
-                        
-                      </div>
-                      <div class='friend-right'>
-                        <p class="friend-name">果子酱</p>
-                        
-                          <div class='friend-tags-wrapper'>
-                          
-                            <p class="tags"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>Web</p>
-                          
-                            <p class="tags"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>嵌入式</p>
-                          
-                          </div>
-                        
-                        
-                      </div>
-                    </a>
-                  
-                    <a class='friend-card' style='background:#3E74C9; color:#fff'
-                      target="_blank" rel="external nofollow noopener noreferrer" href='https://www.mapletown.xyz/'>
-                      <div class='friend-left'>
-                        
-                          <img class='avatar' src='https://www.mapletown.xyz/pic.jpg'/>
-                        
-                      </div>
-                      <div class='friend-right'>
-                        <p class="friend-name">楓の街</p>
-                        
-                          <div class='friend-tags-wrapper'>
-                          
-                            <p class="tags"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>以有涯随无涯</p>
-                          
-                          </div>
-                        
-                        
-                      </div>
-                    </a>
-                  
-                    <a class='friend-card' style='background:#3E74C9; color:#fff'
-                      target="_blank" rel="external nofollow noopener noreferrer" href='https://blog.yunbaodi.com'>
-                      <div class='friend-left'>
-                        
-                          <img class='avatar' src='https://cdn.jsdelivr.net/gh/ssmath/picgo-pic/img/20210115123907.jpg'/>
-                        
-                      </div>
-                      <div class='friend-right'>
-                        <p class="friend-name">云宝地</p>
-                        
-                          <div class='friend-tags-wrapper'>
-                          
-                            <p class="tags"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>Java</p>
-                          
-                          </div>
-                        
-                        
-                      </div>
-                    </a>
-                  
-                    <a class='friend-card' style='background:#3E74C9; color:#fff'
-                      target="_blank" rel="external nofollow noopener noreferrer" href='https://sunhang.top/'>
-                      <div class='friend-left'>
-                        
-                          <img class='avatar' src='https://cdn.jsdelivr.net/gh/2662419405/CDN@1.0/sh.jpg'/>
-                        
-                      </div>
-                      <div class='friend-right'>
-                        <p class="friend-name">残梦</p>
-                        
-                          <div class='friend-tags-wrapper'>
-                          
-                            <p class="tags"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>前端、JS</p>
-                          
-                          </div>
-                        
-                        
-                      </div>
-                    </a>
-                  
-                    <a class='friend-card' style='background:#3E74C9; color:#fff'
-                      target="_blank" rel="external nofollow noopener noreferrer" href='https://www.lvshaomei.club/'>
-                      <div class='friend-left'>
-                        
-                          <img class='avatar' src='https://www.lvshaomei.club/images/banner/labia.jpeg'/>
-                        
-                      </div>
-                      <div class='friend-right'>
-                        <p class="friend-name">lvlv's blog</p>
-                        
-                          <div class='friend-tags-wrapper'>
-                          
-                            <p class="tags"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>Web前端</p>
-                          
-                          </div>
-                        
-                        
-                      </div>
-                    </a>
-                  
-                    <a class='friend-card' style='background:#3E74C9; color:#fff'
-                      target="_blank" rel="external nofollow noopener noreferrer" href='https://www.zhwei.cn/'>
-                      <div class='friend-left'>
-                        
-                          <img class='avatar' src='https://www.zhwei.cn/favicon.ico'/>
-                        
-                      </div>
-                      <div class='friend-right'>
-                        <p class="friend-name">HONGWEI</p>
-                        
-                          <div class='friend-tags-wrapper'>
-                          
-                            <p class="tags"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>测试工程师</p>
-                          
-                          </div>
-                        
-                        
-                      </div>
-                    </a>
-                  
-                    <a class='friend-card' style='background:#3E74C9; color:#fff'
-                      target="_blank" rel="external nofollow noopener noreferrer" href='https://www.sgyzyun.club/'>
-                      <div class='friend-left'>
-                        
-                          <img class='avatar' src='https://cdn.jsdelivr.net/gh/SGYZ0910/CDN@1.1.7/images/lcx.jpg'/>
-                        
-                      </div>
-                      <div class='friend-right'>
-                        <p class="friend-name">洛尘曦</p>
-                        
-                          <div class='friend-tags-wrapper'>
-                          
-                            <p class="tags"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>Java</p>
-                          
-                            <p class="tags"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>Python</p>
-                          
-                          </div>
-                        
-                        
-                      </div>
-                    </a>
-                  
-                    <a class='friend-card' style='background:#3E74C9; color:#fff'
-                      target="_blank" rel="external nofollow noopener noreferrer" href='https://removeif.github.io/'>
-                      <div class='friend-left'>
-                        
-                          <img class='avatar' src='https://removeif.github.io/images/avatar.jpg'/>
-                        
-                      </div>
-                      <div class='friend-right'>
-                        <p class="friend-name">辣椒の酱</p>
-                        
-                          <div class='friend-tags-wrapper'>
-                          
-                            <p class="tags"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>Java</p>
-                          
-                          </div>
-                        
-                        
-                      </div>
-                    </a>
-                  
-                    <a class='friend-card' style='background:#3E74C9; color:#fff'
-                      target="_blank" rel="external nofollow noopener noreferrer" href='https://www.zhangxiong.net/'>
-                      <div class='friend-left'>
-                        
-                          <img class='avatar' src='https://img.vim-cn.com/e0/aea27ce2dc27f3685d3fe662d1497a44cec231.jpg'/>
-                        
-                      </div>
-                      <div class='friend-right'>
-                        <p class="friend-name">张雄</p>
-                        
-                          <div class='friend-tags-wrapper'>
-                          
-                            <p class="tags"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>向阳生长，触碰流云</p>
-                          
-                          </div>
-                        
-                        
-                      </div>
-                    </a>
-                  
-                    <a class='friend-card' style='background:#3E74C9; color:#fff'
-                      target="_blank" rel="external nofollow noopener noreferrer" href='https://zy68.top'>
-                      <div class='friend-left'>
-                        
-                          <img class='avatar' src='https://cdn.jsdelivr.net/gh/MrGo123/asset@2020-1-2-1.0/headPortrait/mybloghp.jpg'/>
-                        
-                      </div>
-                      <div class='friend-right'>
-                        <p class="friend-name">MrGo123</p>
-                        
-                          <div class='friend-tags-wrapper'>
-                          
-                            <p class="tags"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>后端攻城狮</p>
-                          
-                          </div>
-                        
-                        
-                      </div>
-                    </a>
-                  
-                    <a class='friend-card' style='background:#3E74C9; color:#fff'
-                      target="_blank" rel="external nofollow noopener noreferrer" href='https://www.nykee.cn/'>
-                      <div class='friend-left'>
-                        
-                          <img class='avatar' src='https://image.nykee.cn/nykee.png'/>
-                        
-                      </div>
-                      <div class='friend-right'>
-                        <p class="friend-name">Nykee</p>
-                        
-                          <div class='friend-tags-wrapper'>
-                          
-                            <p class="tags"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>前端打杂狮/公路骑游党</p>
-                          
-                          </div>
-                        
-                        
-                      </div>
-                    </a>
-                  
-                    <a class='friend-card' style='background:#3E74C9; color:#fff'
-                      target="_blank" rel="external nofollow noopener noreferrer" href='https://blog.imyan.ren/'>
-                      <div class='friend-left'>
-                        
-                          <img class='avatar' src='https://s3.ax1x.com/2020/11/16/DEa9gA.png'/>
-                        
-                      </div>
-                      <div class='friend-right'>
-                        <p class="friend-name">Nykee</p>
-                        
-                          <div class='friend-tags-wrapper'>
-                          
-                            <p class="tags"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>Kolin</p>
-                          
-                            <p class="tags"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>Android</p>
-                          
-                          </div>
-                        
-                        
-                      </div>
-                    </a>
-                  
-                </div>
-              </div>
-            
-          
-            
-              <div class='friends-group'>
-                
-                  <br>
-                  <h3 class='friend-header'>
-                    
-                      <i class="fas fa-lock fa-fw" aria-hidden="true"></i>
-                    
-                    失踪的dalao
-                  </h3>
-                  
-                
-                <div class='friend-content'>
-                  
-                    <a class='friend-card' style='background:#0ab44b; color:#fff'
-                      target="_blank" rel="external nofollow noopener noreferrer" href='https://jiaobantang.github.io/'>
-                      <div class='friend-left'>
-                        
-                          <img class='avatar' src='https://s1.ax1x.com/2018/12/20/FDgJr6.png'/>
-                        
-                      </div>
-                      <div class='friend-right'>
-                        <p class="friend-name">搅拌糖°</p>
-                        
-                          <div class='friend-tags-wrapper'>
-                          
-                            <p class="tags"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>技术不宅</p>
-                          
-                            <p class="tags"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>Web开发</p>
-                          
-                          </div>
-                        
-                        
-                      </div>
-                    </a>
-                  
-                </div>
-              </div>
-            
-          
+
         
-        <br><br>
-        <!-- 
-<a href="https://www.foreverblog.cn/" target="_blank" rel="noopener"><img src="https://img.vim-cn.com/28/1b6143e016a95a7560a29f4e444a1a4c03434c.png"></a>
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://yeshan333.github.io/friends/index.html&title=friends - ShanSan&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://yeshan333.github.io/friends/index.html&title=friends - ShanSan&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://yeshan333.github.io/friends/index.html&title=friends - ShanSan&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
 
 
-<p><img src="https://cdn.jsdelivr.net/gh/ssmath/mypic/img/20190804211620.jpg" alt="我爱我国"> –&gt;</p>
 
-      </section>
+        
+      
+    </div>
+  </div>
+
+
   </article>
 
-  <!-- 显示推荐文章和评论 -->
+  
 
+  <article class="post white-box reveal shadow" id="comments">
+    <p ct><i class='fas fa-comments'></i> 评论</p>
+    
+    <div id="valine_container" class="valine_thread">
+  <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+</div>
 
-
-  <article class="post white-box reveal comments shadow">
-    <section class="article typo">
-      <p ct><i class='fas fa-comments'></i> 评论</p>
-      
-      
-      
-      
-      
-        <section id="comments">
-          <div id="valine_container" class="valine_thread">
-            <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
-          </div>
-        </section>
-      
-      
-    </section>
   </article>
 
 
@@ -1311,10 +896,9 @@
 <aside class='l_side'>
   
   
+    
+    
 
-  
-    
-    
 
 
 
@@ -1324,8 +908,35 @@
 </aside>
 
 
+		  
+		  <!--此文件用来存放一些不方便取值的变量-->
+<!--思路大概是将值藏到重加载的区域内-->
+
+<script>
+  window.pdata={}
+  pdata.ispage=false;
+  pdata.postTitle="";
+  pdata.commentPath="";
+  pdata.commentPlaceholder="";
+  // header 这里无论是否开启pjax都需要
+  var l_header=document.getElementById("l_header");
   
-  <footer class="clearfix">
+  l_header.classList.add("show");
+  
+  
+    // cover
+    var cover_wrapper=document.querySelector('.cover-wrapper');
+    
+    cover_wrapper.id="none";
+    cover_wrapper.style.display="none";
+    
+  
+</script>
+
+        </div>
+        
+  
+  <footer class="footer clearfix">
     <br><br>
     
       
@@ -1340,7 +951,7 @@
       loop='all'
       order='list'
       fixed='false'
-      list-max-height='340px'
+      list-max-height='320px'
       server='netease'
       type='playlist'
       id='3175833810'
@@ -1361,6 +972,7 @@
                 class="social fas fa-envelope flat-btn"
                 target="_blank"
                 rel="external nofollow noopener noreferrer">
+                
               </a>
             
           
@@ -1369,6 +981,7 @@
                 class="social fab fa-github flat-btn"
                 target="_blank"
                 rel="external nofollow noopener noreferrer">
+                
               </a>
             
           
@@ -1377,6 +990,7 @@
                 class="social fas fa-music flat-btn"
                 target="_blank"
                 rel="external nofollow noopener noreferrer">
+                
               </a>
             
           
@@ -1385,6 +999,7 @@
                 class="social fab fa-zhihu flat-btn"
                 target="_blank"
                 rel="external nofollow noopener noreferrer">
+                
               </a>
             
           
@@ -1393,6 +1008,7 @@
                 class="social fas fa-rss flat-btn"
                 target="_blank"
                 rel="external nofollow noopener noreferrer">
+                
               </a>
             
           
@@ -1400,167 +1016,383 @@
       
     
       
-        <div><p>博客内容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+        <div><p>博客内容遵循 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
 </div>
       
     
       
         本站使用
-        <a href="https://volantis.js.org/" target="_blank" class="codename">Volantis</a>
-        作为主题，总访问量为
-          <span id="busuanzi_value_site_pv"><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
-          次
-        
+        <a href="https://github.com/volantis-x/hexo-theme-volantis/tree/4.3.1" target="_blank" class="codename">Volantis</a>
+        作为主题
       
     
       
         <div class='copyright'>
-        <p><a href="https://shansan.top" target="_blank" rel="noopener">Copyright © 2018-2021 ShanSan</a></p>
+        <p><a target="_blank" rel="noopener" href="https://shansan.top">Copyright © 2018-2021 ShanSan</a></p>
 
         </div>
       
     
       
         
-          <div><p><a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">桂ICP备19000444号</a></p>
+          <div><p><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">桂ICP备19000444号</a></p>
 </div>
         
       
     
   </footer>
 
-<script>setLoadingBarProgress(80);</script>
 
-
-      <script>setLoadingBarProgress(60);</script>
+        <a id="s-top" class="fas fa-arrow-up fa-fw" href="javascript:void(0)"></a>
+      </div>
     </div>
-    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
-  </div>
+    <div>
+      <script>
+/************这个文件存放不需要重载的全局变量和全局函数*********/
+window.volantis={};
+window.volantis.loadcss=document.getElementById("loadcss");
+/******************** Pjax ********************************/
+function VPjax(){
+	this.list=[] // 存放回调函数
+	this.start=()=>{
+	  for(var i=0;i<this.list.length;i++){
+		this.list[i].run();
+	  }
+	}
+	this.push=(fn,name)=>{
+		var f=new PjaxItem(fn,name);
+		this.list.push(f);
+	}
+	// 构造一个可以run的对象
+	function PjaxItem(fn,name){
+		// 函数名称
+		this.name = name || fn.name
+		// run方法
+		this.run=()=>{
+			fn()
+		}
+	}
+}
+volantis.pjax={}
+volantis.pjax.method={
+	complete: new VPjax(),
+	error: new VPjax(),
+	send: new VPjax()
+}
+volantis.pjax={
+	...volantis.pjax,
+	push: volantis.pjax.method.complete.push,
+	error: volantis.pjax.method.error.push,
+	send: volantis.pjax.method.send.push
+}
+/********************脚本懒加载函数********************************/
+// 已经加入了setTimeout
+function loadScript(src, cb) {
+	setTimeout(function() {
+		var HEAD = document.getElementsByTagName('head')[0] || document.documentElement;
+		var script = document.createElement('script');
+		script.setAttribute('type','text/javascript');
+		if (cb) script.onload = cb;
+		script.setAttribute('src', src);
+		HEAD.appendChild(script);
+	});
+}
+//https://github.com/filamentgroup/loadCSS
+var loadCSS = function( href, before, media, attributes ){
+	var doc = window.document;
+	var ss = doc.createElement( "link" );
+	var ref;
+	if( before ){
+		ref = before;
+	}
+	else {
+		var refs = ( doc.body || doc.getElementsByTagName( "head" )[ 0 ] ).childNodes;
+		ref = refs[ refs.length - 1];
+	}
+	var sheets = doc.styleSheets;
+	if( attributes ){
+		for( var attributeName in attributes ){
+			if( attributes.hasOwnProperty( attributeName ) ){
+				ss.setAttribute( attributeName, attributes[attributeName] );
+			}
+		}
+	}
+	ss.rel = "stylesheet";
+	ss.href = href;
+	ss.media = "only x";
+	function ready( cb ){
+		if( doc.body ){
+			return cb();
+		}
+		setTimeout(function(){
+			ready( cb );
+		});
+	}
+	ready( function(){
+		ref.parentNode.insertBefore( ss, ( before ? ref : ref.nextSibling ) );
+	});
+	var onloadcssdefined = function( cb ){
+		var resolvedHref = ss.href;
+		var i = sheets.length;
+		while( i-- ){
+			if( sheets[ i ].href === resolvedHref ){
+				return cb();
+			}
+		}
+		setTimeout(function() {
+			onloadcssdefined( cb );
+		});
+	};
+	function loadCB(){
+		if( ss.addEventListener ){
+			ss.removeEventListener( "load", loadCB );
+		}
+		ss.media = media || "all";
+	}
+	if( ss.addEventListener ){
+		ss.addEventListener( "load", loadCB);
+	}
+	ss.onloadcssdefined = onloadcssdefined;
+	onloadcssdefined( loadCB );
+	return ss;
+};
+</script>
+<script>
   
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.4/dist/jquery.min.js"></script>
+  loadCSS("https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14/css/all.min.css", window.volantis.loadcss);
+  
+  
+  
+  
+</script>
+<!-- required -->
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5/dist/jquery.min.js"></script>
+
+<script>
+  function pjax_fancybox() {
+    $(".md .gallery").find("img").each(function () { //渲染 fancybox
+      var element = document.createElement("a"); // a 标签
+      $(element).attr("class", "fancybox");
+      $(element).attr("pjax-fancybox", "");  // 过滤 pjax
+      $(element).attr("href", $(this).attr("src"));
+      if ($(this).attr("data-original")) {
+        $(element).attr("href", $(this).attr("data-original"));
+      }
+      $(element).attr("data-fancybox", "images");
+      var caption = "";   // 描述信息
+      if ($(this).attr('alt')) {  // 判断当前页面是否存在描述信息
+        $(element).attr('data-caption', $(this).attr('alt'));
+        caption = $(this).attr('alt');
+      }
+      var div = document.createElement("div");
+      $(div).addClass("fancybox");
+      $(this).wrap(div); // 最外层套 div ，其实主要作用还是 class 样式
+      var span = document.createElement("span");
+      $(span).addClass("image-caption");
+      $(span).text(caption); // 加描述
+      $(this).after(span);  // 再套一层描述
+      $(this).wrap(element);  // 最后套 a 标签
+    })
+    $(".md .gallery").find("img").fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+      closeClick: true,
+      helpers: {
+        overlay: {closeClick: true}
+      },
+      buttons: [
+        "zoom",
+        "close"
+      ]
+    });
+  };
+  function SCload_fancybox() {
+    if ($(".md .gallery").find("img").length == 0) return;
+    loadCSS("https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css", document.getElementById("loadcss"));
+    loadScript('https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', pjax_fancybox)
+  };
+  $(function () {
+    SCload_fancybox();
+  });
+  function Pjax_SCload_fancybox(){
+	if (typeof $.fancybox == "undefined") {
+	 SCload_fancybox();
+    } else {
+	 pjax_fancybox();
+    }
+  }
+  volantis.pjax.push(Pjax_SCload_fancybox)
+  volantis.pjax.send(()=>{
+      if (typeof $.fancybox != "undefined") {
+        $.fancybox.close();    // 关闭弹窗
+      }
+  },'fancybox')
+</script>
+
+
+<!-- internal -->
+
+
+
+
+<script>
+  function loadIssuesJS() {
+    if ($(".md").find(".issues-api").length == 0) return;
+	
+	  loadScript('/js/issues.js');
+	
+  };
+  $(function () {
+    loadIssuesJS();
+  });
+  volantis.pjax.push(()=>{
+	if (typeof IssuesAPI == "undefined") {
+	  loadIssuesJS();
+	}
+  },"IssuesJS")
+</script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 0
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    lazyLoadInstance.update();
+  });
+  document.addEventListener('pjax:complete', function () {
+    lazyLoadInstance.update();
+  });
+</script>
+
+
+
+
+  
+
+<script>
+  window.FPConfig = {
+	delay: 0,
+	ignoreKeywords: [],
+	maxRPS: 5,
+	hoverDelay: 25
+  };
+</script>
+<script defer src="https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"></script>
+
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+    var clipboard = new ClipboardJS('.btn-copy', {
+        target: function (trigger) {
+            return trigger.nextElementSibling
+        }
+    });
+    function wait(callback, seconds) {
+        var timelag = null;
+        timelag = window.setTimeout(callback, seconds)
+    }
+    function pjax_initCopyCode() {
+		if($(".highlight .code pre").length+$(".article pre code").length==0)return;
+        var copyHtml = '';
+        copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+        copyHtml += '<i class="fas fa-copy"></i><span>COPY</span>';
+        copyHtml += '</button>';
+        $(".highlight .code pre").before(copyHtml);
+        $(".article pre code").before(copyHtml);
+        clipboard.off('success').on('success', function (e) {
+            let $btn = $(e.trigger);
+            $btn.addClass('copied');
+            let $icon = $($btn.find('i'));
+            $icon.removeClass('fa-copy');
+            $icon.addClass('fa-check-circle');
+            let $span = $($btn.find('span'));
+            $span[0].innerText = 'COPIED';
+            wait(function () {
+                $icon.removeClass('fa-check-circle');
+                $icon.addClass('fa-copy');
+                $span[0].innerText = 'COPY'
+            }, 2000)
+        });
+        clipboard.off('error').on('error', function (e) {
+            e.clearSelection();
+            let $btn = $(e.trigger);
+            $btn.addClass('copy-failed');
+            let $icon = $($btn.find('i'));
+            $icon.removeClass('fa-copy');
+            $icon.addClass('fa-times-circle');
+            let $span = $($btn.find('span'));
+            $span[0].innerText = 'COPY FAILED';
+            wait(function () {
+                $icon.removeClass('fa-times-circle');
+                $icon.addClass('fa-copy');
+                $span[0].innerText = 'COPY'
+            }, 2000)
+        })
+    }
+    $(function () {
+        pjax_initCopyCode()
+    });
+	volantis.pjax.push(pjax_initCopyCode)
+</script>
+
+
+
+
 
 
   <script>
-    
-    var SEARCH_SERVICE = "hexo" || "hexo";
-    var ROOT = "/" || "/";
-    if (!ROOT.endsWith('/')) ROOT += '/';
-  </script>
+  let APlayerController = new Object();
+  APlayerController.id = '3175833810';  // 设定全局音乐播放ID
+  APlayerController.volume = '0.7';
+  loadCSS("https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css", window.volantis.loadcss);
+  // APlayer 需要在  MetingJS 之前加载
+  loadScript("https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js")
+  window.volantis.APlayerLoaded=0 // APlayer加载完成状态
+  var checkAPlayer = setInterval(function () {
+    if (!window.APlayer) return // APlayer加载完成？
+	  if ($("#safearea").css("display")!="block") return // 文章内容加载完成？ see: source/css/first.styl
+    clearInterval(checkAPlayer)
+	  if (!window.volantis.APlayerLoaded&&!window.MetingJSElement){ // APlayer只能加载一次
+      window.volantis.APlayerLoaded=1 // APlayer加载完成
+      loadScript("https://cdn.jsdelivr.net/npm/meting@2.0/dist/Meting.min.js") // 加载 MetingJS
+	  }
+  }, 2500) // 按照网速调节差分2.5s
+  // rightmenu see: layout/_partial/rightmenu.ejs
 
-
-  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/instant_page.js" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
-
-
-  <script src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.6/dist/scrollreveal.min.js"></script>
-  <script type="text/javascript">
-    $(function() {
-      ScrollReveal().reveal('.l_main .reveal', {
-        distance: '8px',
-        duration: '800',
-        interval: '100',
-        scale: '1'
-      });
-    });
-  </script>
-
-
-  
-<script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
-
-  <script type="text/javascript">
-    $(function() {
-      Waves.attach('.flat-btn', ['waves-button']);
-      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
-      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
-      Waves.attach('.flat-box', ['waves-block']);
-      Waves.attach('.float-box', ['waves-block', 'waves-float']);
-      Waves.attach('.waves-image');
-      Waves.init();
-    });
-  </script>
-
-
-  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
-
-
-
-  
-  
-  
-    
-<script src="https://cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js"></script>
-
-    <script type="text/javascript">
-      $(function(){
-        var imgs=["https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/B18FCBB3-67FD-48CC-B4F3-457BA145F17A.jpeg"];
-        if ('true' == 'true') {
-          function shuffle(arr){
-            /*From countercurrent-time*/
-            var n = arr.length;
-            while(n--) {
-              var index = Math.floor(Math.random() * n);
-              var temp = arr[index];
-              arr[index] = arr[n];
-              arr[n] = temp;
-            }
-          }
-          shuffle(imgs);
-        }
-        if ('.cover') {
-          $('.cover').backstretch(
-            imgs,
-          {
-            duration: "20000",
-            fade: "1500"
-          });
-        } else {
-          $.backstretch(
-            imgs,
-          {
-            duration: "20000",
-            fade: "1500"
-          });
-        }
-      });
-    </script>
-  
-
-
-
-  
-    
-<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js"></script>
-
-  
-    
-<script src="https://cdn.jsdelivr.net/npm/meting@2.0/dist/Meting.min.js"></script>
-
-  
-
-
-
-
+</script>
 
 
 
 
   
-    
-<script src="https://cdn.jsdelivr.net/npm/valine@1.4/dist/Valine.min.js"></script>
-
   
-  <script>
-  var GUEST_INFO = ['nick','mail','link'];
-  var meta = 'nick,mail,link'.split(',').filter(function(item){
-    return GUEST_INFO.indexOf(item) > -1
-  });
-  var REQUIRED_FIELDS = ['nick','mail','link'];
-  var requiredFields = 'nick,mail'.split(',').filter(function(item){
-    return REQUIRED_FIELDS.indexOf(item) > -1
-  });
-  var valine = new Valine();
+<script src="/js/valine.js"></script>
+
+
+<script>
   function emoji(path, idx, ext) {
-      return path + "/" + path + "-" + idx + "." + ext;
+    return path + "/" + path + "-" + idx + "." + ext;
   }
   var emojiMaps = {};
   for (var i = 1; i <= 54; i++) {
@@ -1578,25 +1410,29 @@
   for (var i = 1; i <= 4; i++) {
     emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
   }
-  valine.init({
-    el: '#valine_container',
-    meta: meta,
-    
-    appId: "S687AsCjGJKTPIvUJ8aPNX49-gzGzoHsz",
-    appKey: "bCwg3QuIfGytbeYw58L7ofRq",
-    placeholder: "快来评论吧~",
-    pageSize:'10',
-    avatar:'robohash',
-    lang:'zh-cn',
-    visitor: 'true',
-    highlight: 'true',
-    mathJax: 'false',
-    enableQQ: 'true',
-    requiredFields: requiredFields,
-    emojiCDN: 'https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/emoji/valine/',
-    emojiMaps: emojiMaps
-  })
-  </script>
+  function pjax_valine() {
+    if(!document.querySelectorAll("#valine_container")[0])return;
+    let pagePlaceholder = pdata.commentPlaceholder || "快来评论吧~";
+    let path = pdata.commentPath;
+    if (path.length == 0) {
+      let defaultPath = '';
+      path = defaultPath || decodeURI(window.location.pathname);
+    }
+    var valine = new Valine();
+    valine.init(Object.assign({"path":null,"placeholder":"快来评论吧~","appId":"S687AsCjGJKTPIvUJ8aPNX49-gzGzoHsz","appKey":"bCwg3QuIfGytbeYw58L7ofRq","meta":["nick","mail","link"],"requiredFields":["nick","mail"],"enableQQ":true,"recordIP":false,"avatar":"robohash","pageSize":10,"lang":"zh-cn","highlight":true,"mathJax":false}, {
+      el: '#valine_container',
+      path: path,
+      placeholder: pagePlaceholder,
+      emojiCDN: 'https://cdn.jsdelivr.net/gh/volantis-x/cdn-emoji/valine/',
+      emojiMaps: emojiMaps,
+    }))
+  }
+  $(function () {
+    pjax_valine();
+  });
+  volantis.pjax.push(pjax_valine);
+</script>
+
 
 
 
@@ -1607,111 +1443,519 @@
 
 
 
+<!-- optional -->
+
+  <script>
+const SearchServiceimagePath="https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@master/img/";
+const ROOT =  ("/" || "/").endsWith('/') ? ("/" || "/") : ("//" || "/" );
+
+$('.input.u-search-input').one('focus',function(){
+	
+		loadScript('https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@2.6.4/js/search.js',setSearchService);
+	
+})
+
+function listenSearch(){
   
-<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2.6.4/js/search.js"></script>
-
-
-
+    customSearch = new HexoSearch({
+      imagePath: SearchServiceimagePath
+    });
   
-<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/comment_typing.js"></script>
-
-
-
-
-
-
-<!-- 复制 -->
-
-  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
-<script>
-  function wait(callback, seconds) {
-    var timelag = null;
-    timelag = window.setTimeout(callback, seconds);
-  }
-  !function (e, t, a) {
-    var initCopyCode = function(){
-      var copyHtml = '';
-      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
-      copyHtml += '<i class="fas fa-copy"></i><span>COPY</span>';
-      copyHtml += '</button>';
-      $(".highlight .code pre").before(copyHtml);
-      $(".article pre code").before(copyHtml);
-      var clipboard = new ClipboardJS('.btn-copy', {
-        target: function(trigger) {
-          return trigger.nextElementSibling;
-        }
-      });
-      clipboard.on('success', function(e) {
-        let $btn = $(e.trigger);
-        $btn.addClass('copied');
-        let $icon = $($btn.find('i'));
-        $icon.removeClass('fa-copy');
-        $icon.addClass('fa-check-circle');
-        let $span = $($btn.find('span'));
-        $span[0].innerText = 'COPIED';
-        
-        wait(function () { // 等待两秒钟后恢复
-          $icon.removeClass('fa-check-circle');
-          $icon.addClass('fa-copy');
-          $span[0].innerText = 'COPY';
-        }, 2000);
-      });
-      clipboard.on('error', function(e) {
-        e.clearSelection();
-        let $btn = $(e.trigger);
-        $btn.addClass('copy-failed');
-        let $icon = $($btn.find('i'));
-        $icon.removeClass('fa-copy');
-        $icon.addClass('fa-times-circle');
-        let $span = $($btn.find('span'));
-        $span[0].innerText = 'COPY FAILED';
-        
-        wait(function () { // 等待两秒钟后恢复
-          $icon.removeClass('fa-times-circle');
-          $icon.addClass('fa-copy');
-          $span[0].innerText = 'COPY';
-        }, 2000);
-      });
-    }
-    initCopyCode();
-  }(window, document);
+}
+function setSearchService() {
+	listenSearch();
+	
+}
 </script>
 
 
 
 
-<!-- fancybox -->
 
-  <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
-<script>
-  let LAZY_LOAD_IMAGE = "";
-  $(".article-entry").find("div.fancybox").find("img").each(function () {
-      var element = document.createElement("a");
-      $(element).attr("data-fancybox", "gallery");
-      $(element).attr("href", $(this).attr("src"));
-      /* 图片采用懒加载处理时,
-       * 一般图片标签内会有个属性名来存放图片的真实地址，比如 data-original,
-       * 那么此处将原本的属性名src替换为对应属性名data-original,
-       * 修改如下
-       */
-       if (LAZY_LOAD_IMAGE) {
-         $(element).attr("href", $(this).attr("data-original"));
-       }
-      $(this).wrap(element);
+
+
+
+
+
+
+  <script defer>
+
+  const LCCounter = {
+    app_id: 'u9j57bwJod4EDmXWdxrwuqQT-MdYXbMMI',
+    app_key: 'jfHtEKVE24j0IVCGHbvuFClp',
+    custom_api_server: '',
+
+    // 查询存储的记录
+    getRecord(Counter, url, title) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({url})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
+            }
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {url, title: title, times: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
+        });
+      })
+    },
+
+    // 发起自增请求
+    increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
+          }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    },
+
+    // 构建自增请求体
+    buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "times": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    },
+
+    // 校验是否为有效的 UV
+    validUV() {
+      var key = 'LeanCloudUVTimestamp';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    },
+
+    addCount(Counter) {
+      var enableIncr = '' === 'true' && window.location.hostname !== 'localhost';
+      enableIncr = true;
+      var getterArr = [];
+      var incrArr = [];
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#lc-sv');
+      if (pvCtn || enableIncr) {
+        var pvGetter = this.getRecord(Counter, 'https://yeshan333.github.io' + '/#lc-sv', 'Visits').then((record) => {
+          incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-sv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + 1;
+              if (pvCtn) {
+                pvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#lc-uv');
+      if (uvCtn || enableIncr) {
+        var uvGetter = this.getRecord(Counter, 'https://yeshan333.github.io' + '/#lc-uv', 'Visitors').then((record) => {
+          var vuv = this.validUV();
+          vuv && incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-uv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + (vuv ? 1 : 0);
+              if (uvCtn) {
+                uvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 请求文章的浏览数，如果是当前页面就自增
+      var allPV = document.querySelectorAll('#lc-pv');
+      if (allPV.length > 0 || enableIncr) {
+        for (i = 0; i < allPV.length; i++) {
+          let pv = allPV[i];
+          let title = pv.getAttribute('data-title');
+          var url = 'https://yeshan333.github.io' + pv.getAttribute('data-path');
+          if (url) {
+            var viewGetter = this.getRecord(Counter, url, title).then((record) => {
+              // 是当前页面就自增
+              let curPath = window.location.pathname;
+              if (curPath.includes('index.html')) {
+                curPath = curPath.substring(0, curPath.lastIndexOf('index.html'));
+              }
+              if (pv.getAttribute('data-path') == curPath) {
+                incrArr.push(this.buildIncrement(record.objectId));
+              }
+              if (pv) {
+                var ele = pv.querySelector('#lc-pv #number');
+                if (ele) {
+                  if (pv.getAttribute('data-path') == curPath) {
+                    ele.innerText = (record.times || 0) + 1;
+                  } else {
+                    ele.innerText = record.times || 0;
+                  }
+                  pv.style.display = 'inline';
+                }
+              }
+            });
+            getterArr.push(viewGetter);
+          }
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && this.increment(Counter, incrArr);
+        })
+      }
+
+    },
+
+
+    fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': this.app_id,
+            'X-LC-Key': this.app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      this.addCount(Counter);
+    },
+
+    refreshCounter() {
+      var api_server = this.app_id.slice(-9) !== '-MdYXbMMI' ? this.custom_api_server : `https://${ this.app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+      if (api_server) {
+        this.fetchData(api_server);
+      } else {
+        fetch('https://app-router.leancloud.cn/2/route?appId=' + this.app_id)
+          .then(resp => resp.json())
+          .then(({api_server}) => {
+            this.fetchData('https://' + api_server);
+          });
+      }
+    }
+
+  };
+
+  LCCounter.refreshCounter();
+
+  document.addEventListener('pjax:complete', function () {
+    LCCounter.refreshCounter();
   });
 </script>
 
 
 
 
+  <script>
+const rootElement = document.documentElement;
+const darkModeStorageKey = "user-color-scheme";
+const rootElementDarkModeAttributeName = "data-user-color-scheme";
+
+const setLS = (k, v) => {
+    localStorage.setItem(k, v);
+};
+
+const removeLS = (k) => {
+    localStorage.removeItem(k);
+};
+
+const getLS = (k) => {
+    return localStorage.getItem(k);
+};
+
+const getModeFromCSSMediaQuery = () => {
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
+};
+
+const resetRootDarkModeAttributeAndLS = () => {
+  rootElement.removeAttribute(rootElementDarkModeAttributeName);
+  removeLS(darkModeStorageKey);
+};
+
+const validColorModeKeys = {
+  dark: true,
+  light: true,
+};
+
+const applyCustomDarkModeSettings = (mode) => {
+  const currentSetting = mode || getLS(darkModeStorageKey);
+
+  if (currentSetting === getModeFromCSSMediaQuery()) {
+    resetRootDarkModeAttributeAndLS();
+  } else if (validColorModeKeys[currentSetting]) {
+    rootElement.setAttribute(rootElementDarkModeAttributeName, currentSetting);
+  } else {
+    resetRootDarkModeAttributeAndLS();
+  }
+};
+
+const invertDarkModeObj = {
+  dark: "light",
+  light: "dark",
+};
+
+/**
+ * get target mode
+ */
+const toggleCustomDarkMode = () => {
+  let currentSetting = getLS(darkModeStorageKey);
+
+  if (validColorModeKeys[currentSetting]) {
+    currentSetting = invertDarkModeObj[currentSetting];
+  } else if (currentSetting === null) {
+    currentSetting = invertDarkModeObj[getModeFromCSSMediaQuery()];
+  } else {
+    return;
+  }
+  setLS(darkModeStorageKey, currentSetting);
+  return currentSetting;
+};
+
+/**
+ * bind click event for toggle button
+ */
+var btn=$("#wrapper .toggle-mode-btn,#rightmenu-wrapper .toggle-mode-btn");
+function bindToggleButton() {
+    btn.on('click',(e) => {
+      const mode = toggleCustomDarkMode();
+      applyCustomDarkModeSettings(mode);
+    });
+}
+
+applyCustomDarkModeSettings();
+document.addEventListener("DOMContentLoaded", bindToggleButton);
+volantis.pjax.push(bindToggleButton);
+volantis.pjax.send(()=>{
+	btn.unbind('click');
+},'toggle-mode-btn-unbind');
+</script>
 
 
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yeshan333/jsDelivrCDN/piao.js" />
-<script type="text/javascript" src="https://cdn.staticfile.org/jquery/1.7.2/jquery.min.js" />
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yeshan333/jsDelivrCDN/attatkmouse.js" />
-<script async defer data-domain="shansan.top" src="https://plausible.io/js/plausible.js" />
 
 
-  <script>setLoadingBarProgress(100);</script>
-</body>
+
+
+
+
+<script>
+function listennSidebarTOC() {
+  const navItems = document.querySelectorAll(".toc li");
+  if (!navItems.length) return;
+  const sections = [...navItems].map((element) => {
+    const link = element.querySelector(".toc-link");
+    const target = document.getElementById(
+      decodeURI(link.getAttribute("href")).replace("#", "")
+    );
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      window.scrollTo({
+		top: target.offsetTop + 100,
+		
+		behavior: "smooth"
+		
+	  });
+    });
+    return target;
+  });
+
+  function activateNavByIndex(target) {
+    if (target.classList.contains("active-current")) return;
+
+    document.querySelectorAll(".toc .active").forEach((element) => {
+      element.classList.remove("active", "active-current");
+    });
+    target.classList.add("active", "active-current");
+    let parent = target.parentNode;
+    while (!parent.matches(".toc")) {
+      if (parent.matches("li")) parent.classList.add("active");
+      parent = parent.parentNode;
+    }
+  }
+
+  function findIndex(entries) {
+    let index = 0;
+    let entry = entries[index];
+    if (entry.boundingClientRect.top > 0) {
+      index = sections.indexOf(entry.target);
+      return index === 0 ? 0 : index - 1;
+    }
+    for (; index < entries.length; index++) {
+      if (entries[index].boundingClientRect.top <= 0) {
+        entry = entries[index];
+      } else {
+        return sections.indexOf(entry.target);
+      }
+    }
+    return sections.indexOf(entry.target);
+  }
+
+  function createIntersectionObserver(marginTop) {
+    marginTop = Math.floor(marginTop + 10000);
+    let intersectionObserver = new IntersectionObserver(
+      (entries, observe) => {
+        let scrollHeight = document.documentElement.scrollHeight + 100;
+        if (scrollHeight > marginTop) {
+          observe.disconnect();
+          createIntersectionObserver(scrollHeight);
+          return;
+        }
+        let index = findIndex(entries);
+        activateNavByIndex(navItems[index]);
+      },
+      {
+        rootMargin: marginTop + "px 0px -100% 0px",
+        threshold: 0,
+      }
+    );
+    sections.forEach((element) => {
+      element && intersectionObserver.observe(element);
+    });
+  }
+  createIntersectionObserver(document.documentElement.scrollHeight);
+}
+
+document.addEventListener("DOMContentLoaded", listennSidebarTOC);
+document.addEventListener("pjax:success", listennSidebarTOC);
+</script>
+
+<!-- more -->
+
+  
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yeshan333/jsDelivrCDN/piao.js" />
+
+  <script type="text/javascript" src="https://cdn.staticfile.org/jquery/1.7.2/jquery.min.js" />
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yeshan333/jsDelivrCDN/attatkmouse.js" />
+
+  <script async defer data-domain="shansan.top" src="https://plausible.io/js/plausible.js" />
+
+
+
+ 
+	   
+	    
+
+
+<script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script>
+
+
+<script>
+    var pjax;
+    document.addEventListener('DOMContentLoaded', function () {
+      pjax = new Pjax({
+        elements: 'a[href]:not([href^="#"]):not([href="javascript:void(0)"]):not([pjax-fancybox])',
+        selectors: [
+          "title",
+          
+          "#pjax-container",
+          "#pjax-header-nav-list"
+        ],
+        cacheBust: false,   // url 地址追加时间戳，用以避免浏览器缓存
+        timeout: 5000
+      });
+    });
+
+    document.addEventListener('pjax:send', function (e) {
+      //window.stop(); // 相当于点击了浏览器的停止按钮
+
+      try {
+        var currentUrl = window.location.pathname;
+        var targetUrl = e.triggerElement.href;
+        var banUrl = [""];
+        if (banUrl[0] != "") {
+          banUrl.forEach(item => {
+            if(currentUrl.indexOf(item) != -1 || targetUrl.indexOf(item) != -1) {
+              window.location.href = targetUrl;
+            }
+          });
+        }
+      } catch (error) {}
+
+      window.subData = null; // 移除标题（用于一二级导航栏切换处）
+
+      volantis.$switcher.removeClass('active'); // 关闭移动端激活的搜索框
+      volantis.$header.removeClass('z_search-open'); // 关闭移动端激活的搜索框
+      volantis.$wrapper.removeClass('sub'); // 跳转页面时关闭二级导航
+
+      // 解绑事件 避免重复监听
+      volantis.$topBtn.unbind('click');
+      $('.menu a').unbind('click');
+      $(window).unbind('resize');
+      $(window).unbind('scroll');
+      $(document).unbind('scroll');
+      $(document).unbind('click');
+      $('body').unbind('click');
+	  // 使用 volantis.pjax.send 方法传入pjax:send回调函数 参见layout/_partial/scripts/global.ejs
+	  volantis.pjax.method.send.start();
+    });
+
+    document.addEventListener('pjax:complete', function () {
+      $('.nav-main').find('.list-v').not('.menu-phone').removeAttr("style",""); // 移除小尾巴的移除
+      $('.menu-phone.list-v').removeAttr("style",""); // 移除小尾巴的移除
+      $('script[data-pjax], .pjax-reload script').each(function () {
+        $(this).parent().append($(this).remove());
+      });
+      try{
+		// 使用 volantis.pjax.push 方法传入重载函数 参见layout/_partial/scripts/global.ejs
+		volantis.pjax.method.complete.start();
+      } catch (e) {
+        console.log(e);
+      }
+    });
+
+    document.addEventListener('pjax:error', function (e) {
+	  // 使用 volantis.pjax.error 方法传入pjax:error回调函数 参见layout/_partial/scripts/global.ejs
+	  volantis.pjax.method.error.start();
+      window.location.href = e.triggerElement.href;
+    });
+</script>
+ 
+	  
+    </div>
+  </body>
 </html>

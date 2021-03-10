@@ -1,25 +1,32 @@
 <!DOCTYPE html>
-<html>
-<head hexo-theme='https://volantis.js.org/#2.6.5'>
+<html lang="zh-CN,en,zh-TW,default">
+  <head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/tree/4.3.1'>
   <meta charset="utf-8">
   <!-- SEO相关 -->
   
     
   
   <!-- 渲染优化 -->
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <meta name="renderer" content="webkit">
   <meta name="force-rendering" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
   <meta name="HandheldFriendly" content="True" >
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <link rel="preload" href="/css/first.css" as="style">
+  
 
   <!-- 页面元数据 -->
   
-    <title>SQLAlchemy建立数据库模型之间的关系 - ShanSan</title>
+  <title>SQLAlchemy建立数据库模型之间的关系 - ShanSan</title>
   
     <meta name="keywords" content="Flask">
   
+
   
     <meta name="description" content="常见关系：
 一对多关系
@@ -37,60 +44,85 @@
   
 
   <!-- link -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13/css/all.min.css">
   
-    
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
-
-  
-  
-    
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
-
-  
-
-  
-  <link rel="shortcut icon" type='image/x-icon' href="https://img.vim-cn.com/bb/db444be0b7fda59c69d5c64167f9668b0b66bd.png">
-  
-
-  
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css">
+    <link rel="shortcut icon" type='image/x-icon' href="https://img.vim-cn.com/bb/db444be0b7fda59c69d5c64167f9668b0b66bd.png">
   
 
   <!-- import link -->
   
 
   
-  
     
-<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/first.css">
 
   
 
-  <script>
-    function setLoadingBarProgress(num) {
-      document.getElementById('loading-bar').style.width=num+"%";
-    }
-  </script>
+  
+  <link rel="stylesheet" href="/css/style.css" media="print" onload="this.media='all';this.onload=null">
+  <noscript><link rel="stylesheet" href="/css/style.css"></noscript>
+  
+
+  <script id="loadcss"></script>
 
   
-  
+<script>
+if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode))
+    document.write(
+	'<style>'+
+		'html{'+
+			'overflow-x: hidden !important;'+
+			'overflow-y: hidden !important;'+
+		'}'+
+		'.kill-ie{'+
+			'text-align:center;'+
+			'height: 100%;'+
+			'margin-top: 15%;'+
+			'margin-bottom: 5500%;'+
+		'}'+
+	'</style>'+
+    '<div class="kill-ie">'+
+        '<h1><b>抱歉，您的浏览器无法访问本站</b></h1>'+
+        '<h3>微软已经于2016年终止了对 Internet Explorer (IE) 10 及更早版本的支持，<br/>'+
+        '继续使用存在极大的安全隐患，请使用当代主流的浏览器进行访问。</h3><br/>'+
+        '<a target="_blank" rel="noopener" href="https://www.microsoft.com/zh-cn/WindowsForBusiness/End-of-IE-support"><strong>了解详情 ></strong></a>'+
+    '</div>');
+</script>
+
+
+<noscript>
+	<style>
+		html{
+			overflow-x: hidden !important;
+			overflow-y: hidden !important;
+		}
+		.kill-noscript{
+			text-align:center;
+			height: 100%;
+			margin-top: 15%;
+			margin-bottom: 5500%;
+		}
+	</style>
+    <div class="kill-noscript">
+        <h1><b>抱歉，您的浏览器无法访问本站</b></h1>
+        <h3>本页面需要浏览器支持（启用）JavaScript</h3><br/>
+        <a target="_blank" rel="noopener" href="https://www.baidu.com/s?wd=启用JavaScript"><strong>了解详情 ></strong></a>
+    </div>
+</noscript>
+
 </head>
 
-<body>
-  
-  <div id="loading-bar-wrapper">
-  <div id="loading-bar"></div>
-</div>
-<header class="l_header shadow blur">
+  <body>
+    
+
+<header id="l_header" class="l_header auto shadow blur show" style='opacity: 0' >
   <div class='container'>
-  <div class='wrapper'>
+  <div id='wrapper'>
     <div class='nav-sub'>
       <p class="title"></p>
-      <ul class='switcher nav-list-h'>
-        <li><a class="s-comment fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+      <ul class='switcher nav-list-h m-phone' id="pjax-header-nav-list">
+        <li><a id="s-comment" class="fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
         
-          <li><a class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+          <li><a id="s-toc" class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
         
       </ul>
     </div>
@@ -101,27 +133,26 @@
           
           
           
-            <red>S</red><green>h</green><blue>a</blue><yellow>n</yellow><red>S</red><green>h</green><blue>a</blue><yellow>n</yellow>
-          
+            ShanSan
           
         </a>
       
 
 			<div class='menu navigation'>
-				<ul class='nav-list-h'>
+				<ul class='nav-list-h m-pc'>
           
           
           
             
             
               <li>
-                <a class="flat-box" href=/
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
                   
                   
                   
                     id="home"
                   >
-                  <i class='fas fa-home fa-fw'></i>首页
+                  <i class='fas fa-rss fa-fw'></i>博文
                 </a>
                 
               </li>
@@ -131,23 +162,7 @@
             
             
               <li>
-                <a class="flat-box" href=/categories/
-                  
-                  
-                  
-                    id="categories"
-                  >
-                  <i class='fas fa-folder-open fa-fw'></i>分类
-                </a>
-                
-              </li>
-            
-          
-          
-            
-            
-              <li>
-                <a class="flat-box" href=/archives/
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
                   
                   
                   
@@ -163,7 +178,7 @@
             
             
               <li>
-                <a class="flat-box" href=/friends/
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
                   
                   
                   
@@ -179,7 +194,7 @@
             
             
               <li>
-                <a class="flat-box" href=/about/
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
                   
                   
                   
@@ -195,7 +210,7 @@
             
             
               <li>
-                <a class="flat-box" 
+                <a class="menuitem flat-box faa-parent animated-hover" 
                   
                   
                   >
@@ -207,7 +222,7 @@
                       
             
               <li>
-                <a class="flat-box" href=https://github.com/yeshan333
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://github.com/yeshan333
                   
                   
                   
@@ -223,7 +238,7 @@
                       
             
               <li>
-                <a class="flat-box" href=https://slide.shan333.cn
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://slide.shan333.cn
                   
                   
                   
@@ -239,7 +254,7 @@
                       
             
               <li>
-                <a class="flat-box" href=https://shansan.top/knowledge-base/
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://shansan.top/knowledge-base/
                   
                   
                   
@@ -253,38 +268,6 @@
           
                     
                   </ul>
-                
-              </li>
-            
-          
-          
-            
-            
-              <li>
-                <a class="flat-box" href=/PyChina/
-                  
-                  
-                  
-                    id="PyChina"
-                  >
-                  <i class='fab fa-python fa-fw'></i>中国蟒
-                </a>
-                
-              </li>
-            
-          
-          
-            
-            
-              <li>
-                <a class="flat-box" href=/cloud-native/
-                  
-                  
-                  
-                    id="cloud-native"
-                  >
-                  <i class='fas fa-cloud fa-fw'></i>云原生
-                </a>
                 
               </li>
             
@@ -300,7 +283,7 @@
         </form>
       </div>
 
-			<ul class='switcher nav-list-h'>
+			<ul class='switcher nav-list-h m-phone'>
 				
 					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
 				
@@ -311,13 +294,13 @@
               
             
               <li>
-                <a class="flat-box" href=/
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
                   
                   
                   
                     id="home"
                   >
-                  <i class='fas fa-home fa-fw'></i>首页
+                  <i class='fas fa-rss fa-fw'></i>博文
                 </a>
                 
               </li>
@@ -327,23 +310,7 @@
               
             
               <li>
-                <a class="flat-box" href=/categories/
-                  
-                  
-                  
-                    id="categories"
-                  >
-                  <i class='fas fa-folder-open fa-fw'></i>分类
-                </a>
-                
-              </li>
-            
-          
-            
-              
-            
-              <li>
-                <a class="flat-box" href=/archives/
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
                   
                   
                   
@@ -359,7 +326,7 @@
               
             
               <li>
-                <a class="flat-box" href=/friends/
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
                   
                   
                   
@@ -375,7 +342,7 @@
               
             
               <li>
-                <a class="flat-box" href=/about/
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
                   
                   
                   
@@ -391,7 +358,7 @@
               
             
               <li>
-                <a class="flat-box" 
+                <a class="menuitem flat-box faa-parent animated-hover" 
                   
                   
                   >
@@ -403,7 +370,7 @@
                       
             
               <li>
-                <a class="flat-box" href=https://github.com/yeshan333
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://github.com/yeshan333
                   
                   
                   
@@ -419,7 +386,7 @@
                       
             
               <li>
-                <a class="flat-box" href=https://slide.shan333.cn
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://slide.shan333.cn
                   
                   
                   
@@ -435,7 +402,7 @@
                       
             
               <li>
-                <a class="flat-box" href=https://shansan.top/knowledge-base/
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://shansan.top/knowledge-base/
                   
                   
                   
@@ -454,38 +421,6 @@
             
           
             
-              
-            
-              <li>
-                <a class="flat-box" href=/PyChina/
-                  
-                  
-                  
-                    id="PyChina"
-                  >
-                  <i class='fab fa-python fa-fw'></i>中国蟒
-                </a>
-                
-              </li>
-            
-          
-            
-              
-            
-              <li>
-                <a class="flat-box" href=/cloud-native/
-                  
-                  
-                  
-                    id="cloud-native"
-                  >
-                  <i class='fas fa-cloud fa-fw'></i>云原生
-                </a>
-                
-              </li>
-            
-          
-            
           </ul>
         </li>
 			</ul>
@@ -494,108 +429,133 @@
   </div>
 </header>
 
-<script>setLoadingBarProgress(40);</script>
+    <div id="l_body">
+      <div id="l_cover">
+  
+    
+        <div id="full" class='cover-wrapper post dock' style="display: none;">
+          
+            <div class='cover-bg lazyload placeholder' data-bg="https://bing.ioliu.cn/v1/rand?w=1920&h=1200"></div>
+          
+          <div class='cover-body'>
+  <div class='top'>
+    
+    
+      <p class="title">花点时间多做点想做的事</p>
+    
+    
+      <p class="subtitle">created by yeshan333</p>
+    
+  </div>
+  <div class='bottom'>
+    <div class='menu navigation'>
+      <div class='list-h'>
+        
+          
+            <a href="/archives/"
+              
+              
+              id="archives">
+              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f4f0.svg'><p>博文</p>
+            </a>
+          
+            <a href="/about/"
+              
+              
+              id="about">
+              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0.1/assets/svg/1f0cf.svg'><p>关于我</p>
+            </a>
+          
+            <a href="/friends/"
+              
+              
+              id="friends">
+              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f9ec.svg'><p>友链</p>
+            </a>
+          
+        
+      </div>
+    </div>
+  </div>
+</div>
 
+          <div id="scroll-down" style="display: none;"><i class="fa fa-chevron-down scroll-down-effects"></i></div>
+        </div>
+    
+  
+  </div>
 
-
-  <div class="l_body nocover">
-    <div class='body-wrapper'>
-      
+      <div id="safearea">
+        <div class="body-wrapper" id="pjax-container">
+          
 
 <div class='l_main'>
+  <article class="article post white-box reveal md shadow article-type-post" id="post" itemscope itemprop="blogPost">
   
 
+
   
-    <article id="post" class="post white-box reveal shadow article-type-post" itemscope itemprop="blogPost">
-      
-
-
-  <section class='meta'>
+  <div class="article-meta" id="top">
     
-      
-      
-      <div class="meta" id="header-meta">
+    
+    
+      <h1 class="title">
+        SQLAlchemy建立数据库模型之间的关系
+      </h1>
+      <div class='new-meta-box'>
         
           
-  <h1 class="title">
-    <a href="/2019/03/20/SQLAlchemy%E5%BB%BA%E7%AB%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E6%A8%A1%E5%9E%8B%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB/">
-      SQLAlchemy建立数据库模型之间的关系
-    </a>
-  </h1>
-
-
-        
-        <div class='new-meta-box'>
-          
             
-          
-            
-              
 <div class='new-meta-item author'>
-  <a href="https://github.com/yeshan333" target="_blank" rel="nofollow noopener">
-    <img src="https://img.vim-cn.com/a3/caa9ef084c4f562b82b1cca6e978c0dca58c5f.png">
+  <a class='author' target="_blank" href="https://github.com/yeshan333" rel="nofollow noopener">
+    <img no-lazy src="https://img.vim-cn.com/a3/caa9ef084c4f562b82b1cca6e978c0dca58c5f.png">
     <p>yeshan333</p>
   </a>
 </div>
 
-            
           
-            
-              
-  
-  <div class='new-meta-item category'>
-    <a href='/categories/Flask/' rel="nofollow">
-      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
-      <p>Flask</p>
-    </a>
-  </div>
-
-
-            
+        
           
-            
-              <div class="new-meta-item date">
+            <div class="new-meta-item date">
   <a class='notlink'>
-    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>文章首发于：2019年3月20日</p>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>首发于：2019年3月20日</p>
   </a>
 </div>
 
-            
           
-            
-              
-
-            
-          
-        </div>
         
-          <hr>
+          
+            
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Flask/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>Flask</p></a></div>
+
+
+          
         
       </div>
     
-  </section>
+  </div>
 
 
-      <section class="article typo">
-        <div class="article-entry" itemprop="articleBody">
-          
-          <h1 id="常见关系："><a href="#常见关系：" class="headerlink" title="常见关系："></a>常见关系：</h1><ul>
+  
+  
+  <h1 id="常见关系："><a href="#常见关系：" class="headerlink" title="常见关系："></a>常见关系：</h1><ul>
 <li>一对多关系</li>
 <li>多对一关系</li>
 <li>多对多关系</li>
 <li>一对一关系</li>
 </ul>
-<h1 id="一对多关系（一个作者，多篇文章）"><a href="#一对多关系（一个作者，多篇文章）" class="headerlink" title="一对多关系（一个作者，多篇文章）"></a>一对多关系（一个作者，多篇文章）</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 一对多关系，单作者-多文章，外键不可少</span></span><br><span class="line"><span class="comment">## 外键(ForeignKey)总在多的那边定义,关系(relationship)总在单的那边定义</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Author</span><span class="params">(db.Model)</span>:</span></span><br><span class="line">    id = db.Column(db.Integer, primary_key=<span class="literal">True</span>)</span><br><span class="line">    name = db.Column(db.String(<span class="number">70</span>), unique=<span class="literal">True</span>)</span><br><span class="line">    phone = db.Column(db.String(<span class="number">20</span>))</span><br><span class="line">    <span class="comment"># articles为关系属性(一个集合，可以像列表一样操作，在关系的出发侧定义</span></span><br><span class="line">    <span class="comment">## relationship()函数的第一个参数为关系另一侧的模型名称(Article)</span></span><br><span class="line">    articles = db.relationship(<span class="string">'Article'</span>)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Article</span><span class="params">(db.Model)</span>:</span></span><br><span class="line">    id = db.Column(db.Integer, primary_key=<span class="literal">True</span>)</span><br><span class="line">    title = db.Column(db.String(<span class="number">15</span>), index=<span class="literal">True</span>)</span><br><span class="line">    body = db.Column(db.Text)</span><br><span class="line">    <span class="comment"># 传入ForeignKey的参数形式为："表名.字段名"</span></span><br><span class="line">    <span class="comment">## 模型类对应的表名由Flask-SQLAlchemy生成，默认为类名称的小写形式，多个单词通过下划线分隔</span></span><br><span class="line">    author_id = db.Column(db.Integer, db.ForeignKey(<span class="string">'author.id'</span>)) <span class="comment">#</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 外键字段(author_id)和关系属性(articles)的命名没有限制</span></span><br><span class="line"><span class="comment">## 建立关系可通过操作关系属性进行</span></span><br><span class="line">&gt;&gt;&gt;shansan = Author(name=<span class="string">"shansan"</span>)</span><br><span class="line">&gt;&gt;&gt;hello = Article(title=<span class="string">"Hello world !"</span>)</span><br><span class="line">&gt;&gt;&gt;boy = Article(title=<span class="string">"Hello Boy !"</span>)</span><br><span class="line">&gt;&gt;&gt;db.session.add(shansan) <span class="comment"># 将创建的数据库记录添加到会话中</span></span><br><span class="line">&gt;&gt;&gt;db.session.add(hello)</span><br><span class="line">&gt;&gt;&gt;db.session.add(boy)</span><br><span class="line">&gt;&gt;&gt;shansan.articles.append(hello) <span class="comment"># 操作关系属性</span></span><br><span class="line">&gt;&gt;&gt;shansan.articles.append(boy)</span><br><span class="line">&gt;&gt;&gt;db.session.commit()</span><br></pre></td></tr></table></figure>
+<h1 id="一对多关系（一个作者，多篇文章）"><a href="#一对多关系（一个作者，多篇文章）" class="headerlink" title="一对多关系（一个作者，多篇文章）"></a>一对多关系（一个作者，多篇文章）</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 一对多关系，单作者-多文章，外键不可少</span></span><br><span class="line"><span class="comment">## 外键(ForeignKey)总在多的那边定义,关系(relationship)总在单的那边定义</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Author</span>(<span class="params">db.Model</span>):</span></span><br><span class="line">    <span class="built_in">id</span> = db.Column(db.Integer, primary_key=<span class="literal">True</span>)</span><br><span class="line">    name = db.Column(db.String(<span class="number">70</span>), unique=<span class="literal">True</span>)</span><br><span class="line">    phone = db.Column(db.String(<span class="number">20</span>))</span><br><span class="line">    <span class="comment"># articles为关系属性(一个集合，可以像列表一样操作，在关系的出发侧定义</span></span><br><span class="line">    <span class="comment">## relationship()函数的第一个参数为关系另一侧的模型名称(Article)</span></span><br><span class="line">    articles = db.relationship(<span class="string">&#x27;Article&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Article</span>(<span class="params">db.Model</span>):</span></span><br><span class="line">    <span class="built_in">id</span> = db.Column(db.Integer, primary_key=<span class="literal">True</span>)</span><br><span class="line">    title = db.Column(db.String(<span class="number">15</span>), index=<span class="literal">True</span>)</span><br><span class="line">    body = db.Column(db.Text)</span><br><span class="line">    <span class="comment"># 传入ForeignKey的参数形式为：&quot;表名.字段名&quot;</span></span><br><span class="line">    <span class="comment">## 模型类对应的表名由Flask-SQLAlchemy生成，默认为类名称的小写形式，多个单词通过下划线分隔</span></span><br><span class="line">    author_id = db.Column(db.Integer, db.ForeignKey(<span class="string">&#x27;author.id&#x27;</span>)) <span class="comment">#</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 外键字段(author_id)和关系属性(articles)的命名没有限制</span></span><br><span class="line"><span class="comment">## 建立关系可通过操作关系属性进行</span></span><br><span class="line">&gt;&gt;&gt;shansan = Author(name=<span class="string">&quot;shansan&quot;</span>)</span><br><span class="line">&gt;&gt;&gt;hello = Article(title=<span class="string">&quot;Hello world !&quot;</span>)</span><br><span class="line">&gt;&gt;&gt;boy = Article(title=<span class="string">&quot;Hello Boy !&quot;</span>)</span><br><span class="line">&gt;&gt;&gt;db.session.add(shansan) <span class="comment"># 将创建的数据库记录添加到会话中</span></span><br><span class="line">&gt;&gt;&gt;db.session.add(hello)</span><br><span class="line">&gt;&gt;&gt;db.session.add(boy)</span><br><span class="line">&gt;&gt;&gt;shansan.articles.append(hello) <span class="comment"># 操作关系属性</span></span><br><span class="line">&gt;&gt;&gt;shansan.articles.append(boy)</span><br><span class="line">&gt;&gt;&gt;db.session.commit()</span><br></pre></td></tr></table></figure>
 
-<a id="more"></a>
+<span id="more"></span>
 
 <h2 id="基于一对多的双向关系（bidirectional-relationship）"><a href="#基于一对多的双向关系（bidirectional-relationship）" class="headerlink" title="基于一对多的双向关系（bidirectional relationship）"></a>基于一对多的双向关系（bidirectional relationship）</h2><p>在这里我们希望可以在Book类中存在这样一个属性：通过调用它可以获取对应的作者的记录，这类返回单个值的关系属性称为<strong>标量关系属性</strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 建立双向关系时，关系两边都有关系函数</span></span><br><span class="line"><span class="comment"># 在关系函数中，我们使用back_populates参数连接对方，参数的值设置为关系另一侧的关系属性名</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Writer</span><span class="params">(db.Model)</span>:</span></span><br><span class="line">    id = db.Column(db.Integer, primary_key=<span class="literal">True</span>)</span><br><span class="line">    name = db.Column(db.String(<span class="number">64</span>), unique=<span class="literal">True</span>)</span><br><span class="line">    <span class="comment"># back_populates的参数值为关系另一侧的关系属性名</span></span><br><span class="line">    books = db.relationship(<span class="string">'Book'</span>, back_populates=<span class="string">'writer'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'&lt;Writer %r&gt;'</span> % self.name</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Book</span><span class="params">(db.Model)</span>:</span></span><br><span class="line">    id = db.Column(db.Integer, primary_key=<span class="literal">True</span>)</span><br><span class="line">    name = db.Column(db.String(<span class="number">50</span>), index=<span class="literal">True</span>)</span><br><span class="line">    writer_id = db.Column(db.Integer, db.ForeignKey(<span class="string">'writer.id'</span>))</span><br><span class="line">    </span><br><span class="line">    writer = db.relationship(<span class="string">'Writer'</span>, back_populates=<span class="string">'books'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'&lt;Book %r&gt;'</span> % self.name</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置双向属性后，我们既可以通过集合属性操作关系，也可通过标量关系属性操作关系</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 建立双向关系时，关系两边都有关系函数</span></span><br><span class="line"><span class="comment"># 在关系函数中，我们使用back_populates参数连接对方，参数的值设置为关系另一侧的关系属性名</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Writer</span>(<span class="params">db.Model</span>):</span></span><br><span class="line">    <span class="built_in">id</span> = db.Column(db.Integer, primary_key=<span class="literal">True</span>)</span><br><span class="line">    name = db.Column(db.String(<span class="number">64</span>), unique=<span class="literal">True</span>)</span><br><span class="line">    <span class="comment"># back_populates的参数值为关系另一侧的关系属性名</span></span><br><span class="line">    books = db.relationship(<span class="string">&#x27;Book&#x27;</span>, back_populates=<span class="string">&#x27;writer&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;&lt;Writer %r&gt;&#x27;</span> % self.name</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Book</span>(<span class="params">db.Model</span>):</span></span><br><span class="line">    <span class="built_in">id</span> = db.Column(db.Integer, primary_key=<span class="literal">True</span>)</span><br><span class="line">    name = db.Column(db.String(<span class="number">50</span>), index=<span class="literal">True</span>)</span><br><span class="line">    writer_id = db.Column(db.Integer, db.ForeignKey(<span class="string">&#x27;writer.id&#x27;</span>))</span><br><span class="line">    </span><br><span class="line">    writer = db.relationship(<span class="string">&#x27;Writer&#x27;</span>, back_populates=<span class="string">&#x27;books&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;&lt;Book %r&gt;&#x27;</span> % self.name</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置双向属性后，我们既可以通过集合属性操作关系，也可通过标量关系属性操作关系</span></span><br></pre></td></tr></table></figure>
 
-<h1 id="多对一关系（多个市民都在同一个城市）"><a href="#多对一关系（多个市民都在同一个城市）" class="headerlink" title="多对一关系（多个市民都在同一个城市）"></a>多对一关系（多个市民都在同一个城市）</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 外键总在多的一侧定义</span></span><br><span class="line"><span class="comment">## 多对一关系中，外键和关系属性都在多的一侧定义</span></span><br><span class="line"><span class="comment">## 这里的关系属性是标量关系属性（返回单一数据）</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Citizen</span><span class="params">(db.Model)</span>:</span></span><br><span class="line">    id = db.Column(db.Integer, primary_key=<span class="literal">True</span>)</span><br><span class="line">    name = db.Column(db.String(<span class="number">20</span>), unique=<span class="literal">True</span>)</span><br><span class="line">    city_id = db.Column(db.Integer, db.ForeignKey(<span class="string">'city.id'</span>))</span><br><span class="line">    city = db.relationship(<span class="string">'City'</span>)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">City</span><span class="params">(db.Model)</span>:</span></span><br><span class="line">    id = db.Column(db.Integer, primary_key=<span class="literal">True</span>)</span><br><span class="line">    name = db.Column(db.String(<span class="number">20</span>), unique=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<h1 id="多对一关系（多个市民都在同一个城市）"><a href="#多对一关系（多个市民都在同一个城市）" class="headerlink" title="多对一关系（多个市民都在同一个城市）"></a>多对一关系（多个市民都在同一个城市）</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 外键总在多的一侧定义</span></span><br><span class="line"><span class="comment">## 多对一关系中，外键和关系属性都在多的一侧定义</span></span><br><span class="line"><span class="comment">## 这里的关系属性是标量关系属性（返回单一数据）</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Citizen</span>(<span class="params">db.Model</span>):</span></span><br><span class="line">    <span class="built_in">id</span> = db.Column(db.Integer, primary_key=<span class="literal">True</span>)</span><br><span class="line">    name = db.Column(db.String(<span class="number">20</span>), unique=<span class="literal">True</span>)</span><br><span class="line">    city_id = db.Column(db.Integer, db.ForeignKey(<span class="string">&#x27;city.id&#x27;</span>))</span><br><span class="line">    city = db.relationship(<span class="string">&#x27;City&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">City</span>(<span class="params">db.Model</span>):</span></span><br><span class="line">    <span class="built_in">id</span> = db.Column(db.Integer, primary_key=<span class="literal">True</span>)</span><br><span class="line">    name = db.Column(db.String(<span class="number">20</span>), unique=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
 
-<h1 id="一对一关系（国家和首都）"><a href="#一对一关系（国家和首都）" class="headerlink" title="一对一关系（国家和首都）"></a>一对一关系（国家和首都）</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 一对一关系，将关系函数的uselist参数设为False，使得集合关系属性无法使用列表语义操作</span></span><br><span class="line"><span class="comment">## 这里使用的是一对一双向关系</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Country</span><span class="params">(db.Model)</span>:</span></span><br><span class="line">    id = db.Column(db.Integer, primary_key=<span class="literal">True</span>)</span><br><span class="line">    name = db.Column(db.String(<span class="number">20</span>), unique=<span class="literal">True</span>)</span><br><span class="line">    capital = db.relationship(<span class="string">'Capital'</span>, uselist=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Capital</span><span class="params">(db.Model)</span>:</span></span><br><span class="line">    id = db.Column(db.Integer, primary_key=<span class="literal">True</span>)</span><br><span class="line">    name = db.Column(db.String(<span class="number">20</span>), unique=<span class="literal">True</span>)</span><br><span class="line">    country_id= db.Column(db.Integer, db.ForeignKey(<span class="string">'country.id'</span>))</span><br><span class="line">    country = db.relationship(<span class="string">'Country'</span>)</span><br></pre></td></tr></table></figure>
+<h1 id="一对一关系（国家和首都）"><a href="#一对一关系（国家和首都）" class="headerlink" title="一对一关系（国家和首都）"></a>一对一关系（国家和首都）</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 一对一关系，将关系函数的uselist参数设为False，使得集合关系属性无法使用列表语义操作</span></span><br><span class="line"><span class="comment">## 这里使用的是一对一双向关系</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Country</span>(<span class="params">db.Model</span>):</span></span><br><span class="line">    <span class="built_in">id</span> = db.Column(db.Integer, primary_key=<span class="literal">True</span>)</span><br><span class="line">    name = db.Column(db.String(<span class="number">20</span>), unique=<span class="literal">True</span>)</span><br><span class="line">    capital = db.relationship(<span class="string">&#x27;Capital&#x27;</span>, uselist=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Capital</span>(<span class="params">db.Model</span>):</span></span><br><span class="line">    <span class="built_in">id</span> = db.Column(db.Integer, primary_key=<span class="literal">True</span>)</span><br><span class="line">    name = db.Column(db.String(<span class="number">20</span>), unique=<span class="literal">True</span>)</span><br><span class="line">    country_id= db.Column(db.Integer, db.ForeignKey(<span class="string">&#x27;country.id&#x27;</span>))</span><br><span class="line">    country = db.relationship(<span class="string">&#x27;Country&#x27;</span>)</span><br></pre></td></tr></table></figure>
 
 <h1 id="多对多双向关系（老师和学生）"><a href="#多对多双向关系（老师和学生）" class="headerlink" title="多对多双向关系（老师和学生）"></a>多对多双向关系（老师和学生）</h1><ul>
 <li>多对多关系的建立需要使用关联表（association table）。关联表不存储数据，只用来存储关系两侧模型的外键对应关系</li>
@@ -603,110 +563,57 @@
 <li>关联表由使用db.Table类定义，传入的第一个参数为关联表的名称</li>
 <li>我们在关联表中将多对多的关系分化成了两个一对多的关系</li>
 </ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 多对多关系，使用关联表（association table），关联表由db.Table定义</span></span><br><span class="line"><span class="comment">## 关系函数需要设置secondary参数，值为关系表名</span></span><br><span class="line"></span><br><span class="line">association_table = db.Table(<span class="string">'association_table'</span>,</span><br><span class="line">                             db.Column(<span class="string">'student_id'</span>, db.Integer, db.ForeignKey(<span class="string">'teacher.id'</span>)),</span><br><span class="line">                             db.Column(<span class="string">'teacher_id'</span>, db.Integer, db.ForeignKey(<span class="string">'student.id'</span>))</span><br><span class="line">                             )</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span><span class="params">(db.Model)</span>:</span></span><br><span class="line">    id = db.Column(db.Integer, primary_key=<span class="literal">True</span>)</span><br><span class="line">    name = db.Column(db.String(<span class="number">70</span>), unique=<span class="literal">True</span>)</span><br><span class="line">    grade = db.Column(db.String(<span class="number">20</span>))</span><br><span class="line">    teachers = db.relationship(<span class="string">'Teacher'</span>, secondary=association_table,back_populates=<span class="string">'students'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Teacher</span><span class="params">(db.Model)</span>:</span></span><br><span class="line">    id = db.Column(db.Integer, primary_key=<span class="literal">True</span>)</span><br><span class="line">    name = db.Column(db.String(<span class="number">70</span>), unique=<span class="literal">True</span>)</span><br><span class="line">    office = db.Column(db.String(<span class="number">20</span>))</span><br><span class="line">    students = db.relationship(<span class="string">'Student'</span>, secondary=association_table, back_populates=<span class="string">'teachers'</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 多对多关系，使用关联表（association table），关联表由db.Table定义</span></span><br><span class="line"><span class="comment">## 关系函数需要设置secondary参数，值为关系表名</span></span><br><span class="line"></span><br><span class="line">association_table = db.Table(<span class="string">&#x27;association_table&#x27;</span>,</span><br><span class="line">                             db.Column(<span class="string">&#x27;student_id&#x27;</span>, db.Integer, db.ForeignKey(<span class="string">&#x27;teacher.id&#x27;</span>)),</span><br><span class="line">                             db.Column(<span class="string">&#x27;teacher_id&#x27;</span>, db.Integer, db.ForeignKey(<span class="string">&#x27;student.id&#x27;</span>))</span><br><span class="line">                             )</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span>(<span class="params">db.Model</span>):</span></span><br><span class="line">    <span class="built_in">id</span> = db.Column(db.Integer, primary_key=<span class="literal">True</span>)</span><br><span class="line">    name = db.Column(db.String(<span class="number">70</span>), unique=<span class="literal">True</span>)</span><br><span class="line">    grade = db.Column(db.String(<span class="number">20</span>))</span><br><span class="line">    teachers = db.relationship(<span class="string">&#x27;Teacher&#x27;</span>, secondary=association_table,back_populates=<span class="string">&#x27;students&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Teacher</span>(<span class="params">db.Model</span>):</span></span><br><span class="line">    <span class="built_in">id</span> = db.Column(db.Integer, primary_key=<span class="literal">True</span>)</span><br><span class="line">    name = db.Column(db.String(<span class="number">70</span>), unique=<span class="literal">True</span>)</span><br><span class="line">    office = db.Column(db.String(<span class="number">20</span>))</span><br><span class="line">    students = db.relationship(<span class="string">&#x27;Student&#x27;</span>, secondary=association_table, back_populates=<span class="string">&#x27;teachers&#x27;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <h1 id="常用的SQLAlchemy关系函数参数和常用的SQLAlchemy关系记录加载方式（lazy参数可选值）"><a href="#常用的SQLAlchemy关系函数参数和常用的SQLAlchemy关系记录加载方式（lazy参数可选值）" class="headerlink" title="常用的SQLAlchemy关系函数参数和常用的SQLAlchemy关系记录加载方式（lazy参数可选值）"></a>常用的SQLAlchemy关系函数参数和常用的SQLAlchemy关系记录加载方式（lazy参数可选值）</h1><ul>
 <li>使用关系函数定义的属性不是数据库字段，而是类似于特定的查询函数</li>
 <li>当关系属性被调用时，关系函数会加载相应的记录</li>
 </ul>
-<p><img src="https://s2.ax1x.com/2019/03/20/AKnfCq.png" alt="AKnfCq.png"></p>
-<p><img src="https://s2.ax1x.com/2019/03/20/AKn5vT.png" alt="AKn5vT.png"></p>
-<h1 id="相关"><a href="#相关" class="headerlink" title="相关"></a>相关</h1><p><a href="http://www.sqlalchemy.org/" target="_blank" rel="noopener">http://www.sqlalchemy.org/</a></p>
-<p><a href="https://github.com/sqlalchemy/sqlalchemy" target="_blank" rel="noopener">https://github.com/sqlalchemy/sqlalchemy</a></p>
-<p><a href="https://github.com/mitsuhiko/flask-sqlalchemy" target="_blank" rel="noopener">https://github.com/mitsuhiko/flask-sqlalchemy </a></p>
+<p><img src="https://s2.ax1x.com/2019/03/20/AKnfCq.png" class="lazyload" data-srcset="https://s2.ax1x.com/2019/03/20/AKnfCq.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="AKnfCq.png"></p>
+<p><img src="https://s2.ax1x.com/2019/03/20/AKn5vT.png" class="lazyload" data-srcset="https://s2.ax1x.com/2019/03/20/AKn5vT.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="AKn5vT.png"></p>
+<h1 id="相关"><a href="#相关" class="headerlink" title="相关"></a>相关</h1><p><a target="_blank" rel="noopener" href="http://www.sqlalchemy.org/">http://www.sqlalchemy.org/</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/sqlalchemy/sqlalchemy">https://github.com/sqlalchemy/sqlalchemy</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/mitsuhiko/flask-sqlalchemy">https://github.com/mitsuhiko/flask-sqlalchemy </a></p>
 <hr>
 
-          
-            <div class='article_footer'>
+  
+  
+    
+    <div class='footer'>
+      
+      
+      
+        <div class='copyright'>
+          <blockquote>
+            
               
-                
-  
-    
-    
-
-
-
-  
-
-  
-    
-    
-
-
-
-  
-
-  
-    
-    
-
-<section class="widget copyright  desktop mobile">
-  <div class='content'>
-    
-      <blockquote>
-        
-          
-            <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
-
-          
-        
-          
-            <p>我的博客即将同步至腾讯云+社区，邀请大家一同入驻：<a href="https://cloud.tencent.com/developer/support-plan?invite_code=1utoln9pyvwqu" target="_blank" rel="noopener">https://cloud.tencent.com/developer/support-plan?invite_code=1utoln9pyvwqu</a></p>
-
-          
-        
-      </blockquote>
-    
-  </div>
-</section>
-
-  
-
-  
-    
-    
-
-<section class="widget qrcode  desktop mobile">
-  
-
-  <div class='content article-entry'>
-    
-      
-        <div class='fancybox'><img src='https://cdn.jsdelivr.net/gh/ssmath/images-assets-cdn@master/mmqrcode1583939866281.png'
-        
-          height='64px'
-        ></div>
-      
-    
-      
-        <div class='fancybox'><img src='https://cdn.jsdelivr.net/gh/ssmath/images-assets-cdn@master/qrcode_1583939933465.jpg'
-        
-          height='64px'
-        ></div>
-      
-    
-  </div>
-</section>
-
-  
-
+                <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
 
               
-            </div>
-          
+            
+              
+                <p>我的博客即将同步至腾讯云+社区，邀请大家一同入驻：<a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/support-plan?invite_code=1utoln9pyvwqu">https://cloud.tencent.com/developer/support-plan?invite_code=1utoln9pyvwqu</a></p>
+
+              
+            
+          </blockquote>
         </div>
-        
-          
+      
+      
+    </div>
+  
+  
+    
 
 
-  <section class='meta' id="footer-meta">
+  <div class='article-meta' id="bottom">
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-02-26T14:07:28+00:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-03-10T06:09:02+00:00">
   <a class='notlink'>
-    <i class="fas fa-save fa-fw" aria-hidden="true"></i>
-    <p>最近更新时间：2021年2月26日</p>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2021年3月10日</p>
   </a>
 </div>
 
@@ -715,13 +622,8 @@
         
           
   
-  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Flask/" rel="nofollow"><i class="fas fa-tags fa-fw" aria-hidden="true"></i><p>Flask</p></a></div>
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Flask/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>Flask</p></a></div>
 
-
-        
-      
-        
-          
 
         
       
@@ -731,57 +633,61 @@
   <div class="-mob-share-list share-body">
     
       
-        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          href="http://connect.qq.com/widget/shareqq/index.html?url=https://yeshan333.github.io/2019/03/20/SQLAlchemy%E5%BB%BA%E7%AB%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E6%A8%A1%E5%9E%8B%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB/&title=SQLAlchemy建立数据库模型之间的关系 - ShanSan&summary=常见关系：
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://yeshan333.github.io/2019/03/20/SQLAlchemy%E5%BB%BA%E7%AB%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E6%A8%A1%E5%9E%8B%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB/&title=SQLAlchemy建立数据库模型之间的关系 - ShanSan&summary=常见关系：
 一对多关系
 多对一关系
 多对多关系
 一对一关系
 
-一对多关系（一个作者，多篇文章）123456789101112131415161718192021222324252627282930## 一对多关系，单作者-多文章，外键不可少## 外键(ForeignKey)总在多的那边定义,关系(relationship)总在单的那边定义class Author(db.Model):    id = db.Column(db.Integer, primary_key=True)    name = db.Column(db.String(70), unique=True)    phone = db.Column(db.String(20))    # articles为关系属性(一个集合，可以像列表一样操作，在关系的出发侧定义    ## relationship()函数的第一个参数为关系另一侧的模型名称(Article)    articles = db.relationship('Article')class Article(db.Model):    id = db.Column(db.Integer, primary_key=True)    title = db.Column(db.String(15), index=True)    body = db.Column(db.Text)    # 传入ForeignKey的参数形式为："表名.字段名"    ## 模型类对应的表名由Flask-SQLAlchemy生成，默认为类名称的小写形式，多个单词通过下划线分隔    author_id = db.Column(db.Integer, db.ForeignKey('author.id')) ## 外键字段(author_id)和关系属性(articles)的命名没有限制## 建立关系可通过操作关系属性进行&gt;&gt;&gt;shansan = Author(name="shansan")&gt;&gt;&gt;hello = Article(title="Hello world !")&gt;&gt;&gt;boy = Article(title="Hello Boy !")&gt;&gt;&gt;db.session.add(shansan) # 将创建的数据库记录添加到会话中&gt;&gt;&gt;db.session.add(hello)&gt;&gt;&gt;db.session.add(boy)&gt;&gt;&gt;shansan.articles.append(hello) # 操作关系属性&gt;&gt;&gt;shansan.articles.append(boy)&gt;&gt;&gt;db.session.commit()"
+一对多关系（一个作者，多篇文章）123456789101112131415161718192021222324252627282930## 一对多关系，单作者-多文章，外键不可少## 外键(ForeignKey)总在多的那边定义,关系(relationship)总在单的那边定义class Author(db.Model):    id = db.Column(db.Integer, primary_key=True)    name = db.Column(db.String(70), unique=True)    phone = db.Column(db.String(20))    # articles为关系属性(一个集合，可以像列表一样操作，在关系的出发侧定义    ## relationship()函数的第一个参数为关系另一侧的模型名称(Article)    articles = db.relationship(&#x27;Article&#x27;)class Article(db.Model):    id = db.Column(db.Integer, primary_key=True)    title = db.Column(db.String(15), index=True)    body = db.Column(db.Text)    # 传入ForeignKey的参数形式为：&quot;表名.字段名&quot;    ## 模型类对应的表名由Flask-SQLAlchemy生成，默认为类名称的小写形式，多个单词通过下划线分隔    author_id = db.Column(db.Integer, db.ForeignKey(&#x27;author.id&#x27;)) ## 外键字段(author_id)和关系属性(articles)的命名没有限制## 建立关系可通过操作关系属性进行&gt;&gt;&gt;shansan = Author(name=&quot;shansan&quot;)&gt;&gt;&gt;hello = Article(title=&quot;Hello world !&quot;)&gt;&gt;&gt;boy = Article(title=&quot;Hello Boy !&quot;)&gt;&gt;&gt;db.session.add(shansan) # 将创建的数据库记录添加到会话中&gt;&gt;&gt;db.session.add(hello)&gt;&gt;&gt;db.session.add(boy)&gt;&gt;&gt;shansan.articles.append(hello) # 操作关系属性&gt;&gt;&gt;shansan.articles.append(boy)&gt;&gt;&gt;db.session.commit()"
           
           >
           
-            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qq.png">
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
           
         </a>
       
     
       
-        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://yeshan333.github.io/2019/03/20/SQLAlchemy%E5%BB%BA%E7%AB%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E6%A8%A1%E5%9E%8B%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB/&title=SQLAlchemy建立数据库模型之间的关系 - ShanSan&summary=常见关系：
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://yeshan333.github.io/2019/03/20/SQLAlchemy%E5%BB%BA%E7%AB%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E6%A8%A1%E5%9E%8B%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB/&title=SQLAlchemy建立数据库模型之间的关系 - ShanSan&summary=常见关系：
 一对多关系
 多对一关系
 多对多关系
 一对一关系
 
-一对多关系（一个作者，多篇文章）123456789101112131415161718192021222324252627282930## 一对多关系，单作者-多文章，外键不可少## 外键(ForeignKey)总在多的那边定义,关系(relationship)总在单的那边定义class Author(db.Model):    id = db.Column(db.Integer, primary_key=True)    name = db.Column(db.String(70), unique=True)    phone = db.Column(db.String(20))    # articles为关系属性(一个集合，可以像列表一样操作，在关系的出发侧定义    ## relationship()函数的第一个参数为关系另一侧的模型名称(Article)    articles = db.relationship('Article')class Article(db.Model):    id = db.Column(db.Integer, primary_key=True)    title = db.Column(db.String(15), index=True)    body = db.Column(db.Text)    # 传入ForeignKey的参数形式为："表名.字段名"    ## 模型类对应的表名由Flask-SQLAlchemy生成，默认为类名称的小写形式，多个单词通过下划线分隔    author_id = db.Column(db.Integer, db.ForeignKey('author.id')) ## 外键字段(author_id)和关系属性(articles)的命名没有限制## 建立关系可通过操作关系属性进行&gt;&gt;&gt;shansan = Author(name="shansan")&gt;&gt;&gt;hello = Article(title="Hello world !")&gt;&gt;&gt;boy = Article(title="Hello Boy !")&gt;&gt;&gt;db.session.add(shansan) # 将创建的数据库记录添加到会话中&gt;&gt;&gt;db.session.add(hello)&gt;&gt;&gt;db.session.add(boy)&gt;&gt;&gt;shansan.articles.append(hello) # 操作关系属性&gt;&gt;&gt;shansan.articles.append(boy)&gt;&gt;&gt;db.session.commit()"
+一对多关系（一个作者，多篇文章）123456789101112131415161718192021222324252627282930## 一对多关系，单作者-多文章，外键不可少## 外键(ForeignKey)总在多的那边定义,关系(relationship)总在单的那边定义class Author(db.Model):    id = db.Column(db.Integer, primary_key=True)    name = db.Column(db.String(70), unique=True)    phone = db.Column(db.String(20))    # articles为关系属性(一个集合，可以像列表一样操作，在关系的出发侧定义    ## relationship()函数的第一个参数为关系另一侧的模型名称(Article)    articles = db.relationship(&#x27;Article&#x27;)class Article(db.Model):    id = db.Column(db.Integer, primary_key=True)    title = db.Column(db.String(15), index=True)    body = db.Column(db.Text)    # 传入ForeignKey的参数形式为：&quot;表名.字段名&quot;    ## 模型类对应的表名由Flask-SQLAlchemy生成，默认为类名称的小写形式，多个单词通过下划线分隔    author_id = db.Column(db.Integer, db.ForeignKey(&#x27;author.id&#x27;)) ## 外键字段(author_id)和关系属性(articles)的命名没有限制## 建立关系可通过操作关系属性进行&gt;&gt;&gt;shansan = Author(name=&quot;shansan&quot;)&gt;&gt;&gt;hello = Article(title=&quot;Hello world !&quot;)&gt;&gt;&gt;boy = Article(title=&quot;Hello Boy !&quot;)&gt;&gt;&gt;db.session.add(shansan) # 将创建的数据库记录添加到会话中&gt;&gt;&gt;db.session.add(hello)&gt;&gt;&gt;db.session.add(boy)&gt;&gt;&gt;shansan.articles.append(hello) # 操作关系属性&gt;&gt;&gt;shansan.articles.append(boy)&gt;&gt;&gt;db.session.commit()"
           
           >
           
-            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qzone.png">
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
           
         </a>
       
     
       
-        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          href="http://service.weibo.com/share/share.php?url=https://yeshan333.github.io/2019/03/20/SQLAlchemy%E5%BB%BA%E7%AB%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E6%A8%A1%E5%9E%8B%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB/&title=SQLAlchemy建立数据库模型之间的关系 - ShanSan&summary=常见关系：
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://yeshan333.github.io/2019/03/20/SQLAlchemy%E5%BB%BA%E7%AB%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E6%A8%A1%E5%9E%8B%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB/&title=SQLAlchemy建立数据库模型之间的关系 - ShanSan&summary=常见关系：
 一对多关系
 多对一关系
 多对多关系
 一对一关系
 
-一对多关系（一个作者，多篇文章）123456789101112131415161718192021222324252627282930## 一对多关系，单作者-多文章，外键不可少## 外键(ForeignKey)总在多的那边定义,关系(relationship)总在单的那边定义class Author(db.Model):    id = db.Column(db.Integer, primary_key=True)    name = db.Column(db.String(70), unique=True)    phone = db.Column(db.String(20))    # articles为关系属性(一个集合，可以像列表一样操作，在关系的出发侧定义    ## relationship()函数的第一个参数为关系另一侧的模型名称(Article)    articles = db.relationship('Article')class Article(db.Model):    id = db.Column(db.Integer, primary_key=True)    title = db.Column(db.String(15), index=True)    body = db.Column(db.Text)    # 传入ForeignKey的参数形式为："表名.字段名"    ## 模型类对应的表名由Flask-SQLAlchemy生成，默认为类名称的小写形式，多个单词通过下划线分隔    author_id = db.Column(db.Integer, db.ForeignKey('author.id')) ## 外键字段(author_id)和关系属性(articles)的命名没有限制## 建立关系可通过操作关系属性进行&gt;&gt;&gt;shansan = Author(name="shansan")&gt;&gt;&gt;hello = Article(title="Hello world !")&gt;&gt;&gt;boy = Article(title="Hello Boy !")&gt;&gt;&gt;db.session.add(shansan) # 将创建的数据库记录添加到会话中&gt;&gt;&gt;db.session.add(hello)&gt;&gt;&gt;db.session.add(boy)&gt;&gt;&gt;shansan.articles.append(hello) # 操作关系属性&gt;&gt;&gt;shansan.articles.append(boy)&gt;&gt;&gt;db.session.commit()"
+一对多关系（一个作者，多篇文章）123456789101112131415161718192021222324252627282930## 一对多关系，单作者-多文章，外键不可少## 外键(ForeignKey)总在多的那边定义,关系(relationship)总在单的那边定义class Author(db.Model):    id = db.Column(db.Integer, primary_key=True)    name = db.Column(db.String(70), unique=True)    phone = db.Column(db.String(20))    # articles为关系属性(一个集合，可以像列表一样操作，在关系的出发侧定义    ## relationship()函数的第一个参数为关系另一侧的模型名称(Article)    articles = db.relationship(&#x27;Article&#x27;)class Article(db.Model):    id = db.Column(db.Integer, primary_key=True)    title = db.Column(db.String(15), index=True)    body = db.Column(db.Text)    # 传入ForeignKey的参数形式为：&quot;表名.字段名&quot;    ## 模型类对应的表名由Flask-SQLAlchemy生成，默认为类名称的小写形式，多个单词通过下划线分隔    author_id = db.Column(db.Integer, db.ForeignKey(&#x27;author.id&#x27;)) ## 外键字段(author_id)和关系属性(articles)的命名没有限制## 建立关系可通过操作关系属性进行&gt;&gt;&gt;shansan = Author(name=&quot;shansan&quot;)&gt;&gt;&gt;hello = Article(title=&quot;Hello world !&quot;)&gt;&gt;&gt;boy = Article(title=&quot;Hello Boy !&quot;)&gt;&gt;&gt;db.session.add(shansan) # 将创建的数据库记录添加到会话中&gt;&gt;&gt;db.session.add(hello)&gt;&gt;&gt;db.session.add(boy)&gt;&gt;&gt;shansan.articles.append(hello) # 操作关系属性&gt;&gt;&gt;shansan.articles.append(boy)&gt;&gt;&gt;db.session.commit()"
           
           >
           
-            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/weibo.png">
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
           
         </a>
+      
+    
+      
+    
       
     
   </div>
@@ -792,84 +698,59 @@
         
       
     </div>
-  </section>
+  </div>
 
 
-        
-        
-          <div class="prev-next">
-            
-              <a class='prev' href='/2019/03/20/%E6%88%91%E4%B8%8Evim%E7%9A%84%E4%BA%B2%E5%AF%86%E6%8E%A5%E8%A7%A6/'>
-                <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>我与vim的亲密接触(ˉ▽￣～)</p>
-                <p class='content'>
+  
+  
+
+  
+    <div class="prev-next">
+      
+        <a class='prev' href='/2019/03/20/%E6%88%91%E4%B8%8Evim%E7%9A%84%E4%BA%B2%E5%AF%86%E6%8E%A5%E8%A7%A6/'>
+          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>我与vim的亲密接触(ˉ▽￣～)</p>
+          <p class='content'>
 emmm，闲来无事，打算了解下神奇vim（用来zhuangbi）。在终端操作很帅(ˉ▽￣～)~~！什么是vim？？Vim是从 vi 发展出来的一个文本编辑器。代码补完、编译及错误跳转等方便编程...</p>
-              </a>
-            
-            
-              <a class='next' href='/2019/03/16/Flask%E7%9A%84%E8%AF%B7%E6%B1%82%E9%92%A9%E5%AD%90%E4%B8%8E%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%80%E8%AE%B0/'>
-                <p class='title'>Flask的请求钩子与上下文简记<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
-                <p class='content'>请求钩子(Hook)
+        </a>
+      
+      
+        <a class='next' href='/2019/03/16/Flask%E7%9A%84%E8%AF%B7%E6%B1%82%E9%92%A9%E5%AD%90%E4%B8%8E%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%80%E8%AE%B0/'>
+          <p class='title'>Flask的请求钩子与上下文简记<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>请求钩子(Hook)
 在客户端和服务器交互的过程中，有些准备工作或扫尾工作需要处理，比如：在请求开始时，建立数据库连接；在请求结束时，指定数据的交互格式。为了让&gt;每个视图函数避免编写重复功...</p>
-              </a>
-            
-          </div>
-        
-      </section>
-    </article>
+        </a>
+      
+    </div>
+  
+</article>
+
+
   
 
-  
-    <!-- 显示推荐文章和评论 -->
+  <article class="post white-box reveal shadow" id="comments">
+    <p ct><i class='fas fa-comments'></i> 评论</p>
+    
+    <div id="valine_container" class="valine_thread">
+  <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+</div>
 
-
-
-  <article class="post white-box reveal comments shadow">
-    <section class="article typo">
-      <p ct><i class='fas fa-comments'></i> 评论</p>
-      
-      
-      
-      
-      
-        <section id="comments">
-          <div id="valine_container" class="valine_thread">
-            <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
-          </div>
-        </section>
-      
-      
-    </section>
   </article>
 
 
-  
 
 
-
-
-<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
-
-
-
-  <script>
-    window.subData = {
-      title: 'SQLAlchemy建立数据库模型之间的关系',
-      tools: true
-    }
-  </script>
 
 
 </div>
 <aside class='l_side'>
   
   
-
-  
     
     
 
 
-  <section class="widget toc-wrapper shadow desktop mobile">
+
+  <section class="widget toc-wrapper shadow desktop mobile" id="toc-div" >
     
   <header>
     
@@ -879,7 +760,7 @@ emmm，闲来无事，打算了解下神奇vim（用来zhuangbi）。在终端�
 
 
     <div class='content'>
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#常见关系："><span class="toc-text">常见关系：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#一对多关系（一个作者，多篇文章）"><span class="toc-text">一对多关系（一个作者，多篇文章）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#基于一对多的双向关系（bidirectional-relationship）"><span class="toc-text">基于一对多的双向关系（bidirectional relationship）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#多对一关系（多个市民都在同一个城市）"><span class="toc-text">多对一关系（多个市民都在同一个城市）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#一对一关系（国家和首都）"><span class="toc-text">一对一关系（国家和首都）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#多对多双向关系（老师和学生）"><span class="toc-text">多对多双向关系（老师和学生）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#常用的SQLAlchemy关系函数参数和常用的SQLAlchemy关系记录加载方式（lazy参数可选值）"><span class="toc-text">常用的SQLAlchemy关系函数参数和常用的SQLAlchemy关系记录加载方式（lazy参数可选值）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#相关"><span class="toc-text">相关</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E5%85%B3%E7%B3%BB%EF%BC%9A"><span class="toc-text">常见关系：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E5%AF%B9%E5%A4%9A%E5%85%B3%E7%B3%BB%EF%BC%88%E4%B8%80%E4%B8%AA%E4%BD%9C%E8%80%85%EF%BC%8C%E5%A4%9A%E7%AF%87%E6%96%87%E7%AB%A0%EF%BC%89"><span class="toc-text">一对多关系（一个作者，多篇文章）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E4%B8%80%E5%AF%B9%E5%A4%9A%E7%9A%84%E5%8F%8C%E5%90%91%E5%85%B3%E7%B3%BB%EF%BC%88bidirectional-relationship%EF%BC%89"><span class="toc-text">基于一对多的双向关系（bidirectional relationship）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A4%9A%E5%AF%B9%E4%B8%80%E5%85%B3%E7%B3%BB%EF%BC%88%E5%A4%9A%E4%B8%AA%E5%B8%82%E6%B0%91%E9%83%BD%E5%9C%A8%E5%90%8C%E4%B8%80%E4%B8%AA%E5%9F%8E%E5%B8%82%EF%BC%89"><span class="toc-text">多对一关系（多个市民都在同一个城市）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E5%AF%B9%E4%B8%80%E5%85%B3%E7%B3%BB%EF%BC%88%E5%9B%BD%E5%AE%B6%E5%92%8C%E9%A6%96%E9%83%BD%EF%BC%89"><span class="toc-text">一对一关系（国家和首都）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A4%9A%E5%AF%B9%E5%A4%9A%E5%8F%8C%E5%90%91%E5%85%B3%E7%B3%BB%EF%BC%88%E8%80%81%E5%B8%88%E5%92%8C%E5%AD%A6%E7%94%9F%EF%BC%89"><span class="toc-text">多对多双向关系（老师和学生）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E7%9A%84SQLAlchemy%E5%85%B3%E7%B3%BB%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0%E5%92%8C%E5%B8%B8%E7%94%A8%E7%9A%84SQLAlchemy%E5%85%B3%E7%B3%BB%E8%AE%B0%E5%BD%95%E5%8A%A0%E8%BD%BD%E6%96%B9%E5%BC%8F%EF%BC%88lazy%E5%8F%82%E6%95%B0%E5%8F%AF%E9%80%89%E5%80%BC%EF%BC%89"><span class="toc-text">常用的SQLAlchemy关系函数参数和常用的SQLAlchemy关系记录加载方式（lazy参数可选值）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3"><span class="toc-text">相关</span></a></li></ol>
     </div>
   </section>
 
@@ -890,8 +771,36 @@ emmm，闲来无事，打算了解下神奇vim（用来zhuangbi）。在终端�
 </aside>
 
 
+
+		  
+		  <!--此文件用来存放一些不方便取值的变量-->
+<!--思路大概是将值藏到重加载的区域内-->
+
+<script>
+  window.pdata={}
+  pdata.ispage=true;
+  pdata.postTitle="SQLAlchemy建立数据库模型之间的关系";
+  pdata.commentPath="";
+  pdata.commentPlaceholder="";
+  // header 这里无论是否开启pjax都需要
+  var l_header=document.getElementById("l_header");
   
-  <footer class="clearfix">
+  l_header.classList.add("show");
+  
+  
+    // cover
+    var cover_wrapper=document.querySelector('.cover-wrapper');
+    
+    cover_wrapper.id="none";
+    cover_wrapper.style.display="none";
+    
+  
+</script>
+
+        </div>
+        
+  
+  <footer class="footer clearfix">
     <br><br>
     
       
@@ -906,7 +815,7 @@ emmm，闲来无事，打算了解下神奇vim（用来zhuangbi）。在终端�
       loop='all'
       order='list'
       fixed='false'
-      list-max-height='340px'
+      list-max-height='320px'
       server='netease'
       type='playlist'
       id='3175833810'
@@ -927,6 +836,7 @@ emmm，闲来无事，打算了解下神奇vim（用来zhuangbi）。在终端�
                 class="social fas fa-envelope flat-btn"
                 target="_blank"
                 rel="external nofollow noopener noreferrer">
+                
               </a>
             
           
@@ -935,6 +845,7 @@ emmm，闲来无事，打算了解下神奇vim（用来zhuangbi）。在终端�
                 class="social fab fa-github flat-btn"
                 target="_blank"
                 rel="external nofollow noopener noreferrer">
+                
               </a>
             
           
@@ -943,6 +854,7 @@ emmm，闲来无事，打算了解下神奇vim（用来zhuangbi）。在终端�
                 class="social fas fa-music flat-btn"
                 target="_blank"
                 rel="external nofollow noopener noreferrer">
+                
               </a>
             
           
@@ -951,6 +863,7 @@ emmm，闲来无事，打算了解下神奇vim（用来zhuangbi）。在终端�
                 class="social fab fa-zhihu flat-btn"
                 target="_blank"
                 rel="external nofollow noopener noreferrer">
+                
               </a>
             
           
@@ -959,6 +872,7 @@ emmm，闲来无事，打算了解下神奇vim（用来zhuangbi）。在终端�
                 class="social fas fa-rss flat-btn"
                 target="_blank"
                 rel="external nofollow noopener noreferrer">
+                
               </a>
             
           
@@ -966,167 +880,383 @@ emmm，闲来无事，打算了解下神奇vim（用来zhuangbi）。在终端�
       
     
       
-        <div><p>博客内容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+        <div><p>博客内容遵循 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
 </div>
       
     
       
         本站使用
-        <a href="https://volantis.js.org/" target="_blank" class="codename">Volantis</a>
-        作为主题，总访问量为
-          <span id="busuanzi_value_site_pv"><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
-          次
-        
+        <a href="https://github.com/volantis-x/hexo-theme-volantis/tree/4.3.1" target="_blank" class="codename">Volantis</a>
+        作为主题
       
     
       
         <div class='copyright'>
-        <p><a href="https://shansan.top" target="_blank" rel="noopener">Copyright © 2018-2021 ShanSan</a></p>
+        <p><a target="_blank" rel="noopener" href="https://shansan.top">Copyright © 2018-2021 ShanSan</a></p>
 
         </div>
       
     
       
         
-          <div><p><a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">桂ICP备19000444号</a></p>
+          <div><p><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">桂ICP备19000444号</a></p>
 </div>
         
       
     
   </footer>
 
-<script>setLoadingBarProgress(80);</script>
 
-
-      <script>setLoadingBarProgress(60);</script>
+        <a id="s-top" class="fas fa-arrow-up fa-fw" href="javascript:void(0)"></a>
+      </div>
     </div>
-    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
-  </div>
+    <div>
+      <script>
+/************这个文件存放不需要重载的全局变量和全局函数*********/
+window.volantis={};
+window.volantis.loadcss=document.getElementById("loadcss");
+/******************** Pjax ********************************/
+function VPjax(){
+	this.list=[] // 存放回调函数
+	this.start=()=>{
+	  for(var i=0;i<this.list.length;i++){
+		this.list[i].run();
+	  }
+	}
+	this.push=(fn,name)=>{
+		var f=new PjaxItem(fn,name);
+		this.list.push(f);
+	}
+	// 构造一个可以run的对象
+	function PjaxItem(fn,name){
+		// 函数名称
+		this.name = name || fn.name
+		// run方法
+		this.run=()=>{
+			fn()
+		}
+	}
+}
+volantis.pjax={}
+volantis.pjax.method={
+	complete: new VPjax(),
+	error: new VPjax(),
+	send: new VPjax()
+}
+volantis.pjax={
+	...volantis.pjax,
+	push: volantis.pjax.method.complete.push,
+	error: volantis.pjax.method.error.push,
+	send: volantis.pjax.method.send.push
+}
+/********************脚本懒加载函数********************************/
+// 已经加入了setTimeout
+function loadScript(src, cb) {
+	setTimeout(function() {
+		var HEAD = document.getElementsByTagName('head')[0] || document.documentElement;
+		var script = document.createElement('script');
+		script.setAttribute('type','text/javascript');
+		if (cb) script.onload = cb;
+		script.setAttribute('src', src);
+		HEAD.appendChild(script);
+	});
+}
+//https://github.com/filamentgroup/loadCSS
+var loadCSS = function( href, before, media, attributes ){
+	var doc = window.document;
+	var ss = doc.createElement( "link" );
+	var ref;
+	if( before ){
+		ref = before;
+	}
+	else {
+		var refs = ( doc.body || doc.getElementsByTagName( "head" )[ 0 ] ).childNodes;
+		ref = refs[ refs.length - 1];
+	}
+	var sheets = doc.styleSheets;
+	if( attributes ){
+		for( var attributeName in attributes ){
+			if( attributes.hasOwnProperty( attributeName ) ){
+				ss.setAttribute( attributeName, attributes[attributeName] );
+			}
+		}
+	}
+	ss.rel = "stylesheet";
+	ss.href = href;
+	ss.media = "only x";
+	function ready( cb ){
+		if( doc.body ){
+			return cb();
+		}
+		setTimeout(function(){
+			ready( cb );
+		});
+	}
+	ready( function(){
+		ref.parentNode.insertBefore( ss, ( before ? ref : ref.nextSibling ) );
+	});
+	var onloadcssdefined = function( cb ){
+		var resolvedHref = ss.href;
+		var i = sheets.length;
+		while( i-- ){
+			if( sheets[ i ].href === resolvedHref ){
+				return cb();
+			}
+		}
+		setTimeout(function() {
+			onloadcssdefined( cb );
+		});
+	};
+	function loadCB(){
+		if( ss.addEventListener ){
+			ss.removeEventListener( "load", loadCB );
+		}
+		ss.media = media || "all";
+	}
+	if( ss.addEventListener ){
+		ss.addEventListener( "load", loadCB);
+	}
+	ss.onloadcssdefined = onloadcssdefined;
+	onloadcssdefined( loadCB );
+	return ss;
+};
+</script>
+<script>
   
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.4/dist/jquery.min.js"></script>
+  loadCSS("https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14/css/all.min.css", window.volantis.loadcss);
+  
+  
+  
+  
+</script>
+<!-- required -->
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5/dist/jquery.min.js"></script>
+
+<script>
+  function pjax_fancybox() {
+    $(".md .gallery").find("img").each(function () { //渲染 fancybox
+      var element = document.createElement("a"); // a 标签
+      $(element).attr("class", "fancybox");
+      $(element).attr("pjax-fancybox", "");  // 过滤 pjax
+      $(element).attr("href", $(this).attr("src"));
+      if ($(this).attr("data-original")) {
+        $(element).attr("href", $(this).attr("data-original"));
+      }
+      $(element).attr("data-fancybox", "images");
+      var caption = "";   // 描述信息
+      if ($(this).attr('alt')) {  // 判断当前页面是否存在描述信息
+        $(element).attr('data-caption', $(this).attr('alt'));
+        caption = $(this).attr('alt');
+      }
+      var div = document.createElement("div");
+      $(div).addClass("fancybox");
+      $(this).wrap(div); // 最外层套 div ，其实主要作用还是 class 样式
+      var span = document.createElement("span");
+      $(span).addClass("image-caption");
+      $(span).text(caption); // 加描述
+      $(this).after(span);  // 再套一层描述
+      $(this).wrap(element);  // 最后套 a 标签
+    })
+    $(".md .gallery").find("img").fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+      closeClick: true,
+      helpers: {
+        overlay: {closeClick: true}
+      },
+      buttons: [
+        "zoom",
+        "close"
+      ]
+    });
+  };
+  function SCload_fancybox() {
+    if ($(".md .gallery").find("img").length == 0) return;
+    loadCSS("https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css", document.getElementById("loadcss"));
+    loadScript('https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', pjax_fancybox)
+  };
+  $(function () {
+    SCload_fancybox();
+  });
+  function Pjax_SCload_fancybox(){
+	if (typeof $.fancybox == "undefined") {
+	 SCload_fancybox();
+    } else {
+	 pjax_fancybox();
+    }
+  }
+  volantis.pjax.push(Pjax_SCload_fancybox)
+  volantis.pjax.send(()=>{
+      if (typeof $.fancybox != "undefined") {
+        $.fancybox.close();    // 关闭弹窗
+      }
+  },'fancybox')
+</script>
+
+
+<!-- internal -->
+
+
+
+
+<script>
+  function loadIssuesJS() {
+    if ($(".md").find(".issues-api").length == 0) return;
+	
+	  loadScript('/js/issues.js');
+	
+  };
+  $(function () {
+    loadIssuesJS();
+  });
+  volantis.pjax.push(()=>{
+	if (typeof IssuesAPI == "undefined") {
+	  loadIssuesJS();
+	}
+  },"IssuesJS")
+</script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 0
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    lazyLoadInstance.update();
+  });
+  document.addEventListener('pjax:complete', function () {
+    lazyLoadInstance.update();
+  });
+</script>
+
+
+
+
+  
+
+<script>
+  window.FPConfig = {
+	delay: 0,
+	ignoreKeywords: [],
+	maxRPS: 5,
+	hoverDelay: 25
+  };
+</script>
+<script defer src="https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"></script>
+
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+    var clipboard = new ClipboardJS('.btn-copy', {
+        target: function (trigger) {
+            return trigger.nextElementSibling
+        }
+    });
+    function wait(callback, seconds) {
+        var timelag = null;
+        timelag = window.setTimeout(callback, seconds)
+    }
+    function pjax_initCopyCode() {
+		if($(".highlight .code pre").length+$(".article pre code").length==0)return;
+        var copyHtml = '';
+        copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+        copyHtml += '<i class="fas fa-copy"></i><span>COPY</span>';
+        copyHtml += '</button>';
+        $(".highlight .code pre").before(copyHtml);
+        $(".article pre code").before(copyHtml);
+        clipboard.off('success').on('success', function (e) {
+            let $btn = $(e.trigger);
+            $btn.addClass('copied');
+            let $icon = $($btn.find('i'));
+            $icon.removeClass('fa-copy');
+            $icon.addClass('fa-check-circle');
+            let $span = $($btn.find('span'));
+            $span[0].innerText = 'COPIED';
+            wait(function () {
+                $icon.removeClass('fa-check-circle');
+                $icon.addClass('fa-copy');
+                $span[0].innerText = 'COPY'
+            }, 2000)
+        });
+        clipboard.off('error').on('error', function (e) {
+            e.clearSelection();
+            let $btn = $(e.trigger);
+            $btn.addClass('copy-failed');
+            let $icon = $($btn.find('i'));
+            $icon.removeClass('fa-copy');
+            $icon.addClass('fa-times-circle');
+            let $span = $($btn.find('span'));
+            $span[0].innerText = 'COPY FAILED';
+            wait(function () {
+                $icon.removeClass('fa-times-circle');
+                $icon.addClass('fa-copy');
+                $span[0].innerText = 'COPY'
+            }, 2000)
+        })
+    }
+    $(function () {
+        pjax_initCopyCode()
+    });
+	volantis.pjax.push(pjax_initCopyCode)
+</script>
+
+
+
+
 
 
   <script>
-    
-    var SEARCH_SERVICE = "hexo" || "hexo";
-    var ROOT = "/" || "/";
-    if (!ROOT.endsWith('/')) ROOT += '/';
-  </script>
+  let APlayerController = new Object();
+  APlayerController.id = '3175833810';  // 设定全局音乐播放ID
+  APlayerController.volume = '0.7';
+  loadCSS("https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css", window.volantis.loadcss);
+  // APlayer 需要在  MetingJS 之前加载
+  loadScript("https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js")
+  window.volantis.APlayerLoaded=0 // APlayer加载完成状态
+  var checkAPlayer = setInterval(function () {
+    if (!window.APlayer) return // APlayer加载完成？
+	  if ($("#safearea").css("display")!="block") return // 文章内容加载完成？ see: source/css/first.styl
+    clearInterval(checkAPlayer)
+	  if (!window.volantis.APlayerLoaded&&!window.MetingJSElement){ // APlayer只能加载一次
+      window.volantis.APlayerLoaded=1 // APlayer加载完成
+      loadScript("https://cdn.jsdelivr.net/npm/meting@2.0/dist/Meting.min.js") // 加载 MetingJS
+	  }
+  }, 2500) // 按照网速调节差分2.5s
+  // rightmenu see: layout/_partial/rightmenu.ejs
 
-
-  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/instant_page.js" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
-
-
-  <script src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.6/dist/scrollreveal.min.js"></script>
-  <script type="text/javascript">
-    $(function() {
-      ScrollReveal().reveal('.l_main .reveal', {
-        distance: '8px',
-        duration: '800',
-        interval: '100',
-        scale: '1'
-      });
-    });
-  </script>
-
-
-  
-<script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
-
-  <script type="text/javascript">
-    $(function() {
-      Waves.attach('.flat-btn', ['waves-button']);
-      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
-      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
-      Waves.attach('.flat-box', ['waves-block']);
-      Waves.attach('.float-box', ['waves-block', 'waves-float']);
-      Waves.attach('.waves-image');
-      Waves.init();
-    });
-  </script>
-
-
-  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
-
-
-
-  
-  
-  
-    
-<script src="https://cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js"></script>
-
-    <script type="text/javascript">
-      $(function(){
-        var imgs=["https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/B18FCBB3-67FD-48CC-B4F3-457BA145F17A.jpeg"];
-        if ('true' == 'true') {
-          function shuffle(arr){
-            /*From countercurrent-time*/
-            var n = arr.length;
-            while(n--) {
-              var index = Math.floor(Math.random() * n);
-              var temp = arr[index];
-              arr[index] = arr[n];
-              arr[n] = temp;
-            }
-          }
-          shuffle(imgs);
-        }
-        if ('.cover') {
-          $('.cover').backstretch(
-            imgs,
-          {
-            duration: "20000",
-            fade: "1500"
-          });
-        } else {
-          $.backstretch(
-            imgs,
-          {
-            duration: "20000",
-            fade: "1500"
-          });
-        }
-      });
-    </script>
-  
-
-
-
-  
-    
-<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js"></script>
-
-  
-    
-<script src="https://cdn.jsdelivr.net/npm/meting@2.0/dist/Meting.min.js"></script>
-
-  
-
-
-
-
+</script>
 
 
 
 
   
-    
-<script src="https://cdn.jsdelivr.net/npm/valine@1.4/dist/Valine.min.js"></script>
-
   
-  <script>
-  var GUEST_INFO = ['nick','mail','link'];
-  var meta = 'nick,mail,link'.split(',').filter(function(item){
-    return GUEST_INFO.indexOf(item) > -1
-  });
-  var REQUIRED_FIELDS = ['nick','mail','link'];
-  var requiredFields = 'nick,mail'.split(',').filter(function(item){
-    return REQUIRED_FIELDS.indexOf(item) > -1
-  });
-  var valine = new Valine();
+<script src="/js/valine.js"></script>
+
+
+<script>
   function emoji(path, idx, ext) {
-      return path + "/" + path + "-" + idx + "." + ext;
+    return path + "/" + path + "-" + idx + "." + ext;
   }
   var emojiMaps = {};
   for (var i = 1; i <= 54; i++) {
@@ -1144,25 +1274,29 @@ emmm，闲来无事，打算了解下神奇vim（用来zhuangbi）。在终端�
   for (var i = 1; i <= 4; i++) {
     emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
   }
-  valine.init({
-    el: '#valine_container',
-    meta: meta,
-    
-    appId: "S687AsCjGJKTPIvUJ8aPNX49-gzGzoHsz",
-    appKey: "bCwg3QuIfGytbeYw58L7ofRq",
-    placeholder: "快来评论吧~",
-    pageSize:'10',
-    avatar:'robohash',
-    lang:'zh-cn',
-    visitor: 'true',
-    highlight: 'true',
-    mathJax: 'false',
-    enableQQ: 'true',
-    requiredFields: requiredFields,
-    emojiCDN: 'https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/emoji/valine/',
-    emojiMaps: emojiMaps
-  })
-  </script>
+  function pjax_valine() {
+    if(!document.querySelectorAll("#valine_container")[0])return;
+    let pagePlaceholder = pdata.commentPlaceholder || "快来评论吧~";
+    let path = pdata.commentPath;
+    if (path.length == 0) {
+      let defaultPath = '';
+      path = defaultPath || decodeURI(window.location.pathname);
+    }
+    var valine = new Valine();
+    valine.init(Object.assign({"path":null,"placeholder":"快来评论吧~","appId":"S687AsCjGJKTPIvUJ8aPNX49-gzGzoHsz","appKey":"bCwg3QuIfGytbeYw58L7ofRq","meta":["nick","mail","link"],"requiredFields":["nick","mail"],"enableQQ":true,"recordIP":false,"avatar":"robohash","pageSize":10,"lang":"zh-cn","highlight":true,"mathJax":false}, {
+      el: '#valine_container',
+      path: path,
+      placeholder: pagePlaceholder,
+      emojiCDN: 'https://cdn.jsdelivr.net/gh/volantis-x/cdn-emoji/valine/',
+      emojiMaps: emojiMaps,
+    }))
+  }
+  $(function () {
+    pjax_valine();
+  });
+  volantis.pjax.push(pjax_valine);
+</script>
+
 
 
 
@@ -1173,111 +1307,519 @@ emmm，闲来无事，打算了解下神奇vim（用来zhuangbi）。在终端�
 
 
 
+<!-- optional -->
+
+  <script>
+const SearchServiceimagePath="https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@master/img/";
+const ROOT =  ("/" || "/").endsWith('/') ? ("/" || "/") : ("//" || "/" );
+
+$('.input.u-search-input').one('focus',function(){
+	
+		loadScript('https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@2.6.4/js/search.js',setSearchService);
+	
+})
+
+function listenSearch(){
   
-<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2.6.4/js/search.js"></script>
-
-
-
+    customSearch = new HexoSearch({
+      imagePath: SearchServiceimagePath
+    });
   
-<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/comment_typing.js"></script>
-
-
-
-
-
-
-<!-- 复制 -->
-
-  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
-<script>
-  function wait(callback, seconds) {
-    var timelag = null;
-    timelag = window.setTimeout(callback, seconds);
-  }
-  !function (e, t, a) {
-    var initCopyCode = function(){
-      var copyHtml = '';
-      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
-      copyHtml += '<i class="fas fa-copy"></i><span>COPY</span>';
-      copyHtml += '</button>';
-      $(".highlight .code pre").before(copyHtml);
-      $(".article pre code").before(copyHtml);
-      var clipboard = new ClipboardJS('.btn-copy', {
-        target: function(trigger) {
-          return trigger.nextElementSibling;
-        }
-      });
-      clipboard.on('success', function(e) {
-        let $btn = $(e.trigger);
-        $btn.addClass('copied');
-        let $icon = $($btn.find('i'));
-        $icon.removeClass('fa-copy');
-        $icon.addClass('fa-check-circle');
-        let $span = $($btn.find('span'));
-        $span[0].innerText = 'COPIED';
-        
-        wait(function () { // 等待两秒钟后恢复
-          $icon.removeClass('fa-check-circle');
-          $icon.addClass('fa-copy');
-          $span[0].innerText = 'COPY';
-        }, 2000);
-      });
-      clipboard.on('error', function(e) {
-        e.clearSelection();
-        let $btn = $(e.trigger);
-        $btn.addClass('copy-failed');
-        let $icon = $($btn.find('i'));
-        $icon.removeClass('fa-copy');
-        $icon.addClass('fa-times-circle');
-        let $span = $($btn.find('span'));
-        $span[0].innerText = 'COPY FAILED';
-        
-        wait(function () { // 等待两秒钟后恢复
-          $icon.removeClass('fa-times-circle');
-          $icon.addClass('fa-copy');
-          $span[0].innerText = 'COPY';
-        }, 2000);
-      });
-    }
-    initCopyCode();
-  }(window, document);
+}
+function setSearchService() {
+	listenSearch();
+	
+}
 </script>
 
 
 
 
-<!-- fancybox -->
 
-  <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
-<script>
-  let LAZY_LOAD_IMAGE = "";
-  $(".article-entry").find("div.fancybox").find("img").each(function () {
-      var element = document.createElement("a");
-      $(element).attr("data-fancybox", "gallery");
-      $(element).attr("href", $(this).attr("src"));
-      /* 图片采用懒加载处理时,
-       * 一般图片标签内会有个属性名来存放图片的真实地址，比如 data-original,
-       * 那么此处将原本的属性名src替换为对应属性名data-original,
-       * 修改如下
-       */
-       if (LAZY_LOAD_IMAGE) {
-         $(element).attr("href", $(this).attr("data-original"));
-       }
-      $(this).wrap(element);
+
+
+
+
+
+
+  <script defer>
+
+  const LCCounter = {
+    app_id: 'u9j57bwJod4EDmXWdxrwuqQT-MdYXbMMI',
+    app_key: 'jfHtEKVE24j0IVCGHbvuFClp',
+    custom_api_server: '',
+
+    // 查询存储的记录
+    getRecord(Counter, url, title) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({url})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
+            }
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {url, title: title, times: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
+        });
+      })
+    },
+
+    // 发起自增请求
+    increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
+          }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    },
+
+    // 构建自增请求体
+    buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "times": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    },
+
+    // 校验是否为有效的 UV
+    validUV() {
+      var key = 'LeanCloudUVTimestamp';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    },
+
+    addCount(Counter) {
+      var enableIncr = '' === 'true' && window.location.hostname !== 'localhost';
+      enableIncr = true;
+      var getterArr = [];
+      var incrArr = [];
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#lc-sv');
+      if (pvCtn || enableIncr) {
+        var pvGetter = this.getRecord(Counter, 'https://yeshan333.github.io' + '/#lc-sv', 'Visits').then((record) => {
+          incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-sv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + 1;
+              if (pvCtn) {
+                pvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#lc-uv');
+      if (uvCtn || enableIncr) {
+        var uvGetter = this.getRecord(Counter, 'https://yeshan333.github.io' + '/#lc-uv', 'Visitors').then((record) => {
+          var vuv = this.validUV();
+          vuv && incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-uv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + (vuv ? 1 : 0);
+              if (uvCtn) {
+                uvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 请求文章的浏览数，如果是当前页面就自增
+      var allPV = document.querySelectorAll('#lc-pv');
+      if (allPV.length > 0 || enableIncr) {
+        for (i = 0; i < allPV.length; i++) {
+          let pv = allPV[i];
+          let title = pv.getAttribute('data-title');
+          var url = 'https://yeshan333.github.io' + pv.getAttribute('data-path');
+          if (url) {
+            var viewGetter = this.getRecord(Counter, url, title).then((record) => {
+              // 是当前页面就自增
+              let curPath = window.location.pathname;
+              if (curPath.includes('index.html')) {
+                curPath = curPath.substring(0, curPath.lastIndexOf('index.html'));
+              }
+              if (pv.getAttribute('data-path') == curPath) {
+                incrArr.push(this.buildIncrement(record.objectId));
+              }
+              if (pv) {
+                var ele = pv.querySelector('#lc-pv #number');
+                if (ele) {
+                  if (pv.getAttribute('data-path') == curPath) {
+                    ele.innerText = (record.times || 0) + 1;
+                  } else {
+                    ele.innerText = record.times || 0;
+                  }
+                  pv.style.display = 'inline';
+                }
+              }
+            });
+            getterArr.push(viewGetter);
+          }
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && this.increment(Counter, incrArr);
+        })
+      }
+
+    },
+
+
+    fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': this.app_id,
+            'X-LC-Key': this.app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      this.addCount(Counter);
+    },
+
+    refreshCounter() {
+      var api_server = this.app_id.slice(-9) !== '-MdYXbMMI' ? this.custom_api_server : `https://${ this.app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+      if (api_server) {
+        this.fetchData(api_server);
+      } else {
+        fetch('https://app-router.leancloud.cn/2/route?appId=' + this.app_id)
+          .then(resp => resp.json())
+          .then(({api_server}) => {
+            this.fetchData('https://' + api_server);
+          });
+      }
+    }
+
+  };
+
+  LCCounter.refreshCounter();
+
+  document.addEventListener('pjax:complete', function () {
+    LCCounter.refreshCounter();
   });
 </script>
 
 
 
 
+  <script>
+const rootElement = document.documentElement;
+const darkModeStorageKey = "user-color-scheme";
+const rootElementDarkModeAttributeName = "data-user-color-scheme";
+
+const setLS = (k, v) => {
+    localStorage.setItem(k, v);
+};
+
+const removeLS = (k) => {
+    localStorage.removeItem(k);
+};
+
+const getLS = (k) => {
+    return localStorage.getItem(k);
+};
+
+const getModeFromCSSMediaQuery = () => {
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
+};
+
+const resetRootDarkModeAttributeAndLS = () => {
+  rootElement.removeAttribute(rootElementDarkModeAttributeName);
+  removeLS(darkModeStorageKey);
+};
+
+const validColorModeKeys = {
+  dark: true,
+  light: true,
+};
+
+const applyCustomDarkModeSettings = (mode) => {
+  const currentSetting = mode || getLS(darkModeStorageKey);
+
+  if (currentSetting === getModeFromCSSMediaQuery()) {
+    resetRootDarkModeAttributeAndLS();
+  } else if (validColorModeKeys[currentSetting]) {
+    rootElement.setAttribute(rootElementDarkModeAttributeName, currentSetting);
+  } else {
+    resetRootDarkModeAttributeAndLS();
+  }
+};
+
+const invertDarkModeObj = {
+  dark: "light",
+  light: "dark",
+};
+
+/**
+ * get target mode
+ */
+const toggleCustomDarkMode = () => {
+  let currentSetting = getLS(darkModeStorageKey);
+
+  if (validColorModeKeys[currentSetting]) {
+    currentSetting = invertDarkModeObj[currentSetting];
+  } else if (currentSetting === null) {
+    currentSetting = invertDarkModeObj[getModeFromCSSMediaQuery()];
+  } else {
+    return;
+  }
+  setLS(darkModeStorageKey, currentSetting);
+  return currentSetting;
+};
+
+/**
+ * bind click event for toggle button
+ */
+var btn=$("#wrapper .toggle-mode-btn,#rightmenu-wrapper .toggle-mode-btn");
+function bindToggleButton() {
+    btn.on('click',(e) => {
+      const mode = toggleCustomDarkMode();
+      applyCustomDarkModeSettings(mode);
+    });
+}
+
+applyCustomDarkModeSettings();
+document.addEventListener("DOMContentLoaded", bindToggleButton);
+volantis.pjax.push(bindToggleButton);
+volantis.pjax.send(()=>{
+	btn.unbind('click');
+},'toggle-mode-btn-unbind');
+</script>
 
 
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yeshan333/jsDelivrCDN/piao.js" />
-<script type="text/javascript" src="https://cdn.staticfile.org/jquery/1.7.2/jquery.min.js" />
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yeshan333/jsDelivrCDN/attatkmouse.js" />
-<script async defer data-domain="shansan.top" src="https://plausible.io/js/plausible.js" />
 
 
-  <script>setLoadingBarProgress(100);</script>
-</body>
+
+
+
+
+<script>
+function listennSidebarTOC() {
+  const navItems = document.querySelectorAll(".toc li");
+  if (!navItems.length) return;
+  const sections = [...navItems].map((element) => {
+    const link = element.querySelector(".toc-link");
+    const target = document.getElementById(
+      decodeURI(link.getAttribute("href")).replace("#", "")
+    );
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      window.scrollTo({
+		top: target.offsetTop + 100,
+		
+		behavior: "smooth"
+		
+	  });
+    });
+    return target;
+  });
+
+  function activateNavByIndex(target) {
+    if (target.classList.contains("active-current")) return;
+
+    document.querySelectorAll(".toc .active").forEach((element) => {
+      element.classList.remove("active", "active-current");
+    });
+    target.classList.add("active", "active-current");
+    let parent = target.parentNode;
+    while (!parent.matches(".toc")) {
+      if (parent.matches("li")) parent.classList.add("active");
+      parent = parent.parentNode;
+    }
+  }
+
+  function findIndex(entries) {
+    let index = 0;
+    let entry = entries[index];
+    if (entry.boundingClientRect.top > 0) {
+      index = sections.indexOf(entry.target);
+      return index === 0 ? 0 : index - 1;
+    }
+    for (; index < entries.length; index++) {
+      if (entries[index].boundingClientRect.top <= 0) {
+        entry = entries[index];
+      } else {
+        return sections.indexOf(entry.target);
+      }
+    }
+    return sections.indexOf(entry.target);
+  }
+
+  function createIntersectionObserver(marginTop) {
+    marginTop = Math.floor(marginTop + 10000);
+    let intersectionObserver = new IntersectionObserver(
+      (entries, observe) => {
+        let scrollHeight = document.documentElement.scrollHeight + 100;
+        if (scrollHeight > marginTop) {
+          observe.disconnect();
+          createIntersectionObserver(scrollHeight);
+          return;
+        }
+        let index = findIndex(entries);
+        activateNavByIndex(navItems[index]);
+      },
+      {
+        rootMargin: marginTop + "px 0px -100% 0px",
+        threshold: 0,
+      }
+    );
+    sections.forEach((element) => {
+      element && intersectionObserver.observe(element);
+    });
+  }
+  createIntersectionObserver(document.documentElement.scrollHeight);
+}
+
+document.addEventListener("DOMContentLoaded", listennSidebarTOC);
+document.addEventListener("pjax:success", listennSidebarTOC);
+</script>
+
+<!-- more -->
+
+  
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yeshan333/jsDelivrCDN/piao.js" />
+
+  <script type="text/javascript" src="https://cdn.staticfile.org/jquery/1.7.2/jquery.min.js" />
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yeshan333/jsDelivrCDN/attatkmouse.js" />
+
+  <script async defer data-domain="shansan.top" src="https://plausible.io/js/plausible.js" />
+
+
+
+ 
+	   
+	    
+
+
+<script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script>
+
+
+<script>
+    var pjax;
+    document.addEventListener('DOMContentLoaded', function () {
+      pjax = new Pjax({
+        elements: 'a[href]:not([href^="#"]):not([href="javascript:void(0)"]):not([pjax-fancybox])',
+        selectors: [
+          "title",
+          
+          "#pjax-container",
+          "#pjax-header-nav-list"
+        ],
+        cacheBust: false,   // url 地址追加时间戳，用以避免浏览器缓存
+        timeout: 5000
+      });
+    });
+
+    document.addEventListener('pjax:send', function (e) {
+      //window.stop(); // 相当于点击了浏览器的停止按钮
+
+      try {
+        var currentUrl = window.location.pathname;
+        var targetUrl = e.triggerElement.href;
+        var banUrl = [""];
+        if (banUrl[0] != "") {
+          banUrl.forEach(item => {
+            if(currentUrl.indexOf(item) != -1 || targetUrl.indexOf(item) != -1) {
+              window.location.href = targetUrl;
+            }
+          });
+        }
+      } catch (error) {}
+
+      window.subData = null; // 移除标题（用于一二级导航栏切换处）
+
+      volantis.$switcher.removeClass('active'); // 关闭移动端激活的搜索框
+      volantis.$header.removeClass('z_search-open'); // 关闭移动端激活的搜索框
+      volantis.$wrapper.removeClass('sub'); // 跳转页面时关闭二级导航
+
+      // 解绑事件 避免重复监听
+      volantis.$topBtn.unbind('click');
+      $('.menu a').unbind('click');
+      $(window).unbind('resize');
+      $(window).unbind('scroll');
+      $(document).unbind('scroll');
+      $(document).unbind('click');
+      $('body').unbind('click');
+	  // 使用 volantis.pjax.send 方法传入pjax:send回调函数 参见layout/_partial/scripts/global.ejs
+	  volantis.pjax.method.send.start();
+    });
+
+    document.addEventListener('pjax:complete', function () {
+      $('.nav-main').find('.list-v').not('.menu-phone').removeAttr("style",""); // 移除小尾巴的移除
+      $('.menu-phone.list-v').removeAttr("style",""); // 移除小尾巴的移除
+      $('script[data-pjax], .pjax-reload script').each(function () {
+        $(this).parent().append($(this).remove());
+      });
+      try{
+		// 使用 volantis.pjax.push 方法传入重载函数 参见layout/_partial/scripts/global.ejs
+		volantis.pjax.method.complete.start();
+      } catch (e) {
+        console.log(e);
+      }
+    });
+
+    document.addEventListener('pjax:error', function (e) {
+	  // 使用 volantis.pjax.error 方法传入pjax:error回调函数 参见layout/_partial/scripts/global.ejs
+	  volantis.pjax.method.error.start();
+      window.location.href = e.triggerElement.href;
+    });
+</script>
+ 
+	  
+    </div>
+  </body>
 </html>
