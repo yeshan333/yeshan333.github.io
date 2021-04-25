@@ -109,7 +109,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <body>
     
 
-<header id="l_header" class="l_header auto shadow blur show" style='opacity: 0' >
+<header id="l_header" class="l_header auto shadow blur " style='opacity: 0' >
   <div class='container'>
   <div id='wrapper'>
     <div class='nav-sub'>
@@ -459,56 +459,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <div id="l_body">
       <div id="l_cover">
   
-    
-        <div id="full" class='cover-wrapper post dock' style="display: none;">
-          
-            <div class='cover-bg lazyload placeholder' data-bg="https://cdn.jsdelivr.net/gh/ssmath/picgo-pic/img/20210310142425.png"></div>
-          
-          <div class='cover-body'>
-  <div class='top'>
-    
-    
-      <p class="title">花点时间多做点想做的事</p>
-    
-    
-      <p class="subtitle">created by yeshan333</p>
-    
-  </div>
-  <div class='bottom'>
-    <div class='menu navigation'>
-      <div class='list-h'>
-        
-          
-            <a href="/archives/"
-              
-              
-              id="archives">
-              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f4f0.svg'><p>博文</p>
-            </a>
-          
-            <a href="/about/"
-              
-              
-              id="about">
-              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0.1/assets/svg/1f0cf.svg'><p>关于我</p>
-            </a>
-          
-            <a href="/friends/"
-              
-              
-              id="friends">
-              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f9ec.svg'><p>友链</p>
-            </a>
-          
-        
-      </div>
-    </div>
-  </div>
-</div>
-
-          <div id="scroll-down" style="display: none;"><i class="fa fa-chevron-down scroll-down-effects"></i></div>
-        </div>
-    
+      
   
   </div>
 
@@ -807,13 +758,6 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
   l_header.classList.add("show");
   
-  
-    // cover
-    var cover_wrapper=document.querySelector('.cover-wrapper');
-    
-    cover_wrapper.id="none";
-    cover_wrapper.style.display="none";
-    
   
 </script>
 
@@ -1765,84 +1709,6 @@ document.addEventListener("pjax:success", listennSidebarTOC);
 
 
 
- 
-	   
-	    
-
-
-<script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script>
-
-
-<script>
-    var pjax;
-    document.addEventListener('DOMContentLoaded', function () {
-      pjax = new Pjax({
-        elements: 'a[href]:not([href^="#"]):not([href="javascript:void(0)"]):not([pjax-fancybox])',
-        selectors: [
-          "title",
-          
-          "#pjax-container",
-          "#pjax-header-nav-list"
-        ],
-        cacheBust: false,   // url 地址追加时间戳，用以避免浏览器缓存
-        timeout: 5000
-      });
-    });
-
-    document.addEventListener('pjax:send', function (e) {
-      //window.stop(); // 相当于点击了浏览器的停止按钮
-
-      try {
-        var currentUrl = window.location.pathname;
-        var targetUrl = e.triggerElement.href;
-        var banUrl = [""];
-        if (banUrl[0] != "") {
-          banUrl.forEach(item => {
-            if(currentUrl.indexOf(item) != -1 || targetUrl.indexOf(item) != -1) {
-              window.location.href = targetUrl;
-            }
-          });
-        }
-      } catch (error) {}
-
-      window.subData = null; // 移除标题（用于一二级导航栏切换处）
-
-      volantis.$switcher.removeClass('active'); // 关闭移动端激活的搜索框
-      volantis.$header.removeClass('z_search-open'); // 关闭移动端激活的搜索框
-      volantis.$wrapper.removeClass('sub'); // 跳转页面时关闭二级导航
-
-      // 解绑事件 避免重复监听
-      volantis.$topBtn.unbind('click');
-      $('.menu a').unbind('click');
-      $(window).unbind('resize');
-      $(window).unbind('scroll');
-      $(document).unbind('scroll');
-      $(document).unbind('click');
-      $('body').unbind('click');
-	  // 使用 volantis.pjax.send 方法传入pjax:send回调函数 参见layout/_partial/scripts/global.ejs
-	  volantis.pjax.method.send.start();
-    });
-
-    document.addEventListener('pjax:complete', function () {
-      $('.nav-main').find('.list-v').not('.menu-phone').removeAttr("style",""); // 移除小尾巴的移除
-      $('.menu-phone.list-v').removeAttr("style",""); // 移除小尾巴的移除
-      $('script[data-pjax], .pjax-reload script').each(function () {
-        $(this).parent().append($(this).remove());
-      });
-      try{
-		// 使用 volantis.pjax.push 方法传入重载函数 参见layout/_partial/scripts/global.ejs
-		volantis.pjax.method.complete.start();
-      } catch (e) {
-        console.log(e);
-      }
-    });
-
-    document.addEventListener('pjax:error', function (e) {
-	  // 使用 volantis.pjax.error 方法传入pjax:error回调函数 参见layout/_partial/scripts/global.ejs
-	  volantis.pjax.method.error.start();
-      window.location.href = e.triggerElement.href;
-    });
-</script>
  
 	  
     </div>
