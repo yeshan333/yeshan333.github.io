@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>Windows Insiders WSLg Linux GUI App 支持尝鲜</title>
+      <link href="2021/04/25/enjoy-wslg/"/>
+      <url>2021/04/25/enjoy-wslg/</url>
+      
+        <content type="html"><![CDATA[<p>2021 年 4 月 21 日，微软在 Developer Blogs 发布了 Windows 预览版 WSL（Windows Linux 子系统） 对 Linux GUI App 的支持的[公告](The Initial Preview of GUI app support is now available for the Windows Subsystem for Linux)，碰巧😀我最近重装了波电脑，系统换成了 Windows Insiders（Dev），正好可以感受波 Linux GUI App 的支持。</p><p>WSL 居然支持跑 Linux 图形应用了，真香（😎，虽然上一年 WSL 的 <a href="https://devblogs.microsoft.com/commandline/the-windows-subsystem-for-linux-build-2020-summary/#wsl-gui">Roadmap</a> 中有说过要支持，但我没关注，老二手知识党了）。Quickstart -&gt;</p><span id="more"></span><h2 id="WSLg-的架构"><a href="#WSLg-的架构" class="headerlink" title="WSLg 的架构"></a>WSLg 的架构</h2><p><a href="https://github.com/microsoft/wslg">WSLg</a> 是支持 Windows 运行 Linux 图形应用的核心项目， Windows Subsystem for Linux GUI 的简写，看了眼 Git commit，8 天前开源的，🐂。README 里面有张 WSLg 的架构图，略微操作下帖到这里：</p><div class="gallery ">              <p><img src="https://z3.ax1x.com/2021/04/25/czneit.png" class="lazyload" data-srcset="https://z3.ax1x.com/2021/04/25/czneit.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="WSLg Architecture"></p>            </div><p>扫了眼，只有 RDP 和 X11 有点印象，这个 Wayland 在最近关于 Ubuntu 21.04 的新闻有看到过，具体原理这里就不了解了，骚就完事了，先跑个 Linux GUI App 感受波。</p><p>已有微软大佬对 WSLg 的架构做了详细的介绍，参见文章：<a href="https://devblogs.microsoft.com/commandline/wslg-architecture/">WSLg Architecture</a></p><h2 id="Windows-Insiders-Dev-跑下-Linux-GUI-App"><a href="#Windows-Insiders-Dev-跑下-Linux-GUI-App" class="headerlink" title="Windows Insiders Dev 跑下 Linux GUI App"></a>Windows Insiders Dev 跑下 Linux GUI App</h2><p>这里又到了经典的环境配置环节（干啥啥不行，老装环境选手了）。不得不说，Windows 系统换成 Insiders 版本真香，WSL 安装一句命令就完事了。虽然又碰到了许久未见到的经典蓝屏问题，但还是阔以接受的，我 giao。</p><p>看波 WSLg 的 README，配下环境，操作系统版本要 21362+，还得微微更新波🤨：</p><div class="gallery ">              <p><img src="https://z3.ax1x.com/2021/04/25/czKy26.png" class="lazyload" data-srcset="https://z3.ax1x.com/2021/04/25/czKy26.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="Upgrade Windows System"></p>            </div><p>Sometime later……………….</p><div class="gallery ">              <p><img src="https://z3.ax1x.com/2021/04/25/czMjOO.png" class="lazyload" data-srcset="https://z3.ax1x.com/2021/04/25/czMjOO.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="Windows insiders version"></p>            </div><p>OK，可以操作了，之前我已经安装过 WSL，且切换到了 v2 版本，so，按照 README 所说，只需要进行如下操作即可。</p><p>以 <strong>Administrator 身份</strong>启动 Powershell 执行以下命令：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1、重启下 WSL</span></span><br><span class="line">wsl --shutdown</span><br><span class="line"><span class="comment"># 2、Update</span></span><br></pre></td></tr></table></figure><div class="gallery ">              <p><img src="https://z3.ax1x.com/2021/04/25/cz8Rqf.png" class="lazyload" data-srcset="https://z3.ax1x.com/2021/04/25/cz8Rqf.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="WSL Update"></p>            </div><p>然后随意装个 GUI App 感受下，装个 gedit 吧：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Nautilus 文件管理器，可在 Windows 开始菜单启动 Linux GUI App</span></span><br><span class="line">sudo apt install nautilus -y</span><br><span class="line">sudo apt install gedit -y</span><br></pre></td></tr></table></figure><div class="gallery ">              <p><img src="https://z3.ax1x.com/2021/04/25/cz8LLV.png" class="lazyload" data-srcset="https://z3.ax1x.com/2021/04/25/cz8LLV.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="Windows Desktop Gedit"></p>            </div><p>还阔以，虽然我是“命令行仔”了，但时不时用下 GUI App 还是香的。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> WSL </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+            <tag> WSL </tag>
+            
+            <tag> GUI </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>初探 Git Submodules</title>
       <link href="2021/03/10/git-submodules/"/>
       <url>2021/03/10/git-submodules/</url>
