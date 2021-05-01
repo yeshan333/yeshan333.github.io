@@ -478,6 +478,63 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
   
   
+  
+    
+    <h2 class="article-title" >
+      <a href="/2020/12/13/%E8%80%8D%E4%B8%80%E4%B8%8BKafka/">
+        简单耍一下-Kafka
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      <blockquote>
+<p>趁着毕设初期，还能摸会儿🐟，了解波 Kafka。</p>
+</blockquote>
+<h2 id="Kafka-术语一览"><a href="#Kafka-术语一览" class="headerlink" title="Kafka 术语一览"></a>Kafka 术语一览</h2><blockquote>
+<p>Kafka，分布式消息引擎系统，主要功能是提供一套完备的消息发布与订阅解决方案。Kafka 也是一个分布式的、分区的、多副本的多订阅者，基于 Zookeeper 协调的分布式日志系统，可用于处理 Web 日志和消息服务。</p>
+</blockquote>
+<ul>
+<li>Topic：主题，承载消息（Record）的逻辑容器，每条发布到 Kafka 集群的消息都归属于某一个 Topic，实际应用中，不同的 topic 对应着不同的业务；</li>
+<li>Broker：Kafka 服务进程，一个 Kafka 集群由多个 Broker 服务进程组成，虽然多个 Broker 可在同一服务器上进行部署，但为了高可用，会将不同的 Broker 部署在不同的机器上；</li>
+<li>Partition：分区，一组有序的消息序列，一个 Topic 可以有多个分区，同一 Topic 下的 Partition 可以分布在不同的 Broker 中。Producer 生产的每一条消息都会被放到一个 Partition 中，每条消息在 Partition 中的位置信息由一个 Offset（偏移量）数据表征。Kafka 通过偏移量（Offset）来保证消息在分区内的顺序性；</li>
+</ul>
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+          
+          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://img.vim-cn.com/a3/caa9ef084c4f562b82b1cca6e978c0dca58c5f.png'></a>
+        
+        <time>2020-12-13</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/">中间件</a><span class="sep"></span><a class="category-link" href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/Kafka/">Kafka</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2020/12/13/%E8%80%8D%E4%B8%80%E4%B8%8BKafka/'>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
     <div class='headimg-div'>
       <a class='headimg-a' href="/2020/11/15/%E4%BD%BF%E7%94%A8tcpdump%E5%92%8Cwireshark%E7%9C%8B%E4%B8%8BTCP%E6%8F%A1%E6%89%8B/">
         <img class='headimg' src='https://cdn.jsdelivr.net/gh/ssmath/picgo-pic/img/20201115174718.png'/>
@@ -744,60 +801,6 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           </div>
         
       
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/07/22/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%BF%9B-%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B/">
-        操作系统笔记-进/线程模型
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <blockquote>
-<p>模型是指对于某个实际问题或客观事物、规律进行抽象后的一种形式化表达方式。- MBA 智库百科 - <a target="_blank" rel="noopener" href="https://wiki.mbalib.com/wiki/%E6%A8%A1%E5%9E%8B">模型</a></p>
-</blockquote>
-<h2 id="概念梳理"><a href="#概念梳理" class="headerlink" title="概念梳理"></a>概念梳理</h2><h3 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h3><ul>
-<li>进程是具有独立功能的程序关于某个数据集合上的一次运行活动，是系统进行资源分配和调度的独立单位。</li>
-<li>一个进程是某种类型活动的一个活动，它有程序、输入、输出以及状态。进程是对正在运行程序的一个抽象。单个处理器可以被若干进程共享，它使用某种调度算法决定何时停止一个进程的工作，并转而为另一个进程提供服务。一个程序可对应多个进程。</li>
-<li>系统资源以进程为单位分配，如内存、文件、每个进程拥有独立的地址空间。</li>
-</ul>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-          
-          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://img.vim-cn.com/a3/caa9ef084c4f562b82b1cca6e978c0dca58c5f.png'></a>
-        
-        <time>2020-07-22</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Go/">Go</a><span class="sep"></span><a class="category-link" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a><span class="sep"></span><a class="category-link" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%BF%9B-%E7%BA%BF%E7%A8%8B/">进/线程</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2020/07/22/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%BF%9B-%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
     
   </section>
   
@@ -925,7 +928,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <div class="webinfo-item">
           <div>文章数目：</div>
-          <div>115 篇</div>
+          <div>116 篇</div>
         </div>
       
 
@@ -961,8 +964,8 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         <div class="webinfo-item">
           <div>最后活动时间：</div>
           
-            <div id="last-update" style="display: none;">Sun Apr 25 2021 13:06:18 GMT+0000 (Coordinated Universal Time)</div>
-            <div id="last-update-show">2021-04-25 日</div>
+            <div id="last-update" style="display: none;">Sat May 01 2021 07:51:16 GMT+0000 (Coordinated Universal Time)</div>
+            <div id="last-update-show">2021-05-01 日</div>
           
         </div>
         
@@ -1012,7 +1015,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           try {
             document.getElementById('last-update-show').innerHTML = timeago(new Date(lastUpDate));
           } catch (error) {
-            document.getElementById('last-update-show').innerHTML = '2021-04-25 日';
+            document.getElementById('last-update-show').innerHTML = '2021-05-01 日';
           }
         </script>
         
@@ -1048,7 +1051,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           <li><a class="flat-box"
             title="/categories/Architecture/" href="/categories/Architecture/"
             id="categoriesArchitecture"
-            ><div class='name'>Architecture</div><div class='badge'>(1)</div></a></li>
+            ><div class='name'>Architecture</div><div class='badge'>(2)</div></a></li>
         
           <li><a class="flat-box"
             title="/categories/C/" href="/categories/C/"
@@ -1217,7 +1220,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
 
     <div class='content'>
-      <a href="/tags/Algorithm/" style="font-size: 16.5px; color: #888">Algorithm</a> <a href="/tags/Astronomy/" style="font-size: 15.25px; color: #919191">Astronomy</a> <a href="/tags/BeautifulSoup/" style="font-size: 14px; color: #999">BeautifulSoup</a> <a href="/tags/C/" style="font-size: 16.5px; color: #888">C</a> <a href="/tags/CPP/" style="font-size: 24px; color: #555">CPP</a> <a href="/tags/CSS/" style="font-size: 14px; color: #999">CSS</a> <a href="/tags/DevOps/" style="font-size: 15.25px; color: #919191">DevOps</a> <a href="/tags/Event-Loop/" style="font-size: 14px; color: #999">Event-Loop</a> <a href="/tags/Flask/" style="font-size: 17.75px; color: #808080">Flask</a> <a href="/tags/GDB/" style="font-size: 14px; color: #999">GDB</a> <a href="/tags/GPG/" style="font-size: 14px; color: #999">GPG</a> <a href="/tags/GUI/" style="font-size: 14px; color: #999">GUI</a> <a href="/tags/Git/" style="font-size: 19px; color: #777">Git</a> <a href="/tags/Github-Actions/" style="font-size: 14px; color: #999">Github Actions</a> <a href="/tags/HTML/" style="font-size: 15.25px; color: #919191">HTML</a> <a href="/tags/I-O%E6%A8%A1%E5%9E%8B/" style="font-size: 14px; color: #999">I/O模型</a> <a href="/tags/JavaScript/" style="font-size: 14px; color: #999">JavaScript</a> <a href="/tags/Json/" style="font-size: 14px; color: #999">Json</a> <a href="/tags/Jupyter/" style="font-size: 14px; color: #999">Jupyter</a> <a href="/tags/Kafka/" style="font-size: 14px; color: #999">Kafka</a> <a href="/tags/Latex/" style="font-size: 14px; color: #999">Latex</a> <a href="/tags/Linux/" style="font-size: 15.25px; color: #919191">Linux</a> <a href="/tags/Load-Balance/" style="font-size: 14px; color: #999">Load Balance</a> <a href="/tags/MATLAB/" style="font-size: 14px; color: #999">MATLAB</a> <a href="/tags/Memory/" style="font-size: 14px; color: #999">Memory</a> <a href="/tags/Nginx/" style="font-size: 14px; color: #999">Nginx</a> <a href="/tags/Python/" style="font-size: 22.75px; color: #5e5e5e">Python</a> <a href="/tags/React/" style="font-size: 15.25px; color: #919191">React</a> <a href="/tags/Requests/" style="font-size: 15.25px; color: #919191">Requests</a> <a href="/tags/Scrapy/" style="font-size: 14px; color: #999">Scrapy</a> <a href="/tags/TCP/" style="font-size: 14px; color: #999">TCP</a> <a href="/tags/WSL/" style="font-size: 14px; color: #999">WSL</a> <a href="/tags/Wireshark/" style="font-size: 14px; color: #999">Wireshark</a> <a href="/tags/blog/" style="font-size: 21.5px; color: #666">blog</a> <a href="/tags/debug/" style="font-size: 14px; color: #999">debug</a> <a href="/tags/docker/" style="font-size: 15.25px; color: #919191">docker</a> <a href="/tags/hexo/" style="font-size: 17.75px; color: #808080">hexo</a> <a href="/tags/markdown/" style="font-size: 17.75px; color: #808080">markdown</a> <a href="/tags/memory/" style="font-size: 14px; color: #999">memory</a> <a href="/tags/tcpdump/" style="font-size: 14px; color: #999">tcpdump</a> <a href="/tags/%E4%B8%8A%E4%B8%8B%E6%96%87/" style="font-size: 14px; color: #999">上下文</a> <a href="/tags/%E4%BF%A1%E6%81%AF%E6%A0%87%E8%AE%B0/" style="font-size: 14px; color: #999">信息标记</a> <a href="/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/" style="font-size: 14px; color: #999">函数式编程</a> <a href="/tags/%E5%8A%A0%E5%AF%86/" style="font-size: 14px; color: #999">加密</a> <a href="/tags/%E5%8D%8F%E7%A8%8B/" style="font-size: 14px; color: #999">协程</a> <a href="/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/" style="font-size: 14px; color: #999">工程化</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 15.25px; color: #919191">数据结构</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" style="font-size: 14px; color: #999">服务器进程管理</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E7%BC%96%E6%8E%92/" style="font-size: 14px; color: #999">服务编排</a> <a href="/tags/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/" style="font-size: 14px; color: #999">架构设计</a> <a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 14px; color: #999">正则表达式</a> <a href="/tags/%E6%B5%81%E5%A4%84%E7%90%86%E5%B9%B3%E5%8F%B0/" style="font-size: 14px; color: #999">流处理平台</a> <a href="/tags/%E6%B6%88%E6%81%AF%E5%BC%95%E6%93%8E%E7%B3%BB%E7%BB%9F/" style="font-size: 14px; color: #999">消息引擎系统</a> <a href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" style="font-size: 14px; color: #999">消息队列</a> <a href="/tags/%E6%B7%B1%E6%8B%B7%E8%B4%9D%E4%B8%8E%E6%B5%85%E6%8B%B7%E8%B4%9D/" style="font-size: 14px; color: #999">深拷贝与浅拷贝</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 19px; color: #777">爬虫</a> <a href="/tags/%E7%8E%AF%E5%A2%83%E7%AE%A1%E7%90%86/" style="font-size: 14px; color: #999">环境管理</a> <a href="/tags/%E7%BA%BF%E7%A8%8B/" style="font-size: 14px; color: #999">线程</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E8%B7%AF/" style="font-size: 14px; color: #999">计算机网路</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 14px; color: #999">设计模式</a> <a href="/tags/%E8%AF%91%E6%96%87/" style="font-size: 14px; color: #999">译文</a> <a href="/tags/%E8%BF%9B%E7%A8%8B/" style="font-size: 14px; color: #999">进程</a> <a href="/tags/%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1/" style="font-size: 14px; color: #999">进程通信</a> <a href="/tags/%E9%9A%8F%E7%AC%94/" style="font-size: 20.25px; color: #6f6f6f">随笔</a> <a href="/tags/%E9%9A%90%E7%A7%81/" style="font-size: 14px; color: #999">隐私</a> <a href="/tags/%E9%9D%99%E6%80%81%E7%B1%BB%E5%9E%8B%E6%A3%80%E6%9F%A5/" style="font-size: 14px; color: #999">静态类型检查</a>
+      <a href="/tags/Algorithm/" style="font-size: 16.5px; color: #888">Algorithm</a> <a href="/tags/Astronomy/" style="font-size: 15.25px; color: #919191">Astronomy</a> <a href="/tags/BeautifulSoup/" style="font-size: 14px; color: #999">BeautifulSoup</a> <a href="/tags/C/" style="font-size: 16.5px; color: #888">C</a> <a href="/tags/CPP/" style="font-size: 24px; color: #555">CPP</a> <a href="/tags/CSS/" style="font-size: 14px; color: #999">CSS</a> <a href="/tags/DevOps/" style="font-size: 15.25px; color: #919191">DevOps</a> <a href="/tags/Event-Loop/" style="font-size: 14px; color: #999">Event-Loop</a> <a href="/tags/Flask/" style="font-size: 17.75px; color: #808080">Flask</a> <a href="/tags/GDB/" style="font-size: 14px; color: #999">GDB</a> <a href="/tags/GPG/" style="font-size: 14px; color: #999">GPG</a> <a href="/tags/GUI/" style="font-size: 14px; color: #999">GUI</a> <a href="/tags/Git/" style="font-size: 19px; color: #777">Git</a> <a href="/tags/Github-Actions/" style="font-size: 14px; color: #999">Github Actions</a> <a href="/tags/HTML/" style="font-size: 15.25px; color: #919191">HTML</a> <a href="/tags/I-O%E6%A8%A1%E5%9E%8B/" style="font-size: 14px; color: #999">I/O模型</a> <a href="/tags/JavaScript/" style="font-size: 14px; color: #999">JavaScript</a> <a href="/tags/Json/" style="font-size: 14px; color: #999">Json</a> <a href="/tags/Jupyter/" style="font-size: 14px; color: #999">Jupyter</a> <a href="/tags/Kafka/" style="font-size: 14px; color: #999">Kafka</a> <a href="/tags/Latex/" style="font-size: 14px; color: #999">Latex</a> <a href="/tags/Linux/" style="font-size: 15.25px; color: #919191">Linux</a> <a href="/tags/Load-Balance/" style="font-size: 14px; color: #999">Load Balance</a> <a href="/tags/MATLAB/" style="font-size: 14px; color: #999">MATLAB</a> <a href="/tags/Memory/" style="font-size: 14px; color: #999">Memory</a> <a href="/tags/Monorepo/" style="font-size: 14px; color: #999">Monorepo</a> <a href="/tags/Nginx/" style="font-size: 14px; color: #999">Nginx</a> <a href="/tags/Python/" style="font-size: 22.75px; color: #5e5e5e">Python</a> <a href="/tags/React/" style="font-size: 15.25px; color: #919191">React</a> <a href="/tags/Requests/" style="font-size: 15.25px; color: #919191">Requests</a> <a href="/tags/Scrapy/" style="font-size: 14px; color: #999">Scrapy</a> <a href="/tags/TCP/" style="font-size: 14px; color: #999">TCP</a> <a href="/tags/WSL/" style="font-size: 14px; color: #999">WSL</a> <a href="/tags/Wireshark/" style="font-size: 14px; color: #999">Wireshark</a> <a href="/tags/blog/" style="font-size: 21.5px; color: #666">blog</a> <a href="/tags/debug/" style="font-size: 14px; color: #999">debug</a> <a href="/tags/docker/" style="font-size: 15.25px; color: #919191">docker</a> <a href="/tags/hexo/" style="font-size: 17.75px; color: #808080">hexo</a> <a href="/tags/markdown/" style="font-size: 17.75px; color: #808080">markdown</a> <a href="/tags/memory/" style="font-size: 14px; color: #999">memory</a> <a href="/tags/tcpdump/" style="font-size: 14px; color: #999">tcpdump</a> <a href="/tags/%E4%B8%8A%E4%B8%8B%E6%96%87/" style="font-size: 14px; color: #999">上下文</a> <a href="/tags/%E4%BF%A1%E6%81%AF%E6%A0%87%E8%AE%B0/" style="font-size: 14px; color: #999">信息标记</a> <a href="/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/" style="font-size: 14px; color: #999">函数式编程</a> <a href="/tags/%E5%8A%A0%E5%AF%86/" style="font-size: 14px; color: #999">加密</a> <a href="/tags/%E5%8D%8F%E7%A8%8B/" style="font-size: 14px; color: #999">协程</a> <a href="/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/" style="font-size: 14px; color: #999">工程化</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 15.25px; color: #919191">数据结构</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" style="font-size: 14px; color: #999">服务器进程管理</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E7%BC%96%E6%8E%92/" style="font-size: 14px; color: #999">服务编排</a> <a href="/tags/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/" style="font-size: 14px; color: #999">架构设计</a> <a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 14px; color: #999">正则表达式</a> <a href="/tags/%E6%B5%81%E5%A4%84%E7%90%86%E5%B9%B3%E5%8F%B0/" style="font-size: 14px; color: #999">流处理平台</a> <a href="/tags/%E6%B6%88%E6%81%AF%E5%BC%95%E6%93%8E%E7%B3%BB%E7%BB%9F/" style="font-size: 14px; color: #999">消息引擎系统</a> <a href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" style="font-size: 14px; color: #999">消息队列</a> <a href="/tags/%E6%B7%B1%E6%8B%B7%E8%B4%9D%E4%B8%8E%E6%B5%85%E6%8B%B7%E8%B4%9D/" style="font-size: 14px; color: #999">深拷贝与浅拷贝</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 19px; color: #777">爬虫</a> <a href="/tags/%E7%8E%AF%E5%A2%83%E7%AE%A1%E7%90%86/" style="font-size: 14px; color: #999">环境管理</a> <a href="/tags/%E7%BA%BF%E7%A8%8B/" style="font-size: 14px; color: #999">线程</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E8%B7%AF/" style="font-size: 14px; color: #999">计算机网路</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 14px; color: #999">设计模式</a> <a href="/tags/%E8%AF%91%E6%96%87/" style="font-size: 14px; color: #999">译文</a> <a href="/tags/%E8%BF%9B%E7%A8%8B/" style="font-size: 14px; color: #999">进程</a> <a href="/tags/%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1/" style="font-size: 14px; color: #999">进程通信</a> <a href="/tags/%E9%9A%8F%E7%AC%94/" style="font-size: 20.25px; color: #6f6f6f">随笔</a> <a href="/tags/%E9%9A%90%E7%A7%81/" style="font-size: 14px; color: #999">隐私</a> <a href="/tags/%E9%9D%99%E6%80%81%E7%B1%BB%E5%9E%8B%E6%A3%80%E6%9F%A5/" style="font-size: 14px; color: #999">静态类型检查</a> <a href="/tags/%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86/" style="font-size: 14px; color: #999">项目管理</a>
     </div>
   </section>
 
@@ -1606,7 +1609,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       list-max-height='320px'
       server='netease'
       type='playlist'
-      id='3175833810'
+      id='6729508229'
       list-folded='true'>
     </meting-js>
   
@@ -2018,7 +2021,7 @@ var loadCSS = function( href, before, media, attributes ){
 
   <script>
   let APlayerController = new Object();
-  APlayerController.id = '3175833810';  // 设定全局音乐播放ID
+  APlayerController.id = '6729508229';  // 设定全局音乐播放ID
   APlayerController.volume = '0.7';
   loadCSS("https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css", window.volantis.loadcss);
   // APlayer 需要在  MetingJS 之前加载
