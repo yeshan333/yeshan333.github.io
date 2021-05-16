@@ -31,6 +31,8 @@
     <meta name="description" content="main:处理命令行//main函数的两种定义形式
 int main(int argc,char **argv[])
 int main(int argc,char *argv[])
+
+
 argc:指的是命令行中输入参数的个数
 argv:一个数组，它存储了所有的命令行参数
 ">
@@ -524,17 +526,19 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
   <h1 id="main-处理命令行"><a href="#main-处理命令行" class="headerlink" title="main:处理命令行"></a>main:处理命令行</h1><pre><code>//main函数的两种定义形式
 int main(int argc,char **argv[])
-int main(int argc,char *argv[])</code></pre><ul>
+int main(int argc,char *argv[])
+</code></pre>
+<ul>
 <li>argc:指的是命令行中输入参数的个数</li>
 <li>argv:一个数组，它存储了所有的命令行参数</li>
 </ul>
 <span id="more"></span>
 
-<p><img src="https://raw.githubusercontent.com/yeshan333/git_images/master/text.png" class="lazyload" data-srcset="https://raw.githubusercontent.com/yeshan333/git_images/master/text.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/yeshan333/git_images/master/text.png" class="lazyload" data-srcset="https://raw.githubusercontent.com/yeshan333/git_images/master/text.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <p>参数使用示例子:</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//file_name:test.cpp </span></span><br><span class="line"><span class="comment">//author:shansan</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc,<span class="keyword">char</span> **argv)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> i;</span><br><span class="line">	<span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;argc;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;argv[%d]=%s\n&quot;</span>,i,argv[i]);</span><br><span class="line">	&#125; </span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://i.imgur.com/nCsaA2L.gif" class="lazyload" data-srcset="https://i.imgur.com/nCsaA2L.gif" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt=""></p>
+<p><img src="https://i.imgur.com/nCsaA2L.gif" class="lazyload" data-srcset="https://i.imgur.com/nCsaA2L.gif" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <h1 id="含有可变形参的函数"><a href="#含有可变形参的函数" class="headerlink" title="含有可变形参的函数"></a>含有可变形参的函数</h1><h2 id="initializer-list形参"><a href="#initializer-list形参" class="headerlink" title="initializer_list形参"></a>initializer_list形参</h2><ul>
 <li>initializer_list是一种标准库类型，用于表示某种特定类型的值的数组</li>
 <li>initializer_list也是一种模板类型</li>
@@ -543,7 +547,7 @@ int main(int argc,char *argv[])</code></pre><ul>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print_1</span><span class="params">(<span class="built_in">initializer_list</span>&lt;<span class="built_in">string</span>&gt; str)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//遍历实参表列,使用initializer_list对象的成员begin和end进行遍历 </span></span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;parameter nums: &quot;</span>&lt;&lt;str.size()&lt;&lt;<span class="built_in">endl</span>; </span><br><span class="line">		</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">auto</span> temp = str.begin();temp != str.end(); ++temp) </span><br><span class="line">	&#123;</span><br><span class="line">	    <span class="built_in">cout</span>&lt;&lt;*temp&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    <span class="comment">//用范围for语句遍历表列</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">auto</span> beg : str)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;beg&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	&#125; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">const</span> <span class="built_in">string</span> a = <span class="string">&quot;shansan&quot;</span>;</span><br><span class="line">	<span class="built_in">string</span> b = <span class="string">&quot;yeshan333&quot;</span>;</span><br><span class="line">	<span class="built_in">string</span> c = <span class="string">&quot;wocao&quot;</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//向initializer_list形参中传递一个值的序列需放在花括号内部 </span></span><br><span class="line">    print_1(&#123;a,b,c&#125;);</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;	</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
 
-<p><img src="https://i.imgur.com/RdxXrcD.png" class="lazyload" data-srcset="https://i.imgur.com/RdxXrcD.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt=""></p>
+<p><img src="https://i.imgur.com/RdxXrcD.png" class="lazyload" data-srcset="https://i.imgur.com/RdxXrcD.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <h1 id="函数返回值—–列表初始化返回值"><a href="#函数返回值—–列表初始化返回值" class="headerlink" title="函数返回值—–列表初始化返回值"></a>函数返回值—–列表初始化返回值</h1><ul>
 <li>函数可以返回花括号包围的值的列表</li>
 <li>如果函数返回的是内置类型，则花括号包围的列表最多包含一个值，而且该值所占空间不应该大于目标类型的空间</li>
@@ -551,7 +555,7 @@ int main(int argc,char *argv[])</code></pre><ul>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; <span class="title">process</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> &#123;<span class="string">&quot;shansan&quot;</span>,<span class="string">&quot;yeshan333&quot;</span>&#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; v;</span><br><span class="line">	v = process();</span><br><span class="line">	<span class="comment">//遍历vector对象 </span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">auto</span> temp : v)</span><br><span class="line">	&#123;</span><br><span class="line">	    <span class="built_in">cout</span>&lt;&lt;temp&lt;&lt;<span class="built_in">endl</span>;	</span><br><span class="line">	&#125; </span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
 
-<p><img src="https://i.imgur.com/1cZJ4Uu.png" class="lazyload" data-srcset="https://i.imgur.com/1cZJ4Uu.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt=""></p>
+<p><img src="https://i.imgur.com/1cZJ4Uu.png" class="lazyload" data-srcset="https://i.imgur.com/1cZJ4Uu.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <h1 id="调试帮助，预定义跟踪调试"><a href="#调试帮助，预定义跟踪调试" class="headerlink" title="调试帮助，预定义跟踪调试"></a>调试帮助，预定义跟踪调试</h1><p>编译器为我们定义的</p>
 <ul>
 <li><strong>func</strong>:存放当前调试函数的名字</li>
@@ -560,7 +564,7 @@ int main(int argc,char *argv[])</code></pre><ul>
 <li><strong>TIME</strong>:存放文件编译时间的字符串字面值常量</li>
 <li><strong>DATE</strong>:存放文件编译日期的字符串字面值常量</li>
 </ul>
-<p><img src="https://i.imgur.com/zYffeTU.png" class="lazyload" data-srcset="https://i.imgur.com/zYffeTU.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt=""></p>
+<p><img src="https://i.imgur.com/zYffeTU.png" class="lazyload" data-srcset="https://i.imgur.com/zYffeTU.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <hr>
 
   
@@ -625,6 +629,8 @@ int main(int argc,char *argv[])</code></pre><ul>
           target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://yeshan333.github.io/2018/11/22/%E5%86%8D%E6%8E%A2%E5%87%BD%E6%95%B0/&title=再探函数 - ShanSan&summary=main:处理命令行//main函数的两种定义形式
 int main(int argc,char **argv[])
 int main(int argc,char *argv[])
+
+
 argc:指的是命令行中输入参数的个数
 argv:一个数组，它存储了所有的命令行参数
 "
@@ -642,6 +648,8 @@ argv:一个数组，它存储了所有的命令行参数
           target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://yeshan333.github.io/2018/11/22/%E5%86%8D%E6%8E%A2%E5%87%BD%E6%95%B0/&title=再探函数 - ShanSan&summary=main:处理命令行//main函数的两种定义形式
 int main(int argc,char **argv[])
 int main(int argc,char *argv[])
+
+
 argc:指的是命令行中输入参数的个数
 argv:一个数组，它存储了所有的命令行参数
 "
@@ -659,6 +667,8 @@ argv:一个数组，它存储了所有的命令行参数
           target="_blank" href="http://service.weibo.com/share/share.php?url=https://yeshan333.github.io/2018/11/22/%E5%86%8D%E6%8E%A2%E5%87%BD%E6%95%B0/&title=再探函数 - ShanSan&summary=main:处理命令行//main函数的两种定义形式
 int main(int argc,char **argv[])
 int main(int argc,char *argv[])
+
+
 argc:指的是命令行中输入参数的个数
 argv:一个数组，它存储了所有的命令行参数
 "
@@ -880,7 +890,7 @@ cout:一个ostream对象，从标准...</p>
     
       
         <div class='copyright'>
-        <p><a target="_blank" rel="noopener" href="https://shansan.top">Copyright © 2018-2021 ShanSan</a></p>
+        <p><a target="_blank" rel="noopener" href="https://shansan.top/">Copyright © 2018-2021 ShanSan</a></p>
 
         </div>
       

@@ -526,10 +526,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <p><a target="_blank" rel="noopener" href="https://hexo.io/docs/deployment.html">使用参考</a></p>
 </blockquote>
 <p>** 先安装个扩展<code>$ npm install hexo-deployer-git --save</code> **</p>
-<h2 id="1-修改博客根目录下的-config-yml文件"><a href="#1-修改博客根目录下的-config-yml文件" class="headerlink" title="1.修改博客根目录下的_config_yml文件"></a>1.修改博客根目录下的<code>_config_yml</code>文件</h2><p><img src="https://img.vim-cn.com/b9/242b742e41b045e48e38055e2202cdfdbbc5f3.png" class="lazyload" data-srcset="https://img.vim-cn.com/b9/242b742e41b045e48e38055e2202cdfdbbc5f3.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt=""></p>
+<h2 id="1-修改博客根目录下的-config-yml文件"><a href="#1-修改博客根目录下的-config-yml文件" class="headerlink" title="1.修改博客根目录下的_config_yml文件"></a>1.修改博客根目录下的<code>_config_yml</code>文件</h2><p><img src="https://img.vim-cn.com/b9/242b742e41b045e48e38055e2202cdfdbbc5f3.png" class="lazyload" data-srcset="https://img.vim-cn.com/b9/242b742e41b045e48e38055e2202cdfdbbc5f3.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Deployment</span></span><br><span class="line"><span class="comment">## Docs: https://hexo.io/docs/deployment.html</span></span><br><span class="line">deploy:</span><br><span class="line">  <span class="built_in">type</span>: git</span><br><span class="line">  repo: git@github.com:yeshan333/yeshan333.github.io.git <span class="comment"># 这个可到Github仓库拿</span></span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://img.vim-cn.com/44/35d14788fe4cab09d8b20da1753335ad758c23.png" class="lazyload" data-srcset="https://img.vim-cn.com/44/35d14788fe4cab09d8b20da1753335ad758c23.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt=""></p>
+<p><img src="https://img.vim-cn.com/44/35d14788fe4cab09d8b20da1753335ad758c23.png" class="lazyload" data-srcset="https://img.vim-cn.com/44/35d14788fe4cab09d8b20da1753335ad758c23.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <span id="more"></span>
 
 <h2 id="2-部署到GitHub-repo"><a href="#2-部署到GitHub-repo" class="headerlink" title="2.部署到GitHub repo"></a>2.部署到GitHub repo</h2><h3 id="生成ssh-keys"><a href="#生成ssh-keys" class="headerlink" title="生成ssh keys"></a>生成ssh keys</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">&quot;邮件地址@youremail.com&quot;</span> <span class="comment">#生成新的key文件，邮箱地址填注册Github时用的</span></span><br></pre></td></tr></table></figure>
@@ -549,7 +549,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 </ol>
 </li>
 </ul>
-<p><img src="https://img.vim-cn.com/1d/9e76911a5130f878845a7178b03d8977eac937.png" class="lazyload" data-srcset="https://img.vim-cn.com/1d/9e76911a5130f878845a7178b03d8977eac937.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt=""></p>
+<p><img src="https://img.vim-cn.com/1d/9e76911a5130f878845a7178b03d8977eac937.png" class="lazyload" data-srcset="https://img.vim-cn.com/1d/9e76911a5130f878845a7178b03d8977eac937.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <ul>
 <li><ol start="3">
 <li>测试一下是否添加成功了:</li>
@@ -558,7 +558,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 </ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://img.vim-cn.com/00/7d3b8f51ed72ecd2ce3f73c387944729f18ff1.png" class="lazyload" data-srcset="https://img.vim-cn.com/00/7d3b8f51ed72ecd2ce3f73c387944729f18ff1.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt=""></p>
+<p><img src="https://img.vim-cn.com/00/7d3b8f51ed72ecd2ce3f73c387944729f18ff1.png" class="lazyload" data-srcset="https://img.vim-cn.com/00/7d3b8f51ed72ecd2ce3f73c387944729f18ff1.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <h3 id="部署博客"><a href="#部署博客" class="headerlink" title="部署博客"></a>部署博客</h3><ol>
 <li>先配好git用户信息</li>
 </ol>
@@ -569,7 +569,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo g <span class="comment"># 生成静态文件</span></span><br><span class="line">hexo d <span class="comment"># 部署到远程仓库</span></span><br></pre></td></tr></table></figure>
 
-<p>访问<a target="_blank" rel="noopener" href="https://yourname.github.io查看结果">https://yourname.github.io查看结果</a></p>
+<p>访问<a target="_blank" rel="noopener" href="https://yourname.github.io查看结果/">https://yourname.github.io查看结果</a></p>
 <p>** 到此，整个博客搭建完成了 **</p>
 <p>以下是写的是博客主题的更换，主题可以自己写，也可以使用别人写的，可去这里<a target="_blank" rel="noopener" href="https://hexo.io/themes/">https://hexo.io/themes/</a>找喜欢的主题，如果使用的是别人的主题，需要阅读主题使用文档进行相关配置。</p>
 <h1 id="二、Hexo主题设置"><a href="#二、Hexo主题设置" class="headerlink" title="二、Hexo主题设置"></a>二、Hexo主题设置</h1><ul>
@@ -589,7 +589,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd themes&#x2F;yilia</span><br><span class="line">git pull #更新主题</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://img.vim-cn.com/bf/e7a244bb8eacd6753b71192d4cc7396837493d.png" class="lazyload" data-srcset="https://img.vim-cn.com/bf/e7a244bb8eacd6753b71192d4cc7396837493d.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt=""></p>
+<p><img src="https://img.vim-cn.com/bf/e7a244bb8eacd6753b71192d4cc7396837493d.png" class="lazyload" data-srcset="https://img.vim-cn.com/bf/e7a244bb8eacd6753b71192d4cc7396837493d.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <ul>
 <li><ol start="3">
 <li>预览新主题</li>
@@ -598,7 +598,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 </ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean <span class="comment"># 清楚缓存，删除public目录</span></span><br><span class="line">hexo g     <span class="comment"># 生成新的博客静态文件</span></span><br><span class="line">hexo s</span><br></pre></td></tr></table></figure>
 
-<p>去<a target="_blank" rel="noopener" href="http://localhost:4000">http://localhost:4000</a>预览，没毛病就<code>hexo d</code>部署到远程仓库。</p>
+<p>去<a target="_blank" rel="noopener" href="http://localhost:4000/">http://localhost:4000</a>预览，没毛病就<code>hexo d</code>部署到远程仓库。</p>
 
   
   
@@ -918,7 +918,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     
       
         <div class='copyright'>
-        <p><a target="_blank" rel="noopener" href="https://shansan.top">Copyright © 2018-2021 ShanSan</a></p>
+        <p><a target="_blank" rel="noopener" href="https://shansan.top/">Copyright © 2018-2021 ShanSan</a></p>
 
         </div>
       

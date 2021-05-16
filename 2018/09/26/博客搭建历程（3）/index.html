@@ -538,7 +538,9 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 |--source
 |--themes
 |--_config.yml
-|--package.json</code></pre><ul>
+|--package.json
+</code></pre>
+<ul>
 <li>.deploy ：部署到GitHub上的内容目录</li>
 <li>public：输出的静态网页内容目录</li>
 <li>scaffolds：layout模板文件目录</li>
@@ -547,7 +549,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <li>—config.yml：全局配置文件</li>
 <li>package.json：项目依赖声明文件</li>
 </ul>
-<h1 id="给主题yilia配置干货"><a href="#给主题yilia配置干货" class="headerlink" title="给主题yilia配置干货"></a>给主题yilia配置干货</h1><h2 id="一、腾讯公益404"><a href="#一、腾讯公益404" class="headerlink" title="一、腾讯公益404"></a>一、腾讯公益404</h2><p><strong><em><a target="_blank" rel="noopener" href="http://www.qq.com/404/">公益404</a></em></strong></p>
+<h1 id="给主题yilia配置干货"><a href="#给主题yilia配置干货" class="headerlink" title="给主题yilia配置干货"></a>给主题yilia配置干货</h1><h2 id="一、腾讯公益404"><a href="#一、腾讯公益404" class="headerlink" title="一、腾讯公益404"></a>一、腾讯公益404</h2><p><em><strong><a target="_blank" rel="noopener" href="http://www.qq.com/404/">公益404</a></strong></em></p>
 <p><code>hexo new page 404 #新建一个页面</code></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#在生成的index.md文件下添加以下代码</span></span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=<span class="string">&quot;en&quot;</span>&gt;</span><br><span class="line">&lt;head&gt;]\</span><br><span class="line">&lt;meta charset=<span class="string">&quot;UTF-8&quot;</span>&gt;</span><br><span class="line">&lt;title&gt;404&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;script <span class="built_in">type</span>=<span class="string">&quot;text/javascript&quot;</span> src=<span class="string">&quot;//qzonestyle.gtimg.cn/qzone/hybrid/app/404/search_children.js&quot;</span> charset=<span class="string">&quot;utf-8&quot;</span>&gt;&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
 
@@ -557,17 +559,17 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <h2 id="二、制作个网站ico"><a href="#二、制作个网站ico" class="headerlink" title="二、制作个网站ico"></a>二、制作个网站ico</h2><p><a target="_blank" rel="noopener" href="http://www.favicon-icon-generator.com/">戳这里</a></p>
 <p>也可以不弄，直接用</p>
 <p>把你的网站ico放在<code>public\img</code>即可<br>修改<code>theme\_config.yml</code></p>
-<p><img src="http://pflr7ix8q.bkt.clouddn.com/18-9-26/70038755.jpg" class="lazyload" data-srcset="http://pflr7ix8q.bkt.clouddn.com/18-9-26/70038755.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt=""></p>
+<p><img src="http://pflr7ix8q.bkt.clouddn.com/18-9-26/70038755.jpg" class="lazyload" data-srcset="http://pflr7ix8q.bkt.clouddn.com/18-9-26/70038755.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <h2 id="三、使用网站访问量统计-使用友盟"><a href="#三、使用网站访问量统计-使用友盟" class="headerlink" title="三、使用网站访问量统计(使用友盟)"></a>三、使用网站访问量统计(使用友盟)</h2><p><strong>效果如下</strong></p>
-<p><img src="http://pflr7ix8q.bkt.clouddn.com/18-9-26/75982791.jpg" class="lazyload" data-srcset="http://pflr7ix8q.bkt.clouddn.com/18-9-26/75982791.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt=""></p>
-<h4 id="注册账号友盟官网"><a href="#注册账号友盟官网" class="headerlink" title="注册账号友盟官网"></a>注册账号<a target="_blank" rel="noopener" href="https://www.umeng.com/">友盟官网</a></h4><p><img src="http://pflr7ix8q.bkt.clouddn.com/18-9-26/69139019.jpg" class="lazyload" data-srcset="http://pflr7ix8q.bkt.clouddn.com/18-9-26/69139019.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt=""><br><img src="http://pflr7ix8q.bkt.clouddn.com/18-9-26/14156171.jpg" class="lazyload" data-srcset="http://pflr7ix8q.bkt.clouddn.com/18-9-26/14156171.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt=""></p>
-<h4 id="获取代码"><a href="#获取代码" class="headerlink" title="获取代码"></a><em>获取代码</em></h4><p><img src="http://pflr7ix8q.bkt.clouddn.com/18-9-26/66278706.jpg" class="lazyload" data-srcset="http://pflr7ix8q.bkt.clouddn.com/18-9-26/66278706.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt=""></p>
+<p><img src="http://pflr7ix8q.bkt.clouddn.com/18-9-26/75982791.jpg" class="lazyload" data-srcset="http://pflr7ix8q.bkt.clouddn.com/18-9-26/75982791.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<h4 id="注册账号友盟官网"><a href="#注册账号友盟官网" class="headerlink" title="注册账号友盟官网"></a>注册账号<a target="_blank" rel="noopener" href="https://www.umeng.com/">友盟官网</a></h4><p><img src="http://pflr7ix8q.bkt.clouddn.com/18-9-26/69139019.jpg" class="lazyload" data-srcset="http://pflr7ix8q.bkt.clouddn.com/18-9-26/69139019.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="><br><img src="http://pflr7ix8q.bkt.clouddn.com/18-9-26/14156171.jpg" class="lazyload" data-srcset="http://pflr7ix8q.bkt.clouddn.com/18-9-26/14156171.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<h4 id="获取代码"><a href="#获取代码" class="headerlink" title="获取代码"></a><em>获取代码</em></h4><p><img src="http://pflr7ix8q.bkt.clouddn.com/18-9-26/66278706.jpg" class="lazyload" data-srcset="http://pflr7ix8q.bkt.clouddn.com/18-9-26/66278706.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <p>在<code>hemes\yilia\layout\_partial\footer.ejs</code>挑个位置放</p>
-<p><img src="http://pflr7ix8q.bkt.clouddn.com/18-9-26/61353041.jpg" class="lazyload" data-srcset="http://pflr7ix8q.bkt.clouddn.com/18-9-26/61353041.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt=""></p>
+<p><img src="http://pflr7ix8q.bkt.clouddn.com/18-9-26/61353041.jpg" class="lazyload" data-srcset="http://pflr7ix8q.bkt.clouddn.com/18-9-26/61353041.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo g</span><br><span class="line">hexo s</span><br></pre></td></tr></table></figure>
 
 <p><strong><a target="_blank" rel="noopener" href="http://localhost:4000/">看下效果</a></strong></p>
-<p><strong><em><code>hexo d #部署到 github</code></em></strong></p>
+<p><em><strong><code>hexo d #部署到 github </code></strong></em></p>
 <h5 id="若不想用CNZZ参考"><a href="#若不想用CNZZ参考" class="headerlink" title="若不想用CNZZ参考"></a>若不想用CNZZ<a target="_blank" rel="noopener" href="https://blog.csdn.net/zxlvxj/article/details/77720934">参考</a></h5>
   
   
@@ -882,7 +884,7 @@ Markdown是一种可以使用普通文本编辑器编写的标记语言，通过
     
       
         <div class='copyright'>
-        <p><a target="_blank" rel="noopener" href="https://shansan.top">Copyright © 2018-2021 ShanSan</a></p>
+        <p><a target="_blank" rel="noopener" href="https://shansan.top/">Copyright © 2018-2021 ShanSan</a></p>
 
         </div>
       

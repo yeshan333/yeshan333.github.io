@@ -529,9 +529,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <li><input checked="" disabled="" type="checkbox"> 干的漂亮</li>
 <li><input checked="" disabled="" type="checkbox"> 吃饭</li>
 <li><input checked="" disabled="" type="checkbox"> 写代码</li>
-<li><input disabled="" type="checkbox"> 睡觉<span id="more"></span>
-
-</li>
+<li><input disabled="" type="checkbox"> 睡觉<span id="more"></span></li>
 </ul>
 <h2 id="二、列表"><a href="#二、列表" class="headerlink" title="二、列表"></a>二、列表</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#无序列列表 * 换成 - 也行</span><br><span class="line">* 你</span><br><span class="line">* 你好</span><br><span class="line">* 你好呀</span><br><span class="line">- 你很好啊</span><br></pre></td></tr></table></figure>
 <ul>
@@ -605,29 +603,24 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <td align="center">男</td>
 <td align="center">是</td>
 </tr>
+</tbody></table>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">| 姓名 | 性别 | 是否同性恋 |</span><br><span class="line">| ---- |----: | :---------:|</span><br><span class="line">|张三|男|否|</span><br><span class="line">|李四|男|是|</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
 <tr>
-<td><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">| 姓名 | 性别 | 是否同性恋 |</span><br><span class="line">| ---- |----: | :---------:|</span><br><span class="line">|张三|男|否|</span><br><span class="line">|李四|男|是|</span><br></pre></td></tr></table></figure></td>
-<td align="center"></td>
-<td align="center"></td>
+<th>姓名</th>
+<th align="right">性别</th>
+<th align="center">是否同性恋</th>
 </tr>
-<tr>
-<td>姓名</td>
-<td align="center">性别</td>
-<td align="center">是否同性恋</td>
-</tr>
-<tr>
-<td>—-</td>
-<td align="center">—-:</td>
-<td align="center">:———:</td>
-</tr>
-<tr>
+</thead>
+<tbody><tr>
 <td>张三</td>
-<td align="center">男</td>
+<td align="right">男</td>
 <td align="center">否</td>
 </tr>
 <tr>
 <td>李四</td>
-<td align="center">男</td>
+<td align="right">男</td>
 <td align="center">是</td>
 </tr>
 </tbody></table>
@@ -636,8 +629,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <p><strong>代码块</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#每行前四个空格或一个tab</span><br><span class="line">	php:echo &quot;Hello World&quot;</span><br><span class="line">	VBscript：Msgbox &quot;Hello World&quot;</span><br></pre></td></tr></table></figure>
 <pre><code>php:echo &quot;Hello World&quot;
-VBscript：Msgbox &quot;Hello World&quot;</code></pre><p><del><strong><em>有行标代码块</em></strong></del><br><img src="http://pflr7ix8q.bkt.clouddn.com/18-9-28/60378882.jpg" class="lazyload" data-srcset="http://pflr7ix8q.bkt.clouddn.com/18-9-28/60378882.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt=""></p>
-<p><del><strong><em>无行标</em></strong></del><br><img src="http://pflr7ix8q.bkt.clouddn.com/18-9-28/72647084.jpg" class="lazyload" data-srcset="http://pflr7ix8q.bkt.clouddn.com/18-9-28/72647084.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt=""></p>
+VBscript：Msgbox &quot;Hello World&quot;
+</code></pre>
+<p><del><em><strong>有行标代码块</strong></em></del><br><img src="http://pflr7ix8q.bkt.clouddn.com/18-9-28/60378882.jpg" class="lazyload" data-srcset="http://pflr7ix8q.bkt.clouddn.com/18-9-28/60378882.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><del><em><strong>无行标</strong></em></del><br><img src="http://pflr7ix8q.bkt.clouddn.com/18-9-28/72647084.jpg" class="lazyload" data-srcset="http://pflr7ix8q.bkt.clouddn.com/18-9-28/72647084.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">4</span>):</span><br><span class="line">    print(i)</span><br></pre></td></tr></table></figure>
 
 <p><u>bash换成python</u>使用语法高亮</p>
@@ -650,10 +645,10 @@ VBscript：Msgbox &quot;Hello World&quot;</code></pre><p><del><strong><em>有行
 <h2 id="反斜杠的使用"><a href="#反斜杠的使用" class="headerlink" title="反斜杠的使用"></a>反斜杠的使用</h2><p>使用反斜杠可以避免文本中的符号被当作markdown标识符而发生不必要的转换</p>
 <p>例如</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">\!</span><br><span class="line">\()</span><br><span class="line">\**不是粗体**</span><br><span class="line">\# 不是一级标题</span><br></pre></td></tr></table></figure>
-<p>!<br>()<br>*<em>不是粗体*</em><br># 不是一级标题</p>
+<p>!<br>()<br>*<em>不是粗体</em>*<br># 不是一级标题</p>
 <h2 id="使用缩进"><a href="#使用缩进" class="headerlink" title="使用缩进"></a>使用缩进</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">不断行的空白格  &amp;nbsp;  或  &amp;#160;</span><br><span class="line">半角的空格      &amp;ensp;  或  &amp;#8194;</span><br><span class="line">全角的空格      &amp;emsp;  或  &amp;#8195;</span><br><span class="line"></span><br><span class="line">示例:</span><br><span class="line">&amp;ensp; &amp;ensp今天天气好啊</span><br><span class="line">&amp;emsp;&amp;emsp;感觉倍爽啊</span><br></pre></td></tr></table></figure>
 <p>&ensp;&ensp;今天天气好啊<br>&emsp;&emsp;感觉倍爽啊</p>
-<p><u><strong><em>不要忘了英文的分号</em></strong></u><br>参考自<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/8b41aa1fcf01">zhouie</a></p>
+<p><u><em><strong>不要忘了英文的分号</strong></em></u><br>参考自<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/8b41aa1fcf01">zhouie</a></p>
 <hr>
 
   
@@ -978,7 +973,7 @@ ht...</p>
     
       
         <div class='copyright'>
-        <p><a target="_blank" rel="noopener" href="https://shansan.top">Copyright © 2018-2021 ShanSan</a></p>
+        <p><a target="_blank" rel="noopener" href="https://shansan.top/">Copyright © 2018-2021 ShanSan</a></p>
 
         </div>
       

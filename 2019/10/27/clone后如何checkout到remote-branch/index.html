@@ -532,17 +532,17 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
   
   <h2 id="what-why"><a href="#what-why" class="headerlink" title="what/why"></a>what/why</h2><p>通常情况使用<code>git clone github_repository_address</code>下载下来的仓库使用<code>git branch</code>查看当前所有分支时只能看到master分支，但是想要切换到其他分支进行工作怎么办❓</p>
-<p><img src="https://cdn.jsdelivr.net/gh/ssmath/mypic/img/20191027014941.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/ssmath/mypic/img/20191027014941.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt=""></p>
+<p><img src="https://cdn.jsdelivr.net/gh/ssmath/mypic/img/20191027014941.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/ssmath/mypic/img/20191027014941.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <p>其实使用git clone下载的repository没那么简单😥，clone得到的是仓库所有的数据，不仅仅是复制在Github repository所能看到的master分支下的所有文件，<strong>clone下来的是仓库下的每一个文件和每一个文件的版本（也就是说所有的分支都被搞下来了咯）</strong>，那为啥看不到，其实remote branch被隐藏了，需要使用<code>git branch -a</code>才能看到。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/ssmath/mypic/img/20191027015046.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/ssmath/mypic/img/20191027015046.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt=""></p>
+<p><img src="https://cdn.jsdelivr.net/gh/ssmath/mypic/img/20191027015046.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/ssmath/mypic/img/20191027015046.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <h2 id="how"><a href="#how" class="headerlink" title="how"></a>how</h2><p>emmm…，现在看到了，那么怎么切换到remote branch呢？（我太难了🙃），又到了查文档的时候了，一波操作过后了解到git checkout是有restore working tree files的功能的，可以用来restore remote branch，比如使用以下命令在本地创建个新分支track远程分支：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout -b &lt;branch&gt; --track &lt;remote&gt;/&lt;branch&gt;</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 例子，本地为远程分支CkaiGrac-PYMO创建的新分支名为yeshan，push时需要注意</span></span><br><span class="line">git checkout -b yeshan --track origin/CkaiGrac-PYMO</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://cdn.jsdelivr.net/gh/ssmath/mypic/img/20191027015123.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/ssmath/mypic/img/20191027015123.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt=""></p>
+<p><img src="https://cdn.jsdelivr.net/gh/ssmath/mypic/img/20191027015123.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/ssmath/mypic/img/20191027015123.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <p>tips：使用<code>git checkout -t &lt;remote/branch&gt;</code>默认会在本地建立一个和远程分支名字一样的分支</p>
-<p><img src="https://cdn.jsdelivr.net/gh/ssmath/mypic/img/20191027015200.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/ssmath/mypic/img/20191027015200.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt=""></p>
+<p><img src="https://cdn.jsdelivr.net/gh/ssmath/mypic/img/20191027015200.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/ssmath/mypic/img/20191027015200.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><ul>
 <li><a target="_blank" rel="noopener" href="https://git-scm.com/docs/git-branch">git-branch: https://git-scm.com/docs/git-branch</a></li>
 <li><a target="_blank" rel="noopener" href="https://git-scm.com/docs/git-checkout">git-checkout: https://git-scm.com/docs/git-checkout</a></li>
@@ -902,7 +902,7 @@ B站也有PC”客户...</p>
     
       
         <div class='copyright'>
-        <p><a target="_blank" rel="noopener" href="https://shansan.top">Copyright © 2018-2021 ShanSan</a></p>
+        <p><a target="_blank" rel="noopener" href="https://shansan.top/">Copyright © 2018-2021 ShanSan</a></p>
 
         </div>
       

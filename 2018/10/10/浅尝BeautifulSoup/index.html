@@ -578,22 +578,16 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <td align="center">标签内字符串的注释部分，一种特殊的Comment类型</td>
 </tr>
 <tr>
-<td align="center"><img src="https://i.imgur.com/E3iOdKm.png" class="lazyload" data-srcset="https://i.imgur.com/E3iOdKm.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt=""></td>
+<td align="center"><img src="https://i.imgur.com/E3iOdKm.png" class="lazyload" data-srcset="https://i.imgur.com/E3iOdKm.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></td>
 <td align="center"></td>
 </tr>
 <tr>
-<td align="center"><img src="https://i.imgur.com/IQm7qi8.png" class="lazyload" data-srcset="https://i.imgur.com/IQm7qi8.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt=""></td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center"><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Tag的Comment元素</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"></span><br><span class="line">soup = BeautifulSoup(<span class="string">&quot;&lt;b&gt;&lt;!--This is a comment--&gt;&lt;/b&gt;&lt;p&gt;This is not a comment&lt;/p&gt;&quot;</span>,<span class="string">&quot;html.parser&quot;</span>)</span><br><span class="line"></span><br><span class="line">print(soup.b.string)</span><br><span class="line">print(<span class="built_in">type</span>(soup.b.string))</span><br><span class="line"></span><br><span class="line">print(soup.p.string)</span><br><span class="line">print(<span class="built_in">type</span>(soup.p.string))</span><br><span class="line"></span><br></pre></td></tr></table></figure></td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center"><img src="https://i.imgur.com/77Ka7Qb.png" class="lazyload" data-srcset="https://i.imgur.com/77Ka7Qb.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt=""></td>
+<td align="center"><img src="https://i.imgur.com/IQm7qi8.png" class="lazyload" data-srcset="https://i.imgur.com/IQm7qi8.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></td>
 <td align="center"></td>
 </tr>
 </tbody></table>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Tag的Comment元素</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"></span><br><span class="line">soup = BeautifulSoup(<span class="string">&quot;&lt;b&gt;&lt;!--This is a comment--&gt;&lt;/b&gt;&lt;p&gt;This is not a comment&lt;/p&gt;&quot;</span>,<span class="string">&quot;html.parser&quot;</span>)</span><br><span class="line"></span><br><span class="line">print(soup.b.string)</span><br><span class="line">print(<span class="built_in">type</span>(soup.b.string))</span><br><span class="line"></span><br><span class="line">print(soup.p.string)</span><br><span class="line">print(<span class="built_in">type</span>(soup.p.string))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/77Ka7Qb.png" class="lazyload" data-srcset="https://i.imgur.com/77Ka7Qb.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <ul>
 <li>BeautifulSoup对应一个HTML/XML文档的全部内容</li>
 <li>任何存在于HTMl语法中的标签都可以用<code>soup.&lt;tag&gt;</code>访问获得，当HTML文档中存在多个相同<code>&lt;tag&gt;</code>对应内容时，<code>soup.&lt;tag&gt;</code>返回第一个</li>
@@ -601,7 +595,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <li>一个<code>&lt;tag&gt;</code>可以有0或多个属性，字典类型</li>
 <li>NavigableString可以跨越多个层次</li>
 </ul>
-<h1 id="基于bs4库的HTML内容遍历方法"><a href="#基于bs4库的HTML内容遍历方法" class="headerlink" title="基于bs4库的HTML内容遍历方法"></a>基于bs4库的HTML内容遍历方法</h1><p><img src="https://i.imgur.com/9ka0fPA.png" class="lazyload" data-srcset="https://i.imgur.com/9ka0fPA.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt=""><br><img src="https://i.imgur.com/QqwbSXq.png" class="lazyload" data-srcset="https://i.imgur.com/QqwbSXq.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt=""></p>
+<h1 id="基于bs4库的HTML内容遍历方法"><a href="#基于bs4库的HTML内容遍历方法" class="headerlink" title="基于bs4库的HTML内容遍历方法"></a>基于bs4库的HTML内容遍历方法</h1><p><img src="https://i.imgur.com/9ka0fPA.png" class="lazyload" data-srcset="https://i.imgur.com/9ka0fPA.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="><br><img src="https://i.imgur.com/QqwbSXq.png" class="lazyload" data-srcset="https://i.imgur.com/QqwbSXq.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <h2 id="标签数的下行遍历"><a href="#标签数的下行遍历" class="headerlink" title="标签数的下行遍历"></a>标签数的下行遍历</h2><table>
 <thead>
 <tr>
@@ -622,30 +616,23 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <td align="center">子孙节点的迭代类型，包含所有子孙节点，用于循环遍历</td>
 </tr>
 <tr>
-<td align="center"><img src="https://i.imgur.com/x0ptQee.png" class="lazyload" data-srcset="https://i.imgur.com/x0ptQee.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt=""></td>
+<td align="center"><img src="https://i.imgur.com/x0ptQee.png" class="lazyload" data-srcset="https://i.imgur.com/x0ptQee.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></td>
 <td align="center"></td>
 </tr>
 <tr>
-<td align="center"><img src="https://i.imgur.com/aoz6x9u.png" class="lazyload" data-srcset="https://i.imgur.com/aoz6x9u.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt=""></td>
+<td align="center"><img src="https://i.imgur.com/aoz6x9u.png" class="lazyload" data-srcset="https://i.imgur.com/aoz6x9u.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></td>
 <td align="center"></td>
 </tr>
+</tbody></table>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 标签树的下行遍历</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"></span><br><span class="line">url = <span class="string">&quot;https://python123.io/ws/demo.html&quot;</span></span><br><span class="line"></span><br><span class="line">r = requests.get(url)</span><br><span class="line"></span><br><span class="line">demo = r.text</span><br><span class="line">soup = BeautifulSoup(demo,<span class="string">&quot;html.parser&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;for child in soup.body.children:  #遍历儿子节点</span></span><br><span class="line"><span class="string">    print(child)</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> child <span class="keyword">in</span> soup.body.descendants:  <span class="comment">#遍历子孙节点</span></span><br><span class="line">    print(child)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="标签树的上行遍历"><a href="#标签树的上行遍历" class="headerlink" title="标签树的上行遍历"></a>标签树的上行遍历</h2><table>
+<thead>
 <tr>
-<td align="center"><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 标签树的下行遍历</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"></span><br><span class="line">url = <span class="string">&quot;https://python123.io/ws/demo.html&quot;</span></span><br><span class="line"></span><br><span class="line">r = requests.get(url)</span><br><span class="line"></span><br><span class="line">demo = r.text</span><br><span class="line">soup = BeautifulSoup(demo,<span class="string">&quot;html.parser&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;for child in soup.body.children:  #遍历儿子节点</span></span><br><span class="line"><span class="string">    print(child)</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> child <span class="keyword">in</span> soup.body.descendants:  <span class="comment">#遍历子孙节点</span></span><br><span class="line">    print(child)</span><br><span class="line"></span><br></pre></td></tr></table></figure></td>
-<td align="center"></td>
+<th align="center">属性</th>
+<th align="center">说明</th>
 </tr>
-<tr>
-<td align="center">## 标签树的上行遍历</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">属性</td>
-<td align="center">说明</td>
-</tr>
-<tr>
-<td align="center">:–:</td>
-<td align="center">:–:</td>
-</tr>
-<tr>
+</thead>
+<tbody><tr>
 <td align="center">.parent</td>
 <td align="center">节点的父亲标签</td>
 </tr>
@@ -653,15 +640,9 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <td align="center">.parents</td>
 <td align="center">节点先辈标签的的迭代类型，用于循环遍历先辈节点</td>
 </tr>
-<tr>
-<td align="center"><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 标签树的上行遍历</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"></span><br><span class="line">url = <span class="string">&quot;https://python123.io/ws/demo.html&quot;</span></span><br><span class="line"></span><br><span class="line">r = requests.get(url)</span><br><span class="line"></span><br><span class="line">demo = r.text</span><br><span class="line">soup = BeautifulSoup(demo,<span class="string">&quot;html.parser&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> parent <span class="keyword">in</span> soup.a.parents:  <span class="comment">#遍历所有先辈节点，包括soup本身，soup的先辈不存在name信息</span></span><br><span class="line">    <span class="keyword">if</span> parent <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        print(parent)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        print(parent.name)</span><br><span class="line"></span><br></pre></td></tr></table></figure></td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center"><img src="https://i.imgur.com/WEKGdLU.png" class="lazyload" data-srcset="https://i.imgur.com/WEKGdLU.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt=""></td>
-<td align="center"></td>
-</tr>
 </tbody></table>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 标签树的上行遍历</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"></span><br><span class="line">url = <span class="string">&quot;https://python123.io/ws/demo.html&quot;</span></span><br><span class="line"></span><br><span class="line">r = requests.get(url)</span><br><span class="line"></span><br><span class="line">demo = r.text</span><br><span class="line">soup = BeautifulSoup(demo,<span class="string">&quot;html.parser&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> parent <span class="keyword">in</span> soup.a.parents:  <span class="comment">#遍历所有先辈节点，包括soup本身，soup的先辈不存在name信息</span></span><br><span class="line">    <span class="keyword">if</span> parent <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        print(parent)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        print(parent.name)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/WEKGdLU.png" class="lazyload" data-srcset="https://i.imgur.com/WEKGdLU.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <h2 id="标签树的平行遍历"><a href="#标签树的平行遍历" class="headerlink" title="标签树的平行遍历"></a>标签树的平行遍历</h2><p>平行遍历发生在同一个父节点下的各节点之间</p>
 <table>
 <thead>
@@ -687,18 +668,17 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <td align="center">迭代类型，返回按照HTML文本顺序的前续所有平行节点标签</td>
 </tr>
 </tbody></table>
-<p><img src="https://i.imgur.com/TECSzL4.png" class="lazyload" data-srcset="https://i.imgur.com/TECSzL4.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt=""></p>
+<p><img src="https://i.imgur.com/TECSzL4.png" class="lazyload" data-srcset="https://i.imgur.com/TECSzL4.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 标签树的平行遍历</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"></span><br><span class="line">url = <span class="string">&quot;https://python123.io/ws/demo.html&quot;</span></span><br><span class="line"></span><br><span class="line">r = requests.get(url)</span><br><span class="line"></span><br><span class="line">demo = r.text</span><br><span class="line">soup = BeautifulSoup(demo,<span class="string">&quot;html.parser&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> sibling <span class="keyword">in</span> soup.a.next_sibling:</span><br><span class="line">    print(sibling)                  <span class="comment">#遍历后续节点</span></span><br><span class="line"></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;for sibling in soup.a.previous_sibling:</span></span><br><span class="line"><span class="string">    print(sibling)                  #遍历前续节点</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
 
 <h1 id="基于bs4库的HTML格式输出—prettify-方法"><a href="#基于bs4库的HTML格式输出—prettify-方法" class="headerlink" title="基于bs4库的HTML格式输出—prettify()方法"></a>基于bs4库的HTML格式输出—prettify()方法</h1><ul>
 <li>.prettify()为HTML文本<code>&lt;&gt;</code>及其内容增加’\n’</li>
 <li>.prettify()可用于标签,方法:<code>&lt;tag&gt;.perttify()</code></li>
 </ul>
-<p><img src="https://i.imgur.com/4BJpNgt.png" class="lazyload" data-srcset="https://i.imgur.com/4BJpNgt.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt=""><br><img src="https://i.imgur.com/bHQdzDW.png" class="lazyload" data-srcset="https://i.imgur.com/bHQdzDW.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt=""></p>
+<p><img src="https://i.imgur.com/4BJpNgt.png" class="lazyload" data-srcset="https://i.imgur.com/4BJpNgt.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="><br><img src="https://i.imgur.com/bHQdzDW.png" class="lazyload" data-srcset="https://i.imgur.com/bHQdzDW.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <p align="right"><font color="red" size="3">bs4库将任何HTML输入都变成utf-8编码</font></p>
-
-<hr>
-
+ 
+---
   
   
     
@@ -878,7 +858,7 @@ BeautifulSoup官方文档"
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#BeautifulSoup%E5%BA%93%E8%A7%A3%E6%9E%90%E5%99%A8"><span class="toc-text">BeautifulSoup库解析器</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#BeautifulSoup%E5%BA%93%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%85%83%E7%B4%A0"><span class="toc-text">BeautifulSoup库的基本元素</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8Ebs4%E5%BA%93%E7%9A%84HTML%E5%86%85%E5%AE%B9%E9%81%8D%E5%8E%86%E6%96%B9%E6%B3%95"><span class="toc-text">基于bs4库的HTML内容遍历方法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%87%E7%AD%BE%E6%95%B0%E7%9A%84%E4%B8%8B%E8%A1%8C%E9%81%8D%E5%8E%86"><span class="toc-text">标签数的下行遍历</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%87%E7%AD%BE%E6%A0%91%E7%9A%84%E5%B9%B3%E8%A1%8C%E9%81%8D%E5%8E%86"><span class="toc-text">标签树的平行遍历</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8Ebs4%E5%BA%93%E7%9A%84HTML%E6%A0%BC%E5%BC%8F%E8%BE%93%E5%87%BA%E2%80%94prettify-%E6%96%B9%E6%B3%95"><span class="toc-text">基于bs4库的HTML格式输出—prettify()方法</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#BeautifulSoup%E5%BA%93%E8%A7%A3%E6%9E%90%E5%99%A8"><span class="toc-text">BeautifulSoup库解析器</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#BeautifulSoup%E5%BA%93%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%85%83%E7%B4%A0"><span class="toc-text">BeautifulSoup库的基本元素</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8Ebs4%E5%BA%93%E7%9A%84HTML%E5%86%85%E5%AE%B9%E9%81%8D%E5%8E%86%E6%96%B9%E6%B3%95"><span class="toc-text">基于bs4库的HTML内容遍历方法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%87%E7%AD%BE%E6%95%B0%E7%9A%84%E4%B8%8B%E8%A1%8C%E9%81%8D%E5%8E%86"><span class="toc-text">标签数的下行遍历</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%87%E7%AD%BE%E6%A0%91%E7%9A%84%E4%B8%8A%E8%A1%8C%E9%81%8D%E5%8E%86"><span class="toc-text">标签树的上行遍历</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%87%E7%AD%BE%E6%A0%91%E7%9A%84%E5%B9%B3%E8%A1%8C%E9%81%8D%E5%8E%86"><span class="toc-text">标签树的平行遍历</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8Ebs4%E5%BA%93%E7%9A%84HTML%E6%A0%BC%E5%BC%8F%E8%BE%93%E5%87%BA%E2%80%94prettify-%E6%96%B9%E6%B3%95"><span class="toc-text">基于bs4库的HTML格式输出—prettify()方法</span></a></li></ol>
     </div>
   </section>
 
@@ -1006,7 +986,7 @@ BeautifulSoup官方文档"
     
       
         <div class='copyright'>
-        <p><a target="_blank" rel="noopener" href="https://shansan.top">Copyright © 2018-2021 ShanSan</a></p>
+        <p><a target="_blank" rel="noopener" href="https://shansan.top/">Copyright © 2018-2021 ShanSan</a></p>
 
         </div>
       

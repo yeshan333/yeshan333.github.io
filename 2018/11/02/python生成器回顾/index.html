@@ -33,7 +33,7 @@
 包含yield语句的函数都是生成器，它是一个不断产生值的函数
 生成器每次使用yield产生一个值后，函数都将冻结，即在此处停止执行，等待重新被唤醒。被唤醒后从停止的地方开始继续执行
 
-生成器推导（生成器表达式）* 使用圆括号()创...">
+生成器推导（生成器表达式）*** 使用圆括号(...">
   
 
   <!-- feed -->
@@ -527,23 +527,25 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <li>包含yield语句的函数都是生成器，它是一个不断产生值的函数</li>
 <li>生成器每次使用yield产生一个值后，函数都将冻结，即在此处停止执行，等待重新被唤醒。被唤醒后从停止的地方开始继续执行</li>
 </ul>
-<h2 id="生成器推导（生成器表达式）"><a href="#生成器推导（生成器表达式）" class="headerlink" title="生成器推导（生成器表达式）"></a>生成器推导（生成器表达式）</h2><p><strong>* 使用圆括号<code>()</code>创建一个生成器推导 *</strong>,它创建了一个可迭代的对象<br>使用next()函数可以获得生成器推导的下一个返回值</p>
-<pre><code>g = (i**2 for i in range(10))</code></pre><span id="more"></span>
+<h2 id="生成器推导（生成器表达式）"><a href="#生成器推导（生成器表达式）" class="headerlink" title="生成器推导（生成器表达式）"></a>生成器推导（生成器表达式）</h2><p>*** 使用圆括号<code>()</code>创建一个生成器推导 ***,它创建了一个可迭代的对象<br>使用next()函数可以获得生成器推导的下一个返回值</p>
+<pre><code>g = (i**2 for i in range(10))
+</code></pre>
+<span id="more"></span>
 
-<p><img src="https://i.imgur.com/wmTo1u5.png" class="lazyload" data-srcset="https://i.imgur.com/wmTo1u5.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt=""></p>
+<p><img src="https://i.imgur.com/wmTo1u5.png" class="lazyload" data-srcset="https://i.imgur.com/wmTo1u5.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <h2 id="simple-generator"><a href="#simple-generator" class="headerlink" title="simple generator"></a>simple generator</h2><p>** demo_1 **</p>
 <blockquote>
 <p>斐波拉契数列（Fibonacci），除第一个和第二个数外，任意一个数都可由前两个数相加得到</p>
 </blockquote>
-<p><img src="https://i.imgur.com/NgdbD2D.png" class="lazyload" data-srcset="https://i.imgur.com/NgdbD2D.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt=""></p>
+<p><img src="https://i.imgur.com/NgdbD2D.png" class="lazyload" data-srcset="https://i.imgur.com/NgdbD2D.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <p>** demo_2_generator **</p>
-<p><img src="https://i.imgur.com/hEt9tRq.png" class="lazyload" data-srcset="https://i.imgur.com/hEt9tRq.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt=""></p>
+<p><img src="https://i.imgur.com/hEt9tRq.png" class="lazyload" data-srcset="https://i.imgur.com/hEt9tRq.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <h2 id="recursive-generator"><a href="#recursive-generator" class="headerlink" title="recursive generator"></a>recursive generator</h2><p>处理多层嵌套列表</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">flagtten</span>(<span class="params">nested</span>):</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">for</span> sublist <span class="keyword">in</span> nested:</span><br><span class="line">            <span class="keyword">for</span> element <span class="keyword">in</span> flagtten(sublist):</span><br><span class="line">                <span class="keyword">yield</span> element</span><br><span class="line">    <span class="keyword">except</span> TypeError:<span class="comment">#处理迭代单个对象引起的typeerror异常</span></span><br><span class="line">        <span class="keyword">yield</span> nested</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">    s = <span class="built_in">list</span>(flagtten([<span class="number">1</span>,[<span class="number">2</span>,<span class="number">3</span>]]))</span><br><span class="line">    print(s)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">main()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">flagtten</span>(<span class="params">nested</span>):</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="comment">#不迭代类似于字符串的对象</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            nested + <span class="string">&#x27;&#x27;</span></span><br><span class="line">        <span class="keyword">except</span> TypeError:</span><br><span class="line">            <span class="keyword">pass</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">raise</span> TypeError</span><br><span class="line">        <span class="keyword">for</span> sublist <span class="keyword">in</span> nested:</span><br><span class="line">            <span class="keyword">for</span> temp <span class="keyword">in</span> flagtten(sublist):</span><br><span class="line">                <span class="keyword">yield</span> temp</span><br><span class="line">    <span class="keyword">except</span> TypeError:</span><br><span class="line">        <span class="keyword">yield</span> nested</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">    s = <span class="built_in">list</span>(flagtten([<span class="string">&quot;haha&quot;</span>,[<span class="string">&quot;shan&quot;</span>,<span class="string">&quot;san&quot;</span>]]))</span><br><span class="line">    print(s)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">main()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<p><img src="https://i.imgur.com/8YyFVoE.gif" class="lazyload" data-srcset="https://i.imgur.com/8YyFVoE.gif" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt=""></p>
+<p><img src="https://i.imgur.com/8YyFVoE.gif" class="lazyload" data-srcset="https://i.imgur.com/8YyFVoE.gif" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <hr>
 
   
@@ -610,8 +612,9 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 包含yield语句的函数都是生成器，它是一个不断产生值的函数
 生成器每次使用yield产生一个值后，函数都将冻结，即在此处停止执行，等待重新被唤醒。被唤醒后从停止的地方开始继续执行
 
-生成器推导（生成器表达式）* 使用圆括号()创建一个生成器推导 *,它创建了一个可迭代的对象使用next()函数可以获得生成器推导的下一个返回值
-g = (i**2 for i in range(10))"
+生成器推导（生成器表达式）*** 使用圆括号()创建一个生成器推导 ***,它创建了一个可迭代的对象使用next()函数可以获得生成器推导的下一个返回值
+g = (i**2 for i in range(10))
+"
           
           >
           
@@ -628,8 +631,9 @@ g = (i**2 for i in range(10))"
 包含yield语句的函数都是生成器，它是一个不断产生值的函数
 生成器每次使用yield产生一个值后，函数都将冻结，即在此处停止执行，等待重新被唤醒。被唤醒后从停止的地方开始继续执行
 
-生成器推导（生成器表达式）* 使用圆括号()创建一个生成器推导 *,它创建了一个可迭代的对象使用next()函数可以获得生成器推导的下一个返回值
-g = (i**2 for i in range(10))"
+生成器推导（生成器表达式）*** 使用圆括号()创建一个生成器推导 ***,它创建了一个可迭代的对象使用next()函数可以获得生成器推导的下一个返回值
+g = (i**2 for i in range(10))
+"
           
           >
           
@@ -646,8 +650,9 @@ g = (i**2 for i in range(10))"
 包含yield语句的函数都是生成器，它是一个不断产生值的函数
 生成器每次使用yield产生一个值后，函数都将冻结，即在此处停止执行，等待重新被唤醒。被唤醒后从停止的地方开始继续执行
 
-生成器推导（生成器表达式）* 使用圆括号()创建一个生成器推导 *,它创建了一个可迭代的对象使用next()函数可以获得生成器推导的下一个返回值
-g = (i**2 for i in range(10))"
+生成器推导（生成器表达式）*** 使用圆括号()创建一个生成器推导 ***,它创建了一个可迭代的对象使用next()函数可以获得生成器推导的下一个返回值
+g = (i**2 for i in range(10))
+"
           
           >
           
@@ -868,7 +873,7 @@ scrapy框架结构(“5+2”结...</p>
     
       
         <div class='copyright'>
-        <p><a target="_blank" rel="noopener" href="https://shansan.top">Copyright © 2018-2021 ShanSan</a></p>
+        <p><a target="_blank" rel="noopener" href="https://shansan.top/">Copyright © 2018-2021 ShanSan</a></p>
 
         </div>
       
