@@ -1,0 +1,590 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0"
+  xmlns:atom="http://www.w3.org/2005/Atom"
+  xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>ShanSan</title>
+    <link>https://yeshan333.github.io/</link>
+    
+    <image>
+      <url>https://img.vim-cn.com/bb/db444be0b7fda59c69d5c64167f9668b0b66bd.png</url>
+      <title>ShanSan</title>
+      <link>https://yeshan333.github.io/</link>
+    </image>
+    
+    <atom:link href="https://yeshan333.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
+    
+    <description>ShanSan&#39;s Blog</description>
+    <pubDate>Sun, 16 May 2021 15:14:31 GMT</pubDate>
+    <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>热传导方程非特征 Cauchy 问题的一些笔记</title>
+      <link>https://yeshan333.github.io/2021/05/16/heat-conduction-equation/</link>
+      <guid>https://yeshan333.github.io/2021/05/16/heat-conduction-equation/</guid>
+      <pubDate>Sun, 16 May 2021 15:14:31 GMT</pubDate>
+      
+      <description>&lt;p&gt;毕设工作即将结束之际，附上一份笔记到博客-数学物理方程-热传导方程.&lt;/p&gt;</description>
+      
+      
+      
+      
+      <category domain="https://yeshan333.github.io/categories/math/">math</category>
+      
+      
+      <category domain="https://yeshan333.github.io/tags/math/">math</category>
+      
+      
+      <comments>https://yeshan333.github.io/2021/05/16/heat-conduction-equation/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>简单了解波 Mono-repo &amp; Multi-repo（Poly-repo）</title>
+      <link>https://yeshan333.github.io/2021/04/30/term-monorepo-multirepo/</link>
+      <guid>https://yeshan333.github.io/2021/04/30/term-monorepo-multirepo/</guid>
+      <pubDate>Fri, 30 Apr 2021 23:30:00 GMT</pubDate>
+      
+      <description>&lt;p&gt;Mono-repo 和 Multi-repo 是软件开发中代码管理的两个不同策略。Mono-repo &amp;amp; Multi-repo 孰优孰劣是个老生常谈得话题了，这里就不 &lt;a href=&quot;https://hackernoon.com/mono-repo-vs-multi-repo-vs-hybrid-whats-the-right-approach-dv1a3ugn&quot;&gt;PK&lt;/a&gt; 了，“略微”看下两者区别。&lt;/p&gt;
+&lt;p&gt;当我们使用 Git 作为版本控制系统管理项目的代码时，那么 monorepo 与 multirepo 的定义表述如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;monorepo，使用一个 Git 仓库管理项目相关的多个 模块/包/功能/应用。&lt;/li&gt;
+&lt;li&gt;multirepo（又称为 polyrepo），使用多个 Git 仓库分别管理项目的每一个 模块/包/功能/应用。&lt;/li&gt;
+&lt;/ul&gt;</description>
+      
+      
+      
+      
+      <category domain="https://yeshan333.github.io/categories/Architecture/">Architecture</category>
+      
+      
+      <category domain="https://yeshan333.github.io/tags/%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86/">项目管理</category>
+      
+      <category domain="https://yeshan333.github.io/tags/Monorepo/">Monorepo</category>
+      
+      
+      <comments>https://yeshan333.github.io/2021/04/30/term-monorepo-multirepo/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>Windows Insiders WSLg Linux GUI App 支持尝鲜</title>
+      <link>https://yeshan333.github.io/2021/04/25/enjoy-wslg/</link>
+      <guid>https://yeshan333.github.io/2021/04/25/enjoy-wslg/</guid>
+      <pubDate>Sun, 25 Apr 2021 18:59:48 GMT</pubDate>
+      
+      <description>&lt;p&gt;2021 年 4 月 21 日，微软在 Developer Blogs 发布了 Windows 预览版 WSL（Windows Linux 子系统） 对 Linux GUI App 的支持的&lt;a href=&quot;https://devblogs.microsoft.com/commandline/the-initial-preview-of-gui-app-support-is-now-available-for-the-windows-subsystem-for-linux-2&quot;&gt;公告🔗&lt;/a&gt;，碰巧😀我最近重装了波电脑，系统换成了 Windows Insiders（Dev），正好可以感受波 Linux GUI App 的支持。btw，预览版的文件管理器支持访问 WSL 的文件了，6~ 的。&lt;/p&gt;
+&lt;div class=&quot;gallery &quot;&gt;
+              &lt;p&gt;&lt;img src=&quot;https://z3.ax1x.com/2021/04/25/czJUAO.png&quot; alt=&quot;Windows new icons&quot;&gt;&lt;/p&gt;
+            &lt;/div&gt;
+
+&lt;p&gt;WSL 现在居然支持跑 Linux 图形应用了，真香（😎，虽然上一年 WSL 的 &lt;a href=&quot;https://devblogs.microsoft.com/commandline/the-windows-subsystem-for-linux-build-2020-summary/#wsl-gui&quot;&gt;Roadmap&lt;/a&gt; 中有说过要支持，但我没关注，老二手知识党了）。Quickstart -&amp;gt;&lt;/p&gt;</description>
+      
+      
+      
+      
+      <category domain="https://yeshan333.github.io/categories/WSL/">WSL</category>
+      
+      
+      <category domain="https://yeshan333.github.io/tags/Linux/">Linux</category>
+      
+      <category domain="https://yeshan333.github.io/tags/WSL/">WSL</category>
+      
+      <category domain="https://yeshan333.github.io/tags/GUI/">GUI</category>
+      
+      
+      <comments>https://yeshan333.github.io/2021/04/25/enjoy-wslg/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>初探 Git Submodules</title>
+      <link>https://yeshan333.github.io/2021/03/10/git-submodules/</link>
+      <guid>https://yeshan333.github.io/2021/03/10/git-submodules/</guid>
+      <pubDate>Wed, 10 Mar 2021 15:51:15 GMT</pubDate>
+      
+      <description>&lt;p&gt;之前一直想将一个 Git 仓库放到另一个 Git 仓库，有 Maven 多模块项目（Maven Multimodule Project）和 Gradle 多项目构建（Gradle Multiproject Build）那味儿。Git 这么骚，肯定也可以。“扫”了多个开源仓库，Get 到了 Git &lt;code&gt;submodule&lt;/code&gt; 可以做这种操作，水篇文章记录波。&lt;/p&gt;</description>
+      
+      
+      
+      
+      <category domain="https://yeshan333.github.io/categories/Git/">Git</category>
+      
+      
+      <category domain="https://yeshan333.github.io/tags/Git/">Git</category>
+      
+      
+      <comments>https://yeshan333.github.io/2021/03/10/git-submodules/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>使用 rsync-deploy-action 同步 Hexo 博客到个人服务器</title>
+      <link>https://yeshan333.github.io/2021/01/19/hexo-blog-synchronization-with-rsync/</link>
+      <guid>https://yeshan333.github.io/2021/01/19/hexo-blog-synchronization-with-rsync/</guid>
+      <pubDate>Tue, 19 Jan 2021 20:02:51 GMT</pubDate>
+      
+      <description>&lt;p&gt;前几天写了个基于 rsync 进行文件同步的 Action -&amp;gt; &lt;a href=&quot;https://github.com/yeshan333/rsync-deploy-action&quot;&gt;rsync-deploy-action&lt;/a&gt;。目的有三个：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;1、深入了解波 &lt;a href=&quot;https://docs.github.com/en/actions/creating-actions&quot;&gt;GitHub Actions&lt;/a&gt;，感受下 GitHub 的文档；&lt;/li&gt;
+&lt;li&gt;2、个人博客在我的腾讯云 CVM 服务器上是部署有一份的「域名：&lt;a href=&quot;https://shan333.cn/&quot;&gt;shan333.cn&lt;/a&gt;」，之前的博客同步方式是通过 Linux 的定时任务，觉得不太行，当前博客的更新并没有那么频繁，没必要每隔几个小时就 &lt;code&gt;git pull&lt;/code&gt; 一下，且服务器还挂着其他东西，性能还是有点损耗的，换成通过 rsync 进行主动推送的方式好点；&lt;/li&gt;
+&lt;li&gt;3、熟悉波 SSH 协议和 rsync 协议。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;今天撸一篇文章简单记录下这次折腾。&lt;/p&gt;</description>
+      
+      
+      
+      
+      <category domain="https://yeshan333.github.io/categories/DevOps/">DevOps</category>
+      
+      
+      <category domain="https://yeshan333.github.io/tags/Github-Actions/">Github Actions</category>
+      
+      <category domain="https://yeshan333.github.io/tags/DevOps/">DevOps</category>
+      
+      <category domain="https://yeshan333.github.io/tags/Nginx/">Nginx</category>
+      
+      
+      <comments>https://yeshan333.github.io/2021/01/19/hexo-blog-synchronization-with-rsync/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>关注思考的过程，终将更加卓越 | 2020 年总结</title>
+      <link>https://yeshan333.github.io/2021/01/06/2020-annual-reviewed/</link>
+      <guid>https://yeshan333.github.io/2021/01/06/2020-annual-reviewed/</guid>
+      <pubDate>Wed, 06 Jan 2021 16:29:08 GMT</pubDate>
+      
+      <description>&lt;p&gt;&lt;img src=&quot;https://s3.ax1x.com/2021/01/07/sZGi24.png&quot; alt=&quot;2021 new chapter&quot;&gt;&lt;/p&gt;</description>
+      
+      
+      
+      
+      <category domain="https://yeshan333.github.io/categories/blog/">blog</category>
+      
+      
+      <category domain="https://yeshan333.github.io/tags/blog/">blog</category>
+      
+      
+      <comments>https://yeshan333.github.io/2021/01/06/2020-annual-reviewed/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>2021 Happy New Year</title>
+      <link>https://yeshan333.github.io/2021/01/01/2021-new-year/</link>
+      <guid>https://yeshan333.github.io/2021/01/01/2021-new-year/</guid>
+      <pubDate>Fri, 01 Jan 2021 00:00:00 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;&lt;img src=&quot;https://s3.ax1x.com/2020/12/31/rvR7lj.png&quot; class=&quot;lazyload&quot; data-srcset=&quot;https://s3.ax1x.com/2020/12/31/rvR7lj.png&quot;</description>
+          
+        
+      
+      
+      
+      
+      <category domain="https://yeshan333.github.io/categories/blog/">blog</category>
+      
+      
+      <category domain="https://yeshan333.github.io/tags/blog/">blog</category>
+      
+      
+      <comments>https://yeshan333.github.io/2021/01/01/2021-new-year/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>简单耍一下-Kafka</title>
+      <link>https://yeshan333.github.io/2020/12/13/%E8%80%8D%E4%B8%80%E4%B8%8BKafka/</link>
+      <guid>https://yeshan333.github.io/2020/12/13/%E8%80%8D%E4%B8%80%E4%B8%8BKafka/</guid>
+      <pubDate>Sun, 13 Dec 2020 20:30:14 GMT</pubDate>
+      
+      <description>&lt;blockquote&gt;
+&lt;p&gt;趁着毕设初期，还能摸会儿🐟，了解波 Kafka。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;Kafka-术语一览&quot;&gt;&lt;a href=&quot;#Kafka-术语一览&quot; class=&quot;headerlink&quot; title=&quot;Kafka 术语一览&quot;&gt;&lt;/a&gt;Kafka 术语一览&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;Kafka，分布式消息引擎系统，主要功能是提供一套完备的消息发布与订阅解决方案。Kafka 也是一个分布式的、分区的、多副本的多订阅者，基于 Zookeeper 协调的分布式日志系统，可用于处理 Web 日志和消息服务。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;Topic：主题，承载消息（Record）的逻辑容器，每条发布到 Kafka 集群的消息都归属于某一个 Topic，实际应用中，不同的 topic 对应着不同的业务；&lt;/li&gt;
+&lt;li&gt;Broker：Kafka 服务进程，一个 Kafka 集群由多个 Broker 服务进程组成，虽然多个 Broker 可在同一服务器上进行部署，但为了高可用，会将不同的 Broker 部署在不同的机器上；&lt;/li&gt;
+&lt;li&gt;Partition：分区，一组有序的消息序列，一个 Topic 可以有多个分区，同一 Topic 下的 Partition 可以分布在不同的 Broker 中。Producer 生产的每一条消息都会被放到一个 Partition 中，每条消息在 Partition 中的位置信息由一个 Offset（偏移量）数据表征。Kafka 通过偏移量（Offset）来保证消息在分区内的顺序性；&lt;/li&gt;
+&lt;/ul&gt;</description>
+      
+      
+      
+      
+      <category domain="https://yeshan333.github.io/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/">中间件</category>
+      
+      <category domain="https://yeshan333.github.io/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/Kafka/">Kafka</category>
+      
+      
+      <category domain="https://yeshan333.github.io/tags/Kafka/">Kafka</category>
+      
+      <category domain="https://yeshan333.github.io/tags/%E6%B6%88%E6%81%AF%E5%BC%95%E6%93%8E%E7%B3%BB%E7%BB%9F/">消息引擎系统</category>
+      
+      <category domain="https://yeshan333.github.io/tags/%E6%B5%81%E5%A4%84%E7%90%86%E5%B9%B3%E5%8F%B0/">流处理平台</category>
+      
+      
+      <comments>https://yeshan333.github.io/2020/12/13/%E8%80%8D%E4%B8%80%E4%B8%8BKafka/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>使用tcpdump和Wireshark看下TCP握手</title>
+      <link>https://yeshan333.github.io/2020/11/15/%E4%BD%BF%E7%94%A8tcpdump%E5%92%8Cwireshark%E7%9C%8B%E4%B8%8BTCP%E6%8F%A1%E6%89%8B/</link>
+      <guid>https://yeshan333.github.io/2020/11/15/%E4%BD%BF%E7%94%A8tcpdump%E5%92%8Cwireshark%E7%9C%8B%E4%B8%8BTCP%E6%8F%A1%E6%89%8B/</guid>
+      <pubDate>Sun, 15 Nov 2020 15:52:13 GMT</pubDate>
+      
+      <description>&lt;p&gt;tcpdump 和 Wireshark 是最常用的网络抓包和分析工具，作为经常和网络打交道的划水选手，怎么能不了解下呢？补篇博文回顾下相关操作。这里以 example.com 的一次 GET 请求为例，先使用 tcpdump 抓个包，再使用 Wireshark 看下 TCP 的握手。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;操作环境：WSL2(Ubuntu 20.04 LTS) + Windows 10&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+      
+      
+      
+      
+      <category domain="https://yeshan333.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</category>
+      
+      
+      <category domain="https://yeshan333.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E8%B7%AF/">计算机网路</category>
+      
+      <category domain="https://yeshan333.github.io/tags/TCP/">TCP</category>
+      
+      <category domain="https://yeshan333.github.io/tags/tcpdump/">tcpdump</category>
+      
+      <category domain="https://yeshan333.github.io/tags/Wireshark/">Wireshark</category>
+      
+      
+      <comments>https://yeshan333.github.io/2020/11/15/%E4%BD%BF%E7%94%A8tcpdump%E5%92%8Cwireshark%E7%9C%8B%E4%B8%8BTCP%E6%8F%A1%E6%89%8B/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>浅解shallow copy、deep copy</title>
+      <link>https://yeshan333.github.io/2020/10/09/%E6%B5%85%E8%A7%A3shallow%20copy%E3%80%81deep%20copy/</link>
+      <guid>https://yeshan333.github.io/2020/10/09/%E6%B5%85%E8%A7%A3shallow%20copy%E3%80%81deep%20copy/</guid>
+      <pubDate>Fri, 09 Oct 2020 23:04:04 GMT</pubDate>
+      
+      <description>&lt;p&gt;“回👋掏”。最近做东西，有点儿玩不转复杂数据类型，写篇博文再回顾下深、浅拷贝相关知识。深、浅的区分主要在对复杂数据类型进行操作的时候。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;By the way：时间过得很快，十月了，之前定了个小目标：&lt;code&gt;一个月至少一篇文章产出&lt;/code&gt;。2020年的 $ \frac{5}{6} $ 已经过去。很庆幸自己坚持了下来，学到了不少东西。实习期间其实有不少的文章主题的想法，但真正想动手写篇博文的时候，发现事情并没有想想中的那么简单，一个主题涉及到的知识点还是蛮多的，再加上实践经验的不足，有些东西很难写道点上，copy &amp;amp; paste 总是不太好的『努力提高文章质量，hhh~』。希望自己后续继续加油。&lt;br&gt;&lt;img src=&quot;https://s1.ax1x.com/2020/10/11/0cgxOg.png&quot; alt=&quot;一些想法&quot;&gt;&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+      
+      
+      
+      
+      <category domain="https://yeshan333.github.io/categories/Python/">Python</category>
+      
+      <category domain="https://yeshan333.github.io/categories/JavaScript/">JavaScript</category>
+      
+      
+      <category domain="https://yeshan333.github.io/tags/%E6%B7%B1%E6%8B%B7%E8%B4%9D%E4%B8%8E%E6%B5%85%E6%8B%B7%E8%B4%9D/">深拷贝与浅拷贝</category>
+      
+      
+      <comments>https://yeshan333.github.io/2020/10/09/%E6%B5%85%E8%A7%A3shallow%20copy%E3%80%81deep%20copy/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>负载均衡技术小记</title>
+      <link>https://yeshan333.github.io/2020/09/20/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E6%8A%80%E6%9C%AF%E5%B0%8F%E8%AE%B0/</link>
+      <guid>https://yeshan333.github.io/2020/09/20/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E6%8A%80%E6%9C%AF%E5%B0%8F%E8%AE%B0/</guid>
+      <pubDate>Sun, 20 Sep 2020 18:25:06 GMT</pubDate>
+      
+      <description>&lt;details open red&gt;&lt;summary&gt; OSI 模型 &lt;/summary&gt;
+              &lt;div class=&#39;content&#39;&gt;
+              &lt;p&gt;&lt;img src=&quot;https://i.loli.net/2020/03/22/qthHTNlXyOvEfm3.png&quot; alt=&quot;网络模型&quot;&gt;&lt;/p&gt;
+              &lt;/div&gt;
+            &lt;/details&gt;
+
+&lt;h2 id=&quot;常见-OSI-模型负载均衡方案&quot;&gt;&lt;a href=&quot;#常见-OSI-模型负载均衡方案&quot; class=&quot;headerlink&quot; title=&quot;常见 OSI 模型负载均衡方案&quot;&gt;&lt;/a&gt;常见 OSI 模型负载均衡方案&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;2 层负载均衡：一般是用虚拟 MAC 地址方式，外部对虚拟 MAC 地址请求，负载均衡器接收后分配后端实际的 MAC 地址响应。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;3 层负载均衡：一般采用虚拟 IP 地址方式，外部对虚拟的 IP 地址请求，负载均衡器接收后分配后端实际的 IP 地址响应。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description>
+      
+      
+      
+      
+      <category domain="https://yeshan333.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</category>
+      
+      
+      <category domain="https://yeshan333.github.io/tags/Load-Balance/">Load Balance</category>
+      
+      
+      <comments>https://yeshan333.github.io/2020/09/20/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E6%8A%80%E6%9C%AF%E5%B0%8F%E8%AE%B0/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>setTimeout 是到了xx ms 就执行吗，了解浏览器的 Event-Loop 机制</title>
+      <link>https://yeshan333.github.io/2020/08/22/setTimeout%E6%98%AF%E5%88%B0%E4%BA%86xx%20ms%20%E5%B0%B1%E6%89%A7%E8%A1%8C%E5%90%97%EF%BC%8C%E4%BA%86%E8%A7%A3%20Event-Loop%20%E6%9C%BA%E5%88%B6/</link>
+      <guid>https://yeshan333.github.io/2020/08/22/setTimeout%E6%98%AF%E5%88%B0%E4%BA%86xx%20ms%20%E5%B0%B1%E6%89%A7%E8%A1%8C%E5%90%97%EF%BC%8C%E4%BA%86%E8%A7%A3%20Event-Loop%20%E6%9C%BA%E5%88%B6/</guid>
+      <pubDate>Sat, 22 Aug 2020 13:42:41 GMT</pubDate>
+      
+      <description>&lt;blockquote&gt;
+&lt;p&gt;要想 JavaScript 玩得溜，还得了解波 JavaScript 执行机制/(ㄒoㄒ)/~~。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;最近看了波 JavaScript 相关的文章，不得不说，JavaScript 我还真没玩明白（给我哭~。。。😅）。也挺久没写文了，实习（“摸🐟”）之余小记一波。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;回顾一句话：JavaScript 是一门单线程、非阻塞、异步、解释性脚本语言。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;本文的标题是：setTimeout 是到了xx ms 就执行吗，了解 Event-Loop 机制。先回答波：不是。&lt;/p&gt;
+&lt;p&gt;来看下网上的一段经典 js 代码在浏览器中「Microsoft Edge 84.0.522.63（64位）」的执行结果。&lt;/p&gt;
+&lt;figure class=&quot;highlight js&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.log(&lt;span class=&quot;string&quot;&gt;&amp;#x27;script start&amp;#x27;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;setTimeout&lt;/span&gt;(&lt;span class=&quot;function&quot;&gt;() =&amp;gt;&lt;/span&gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.log(&lt;span class=&quot;string&quot;&gt;&amp;#x27;setTimeout&amp;#x27;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;,&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;Promise&lt;/span&gt;.resolve().then(&lt;span class=&quot;function&quot;&gt;() =&amp;gt;&lt;/span&gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.log(&lt;span class=&quot;string&quot;&gt;&amp;#x27;promise1&amp;#x27;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;).then(&lt;span class=&quot;function&quot;&gt;() =&amp;gt;&lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.log(&lt;span class=&quot;string&quot;&gt;&amp;quot;promise2&amp;quot;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.log(&lt;span class=&quot;string&quot;&gt;&amp;#x27;script end&amp;#x27;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</description>
+      
+      
+      
+      
+      <category domain="https://yeshan333.github.io/categories/JavaScript/">JavaScript</category>
+      
+      
+      <category domain="https://yeshan333.github.io/tags/Event-Loop/">Event-Loop</category>
+      
+      <category domain="https://yeshan333.github.io/tags/JavaScript/">JavaScript</category>
+      
+      
+      <comments>https://yeshan333.github.io/2020/08/22/setTimeout%E6%98%AF%E5%88%B0%E4%BA%86xx%20ms%20%E5%B0%B1%E6%89%A7%E8%A1%8C%E5%90%97%EF%BC%8C%E4%BA%86%E8%A7%A3%20Event-Loop%20%E6%9C%BA%E5%88%B6/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>操作系统笔记-IPC 机制</title>
+      <link>https://yeshan333.github.io/2020/08/02/Process-IPC/</link>
+      <guid>https://yeshan333.github.io/2020/08/02/Process-IPC/</guid>
+      <pubDate>Sun, 02 Aug 2020 14:53:41 GMT</pubDate>
+      
+      <description>&lt;blockquote&gt;
+&lt;p&gt;进程间通信（IPC，Inter-Process Communication），指至少两个进程或线程间传送数据或信号的一些技术或方法。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;总览&quot;&gt;&lt;a href=&quot;#总览&quot; class=&quot;headerlink&quot; title=&quot;总览&quot;&gt;&lt;/a&gt;总览&lt;/h2&gt;&lt;div class=&quot;gallery &quot;&gt;
+              &lt;p&gt;&lt;img src=&quot;https://s1.ax1x.com/2020/08/02/atGjjf.png&quot; alt=&quot;IPC&quot;&gt;&lt;/p&gt;
+            &lt;/div&gt;</description>
+      
+      
+      
+      
+      <category domain="https://yeshan333.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</category>
+      
+      
+      <category domain="https://yeshan333.github.io/tags/%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1/">进程通信</category>
+      
+      
+      <comments>https://yeshan333.github.io/2020/08/02/Process-IPC/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>操作系统笔记-进/线程模型</title>
+      <link>https://yeshan333.github.io/2020/07/22/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%BF%9B-%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B/</link>
+      <guid>https://yeshan333.github.io/2020/07/22/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%BF%9B-%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B/</guid>
+      <pubDate>Wed, 22 Jul 2020 20:22:41 GMT</pubDate>
+      
+      <description>&lt;blockquote&gt;
+&lt;p&gt;模型是指对于某个实际问题或客观事物、规律进行抽象后的一种形式化表达方式。- MBA 智库百科 - &lt;a href=&quot;https://wiki.mbalib.com/wiki/%E6%A8%A1%E5%9E%8B&quot;&gt;模型&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;概念梳理&quot;&gt;&lt;a href=&quot;#概念梳理&quot; class=&quot;headerlink&quot; title=&quot;概念梳理&quot;&gt;&lt;/a&gt;概念梳理&lt;/h2&gt;&lt;h3 id=&quot;进程&quot;&gt;&lt;a href=&quot;#进程&quot; class=&quot;headerlink&quot; title=&quot;进程&quot;&gt;&lt;/a&gt;进程&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;进程是具有独立功能的程序关于某个数据集合上的一次运行活动，是系统进行资源分配和调度的独立单位。&lt;/li&gt;
+&lt;li&gt;一个进程是某种类型活动的一个活动，它有程序、输入、输出以及状态。进程是对正在运行程序的一个抽象。单个处理器可以被若干进程共享，它使用某种调度算法决定何时停止一个进程的工作，并转而为另一个进程提供服务。一个程序可对应多个进程。&lt;/li&gt;
+&lt;li&gt;系统资源以进程为单位分配，如内存、文件、每个进程拥有独立的地址空间。&lt;/li&gt;
+&lt;/ul&gt;</description>
+      
+      
+      
+      
+      <category domain="https://yeshan333.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</category>
+      
+      <category domain="https://yeshan333.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%BF%9B-%E7%BA%BF%E7%A8%8B/">进/线程</category>
+      
+      <category domain="https://yeshan333.github.io/categories/Go/">Go</category>
+      
+      
+      <category domain="https://yeshan333.github.io/tags/%E8%BF%9B%E7%A8%8B/">进程</category>
+      
+      <category domain="https://yeshan333.github.io/tags/%E7%BA%BF%E7%A8%8B/">线程</category>
+      
+      
+      <comments>https://yeshan333.github.io/2020/07/22/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%BF%9B-%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>React Hooks 那些事儿</title>
+      <link>https://yeshan333.github.io/2020/07/08/React-Hooks-%E9%82%A3%E4%BA%9B%E4%BA%8B%E5%84%BF/</link>
+      <guid>https://yeshan333.github.io/2020/07/08/React-Hooks-%E9%82%A3%E4%BA%9B%E4%BA%8B%E5%84%BF/</guid>
+      <pubDate>Wed, 08 Jul 2020 14:33:31 GMT</pubDate>
+      
+      <description>&lt;p&gt;翻了波之前写的文章还有笔记，发现关于前端的文章并不多（好歹也划水做过点前端开发）。巧了，最近没什么好话题可写，做下 React Hooks 学习笔记吧。&lt;/p&gt;
+&lt;h2 id=&quot;Effect-Hook&quot;&gt;&lt;a href=&quot;#Effect-Hook&quot; class=&quot;headerlink&quot; title=&quot;Effect Hook&quot;&gt;&lt;/a&gt;Effect Hook&lt;/h2&gt;&lt;p&gt;不得不说 Hook 的出现降低了我们在 React 中处理副作用（side effect）的心智负担，通过 useEffect 就可以很好的完成之前需要使用几个生命周期函数配合才能完成的事。&lt;/p&gt;
+&lt;h3 id=&quot;Effect-Hook-死循环请求问题&quot;&gt;&lt;a href=&quot;#Effect-Hook-死循环请求问题&quot; class=&quot;headerlink&quot; title=&quot;Effect Hook 死循环请求问题&quot;&gt;&lt;/a&gt;Effect Hook 死循环请求问题&lt;/h3&gt;&lt;p&gt;由于 Effect Hook 不熟「官方文档没读透」，最近使用 useEffect 出现了异步请求发送了无限次的问题，翻🚗了。我有个组件大概是这么写的：&lt;/p&gt;</description>
+      
+      
+      
+      
+      <category domain="https://yeshan333.github.io/categories/React/">React</category>
+      
+      
+      <category domain="https://yeshan333.github.io/tags/React/">React</category>
+      
+      
+      <comments>https://yeshan333.github.io/2020/07/08/React-Hooks-%E9%82%A3%E4%BA%9B%E4%BA%8B%E5%84%BF/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>使用docker-compose编排前后端分离应用</title>
+      <link>https://yeshan333.github.io/2020/06/28/%E4%BD%BF%E7%94%A8docker-compose%E7%BC%96%E6%8E%92%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E5%BA%94%E7%94%A8/</link>
+      <guid>https://yeshan333.github.io/2020/06/28/%E4%BD%BF%E7%94%A8docker-compose%E7%BC%96%E6%8E%92%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E5%BA%94%E7%94%A8/</guid>
+      <pubDate>Sun, 28 Jun 2020 11:39:55 GMT</pubDate>
+      
+      <description>&lt;p&gt;几个月过去了，是时候把当初的 &lt;a href=&quot;https://github.com/yeshan333/Flask-React-ToDoList#%E6%9B%B4%E6%96%B0%E8%AE%A1%E5%88%92&quot;&gt;🚩&lt;/a&gt; 干掉了。&lt;/p&gt;
+&lt;p&gt;顺便提高下 docker 的熟练度，得闲看下原理🚩（假期看过，没总结…）。&lt;/p&gt;
+&lt;p&gt;重装了波系统（Windows 2004 版本），这个版本下，Docker Desktop 是以 WSL2 为 backend 的，不用 Hyper -V 了，舒服了很多。&lt;/p&gt;
+&lt;p&gt;细品了下（又摸鱼搞 DevOps），跑这个前后端分离项目需要到的容器还挺多，4 个左右（后端 REST 服务、数据库服务、前端服务），前端服务上了两个容器『貌似没必要』，一个用来过渡，一个跑挂着 SPA 的 Nginx。&lt;/p&gt;
+&lt;p&gt;这次祭出了 Docker Compose，毕竟容器有点“小多”，单单用命令费劲。&lt;/p&gt;</description>
+      
+      
+      
+      
+      <category domain="https://yeshan333.github.io/categories/docker/">docker</category>
+      
+      
+      <category domain="https://yeshan333.github.io/tags/docker/">docker</category>
+      
+      <category domain="https://yeshan333.github.io/tags/DevOps/">DevOps</category>
+      
+      <category domain="https://yeshan333.github.io/tags/%E6%9C%8D%E5%8A%A1%E7%BC%96%E6%8E%92/">服务编排</category>
+      
+      
+      <comments>https://yeshan333.github.io/2020/06/28/%E4%BD%BF%E7%94%A8docker-compose%E7%BC%96%E6%8E%92%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E5%BA%94%E7%94%A8/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>给 GitHub commit 加个小绿标</title>
+      <link>https://yeshan333.github.io/2020/06/26/%E7%BB%99%20GitHub%20commit%20%E5%8A%A0%E4%B8%AA%E5%B0%8F%E7%BB%BF%E6%A0%87/</link>
+      <guid>https://yeshan333.github.io/2020/06/26/%E7%BB%99%20GitHub%20commit%20%E5%8A%A0%E4%B8%AA%E5%B0%8F%E7%BB%BF%E6%A0%87/</guid>
+      <pubDate>Fri, 26 Jun 2020 19:11:12 GMT</pubDate>
+      
+      <description>&lt;p&gt;最近一波重装系统啥都没了，最常用的 Git 配置肯定得安排回来的。记得之前给 git 的 commit 加了个签名，回想下为什么要给 commit 做下签名？因为它能让 GitHub 的 commit 历史更帅？看下加签名之前是怎么样的：&lt;/p&gt;
+&lt;div class=&quot;gallery &quot;&gt;
+              &lt;p&gt;&lt;img src=&quot;https://s1.ax1x.com/2020/06/26/NstacQ.png&quot; alt=&quot;对commit进行签名前&quot;&gt;&lt;/p&gt;
+            &lt;/div&gt;</description>
+      
+      
+      
+      
+      <category domain="https://yeshan333.github.io/categories/Git/">Git</category>
+      
+      
+      <category domain="https://yeshan333.github.io/tags/GPG/">GPG</category>
+      
+      <category domain="https://yeshan333.github.io/tags/%E5%8A%A0%E5%AF%86/">加密</category>
+      
+      <category domain="https://yeshan333.github.io/tags/%E9%9A%90%E7%A7%81/">隐私</category>
+      
+      
+      <comments>https://yeshan333.github.io/2020/06/26/%E7%BB%99%20GitHub%20commit%20%E5%8A%A0%E4%B8%AA%E5%B0%8F%E7%BB%BF%E6%A0%87/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>将 Web 应用丢给守护进程</title>
+      <link>https://yeshan333.github.io/2020/06/21/%E5%B0%86Web%E5%BA%94%E7%94%A8%E4%B8%A2%E7%BB%99%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B/</link>
+      <guid>https://yeshan333.github.io/2020/06/21/%E5%B0%86Web%E5%BA%94%E7%94%A8%E4%B8%A2%E7%BB%99%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B/</guid>
+      <pubDate>Sun, 21 Jun 2020 14:26:36 GMT</pubDate>
+      
+      <description>&lt;p&gt;最近老是要把 Web App/Service 部署在个人的服务器上进行测试，发现自己不怎么熟悉「前提：不上 docker ，逃~」，特写此文章来纪念下🤔👀（之前部署的  Web App/Service 都是丢给 &lt;a href=&quot;https://www.heroku.com/&quot;&gt;Heroku&lt;/a&gt;、&lt;a href=&quot;https://www.netlify.com/&quot;&gt;Netlify&lt;/a&gt;、GitHub 这样的 PaaS 平台运行，写个配置文件「action、yaml、toml」就完事了。自己整的玩意儿丢在自己服务器上跑的并不算多，今天费点劲，了解点基础设施。根据冰山模型，了解下 FaaS 能更好的了解 &lt;a href=&quot;https://shansan.top/knowledge-base/#/backend?id=iaas%e3%80%81paas%e3%80%81saas&quot;&gt;PaaS&lt;/a&gt;）。&lt;/p&gt;</description>
+      
+      
+      
+      
+      <category domain="https://yeshan333.github.io/categories/Linux/">Linux</category>
+      
+      
+      <category domain="https://yeshan333.github.io/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/">服务器进程管理</category>
+      
+      
+      <comments>https://yeshan333.github.io/2020/06/21/%E5%B0%86Web%E5%BA%94%E7%94%A8%E4%B8%A2%E7%BB%99%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>(译)通过 Git 和 Angular 了解语义化提交信息</title>
+      <link>https://yeshan333.github.io/2020/06/04/%E8%AF%91-%E9%80%9A%E8%BF%87-Git-%E5%92%8C-Angular-%E4%BA%86%E8%A7%A3%E8%AF%AD%E4%B9%89%E5%8C%96%E6%8F%90%E4%BA%A4%E4%BF%A1%E6%81%AF/</link>
+      <guid>https://yeshan333.github.io/2020/06/04/%E8%AF%91-%E9%80%9A%E8%BF%87-Git-%E5%92%8C-Angular-%E4%BA%86%E8%A7%A3%E8%AF%AD%E4%B9%89%E5%8C%96%E6%8F%90%E4%BA%A4%E4%BF%A1%E6%81%AF/</guid>
+      <pubDate>Thu, 04 Jun 2020 22:06:59 GMT</pubDate>
+      
+      <description>&lt;p&gt;受传统提交规范和 Angular 约定的启发，让我们来解释语义化提交术语，并演示提交信息的实际示例。&lt;/p&gt;
+&lt;p&gt;许多项目决定以某种约定方式来标准化它们的提交信息。这种做法并不是新出现的，但在最近几年中越来越多地得到了应用。而且很可能您已经在某些项目中遇到过这样的提交消息。&lt;/p&gt;</description>
+      
+      
+      
+      
+      <category domain="https://yeshan333.github.io/categories/Git/">Git</category>
+      
+      
+      <category domain="https://yeshan333.github.io/tags/Git/">Git</category>
+      
+      <category domain="https://yeshan333.github.io/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/">工程化</category>
+      
+      <category domain="https://yeshan333.github.io/tags/%E8%AF%91%E6%96%87/">译文</category>
+      
+      
+      <comments>https://yeshan333.github.io/2020/06/04/%E8%AF%91-%E9%80%9A%E8%BF%87-Git-%E5%92%8C-Angular-%E4%BA%86%E8%A7%A3%E8%AF%AD%E4%B9%89%E5%8C%96%E6%8F%90%E4%BA%A4%E4%BF%A1%E6%81%AF/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>了解一波经典的 I/O 模型</title>
+      <link>https://yeshan333.github.io/2020/05/19/%E4%BA%86%E8%A7%A3%E4%B8%80%E6%B3%A2%E7%BB%8F%E5%85%B8%E7%9A%84-IO-%E6%A8%A1%E5%9E%8B/</link>
+      <guid>https://yeshan333.github.io/2020/05/19/%E4%BA%86%E8%A7%A3%E4%B8%80%E6%B3%A2%E7%BB%8F%E5%85%B8%E7%9A%84-IO-%E6%A8%A1%E5%9E%8B/</guid>
+      <pubDate>Tue, 19 May 2020 15:19:14 GMT</pubDate>
+      
+      <description>&lt;p&gt;最近读了波网络 I/O 相关的文章，做下总结、摘录。（未完）&lt;/p&gt;
+&lt;h2 id=&quot;经典-I-O-模型&quot;&gt;&lt;a href=&quot;#经典-I-O-模型&quot; class=&quot;headerlink&quot; title=&quot;经典 I/O 模型&quot;&gt;&lt;/a&gt;经典 I/O 模型&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;div class=&#39;checkbox red checked&#39;&gt;&lt;input type=&quot;checkbox&quot; checked=&quot;checked&quot;/&gt;
+            &lt;p&gt;阻塞式 I/O（blocking I/O）&lt;/p&gt;
+            &lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;&lt;div class=&#39;checkbox red checked&#39;&gt;&lt;input type=&quot;checkbox&quot; checked=&quot;checked&quot;/&gt;
+            &lt;p&gt;非阻塞式 I/O（non-blocking I/O）&lt;/p&gt;
+            &lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;&lt;div class=&#39;checkbox red&#39;&gt;&lt;input type=&quot;checkbox&quot; /&gt;
+            &lt;p&gt;I/O 多路复用（I/O multiplexing）&lt;/p&gt;
+            &lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;&lt;div class=&#39;checkbox cyan&#39;&gt;&lt;input type=&quot;checkbox&quot; /&gt;
+            &lt;p&gt;信号驱动式 I/O（signal driven I/O）&lt;/p&gt;
+            &lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;&lt;div class=&#39;checkbox cyan&#39;&gt;&lt;input type=&quot;checkbox&quot; /&gt;
+            &lt;p&gt;异步 I/O（asynchronous I/O）&lt;/p&gt;
+            &lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;阻塞式-I-O-模型&quot;&gt;&lt;a href=&quot;#阻塞式-I-O-模型&quot; class=&quot;headerlink&quot; title=&quot;阻塞式 I/O 模型&quot;&gt;&lt;/a&gt;阻塞式 I/O 模型&lt;/h3&gt;&lt;p&gt;对于阻塞式 I/O，以套接字（Socket）的输入操作为例。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;1、首先应用进程发起 I/O 系统调用后，应用进程阻塞，转到内核空间处理。&lt;/li&gt;
+&lt;li&gt;2、之后，内核开始等待数据，等待数据到达之后，将内核中的数据拷贝到用户的缓冲区中，整个 I/O 处理完毕后返回进程。最后应用进程解除阻塞状态，处理数据。&lt;/li&gt;
+&lt;/ul&gt;</description>
+      
+      
+      
+      
+      <category domain="https://yeshan333.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</category>
+      
+      <category domain="https://yeshan333.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</category>
+      
+      
+      <category domain="https://yeshan333.github.io/tags/I-O%E6%A8%A1%E5%9E%8B/">I/O模型</category>
+      
+      
+      <comments>https://yeshan333.github.io/2020/05/19/%E4%BA%86%E8%A7%A3%E4%B8%80%E6%B3%A2%E7%BB%8F%E5%85%B8%E7%9A%84-IO-%E6%A8%A1%E5%9E%8B/#disqus_thread</comments>
+      
+    </item>
+    
+  </channel>
+</rss>
