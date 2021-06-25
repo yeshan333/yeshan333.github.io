@@ -555,13 +555,13 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <div class="timenode"><div class="meta"><p><p>2020-03-11 Hexo 主题升级</p>
 </p></div><div class="body"><p>主题升级至<a target="_blank" rel="noopener" href="https://volantis.js.org/">volantis@2.0.2</a>(原material-x主题改名了)，紧跟dalao更新步伐</p></div></div>
 
-<div class="timenode"><div class="meta"><p><p>2020-04-29 <a href="mailto:&#118;&#111;&#108;&#97;&#x6e;&#116;&#x69;&#115;&#64;&#x32;&#x2e;&#x30;&#x2e;&#x32;">&#118;&#111;&#108;&#97;&#x6e;&#116;&#x69;&#115;&#64;&#x32;&#x2e;&#x30;&#x2e;&#x32;</a> -&gt; <a href="mailto:&#118;&#111;&#108;&#97;&#110;&#116;&#x69;&#x73;&#x40;&#50;&#x2e;&#54;&#x2e;&#53;">&#118;&#111;&#108;&#97;&#110;&#116;&#x69;&#x73;&#x40;&#50;&#x2e;&#54;&#x2e;&#53;</a></p>
+<div class="timenode"><div class="meta"><p><p>2020-04-29 <a href="mailto:&#x76;&#111;&#x6c;&#97;&#110;&#116;&#x69;&#115;&#x40;&#50;&#46;&#x30;&#46;&#x32;">&#x76;&#111;&#x6c;&#97;&#110;&#116;&#x69;&#115;&#x40;&#50;&#46;&#x30;&#46;&#x32;</a> -&gt; <a href="mailto:&#118;&#x6f;&#x6c;&#97;&#x6e;&#116;&#x69;&#115;&#x40;&#50;&#x2e;&#x36;&#46;&#x35;">&#118;&#x6f;&#x6c;&#97;&#x6e;&#116;&#x69;&#115;&#x40;&#50;&#x2e;&#x36;&#46;&#x35;</a></p>
 </p></div><div class="body"></div></div>
 
 <div class="timenode"><div class="meta"><p><p>2021-01-18 云服务器博客同步引入 CI/CD</p>
 </p></div><div class="body"><p>写了个基于 rsync 协议的 GitHub Action 用于 CD 博客到 CVM 服务器，博文👉<a target="_blank" rel="noopener" href="https://shan333.cn/2021/01/19/hexo-blog-synchronization-with-rsync/">使用 rsync-deploy-action 同步 Hexo 博客到个人服务器</a></p></div></div>
 
-<div class="timenode"><div class="meta"><p><p>2021-03-10 <a href="mailto:&#118;&#111;&#x6c;&#x61;&#x6e;&#x74;&#x69;&#x73;&#64;&#50;&#46;&#54;&#x2e;&#x35;">&#118;&#111;&#x6c;&#x61;&#x6e;&#x74;&#x69;&#x73;&#64;&#50;&#46;&#54;&#x2e;&#x35;</a> -&gt; <a href="mailto:&#118;&#x6f;&#108;&#x61;&#110;&#x74;&#105;&#115;&#64;&#52;&#46;&#x33;&#x2e;&#x31;">&#118;&#x6f;&#108;&#x61;&#110;&#x74;&#105;&#115;&#64;&#52;&#46;&#x33;&#x2e;&#x31;</a>，hexo@4.0.0 -&gt; <a href="mailto:&#x68;&#x65;&#120;&#x6f;&#64;&#53;&#46;&#52;&#x2e;&#48;">&#x68;&#x65;&#120;&#x6f;&#64;&#53;&#46;&#52;&#x2e;&#48;</a></p>
+<div class="timenode"><div class="meta"><p><p>2021-03-10 <a href="mailto:&#x76;&#x6f;&#x6c;&#97;&#110;&#116;&#105;&#115;&#64;&#x32;&#46;&#54;&#46;&#53;">&#x76;&#x6f;&#x6c;&#97;&#110;&#116;&#105;&#115;&#64;&#x32;&#46;&#54;&#46;&#53;</a> -&gt; <a href="mailto:&#118;&#x6f;&#108;&#x61;&#110;&#116;&#105;&#x73;&#x40;&#52;&#x2e;&#51;&#x2e;&#49;">&#118;&#x6f;&#108;&#x61;&#110;&#116;&#105;&#x73;&#x40;&#52;&#x2e;&#51;&#x2e;&#49;</a>，hexo@4.0.0 -&gt; <a href="mailto:&#x68;&#101;&#120;&#111;&#x40;&#x35;&#46;&#x34;&#46;&#48;">&#x68;&#101;&#120;&#111;&#x40;&#x35;&#46;&#x34;&#46;&#48;</a></p>
 </p></div><div class="body"></div></div>
 </div>
 
@@ -682,7 +682,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <article class="post white-box reveal shadow" id="comments">
     <p ct><i class='fas fa-comments'></i> 评论</p>
     
-    <div id="valine_container" class="valine_thread">
+    <div id="waline">
   <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
 </div>
 
@@ -1185,50 +1185,36 @@ var loadCSS = function( href, before, media, attributes ){
 
   
   
-<script src="/js/valine.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js"></script>
 
 
 <script>
-  function emoji(path, idx, ext) {
-    return path + "/" + path + "-" + idx + "." + ext;
-  }
-  var emojiMaps = {};
-  for (var i = 1; i <= 54; i++) {
-    emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
-  }
-  for (var i = 1; i <= 101; i++) {
-    emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
-  }
-  for (var i = 1; i <= 116; i++) {
-    emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
-  }
-  for (var i = 1; i <= 125; i++) {
-    emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
-  }
-  for (var i = 1; i <= 4; i++) {
-    emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
-  }
-  function pjax_valine() {
-    if(!document.querySelectorAll("#valine_container")[0])return;
+  function pjax_waline() {
+    if(!document.querySelectorAll("#waline")[0])return;
     let pagePlaceholder = pdata.commentPlaceholder || "快来评论吧~";
     let path = pdata.commentPath;
     if (path.length == 0) {
       let defaultPath = '';
       path = defaultPath || decodeURI(window.location.pathname);
     }
-    var valine = new Valine();
-    valine.init(Object.assign({"path":null,"placeholder":"快来评论吧~","appId":"S687AsCjGJKTPIvUJ8aPNX49-gzGzoHsz","appKey":"bCwg3QuIfGytbeYw58L7ofRq","meta":["nick","mail","link"],"requiredFields":["nick","mail"],"enableQQ":true,"recordIP":false,"avatar":"robohash","pageSize":10,"lang":"zh-cn","highlight":true,"mathJax":false}, {
-      el: '#valine_container',
-      path: path,
-      placeholder: pagePlaceholder,
-      emojiCDN: 'https://cdn.jsdelivr.net/gh/volantis-x/cdn-emoji/valine/',
-      emojiMaps: emojiMaps,
-    }))
+    new Waline(Object.assign({"js":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","path":null,"placeholder":"快来评论吧~","imageHosting":"https://7bu.top/api/upload","meta":["nick","mail","link"],"requiredFields":["nick","mail"],"serverURL":"https://yeshan333-waline.vercel.app","avatar":"robohash","pageSize":10,"lang":"zh-CN"}, {
+     el: '#waline',
+     path: path,
+     placeholder: pagePlaceholder,
+     uploadImage: function(file) {
+      const formData = new FormData();
+      formData.append('image', file);
+      return fetch('https://7bu.top/api/upload', {
+      	method: 'POST',
+      	body: formData
+      }).then(resp => resp.json()).then(resp => resp.data.url);
+   },
+  }));
   }
   $(function () {
-    pjax_valine();
+    pjax_waline();
   });
-  volantis.pjax.push(pjax_valine);
+  volantis.pjax.push(pjax_waline);
 </script>
 
 
