@@ -15,8 +15,31 @@
     <atom:link href="https://yeshan333.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>ShanSan&#39;s Blog</description>
-    <pubDate>Sun, 16 May 2021 15:14:31 GMT</pubDate>
+    <pubDate>Tue, 29 Jun 2021 15:34:20 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>使用 osmosfeed 创建自己的 Web RSS 阅读器</title>
+      <link>https://yeshan333.github.io/2021/06/29/osmosfeed-rss-reader/</link>
+      <guid>https://yeshan333.github.io/2021/06/29/osmosfeed-rss-reader/</guid>
+      <pubDate>Tue, 29 Jun 2021 15:34:20 GMT</pubDate>
+      
+      <description>&lt;p&gt;之前一直用 App Store 上的一个 RSS 阅读器 RSS Reader Prime 订阅技术周刊和 dalao 的技术博客，不得不说挺好用的，奈何全线下架了，现在就平板上保留着这个 App，手机上没有（国区好用的 RSS 阅读器基本无了）。有时候又想着用手机读读技术文章（板子太大，不好拿），于是乎翻了下 GitHub &lt;a href=&quot;https://github.com/topics/rss-reader&quot;&gt;rss-reader topic&lt;/a&gt; 下的相关阅读器项目，挑了手基于 Web 和 GitHub Pages 的 RSS 阅读器（Web 才是真的“跨端”，2333~），水篇文章微微记录下。&lt;/p&gt;</description>
+      
+      
+      
+      
+      <category domain="https://yeshan333.github.io/categories/blog/">blog</category>
+      
+      <category domain="https://yeshan333.github.io/categories/RSS/">RSS</category>
+      
+      
+      <category domain="https://yeshan333.github.io/tags/RSS-Reader/">RSS Reader</category>
+      
+      
+      <comments>https://yeshan333.github.io/2021/06/29/osmosfeed-rss-reader/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>热传导方程非特征 Cauchy 问题的一些笔记</title>
@@ -538,51 +561,6 @@
       
       
       <comments>https://yeshan333.github.io/2020/06/04/%E8%AF%91-%E9%80%9A%E8%BF%87-Git-%E5%92%8C-Angular-%E4%BA%86%E8%A7%A3%E8%AF%AD%E4%B9%89%E5%8C%96%E6%8F%90%E4%BA%A4%E4%BF%A1%E6%81%AF/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>了解一波经典的 I/O 模型</title>
-      <link>https://yeshan333.github.io/2020/05/19/%E4%BA%86%E8%A7%A3%E4%B8%80%E6%B3%A2%E7%BB%8F%E5%85%B8%E7%9A%84-IO-%E6%A8%A1%E5%9E%8B/</link>
-      <guid>https://yeshan333.github.io/2020/05/19/%E4%BA%86%E8%A7%A3%E4%B8%80%E6%B3%A2%E7%BB%8F%E5%85%B8%E7%9A%84-IO-%E6%A8%A1%E5%9E%8B/</guid>
-      <pubDate>Tue, 19 May 2020 15:19:14 GMT</pubDate>
-      
-      <description>&lt;p&gt;最近读了波网络 I/O 相关的文章，做下总结、摘录。（未完）&lt;/p&gt;
-&lt;h2 id=&quot;经典-I-O-模型&quot;&gt;&lt;a href=&quot;#经典-I-O-模型&quot; class=&quot;headerlink&quot; title=&quot;经典 I/O 模型&quot;&gt;&lt;/a&gt;经典 I/O 模型&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;&lt;div class=&#39;checkbox red checked&#39;&gt;&lt;input type=&quot;checkbox&quot; checked=&quot;checked&quot;/&gt;
-            &lt;p&gt;阻塞式 I/O（blocking I/O）&lt;/p&gt;
-            &lt;/div&gt;&lt;/li&gt;
-&lt;li&gt;&lt;div class=&#39;checkbox red checked&#39;&gt;&lt;input type=&quot;checkbox&quot; checked=&quot;checked&quot;/&gt;
-            &lt;p&gt;非阻塞式 I/O（non-blocking I/O）&lt;/p&gt;
-            &lt;/div&gt;&lt;/li&gt;
-&lt;li&gt;&lt;div class=&#39;checkbox red&#39;&gt;&lt;input type=&quot;checkbox&quot; /&gt;
-            &lt;p&gt;I/O 多路复用（I/O multiplexing）&lt;/p&gt;
-            &lt;/div&gt;&lt;/li&gt;
-&lt;li&gt;&lt;div class=&#39;checkbox cyan&#39;&gt;&lt;input type=&quot;checkbox&quot; /&gt;
-            &lt;p&gt;信号驱动式 I/O（signal driven I/O）&lt;/p&gt;
-            &lt;/div&gt;&lt;/li&gt;
-&lt;li&gt;&lt;div class=&#39;checkbox cyan&#39;&gt;&lt;input type=&quot;checkbox&quot; /&gt;
-            &lt;p&gt;异步 I/O（asynchronous I/O）&lt;/p&gt;
-            &lt;/div&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&quot;阻塞式-I-O-模型&quot;&gt;&lt;a href=&quot;#阻塞式-I-O-模型&quot; class=&quot;headerlink&quot; title=&quot;阻塞式 I/O 模型&quot;&gt;&lt;/a&gt;阻塞式 I/O 模型&lt;/h3&gt;&lt;p&gt;对于阻塞式 I/O，以套接字（Socket）的输入操作为例。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;1、首先应用进程发起 I/O 系统调用后，应用进程阻塞，转到内核空间处理。&lt;/li&gt;
-&lt;li&gt;2、之后，内核开始等待数据，等待数据到达之后，将内核中的数据拷贝到用户的缓冲区中，整个 I/O 处理完毕后返回进程。最后应用进程解除阻塞状态，处理数据。&lt;/li&gt;
-&lt;/ul&gt;</description>
-      
-      
-      
-      
-      <category domain="https://yeshan333.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</category>
-      
-      <category domain="https://yeshan333.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</category>
-      
-      
-      <category domain="https://yeshan333.github.io/tags/I-O%E6%A8%A1%E5%9E%8B/">I/O模型</category>
-      
-      
-      <comments>https://yeshan333.github.io/2020/05/19/%E4%BA%86%E8%A7%A3%E4%B8%80%E6%B3%A2%E7%BB%8F%E5%85%B8%E7%9A%84-IO-%E6%A8%A1%E5%9E%8B/#disqus_thread</comments>
       
     </item>
     

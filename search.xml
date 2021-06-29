@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>使用 osmosfeed 创建自己的 Web RSS 阅读器</title>
+      <link href="2021/06/29/osmosfeed-rss-reader/"/>
+      <url>2021/06/29/osmosfeed-rss-reader/</url>
+      
+        <content type="html"><![CDATA[<p>之前一直用 App Store 上的一个 RSS 阅读器 RSS Reader Prime 订阅技术周刊和 dalao 的技术博客，不得不说挺好用的，奈何全线下架了，现在就平板上保留着这个 App，手机上没有（国区好用的 RSS 阅读器基本无了）。有时候又想着用手机读读技术文章（板子太大，不好拿），于是乎翻了下 GitHub <a href="https://github.com/topics/rss-reader">rss-reader topic</a> 下的相关阅读器项目，挑了手基于 Web 和 GitHub Pages 的 RSS 阅读器（Web 才是真的“跨端”，2333~），水篇文章微微记录下。</p><span id="more"></span><h2 id="什么是-RSS"><a href="#什么是-RSS" class="headerlink" title="什么是 RSS"></a>什么是 RSS</h2><blockquote><p><a href="https://baike.baidu.com/item/rss/24470">RSS</a>, Really Simple Syndication. 一种描述和同步网站内容的 XML 格式，一般网站都会提供 RSS，有利于让用户通过 <strong>RSS Feed</strong>（RSS源，一般即为站点的RSS地址） 获取网站内容的最新更新。</p></blockquote><p>更多关于 RSS 的内容在 GitHub 上有个名为 ALL-about-RSS 的项目有介绍。</p><h2 id="使用-osmosfeed-搭建-Web-based-RSS-阅读器"><a href="#使用-osmosfeed-搭建-Web-based-RSS-阅读器" class="headerlink" title="使用 osmosfeed 搭建 Web-based RSS 阅读器"></a>使用 osmosfeed 搭建 Web-based RSS 阅读器</h2><p>osmosfeed 是 GitHub 上开源的一个 RSS Web 版阅读器，可以使用 GitHub Pages 托管，主题可自定义。</p><p>1、首先根据 osmosfeed 的模板仓 <a href="https://github.com/osmoscraft/osmosfeed-template">osmosfeed-template</a> 新建个人仓库。</p><blockquote><p>戳此链接使用模板仓库：<a href="https://github.com/osmoscraft/osmosfeed-template/generate">https://github.com/osmoscraft/osmosfeed-template/generate</a></p></blockquote><div class="gallery ">              <p><img src="https://cdn.jsdelivr.net/gh/ssmath/mypic/20210629211254.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/ssmath/mypic/20210629211254.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="通过模板库新建个人公共仓库"></p>            </div><p>2、仓库建好后，GitHub Actions 会自动触发 RSS Web Reader 构建的 action<a href="https://github.com/yeshan333/osmosfeed-rss-reader/blob/main/.github/workflows/update-feed.yaml"><code>Build site on schedule or main branch update</code></a>，构建产物将会被推送到仓库的 gh-pages 分支。</p><p>3、最近 GitHub 更新了波，GitHub Pages 的开启有了新的选项卡，仓库顶部 <code>Settings</code> -&gt; 左侧边栏 <code>Pages</code>，调整发布源分支<em>gh-pages</em>，反手一个 Save 就好了。</p><div class="gallery ">              <p><img src="https://cdn.jsdelivr.net/gh/ssmath/mypic/20210629212354.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/ssmath/mypic/20210629212354.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="开启仓库 Pages，源分支为 gh-pages"></p>            </div><p>4、订阅源可直接编辑根目录下的 <a href="https://github.com/yeshan333/osmosfeed-rss-reader/blob/main/osmosfeed.yaml">osmosfeed.yaml</a> 文件，反手把自己博客订阅上👻😎。preview: <a href="https://shansan.top/osmosfeed-rss-reader/">https://shansan.top/osmosfeed-rss-reader/</a></p><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cacheUrl: https://GITHUB_USERNAME.github.io/REPO_NAME/cache.json</span></span><br><span class="line"><span class="attr">sources:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">href:</span> <span class="string">https://github.com/osmoscraft/osmosfeed/releases.atom</span> <span class="comment"># Get new feature announcement via this feed</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">href:</span> <span class="string">https://shansan.top/rss2.xml</span></span><br></pre></td></tr></table></figure><p>action 在没有对仓库 main 分支变动的情况下，会每天自动触发一次。</p><div class="gallery ">              <p><img src="https://cdn.jsdelivr.net/gh/ssmath/mypic/20210629214608.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/ssmath/mypic/20210629214608.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="action schedule, crontab.guru"></p>            </div><p>更多操作可参考 osmosfeed 项目的 README：<a href="https://github.com/osmoscraft/osmosfeed">https://github.com/osmoscraft/osmosfeed</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> blog </category>
+          
+          <category> RSS </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> RSS Reader </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>热传导方程非特征 Cauchy 问题的一些笔记</title>
       <link href="2021/05/16/heat-conduction-equation/"/>
       <url>2021/05/16/heat-conduction-equation/</url>
