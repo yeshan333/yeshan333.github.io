@@ -548,10 +548,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git clone git@github.com:yeshan333/actions-for-hexo-blog.git &amp;&amp; cd actions-for-hexo-blog</span><br><span class="line">git submodule add git@github.com:volantis-x/hexo-theme-volantis.git themes/volantis</span><br></pre></td></tr></table></figure>
 
 <p>执行上述命令之后，会看到当前项目下生成了个 <code>.gitmodules</code> 文件，内容如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[submodule &quot;themes&#x2F;volantis&quot;]</span><br><span class="line">	path &#x3D; themes&#x2F;volantis</span><br><span class="line">	url &#x3D; git@github.com:volantis-x&#x2F;hexo-theme-volantis.git</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[submodule &quot;themes/volantis&quot;]</span><br><span class="line">	path = themes/volantis</span><br><span class="line">	url = git@github.com:volantis-x/hexo-theme-volantis.git</span><br></pre></td></tr></table></figure>
 
 <p>同时，<code>.git/config</code> 文件也会被追加写入如下内容：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[submodule &quot;themes&#x2F;volantis&quot;]</span><br><span class="line">	url &#x3D; git@github.com:volantis-x&#x2F;hexo-theme-volantis.git</span><br><span class="line">	active &#x3D; true</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[submodule &quot;themes/volantis&quot;]</span><br><span class="line">	url = git@github.com:volantis-x/hexo-theme-volantis.git</span><br><span class="line">	active = true</span><br></pre></td></tr></table></figure>
 
 <p>再看看 <code>theme/volantis</code> 目录，发现该项目的 Git 版本库不见了，之前提到 <code>git submodule</code> 可以保留两个版本库之间 commit 的分离，那么项目 volantis 的版本库放哪了？摸索下当前项目的版本库可以看到被放在了 <code>.git/modules/themes/volantis</code> 下。尝试提交到 GitHub 看看。</p>
 <div class="gallery ">
@@ -564,7 +564,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <li>子模块更新：<code>git submodule update</code></li>
 <li><a target="_blank" rel="noopener" href="http://reader.epubee.com/books/mobile/ed/ededfda8184ebf210b5960a5f22be1c7/text00025.html">submodule 最佳实践</a></li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 子模块删除</span><br><span class="line">- 删除.gitsubmodule文件中子模块的相关字段；</span><br><span class="line">- 删除.git&#x2F;config文件中子模块的相关字段；</span><br><span class="line">- 删除模块目录：</span><br><span class="line">- git rm --cached &lt;submodule-path&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 子模块删除</span><br><span class="line">- 删除.gitsubmodule文件中子模块的相关字段；</span><br><span class="line">- 删除.git/config文件中子模块的相关字段；</span><br><span class="line">- 删除模块目录：</span><br><span class="line">- git rm --cached &lt;submodule-path&gt;</span><br></pre></td></tr></table></figure>
 
 
 

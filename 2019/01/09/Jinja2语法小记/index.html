@@ -558,14 +558,14 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <ol start="2">
 <li>我们可以用<strong>set</strong>标签在模板中定义变量</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% set navigation &#x3D; [(&#39;&#x2F;&#39;,&#39;Home&#39;),(&#39;&#x2F;about&#39;,&#39;关于我&#39;)] %&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% set navigation = [(&#x27;/&#x27;,&#x27;Home&#x27;),(&#x27;/about&#x27;,&#x27;关于我&#x27;)] %&#125;</span><br></pre></td></tr></table></figure>
 
 <p>使用<strong>endset</strong>声明结束</p>
 <h1 id="过滤器-filter"><a href="#过滤器-filter" class="headerlink" title="过滤器(filter)"></a>过滤器(filter)</h1><blockquote>
 <p>过滤器(filter)是一些可以用来修改和过滤特殊变量值的函数。<br>过滤器和变量用一个竖线“**|**”（管道符号）隔开，需要参数的过滤器可以像函数一样使用括号传递</p>
 </blockquote>
 <p>eg: 对一个movies列表使用length过滤器获取其长度</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">movies|length</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">movies|length</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>下面是Jinja2常用的内置过滤器</p>
@@ -661,7 +661,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <td align="center">判断变量与other是否指向相同的内存地址</td>
 </tr>
 </tbody></table>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;% if foo is smeas(bar) %&#125;</span><br><span class="line">&#123;# 等价于 #&#125;</span><br><span class="line">&#123;% if foo is smeas bar %&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;% if foo is smeas(bar) %&#125;</span><br><span class="line">&#123;# 等价于 #&#125;</span><br><span class="line">&#123;% if foo is smeas bar %&#125;</span><br></pre></td></tr></table></figure>
 <p>判断foo和bar所以指向的内存地址是否相同</p>
 <h1 id="语句"><a href="#语句" class="headerlink" title="语句"></a>语句</h1><blockquote>
 <p>在Jinja2中，语句使用**{% ... %}**标识<br>在语句结束的地方，必须添加结束标签</p>
@@ -670,9 +670,9 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <li>if语句使用endif</li>
 <li>for语句使用endfor</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;% if user.name &#x3D;&#x3D; &#39;shansan&#39; %&#125;</span><br><span class="line">    &lt;h1&gt;you are right!&lt;&#x2F;h1&gt;</span><br><span class="line">&#123;% else %&#125;</span><br><span class="line">    &lt;h1&gt;you are wrong!&lt;&#x2F;h1&gt;</span><br><span class="line">&#123;% endif %&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;% if user.name == &#x27;shansan&#x27; %&#125;</span><br><span class="line">    &lt;h1&gt;you are right!&lt;/h1&gt;</span><br><span class="line">&#123;% else %&#125;</span><br><span class="line">    &lt;h1&gt;you are wrong!&lt;/h1&gt;</span><br><span class="line">&#123;% endif %&#125;</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;% for g in ga %&#125;</span><br><span class="line">    &lt;li&gt;&#123;&#123; g.name &#125;&#125; - &#123;&#123; g.year &#125;&#125;&lt;&#x2F;li&gt;</span><br><span class="line">&#123;% endfor %&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;% for g in ga %&#125;</span><br><span class="line">    &lt;li&gt;&#123;&#123; g.name &#125;&#125; - &#123;&#123; g.year &#125;&#125;&lt;/li&gt;</span><br><span class="line">&#123;% endfor %&#125;</span><br></pre></td></tr></table></figure>
 
 <p><em><strong>不可使用break和continue控制循环的执行</strong></em></p>
 <h1 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h1><h2 id="局部模板"><a href="#局部模板" class="headerlink" title="局部模板"></a>局部模板</h2><ul>
@@ -680,7 +680,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <li>局部模板的命名一般以一个下划线开始</li>
 <li>使用<strong>include</strong>标签插入一个局部模板</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% include &#39;_banner.html&#39; %&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% include &#x27;_banner.html&#x27; %&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="宏"><a href="#宏" class="headerlink" title="宏"></a>宏</h2><ul>
 <li>宏，类似于Python中的函数。使用宏可以封装一部分模板代码</li>
@@ -688,10 +688,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <li>使用macro和endmacro标签声明宏的开始和结束</li>
 <li>在开始标签中定义宏的名称和接收的参数</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;% macro qux(amount&#x3D;1) %&#125;</span><br><span class="line">    &#123;% if amount&#x3D;&#x3D;1 %&#125;</span><br><span class="line">        I am qux.</span><br><span class="line">    &#123;% elif amount&gt;1 %&#125;</span><br><span class="line">        We are qux.</span><br><span class="line">    &#123;% endif %&#125;</span><br><span class="line">&#123;% endmacro %&#125; </span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;% macro qux(amount=1) %&#125;</span><br><span class="line">    &#123;% if amount==1 %&#125;</span><br><span class="line">        I am qux.</span><br><span class="line">    &#123;% elif amount&gt;1 %&#125;</span><br><span class="line">        We are qux.</span><br><span class="line">    &#123;% endif %&#125;</span><br><span class="line">&#123;% endmacro %&#125; </span><br></pre></td></tr></table></figure>
 
 <p>就像从Python模块中导入函数一样，我们可以使用import导入宏</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% from &#39;macros.html&#39; import qux %&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% from &#x27;macros.html&#x27; import qux %&#125;</span><br></pre></td></tr></table></figure>
 
 <p>PS:<font color="red">默认情况下，使用include导入一个局部模板会传递上下文到局部模板中，但使用import却不会</font></p>
 <h2 id="模板继承"><a href="#模板继承" class="headerlink" title="模板继承"></a>模板继承</h2><blockquote>
@@ -716,7 +716,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
 <p>*** 如需要向基模板中追加内容，可以使用Jinja2的super()函数 ***</p>
 <p>如向基模板的styles块追加一行样式</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;% block styles %&#125;</span><br><span class="line">&#123;&#123; super() &#125;&#125;</span><br><span class="line">&lt;style&gt;</span><br><span class="line">    html&#123;</span><br><span class="line">        color: red;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;&#x2F;style&gt;</span><br><span class="line">&#123;% endblock %&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;% block styles %&#125;</span><br><span class="line">&#123;&#123; super() &#125;&#125;</span><br><span class="line">&lt;style&gt;</span><br><span class="line">    html&#123;</span><br><span class="line">        color: red;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line">&#123;% endblock %&#125;</span><br></pre></td></tr></table></figure>
 
 <hr>
 <p>参考：</p>
