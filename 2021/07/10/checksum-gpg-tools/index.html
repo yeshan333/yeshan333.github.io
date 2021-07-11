@@ -1,0 +1,1905 @@
+<!DOCTYPE html>
+<html lang="zh-CN,en,zh-TW,default">
+  <head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/tree/4.3.1'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <link rel="preload" href="/css/first.css" as="style">
+  
+
+  <!-- 页面元数据 -->
+  
+  <title>对下载软件/文件进行校验的工具（Checksum and GPG） - ShanSan</title>
+  
+    <meta name="keywords" content="gpg, checksums, md5">
+  
+
+  
+    <meta name="description" content="前言之前装软件一直都没有验证安装文件的习惯，信息安全意识不高，碰巧最近没啥事，微微写篇文章记录下校验工具（互联网http、https、ftp 服务并没有那么安全，是可以被劫持篡改。老装软件选手了，是该养成个校验文件的习惯了）。
+在互联网下载软件/文件的时候经常会看到官方提供了一段⌈校验和（checksum）⌋或包...">
+  
+
+  <!-- feed -->
+  
+    <link rel="alternate" href="/rss2.xml" title="ShanSan" type="application/rss+xml">
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  
+    <link rel="shortcut icon" type='image/x-icon' href="https://img.vim-cn.com/bb/db444be0b7fda59c69d5c64167f9668b0b66bd.png">
+  
+
+  <!-- import link -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/first.css">
+
+  
+
+  
+  <link rel="stylesheet" href="/css/style.css" media="print" onload="this.media='all';this.onload=null">
+  <noscript><link rel="stylesheet" href="/css/style.css"></noscript>
+  
+
+  <script id="loadcss"></script>
+
+  
+<script>
+if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode))
+    document.write(
+	'<style>'+
+		'html{'+
+			'overflow-x: hidden !important;'+
+			'overflow-y: hidden !important;'+
+		'}'+
+		'.kill-ie{'+
+			'text-align:center;'+
+			'height: 100%;'+
+			'margin-top: 15%;'+
+			'margin-bottom: 5500%;'+
+		'}'+
+	'</style>'+
+    '<div class="kill-ie">'+
+        '<h1><b>抱歉，您的浏览器无法访问本站</b></h1>'+
+        '<h3>微软已经于2016年终止了对 Internet Explorer (IE) 10 及更早版本的支持，<br/>'+
+        '继续使用存在极大的安全隐患，请使用当代主流的浏览器进行访问。</h3><br/>'+
+        '<a target="_blank" rel="noopener" href="https://www.microsoft.com/zh-cn/WindowsForBusiness/End-of-IE-support"><strong>了解详情 ></strong></a>'+
+    '</div>');
+</script>
+
+
+<noscript>
+	<style>
+		html{
+			overflow-x: hidden !important;
+			overflow-y: hidden !important;
+		}
+		.kill-noscript{
+			text-align:center;
+			height: 100%;
+			margin-top: 15%;
+			margin-bottom: 5500%;
+		}
+	</style>
+    <div class="kill-noscript">
+        <h1><b>抱歉，您的浏览器无法访问本站</b></h1>
+        <h3>本页面需要浏览器支持（启用）JavaScript</h3><br/>
+        <a target="_blank" rel="noopener" href="https://www.baidu.com/s?wd=启用JavaScript"><strong>了解详情 ></strong></a>
+    </div>
+</noscript>
+
+</head>
+
+  <body>
+    
+
+<header id="l_header" class="l_header auto shadow blur " style='opacity: 0' >
+  <div class='container'>
+  <div id='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h m-phone' id="pjax-header-nav-list">
+        <li><a id="s-comment" class="fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a id="s-toc" class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+          
+          
+            ShanSan
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h m-pc'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博文
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" 
+                  
+                  
+                  >
+                  <i class='fas fa-ellipsis-v fa-fw'></i>与我相关
+                </a>
+                
+                  <ul class="list-v">
+                    
+                      
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://github.com/yeshan333
+                  
+                  
+                  
+                    id="https:githubcomyeshan333"
+                  >
+                  <i class='fab fa-github-square fa-fw'></i>Github
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://slide.shan333.cn
+                  
+                  
+                  
+                    id="https:slideshan333cn"
+                  >
+                  <i class='fab fa-slideshare fa-fw'></i>slides
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://shansan.top/knowledge-base/
+                  
+                  
+                  
+                    id="https:shansantopknowledge-base"
+                  >
+                  <i class='far fa-sticky-note fa-fw'></i>notes
+                </a>
+                
+              </li>
+            
+          
+                    
+                  </ul>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/cloud-native/
+                  
+                  
+                  
+                    id="cloud-native"
+                  >
+                  <i class='fas fa-cloud fa-fw'></i>云原生
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="寻你所想" />
+        </form>
+      </div>
+
+			<ul class='switcher nav-list-h m-phone'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博文
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" 
+                  
+                  
+                  >
+                  <i class='fas fa-ellipsis-v fa-fw'></i>与我相关
+                </a>
+                
+                  <ul class="list-v">
+                    
+                      
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://github.com/yeshan333
+                  
+                  
+                  
+                    id="https:githubcomyeshan333"
+                  >
+                  <i class='fab fa-github-square fa-fw'></i>Github
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://slide.shan333.cn
+                  
+                  
+                  
+                    id="https:slideshan333cn"
+                  >
+                  <i class='fab fa-slideshare fa-fw'></i>slides
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://shansan.top/knowledge-base/
+                  
+                  
+                  
+                    id="https:shansantopknowledge-base"
+                  >
+                  <i class='far fa-sticky-note fa-fw'></i>notes
+                </a>
+                
+              </li>
+            
+          
+                    
+                  </ul>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/cloud-native/
+                  
+                  
+                  
+                    id="cloud-native"
+                  >
+                  <i class='fas fa-cloud fa-fw'></i>云原生
+                </a>
+                
+              </li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</header>
+
+    <div id="l_body">
+      <div id="l_cover">
+  
+      
+  
+  </div>
+
+      <div id="safearea">
+        <div class="body-wrapper" id="pjax-container">
+          
+
+<div class='l_main'>
+  <article class="article post white-box reveal md shadow article-type-post" id="post" itemscope itemprop="blogPost">
+  
+
+
+  
+    <div class='headimg-div'>
+      <a class='headimg-a'>
+        <img class='headimg' src='https://z3.ax1x.com/2021/07/11/W9bniR.png'/>
+      </a>
+    </div>
+  
+  <div class="article-meta" id="top">
+    
+    
+    
+      <h1 class="title">
+        对下载软件/文件进行校验的工具（Checksum and GPG）
+      </h1>
+      <div class='new-meta-box'>
+        
+          
+            
+<div class='new-meta-item author'>
+  <a class='author' target="_blank" href="https://github.com/yeshan333" rel="nofollow noopener">
+    <img no-lazy src="https://img.vim-cn.com/a3/caa9ef084c4f562b82b1cca6e978c0dca58c5f.png">
+    <p>yeshan333</p>
+  </a>
+</div>
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>首发于：2021年7月10日</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/GPG/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>GPG</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/MD5/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>MD5</p></a></div>
+
+
+          
+        
+      </div>
+    
+  </div>
+
+
+  
+  
+  <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>之前装软件一直都没有验证安装文件的习惯，信息安全意识不高，碰巧最近没啥事，微微写篇文章记录下校验工具（互联网http、https、ftp 服务并没有那么安全，是可以被劫持篡改。老装软件选手了，是该养成个校验文件的习惯了）。</p>
+<p>在互联网下载软件/文件的时候经常会看到官方提供了一段⌈校验和（checksum）⌋或包含校验和的文件供校验。常见的校验和有 md5、SHA 家族等。还有部分软件/文件会提供 GPG 校验文件（signature file, SIG）给下载者进行校验。</p>
+<p>来看看这两种校验方式相关的工具。</p>
+<span id="more"></span>
+
+<h2 id="校验和校验工具"><a href="#校验和校验工具" class="headerlink" title="校验和校验工具"></a>校验和校验工具</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E6%A0%A1%E9%AA%8C%E5%92%8C">校验和</a>（英语：Checksum）是冗余校验的一种形式。 它是通过错误检测方法，对经过空间（如通信）或时间（如计算机存储）所传送数据的完整性进行检查的一种简单方法。 -来自维基百科</p>
+</blockquote>
+<h3 id="Windows-CertUtil"><a href="#Windows-CertUtil" class="headerlink" title="Windows CertUtil"></a>Windows CertUtil</h3><p>CertUtil 是 Windows 自带的文件校验和计算程序，我们可以通过它计算下载的软件/文件的 checksum 与官方提供的 checksum 作对比。</p>
+<p>在 PowerShell 或 CMD 中可以执行 <code>CertUtil -?</code> 命令查看 CertUtil 支持的参数。CertUtil 的计算文件校验和命令的一般形式为</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CertUtil -hashfile &lt;path to file&gt; &lt;hash algorithm&gt;</span><br></pre></td></tr></table></figure>
+
+<p>CertUtil 支持的校验和计算的哈希算法有 MD2 MD4 MD5 SHA1 SHA256 SHA384 SHA512 等。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Usage:</span><br><span class="line">  CertUtil [Options] -hashfile InFile [HashAlgorithm]</span><br><span class="line">  Generate and display cryptographic hash over a file</span><br><span class="line"></span><br><span class="line">Options:</span><br><span class="line">  -Unicode          -- Write redirected output in Unicode</span><br><span class="line">  -gmt              -- Display times as GMT</span><br><span class="line">  -seconds          -- Display times with seconds and milliseconds</span><br><span class="line">  -v                -- Verbose operation</span><br><span class="line">  -privatekey       -- Display password and private key data</span><br><span class="line">  -pin PIN                  -- Smart Card PIN</span><br><span class="line">  -sid WELL_KNOWN_SID_TYPE  -- Numeric SID</span><br><span class="line">            22 -- Local System</span><br><span class="line">            23 -- Local Service</span><br><span class="line">            24 -- Network Service</span><br><span class="line"></span><br><span class="line">Hash algorithms: MD2 MD4 MD5 SHA1 SHA256 SHA384 SHA512</span><br></pre></td></tr></table></figure>
+
+<p>让我们看个例子，就装个 Go 吧（嘿嘿，最近在装系统，什么软件都没了），直接官方（<a target="_blank" rel="noopener" href="https://golang.org/dl/">https://golang.org/dl/</a>）下载 Go 的安装程序，下载页面给出了 SHA256 Checksum。</p>
+<div class="gallery ">
+              <p><img src="https://z3.ax1x.com/2021/07/10/WpK4aQ.png" class="lazyload" data-srcset="https://z3.ax1x.com/2021/07/10/WpK4aQ.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="Go 下载页"></p>
+            </div>
+
+<p>使用 Certutil 计算 go1.16.5.windows-amd64.msi 安装程序的校验和。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CertUtil -hashfile go1.16.5.windows-amd64.msi SHA256</span><br></pre></td></tr></table></figure>
+
+<div class="gallery ">
+              <p><img src="https://z3.ax1x.com/2021/07/10/WpMUWn.png" class="lazyload" data-srcset="https://z3.ax1x.com/2021/07/10/WpMUWn.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="CertUtil 计算结果"></p>
+            </div>
+
+<p>CertUtil 计算结果（322dd8c585f37b62c9e603c84747b97a7a65b56fcef56b64e3021ccad90785b2）和下载页提供的校验和（322dd8c585f37b62c9e603c84747b97a7a65b56fcef56b64e3021ccad90785b2）比对，emmm，没毛病，微微放心安装了。</p>
+<p>文档：<a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/certutil">microsoft windows-commands certutil</a></p>
+<h3 id="Linux-md5sum"><a href="#Linux-md5sum" class="headerlink" title="Linux md5sum"></a>Linux md5sum</h3><p>md5sum 是大多数 Linux 系统都预装的校验 128 位 MD5 哈希值，用于检查文件完整性的校验和工具。</p>
+<p>命令的一般形式如下，使用 <code>md5sum --help</code> 查看更多操作：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">md5sum &lt;file-path or files-path&gt;</span><br></pre></td></tr></table></figure>
+
+<p>输出格式一般示例如下（校验和 + 文件名）</p>
+<div class="gallery ">
+              <p><img src="https://z3.ax1x.com/2021/07/10/Wpa4XQ.png" class="lazyload" data-srcset="https://z3.ax1x.com/2021/07/10/Wpa4XQ.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="md5sum 计算校验和"></p>
+            </div>
+
+<p>部分软件下载时会拿到一个类似如下内容格式的 checksum 文件，姑且命名为 demo_hash.md5</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">f4e81ade7d6f9fb342541152d08e7a97  .profile</span><br><span class="line">0f077c02d1303b89b9c5cb92e5d7d112  .bashrc</span><br></pre></td></tr></table></figure>
+
+<p>那么使用 md5sum 进行校验时可以这么操作，md5sum 会自动根据 demo_hash.md5 里面的文件逐个检查 md5：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> md5sum -c demo_hash.md5 <span class="comment"># 加个 `-c` 参数</span></span></span><br><span class="line">.profile: OK</span><br><span class="line">.bashrc: OK</span><br></pre></td></tr></table></figure>
+
+<p>文档：<a target="_blank" rel="noopener" href="https://www.gnu.org/software/coreutils/manual/html_node/md5sum-invocation.html#md5sum-invocation">md5sum-invocation</a></p>
+<h2 id="GPG-key-校验工具"><a href="#GPG-key-校验工具" class="headerlink" title="GPG key 校验工具"></a>GPG key 校验工具</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.gnupg.org/index.html">GPG</a>（GnuPG）是一个实现了 OpenPGP 标准的用于数据加密和数字签名的工具。</p>
+</blockquote>
+<p>互联网上存在着部分软件/文件通过 GPG 密钥进行签名来证明其来源。GitHub 也有着一种使用 GPG 密钥来检验 Git Commit 来源可靠性的手段，如果可靠，会在前端页面 commit log 历史那里显示一个如下的小绿标：</p>
+<div class="gallery ">
+              <p><img src="https://z3.ax1x.com/2021/07/10/Wps4PA.png" class="lazyload" data-srcset="https://z3.ax1x.com/2021/07/10/Wps4PA.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="GitHub commit signature"></p>
+            </div>
+
+<p>btw，之前微微写过一篇文章 -&gt; <a target="_blank" rel="noopener" href="https://shansan.top/2020/06/26/%E7%BB%99%20GitHub%20commit%20%E5%8A%A0%E4%B8%AA%E5%B0%8F%E7%BB%BF%E6%A0%87/">给 GitHub commit 加个小绿标</a>。</p>
+<p>使用 GPG key 进行软件/文件校验的一般步骤如下：</p>
+<ul>
+<li>step 1：获取软件/文件作者的<strong>公钥</strong>（public key），导入到 GPG key 管理器；</li>
+<li>step 2：根据作者的 gpg key <strong>指纹</strong>（fingerprint）验证公钥（public key）的可靠性；</li>
+<li>step 3：根据软件/文件的<strong>签名文件</strong>（signature file，SIG）校验来源是否可靠。</li>
+</ul>
+<h3 id="Gpg4win"><a href="#Gpg4win" class="headerlink" title="Gpg4win"></a>Gpg4win</h3><p>Gpg4win 是官方的 Windows GnuPG 发行版，全家桶软件，官网为 <a target="_blank" rel="noopener" href="https://gpg4win.org/about.html">gpg4win.org</a>。通过自带的 GUI 客户端 Kleopatra，我们可以很方便的完成文件的校验。直接官网下载安装即可 -&gt; <a target="_blank" rel="noopener" href="https://gpg4win.org/get-gpg4win.html">Download Page</a>。</p>
+<div class="gallery ">
+              <p><img src="https://z3.ax1x.com/2021/07/11/W9YnX9.png" class="lazyload" data-srcset="https://z3.ax1x.com/2021/07/11/W9YnX9.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="Kleopatra"></p>
+            </div>
+
+<p>这里我们以 Windows 下 Python 3.9.6 的安装为例，看下使用 Kleopatra 进行校验的过程是怎么样的 ⌈以下操作下载的文件均在同一个目录下⌋。</p>
+<p>先到官方下载页<a target="_blank" rel="noopener" href="https://www.python.org/downloads/release/python-396/">release/python-396</a>下载 Windows Python 3.9.6 的安装文件和对应的 GPG 密钥签名文件（sig）：</p>
+<div class="gallery ">
+              <p><img src="https://z3.ax1x.com/2021/07/10/WpK4aQ.png" class="lazyload" data-srcset="https://z3.ax1x.com/2021/07/10/WpK4aQ.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="安装文件和签名文件下载"></p>
+            </div>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -sSlO https://www.python.org/ftp/python/3.9.6/python-3.9.6-amd64.exe</span><br><span class="line">curl -O https://www.python.org/ftp/python/3.9.6/python-3.9.6-amd64.exe.asc</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://z3.ax1x.com/2021/07/11/W9tKgg.png" class="lazyload" data-srcset="https://z3.ax1x.com/2021/07/11/W9tKgg.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="下载 installer &amp; sig 文件"></p>
+<p>现在开始对着之前所的校验步骤操作一下。</p>
+<p><strong>Step 1</strong>：获取软件/文件作者的<strong>公钥</strong>（public key），导入到 GPG key 管理器；</p>
+<p>从 <a target="_blank" rel="noopener" href="https://www.python.org/downloads/">https://www.python.org/downloads/</a> 页面大概四分之三的地方，我们可以看到之前下载的 Windows Banaries 的 release manager 是 Steve Dower，我们根据官网提供的链接获取<a target="_blank" rel="noopener" href="https://keybase.io/stevedower/">公钥</a>。</p>
+<div class="gallery ">
+              <p><img src="https://z3.ax1x.com/2021/07/11/W9UCmd.png" class="lazyload" data-srcset="https://z3.ax1x.com/2021/07/11/W9UCmd.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="获取 Steve Dower 公钥"></p><p><img src="https://z3.ax1x.com/2021/07/11/W9U738.png" class="lazyload" data-srcset="https://z3.ax1x.com/2021/07/11/W9U738.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="keybase 上的公钥"></p>
+            </div>
+
+<p>下载公钥。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -O https://keybase.io/stevedower/pgp_keys.asc</span><br></pre></td></tr></table></figure>
+
+<p>使用 Kleopatra 导入下载好的公钥 pgp_keys.asc。</p>
+<div class="gallery ">
+              <p><img src="https://z3.ax1x.com/2021/07/11/W9wpXF.png" class="lazyload" data-srcset="https://z3.ax1x.com/2021/07/11/W9wpXF.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="导入公钥"></p>
+            </div>
+
+<p><strong>Step 2</strong>：根据作者的 gpg key <strong>指纹</strong>（fingerprint）验证公钥（public key）的可靠性；</p>
+<div class="gallery ">
+              <p><img src="https://z3.ax1x.com/2021/07/11/W9w5NR.png" class="lazyload" data-srcset="https://z3.ax1x.com/2021/07/11/W9w5NR.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="验证指纹"></p>
+            </div>
+
+<p>导入的公钥指纹与提供的指纹一致，一般就无问题了。</p>
+<p><strong>Step 3</strong>：根据软件/文件的<strong>签名文件</strong>（signature file，SIG）校验来源是否可靠。</p>
+<p>使用之前下载好的 signature file（python-3.9.6-amd64.exe.asc）进行校验，如下：</p>
+<div class="gallery ">
+              <p><img src="https://z3.ax1x.com/2021/07/11/W9Bb0e.png" class="lazyload" data-srcset="https://z3.ax1x.com/2021/07/11/W9Bb0e.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="SIG 校验"></p>
+            </div>
+
+<p>emmm，没问题。Good job！</p>
+<h3 id="GnuPG-GPG"><a href="#GnuPG-GPG" class="headerlink" title="GnuPG(GPG)"></a>GnuPG(GPG)</h3><p>GnuPG 是之前提到的 Gpg4win 的后端，适合命令行选手。大部分 Linux 系统自带。下面我们在 WSL（Ubuntu-20.04）感受下。</p>
+<p>这里我们以对 <a target="_blank" rel="noopener" href="https://www.gnupg.org/download/index.html">GnuPG（LTS） Tarball</a> 的下载校验为例子。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mkdir gnupg_tarball</span><br><span class="line">cd gnupg_tarball</span><br><span class="line"><span class="meta">#</span><span class="bash"> 下载 GnuPG（LTS） tarball</span></span><br><span class="line">curl -O https://www.gnupg.org/ftp/gcrypt/gnupg/gnupg-2.2.29.tar.bz2</span><br><span class="line"><span class="meta">#</span><span class="bash"> 下载校验文件</span></span><br><span class="line">curl -O https://www.gnupg.org/ftp/gcrypt/gnupg/gnupg-2.2.29.tar.bz2.sig</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Step 1：保存公钥，导入公钥。在 <a target="_blank" rel="noopener" href="https://www.gnupg.org/signature_key.html">https://www.gnupg.org/signature_key.html</a> 拿到作者的 signature key，保存到 gnupg-2.2.29.asc。</li>
+</ul>
+<details open red><summary> 保存公钥 </summary>
+              <div class='content'>
+              <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">➜ cat&gt;gnupg-2.2.29.asc&lt;&lt;EOF</span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> -----BEGIN PGP PUBLIC KEY BLOCK-----</span></span><br><span class="line"><span class="meta">&gt;</span></span><br><span class="line"><span class="bash">&gt; mQENBE0ti4EBCACqGtKlX9jI/enhlBdy2cyQP6Q7JoyxtaG6/ckAKWHYrqFTQk3I</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> Ue8TuDrGT742XFncG9PoMBfJDUNltIPgKFn8E9tYQqAOlpSA25bOb30cA2ADkrjg</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> jvDAH8cZ+fkIayWtObTxwqLfPivjFxEM//IdShFFVQj+QHmXYBJggWyEIil8Bje7</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> KRw6B5ucs4qSzp5VH4CqDr9PDnLD8lBGHk0x8jpwh4V/yEODJKATY0Vj00793L8u</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> qA35ZiyczUvvJSLYvf7STO943GswkxdAfqxXbYifiK2gjE/7SAmB+2jFxsonUDOB</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> 1BAY5s3FKqrkaxZr3BBjeuGGoCuiSX/cXRIhABEBAAG0Fldlcm5lciBLb2NoIChk</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> aXN0IHNpZymJAVUEEwEIAD8CGwMGCwkIBwMCBhUIAgkKCwQWAgMBAh4BAheAFiEE</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> 2GkhI8QGXepeDzq1JJs50k8l47YFAl4MxBkFCRShVzYACgkQJJs50k8l47YImQf9</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> HaqHWor+aSmaEwQnaAN0zRa4kPbAWya182aJtsFzLZJf6BbS0aoiMhwtREN/DMvB</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> jzxARKep/cELaM+mc7oDK4mEwqSX/u6BE8D7FaNA9sut8P+4xjpoLPU+UzILMg29</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> t1remjyT9rs6sbu8BqufIxueArkjoi4WCOSRiVTdw+YDd88volPkXlPfS8hg9Rct</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> wZ8kEEDywa+NrxiLx+kDgDNTNdk3PJdfcnesf8S1a+KLUTNRds5+xGTYz0JSQ9BZ</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> 7Q9r4VQ/NL55muQZi5W7lVxdp3HxQFUNjHzzBfGtkpS4xqZpJvNjW50Wh5Vi5RYZ</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> LZ3M1EuIHXHmRiY4dmqqcpkBDQRUUDsjAQgA5hBwN9F3OqKf+9mXCXUDK4lb5wMj</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> dti96xG04gAn7wWo7On6c5ntriZQuRdR5GHcdw73XC6CFehHeo/eSVYiWqBNBAfE</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> 9UzbkES+cY+4wDzqVacqhKxd70XmHQgyK7ppRG/MwkL1UyArCGGAKN6MV/2fzO6I</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> GQw3jntRue3/2PGGnGaisNAKlvttHWZ91uy4KY5fBM19uQCgZdx4v8/rP0+yQqsW</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> TwJUKvymx5GIfNaCJvgF+v+aPrwspxBMf9jpHXqDXnh4Lo8C/GsQMD6GClVfQjsv</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> vzUHKH2eoL4oNfku+Ua5BuAHYi+uAuzqV9TdpF9PCpQMyPfuuZclMPLdMwARAQAB</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> tDJOSUlCRSBZdXRha2EgKEdudVBHIFJlbGVhc2UgS2V5KSA8Z25paWJlQGZzaWou</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> b3JnPokBPAQTAQgAJgIbAwULBwgJAwQVCAkKBRYCAwEAAh4BAheABQJYDxRZBQkL</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> S5A2AAoJECBxsIozvT8GvG8IAMBIlGz9voYcSSXAdQOuvz2gM2kOjvMHzN6VlS9V</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> P06IjnTz2DnejFZwLmxJw8e8mZjUo0jw22uo1HREQhDrne3S1IazPMeTUCUNzpWF</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> MxXNc6SAyrw9apWa8gouGUWJv3HOwVs8EFA2E9UdtDJ2uG7MY/+eC5K/aeOAyudZ</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> EbvS8rgZypTFrBtBcNKUWZhz7FRn63HxEmYLE3p6I19ZDXrc1WTazF2oz18zym6c</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> uURr6waRbdSemUTshpLnKCBZXzJ82bXBgXNnfdmc3gtS24ZmM3ZfK/rYztEDkiTk</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> s2R1gwDwf5RtDpaf5LD2ufESdbLuT+8blAlscbgYLBcwDquZAY0EWMu6rgEMAKcz</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> vM1IhpUwBpxPCNdrlMZh7XeLqKUd7hUvQ1KHOuDONxCDnfXdxGCKKI0Ds5I7Kkyp</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> Wzvcl7PplRy2fYZWwcGtL+Kj01y4L2lXB/xrrVaVwRr4S0FrcbseUGYRafBpR0C1</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> Yo24CL1ef4ivsfbER2SyaZ3lrT9Ccv6xfvTluhU8X+2li1ssak/Frvy02u3EORLD</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> LxaaLQgANgsjnIjv/JQZ4l3xFIJT98tEoL18btg5lGrS2w4yFU1aa1SNsbp7vcu7</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> wsqcJmCzX98LyG8/IBGJ5JXmZ03yzWhZ3uhhy1+Avi4GV4Mi0ADwaGMp6O63Mc3w</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> SL8A/DoCKJLISOc+D5xNfw6C8sYlaOSzQfqY9l4HW/+QbJmEFL2+bnjSHb8yaVU3</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> ae2IIrlNkZ5Jamp12Kq6x9Vei0xGk3gd4sqhmHhECdxoJtkX9L5gt436QxdjiTcW</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> q3V+NNfq94UJu2Ej2kN0fNT0t9RU2n0P/mS0L+1gw5Ex6BX7BIzGL0bZhYomQwAR</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> AQABiQHOBB8BCAA4FiEEW4DFdUKY8MtV2O1qvO9+KUsJLigFAljLwN0XDIABlKXJ</span></span><br><span class="line"><span class="meta">co7CV2&gt;</span><span class="bash"> oDwv5co7CV2OH99yPPRitrECBwAACgkQvO9+KUsJLig2Cgv/T4rXEjHwlbsuTkzp</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> tgK80Dh92URzBAhPhSJ0kUz2b6y7FgVYgZ95u8elGUS4lOB0GOQSK3y4sCgldTQF</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> GQpMuvNMX6oNQTv1Z/H9H7Sc6AntozKRA6LQC+7DMxjPh2DEhVLYNqi7gMXtuH8o</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> Xz5+quarw/xbVmuS4UNqcxakd4A/HW6PayRhuju4+oV2+UmGU0etzGVwKSN/UicC</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> 3Re3mUy8SwJFQ9/3EAfiY0SGzSWH1z7bTRg9Ga2ctYDNzUpyQsgLxD6ZRHcONkOo</span></span><br><span class="line"><span class="meta">MEQ9&gt;</span><span class="bash"> GUMEQ96BeSsjT4yW9ED70CcCbhg+pMxR+lnpk4BZ4WML/plBjEb8B1YaRvhYWKd3</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> OSVB/JsS6J6Q/y9TTsAJDBLAfw9h7RQKibViuVFSNftAuSdktah5mDwFnL0ZMzVS</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> 3tDVDa5PDqbHEhK55/5EWBg4eNbAukVZmmoLzzERGXuj+LOIRElG3/n3chy1uM73</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> B6da3al4gDDNHifPsuozpkVN1EAROZx1K9hGGDZC3yFQTjsJtCRBbmRyZSBIZWlu</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> ZWNrZSAoUmVsZWFzZSBTaWduaW5nIEtleSmJAdQEEwEIAD4WIQRbgMV1Qpjwy1XY</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> 7Wq8734pSwkuKAUCWMu6rgIbAwUJEswDAAULCQgHAgYVCAkKCwIEFgIDAQIeAQIX</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> gAAKCRC8734pSwkuKEL9DACEIL5IS9wUty62Bnwd9wK2hmwihXNkTLsOOoi8aCdO</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> ywPwcIucgAcIO+c/t0lbe4y4sJ1KrKbdyOUQiJAyxobLCSV/MkhIDAmsZB1ZIpF3</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> nfmNekRdCVcMpqX8jAwoBS3Q9m2UJz1LeDCLFCvLF0nbyUnqHZP19UOvxmzAyZMA</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> Ub3W5y1+GMo4yA+3xSFI8ZbjzhawixCCRs69/4p+zCXR4e7LBf6koAHllD/0ZULp</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> SDjF+t2IkvRrMlM+e+Mxjklinr8v1FRGzmE/kCcdHaP88+iwC2wUKOZtFs4yIBLO</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> SWdQk9tLPmR8uWgNZmatRJyNvOaxd6EbK3jfckbJGFkmXjH+M9vMqFpoAewZ359F</span></span><br><span class="line"><span class="meta">Us7AX&gt;</span><span class="bash"> qjq+Us7AXLAMNUynom7IrtR5Rvsjx6RNtKQYUD6XY5rc7r9js9iGruHDAAW5lyRg</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> j3wikc0IbV9L1bTsXIp29BsrU9sXUkVEp+xQJZgwqoOduoSjmOK88QdkibDqJiGF</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> dzIRiXx+Nxv1Pr9L7A4/tq+YMwRfQ+WJFgkrBgEEAdpHDwEBB0DPvkeV6RzXomGF</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> 8jQwp0RXEt2TGFwwI7RkbpYwECY2l7QfV2VybmVyIEtvY2ggKGRpc3Qgc2lnbmlu</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> ZyAyMDIwKYiaBBMWCgBCFiEEbapuZKdtKEBXG0kCUoiXuCZAOtoFAl9D7DUCGwMF</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> CRKFxxEFCwkIBwIDIgIBBhUKCQgLAgQWAgMBAh4HAheAAAoJEFKIl7gmQDraea4A</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> /24v8c50HSC/Basf4WlREkuzhudplo8iT0BGtTQRdGAmAP9gIZ8dBekg9PRlpe7A</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> l7ErThn6owVH9szWrUt6jkKOBg==</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> =h7e4</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> -----END PGP PUBLIC KEY BLOCK-----</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">EOF</span></span><br></pre></td></tr></table></figure>
+              </div>
+            </details>
+
+<p>接下来导入公钥到 gpg。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">➜ cat gnupg-2.2.29.asc | gpg --import</span><br><span class="line">gpg: key 249B39D24F25E3B6: public key &quot;Werner Koch (dist sig)&quot; imported</span><br><span class="line">gpg: key 2071B08A33BD3F06: public key &quot;NIIBE Yutaka (GnuPG Release Key) &lt;gniibe@fsij.org&gt;&quot; imported</span><br><span class="line">gpg: key BCEF7E294B092E28: public key &quot;Andre Heinecke (Release Signing Key)&quot; imported</span><br><span class="line">gpg: key 528897B826403ADA: public key &quot;Werner Koch (dist signing 2020)&quot; imported</span><br><span class="line">gpg: Total number processed: 4</span><br><span class="line">gpg:               imported: 4</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Step 2：查看导入的公钥的指纹是否与官网上公布的一致</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">➜ gpg --list-keys --keyid-format=long Werner Koch</span><br><span class="line">pub   rsa2048/249B39D24F25E3B6 2011-01-12 [SC] [expires: 2021-12-31]</span><br><span class="line">      D8692123C4065DEA5E0F3AB5249B39D24F25E3B6</span><br><span class="line">uid                 [ unknown] Werner Koch (dist sig)</span><br><span class="line"></span><br><span class="line">pub   ed25519/528897B826403ADA 2020-08-24 [SC] [expires: 2030-06-30]</span><br><span class="line">      6DAA6E64A76D2840571B4902528897B826403ADA</span><br><span class="line">uid                 [ unknown] Werner Koch (dist signing 2020)</span><br></pre></td></tr></table></figure>
+
+<p>如果一致的话，信任此公钥。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">➜ gpg --edit-key D8692123C4065DEA5E0F3AB5249B39D24F25E3B6</span><br><span class="line">gpg (GnuPG) 2.2.19; Copyright (C) 2019 Free Software Foundation, Inc.</span><br><span class="line">This is free software: you are free to change and redistribute it.</span><br><span class="line">There is NO WARRANTY, to the extent permitted by law.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">pub  rsa2048/249B39D24F25E3B6</span><br><span class="line">     created: 2011-01-12  expires: 2021-12-31  usage: SC</span><br><span class="line">     trust: unknown       validity: unknown</span><br><span class="line">[ unknown] (1). Werner Koch (dist sig)</span><br><span class="line"></span><br><span class="line"><span class="meta">gpg&gt;</span><span class="bash"> sign</span></span><br><span class="line"></span><br><span class="line">pub  rsa2048/249B39D24F25E3B6</span><br><span class="line">     created: 2011-01-12  expires: 2021-12-31  usage: SC</span><br><span class="line">     trust: unknown       validity: unknown</span><br><span class="line"> Primary key fingerprint: D869 2123 C406 5DEA 5E0F  3AB5 249B 39D2 4F25 E3B6</span><br><span class="line"></span><br><span class="line">     Werner Koch (dist sig)</span><br><span class="line"></span><br><span class="line">This key is due to expire on 2021-12-31.</span><br><span class="line">Are you sure that you want to sign this key with your</span><br><span class="line">key &quot;yeshan333 &lt;1329441308@qq.com&gt;&quot; (582AAB66132A3FDA)</span><br><span class="line"></span><br><span class="line">Really sign? (y/N) y</span><br><span class="line"></span><br><span class="line"><span class="meta">gpg&gt;</span><span class="bash"> save</span></span><br></pre></td></tr></table></figure>
+
+<p>这玩意还需要一个指纹 sign  公钥，可通过下面的命令快速操作</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpg --lsign-key &quot;6DAA6E64A76D2840571B4902528897B826403ADA&quot;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Signing a key tells your software that you trust the key that you have been provided with and that you have verified that it is associated with the person in question.</p>
+</blockquote>
+<ul>
+<li>Step 3：使用 signature file 校验 Tarball</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">➜ gpg --verify gnupg-2.2.29.tar.bz2.sig</span><br><span class="line">gpg: assuming signed data in &#x27;gnupg-2.2.29.tar.bz2&#x27;</span><br><span class="line">gpg: Signature made Sun Jul  4 22:54:50 2021 CST</span><br><span class="line">gpg:                using EDDSA key 6DAA6E64A76D2840571B4902528897B826403ADA</span><br><span class="line">gpg: checking the trustdb</span><br><span class="line">gpg: marginals needed: 3  completes needed: 1  trust model: pgp</span><br><span class="line">gpg: depth: 0  valid:   2  signed:   2  trust: 0-, 0q, 0n, 0m, 0f, 2u</span><br><span class="line">gpg: depth: 1  valid:   2  signed:   0  trust: 2-, 0q, 0n, 0m, 0f, 0u</span><br><span class="line">gpg: next trustdb check due at 2021-12-31</span><br><span class="line">gpg: Good signature from &quot;Werner Koch (dist signing 2020)&quot; [full]</span><br></pre></td></tr></table></figure>
+
+<p>emmm，问题不大。这里有一丢丢问号❓<a target="_blank" rel="noopener" href="https://security.stackexchange.com/questions/41208/what-is-the-exact-meaning-of-this-gpg-output-regarding-trust">What is the exact meaning of this gpg output regarding trust?</a></p>
+<details ><summary> 微微提升下信任水平 </summary>
+              <div class='content'>
+              <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><span class="line">➜ gpg --edit-key 6DAA6E64A76D2840571B4902528897B826403ADA D8692123C4065DEA5E0F3AB5249B39D24F25E3B6</span><br><span class="line">gpg (GnuPG) 2.2.19; Copyright (C) 2019 Free Software Foundation, Inc.</span><br><span class="line">This is free software: you are free to change and redistribute it.</span><br><span class="line">There is NO WARRANTY, to the extent permitted by law.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">pub  ed25519/528897B826403ADA</span><br><span class="line">     created: 2020-08-24  expires: 2030-06-30  usage: SC</span><br><span class="line">     trust: undefined     validity: full</span><br><span class="line">[  full  ] (1). Werner Koch (dist signing 2020)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Invalid command  (try &quot;help&quot;)</span><br><span class="line"></span><br><span class="line"><span class="meta">gpg&gt;</span><span class="bash"> trust</span></span><br><span class="line">pub  ed25519/528897B826403ADA</span><br><span class="line">     created: 2020-08-24  expires: 2030-06-30  usage: SC</span><br><span class="line">     trust: undefined     validity: full</span><br><span class="line">[  full  ] (1). Werner Koch (dist signing 2020)</span><br><span class="line"></span><br><span class="line">Please decide how far you trust this user to correctly verify other users&#x27; keys</span><br><span class="line">(by looking at passports, checking fingerprints from different sources, etc.)</span><br><span class="line"></span><br><span class="line">  1 = I don&#x27;t know or won&#x27;t say</span><br><span class="line">  2 = I do NOT trust</span><br><span class="line">  3 = I trust marginally</span><br><span class="line">  4 = I trust fully</span><br><span class="line">  5 = I trust ultimately</span><br><span class="line">  m = back to the main menu</span><br><span class="line"></span><br><span class="line">Your decision? 4</span><br><span class="line"></span><br><span class="line">pub  ed25519/528897B826403ADA</span><br><span class="line">     created: 2020-08-24  expires: 2030-06-30  usage: SC</span><br><span class="line">     trust: full          validity: full</span><br><span class="line">[  full  ] (1). Werner Koch (dist signing 2020)</span><br><span class="line">Please note that the shown key validity is not necessarily correct</span><br><span class="line">unless you restart the program.</span><br><span class="line"></span><br><span class="line"><span class="meta">gpg&gt;</span><span class="bash"> save</span></span><br><span class="line">Key not changed so no update needed.</span><br><span class="line"></span><br><span class="line">➜ gpg --edit-key D8692123C4065DEA5E0F3AB5249B39D24F25E3B6</span><br><span class="line">gpg (GnuPG) 2.2.19; Copyright (C) 2019 Free Software Foundation, Inc.</span><br><span class="line">This is free software: you are free to change and redistribute it.</span><br><span class="line">There is NO WARRANTY, to the extent permitted by law.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">gpg: checking the trustdb</span><br><span class="line">gpg: marginals needed: 3  completes needed: 1  trust model: pgp</span><br><span class="line">gpg: depth: 0  valid:   2  signed:   2  trust: 0-, 0q, 0n, 0m, 0f, 2u</span><br><span class="line">gpg: depth: 1  valid:   2  signed:   0  trust: 0-, 1q, 0n, 0m, 1f, 0u</span><br><span class="line">gpg: next trustdb check due at 2021-12-31</span><br><span class="line">pub  rsa2048/249B39D24F25E3B6</span><br><span class="line">     created: 2011-01-12  expires: 2021-12-31  usage: SC</span><br><span class="line">     trust: undefined     validity: full</span><br><span class="line">[  full  ] (1). Werner Koch (dist sig)</span><br><span class="line"></span><br><span class="line"><span class="meta">gpg&gt;</span><span class="bash"> trust</span></span><br><span class="line">pub  rsa2048/249B39D24F25E3B6</span><br><span class="line">     created: 2011-01-12  expires: 2021-12-31  usage: SC</span><br><span class="line">     trust: undefined     validity: full</span><br><span class="line">[  full  ] (1). Werner Koch (dist sig)</span><br><span class="line"></span><br><span class="line">Please decide how far you trust this user to correctly verify other users&#x27; keys</span><br><span class="line">(by looking at passports, checking fingerprints from different sources, etc.)</span><br><span class="line"></span><br><span class="line">  1 = I don&#x27;t know or won&#x27;t say</span><br><span class="line">  2 = I do NOT trust</span><br><span class="line">  3 = I trust marginally</span><br><span class="line">  4 = I trust fully</span><br><span class="line">  5 = I trust ultimately</span><br><span class="line">  m = back to the main menu</span><br><span class="line"></span><br><span class="line">Your decision? 4</span><br><span class="line"></span><br><span class="line">pub  rsa2048/249B39D24F25E3B6</span><br><span class="line">     created: 2011-01-12  expires: 2021-12-31  usage: SC</span><br><span class="line">     trust: full          validity: full</span><br><span class="line">[  full  ] (1). Werner Koch (dist sig)</span><br><span class="line">Please note that the shown key validity is not necessarily correct</span><br><span class="line">unless you restart the program.</span><br><span class="line"></span><br><span class="line"><span class="meta">gpg&gt;</span><span class="bash"> save</span></span><br><span class="line"></span><br><span class="line">➜ gpg --verify gnupg-2.2.29.tar.bz2.sig</span><br><span class="line">gpg: assuming signed data in &#x27;gnupg-2.2.29.tar.bz2&#x27;</span><br><span class="line">gpg: Signature made Sun Jul  4 22:54:50 2021 CST</span><br><span class="line">gpg:                using EDDSA key 6DAA6E64A76D2840571B4902528897B826403ADA</span><br><span class="line">gpg: checking the trustdb</span><br><span class="line">gpg: marginals needed: 3  completes needed: 1  trust model: pgp</span><br><span class="line">gpg: depth: 0  valid:   2  signed:   2  trust: 0-, 0q, 0n, 0m, 0f, 2u</span><br><span class="line">gpg: depth: 1  valid:   2  signed:   0  trust: 0-, 0q, 0n, 0m, 2f, 0u</span><br><span class="line">gpg: next trustdb check due at 2021-12-31</span><br><span class="line">gpg: Good signature from &quot;Werner Koch (dist signing 2020)&quot; [full]</span><br></pre></td></tr></table></figure>
+              </div>
+            </details>
+
+<p>更多 GPG Key 校验工具查看 GnuPG 主页：<a target="_blank" rel="noopener" href="https://www.gnupg.org/download/index.html">https://www.gnupg.org/download/index.html</a></p>
+
+  
+  
+    
+    <div class='footer'>
+      
+        <div class='references'>
+          <section class='header'>
+            
+              <i class="fas fa-quote-left fa-fw" aria-hidden="true"></i>
+            
+            <span>参考资料</span>
+          </section>
+          <section class='body'>
+            <ul>
+              
+                <li>
+                  <a href="https://gnupg.org/" rel="external nofollow noopener noreferrer" target="_blank">
+                  GnuPG
+                  </a>
+                </li>
+              
+                <li>
+                  <a href="https://gpgtools.tenderapp.com/kb/faq/what-is-ownertrust-trust-levels-explained" rel="external nofollow noopener noreferrer" target="_blank">
+                  What is Ownertrust? Trust-levels explained
+                  </a>
+                </li>
+              
+                <li>
+                  <a href="https://www.kawabangga.com/posts/4373" rel="external nofollow noopener noreferrer" target="_blank">
+                  开源软件源码编译指南
+                  </a>
+                </li>
+              
+                <li>
+                  <a href="https://www.gnupg.org/gph/en/manual/x334.html" rel="external nofollow noopener noreferrer" target="_blank">
+                  Validating other keys on your public keyring
+                  </a>
+                </li>
+              
+                <li>
+                  <a href="https://docs.github.com/en/github/authenticating-to-github/managing-commit-signature-verification/about-commit-signature-verification" rel="external nofollow noopener noreferrer" target="_blank">
+                  commit signature verification - GitHub
+                  </a>
+                </li>
+              
+            </ul>
+          </section>
+        </div>
+      
+      
+      
+        <div class='copyright'>
+          <blockquote>
+            
+              
+                <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+              
+            
+              
+                <p>我的博客即将同步至腾讯云+社区，邀请大家一同入驻：<a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/support-plan?invite_code=1utoln9pyvwqu">https://cloud.tencent.com/developer/support-plan?invite_code=1utoln9pyvwqu</a></p>
+
+              
+            
+          </blockquote>
+        </div>
+      
+      
+    </div>
+  
+  
+    
+
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-07-10T18:23:57+00:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2021年7月10日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/GPG/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>GPG</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/MD5/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>MD5</p></a></div>
+
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://yeshan333.github.io/2021/07/10/checksum-gpg-tools/&title=对下载软件/文件进行校验的工具（Checksum and GPG） - ShanSan&summary=前言之前装软件一直都没有验证安装文件的习惯，信息安全意识不高，碰巧最近没啥事，微微写篇文章记录下校验工具（互联网http、https、ftp 服务并没有那么安全，是可以被劫持篡改。老装软件选手了，是该养成个校验文件的习惯了）。
+在互联网下载软件/文件的时候经常会看到官方提供了一段⌈校验和（checksum）⌋或包含校验和的文件供校验。常见的校验和有 md5、SHA 家族等。还有部分软件/文件会提供 GPG 校验文件（signature file, SIG）给下载者进行校验。
+来看看这两种校验方式相关的工具。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://yeshan333.github.io/2021/07/10/checksum-gpg-tools/&title=对下载软件/文件进行校验的工具（Checksum and GPG） - ShanSan&summary=前言之前装软件一直都没有验证安装文件的习惯，信息安全意识不高，碰巧最近没啥事，微微写篇文章记录下校验工具（互联网http、https、ftp 服务并没有那么安全，是可以被劫持篡改。老装软件选手了，是该养成个校验文件的习惯了）。
+在互联网下载软件/文件的时候经常会看到官方提供了一段⌈校验和（checksum）⌋或包含校验和的文件供校验。常见的校验和有 md5、SHA 家族等。还有部分软件/文件会提供 GPG 校验文件（signature file, SIG）给下载者进行校验。
+来看看这两种校验方式相关的工具。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://yeshan333.github.io/2021/07/10/checksum-gpg-tools/&title=对下载软件/文件进行校验的工具（Checksum and GPG） - ShanSan&summary=前言之前装软件一直都没有验证安装文件的习惯，信息安全意识不高，碰巧最近没啥事，微微写篇文章记录下校验工具（互联网http、https、ftp 服务并没有那么安全，是可以被劫持篡改。老装软件选手了，是该养成个校验文件的习惯了）。
+在互联网下载软件/文件的时候经常会看到官方提供了一段⌈校验和（checksum）⌋或包含校验和的文件供校验。常见的校验和有 md5、SHA 家族等。还有部分软件/文件会提供 GPG 校验文件（signature file, SIG）给下载者进行校验。
+来看看这两种校验方式相关的工具。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </div>
+
+
+  
+  
+
+  
+    <div class="prev-next">
+      
+      
+        <a class='next' href='/2021/06/29/osmosfeed-rss-reader/'>
+          <p class='title'>使用 osmosfeed 创建自己的 Web RSS 阅读器<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>之前一直用 App Store 上的一个 RSS 阅读器 RSS Reader Prime 订阅技术周刊和 dalao 的技术博客，不得不说挺好用的，奈何全线下架了，现在就平板上保留着这个 Ap...</p>
+        </a>
+      
+    </div>
+  
+</article>
+
+
+  
+
+  <article class="post white-box reveal shadow" id="comments">
+    <p ct><i class='fas fa-comments'></i> 评论</p>
+    
+    <div id="waline">
+  <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+</div>
+
+  </article>
+
+
+
+
+
+  <script>
+  // https://github.com/theme-next/hexo-theme-next/blob/master/layout/_third-party/math/mathjax.swig
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.0/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    // 文章章节标题不能为 “MathJax” ，否则会报错。
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+
+
+</div>
+<aside class='l_side'>
+  
+  
+    
+    
+
+
+
+  <section class="widget toc-wrapper shadow desktop mobile" id="toc-div" >
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%A1%E9%AA%8C%E5%92%8C%E6%A0%A1%E9%AA%8C%E5%B7%A5%E5%85%B7"><span class="toc-text">校验和校验工具</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Windows-CertUtil"><span class="toc-text">Windows CertUtil</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Linux-md5sum"><span class="toc-text">Linux md5sum</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GPG-key-%E6%A0%A1%E9%AA%8C%E5%B7%A5%E5%85%B7"><span class="toc-text">GPG key 校验工具</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Gpg4win"><span class="toc-text">Gpg4win</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GnuPG-GPG"><span class="toc-text">GnuPG(GPG)</span></a></li></ol></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+
+		  
+		  <!--此文件用来存放一些不方便取值的变量-->
+<!--思路大概是将值藏到重加载的区域内-->
+
+<script>
+  window.pdata={}
+  pdata.ispage=true;
+  pdata.postTitle="对下载软件/文件进行校验的工具（Checksum and GPG）";
+  pdata.commentPath="";
+  pdata.commentPlaceholder="";
+  // header 这里无论是否开启pjax都需要
+  var l_header=document.getElementById("l_header");
+  
+  l_header.classList.add("show");
+  
+  
+</script>
+
+        </div>
+        
+  
+  <footer class="footer clearfix">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
+
+  
+    <meting-js
+      theme='#1BCDFC'
+      autoplay='false'
+      volume='0.7'
+      loop='all'
+      order='list'
+      fixed='false'
+      list-max-height='320px'
+      server='netease'
+      type='playlist'
+      id='6729508229'
+      list-folded='true'>
+    </meting-js>
+  
+
+
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+            
+              <a href="mailto:1329441308@qq.com"
+                class="social fas fa-envelope flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+                
+              </a>
+            
+          
+            
+              <a href="https://github.com/yeshan333?tab=repositories"
+                class="social fab fa-github flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+                
+              </a>
+            
+          
+            
+              <a href="https://music.163.com/#/my/m/music/playlist?id=2617691792"
+                class="social fas fa-music flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+                
+              </a>
+            
+          
+            
+              <a href="https://www.zhihu.com/people/si-kong-ji-54/activities"
+                class="social fab fa-zhihu flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+                
+              </a>
+            
+          
+            
+              <a href="https://yeshan333.github.io/rss2.xml"
+                class="social fas fa-rss flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+                
+              </a>
+            
+          
+        </div>
+      
+    
+      
+        <div><p>博客内容遵循 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+</div>
+      
+    
+      
+        本站使用
+        <a href="https://github.com/volantis-x/hexo-theme-volantis/tree/4.3.1" target="_blank" class="codename">Volantis</a>
+        作为主题，总访问量为
+          <span id="busuanzi_value_site_pv"><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+          次
+        
+      
+    
+      
+        <div class='copyright'>
+        <p><a target="_blank" rel="noopener" href="https://shansan.top/">Copyright © 2018-2021 ShanSan</a></p>
+
+        </div>
+      
+    
+      
+        
+          <div><p><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">桂ICP备19000444号</a></p>
+</div>
+        
+      
+    
+  </footer>
+
+
+        <a id="s-top" class="fas fa-arrow-up fa-fw" href="javascript:void(0)"></a>
+      </div>
+    </div>
+    <div>
+      <script>
+/************这个文件存放不需要重载的全局变量和全局函数*********/
+window.volantis={};
+window.volantis.loadcss=document.getElementById("loadcss");
+/******************** Pjax ********************************/
+function VPjax(){
+	this.list=[] // 存放回调函数
+	this.start=()=>{
+	  for(var i=0;i<this.list.length;i++){
+		this.list[i].run();
+	  }
+	}
+	this.push=(fn,name)=>{
+		var f=new PjaxItem(fn,name);
+		this.list.push(f);
+	}
+	// 构造一个可以run的对象
+	function PjaxItem(fn,name){
+		// 函数名称
+		this.name = name || fn.name
+		// run方法
+		this.run=()=>{
+			fn()
+		}
+	}
+}
+volantis.pjax={}
+volantis.pjax.method={
+	complete: new VPjax(),
+	error: new VPjax(),
+	send: new VPjax()
+}
+volantis.pjax={
+	...volantis.pjax,
+	push: volantis.pjax.method.complete.push,
+	error: volantis.pjax.method.error.push,
+	send: volantis.pjax.method.send.push
+}
+/********************脚本懒加载函数********************************/
+// 已经加入了setTimeout
+function loadScript(src, cb) {
+	setTimeout(function() {
+		var HEAD = document.getElementsByTagName('head')[0] || document.documentElement;
+		var script = document.createElement('script');
+		script.setAttribute('type','text/javascript');
+		if (cb) script.onload = cb;
+		script.setAttribute('src', src);
+		HEAD.appendChild(script);
+	});
+}
+//https://github.com/filamentgroup/loadCSS
+var loadCSS = function( href, before, media, attributes ){
+	var doc = window.document;
+	var ss = doc.createElement( "link" );
+	var ref;
+	if( before ){
+		ref = before;
+	}
+	else {
+		var refs = ( doc.body || doc.getElementsByTagName( "head" )[ 0 ] ).childNodes;
+		ref = refs[ refs.length - 1];
+	}
+	var sheets = doc.styleSheets;
+	if( attributes ){
+		for( var attributeName in attributes ){
+			if( attributes.hasOwnProperty( attributeName ) ){
+				ss.setAttribute( attributeName, attributes[attributeName] );
+			}
+		}
+	}
+	ss.rel = "stylesheet";
+	ss.href = href;
+	ss.media = "only x";
+	function ready( cb ){
+		if( doc.body ){
+			return cb();
+		}
+		setTimeout(function(){
+			ready( cb );
+		});
+	}
+	ready( function(){
+		ref.parentNode.insertBefore( ss, ( before ? ref : ref.nextSibling ) );
+	});
+	var onloadcssdefined = function( cb ){
+		var resolvedHref = ss.href;
+		var i = sheets.length;
+		while( i-- ){
+			if( sheets[ i ].href === resolvedHref ){
+				return cb();
+			}
+		}
+		setTimeout(function() {
+			onloadcssdefined( cb );
+		});
+	};
+	function loadCB(){
+		if( ss.addEventListener ){
+			ss.removeEventListener( "load", loadCB );
+		}
+		ss.media = media || "all";
+	}
+	if( ss.addEventListener ){
+		ss.addEventListener( "load", loadCB);
+	}
+	ss.onloadcssdefined = onloadcssdefined;
+	onloadcssdefined( loadCB );
+	return ss;
+};
+</script>
+<script>
+  
+  loadCSS("https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14/css/all.min.css", window.volantis.loadcss);
+  
+  
+  
+  
+</script>
+<!-- required -->
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5/dist/jquery.min.js"></script>
+
+<script>
+  function pjax_fancybox() {
+    $(".md .gallery").find("img").each(function () { //渲染 fancybox
+      var element = document.createElement("a"); // a 标签
+      $(element).attr("class", "fancybox");
+      $(element).attr("pjax-fancybox", "");  // 过滤 pjax
+      $(element).attr("href", $(this).attr("src"));
+      if ($(this).attr("data-original")) {
+        $(element).attr("href", $(this).attr("data-original"));
+      }
+      $(element).attr("data-fancybox", "images");
+      var caption = "";   // 描述信息
+      if ($(this).attr('alt')) {  // 判断当前页面是否存在描述信息
+        $(element).attr('data-caption', $(this).attr('alt'));
+        caption = $(this).attr('alt');
+      }
+      var div = document.createElement("div");
+      $(div).addClass("fancybox");
+      $(this).wrap(div); // 最外层套 div ，其实主要作用还是 class 样式
+      var span = document.createElement("span");
+      $(span).addClass("image-caption");
+      $(span).text(caption); // 加描述
+      $(this).after(span);  // 再套一层描述
+      $(this).wrap(element);  // 最后套 a 标签
+    })
+    $(".md .gallery").find("img").fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+      closeClick: true,
+      helpers: {
+        overlay: {closeClick: true}
+      },
+      buttons: [
+        "zoom",
+        "close"
+      ]
+    });
+  };
+  function SCload_fancybox() {
+    if ($(".md .gallery").find("img").length == 0) return;
+    loadCSS("https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css", document.getElementById("loadcss"));
+    loadScript('https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', pjax_fancybox)
+  };
+  $(function () {
+    SCload_fancybox();
+  });
+  function Pjax_SCload_fancybox(){
+	if (typeof $.fancybox == "undefined") {
+	 SCload_fancybox();
+    } else {
+	 pjax_fancybox();
+    }
+  }
+  volantis.pjax.push(Pjax_SCload_fancybox)
+  volantis.pjax.send(()=>{
+      if (typeof $.fancybox != "undefined") {
+        $.fancybox.close();    // 关闭弹窗
+      }
+  },'fancybox')
+</script>
+
+
+<!-- internal -->
+
+
+
+
+<script>
+  function loadIssuesJS() {
+    if ($(".md").find(".issues-api").length == 0) return;
+	
+	  loadScript('/js/issues.js');
+	
+  };
+  $(function () {
+    loadIssuesJS();
+  });
+  volantis.pjax.push(()=>{
+	if (typeof IssuesAPI == "undefined") {
+	  loadIssuesJS();
+	}
+  },"IssuesJS")
+</script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 0
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    lazyLoadInstance.update();
+  });
+  document.addEventListener('pjax:complete', function () {
+    lazyLoadInstance.update();
+  });
+</script>
+
+
+
+
+  
+
+<script>
+  window.FPConfig = {
+	delay: 0,
+	ignoreKeywords: [],
+	maxRPS: 5,
+	hoverDelay: 25
+  };
+</script>
+<script defer src="https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"></script>
+
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+    var clipboard = new ClipboardJS('.btn-copy', {
+        target: function (trigger) {
+            return trigger.nextElementSibling
+        }
+    });
+    function wait(callback, seconds) {
+        var timelag = null;
+        timelag = window.setTimeout(callback, seconds)
+    }
+    function pjax_initCopyCode() {
+		if($(".highlight .code pre").length+$(".article pre code").length==0)return;
+        var copyHtml = '';
+        copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+        copyHtml += '<i class="fas fa-copy"></i><span>COPY</span>';
+        copyHtml += '</button>';
+        $(".highlight .code pre").before(copyHtml);
+        $(".article pre code").before(copyHtml);
+        clipboard.off('success').on('success', function (e) {
+            let $btn = $(e.trigger);
+            $btn.addClass('copied');
+            let $icon = $($btn.find('i'));
+            $icon.removeClass('fa-copy');
+            $icon.addClass('fa-check-circle');
+            let $span = $($btn.find('span'));
+            $span[0].innerText = 'COPIED';
+            wait(function () {
+                $icon.removeClass('fa-check-circle');
+                $icon.addClass('fa-copy');
+                $span[0].innerText = 'COPY'
+            }, 2000)
+        });
+        clipboard.off('error').on('error', function (e) {
+            e.clearSelection();
+            let $btn = $(e.trigger);
+            $btn.addClass('copy-failed');
+            let $icon = $($btn.find('i'));
+            $icon.removeClass('fa-copy');
+            $icon.addClass('fa-times-circle');
+            let $span = $($btn.find('span'));
+            $span[0].innerText = 'COPY FAILED';
+            wait(function () {
+                $icon.removeClass('fa-times-circle');
+                $icon.addClass('fa-copy');
+                $span[0].innerText = 'COPY'
+            }, 2000)
+        })
+    }
+    $(function () {
+        pjax_initCopyCode()
+    });
+	volantis.pjax.push(pjax_initCopyCode)
+</script>
+
+
+
+
+
+
+  <script>
+  let APlayerController = new Object();
+  APlayerController.id = '6729508229';  // 设定全局音乐播放ID
+  APlayerController.volume = '0.7';
+  loadCSS("https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css", window.volantis.loadcss);
+  // APlayer 需要在  MetingJS 之前加载
+  loadScript("https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js")
+  window.volantis.APlayerLoaded=0 // APlayer加载完成状态
+  var checkAPlayer = setInterval(function () {
+    if (!window.APlayer) return // APlayer加载完成？
+	  if ($("#safearea").css("display")!="block") return // 文章内容加载完成？ see: source/css/first.styl
+    clearInterval(checkAPlayer)
+	  if (!window.volantis.APlayerLoaded&&!window.MetingJSElement){ // APlayer只能加载一次
+      window.volantis.APlayerLoaded=1 // APlayer加载完成
+      loadScript("https://cdn.jsdelivr.net/npm/meting@2.0/dist/Meting.min.js") // 加载 MetingJS
+	  }
+  }, 2500) // 按照网速调节差分2.5s
+  // rightmenu see: layout/_partial/rightmenu.ejs
+
+</script>
+
+
+
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js"></script>
+
+
+<script>
+  function pjax_waline() {
+    if(!document.querySelectorAll("#waline")[0])return;
+    let pagePlaceholder = pdata.commentPlaceholder || "快来评论吧~";
+    let path = pdata.commentPath;
+    if (path.length == 0) {
+      let defaultPath = '';
+      path = defaultPath || decodeURI(window.location.pathname);
+    }
+    new Waline(Object.assign({"js":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","path":null,"placeholder":"快来评论吧~","imageHosting":"https://7bu.top/api/upload","meta":["nick","mail","link"],"requiredFields":["nick","mail"],"serverURL":"https://yeshan333-waline.vercel.app","avatar":"robohash","pageSize":10,"lang":"zh-CN"}, {
+     el: '#waline',
+     path: path,
+     placeholder: pagePlaceholder,
+     uploadImage: function(file) {
+      const formData = new FormData();
+      formData.append('image', file);
+      return fetch('https://7bu.top/api/upload', {
+      	method: 'POST',
+      	body: formData
+      }).then(resp => resp.json()).then(resp => resp.data.url);
+   },
+  }));
+  }
+  $(function () {
+    pjax_waline();
+  });
+  volantis.pjax.push(pjax_waline);
+</script>
+
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js" data-pjax></script>
+
+
+
+  
+<script src="/js/app.js"></script>
+
+
+
+<!-- optional -->
+
+  <script>
+const SearchServiceimagePath="https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@master/img/";
+const ROOT =  ("/" || "/").endsWith('/') ? ("/" || "/") : ("//" || "/" );
+
+$('.input.u-search-input').one('focus',function(){
+	
+		loadScript('https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@2.6.4/js/search.js',setSearchService);
+	
+})
+
+function listenSearch(){
+  
+    customSearch = new HexoSearch({
+      imagePath: SearchServiceimagePath
+    });
+  
+}
+function setSearchService() {
+	listenSearch();
+	
+}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  <script defer>
+
+  const LCCounter = {
+    app_id: 'u9j57bwJod4EDmXWdxrwuqQT-MdYXbMMI',
+    app_key: 'jfHtEKVE24j0IVCGHbvuFClp',
+    custom_api_server: '',
+
+    // 查询存储的记录
+    getRecord(Counter, url, title) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({url})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
+            }
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {url, title: title, times: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
+        });
+      })
+    },
+
+    // 发起自增请求
+    increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
+          }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    },
+
+    // 构建自增请求体
+    buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "times": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    },
+
+    // 校验是否为有效的 UV
+    validUV() {
+      var key = 'LeanCloudUVTimestamp';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    },
+
+    addCount(Counter) {
+      var enableIncr = '' === 'true' && window.location.hostname !== 'localhost';
+      enableIncr = true;
+      var getterArr = [];
+      var incrArr = [];
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#lc-sv');
+      if (pvCtn || enableIncr) {
+        var pvGetter = this.getRecord(Counter, 'https://yeshan333.github.io' + '/#lc-sv', 'Visits').then((record) => {
+          incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-sv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + 1;
+              if (pvCtn) {
+                pvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#lc-uv');
+      if (uvCtn || enableIncr) {
+        var uvGetter = this.getRecord(Counter, 'https://yeshan333.github.io' + '/#lc-uv', 'Visitors').then((record) => {
+          var vuv = this.validUV();
+          vuv && incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-uv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + (vuv ? 1 : 0);
+              if (uvCtn) {
+                uvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 请求文章的浏览数，如果是当前页面就自增
+      var allPV = document.querySelectorAll('#lc-pv');
+      if (allPV.length > 0 || enableIncr) {
+        for (i = 0; i < allPV.length; i++) {
+          let pv = allPV[i];
+          let title = pv.getAttribute('data-title');
+          var url = 'https://yeshan333.github.io' + pv.getAttribute('data-path');
+          if (url) {
+            var viewGetter = this.getRecord(Counter, url, title).then((record) => {
+              // 是当前页面就自增
+              let curPath = window.location.pathname;
+              if (curPath.includes('index.html')) {
+                curPath = curPath.substring(0, curPath.lastIndexOf('index.html'));
+              }
+              if (pv.getAttribute('data-path') == curPath) {
+                incrArr.push(this.buildIncrement(record.objectId));
+              }
+              if (pv) {
+                var ele = pv.querySelector('#lc-pv #number');
+                if (ele) {
+                  if (pv.getAttribute('data-path') == curPath) {
+                    ele.innerText = (record.times || 0) + 1;
+                  } else {
+                    ele.innerText = record.times || 0;
+                  }
+                  pv.style.display = 'inline';
+                }
+              }
+            });
+            getterArr.push(viewGetter);
+          }
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && this.increment(Counter, incrArr);
+        })
+      }
+
+    },
+
+
+    fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': this.app_id,
+            'X-LC-Key': this.app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      this.addCount(Counter);
+    },
+
+    refreshCounter() {
+      var api_server = this.app_id.slice(-9) !== '-MdYXbMMI' ? this.custom_api_server : `https://${ this.app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+      if (api_server) {
+        this.fetchData(api_server);
+      } else {
+        fetch('https://app-router.leancloud.cn/2/route?appId=' + this.app_id)
+          .then(resp => resp.json())
+          .then(({api_server}) => {
+            this.fetchData('https://' + api_server);
+          });
+      }
+    }
+
+  };
+
+  LCCounter.refreshCounter();
+
+  document.addEventListener('pjax:complete', function () {
+    LCCounter.refreshCounter();
+  });
+</script>
+
+
+
+
+  <script>
+const rootElement = document.documentElement;
+const darkModeStorageKey = "user-color-scheme";
+const rootElementDarkModeAttributeName = "data-user-color-scheme";
+
+const setLS = (k, v) => {
+    localStorage.setItem(k, v);
+};
+
+const removeLS = (k) => {
+    localStorage.removeItem(k);
+};
+
+const getLS = (k) => {
+    return localStorage.getItem(k);
+};
+
+const getModeFromCSSMediaQuery = () => {
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
+};
+
+const resetRootDarkModeAttributeAndLS = () => {
+  rootElement.removeAttribute(rootElementDarkModeAttributeName);
+  removeLS(darkModeStorageKey);
+};
+
+const validColorModeKeys = {
+  dark: true,
+  light: true,
+};
+
+const applyCustomDarkModeSettings = (mode) => {
+  const currentSetting = mode || getLS(darkModeStorageKey);
+
+  if (currentSetting === getModeFromCSSMediaQuery()) {
+    resetRootDarkModeAttributeAndLS();
+  } else if (validColorModeKeys[currentSetting]) {
+    rootElement.setAttribute(rootElementDarkModeAttributeName, currentSetting);
+  } else {
+    resetRootDarkModeAttributeAndLS();
+  }
+};
+
+const invertDarkModeObj = {
+  dark: "light",
+  light: "dark",
+};
+
+/**
+ * get target mode
+ */
+const toggleCustomDarkMode = () => {
+  let currentSetting = getLS(darkModeStorageKey);
+
+  if (validColorModeKeys[currentSetting]) {
+    currentSetting = invertDarkModeObj[currentSetting];
+  } else if (currentSetting === null) {
+    currentSetting = invertDarkModeObj[getModeFromCSSMediaQuery()];
+  } else {
+    return;
+  }
+  setLS(darkModeStorageKey, currentSetting);
+  return currentSetting;
+};
+
+/**
+ * bind click event for toggle button
+ */
+var btn=$("#wrapper .toggle-mode-btn,#rightmenu-wrapper .toggle-mode-btn");
+function bindToggleButton() {
+    btn.on('click',(e) => {
+      const mode = toggleCustomDarkMode();
+      applyCustomDarkModeSettings(mode);
+    });
+}
+
+applyCustomDarkModeSettings();
+document.addEventListener("DOMContentLoaded", bindToggleButton);
+volantis.pjax.push(bindToggleButton);
+volantis.pjax.send(()=>{
+	btn.unbind('click');
+},'toggle-mode-btn-unbind');
+</script>
+
+
+
+
+
+
+
+
+<script>
+function listennSidebarTOC() {
+  const navItems = document.querySelectorAll(".toc li");
+  if (!navItems.length) return;
+  const sections = [...navItems].map((element) => {
+    const link = element.querySelector(".toc-link");
+    const target = document.getElementById(
+      decodeURI(link.getAttribute("href")).replace("#", "")
+    );
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      window.scrollTo({
+		top: target.offsetTop + 100,
+		
+		behavior: "smooth"
+		
+	  });
+    });
+    return target;
+  });
+
+  function activateNavByIndex(target) {
+    if (target.classList.contains("active-current")) return;
+
+    document.querySelectorAll(".toc .active").forEach((element) => {
+      element.classList.remove("active", "active-current");
+    });
+    target.classList.add("active", "active-current");
+    let parent = target.parentNode;
+    while (!parent.matches(".toc")) {
+      if (parent.matches("li")) parent.classList.add("active");
+      parent = parent.parentNode;
+    }
+  }
+
+  function findIndex(entries) {
+    let index = 0;
+    let entry = entries[index];
+    if (entry.boundingClientRect.top > 0) {
+      index = sections.indexOf(entry.target);
+      return index === 0 ? 0 : index - 1;
+    }
+    for (; index < entries.length; index++) {
+      if (entries[index].boundingClientRect.top <= 0) {
+        entry = entries[index];
+      } else {
+        return sections.indexOf(entry.target);
+      }
+    }
+    return sections.indexOf(entry.target);
+  }
+
+  function createIntersectionObserver(marginTop) {
+    marginTop = Math.floor(marginTop + 10000);
+    let intersectionObserver = new IntersectionObserver(
+      (entries, observe) => {
+        let scrollHeight = document.documentElement.scrollHeight + 100;
+        if (scrollHeight > marginTop) {
+          observe.disconnect();
+          createIntersectionObserver(scrollHeight);
+          return;
+        }
+        let index = findIndex(entries);
+        activateNavByIndex(navItems[index]);
+      },
+      {
+        rootMargin: marginTop + "px 0px -100% 0px",
+        threshold: 0,
+      }
+    );
+    sections.forEach((element) => {
+      element && intersectionObserver.observe(element);
+    });
+  }
+  createIntersectionObserver(document.documentElement.scrollHeight);
+}
+
+document.addEventListener("DOMContentLoaded", listennSidebarTOC);
+document.addEventListener("pjax:success", listennSidebarTOC);
+</script>
+
+<!-- more -->
+
+  
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yeshan333/jsDelivrCDN/piao.js" />
+
+  <script type="text/javascript" src="https://cdn.staticfile.org/jquery/1.7.2/jquery.min.js" />
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yeshan333/jsDelivrCDN/attatkmouse.js" />
+
+  <script async defer data-domain="shansan.top" src="https://plausible.io/js/plausible.js" />
+
+
+
+ 
+	  
+    </div>
+  </body>
+</html>

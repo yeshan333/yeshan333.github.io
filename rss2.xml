@@ -15,8 +15,33 @@
     <atom:link href="https://yeshan333.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>ShanSan&#39;s Blog</description>
-    <pubDate>Tue, 29 Jun 2021 15:34:20 GMT</pubDate>
+    <pubDate>Sat, 10 Jul 2021 18:23:57 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>对下载软件/文件进行校验的工具（Checksum and GPG）</title>
+      <link>https://yeshan333.github.io/2021/07/10/checksum-gpg-tools/</link>
+      <guid>https://yeshan333.github.io/2021/07/10/checksum-gpg-tools/</guid>
+      <pubDate>Sat, 10 Jul 2021 18:23:57 GMT</pubDate>
+      
+      <description>&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;之前装软件一直都没有验证安装文件的习惯，信息安全意识不高，碰巧最近没啥事，微微写篇文章记录下校验工具（互联网http、https、ftp 服务并没有那么安全，是可以被劫持篡改。老装软件选手了，是该养成个校验文件的习惯了）。&lt;/p&gt;
+&lt;p&gt;在互联网下载软件/文件的时候经常会看到官方提供了一段⌈校验和（checksum）⌋或包含校验和的文件供校验。常见的校验和有 md5、SHA 家族等。还有部分软件/文件会提供 GPG 校验文件（signature file, SIG）给下载者进行校验。&lt;/p&gt;
+&lt;p&gt;来看看这两种校验方式相关的工具。&lt;/p&gt;</description>
+      
+      
+      
+      
+      <category domain="https://yeshan333.github.io/categories/Cryptography/">Cryptography</category>
+      
+      
+      <category domain="https://yeshan333.github.io/tags/GPG/">GPG</category>
+      
+      <category domain="https://yeshan333.github.io/tags/MD5/">MD5</category>
+      
+      
+      <comments>https://yeshan333.github.io/2021/07/10/checksum-gpg-tools/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>使用 osmosfeed 创建自己的 Web RSS 阅读器</title>
@@ -535,32 +560,6 @@
       
       
       <comments>https://yeshan333.github.io/2020/06/21/%E5%B0%86Web%E5%BA%94%E7%94%A8%E4%B8%A2%E7%BB%99%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>(译)通过 Git 和 Angular 了解语义化提交信息</title>
-      <link>https://yeshan333.github.io/2020/06/04/%E8%AF%91-%E9%80%9A%E8%BF%87-Git-%E5%92%8C-Angular-%E4%BA%86%E8%A7%A3%E8%AF%AD%E4%B9%89%E5%8C%96%E6%8F%90%E4%BA%A4%E4%BF%A1%E6%81%AF/</link>
-      <guid>https://yeshan333.github.io/2020/06/04/%E8%AF%91-%E9%80%9A%E8%BF%87-Git-%E5%92%8C-Angular-%E4%BA%86%E8%A7%A3%E8%AF%AD%E4%B9%89%E5%8C%96%E6%8F%90%E4%BA%A4%E4%BF%A1%E6%81%AF/</guid>
-      <pubDate>Thu, 04 Jun 2020 22:06:59 GMT</pubDate>
-      
-      <description>&lt;p&gt;受传统提交规范和 Angular 约定的启发，让我们来解释语义化提交术语，并演示提交信息的实际示例。&lt;/p&gt;
-&lt;p&gt;许多项目决定以某种约定方式来标准化它们的提交信息。这种做法并不是新出现的，但在最近几年中越来越多地得到了应用。而且很可能您已经在某些项目中遇到过这样的提交消息。&lt;/p&gt;</description>
-      
-      
-      
-      
-      <category domain="https://yeshan333.github.io/categories/Git/">Git</category>
-      
-      
-      <category domain="https://yeshan333.github.io/tags/Git/">Git</category>
-      
-      <category domain="https://yeshan333.github.io/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/">工程化</category>
-      
-      <category domain="https://yeshan333.github.io/tags/%E8%AF%91%E6%96%87/">译文</category>
-      
-      
-      <comments>https://yeshan333.github.io/2020/06/04/%E8%AF%91-%E9%80%9A%E8%BF%87-Git-%E5%92%8C-Angular-%E4%BA%86%E8%A7%A3%E8%AF%AD%E4%B9%89%E5%8C%96%E6%8F%90%E4%BA%A4%E4%BF%A1%E6%81%AF/#disqus_thread</comments>
       
     </item>
     
