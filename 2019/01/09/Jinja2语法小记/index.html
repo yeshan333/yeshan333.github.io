@@ -24,7 +24,7 @@
   
   <title>Jinja2语法小记 - ShanSan</title>
   
-    <meta name="keywords" content="Flask">
+    <meta name="keywords" content="flask, python, jinja2">
   
 
   
@@ -688,7 +688,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <li>使用macro和endmacro标签声明宏的开始和结束</li>
 <li>在开始标签中定义宏的名称和接收的参数</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;% macro qux(amount=1) %&#125;</span><br><span class="line">    &#123;% if amount==1 %&#125;</span><br><span class="line">        I am qux.</span><br><span class="line">    &#123;% elif amount&gt;1 %&#125;</span><br><span class="line">        We are qux.</span><br><span class="line">    &#123;% endif %&#125;</span><br><span class="line">&#123;% endmacro %&#125; </span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;% macro qux(amount=1) %&#125;</span><br><span class="line">    &#123;% if amount==1 %&#125;</span><br><span class="line">        I am qux.</span><br><span class="line">    &#123;% elif amount&gt;1 %&#125;</span><br><span class="line">        We are qux.</span><br><span class="line">    &#123;% endif %&#125;</span><br><span class="line">&#123;% endmacro %&#125;</span><br></pre></td></tr></table></figure>
 
 <p>就像从Python模块中导入函数一样，我们可以使用import导入宏</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% from &#x27;macros.html&#x27; import qux %&#125;</span><br></pre></td></tr></table></figure>
