@@ -9,6 +9,14 @@
 
 
     <url>
+        <loc>https://yeshan333.github.io/2021/08/28/prometheus-federation/</loc>
+        <lastmod>2021-08-28T17:25:18.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>https://yeshan333.github.io/2021/07/10/checksum-gpg-tools/</loc>
         <lastmod>2021-07-10T18:23:57.000Z</lastmod>
         <changefreq>weekly</changefreq>

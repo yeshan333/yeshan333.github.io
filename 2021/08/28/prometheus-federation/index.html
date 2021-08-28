@@ -1,0 +1,1797 @@
+<!DOCTYPE html>
+<html lang="zh-CN,en,zh-TW,default">
+  <head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/tree/4.3.1'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <link rel="preload" href="/css/first.css" as="style">
+  
+
+  <!-- 页面元数据 -->
+  
+  <title>基于 Docker 搭建一个最小化的 Prometheus Federation「联邦」集群 - ShanSan</title>
+  
+    <meta name="keywords" content="Prometheus,Grafana,Federation,Docker,Monitoring">
+  
+
+  
+    <meta name="description" content="
+一不小心就八月末了，我敲，最近大部分的时间都在了解 Prometheus，一直想“搂”篇文章出来，奈何一直在墨迹，是时候了，不然就九月了，完不成博客的 Flag 了，233333。
+
+前言本篇文章主要介绍了基于 Docker 搭建一个最小化的 Prometheus Federation 集群娱乐环境的相关操作。...">
+  
+
+  <!-- feed -->
+  
+    <link rel="alternate" href="/rss2.xml" title="ShanSan" type="application/rss+xml">
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  
+    <link rel="shortcut icon" type='image/x-icon' href="https://img.vim-cn.com/bb/db444be0b7fda59c69d5c64167f9668b0b66bd.png">
+  
+
+  <!-- import link -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/first.css">
+
+  
+
+  
+  <link rel="stylesheet" href="/css/style.css" media="print" onload="this.media='all';this.onload=null">
+  <noscript><link rel="stylesheet" href="/css/style.css"></noscript>
+  
+
+  <script id="loadcss"></script>
+
+  
+<script>
+if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode))
+    document.write(
+	'<style>'+
+		'html{'+
+			'overflow-x: hidden !important;'+
+			'overflow-y: hidden !important;'+
+		'}'+
+		'.kill-ie{'+
+			'text-align:center;'+
+			'height: 100%;'+
+			'margin-top: 15%;'+
+			'margin-bottom: 5500%;'+
+		'}'+
+	'</style>'+
+    '<div class="kill-ie">'+
+        '<h1><b>抱歉，您的浏览器无法访问本站</b></h1>'+
+        '<h3>微软已经于2016年终止了对 Internet Explorer (IE) 10 及更早版本的支持，<br/>'+
+        '继续使用存在极大的安全隐患，请使用当代主流的浏览器进行访问。</h3><br/>'+
+        '<a target="_blank" rel="noopener" href="https://www.microsoft.com/zh-cn/WindowsForBusiness/End-of-IE-support"><strong>了解详情 ></strong></a>'+
+    '</div>');
+</script>
+
+
+<noscript>
+	<style>
+		html{
+			overflow-x: hidden !important;
+			overflow-y: hidden !important;
+		}
+		.kill-noscript{
+			text-align:center;
+			height: 100%;
+			margin-top: 15%;
+			margin-bottom: 5500%;
+		}
+	</style>
+    <div class="kill-noscript">
+        <h1><b>抱歉，您的浏览器无法访问本站</b></h1>
+        <h3>本页面需要浏览器支持（启用）JavaScript</h3><br/>
+        <a target="_blank" rel="noopener" href="https://www.baidu.com/s?wd=启用JavaScript"><strong>了解详情 ></strong></a>
+    </div>
+</noscript>
+
+</head>
+
+  <body>
+    
+
+<header id="l_header" class="l_header auto shadow blur " style='opacity: 0' >
+  <div class='container'>
+  <div id='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h m-phone' id="pjax-header-nav-list">
+        <li><a id="s-comment" class="fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a id="s-toc" class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+          
+          
+            ShanSan
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h m-pc'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博文
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" 
+                  
+                  
+                  >
+                  <i class='fas fa-ellipsis-v fa-fw'></i>与我相关
+                </a>
+                
+                  <ul class="list-v">
+                    
+                      
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://github.com/yeshan333
+                  
+                  
+                  
+                    id="https:githubcomyeshan333"
+                  >
+                  <i class='fab fa-github-square fa-fw'></i>Github
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://slide.shan333.cn
+                  
+                  
+                  
+                    id="https:slideshan333cn"
+                  >
+                  <i class='fab fa-slideshare fa-fw'></i>slides
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://shansan.top/knowledge-base/
+                  
+                  
+                  
+                    id="https:shansantopknowledge-base"
+                  >
+                  <i class='far fa-sticky-note fa-fw'></i>notes
+                </a>
+                
+              </li>
+            
+          
+                    
+                  </ul>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/cloud-native/
+                  
+                  
+                  
+                    id="cloud-native"
+                  >
+                  <i class='fas fa-cloud fa-fw'></i>云原生
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="寻你所想" />
+        </form>
+      </div>
+
+			<ul class='switcher nav-list-h m-phone'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博文
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" 
+                  
+                  
+                  >
+                  <i class='fas fa-ellipsis-v fa-fw'></i>与我相关
+                </a>
+                
+                  <ul class="list-v">
+                    
+                      
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://github.com/yeshan333
+                  
+                  
+                  
+                    id="https:githubcomyeshan333"
+                  >
+                  <i class='fab fa-github-square fa-fw'></i>Github
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://slide.shan333.cn
+                  
+                  
+                  
+                    id="https:slideshan333cn"
+                  >
+                  <i class='fab fa-slideshare fa-fw'></i>slides
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://shansan.top/knowledge-base/
+                  
+                  
+                  
+                    id="https:shansantopknowledge-base"
+                  >
+                  <i class='far fa-sticky-note fa-fw'></i>notes
+                </a>
+                
+              </li>
+            
+          
+                    
+                  </ul>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/cloud-native/
+                  
+                  
+                  
+                    id="cloud-native"
+                  >
+                  <i class='fas fa-cloud fa-fw'></i>云原生
+                </a>
+                
+              </li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</header>
+
+    <div id="l_body">
+      <div id="l_cover">
+  
+      
+  
+  </div>
+
+      <div id="safearea">
+        <div class="body-wrapper" id="pjax-container">
+          
+
+<div class='l_main'>
+  <article class="article post white-box reveal md shadow article-type-post" id="post" itemscope itemprop="blogPost">
+  
+
+
+  
+    <div class='headimg-div'>
+      <a class='headimg-a'>
+        <img class='headimg' src='https://cdn.jsdelivr.net/gh/yeshan333/blog_images@main/images/20210828215927.png'/>
+      </a>
+    </div>
+  
+  <div class="article-meta" id="top">
+    
+    
+    
+      <h1 class="title">
+        基于 Docker 搭建一个最小化的 Prometheus Federation「联邦」集群
+      </h1>
+      <div class='new-meta-box'>
+        
+          
+            
+<div class='new-meta-item author'>
+  <a class='author' target="_blank" href="https://github.com/yeshan333" rel="nofollow noopener">
+    <img no-lazy src="https://img.vim-cn.com/a3/caa9ef084c4f562b82b1cca6e978c0dca58c5f.png">
+    <p>yeshan333</p>
+  </a>
+</div>
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>首发于：2021年8月28日</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Prometheus/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>Prometheus</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Grafana/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>Grafana</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Federation/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>Federation</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Docker/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>Docker</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Monitoring/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>Monitoring</p></a></div>
+
+
+          
+        
+      </div>
+    
+  </div>
+
+
+  
+  
+  <blockquote>
+<p>一不小心就八月末了，我敲，最近大部分的时间都在了解 Prometheus，一直想“搂”篇文章出来，奈何一直在墨迹，是时候了，不然就九月了，完不成博客的 Flag 了，233333。</p>
+</blockquote>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本篇文章主要介绍了基于 Docker 搭建一个最小化的 Prometheus Federation 集群娱乐环境的相关操作。不是 Step By Step 的。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/yeshan333/blog_images@main/images/%E4%B9%B1%E6%9D%80.gif" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/yeshan333/blog_images@main/images/%E4%B9%B1%E6%9D%80.gif" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="乱杀"></p>
+<span id="more"></span>
+
+<h2 id="Prometheus"><a href="#Prometheus" class="headerlink" title="Prometheus"></a>Prometheus</h2><p>先回顾一下 Prometheus 的各个生态组件，了解下它们各自承担的责任是是什么。基于下面一张来自 Prometheus 官方文档的架构 &amp; 生态组件图做下简介：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/yeshan333/blog_images@main/images/prometheus_architecture.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/yeshan333/blog_images@main/images/prometheus_architecture.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="Prometheus Architecture &amp;  Ecosystem Components"></p>
+<ul>
+<li>Prometheus targets（Jobs/exporters）：提供监控 Metrics 的数据源，Prometheus 是基于拉（Pull-Based）模型的监控系统；</li>
+<li>Pushgateway：Metrics 推送网关，Prometheus 拉取 Metrics 是有时间间隔的，有时候一些短时任务（Short-lived jobs）没有等到 Prometheus 过来拉取其 Metrics 就没了，所以提供了一个这样的组件让 Jobs 主动推送 Metrics 到作为中介的 Pushgateway 组件；</li>
+<li>Prometheus Server：核心组件<ul>
+<li>Retrieval：Prometheus 的通过 yaml 配置文件进行配置的，可以配置 Prometheus 拉取 Metrics 的时间间隔，告警规则计算配置，爬取数据源配置等能力；</li>
+<li>TSDB：Prometheus 内置的本地存储时间序列数据库，该数据库经历了从原型到 V1 到现在 V2 版本的演进，做了许多的优化，想了解更多细节可以看看这篇文章 <a target="_blank" rel="noopener" href="https://zhenghe-md.github.io/blog/2020/02/27/The-Evolution-of-Prometheus-Storage-Layer/">The Evolution of Prometheus Storage Layer</a>；Exporters 是基于文本格式进行 Metrics 的暴露的， V2 版本Prometheus 放弃了原有的 Protocol Buffers 序列化协议，实现了 Text Decoder，优化了性能，官方对此更多的考虑可以看看这篇文档： <a target="_blank" rel="noopener" href="https://github.com/OpenObservability/OpenMetrics/blob/main/legacy/markdown/protobuf_vs_text.md">protobuf_vs_text</a>；</li>
+<li>HTTP Server：提供了与 TSDB 和 Prometheus 交互的 HTTP API，方便在更多的场景下做一些自定义操作；</li>
+</ul>
+</li>
+<li>Service discovery：服务发现机制，Prometheus 内置了基于文本文件、DNS Server和 Consul 的服务发现机制（都可以在配置文件进行配置），规模化监控场景下，方便发现 Prometheus 的爬取对象进行 Metrics 拉取；</li>
+<li>Alertmanager：告警通知组件，提供了告警分组，告警抑制（Inhibit），告警静默（Silence），邮件通知，WebHook 等机制；值得注意的是 Prometheus Server 提供了告警规则的计算能力，但是通知并不由它完成，而是由 Alertmanager 完成。告警通知是个重活，并不简单。文章<a target="_blank" rel="noopener" href="https://aleiwu.com/post/alertmanager/">搞搞 Prometheus: Alertmanager</a> 对 Alertmanager 进行了深层次的分析，可以微微看下；</li>
+<li>PromQL：Prometheus 提供的一个 DSL，同于用于时序数据的查询与聚合运算等操作，告警规则（Alerting Rules &amp; Recording Rules）的计算也用到了 PromQL；</li>
+<li>Prometheus Web UI：Prometheus 自带的一个 Web UI，提供了许多的数据可视化能力，但其对可视化图表的支持有限，所以社区出现了 Grafana 可视化工具，其提供的 Dashboard 管理能力是很强大的，但仍然有缺点，比如这篇文章就说了一点 <a target="_blank" rel="noopener" href="https://xie.infoq.cn/article/be5d880666c29c66b7eff65dc">如何使 Grafana as code</a>。</li>
+</ul>
+<h2 id="Federation-机制"><a href="#Federation-机制" class="headerlink" title="Federation 机制"></a>Federation 机制</h2><p>Pormetheus Federation（联邦）机制是 Promehteus 本身提供的一种集群化的扩展能力。当我们要监控的服务很多的时候，我们会部署很多的 Prometheus 节点分别 Pull 这些服务暴露的 Metrics，Federation 机制可以讲这些分别部署的 Prometheus 节点所获得的指标聚合起来，存放在一个中心点的 Prometheus。如下图：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/yeshan333/blog_images@main/images/20210828210143.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/yeshan333/blog_images@main/images/20210828210143.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="Federation"></p>
+<p>在 Prometheus 的配置配置文件，调整如下字段即可使用 Federation 机制：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">scrape_configs:</span></span><br><span class="line"></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">job_name:</span> <span class="string">&#x27;federate&#x27;</span></span><br><span class="line">    <span class="attr">scrape_interval:</span> <span class="string">10s</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">honor_labels:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">metrics_path:</span> <span class="string">&#x27;/federate&#x27;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 通过 match 参数，配置要拉取的 Metrics，</span></span><br><span class="line">    <span class="comment"># 不要 Pull full metrics</span></span><br><span class="line">    <span class="attr">params:</span></span><br><span class="line">      <span class="string">&#x27;match[]&#x27;</span><span class="string">:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">&#x27;&#123;job=&quot;prometheus&quot;&#125;&#x27;</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">&#x27;&#123;job=&quot;node&quot;&#125;&#x27;</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">&#x27;&#123;job=&quot;blackbox&quot;&#125;&#x27;</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">static_configs:</span></span><br><span class="line">      <span class="comment"># 其他 Prometheus 节点</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">targets:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">&#x27;prometheus-follower-1:9090&#x27;</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">&#x27;prometheus-follower-2:9090&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>关于 Federation 联邦集群更多的讨论可以看看：<a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000039931588">别再乱用prometheus联邦了，分享一个multi_remote_read的方案来实现prometheus高可用</a></p>
+<p>基于服务功能分区，我们可以通过 Federation 集群的特性在任务级别对 Prometheus 采集任务进行划分，以支持规模的扩展。</p>
+<h2 id="基于-Docker-搭建最小化的-Federation-集群"><a href="#基于-Docker-搭建最小化的-Federation-集群" class="headerlink" title="基于 Docker 搭建最小化的 Federation 集群"></a>基于 Docker 搭建最小化的 Federation 集群</h2><p>上文微微 Recap 了一下 Prometheus「普罗米修斯」相关知识，现在回到最小化 Federation 的搭建，本次要搭建的一个最小化 Federation 集群（Architecture）如下图：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/yeshan333/blog_images@main/images/20210828211705.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/yeshan333/blog_images@main/images/20210828211705.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="Minimal Federation"></p>
+<p>可以看到，这里我们使用了两个 Prometheus Follower Container 分别对 Node Exporter 和 Black Exporter 暴露的主机状态相关的 Metrics 和 网络状况相关的 Metrics 进行拉（Pull）取，然后通过一个中心的 Prometheus Leader 对上述指标进行聚合。我们还分别给 Leader 和 一个 Follower 部署了可视化面板 Grafana 用于查看 Metrics。Alertmanager 也通过容器化的方式启动。</p>
+<p>告警的通知基于 WebHook，这里使用到了钉钉群机器人，配置了主机内存 &amp; CPU 使用情况的告警，规则如下：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">groups:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">targets</span></span><br><span class="line">  <span class="attr">rules:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">alert:</span> <span class="string">monitor_service_down</span></span><br><span class="line">    <span class="attr">expr:</span> <span class="string">up</span> <span class="string">==</span> <span class="number">0</span></span><br><span class="line">    <span class="attr">for:</span> <span class="string">30s</span></span><br><span class="line">    <span class="attr">labels:</span></span><br><span class="line">      <span class="attr">severity:</span> <span class="string">critical</span></span><br><span class="line">    <span class="attr">annotations:</span></span><br><span class="line">      <span class="attr">summary:</span> <span class="string">&quot;Monitor service non-operational&quot;</span></span><br><span class="line">      <span class="attr">description:</span> <span class="string">&quot;Service <span class="template-variable">&#123;&#123; $labels.instance &#125;&#125;</span> is down.&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">host</span></span><br><span class="line">  <span class="attr">rules:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">alert:</span> <span class="string">high_cpu_load</span></span><br><span class="line">    <span class="attr">expr:</span> <span class="string">node_load1</span> <span class="string">&gt;</span> <span class="number">1.5</span></span><br><span class="line">    <span class="attr">for:</span> <span class="string">30s</span></span><br><span class="line">    <span class="attr">labels:</span></span><br><span class="line">      <span class="attr">severity:</span> <span class="string">warning</span></span><br><span class="line">    <span class="attr">annotations:</span></span><br><span class="line">      <span class="attr">summary:</span> <span class="string">&quot;Server under high load&quot;</span></span><br><span class="line">      <span class="attr">description:</span> <span class="string">&quot;Docker host is under high load, the avg load 1m is at <span class="template-variable">&#123;&#123; $value&#125;&#125;</span>. Reported by instance <span class="template-variable">&#123;&#123; $labels.instance &#125;&#125;</span> of job <span class="template-variable">&#123;&#123; $labels.job &#125;&#125;</span>.&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">alert:</span> <span class="string">high_memory_load</span></span><br><span class="line">    <span class="attr">expr:</span> <span class="string">(sum(node_memory_MemTotal_bytes)</span> <span class="bullet">-</span> <span class="string">sum(node_memory_MemFree_bytes</span> <span class="string">+</span> <span class="string">node_memory_Buffers_bytes</span> <span class="string">+</span> <span class="string">node_memory_Cached_bytes)</span> <span class="string">)</span> <span class="string">/</span> <span class="string">sum(node_memory_MemTotal_bytes)</span> <span class="string">*</span> <span class="number">100</span> <span class="string">&gt;</span> <span class="number">45</span></span><br><span class="line">    <span class="attr">for:</span> <span class="string">30s</span></span><br><span class="line">    <span class="attr">labels:</span></span><br><span class="line">      <span class="attr">severity:</span> <span class="string">warning</span></span><br><span class="line">    <span class="attr">annotations:</span></span><br><span class="line">      <span class="attr">summary:</span> <span class="string">&quot;Server memory is almost full&quot;</span></span><br><span class="line">      <span class="attr">description:</span> <span class="string">&quot;Docker host memory usage is <span class="template-variable">&#123;&#123; humanize $value&#125;&#125;</span>%. Reported by instance <span class="template-variable">&#123;&#123; $labels.instance &#125;&#125;</span> of job <span class="template-variable">&#123;&#123; $labels.job &#125;&#125;</span>.&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>我们通过 Docker Volume 挂载的方式讲 Prometheus 的配置文件和告警规则文件挂载到对应的识别路径；Grafana 的 Dashboard 与登陆相关的配置我们也基于此方式。Prometheus 的更多配置可参考 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/configuration/configuration/">prometheus configuration</a>：；Grafana 更多的配置参数可以参考：<a target="_blank" rel="noopener" href="https://grafana.com/docs/grafana/latest/administration/provisioning/">Grafana Provisioning</a>。</p>
+<p>Federation 集群的通信我们创建了一个 Docker Network「monitoring_network」。我们使用 Docker—Compose 进行容器的编排，编排文件内容如下：</p>
+<details ><summary> docker-compose.yml </summary>
+              <div class='content'>
+              <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&#x27;3.5&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="attr">networks:</span></span><br><span class="line">    <span class="attr">monitoring_network:</span></span><br><span class="line"></span><br><span class="line"><span class="attr">volumes:</span></span><br><span class="line">    <span class="attr">prometheus_leader_data:</span> &#123;&#125;</span><br><span class="line">    <span class="attr">prometheus_follower_1_data:</span> &#123;&#125;</span><br><span class="line">    <span class="attr">prometheus_follower_2_data:</span> &#123;&#125;</span><br><span class="line">    <span class="attr">grafana_leader_data:</span> &#123;&#125;</span><br><span class="line">    <span class="attr">grafana_follower_data:</span> &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">    <span class="attr">prometheus-leader:</span></span><br><span class="line">        <span class="attr">container_name:</span> <span class="string">prometheus-leader</span></span><br><span class="line">        <span class="attr">image:</span> <span class="string">prom/prometheus</span></span><br><span class="line">        <span class="attr">networks:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">monitoring_network</span></span><br><span class="line">        <span class="attr">volumes:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">./configs/prometheus-leader/prometheus.yml:/etc/prometheus/prometheus.yml</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">./configs/prometheus-leader/alerts/alert.rules:/etc/prometheus/alert.rules</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">prometheus_leader_data:/prometheus</span></span><br><span class="line">        <span class="attr">ports:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">&quot;9090:9090&quot;</span></span><br><span class="line">        <span class="attr">command:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">&#x27;--config.file=/etc/prometheus/prometheus.yml&#x27;</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">&#x27;--storage.tsdb.path=/prometheus&#x27;</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">&#x27;--web.console.libraries=/etc/prometheus/console_libraries&#x27;</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">&#x27;--web.console.templates=/etc/prometheus/consoles&#x27;</span></span><br><span class="line">        <span class="attr">restart:</span> <span class="string">unless-stopped</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">prometheus-follower-1:</span></span><br><span class="line">        <span class="attr">container_name:</span> <span class="string">prometheus-follower-1</span></span><br><span class="line">        <span class="attr">image:</span> <span class="string">prom/prometheus</span></span><br><span class="line">        <span class="attr">networks:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">monitoring_network</span></span><br><span class="line">        <span class="attr">volumes:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">./configs/prometheus-follower-1/prometheus.yml:/etc/prometheus/prometheus.yml</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">./configs/prometheus-follower-1/records/node_exporter_recording.rules:/etc/prometheus/node_exporter_recording.rules</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">./configs/prometheus-follower-1/alerts/node_exporter_alert.rules:/etc/prometheus/node_exporter_alert.rules</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">prometheus_follower_1_data:/prometheus</span></span><br><span class="line">        <span class="attr">ports:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">&quot;9099:9090&quot;</span></span><br><span class="line">        <span class="attr">command:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">&#x27;--config.file=/etc/prometheus/prometheus.yml&#x27;</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">&#x27;--storage.tsdb.path=/prometheus&#x27;</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">&#x27;--web.console.libraries=/etc/prometheus/console_libraries&#x27;</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">&#x27;--web.console.templates=/etc/prometheus/consoles&#x27;</span></span><br><span class="line">        <span class="attr">restart:</span> <span class="string">unless-stopped</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">prometheus-follower-2:</span></span><br><span class="line">        <span class="attr">container_name:</span> <span class="string">prometheus-follower-2</span></span><br><span class="line">        <span class="attr">image:</span> <span class="string">prom/prometheus</span></span><br><span class="line">        <span class="attr">networks:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">monitoring_network</span></span><br><span class="line">        <span class="attr">volumes:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">./configs/prometheus-follower-2/prometheus.yml:/etc/prometheus/prometheus.yml</span></span><br><span class="line">            <span class="comment"># - ./configs/prometheus-follower-2/records/node_exporter_recording.rules:/etc/prometheus/node_exporter_recording.rules</span></span><br><span class="line">            <span class="comment"># - ./configs/prometheus-follower-2/alerts/node_exporter_alert.rules:/etc/prometheus/node_exporter_alert.rules</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">prometheus_follower_2_data:/prometheus</span></span><br><span class="line">        <span class="attr">ports:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">&quot;9098:9090&quot;</span></span><br><span class="line">        <span class="attr">command:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">&#x27;--config.file=/etc/prometheus/prometheus.yml&#x27;</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">&#x27;--storage.tsdb.path=/prometheus&#x27;</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">&#x27;--web.console.libraries=/etc/prometheus/console_libraries&#x27;</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">&#x27;--web.console.templates=/etc/prometheus/consoles&#x27;</span></span><br><span class="line">        <span class="attr">restart:</span> <span class="string">unless-stopped</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">grafana_leader:</span></span><br><span class="line">        <span class="attr">container_name:</span> <span class="string">grafana_leader</span></span><br><span class="line">        <span class="attr">image:</span> <span class="string">grafana/grafana</span></span><br><span class="line">        <span class="attr">networks:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">monitoring_network</span></span><br><span class="line">        <span class="attr">volumes:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">./configs/grafana-leader/provisioning/dashboards:/etc/grafana/provisioning/dashboards</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">./configs/grafana-leader/provisioning/datasources/config.yml:/etc/grafana/provisioning/datasources/config.yml</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">grafana_leader_data:/etc/grafana</span></span><br><span class="line">        <span class="attr">environment:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">TERM=linux</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">GF_INSTALL_PLUGINS=grafana-clock-panel,grafana-simple-json-datasource</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">GF_SECURITY_ADMIN_USER=admin</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">GF_SECURITY_ADMIN_PASSWORD=admin123456</span></span><br><span class="line">        <span class="attr">ports:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">&quot;3000:3000&quot;</span></span><br><span class="line">        <span class="attr">restart:</span> <span class="string">unless-stopped</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">grafana_follower:</span></span><br><span class="line">        <span class="attr">container_name:</span> <span class="string">grafana_follower</span></span><br><span class="line">        <span class="attr">image:</span> <span class="string">grafana/grafana</span></span><br><span class="line">        <span class="attr">networks:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">monitoring_network</span></span><br><span class="line">        <span class="attr">volumes:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">./configs/grafana-follower/provisioning/dashboards:/etc/grafana/provisioning/dashboards</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">./configs/grafana-follower/provisioning/datasources/config.yml:/etc/grafana/provisioning/datasources/config.yml</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">grafana_follower_data:/etc/grafana</span></span><br><span class="line">        <span class="attr">environment:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">TERM=linux</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">GF_INSTALL_PLUGINS=grafana-clock-panel,grafana-simple-json-datasource</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">GF_SECURITY_ADMIN_USER=admin</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">GF_SECURITY_ADMIN_PASSWORD=admin123456</span></span><br><span class="line">        <span class="attr">ports:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">&quot;3001:3000&quot;</span></span><br><span class="line">        <span class="attr">restart:</span> <span class="string">unless-stopped</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">node_exporter:</span></span><br><span class="line">        <span class="attr">image:</span> <span class="string">quay.io/prometheus/node-exporter:latest</span></span><br><span class="line">        <span class="attr">container_name:</span> <span class="string">node_exporter_stats</span></span><br><span class="line">        <span class="attr">networks:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">monitoring_network</span></span><br><span class="line">        <span class="attr">ports:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">&quot;9100:9100&quot;</span></span><br><span class="line">        <span class="attr">expose:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">&quot;9100&quot;</span></span><br><span class="line">        <span class="attr">restart:</span> <span class="string">unless-stopped</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">blackbox_exporter:</span></span><br><span class="line">        <span class="attr">image:</span> <span class="string">prom/blackbox-exporter</span></span><br><span class="line">        <span class="attr">container_name:</span> <span class="string">blackbox_exporter</span></span><br><span class="line">        <span class="attr">networks:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">monitoring_network</span></span><br><span class="line">        <span class="attr">ports:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">&quot;9115:9115&quot;</span></span><br><span class="line">        <span class="attr">restart:</span> <span class="string">unless-stopped</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">alertmanager:</span></span><br><span class="line">        <span class="attr">image:</span> <span class="string">prom/alertmanager</span></span><br><span class="line">        <span class="attr">container_name:</span> <span class="string">alertmanager</span></span><br><span class="line">        <span class="attr">networks:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">monitoring_network</span></span><br><span class="line">        <span class="attr">volumes:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">./configs/alertmanager/alertmanager.yml:/etc/alertmanager/alertmanager.yml</span></span><br><span class="line">        <span class="attr">ports:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">&quot;9093:9093&quot;</span></span><br><span class="line">        <span class="attr">restart:</span> <span class="string">unless-stopped</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">dingtalk-robot:</span></span><br><span class="line">        <span class="attr">image:</span> <span class="string">timonwong/prometheus-webhook-dingtalk</span></span><br><span class="line">        <span class="attr">container_name:</span> <span class="string">dingtalk-robot</span></span><br><span class="line">        <span class="attr">networks:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">monitoring_network</span></span><br><span class="line">        <span class="attr">ports:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">&quot;8060:8060&quot;</span></span><br><span class="line">        <span class="attr">volumes:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">./configs/dingtalk/config.yml:/etc/prometheus-webhook-dingtalk/config.yml</span></span><br><span class="line">        <span class="attr">restart:</span> <span class="string">unless-stopped</span></span><br></pre></td></tr></table></figure>
+              </div>
+            </details>
+
+<p>dingtalk 通知的配置参考了这篇文章：<a target="_blank" rel="noopener" href="https://theo.im/blog/2017/10/16/release-prometheus-alertmanager-webhook-for-dingtalk/">将钉钉接入 Prometheus AlertManager WebHook</a>。</p>
+<p>已经相关的配置文件和容器编排文件上传到了 GitHub，更多的配置细节可以到 GitHub 的项目仓库 <a target="_blank" rel="noopener" href="https://github.com/yeshan333/prometheus-federation-minimal-demo">yeshan333/prometheus-federation-minimal-demo</a> 查看，也可将该项目 clone 到本地，跑一下看看：</p>
+<ul>
+<li>1、git clone；</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/yeshan333/prometheus-federation-minimal-demo</span><br><span class="line">cd prometheus-federation-minimal-demo</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>2、更换钉钉机器人的 WebHook 地址，机器人配置的 Webhook 地址在 <code>configs/dingtalk/config.yml</code> 文件；</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim configs/dingtalk/config.yml</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">targets:</span></span><br><span class="line">  <span class="attr">webhook1:</span></span><br><span class="line">    <span class="attr">url:</span> <span class="string">https://oapi.dingtalk.com/robot/send?access_token=&lt;dingtalk-robaot-access-token&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>3、通过 docker-compose 启动联邦集群，你可能需要安装 Docker &amp; docker-compose，可参考：<a target="_blank" rel="noopener" href="https://docs.docker.com/get-docker/">Get Docker</a>；</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>4、期待的容器运行状况如下：</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker-compose ps</span></span><br><span class="line">NAME                    COMMAND                  SERVICE                 STATUS              PORTS</span><br><span class="line">alertmanager            &quot;/bin/alertmanager -…&quot;   alertmanager            running             0.0.0.0:9093-&gt;9093/tcp, :::9093-&gt;9093/tcp</span><br><span class="line">blackbox_exporter       &quot;/bin/blackbox_expor…&quot;   blackbox_exporter       running             0.0.0.0:9115-&gt;9115/tcp, :::9115-&gt;9115/tcp</span><br><span class="line">dingtalk-robot          &quot;/bin/prometheus-web…&quot;   dingtalk-robot          running             0.0.0.0:8060-&gt;8060/tcp, :::8060-&gt;8060/tcp</span><br><span class="line">grafana_follower        &quot;/run.sh&quot;                grafana_follower        running             0.0.0.0:3001-&gt;3000/tcp, :::3001-&gt;3000/tcp</span><br><span class="line">grafana_leader          &quot;/run.sh&quot;                grafana_leader          running             0.0.0.0:3000-&gt;3000/tcp, :::3000-&gt;3000/tcp</span><br><span class="line">node_exporter_stats     &quot;/bin/node_exporter&quot;     node_exporter           running             0.0.0.0:9100-&gt;9100/tcp, :::9100-&gt;9100/tcp</span><br><span class="line">prometheus-follower-1   &quot;/bin/prometheus --c…&quot;   prometheus-follower-1   running             0.0.0.0:9099-&gt;9090/tcp, :::9099-&gt;9090/tcp</span><br><span class="line">prometheus-follower-2   &quot;/bin/prometheus --c…&quot;   prometheus-follower-2   running             0.0.0.0:9098-&gt;9090/tcp, :::9098-&gt;9090/tcp</span><br><span class="line">prometheus-leader       &quot;/bin/prometheus --c…&quot;   prometheus-leader       running             0.0.0.0:9090-&gt;9090/tcp, :::9090-&gt;9090/tcp</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>5、查看 Grafana Leader：<a target="_blank" rel="noopener" href="http://localhost:3000/">http://localhost:3000</a>，Alertmanager UI：<a target="_blank" rel="noopener" href="http://localhost:9093/">http://localhost:9093</a></li>
+</ul>
+<p>End.</p>
+<p>　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　</p>
+
+  
+  
+    
+    <div class='footer'>
+      
+      
+      
+        <div class='copyright'>
+          <blockquote>
+            
+              
+                <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+              
+            
+              
+                <p>我的博客即将同步至腾讯云+社区，邀请大家一同入驻：<a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/support-plan?invite_code=1utoln9pyvwqu">https://cloud.tencent.com/developer/support-plan?invite_code=1utoln9pyvwqu</a></p>
+
+              
+            
+          </blockquote>
+        </div>
+      
+      
+    </div>
+  
+  
+    
+
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-08-28T17:25:18+00:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2021年8月28日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Prometheus/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>Prometheus</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Grafana/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>Grafana</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Federation/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>Federation</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Docker/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>Docker</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Monitoring/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>Monitoring</p></a></div>
+
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://yeshan333.github.io/2021/08/28/prometheus-federation/&title=基于 Docker 搭建一个最小化的 Prometheus Federation「联邦」集群 - ShanSan&summary=
+一不小心就八月末了，我敲，最近大部分的时间都在了解 Prometheus，一直想“搂”篇文章出来，奈何一直在墨迹，是时候了，不然就九月了，完不成博客的 Flag 了，233333。
+
+前言本篇文章主要介绍了基于 Docker 搭建一个最小化的 Prometheus Federation 集群娱乐环境的相关操作。不是 Step By Step 的。
+"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://yeshan333.github.io/2021/08/28/prometheus-federation/&title=基于 Docker 搭建一个最小化的 Prometheus Federation「联邦」集群 - ShanSan&summary=
+一不小心就八月末了，我敲，最近大部分的时间都在了解 Prometheus，一直想“搂”篇文章出来，奈何一直在墨迹，是时候了，不然就九月了，完不成博客的 Flag 了，233333。
+
+前言本篇文章主要介绍了基于 Docker 搭建一个最小化的 Prometheus Federation 集群娱乐环境的相关操作。不是 Step By Step 的。
+"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://yeshan333.github.io/2021/08/28/prometheus-federation/&title=基于 Docker 搭建一个最小化的 Prometheus Federation「联邦」集群 - ShanSan&summary=
+一不小心就八月末了，我敲，最近大部分的时间都在了解 Prometheus，一直想“搂”篇文章出来，奈何一直在墨迹，是时候了，不然就九月了，完不成博客的 Flag 了，233333。
+
+前言本篇文章主要介绍了基于 Docker 搭建一个最小化的 Prometheus Federation 集群娱乐环境的相关操作。不是 Step By Step 的。
+"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </div>
+
+
+  
+  
+
+  
+    <div class="prev-next">
+      
+      
+        <a class='next' href='/2021/07/10/checksum-gpg-tools/'>
+          <p class='title'>对下载软件/文件进行校验的工具（Checksum and GPG）<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>前言之前装软件一直都没有验证安装文件的习惯，信息安全意识不高，碰巧最近没啥事，微微写篇文章记录下校验工具（互联网http、https、ftp 服务并没有那么安全，是可以被劫持篡改。老装软件选手了...</p>
+        </a>
+      
+    </div>
+  
+</article>
+
+
+  
+
+  <article class="post white-box reveal shadow" id="comments">
+    <p ct><i class='fas fa-comments'></i> 评论</p>
+    
+    <div id="waline">
+  <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+</div>
+
+  </article>
+
+
+
+
+
+  <script>
+  // https://github.com/theme-next/hexo-theme-next/blob/master/layout/_third-party/math/mathjax.swig
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.0/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    // 文章章节标题不能为 “MathJax” ，否则会报错。
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+
+
+</div>
+<aside class='l_side'>
+  
+  
+    
+    
+
+
+
+  <section class="widget toc-wrapper shadow desktop mobile" id="toc-div" >
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Prometheus"><span class="toc-text">Prometheus</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Federation-%E6%9C%BA%E5%88%B6"><span class="toc-text">Federation 机制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E-Docker-%E6%90%AD%E5%BB%BA%E6%9C%80%E5%B0%8F%E5%8C%96%E7%9A%84-Federation-%E9%9B%86%E7%BE%A4"><span class="toc-text">基于 Docker 搭建最小化的 Federation 集群</span></a></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+
+		  
+		  <!--此文件用来存放一些不方便取值的变量-->
+<!--思路大概是将值藏到重加载的区域内-->
+
+<script>
+  window.pdata={}
+  pdata.ispage=true;
+  pdata.postTitle="基于 Docker 搭建一个最小化的 Prometheus Federation「联邦」集群";
+  pdata.commentPath="";
+  pdata.commentPlaceholder="";
+  // header 这里无论是否开启pjax都需要
+  var l_header=document.getElementById("l_header");
+  
+  l_header.classList.add("show");
+  
+  
+</script>
+
+        </div>
+        
+  
+  <footer class="footer clearfix">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
+
+  
+    <meting-js
+      theme='#1BCDFC'
+      autoplay='false'
+      volume='0.7'
+      loop='all'
+      order='list'
+      fixed='false'
+      list-max-height='320px'
+      server='netease'
+      type='playlist'
+      id='6729508229'
+      list-folded='true'>
+    </meting-js>
+  
+
+
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+            
+              <a href="mailto:1329441308@qq.com"
+                class="social fas fa-envelope flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+                
+              </a>
+            
+          
+            
+              <a href="https://github.com/yeshan333?tab=repositories"
+                class="social fab fa-github flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+                
+              </a>
+            
+          
+            
+              <a href="https://music.163.com/#/my/m/music/playlist?id=2617691792"
+                class="social fas fa-music flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+                
+              </a>
+            
+          
+            
+              <a href="https://www.zhihu.com/people/si-kong-ji-54/activities"
+                class="social fab fa-zhihu flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+                
+              </a>
+            
+          
+            
+              <a href="https://yeshan333.github.io/rss2.xml"
+                class="social fas fa-rss flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+                
+              </a>
+            
+          
+        </div>
+      
+    
+      
+        <div><p>博客内容遵循 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+</div>
+      
+    
+      
+        本站使用
+        <a href="https://github.com/volantis-x/hexo-theme-volantis/tree/4.3.1" target="_blank" class="codename">Volantis</a>
+        作为主题，总访问量为
+          <span id="busuanzi_value_site_pv"><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+          次
+        
+      
+    
+      
+        <div class='copyright'>
+        <p><a target="_blank" rel="noopener" href="https://shansan.top/">Copyright © 2018-2021 ShanSan</a></p>
+
+        </div>
+      
+    
+      
+        
+          <div><p><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">桂ICP备19000444号</a></p>
+</div>
+        
+      
+    
+  </footer>
+
+
+        <a id="s-top" class="fas fa-arrow-up fa-fw" href="javascript:void(0)"></a>
+      </div>
+    </div>
+    <div>
+      <script>
+/************这个文件存放不需要重载的全局变量和全局函数*********/
+window.volantis={};
+window.volantis.loadcss=document.getElementById("loadcss");
+/******************** Pjax ********************************/
+function VPjax(){
+	this.list=[] // 存放回调函数
+	this.start=()=>{
+	  for(var i=0;i<this.list.length;i++){
+		this.list[i].run();
+	  }
+	}
+	this.push=(fn,name)=>{
+		var f=new PjaxItem(fn,name);
+		this.list.push(f);
+	}
+	// 构造一个可以run的对象
+	function PjaxItem(fn,name){
+		// 函数名称
+		this.name = name || fn.name
+		// run方法
+		this.run=()=>{
+			fn()
+		}
+	}
+}
+volantis.pjax={}
+volantis.pjax.method={
+	complete: new VPjax(),
+	error: new VPjax(),
+	send: new VPjax()
+}
+volantis.pjax={
+	...volantis.pjax,
+	push: volantis.pjax.method.complete.push,
+	error: volantis.pjax.method.error.push,
+	send: volantis.pjax.method.send.push
+}
+/********************脚本懒加载函数********************************/
+// 已经加入了setTimeout
+function loadScript(src, cb) {
+	setTimeout(function() {
+		var HEAD = document.getElementsByTagName('head')[0] || document.documentElement;
+		var script = document.createElement('script');
+		script.setAttribute('type','text/javascript');
+		if (cb) script.onload = cb;
+		script.setAttribute('src', src);
+		HEAD.appendChild(script);
+	});
+}
+//https://github.com/filamentgroup/loadCSS
+var loadCSS = function( href, before, media, attributes ){
+	var doc = window.document;
+	var ss = doc.createElement( "link" );
+	var ref;
+	if( before ){
+		ref = before;
+	}
+	else {
+		var refs = ( doc.body || doc.getElementsByTagName( "head" )[ 0 ] ).childNodes;
+		ref = refs[ refs.length - 1];
+	}
+	var sheets = doc.styleSheets;
+	if( attributes ){
+		for( var attributeName in attributes ){
+			if( attributes.hasOwnProperty( attributeName ) ){
+				ss.setAttribute( attributeName, attributes[attributeName] );
+			}
+		}
+	}
+	ss.rel = "stylesheet";
+	ss.href = href;
+	ss.media = "only x";
+	function ready( cb ){
+		if( doc.body ){
+			return cb();
+		}
+		setTimeout(function(){
+			ready( cb );
+		});
+	}
+	ready( function(){
+		ref.parentNode.insertBefore( ss, ( before ? ref : ref.nextSibling ) );
+	});
+	var onloadcssdefined = function( cb ){
+		var resolvedHref = ss.href;
+		var i = sheets.length;
+		while( i-- ){
+			if( sheets[ i ].href === resolvedHref ){
+				return cb();
+			}
+		}
+		setTimeout(function() {
+			onloadcssdefined( cb );
+		});
+	};
+	function loadCB(){
+		if( ss.addEventListener ){
+			ss.removeEventListener( "load", loadCB );
+		}
+		ss.media = media || "all";
+	}
+	if( ss.addEventListener ){
+		ss.addEventListener( "load", loadCB);
+	}
+	ss.onloadcssdefined = onloadcssdefined;
+	onloadcssdefined( loadCB );
+	return ss;
+};
+</script>
+<script>
+  
+  loadCSS("https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14/css/all.min.css", window.volantis.loadcss);
+  
+  
+  
+  
+</script>
+<!-- required -->
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5/dist/jquery.min.js"></script>
+
+<script>
+  function pjax_fancybox() {
+    $(".md .gallery").find("img").each(function () { //渲染 fancybox
+      var element = document.createElement("a"); // a 标签
+      $(element).attr("class", "fancybox");
+      $(element).attr("pjax-fancybox", "");  // 过滤 pjax
+      $(element).attr("href", $(this).attr("src"));
+      if ($(this).attr("data-original")) {
+        $(element).attr("href", $(this).attr("data-original"));
+      }
+      $(element).attr("data-fancybox", "images");
+      var caption = "";   // 描述信息
+      if ($(this).attr('alt')) {  // 判断当前页面是否存在描述信息
+        $(element).attr('data-caption', $(this).attr('alt'));
+        caption = $(this).attr('alt');
+      }
+      var div = document.createElement("div");
+      $(div).addClass("fancybox");
+      $(this).wrap(div); // 最外层套 div ，其实主要作用还是 class 样式
+      var span = document.createElement("span");
+      $(span).addClass("image-caption");
+      $(span).text(caption); // 加描述
+      $(this).after(span);  // 再套一层描述
+      $(this).wrap(element);  // 最后套 a 标签
+    })
+    $(".md .gallery").find("img").fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+      closeClick: true,
+      helpers: {
+        overlay: {closeClick: true}
+      },
+      buttons: [
+        "zoom",
+        "close"
+      ]
+    });
+  };
+  function SCload_fancybox() {
+    if ($(".md .gallery").find("img").length == 0) return;
+    loadCSS("https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css", document.getElementById("loadcss"));
+    loadScript('https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', pjax_fancybox)
+  };
+  $(function () {
+    SCload_fancybox();
+  });
+  function Pjax_SCload_fancybox(){
+	if (typeof $.fancybox == "undefined") {
+	 SCload_fancybox();
+    } else {
+	 pjax_fancybox();
+    }
+  }
+  volantis.pjax.push(Pjax_SCload_fancybox)
+  volantis.pjax.send(()=>{
+      if (typeof $.fancybox != "undefined") {
+        $.fancybox.close();    // 关闭弹窗
+      }
+  },'fancybox')
+</script>
+
+
+<!-- internal -->
+
+
+
+
+<script>
+  function loadIssuesJS() {
+    if ($(".md").find(".issues-api").length == 0) return;
+	
+	  loadScript('/js/issues.js');
+	
+  };
+  $(function () {
+    loadIssuesJS();
+  });
+  volantis.pjax.push(()=>{
+	if (typeof IssuesAPI == "undefined") {
+	  loadIssuesJS();
+	}
+  },"IssuesJS")
+</script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 0
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    lazyLoadInstance.update();
+  });
+  document.addEventListener('pjax:complete', function () {
+    lazyLoadInstance.update();
+  });
+</script>
+
+
+
+
+  
+
+<script>
+  window.FPConfig = {
+	delay: 0,
+	ignoreKeywords: [],
+	maxRPS: 5,
+	hoverDelay: 25
+  };
+</script>
+<script defer src="https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"></script>
+
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+    var clipboard = new ClipboardJS('.btn-copy', {
+        target: function (trigger) {
+            return trigger.nextElementSibling
+        }
+    });
+    function wait(callback, seconds) {
+        var timelag = null;
+        timelag = window.setTimeout(callback, seconds)
+    }
+    function pjax_initCopyCode() {
+		if($(".highlight .code pre").length+$(".article pre code").length==0)return;
+        var copyHtml = '';
+        copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+        copyHtml += '<i class="fas fa-copy"></i><span>COPY</span>';
+        copyHtml += '</button>';
+        $(".highlight .code pre").before(copyHtml);
+        $(".article pre code").before(copyHtml);
+        clipboard.off('success').on('success', function (e) {
+            let $btn = $(e.trigger);
+            $btn.addClass('copied');
+            let $icon = $($btn.find('i'));
+            $icon.removeClass('fa-copy');
+            $icon.addClass('fa-check-circle');
+            let $span = $($btn.find('span'));
+            $span[0].innerText = 'COPIED';
+            wait(function () {
+                $icon.removeClass('fa-check-circle');
+                $icon.addClass('fa-copy');
+                $span[0].innerText = 'COPY'
+            }, 2000)
+        });
+        clipboard.off('error').on('error', function (e) {
+            e.clearSelection();
+            let $btn = $(e.trigger);
+            $btn.addClass('copy-failed');
+            let $icon = $($btn.find('i'));
+            $icon.removeClass('fa-copy');
+            $icon.addClass('fa-times-circle');
+            let $span = $($btn.find('span'));
+            $span[0].innerText = 'COPY FAILED';
+            wait(function () {
+                $icon.removeClass('fa-times-circle');
+                $icon.addClass('fa-copy');
+                $span[0].innerText = 'COPY'
+            }, 2000)
+        })
+    }
+    $(function () {
+        pjax_initCopyCode()
+    });
+	volantis.pjax.push(pjax_initCopyCode)
+</script>
+
+
+
+
+
+
+  <script>
+  let APlayerController = new Object();
+  APlayerController.id = '6729508229';  // 设定全局音乐播放ID
+  APlayerController.volume = '0.7';
+  loadCSS("https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css", window.volantis.loadcss);
+  // APlayer 需要在  MetingJS 之前加载
+  loadScript("https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js")
+  window.volantis.APlayerLoaded=0 // APlayer加载完成状态
+  var checkAPlayer = setInterval(function () {
+    if (!window.APlayer) return // APlayer加载完成？
+	  if ($("#safearea").css("display")!="block") return // 文章内容加载完成？ see: source/css/first.styl
+    clearInterval(checkAPlayer)
+	  if (!window.volantis.APlayerLoaded&&!window.MetingJSElement){ // APlayer只能加载一次
+      window.volantis.APlayerLoaded=1 // APlayer加载完成
+      loadScript("https://cdn.jsdelivr.net/npm/meting@2.0/dist/Meting.min.js") // 加载 MetingJS
+	  }
+  }, 2500) // 按照网速调节差分2.5s
+  // rightmenu see: layout/_partial/rightmenu.ejs
+
+</script>
+
+
+
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js"></script>
+
+
+<script>
+  function pjax_waline() {
+    if(!document.querySelectorAll("#waline")[0])return;
+    let pagePlaceholder = pdata.commentPlaceholder || "快来评论吧~";
+    let path = pdata.commentPath;
+    if (path.length == 0) {
+      let defaultPath = '';
+      path = defaultPath || decodeURI(window.location.pathname);
+    }
+    new Waline(Object.assign({"js":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","path":null,"placeholder":"快来评论吧~","imageHosting":"https://7bu.top/api/upload","meta":["nick","mail","link"],"requiredFields":["nick","mail"],"serverURL":"https://yeshan333-waline.vercel.app","avatar":"robohash","pageSize":10,"lang":"zh-CN"}, {
+     el: '#waline',
+     path: path,
+     placeholder: pagePlaceholder,
+     uploadImage: function(file) {
+      const formData = new FormData();
+      formData.append('image', file);
+      return fetch('https://7bu.top/api/upload', {
+      	method: 'POST',
+      	body: formData
+      }).then(resp => resp.json()).then(resp => resp.data.url);
+   },
+  }));
+  }
+  $(function () {
+    pjax_waline();
+  });
+  volantis.pjax.push(pjax_waline);
+</script>
+
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js" data-pjax></script>
+
+
+
+  
+<script src="/js/app.js"></script>
+
+
+
+<!-- optional -->
+
+  <script>
+const SearchServiceimagePath="https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@master/img/";
+const ROOT =  ("/" || "/").endsWith('/') ? ("/" || "/") : ("//" || "/" );
+
+$('.input.u-search-input').one('focus',function(){
+	
+		loadScript('https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@2.6.4/js/search.js',setSearchService);
+	
+})
+
+function listenSearch(){
+  
+    customSearch = new HexoSearch({
+      imagePath: SearchServiceimagePath
+    });
+  
+}
+function setSearchService() {
+	listenSearch();
+	
+}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  <script defer>
+
+  const LCCounter = {
+    app_id: 'u9j57bwJod4EDmXWdxrwuqQT-MdYXbMMI',
+    app_key: 'jfHtEKVE24j0IVCGHbvuFClp',
+    custom_api_server: '',
+
+    // 查询存储的记录
+    getRecord(Counter, url, title) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({url})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
+            }
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {url, title: title, times: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
+        });
+      })
+    },
+
+    // 发起自增请求
+    increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
+          }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    },
+
+    // 构建自增请求体
+    buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "times": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    },
+
+    // 校验是否为有效的 UV
+    validUV() {
+      var key = 'LeanCloudUVTimestamp';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    },
+
+    addCount(Counter) {
+      var enableIncr = '' === 'true' && window.location.hostname !== 'localhost';
+      enableIncr = true;
+      var getterArr = [];
+      var incrArr = [];
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#lc-sv');
+      if (pvCtn || enableIncr) {
+        var pvGetter = this.getRecord(Counter, 'https://yeshan333.github.io' + '/#lc-sv', 'Visits').then((record) => {
+          incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-sv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + 1;
+              if (pvCtn) {
+                pvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#lc-uv');
+      if (uvCtn || enableIncr) {
+        var uvGetter = this.getRecord(Counter, 'https://yeshan333.github.io' + '/#lc-uv', 'Visitors').then((record) => {
+          var vuv = this.validUV();
+          vuv && incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-uv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + (vuv ? 1 : 0);
+              if (uvCtn) {
+                uvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 请求文章的浏览数，如果是当前页面就自增
+      var allPV = document.querySelectorAll('#lc-pv');
+      if (allPV.length > 0 || enableIncr) {
+        for (i = 0; i < allPV.length; i++) {
+          let pv = allPV[i];
+          let title = pv.getAttribute('data-title');
+          var url = 'https://yeshan333.github.io' + pv.getAttribute('data-path');
+          if (url) {
+            var viewGetter = this.getRecord(Counter, url, title).then((record) => {
+              // 是当前页面就自增
+              let curPath = window.location.pathname;
+              if (curPath.includes('index.html')) {
+                curPath = curPath.substring(0, curPath.lastIndexOf('index.html'));
+              }
+              if (pv.getAttribute('data-path') == curPath) {
+                incrArr.push(this.buildIncrement(record.objectId));
+              }
+              if (pv) {
+                var ele = pv.querySelector('#lc-pv #number');
+                if (ele) {
+                  if (pv.getAttribute('data-path') == curPath) {
+                    ele.innerText = (record.times || 0) + 1;
+                  } else {
+                    ele.innerText = record.times || 0;
+                  }
+                  pv.style.display = 'inline';
+                }
+              }
+            });
+            getterArr.push(viewGetter);
+          }
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && this.increment(Counter, incrArr);
+        })
+      }
+
+    },
+
+
+    fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': this.app_id,
+            'X-LC-Key': this.app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      this.addCount(Counter);
+    },
+
+    refreshCounter() {
+      var api_server = this.app_id.slice(-9) !== '-MdYXbMMI' ? this.custom_api_server : `https://${ this.app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+      if (api_server) {
+        this.fetchData(api_server);
+      } else {
+        fetch('https://app-router.leancloud.cn/2/route?appId=' + this.app_id)
+          .then(resp => resp.json())
+          .then(({api_server}) => {
+            this.fetchData('https://' + api_server);
+          });
+      }
+    }
+
+  };
+
+  LCCounter.refreshCounter();
+
+  document.addEventListener('pjax:complete', function () {
+    LCCounter.refreshCounter();
+  });
+</script>
+
+
+
+
+  <script>
+const rootElement = document.documentElement;
+const darkModeStorageKey = "user-color-scheme";
+const rootElementDarkModeAttributeName = "data-user-color-scheme";
+
+const setLS = (k, v) => {
+    localStorage.setItem(k, v);
+};
+
+const removeLS = (k) => {
+    localStorage.removeItem(k);
+};
+
+const getLS = (k) => {
+    return localStorage.getItem(k);
+};
+
+const getModeFromCSSMediaQuery = () => {
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
+};
+
+const resetRootDarkModeAttributeAndLS = () => {
+  rootElement.removeAttribute(rootElementDarkModeAttributeName);
+  removeLS(darkModeStorageKey);
+};
+
+const validColorModeKeys = {
+  dark: true,
+  light: true,
+};
+
+const applyCustomDarkModeSettings = (mode) => {
+  const currentSetting = mode || getLS(darkModeStorageKey);
+
+  if (currentSetting === getModeFromCSSMediaQuery()) {
+    resetRootDarkModeAttributeAndLS();
+  } else if (validColorModeKeys[currentSetting]) {
+    rootElement.setAttribute(rootElementDarkModeAttributeName, currentSetting);
+  } else {
+    resetRootDarkModeAttributeAndLS();
+  }
+};
+
+const invertDarkModeObj = {
+  dark: "light",
+  light: "dark",
+};
+
+/**
+ * get target mode
+ */
+const toggleCustomDarkMode = () => {
+  let currentSetting = getLS(darkModeStorageKey);
+
+  if (validColorModeKeys[currentSetting]) {
+    currentSetting = invertDarkModeObj[currentSetting];
+  } else if (currentSetting === null) {
+    currentSetting = invertDarkModeObj[getModeFromCSSMediaQuery()];
+  } else {
+    return;
+  }
+  setLS(darkModeStorageKey, currentSetting);
+  return currentSetting;
+};
+
+/**
+ * bind click event for toggle button
+ */
+var btn=$("#wrapper .toggle-mode-btn,#rightmenu-wrapper .toggle-mode-btn");
+function bindToggleButton() {
+    btn.on('click',(e) => {
+      const mode = toggleCustomDarkMode();
+      applyCustomDarkModeSettings(mode);
+    });
+}
+
+applyCustomDarkModeSettings();
+document.addEventListener("DOMContentLoaded", bindToggleButton);
+volantis.pjax.push(bindToggleButton);
+volantis.pjax.send(()=>{
+	btn.unbind('click');
+},'toggle-mode-btn-unbind');
+</script>
+
+
+
+
+
+
+
+
+<script>
+function listennSidebarTOC() {
+  const navItems = document.querySelectorAll(".toc li");
+  if (!navItems.length) return;
+  const sections = [...navItems].map((element) => {
+    const link = element.querySelector(".toc-link");
+    const target = document.getElementById(
+      decodeURI(link.getAttribute("href")).replace("#", "")
+    );
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      window.scrollTo({
+		top: target.offsetTop + 100,
+		
+		behavior: "smooth"
+		
+	  });
+    });
+    return target;
+  });
+
+  function activateNavByIndex(target) {
+    if (target.classList.contains("active-current")) return;
+
+    document.querySelectorAll(".toc .active").forEach((element) => {
+      element.classList.remove("active", "active-current");
+    });
+    target.classList.add("active", "active-current");
+    let parent = target.parentNode;
+    while (!parent.matches(".toc")) {
+      if (parent.matches("li")) parent.classList.add("active");
+      parent = parent.parentNode;
+    }
+  }
+
+  function findIndex(entries) {
+    let index = 0;
+    let entry = entries[index];
+    if (entry.boundingClientRect.top > 0) {
+      index = sections.indexOf(entry.target);
+      return index === 0 ? 0 : index - 1;
+    }
+    for (; index < entries.length; index++) {
+      if (entries[index].boundingClientRect.top <= 0) {
+        entry = entries[index];
+      } else {
+        return sections.indexOf(entry.target);
+      }
+    }
+    return sections.indexOf(entry.target);
+  }
+
+  function createIntersectionObserver(marginTop) {
+    marginTop = Math.floor(marginTop + 10000);
+    let intersectionObserver = new IntersectionObserver(
+      (entries, observe) => {
+        let scrollHeight = document.documentElement.scrollHeight + 100;
+        if (scrollHeight > marginTop) {
+          observe.disconnect();
+          createIntersectionObserver(scrollHeight);
+          return;
+        }
+        let index = findIndex(entries);
+        activateNavByIndex(navItems[index]);
+      },
+      {
+        rootMargin: marginTop + "px 0px -100% 0px",
+        threshold: 0,
+      }
+    );
+    sections.forEach((element) => {
+      element && intersectionObserver.observe(element);
+    });
+  }
+  createIntersectionObserver(document.documentElement.scrollHeight);
+}
+
+document.addEventListener("DOMContentLoaded", listennSidebarTOC);
+document.addEventListener("pjax:success", listennSidebarTOC);
+</script>
+
+<!-- more -->
+
+  
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yeshan333/jsDelivrCDN/piao.js" />
+
+  <script type="text/javascript" src="https://cdn.staticfile.org/jquery/1.7.2/jquery.min.js" />
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yeshan333/jsDelivrCDN/attatkmouse.js" />
+
+  <script async defer data-domain="shansan.top" src="https://plausible.io/js/plausible.js" />
+
+
+
+ 
+	  
+    </div>
+  </body>
+</html>
