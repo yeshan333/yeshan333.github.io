@@ -27,7 +27,7 @@
       <description>&lt;blockquote&gt;
 &lt;p&gt;一不小心就八月末了，我敲，最近大部分的时间都在了解 Prometheus，一直想“搂”篇文章出来，奈何一直在墨迹，是时候了，不然就九月了，完不成博客的 Flag 了，233333。&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;本篇文章主要介绍了基于 Docker 搭建一个最小化的 Prometheus Federation 集群娱乐环境的相关操作。不是 Step By Step 的。&lt;/p&gt;
+&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;本篇文章主要介绍了 Promethues Federation 集群化机制 &amp;amp; 基于 Docker 搭建一个最小化的 Prometheus Federation 集群娱乐环境的相关操作。不是 Step By Step 的。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/yeshan333/blog_images@main/images/%E4%B9%B1%E6%9D%80.gif&quot; alt=&quot;乱杀&quot;&gt;&lt;/p&gt;</description>
       
       
