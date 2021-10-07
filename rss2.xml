@@ -15,8 +15,43 @@
     <atom:link href="https://yeshan333.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>ShanSan&#39;s Blog</description>
-    <pubDate>Sat, 25 Sep 2021 16:34:52 GMT</pubDate>
+    <pubDate>Thu, 07 Oct 2021 16:12:38 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>从平均负载开始，这进程是 CPU Bound 还是 IO Bound 的？</title>
+      <link>https://yeshan333.github.io/2021/10/07/io-bound-cpu-bound-with-average-load/</link>
+      <guid>https://yeshan333.github.io/2021/10/07/io-bound-cpu-bound-with-average-load/</guid>
+      <pubDate>Thu, 07 Oct 2021 16:12:38 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;在排查性能问题的时候，我们经常会使用 top 或者 uptime 两个 Linux 命令，top 命令和 uptime 命令都会给出最近机器 1 min，5 min，15 min 的平均负载情况，一般平均负载值（Average Load）接近甚至超出 CPU cores</description>
+          
+        
+      
+      
+      
+      
+      <category domain="https://yeshan333.github.io/categories/Linux/">Linux</category>
+      
+      <category domain="https://yeshan333.github.io/categories/Linux/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">性能优化</category>
+      
+      
+      <category domain="https://yeshan333.github.io/tags/Linux/">Linux</category>
+      
+      <category domain="https://yeshan333.github.io/tags/%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95/">压力测试</category>
+      
+      <category domain="https://yeshan333.github.io/tags/CPU-Bound/">CPU Bound</category>
+      
+      <category domain="https://yeshan333.github.io/tags/IO-Bound/">IO Bound</category>
+      
+      
+      <comments>https://yeshan333.github.io/2021/10/07/io-bound-cpu-bound-with-average-load/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>常用的 Linux 网络相关的命令</title>
@@ -536,35 +571,6 @@
       
       
       <comments>https://yeshan333.github.io/2020/07/08/React-Hooks-%E9%82%A3%E4%BA%9B%E4%BA%8B%E5%84%BF/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>使用docker-compose编排前后端分离应用</title>
-      <link>https://yeshan333.github.io/2020/06/28/%E4%BD%BF%E7%94%A8docker-compose%E7%BC%96%E6%8E%92%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E5%BA%94%E7%94%A8/</link>
-      <guid>https://yeshan333.github.io/2020/06/28/%E4%BD%BF%E7%94%A8docker-compose%E7%BC%96%E6%8E%92%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E5%BA%94%E7%94%A8/</guid>
-      <pubDate>Sun, 28 Jun 2020 11:39:55 GMT</pubDate>
-      
-      <description>&lt;p&gt;几个月过去了，是时候把当初的 &lt;a href=&quot;https://github.com/yeshan333/Flask-React-ToDoList#%E6%9B%B4%E6%96%B0%E8%AE%A1%E5%88%92&quot;&gt;🚩&lt;/a&gt; 干掉了。&lt;/p&gt;
-&lt;p&gt;顺便提高下 docker 的熟练度，得闲看下原理🚩（假期看过，没总结…）。&lt;/p&gt;
-&lt;p&gt;重装了波系统（Windows 2004 版本），这个版本下，Docker Desktop 是以 WSL2 为 backend 的，不用 Hyper -V 了，舒服了很多。&lt;/p&gt;
-&lt;p&gt;细品了下（又摸鱼搞 DevOps），跑这个前后端分离项目需要到的容器还挺多，4 个左右（后端 REST 服务、数据库服务、前端服务），前端服务上了两个容器『貌似没必要』，一个用来过渡，一个跑挂着 SPA 的 Nginx。&lt;/p&gt;
-&lt;p&gt;这次祭出了 Docker Compose，毕竟容器有点“小多”，单单用命令费劲。&lt;/p&gt;</description>
-      
-      
-      
-      
-      <category domain="https://yeshan333.github.io/categories/docker/">docker</category>
-      
-      
-      <category domain="https://yeshan333.github.io/tags/docker/">docker</category>
-      
-      <category domain="https://yeshan333.github.io/tags/DevOps/">DevOps</category>
-      
-      <category domain="https://yeshan333.github.io/tags/%E6%9C%8D%E5%8A%A1%E7%BC%96%E6%8E%92/">服务编排</category>
-      
-      
-      <comments>https://yeshan333.github.io/2020/06/28/%E4%BD%BF%E7%94%A8docker-compose%E7%BC%96%E6%8E%92%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E5%BA%94%E7%94%A8/#disqus_thread</comments>
       
     </item>
     
