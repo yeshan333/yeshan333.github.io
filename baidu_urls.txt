@@ -1,3 +1,4 @@
+https://yeshan333.github.io/2021/10/24/create-k8s-cluster/
 https://yeshan333.github.io/2021/10/07/io-bound-cpu-bound-with-average-load/
 https://yeshan333.github.io/2021/09/25/common-use-linux-network-command/
 https://yeshan333.github.io/2021/08/28/prometheus-federation/
@@ -7,4 +8,3 @@ https://yeshan333.github.io/2021/05/16/heat-conduction-equation/
 https://yeshan333.github.io/2021/04/30/term-monorepo-multirepo/
 https://yeshan333.github.io/2021/04/25/enjoy-wslg/
 https://yeshan333.github.io/2021/03/10/git-submodules/
-https://yeshan333.github.io/2021/01/19/hexo-blog-synchronization-with-rsync/

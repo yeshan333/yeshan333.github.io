@@ -15,8 +15,32 @@
     <atom:link href="https://yeshan333.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>ShanSan&#39;s Blog</description>
-    <pubDate>Thu, 07 Oct 2021 16:12:38 GMT</pubDate>
+    <pubDate>Sun, 24 Oct 2021 13:51:19 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>使用 Kubeadm 搭建个公网 k8s 集群（单控制平面集群）</title>
+      <link>https://yeshan333.github.io/2021/10/24/create-k8s-cluster/</link>
+      <guid>https://yeshan333.github.io/2021/10/24/create-k8s-cluster/</guid>
+      <pubDate>Sun, 24 Oct 2021 13:51:19 GMT</pubDate>
+      
+      <description>&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;YY：国庆的时候趁着阿里云和腾讯云的轻量级服务器做促销一不小心剁了个手😎😢，2 Cores，4G RAM 还是阔以的，既然买了，那不能不用呀🚩，之前一直想着搭建个 k8s 集群玩玩，本地开发机虽然起了个 k8s（拿 Docker Desktop 起的，不 dei 劲），但就一个 Node，不爽，对 k8s 的体验不到位😒，1024，是时候用起来了，折腾一下，顺便让最近浮躁的心冷静一下。&lt;/p&gt;
+&lt;p&gt;这次拿官方的 Kubeadm 耍一下，以阿里云的轻量级应用服务器为 Control 节点，腾讯云的轻量级应用服务器为 Worker 节点，说干就干。&lt;/p&gt;</description>
+      
+      
+      
+      
+      <category domain="https://yeshan333.github.io/categories/Kubernetes/">Kubernetes</category>
+      
+      
+      <category domain="https://yeshan333.github.io/tags/Kubernetes/">Kubernetes</category>
+      
+      <category domain="https://yeshan333.github.io/tags/Kubeadm/">Kubeadm</category>
+      
+      
+      <comments>https://yeshan333.github.io/2021/10/24/create-k8s-cluster/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>从平均负载开始，这进程是 CPU Bound 还是 IO Bound 的？</title>
@@ -548,29 +572,6 @@
       
       
       <comments>https://yeshan333.github.io/2020/07/22/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%BF%9B-%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>React Hooks 那些事儿</title>
-      <link>https://yeshan333.github.io/2020/07/08/React-Hooks-%E9%82%A3%E4%BA%9B%E4%BA%8B%E5%84%BF/</link>
-      <guid>https://yeshan333.github.io/2020/07/08/React-Hooks-%E9%82%A3%E4%BA%9B%E4%BA%8B%E5%84%BF/</guid>
-      <pubDate>Wed, 08 Jul 2020 14:33:31 GMT</pubDate>
-      
-      <description>&lt;p&gt;翻了波之前写的文章还有笔记，发现关于前端的文章并不多（好歹也划水做过点前端开发）。巧了，最近没什么好话题可写，做下 React Hooks 学习笔记吧。&lt;/p&gt;
-&lt;h2 id=&quot;Effect-Hook&quot;&gt;&lt;a href=&quot;#Effect-Hook&quot; class=&quot;headerlink&quot; title=&quot;Effect Hook&quot;&gt;&lt;/a&gt;Effect Hook&lt;/h2&gt;&lt;p&gt;不得不说 Hook 的出现降低了我们在 React 中处理副作用（side effect）的心智负担，通过 useEffect 就可以很好的完成之前需要使用几个生命周期函数配合才能完成的事。&lt;/p&gt;
-&lt;h3 id=&quot;Effect-Hook-死循环请求问题&quot;&gt;&lt;a href=&quot;#Effect-Hook-死循环请求问题&quot; class=&quot;headerlink&quot; title=&quot;Effect Hook 死循环请求问题&quot;&gt;&lt;/a&gt;Effect Hook 死循环请求问题&lt;/h3&gt;&lt;p&gt;由于 Effect Hook 不熟「官方文档没读透」，最近使用 useEffect 出现了异步请求发送了无限次的问题，翻🚗了。我有个组件大概是这么写的：&lt;/p&gt;</description>
-      
-      
-      
-      
-      <category domain="https://yeshan333.github.io/categories/React/">React</category>
-      
-      
-      <category domain="https://yeshan333.github.io/tags/React/">React</category>
-      
-      
-      <comments>https://yeshan333.github.io/2020/07/08/React-Hooks-%E9%82%A3%E4%BA%9B%E4%BA%8B%E5%84%BF/#disqus_thread</comments>
       
     </item>
     
