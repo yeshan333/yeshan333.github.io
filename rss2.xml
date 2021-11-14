@@ -15,8 +15,35 @@
     <atom:link href="https://yeshan333.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>ShanSan&#39;s Blog</description>
-    <pubDate>Sun, 24 Oct 2021 13:51:19 GMT</pubDate>
+    <pubDate>Sun, 14 Nov 2021 10:21:37 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>回到十月-生活中的一点儿小确幸</title>
+      <link>https://yeshan333.github.io/2021/11/14/back-to-october/</link>
+      <guid>https://yeshan333.github.io/2021/11/14/back-to-october/</guid>
+      <pubDate>Sun, 14 Nov 2021 10:21:37 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;不知不觉，离开校园将近四个月了，正式工作（摸🐟~）也差不多四个多月了，最近经历了很多事，头发也掉了不少😂</description>
+          
+        
+      
+      
+      
+      
+      <category domain="https://yeshan333.github.io/categories/blog/">blog</category>
+      
+      
+      <category domain="https://yeshan333.github.io/tags/blog/">blog</category>
+      
+      
+      <comments>https://yeshan333.github.io/2021/11/14/back-to-october/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>使用 Kubeadm 搭建个公网 k8s 集群（单控制平面集群）</title>
@@ -538,40 +565,6 @@
       
       
       <comments>https://yeshan333.github.io/2020/08/02/Process-IPC/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>操作系统笔记-进/线程模型</title>
-      <link>https://yeshan333.github.io/2020/07/22/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%BF%9B-%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B/</link>
-      <guid>https://yeshan333.github.io/2020/07/22/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%BF%9B-%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B/</guid>
-      <pubDate>Wed, 22 Jul 2020 20:22:41 GMT</pubDate>
-      
-      <description>&lt;blockquote&gt;
-&lt;p&gt;模型是指对于某个实际问题或客观事物、规律进行抽象后的一种形式化表达方式。- MBA 智库百科 - &lt;a href=&quot;https://wiki.mbalib.com/wiki/%E6%A8%A1%E5%9E%8B&quot;&gt;模型&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id=&quot;概念梳理&quot;&gt;&lt;a href=&quot;#概念梳理&quot; class=&quot;headerlink&quot; title=&quot;概念梳理&quot;&gt;&lt;/a&gt;概念梳理&lt;/h2&gt;&lt;h3 id=&quot;进程&quot;&gt;&lt;a href=&quot;#进程&quot; class=&quot;headerlink&quot; title=&quot;进程&quot;&gt;&lt;/a&gt;进程&lt;/h3&gt;&lt;ul&gt;
-&lt;li&gt;进程是具有独立功能的程序关于某个数据集合上的一次运行活动，是系统进行资源分配和调度的独立单位。&lt;/li&gt;
-&lt;li&gt;一个进程是某种类型活动的一个活动，它有程序、输入、输出以及状态。进程是对正在运行程序的一个抽象。单个处理器可以被若干进程共享，它使用某种调度算法决定何时停止一个进程的工作，并转而为另一个进程提供服务。一个程序可对应多个进程。&lt;/li&gt;
-&lt;li&gt;系统资源以进程为单位分配，如内存、文件、每个进程拥有独立的地址空间。&lt;/li&gt;
-&lt;/ul&gt;</description>
-      
-      
-      
-      
-      <category domain="https://yeshan333.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</category>
-      
-      <category domain="https://yeshan333.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%BF%9B-%E7%BA%BF%E7%A8%8B/">进/线程</category>
-      
-      <category domain="https://yeshan333.github.io/categories/Go/">Go</category>
-      
-      
-      <category domain="https://yeshan333.github.io/tags/%E8%BF%9B%E7%A8%8B/">进程</category>
-      
-      <category domain="https://yeshan333.github.io/tags/%E7%BA%BF%E7%A8%8B/">线程</category>
-      
-      
-      <comments>https://yeshan333.github.io/2020/07/22/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%BF%9B-%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B/#disqus_thread</comments>
       
     </item>
     

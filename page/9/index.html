@@ -483,6 +483,59 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     
     <h2 class="article-title" >
+      <a href="/2019/06/17/MATLAB%E5%9F%BA%E6%93%8D%E5%A4%8D%E4%B9%A0/">
+        MATLAB基操复习
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      <h1 id="MATLAB基本操作"><a href="#MATLAB基本操作" class="headerlink" title="MATLAB基本操作"></a>MATLAB基本操作</h1><p><strong>1. 对象定义</strong><br>使用sym定义单个对象、使用syms定义多个对象</p>
+<p><strong>2. 使用<code>limit</code>求极限</strong></p>
+<p>$$ \lim_{v \rightarrow a} f(x) $$</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">limit(f,v,a) <span class="comment">% 使用limit(f,v,a,&#x27;left&#x27;)可求左极限</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>3. 导数</strong><br>使用<code>diff(f,v,n)</code>对$ f(v)=v^{t-1} $求 $ n $ 阶导 $ \frac{d^nf}{d^nv} $，n缺省时，默认为1，diff(f)默认求一阶导数。</p>
+<p><strong>4. 定积分和不定积分</strong><br>使用<code>int(f,v)</code>求f对变量v的不定积分，使用<code>int(f,v,a,b)</code>求f对变量v的定积分,a、b为积分上下标。$ \int{f(v)dv} $、$ \int^{a}_{b}{f(v)dv} $。</p>
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+          
+          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
+        
+        <time>2019-06-17</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/math/">math</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2019/06/17/MATLAB%E5%9F%BA%E6%93%8D%E5%A4%8D%E4%B9%A0/'>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
       <a href="/2019/06/08/%E6%90%9C%E7%B4%A2%E6%8A%80%E5%B7%A7/">
         搜索技巧
       </a>
@@ -730,53 +783,6 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           </div>
         
       
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2019/04/08/Git-Branch-Practice/">
-        Git Branch Practice
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      Git Branch Practice
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-          
-          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
-        
-        <time>2019-04-08</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Git/">Git</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2019/04/08/Git-Branch-Practice/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
     
   </section>
   
@@ -904,7 +910,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <div class="webinfo-item">
           <div>文章数目：</div>
-          <div>123 篇</div>
+          <div>124 篇</div>
         </div>
       
 
@@ -940,8 +946,8 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         <div class="webinfo-item">
           <div>最后活动时间：</div>
           
-            <div id="last-update" style="display: none;">Sun Nov 07 2021 16:02:32 GMT+0000 (Coordinated Universal Time)</div>
-            <div id="last-update-show">2021-11-07 日</div>
+            <div id="last-update" style="display: none;">Sun Nov 14 2021 06:26:29 GMT+0000 (Coordinated Universal Time)</div>
+            <div id="last-update-show">2021-11-14 日</div>
           
         </div>
         
@@ -991,7 +997,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           try {
             document.getElementById('last-update-show').innerHTML = timeago(new Date(lastUpDate));
           } catch (error) {
-            document.getElementById('last-update-show').innerHTML = '2021-11-07 日';
+            document.getElementById('last-update-show').innerHTML = '2021-11-14 日';
           }
         </script>
         
@@ -1132,7 +1138,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           <li><a class="flat-box"
             title="/categories/blog/" href="/categories/blog/"
             id="categoriesblog"
-            ><div class='name'>blog</div><div class='badge'>(15)</div></a></li>
+            ><div class='name'>blog</div><div class='badge'>(16)</div></a></li>
         
           <li><a class="flat-box"
             title="/categories/docker/" href="/categories/docker/"
