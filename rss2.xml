@@ -15,8 +15,32 @@
     <atom:link href="https://yeshan333.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>ShanSan&#39;s Blog</description>
-    <pubDate>Sun, 14 Nov 2021 10:21:37 GMT</pubDate>
+    <pubDate>Sat, 27 Nov 2021 11:41:50 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>回环地址的一点儿破事</title>
+      <link>https://yeshan333.github.io/2021/11/27/loopback-addr/</link>
+      <guid>https://yeshan333.github.io/2021/11/27/loopback-addr/</guid>
+      <pubDate>Sat, 27 Nov 2021 11:41:50 GMT</pubDate>
+      
+      <description>&lt;p&gt;心血来潮，小水一篇！&lt;/p&gt;
+&lt;h2 id=&quot;回环地址（loopback-address）&quot;&gt;&lt;a href=&quot;#回环地址（loopback-address）&quot; class=&quot;headerlink&quot; title=&quot;回环地址（loopback address）&quot;&gt;&lt;/a&gt;回环地址（loopback address）&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Loopback&quot;&gt;loopback&lt;/a&gt; 在维基百科上有一段这样的解释：Loopback (also written loop-back) is the routing of electronic signals or digital data streams back to their source without intentional processing or modification. It is primarily a means of testing the communications infrastructure.&lt;br&gt;通熟的说就是将由“源”发送出去的数据路由回“源”。&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+      
+      
+      
+      
+      <category domain="https://yeshan333.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</category>
+      
+      
+      <category domain="https://yeshan333.github.io/tags/Wireshark/">Wireshark</category>
+      
+      
+      <comments>https://yeshan333.github.io/2021/11/27/loopback-addr/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>回到十月-生活中的一点儿小确幸</title>
@@ -439,13 +463,13 @@
       <category domain="https://yeshan333.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</category>
       
       
+      <category domain="https://yeshan333.github.io/tags/Wireshark/">Wireshark</category>
+      
       <category domain="https://yeshan333.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E8%B7%AF/">计算机网路</category>
       
       <category domain="https://yeshan333.github.io/tags/TCP/">TCP</category>
       
       <category domain="https://yeshan333.github.io/tags/tcpdump/">tcpdump</category>
-      
-      <category domain="https://yeshan333.github.io/tags/Wireshark/">Wireshark</category>
       
       
       <comments>https://yeshan333.github.io/2020/11/15/%E4%BD%BF%E7%94%A8tcpdump%E5%92%8Cwireshark%E7%9C%8B%E4%B8%8BTCP%E6%8F%A1%E6%89%8B/#disqus_thread</comments>
@@ -539,32 +563,6 @@
       
       
       <comments>https://yeshan333.github.io/2020/08/22/setTimeout%E6%98%AF%E5%88%B0%E4%BA%86xx%20ms%20%E5%B0%B1%E6%89%A7%E8%A1%8C%E5%90%97%EF%BC%8C%E4%BA%86%E8%A7%A3%20Event-Loop%20%E6%9C%BA%E5%88%B6/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>操作系统笔记-IPC 机制</title>
-      <link>https://yeshan333.github.io/2020/08/02/Process-IPC/</link>
-      <guid>https://yeshan333.github.io/2020/08/02/Process-IPC/</guid>
-      <pubDate>Sun, 02 Aug 2020 14:53:41 GMT</pubDate>
-      
-      <description>&lt;blockquote&gt;
-&lt;p&gt;进程间通信（IPC，Inter-Process Communication），指至少两个进程或线程间传送数据或信号的一些技术或方法。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id=&quot;总览&quot;&gt;&lt;a href=&quot;#总览&quot; class=&quot;headerlink&quot; title=&quot;总览&quot;&gt;&lt;/a&gt;总览&lt;/h2&gt;&lt;div class=&quot;gallery &quot;&gt;
-              &lt;p&gt;&lt;img src=&quot;https://s1.ax1x.com/2020/08/02/atGjjf.png&quot; alt=&quot;IPC&quot;&gt;&lt;/p&gt;
-            &lt;/div&gt;</description>
-      
-      
-      
-      
-      <category domain="https://yeshan333.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</category>
-      
-      
-      <category domain="https://yeshan333.github.io/tags/%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1/">进程通信</category>
-      
-      
-      <comments>https://yeshan333.github.io/2020/08/02/Process-IPC/#disqus_thread</comments>
       
     </item>
     

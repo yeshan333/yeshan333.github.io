@@ -1,3 +1,4 @@
+https://yeshan333.github.io/2021/11/27/loopback-addr/
 https://yeshan333.github.io/2021/11/14/back-to-october/
 https://yeshan333.github.io/2021/10/24/create-k8s-cluster/
 https://yeshan333.github.io/2021/10/07/io-bound-cpu-bound-with-average-load/
@@ -7,4 +8,3 @@ https://yeshan333.github.io/2021/07/10/checksum-gpg-tools/
 https://yeshan333.github.io/2021/06/29/osmosfeed-rss-reader/
 https://yeshan333.github.io/2021/05/16/heat-conduction-equation/
 https://yeshan333.github.io/2021/04/30/term-monorepo-multirepo/
-https://yeshan333.github.io/2021/04/25/enjoy-wslg/
