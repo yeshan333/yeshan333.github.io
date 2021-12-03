@@ -483,6 +483,59 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     
     <h2 class="article-title" >
+      <a href="/2019/09/02/Python%E7%8E%AF%E5%A2%83%E7%AE%A1%E7%90%86/">
+        Python环境管理与项目依赖管理
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      <blockquote>
+<p>个人简单记录下</p>
+</blockquote>
+<h1 id="virtualenv-pip"><a href="#virtualenv-pip" class="headerlink" title="virtualenv + pip"></a>virtualenv + pip</h1><blockquote>
+<p>virtualenv是一个用于创建”隔离的ython运行环境”的工具，<a target="_blank" rel="noopener" href="https://virtualenv.pypa.io/en/latest/">Docs</a><br>pip是Python的包管理工具，<a target="_blank" rel="noopener" href="https://pip.pypa.io/en/stable/">Docs</a></p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装virtualenv</span></span><br><span class="line">pip install virtualenv</span><br><span class="line"></span><br><span class="line"><span class="comment"># -------------------------------- #</span></span><br><span class="line"><span class="comment"># 虚拟环境的创建与使用</span></span><br><span class="line"><span class="comment"># 1、在当前工程目录下使用virtualenv创建一套独立的Python运行环境</span></span><br><span class="line">virtualenv venv  <span class="comment"># 环境名为venv（自由定义）</span></span><br><span class="line"><span class="comment"># 2、cd 到创建好的虚拟环境的Scripts目录，执行如下命令可激活或者退出虚拟环境</span></span><br><span class="line">activate    <span class="comment"># 激活，激活后命令提示符会变成当前工程目录Python环境名</span></span><br><span class="line">deactivate  <span class="comment"># 退出</span></span><br><span class="line"><span class="comment"># 3、激活虚拟环境后可使用pip为当前项目安装依赖，example：</span></span><br><span class="line">pip install numpy</span><br><span class="line"><span class="comment"># 4、使用pip freeze &gt; requirements.txt 可导出项目依赖到requirements.txt中</span></span><br><span class="line"><span class="comment"># 为项目创建一个新的、干净的环境时，可使用 pip install -r requiremen.txt 为项目安装依赖</span></span><br></pre></td></tr></table></figure>
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+          
+          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
+        
+        <time>2019-09-02</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/Python/">Python</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2019/09/02/Python%E7%8E%AF%E5%A2%83%E7%AE%A1%E7%90%86/'>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
       <a href="/2019/08/08/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
         docker学习笔记
       </a>
@@ -750,60 +803,6 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           </div>
         
       
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2019/07/12/breaking%E4%B8%80%E5%A6%82%E6%97%A2%E5%BE%80%E7%9A%84%E5%B8%85/">
-        breaking一如既往的帅
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        
-
-
-
-** 看到了就爱上了，(๑•̀ㅂ•́)و✧Cloud的style move真的帅~~~（虽然很久没玩breaking了。。。。。(ノへ￣、)）**
-
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-          
-          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
-        
-        <time>2019-07-12</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/%E9%9A%8F%E7%AC%94/">随笔</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2019/07/12/breaking%E4%B8%80%E5%A6%82%E6%97%A2%E5%BE%80%E7%9A%84%E5%B8%85/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
     
   </section>
   
@@ -931,7 +930,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <div class="webinfo-item">
           <div>文章数目：</div>
-          <div>125 篇</div>
+          <div>126 篇</div>
         </div>
       
 
@@ -967,8 +966,8 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         <div class="webinfo-item">
           <div>最后活动时间：</div>
           
-            <div id="last-update" style="display: none;">Sat Nov 27 2021 07:17:49 GMT+0000 (Coordinated Universal Time)</div>
-            <div id="last-update-show">2021-11-27 日</div>
+            <div id="last-update" style="display: none;">Fri Dec 03 2021 23:26:33 GMT+0000 (Coordinated Universal Time)</div>
+            <div id="last-update-show">2021-12-03 日</div>
           
         </div>
         
@@ -1018,7 +1017,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           try {
             document.getElementById('last-update-show').innerHTML = timeago(new Date(lastUpDate));
           } catch (error) {
-            document.getElementById('last-update-show').innerHTML = '2021-11-27 日';
+            document.getElementById('last-update-show').innerHTML = '2021-12-03 日';
           }
         </script>
         
@@ -1159,7 +1158,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           <li><a class="flat-box"
             title="/categories/blog/" href="/categories/blog/"
             id="categoriesblog"
-            ><div class='name'>blog</div><div class='badge'>(16)</div></a></li>
+            ><div class='name'>blog</div><div class='badge'>(17)</div></a></li>
         
           <li><a class="flat-box"
             title="/categories/docker/" href="/categories/docker/"

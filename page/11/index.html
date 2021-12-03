@@ -483,6 +483,84 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     
     <h2 class="article-title" >
+      <a href="/2019/03/16/Flask%E7%9A%84%E8%AF%B7%E6%B1%82%E9%92%A9%E5%AD%90%E4%B8%8E%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%80%E8%AE%B0/">
+        Flask的请求钩子与上下文简记
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      <h1 id="请求钩子-Hook"><a href="#请求钩子-Hook" class="headerlink" title="请求钩子(Hook)"></a>请求钩子(Hook)</h1><blockquote>
+<p>在客户端和服务器交互的过程中，有些准备工作或扫尾工作需要处理，比如：在请求开始时，建立数据库连接；在请求结束时，指定数据的交互格式。为了让&gt;每个视图函数避免编写重复功能的代码，Flask提供了通用设施的功能，即请求钩子。通过请求钩子，我们可以对请求进行预处理(preprocessing)和后处理&gt;(postprocessing)。</p>
+</blockquote>
+<p>Flask的请求钩子通过装饰器实现，每个钩子可以注册任意多个处理函数，默认的五种请求钩子如下:</p>
+<table>
+<thead>
+<tr>
+<th align="center">钩子</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">before_first_request</td>
+<td align="left">注册一个函数，在处理请求前运行</td>
+</tr>
+<tr>
+<td align="center">before_request</td>
+<td align="left">注册一个函数，在处理每个请求前运行</td>
+</tr>
+<tr>
+<td align="center">after_request</td>
+<td align="left">注册一个函数，如果有未处理的一场抛出。会在每个请求结束后运行</td>
+</tr>
+<tr>
+<td align="center">teardown_request</td>
+<td align="left">注册一个函数，即使有未处理的异常抛出，会在每个请求介绍后执行。如果发生异常，会传入异常对象作为参数注册到函数中</td>
+</tr>
+<tr>
+<td align="center">after_this_request</td>
+<td align="left">在视图函数内注册一个函数，在这个请求结束后运行</td>
+</tr>
+</tbody></table>
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+          
+          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
+        
+        <time>2019-03-16</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/Flask/">Flask</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2019/03/16/Flask%E7%9A%84%E8%AF%B7%E6%B1%82%E9%92%A9%E5%AD%90%E4%B8%8E%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%80%E8%AE%B0/'>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
       <a href="/2019/03/08/%E5%B0%86%E6%9C%AC%E5%9C%B0%E9%A1%B9%E7%9B%AE%E6%8E%A8%E9%80%81%E5%88%B0GitHub%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93/">
         将本地项目推送到GitHub远程仓库
       </a>
@@ -737,67 +815,6 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           </div>
         
       
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2019/01/09/Jinja2%E8%AF%AD%E6%B3%95%E5%B0%8F%E8%AE%B0/">
-        Jinja2语法小记
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <h1 id="jinja2模板语法小记"><a href="#jinja2模板语法小记" class="headerlink" title="jinja2模板语法小记"></a>jinja2模板语法小记</h1><blockquote>
-<p><a target="_blank" rel="noopener" href="http://docs.jinkan.org/docs/jinja2/templates.html">Jinja2模板中文文档</a></p>
-</blockquote>
-<h2 id="三种常见界定符"><a href="#三种常见界定符" class="headerlink" title="三种常见界定符"></a>三种常见界定符</h2><ol>
-<li>表达式<br>{{ ... }}</li>
-</ol>
-<p>用于装载字符串、变量、函数调用等</p>
-<ol start="2">
-<li>语句<br>{% ... %}</li>
-</ol>
-<p>用于装载控制语句，比如if判断、for循环等</p>
-<ol start="3">
-<li>注释<br>{# ... #}</li>
-</ol>
-<p>用于装载一个注释，模板渲染的时候会被忽略掉</p>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-          
-          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
-        
-        <time>2019-01-09</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Flask/">Flask</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2019/01/09/Jinja2%E8%AF%AD%E6%B3%95%E5%B0%8F%E8%AE%B0/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
     
   </section>
   
@@ -925,7 +942,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <div class="webinfo-item">
           <div>文章数目：</div>
-          <div>125 篇</div>
+          <div>126 篇</div>
         </div>
       
 
@@ -961,8 +978,8 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         <div class="webinfo-item">
           <div>最后活动时间：</div>
           
-            <div id="last-update" style="display: none;">Sat Nov 27 2021 07:17:49 GMT+0000 (Coordinated Universal Time)</div>
-            <div id="last-update-show">2021-11-27 日</div>
+            <div id="last-update" style="display: none;">Fri Dec 03 2021 23:26:33 GMT+0000 (Coordinated Universal Time)</div>
+            <div id="last-update-show">2021-12-03 日</div>
           
         </div>
         
@@ -1012,7 +1029,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           try {
             document.getElementById('last-update-show').innerHTML = timeago(new Date(lastUpDate));
           } catch (error) {
-            document.getElementById('last-update-show').innerHTML = '2021-11-27 日';
+            document.getElementById('last-update-show').innerHTML = '2021-12-03 日';
           }
         </script>
         
@@ -1153,7 +1170,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           <li><a class="flat-box"
             title="/categories/blog/" href="/categories/blog/"
             id="categoriesblog"
-            ><div class='name'>blog</div><div class='badge'>(16)</div></a></li>
+            ><div class='name'>blog</div><div class='badge'>(17)</div></a></li>
         
           <li><a class="flat-box"
             title="/categories/docker/" href="/categories/docker/"

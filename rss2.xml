@@ -15,8 +15,43 @@
     <atom:link href="https://yeshan333.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>ShanSan&#39;s Blog</description>
-    <pubDate>Sat, 27 Nov 2021 11:41:50 GMT</pubDate>
+    <pubDate>Sat, 04 Dec 2021 06:49:35 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>Deserve</title>
+      <link>https://yeshan333.github.io/2021/12/04/deserve/</link>
+      <guid>https://yeshan333.github.io/2021/12/04/deserve/</guid>
+      <pubDate>Sat, 04 Dec 2021 06:49:35 GMT</pubDate>
+      
+      <description>&lt;p&gt;今天凌晨五点就醒了，积累了好多好多的情绪啊！&lt;/p&gt;
+&lt;!-- 年轻的战场 --&gt;
+
+&lt;!-- 我们都一样 --&gt;
+
+
+    &lt;div id=&quot;aplayer-iZVwggyy&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+         data-id=&quot;1340001174&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;true&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
+    &gt;&lt;/div&gt;
+
+
+
+    &lt;div id=&quot;aplayer-HMOKGUeL&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+         data-id=&quot;191252&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;false&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
+    &gt;&lt;/div&gt;</description>
+      
+      
+      
+      
+      <category domain="https://yeshan333.github.io/categories/blog/">blog</category>
+      
+      
+      <category domain="https://yeshan333.github.io/tags/blog/">blog</category>
+      
+      
+      <comments>https://yeshan333.github.io/2021/12/04/deserve/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>回环地址的一点儿破事</title>
@@ -52,7 +87,7 @@
         
           
           
-      <description>&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;不知不觉，离开校园将近四个月了，正式工作（摸🐟~）也差不多四个多月了，最近经历了很多事，头发也掉了不少😂</description>
+      <description>&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot;</description>
           
         
       
@@ -103,7 +138,7 @@
         
           
           
-      <description>&lt;p&gt;在排查性能问题的时候，我们经常会使用 top 或者 uptime 两个 Linux 命令，top 命令和 uptime 命令都会给出最近机器 1 min，5 min，15 min 的平均负载情况，一般平均负载值（Average Load）接近甚至超出 CPU cores</description>
+      <description>&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot;</description>
           
         
       
@@ -392,7 +427,7 @@
         
           
           
-      <description>&lt;p&gt;&lt;img src=&quot;https://s3.ax1x.com/2020/12/31/rvR7lj.png&quot; class=&quot;lazyload&quot; data-srcset=&quot;https://s3.ax1x.com/2020/12/31/rvR7lj.png&quot;</description>
+      <description>&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot;</description>
           
         
       
@@ -531,38 +566,6 @@
       
       
       <comments>https://yeshan333.github.io/2020/09/20/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E6%8A%80%E6%9C%AF%E5%B0%8F%E8%AE%B0/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>setTimeout 是到了xx ms 就执行吗，了解浏览器的 Event-Loop 机制</title>
-      <link>https://yeshan333.github.io/2020/08/22/setTimeout%E6%98%AF%E5%88%B0%E4%BA%86xx%20ms%20%E5%B0%B1%E6%89%A7%E8%A1%8C%E5%90%97%EF%BC%8C%E4%BA%86%E8%A7%A3%20Event-Loop%20%E6%9C%BA%E5%88%B6/</link>
-      <guid>https://yeshan333.github.io/2020/08/22/setTimeout%E6%98%AF%E5%88%B0%E4%BA%86xx%20ms%20%E5%B0%B1%E6%89%A7%E8%A1%8C%E5%90%97%EF%BC%8C%E4%BA%86%E8%A7%A3%20Event-Loop%20%E6%9C%BA%E5%88%B6/</guid>
-      <pubDate>Sat, 22 Aug 2020 13:42:41 GMT</pubDate>
-      
-      <description>&lt;blockquote&gt;
-&lt;p&gt;要想 JavaScript 玩得溜，还得了解波 JavaScript 执行机制/(ㄒoㄒ)/~~。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;最近看了波 JavaScript 相关的文章，不得不说，JavaScript 我还真没玩明白（给我哭~。。。😅）。也挺久没写文了，实习（“摸🐟”）之余小记一波。&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;回顾一句话：JavaScript 是一门单线程、非阻塞、异步、解释性脚本语言。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;本文的标题是：setTimeout 是到了xx ms 就执行吗，了解 Event-Loop 机制。先回答波：不是。&lt;/p&gt;
-&lt;p&gt;来看下网上的一段经典 js 代码在浏览器中「Microsoft Edge 84.0.522.63（64位）」的执行结果。&lt;/p&gt;
-&lt;figure class=&quot;highlight js&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.log(&lt;span class=&quot;string&quot;&gt;&amp;#x27;script start&amp;#x27;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;setTimeout&lt;/span&gt;(&lt;span class=&quot;function&quot;&gt;() =&amp;gt;&lt;/span&gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.log(&lt;span class=&quot;string&quot;&gt;&amp;#x27;setTimeout&amp;#x27;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;,&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;Promise&lt;/span&gt;.resolve().then(&lt;span class=&quot;function&quot;&gt;() =&amp;gt;&lt;/span&gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.log(&lt;span class=&quot;string&quot;&gt;&amp;#x27;promise1&amp;#x27;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;).then(&lt;span class=&quot;function&quot;&gt;() =&amp;gt;&lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.log(&lt;span class=&quot;string&quot;&gt;&amp;quot;promise2&amp;quot;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.log(&lt;span class=&quot;string&quot;&gt;&amp;#x27;script end&amp;#x27;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</description>
-      
-      
-      
-      
-      <category domain="https://yeshan333.github.io/categories/JavaScript/">JavaScript</category>
-      
-      
-      <category domain="https://yeshan333.github.io/tags/Event-Loop/">Event-Loop</category>
-      
-      <category domain="https://yeshan333.github.io/tags/JavaScript/">JavaScript</category>
-      
-      
-      <comments>https://yeshan333.github.io/2020/08/22/setTimeout%E6%98%AF%E5%88%B0%E4%BA%86xx%20ms%20%E5%B0%B1%E6%89%A7%E8%A1%8C%E5%90%97%EF%BC%8C%E4%BA%86%E8%A7%A3%20Event-Loop%20%E6%9C%BA%E5%88%B6/#disqus_thread</comments>
       
     </item>
     
