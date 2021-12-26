@@ -15,8 +15,31 @@
     <atom:link href="https://yeshan333.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>ShanSan&#39;s Blog</description>
-    <pubDate>Sat, 04 Dec 2021 06:49:35 GMT</pubDate>
+    <pubDate>Sun, 26 Dec 2021 16:26:23 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>Git 仓库瘦身与 LFS 大文件存储</title>
+      <link>https://yeshan333.github.io/2021/12/26/git-lfs-and-thin-repo/</link>
+      <guid>https://yeshan333.github.io/2021/12/26/git-lfs-and-thin-repo/</guid>
+      <pubDate>Sun, 26 Dec 2021 16:26:23 GMT</pubDate>
+      
+      <description>&lt;p&gt;熟悉 Git 的小伙伴应该都知道随着 Git 仓库维护的时间越来越久，追踪的文件越来越多，git 存储的 &lt;a href=&quot;https://git-scm.com/book/en/v2/Git-Internals-Git-Objects&quot;&gt;objects&lt;/a&gt; 数量会极其庞大，每次从远程仓库 git clone 的时候都会墨迹很久。如果我们不小心 &lt;code&gt;git add&lt;/code&gt; 了一个体积很大的文件，且 &lt;code&gt;git push&lt;/code&gt; 到了远程仓库，那么我们 &lt;code&gt;git clone&lt;/code&gt; 的时候也会很慢。&lt;/p&gt;
+&lt;p&gt;看一下 GitHub 上的 &lt;a href=&quot;https://github.com/microsoft/vscode&quot;&gt;microsoft/vscode&lt;/a&gt; 仓库，都有 九万多个 commit 了，可想而知 objects 的数量应该很恐怖，尝试 clone 一下（一百多万个 objects）：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/yeshan333/blog_images@main/github_vscode.png&quot; alt=&quot;github vscode repo&quot;&gt;&lt;/p&gt;</description>
+      
+      
+      
+      
+      <category domain="https://yeshan333.github.io/categories/Git/">Git</category>
+      
+      
+      <category domain="https://yeshan333.github.io/tags/Git/">Git</category>
+      
+      
+      <comments>https://yeshan333.github.io/2021/12/26/git-lfs-and-thin-repo/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>Deserve</title>
@@ -30,13 +53,13 @@
 &lt;!-- 我们都一样 --&gt;
 
 
-    &lt;div id=&quot;aplayer-iZVwggyy&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+    &lt;div id=&quot;aplayer-TWDeUQoO&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
          data-id=&quot;1340001174&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;true&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
     &gt;&lt;/div&gt;
 
 
 
-    &lt;div id=&quot;aplayer-HMOKGUeL&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+    &lt;div id=&quot;aplayer-kYIrYVBq&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
          data-id=&quot;191252&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;false&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
     &gt;&lt;/div&gt;</description>
       
@@ -534,38 +557,6 @@
       
       
       <comments>https://yeshan333.github.io/2020/10/09/%E6%B5%85%E8%A7%A3shallow%20copy%E3%80%81deep%20copy/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>负载均衡技术小记</title>
-      <link>https://yeshan333.github.io/2020/09/20/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E6%8A%80%E6%9C%AF%E5%B0%8F%E8%AE%B0/</link>
-      <guid>https://yeshan333.github.io/2020/09/20/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E6%8A%80%E6%9C%AF%E5%B0%8F%E8%AE%B0/</guid>
-      <pubDate>Sun, 20 Sep 2020 18:25:06 GMT</pubDate>
-      
-      <description>&lt;details open red&gt;&lt;summary&gt; OSI 模型 &lt;/summary&gt;
-              &lt;div class=&#39;content&#39;&gt;
-              &lt;p&gt;&lt;img src=&quot;https://i.loli.net/2020/03/22/qthHTNlXyOvEfm3.png&quot; alt=&quot;网络模型&quot;&gt;&lt;/p&gt;
-              &lt;/div&gt;
-            &lt;/details&gt;
-
-&lt;h2 id=&quot;常见-OSI-模型负载均衡方案&quot;&gt;&lt;a href=&quot;#常见-OSI-模型负载均衡方案&quot; class=&quot;headerlink&quot; title=&quot;常见 OSI 模型负载均衡方案&quot;&gt;&lt;/a&gt;常见 OSI 模型负载均衡方案&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;2 层负载均衡：一般是用虚拟 MAC 地址方式，外部对虚拟 MAC 地址请求，负载均衡器接收后分配后端实际的 MAC 地址响应。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;3 层负载均衡：一般采用虚拟 IP 地址方式，外部对虚拟的 IP 地址请求，负载均衡器接收后分配后端实际的 IP 地址响应。&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;</description>
-      
-      
-      
-      
-      <category domain="https://yeshan333.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</category>
-      
-      
-      <category domain="https://yeshan333.github.io/tags/Load-Balance/">Load Balance</category>
-      
-      
-      <comments>https://yeshan333.github.io/2020/09/20/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E6%8A%80%E6%9C%AF%E5%B0%8F%E8%AE%B0/#disqus_thread</comments>
       
     </item>
     

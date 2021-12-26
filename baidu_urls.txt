@@ -1,3 +1,4 @@
+https://yeshan333.github.io/2021/12/26/git-lfs-and-thin-repo/
 https://yeshan333.github.io/2021/12/04/deserve/
 https://yeshan333.github.io/2021/11/27/loopback-addr/
 https://yeshan333.github.io/2021/11/14/back-to-october/
@@ -7,4 +8,3 @@ https://yeshan333.github.io/2021/09/25/common-use-linux-network-command/
 https://yeshan333.github.io/2021/08/28/prometheus-federation/
 https://yeshan333.github.io/2021/07/10/checksum-gpg-tools/
 https://yeshan333.github.io/2021/06/29/osmosfeed-rss-reader/
-https://yeshan333.github.io/2021/05/16/heat-conduction-equation/
