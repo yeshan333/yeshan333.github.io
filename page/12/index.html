@@ -483,14 +483,42 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     
     <h2 class="article-title" >
-      <a href="/2019/01/16/%E4%BD%A0%E6%89%80%E6%8B%A5%E6%9C%89%E7%9A%84%E7%9F%A5%E8%AF%86%E5%B9%B6%E4%B8%8D%E5%8F%96%E5%86%B3%E4%BA%8E%E4%BD%A0%E8%AE%B0%E5%BE%97%E5%A4%9A%E5%B0%91%EF%BC%8C%E8%80%8C%E5%9C%A8%E4%BA%8E%E5%AE%83%E4%BB%AC%E8%83%BD%E5%90%A6%E5%9C%A8%E6%81%B0%E5%BD%93%E7%9A%84%E6%97%B6%E5%80%99%E8%A2%AB%E5%9B%9E%E5%BF%86%E8%B5%B7%E6%9D%A5%E3%80%82/">
-        你所拥有的知识并不取决于你记得多少，而在于它们能否在恰当的时候被回忆起来。
+      <a href="/2018/10/04/C++-%E5%85%A5%E5%9D%91%E8%AE%B0-3/">
+        C++入坑记(3)
       </a>
     </h2>
   
   <div class='md'>
     
-      <h1 id=""><a href="#" class="headerlink" title=""></a></h1>
+      <h1 id="变量初始化问题"><a href="#变量初始化问题" class="headerlink" title="变量初始化问题"></a>变量初始化问题</h1><p>当局部变量被定义时，系统不会自动对其初始化；<br>当全局变量被定义时，系统会初始化为下列值:</p>
+<table>
+<thead>
+<tr>
+<th align="center">数据类型</th>
+<th align="left">初始化默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">int</td>
+<td align="left">0</td>
+</tr>
+<tr>
+<td align="center">float</td>
+<td align="left">0</td>
+</tr>
+<tr>
+<td align="center">double</td>
+<td align="left">0</td>
+</tr>
+<tr>
+<td align="center">char</td>
+<td align="left">‘\0’</td>
+</tr>
+<tr>
+<td align="center">pointer</td>
+<td align="left">NULL</td>
+</tr>
+</tbody></table>
     
   </div>
   
@@ -500,119 +528,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           
           <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
         
-        <time>2019-01-16</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/blog/">blog</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2019/01/16/%E4%BD%A0%E6%89%80%E6%8B%A5%E6%9C%89%E7%9A%84%E7%9F%A5%E8%AF%86%E5%B9%B6%E4%B8%8D%E5%8F%96%E5%86%B3%E4%BA%8E%E4%BD%A0%E8%AE%B0%E5%BE%97%E5%A4%9A%E5%B0%91%EF%BC%8C%E8%80%8C%E5%9C%A8%E4%BA%8E%E5%AE%83%E4%BB%AC%E8%83%BD%E5%90%A6%E5%9C%A8%E6%81%B0%E5%BD%93%E7%9A%84%E6%97%B6%E5%80%99%E8%A2%AB%E5%9B%9E%E5%BF%86%E8%B5%B7%E6%9D%A5%E3%80%82/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2019/01/09/Jinja2%E8%AF%AD%E6%B3%95%E5%B0%8F%E8%AE%B0/">
-        Jinja2语法小记
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <h1 id="jinja2模板语法小记"><a href="#jinja2模板语法小记" class="headerlink" title="jinja2模板语法小记"></a>jinja2模板语法小记</h1><blockquote>
-<p><a target="_blank" rel="noopener" href="http://docs.jinkan.org/docs/jinja2/templates.html">Jinja2模板中文文档</a></p>
-</blockquote>
-<h2 id="三种常见界定符"><a href="#三种常见界定符" class="headerlink" title="三种常见界定符"></a>三种常见界定符</h2><ol>
-<li>表达式<br>{{ ... }}</li>
-</ol>
-<p>用于装载字符串、变量、函数调用等</p>
-<ol start="2">
-<li>语句<br>{% ... %}</li>
-</ol>
-<p>用于装载控制语句，比如if判断、for循环等</p>
-<ol start="3">
-<li>注释<br>{# ... #}</li>
-</ol>
-<p>用于装载一个注释，模板渲染的时候会被忽略掉</p>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-          
-          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
-        
-        <time>2019-01-09</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Flask/">Flask</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2019/01/09/Jinja2%E8%AF%AD%E6%B3%95%E5%B0%8F%E8%AE%B0/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2019/01/03/%E6%B3%9B%E5%9E%8B%E7%AE%97%E6%B3%95-1/">
-        泛型算法-1
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <h1 id="泛型算法-1"><a href="#泛型算法-1" class="headerlink" title="泛型算法-1"></a>泛型算法-1</h1><blockquote>
-<p>泛型算法实现了一些经典算法的公共接口，如排序和搜索；称它们是“泛型的”，是因为它们可以用于不同类型的元素的和多种容器类型（不仅包括标准库类型，还包括内置的数组类型），以及其它类型的序列。</p>
-</blockquote>
-<p>** 大多数算法都定义在头文件algorithm中 **</p>
-<p><font color="red">算法永远不会执行容器的操作</font></p>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-          
-          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
-        
-        <time>2019-01-03</time>
+        <time>2018-10-04</time>
         
           <span class="dot"></span>
           <a class="category-link" href="/categories/CPP/">CPP</a>
@@ -620,7 +536,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       </div>
       
         <div>
-          <a class='readmore' href='/2019/01/03/%E6%B3%9B%E5%9E%8B%E7%AE%97%E6%B3%95-1/'>
+          <a class='readmore' href='/2018/10/04/C++-%E5%85%A5%E5%9D%91%E8%AE%B0-3/'>
             阅读全文
           </a>
         </div>
@@ -642,14 +558,14 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     
     <h2 class="article-title" >
-      <a href="/2019/01/03/%E8%A3%85%E9%A5%B0%E5%99%A8-python/">
-        装饰器--python
+      <a href="/2018/10/03/%E5%B7%A5%E5%85%B7%E5%B0%8F%E6%95%B4%E5%90%88/">
+        工具小整合
       </a>
     </h2>
   
   <div class='md'>
     
-      <h1 id="python装饰器回顾"><a href="#python装饰器回顾" class="headerlink" title="python装饰器回顾"></a>python装饰器回顾</h1><h2 id="返回函数"><a href="#返回函数" class="headerlink" title="返回函数"></a>返回函数</h2><p><img src="https://i.loli.net/2020/03/18/8MoeVXiUTxZzBEc.png" class="lazyload" data-srcset="https://i.loli.net/2020/03/18/8MoeVXiUTxZzBEc.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="返回函数"></p>
+      <p><img src="https://i.imgur.com/HTg1isz.jpg" class="lazyload" data-srcset="https://i.imgur.com/HTg1isz.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
     
   </div>
   
@@ -659,7 +575,325 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           
           <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
         
-        <time>2019-01-03</time>
+        <time>2018-10-03</time>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2018/10/03/%E5%B7%A5%E5%85%B7%E5%B0%8F%E6%95%B4%E5%90%88/'>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/2018/10/03/C++-%E5%85%A5%E5%9D%91%E8%AE%B0-2/">
+        C++入坑记(2)
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      <h1 id="函数，默认参数的使用"><a href="#函数，默认参数的使用" class="headerlink" title="函数，默认参数的使用"></a>函数，默认参数的使用</h1><p>在C++中，允许在自定义函数的形参列表中，给形参一个默认的值，这样在调用的时候如果有实参，那么按照实参传递给形参的方法使用；若调用的时候没有指定对应的实参，则形参将使用默认值。<br>由于参数的传递顺序是从右至左入栈，所以有默认值的参数必须在放在形参列表的最右边！</p>
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+          
+          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
+        
+        <time>2018-10-03</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/CPP/">CPP</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2018/10/03/C++-%E5%85%A5%E5%9D%91%E8%AE%B0-2/'>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/2018/10/02/ACM%E5%85%A5%E9%97%A8/">
+        ACM入门（占个位）
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      <h1 id="A-B-for-Input-Output-Practice-using-C"><a href="#A-B-for-Input-Output-Practice-using-C" class="headerlink" title="A+B for Input-Output Practice(using C++)"></a>A+B for Input-Output Practice(using C++)</h1><h2 id="1"><a href="#1" class="headerlink" title="1."></a>1.</h2><table>
+<thead>
+<tr>
+<th align="left">Problem Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Your task is to Calculate a + b. Too easy?! Of course! I specially designed the problem for acm beginners. You must have found that some problems have the same titles with this one, yes, all these problems were designed for the same aim</td>
+</tr>
+<tr>
+<td align="left">Input</td>
+</tr>
+<tr>
+<td align="left">The input will consist of a series of pairs of integers a and b, separated by a space, one pair of integers per line.</td>
+</tr>
+<tr>
+<td align="left">Output</td>
+</tr>
+<tr>
+<td align="left">For each pair of input integers a and b you should output the sum of a and b in one line, and with one line of output for each line in input.</td>
+</tr>
+<tr>
+<td align="left">Sample Input</td>
+</tr>
+<tr>
+<td align="left">1 6<br>1 20</td>
+</tr>
+<tr>
+<td align="left">Sample Output</td>
+</tr>
+<tr>
+<td align="left">7<br>21</td>
+</tr>
+</tbody></table>
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+          
+          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
+        
+        <time>2018-10-02</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/Algorithm/">Algorithm</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2018/10/02/ACM%E5%85%A5%E9%97%A8/'>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/2018/10/02/C++-%E5%85%A5%E5%9D%91%E8%AE%B0/">
+        C++入坑记
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      <h1 id="C-关键字"><a href="#C-关键字" class="headerlink" title="C++关键字"></a>C++关键字</h1><p><a target="_blank" rel="noopener" href="https://www.runoob.com/w3cnote/cpp-keyword-intro.html">https://www.runoob.com/w3cnote/cpp-keyword-intro.html</a></p>
+<table>
+<thead>
+<tr>
+<th align="center">asm</th>
+<th align="center">else</th>
+<th align="center">new</th>
+<th align="center">this</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">auto</td>
+<td align="center">enum</td>
+<td align="center">operator</td>
+<td align="center">throw</td>
+</tr>
+<tr>
+<td align="center">bool</td>
+<td align="center">explicit</td>
+<td align="center">private</td>
+<td align="center">true</td>
+</tr>
+<tr>
+<td align="center">break</td>
+<td align="center">export</td>
+<td align="center">protected</td>
+<td align="center">try</td>
+</tr>
+<tr>
+<td align="center">case</td>
+<td align="center">extern</td>
+<td align="center">public</td>
+<td align="center">typedef</td>
+</tr>
+<tr>
+<td align="center">catch</td>
+<td align="center">false</td>
+<td align="center">register</td>
+<td align="center">typeid</td>
+</tr>
+<tr>
+<td align="center">char</td>
+<td align="center">for</td>
+<td align="center">return</td>
+<td align="center">union</td>
+</tr>
+<tr>
+<td align="center">const</td>
+<td align="center">friend</td>
+<td align="center">short</td>
+<td align="center">unsigned</td>
+</tr>
+<tr>
+<td align="center">const_cast</td>
+<td align="center">goto</td>
+<td align="center">signed</td>
+<td align="center">using</td>
+</tr>
+<tr>
+<td align="center">continue</td>
+<td align="center">if</td>
+<td align="center">sizeof</td>
+<td align="center">virtual</td>
+</tr>
+<tr>
+<td align="center">default</td>
+<td align="center">inline</td>
+<td align="center">static</td>
+<td align="center">void</td>
+</tr>
+<tr>
+<td align="center">delete</td>
+<td align="center">int</td>
+<td align="center">static_cast</td>
+<td align="center">volatile</td>
+</tr>
+<tr>
+<td align="center">do</td>
+<td align="center">long</td>
+<td align="center">struct</td>
+<td align="center">wchar_t</td>
+</tr>
+<tr>
+<td align="center">double</td>
+<td align="center">mutable</td>
+<td align="center">switch</td>
+<td align="center">while</td>
+</tr>
+<tr>
+<td align="center">dynamic_cast</td>
+<td align="center">namespace</td>
+<td align="center">template</td>
+<td align="center">…</td>
+</tr>
+</tbody></table>
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+          
+          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
+        
+        <time>2018-10-02</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/CPP/">CPP</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2018/10/02/C++-%E5%85%A5%E5%9D%91%E8%AE%B0/'>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/2018/10/01/Requests%E5%BA%93%E5%85%A5%E9%97%A8-2/">
+        Requests库入门(2)
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      <h1 id="requests库入门实操"><a href="#requests库入门实操" class="headerlink" title="requests库入门实操"></a>requests库入门实操</h1><ul>
+<li>京东商品页面爬取</li>
+<li>亚马逊商品页面的爬取</li>
+<li>百度/360搜索关键字提交</li>
+<li>IP地址归属地查询</li>
+<li>网络图片的爬取和储存</li>
+</ul>
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+          
+          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
+        
+        <time>2018-10-01</time>
         
           <span class="dot"></span>
           <a class="category-link" href="/categories/Python/">Python</a>
@@ -667,7 +901,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       </div>
       
         <div>
-          <a class='readmore' href='/2019/01/03/%E8%A3%85%E9%A5%B0%E5%99%A8-python/'>
+          <a class='readmore' href='/2018/10/01/Requests%E5%BA%93%E5%85%A5%E9%97%A8-2/'>
             阅读全文
           </a>
         </div>
@@ -689,22 +923,72 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     
     <h2 class="article-title" >
-      <a href="/2019/01/01/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E5%8F%82%E8%80%83%E6%B1%87%E6%80%BB/">
-        博客搭建参考汇总
+      <a href="/2018/09/30/%E4%BC%98%E9%9B%85%E7%9A%84Markdown%EF%BC%882%EF%BC%89/">
+        优雅的Markdown（2）
       </a>
     </h2>
   
   <div class='md'>
     
-      
-        
-以下是我搭建博客参考的一些教程
-
-hexo博客搭建教程https://blog.csdn.net/gdutxiaoxu/article/details/53576018
-https://m.w3cschool.cn/hexo_blog/hexo_blog-tvpu244e.html
-https://www.cnblogs.com/jackyroc/p/7681938.html
-https:...
-      
+      <h1 id="Markdown编辑器使用-MarkdownPad2"><a href="#Markdown编辑器使用-MarkdownPad2" class="headerlink" title="Markdown编辑器使用-MarkdownPad2"></a>Markdown编辑器使用-MarkdownPad2</h1><blockquote>
+<p>imgur已被GFW干掉</p>
+</blockquote>
+<h2 id="快捷键"><a href="#快捷键" class="headerlink" title="快捷键"></a>快捷键</h2><table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">粗体</td>
+<td align="center">ctrl+B</td>
+</tr>
+<tr>
+<td align="center">斜体</td>
+<td align="center">ctrl+I</td>
+</tr>
+<tr>
+<td align="center">引用</td>
+<td align="center">ctrl+Q</td>
+</tr>
+<tr>
+<td align="center">代码</td>
+<td align="center">ctrl+K</td>
+</tr>
+<tr>
+<td align="center">超链接</td>
+<td align="center">ctrl+L</td>
+</tr>
+<tr>
+<td align="center">图片</td>
+<td align="center">ctrl+G</td>
+</tr>
+<tr>
+<td align="center">无序列表</td>
+<td align="center">ctrl+U</td>
+</tr>
+<tr>
+<td align="center">有序列表</td>
+<td align="center">ctrl+shift+O</td>
+</tr>
+<tr>
+<td align="center">水平标尺</td>
+<td align="center">ctrl+R</td>
+</tr>
+<tr>
+<td align="center">时间戳</td>
+<td align="center">ctrl+T</td>
+</tr>
+<tr>
+<td align="center">撤销</td>
+<td align="center">ctrl+Z</td>
+</tr>
+<tr>
+<td align="center">重做</td>
+<td align="center">ctrl+Y</td>
+</tr>
+</tbody></table>
     
   </div>
   
@@ -714,15 +998,12 @@ https:...
           
           <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
         
-        <time>2019-01-01</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/blog/">blog</a>
+        <time>2018-09-30</time>
         
       </div>
       
         <div>
-          <a class='readmore' href='/2019/01/01/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E5%8F%82%E8%80%83%E6%B1%87%E6%80%BB/'>
+          <a class='readmore' href='/2018/09/30/%E4%BC%98%E9%9B%85%E7%9A%84Markdown%EF%BC%882%EF%BC%89/'>
             阅读全文
           </a>
         </div>
@@ -744,17 +1025,55 @@ https:...
   
     
     <h2 class="article-title" >
-      <a href="/2019/01/01/2019%E4%BD%A0%E5%A5%BD/">
-        2019你好
+      <a href="/2018/09/29/%E7%AE%80%E5%8D%95%E7%88%AC%E8%99%AB/">
+        简单爬虫
       </a>
     </h2>
   
   <div class='md'>
     
-      
-        
-
-      
+      <h1 id="Requests库入门"><a href="#Requests库入门" class="headerlink" title="Requests库入门"></a>Requests库入门</h1><blockquote>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://www.python-requests.org/en/master/">http://www.python-requests.org/en/master/</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.python-requests.org/en/master/">requests</a></li>
+</ul>
+</blockquote>
+<h2 id="Requests库的7个主要方法"><a href="#Requests库的7个主要方法" class="headerlink" title="Requests库的7个主要方法"></a>Requests库的7个主要方法</h2><table>
+<thead>
+<tr>
+<th align="center">方法</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">requests.request()</td>
+<td align="center">构造一个请求，支撑以下各方法的基本方法</td>
+</tr>
+<tr>
+<td align="center">requests.get()</td>
+<td align="center">获取HTML网面的方法</td>
+</tr>
+<tr>
+<td align="center">requests.head()</td>
+<td align="center">获取HTML网页头部信息的方法</td>
+</tr>
+<tr>
+<td align="center">requests.post()</td>
+<td align="center">向HTML网页提交POST请求的方法</td>
+</tr>
+<tr>
+<td align="center">requests.put()</td>
+<td align="center">向HTML页面提交PUT请求的方法</td>
+</tr>
+<tr>
+<td align="center">requests.patch()</td>
+<td align="center">向HTML网页提交局部修改请求</td>
+</tr>
+<tr>
+<td align="center">requests.delete()</td>
+<td align="center">向HTML网页提交删除请求</td>
+</tr>
+</tbody></table>
     
   </div>
   
@@ -764,7 +1083,56 @@ https:...
           
           <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
         
-        <time>2019-01-01</time>
+        <time>2018-09-29</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/Python/">Python</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2018/09/29/%E7%AE%80%E5%8D%95%E7%88%AC%E8%99%AB/'>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/2018/09/28/music/">
+        网易云音乐外链插入测试
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      <h1 id="网易云音乐"><a href="#网易云音乐" class="headerlink" title="网易云音乐"></a>网易云音乐</h1><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=100% height=86 src="//music.163.com/outchain/player?type=2&id=2788529&auto=0&height=66"></iframe>
+
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=100% height=86 src="//music.163.com/outchain/player?type=2&id=4341314&auto=1&height=66"></iframe>
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+          
+          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
+        
+        <time>2018-09-28</time>
         
           <span class="dot"></span>
           <a class="category-link" href="/categories/blog/">blog</a>
@@ -772,7 +1140,57 @@ https:...
       </div>
       
         <div>
-          <a class='readmore' href='/2019/01/01/2019%E4%BD%A0%E5%A5%BD/'>
+          <a class='readmore' href='/2018/09/28/music/'>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/2018/09/28/%E4%BC%98%E9%9B%85%E7%9A%84Markdown/">
+        优雅的Markdown
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      <h1 id="Markdown浅尝"><a href="#Markdown浅尝" class="headerlink" title="Markdown浅尝"></a>Markdown浅尝</h1><h2 id="一、勾选框"><a href="#一、勾选框" class="headerlink" title="一、勾选框"></a>一、勾选框</h2><p><strong>注意[]前后都要有空格</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- [x] 干的漂亮</span><br><span class="line">- [x] 吃饭</span><br><span class="line">- [x] 写代码</span><br><span class="line">- [ ] 睡觉</span><br></pre></td></tr></table></figure>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> 干的漂亮</li>
+<li><input checked="" disabled="" type="checkbox"> 吃饭</li>
+<li><input checked="" disabled="" type="checkbox"> 写代码</li>
+<li><input disabled="" type="checkbox"> 睡觉
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+          
+          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
+        
+        <time>2018-09-28</time>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2018/09/28/%E4%BC%98%E9%9B%85%E7%9A%84Markdown/'>
             阅读全文
           </a>
         </div>
@@ -799,7 +1217,7 @@ https:...
           </a>
         
         <p class="current">
-          12 / 22
+          12 / 13
         </p>
         
           <a class="next" rel="next" href="/page/13/">
@@ -912,7 +1330,7 @@ https:...
       
         <div class="webinfo-item">
           <div>文章数目：</div>
-          <div>127 篇</div>
+          <div>128 篇</div>
         </div>
       
 
@@ -948,8 +1366,8 @@ https:...
         <div class="webinfo-item">
           <div>最后活动时间：</div>
           
-            <div id="last-update" style="display: none;">Sun Dec 26 2021 12:56:17 GMT+0000 (Coordinated Universal Time)</div>
-            <div id="last-update-show">2021-12-26 日</div>
+            <div id="last-update" style="display: none;">Sat Jan 01 2022 04:55:58 GMT+0000 (Coordinated Universal Time)</div>
+            <div id="last-update-show">2022-01-01 日</div>
           
         </div>
         
@@ -999,7 +1417,7 @@ https:...
           try {
             document.getElementById('last-update-show').innerHTML = timeago(new Date(lastUpDate));
           } catch (error) {
-            document.getElementById('last-update-show').innerHTML = '2021-12-26 日';
+            document.getElementById('last-update-show').innerHTML = '2022-01-01 日';
           }
         </script>
         
@@ -1140,7 +1558,7 @@ https:...
           <li><a class="flat-box"
             title="/categories/blog/" href="/categories/blog/"
             id="categoriesblog"
-            ><div class='name'>blog</div><div class='badge'>(17)</div></a></li>
+            ><div class='name'>blog</div><div class='badge'>(18)</div></a></li>
         
           <li><a class="flat-box"
             title="/categories/docker/" href="/categories/docker/"

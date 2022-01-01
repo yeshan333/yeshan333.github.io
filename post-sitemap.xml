@@ -9,6 +9,14 @@
 
 
     <url>
+        <loc>https://yeshan333.github.io/2022/01/01/2021-annual-reviewed/</loc>
+        <lastmod>2022-01-01T12:55:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>https://yeshan333.github.io/2021/12/26/git-lfs-and-thin-repo/</loc>
         <lastmod>2021-12-26T16:26:23.000Z</lastmod>
         <changefreq>weekly</changefreq>

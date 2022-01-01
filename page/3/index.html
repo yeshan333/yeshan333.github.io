@@ -480,28 +480,20 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
   
   
-    <div class='headimg-div'>
-      <a class='headimg-a' href="/2021/04/25/enjoy-wslg/">
-        <img class='headimg' src='https://z3.ax1x.com/2021/04/25/cz309s.png'/>
-      </a>
-    </div>
-  
   
     
     <h2 class="article-title" >
-      <a href="/2021/04/25/enjoy-wslg/">
-        Windows Insiders WSLg Linux GUI App 支持尝鲜
+      <a href="/2020/10/09/%E6%B5%85%E8%A7%A3shallow%20copy%E3%80%81deep%20copy/">
+        浅解shallow copy、deep copy
       </a>
     </h2>
   
   <div class='md'>
     
-      <p>2021 年 4 月 21 日，微软在 Developer Blogs 发布了 Windows 预览版 WSL（Windows Linux 子系统） 对 Linux GUI App 的支持的<a target="_blank" rel="noopener" href="https://devblogs.microsoft.com/commandline/the-initial-preview-of-gui-app-support-is-now-available-for-the-windows-subsystem-for-linux-2">公告🔗</a>，碰巧😀我最近重装了波电脑，系统换成了 Windows Insiders（Dev），正好可以感受波 Linux GUI App 的支持。btw，预览版的文件管理器支持访问 WSL 的文件了，6~ 的。</p>
-<div class="gallery ">
-              <p><img src="https://z3.ax1x.com/2021/04/25/czJUAO.png" class="lazyload" data-srcset="https://z3.ax1x.com/2021/04/25/czJUAO.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="Windows new icons"></p>
-            </div>
-
-<p>WSL 现在居然支持跑 Linux 图形应用了，真香（😎，虽然上一年 WSL 的 <a target="_blank" rel="noopener" href="https://devblogs.microsoft.com/commandline/the-windows-subsystem-for-linux-build-2020-summary/#wsl-gui">Roadmap</a> 中有说过要支持，但我没关注，老二手知识党了）。Quickstart -&gt;</p>
+      <p>“回👋掏”。最近做东西，有点儿玩不转复杂数据类型，写篇博文再回顾下深、浅拷贝相关知识。深、浅的区分主要在对复杂数据类型进行操作的时候。</p>
+<blockquote>
+<p>By the way：时间过得很快，十月了，之前定了个小目标：<code>一个月至少一篇文章产出</code>。2020年的 $ \frac{5}{6} $ 已经过去。很庆幸自己坚持了下来，学到了不少东西。实习期间其实有不少的文章主题的想法，但真正想动手写篇博文的时候，发现事情并没有想想中的那么简单，一个主题涉及到的知识点还是蛮多的，再加上实践经验的不足，有些东西很难写道点上，copy &amp; paste 总是不太好的『努力提高文章质量，hhh~』。希望自己后续继续加油。<br><img src="https://s1.ax1x.com/2020/10/11/0cgxOg.png" class="lazyload" data-srcset="https://s1.ax1x.com/2020/10/11/0cgxOg.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="一些想法"></p>
+</blockquote>
     
   </div>
   
@@ -511,15 +503,15 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           
           <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
         
-        <time>2021-04-25</time>
+        <time>2020-10-09</time>
         
           <span class="dot"></span>
-          <a class="category-link" href="/categories/WSL/">WSL</a>
+          <a class="category-link" href="/categories/JavaScript/">JavaScript</a><span class="sep"></span><a class="category-link" href="/categories/Python/">Python</a>
         
       </div>
       
         <div>
-          <a class='readmore' href='/2021/04/25/enjoy-wslg/'>
+          <a class='readmore' href='/2020/10/09/%E6%B5%85%E8%A7%A3shallow%20copy%E3%80%81deep%20copy/'>
             阅读全文
           </a>
         </div>
@@ -541,14 +533,25 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     
     <h2 class="article-title" >
-      <a href="/2021/03/10/git-submodules/">
-        初探 Git Submodules
+      <a href="/2020/09/20/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E6%8A%80%E6%9C%AF%E5%B0%8F%E8%AE%B0/">
+        负载均衡技术小记
       </a>
     </h2>
   
   <div class='md'>
     
-      <p>之前一直想将一个 Git 仓库放到另一个 Git 仓库，有 Maven 多模块项目（Maven Multimodule Project）和 Gradle 多项目构建（Gradle Multiproject Build）那味儿。Git 这么骚，肯定也可以。“扫”了多个开源仓库，Get 到了 Git <code>submodule</code> 可以做这种操作，水篇文章记录波。</p>
+      <details open red><summary> OSI 模型 </summary>
+              <div class='content'>
+              <p><img src="https://i.loli.net/2020/03/22/qthHTNlXyOvEfm3.png" class="lazyload" data-srcset="https://i.loli.net/2020/03/22/qthHTNlXyOvEfm3.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="网络模型"></p>
+              </div>
+            </details>
+
+<h2 id="常见-OSI-模型负载均衡方案"><a href="#常见-OSI-模型负载均衡方案" class="headerlink" title="常见 OSI 模型负载均衡方案"></a>常见 OSI 模型负载均衡方案</h2><ul>
+<li><p>2 层负载均衡：一般是用虚拟 MAC 地址方式，外部对虚拟 MAC 地址请求，负载均衡器接收后分配后端实际的 MAC 地址响应。</p>
+</li>
+<li><p>3 层负载均衡：一般采用虚拟 IP 地址方式，外部对虚拟的 IP 地址请求，负载均衡器接收后分配后端实际的 IP 地址响应。</p>
+</li>
+</ul>
     
   </div>
   
@@ -558,7 +561,319 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           
           <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
         
-        <time>2021-03-10</time>
+        <time>2020-09-20</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2020/09/20/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E6%8A%80%E6%9C%AF%E5%B0%8F%E8%AE%B0/'>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/2020/08/22/setTimeout%E6%98%AF%E5%88%B0%E4%BA%86xx%20ms%20%E5%B0%B1%E6%89%A7%E8%A1%8C%E5%90%97%EF%BC%8C%E4%BA%86%E8%A7%A3%20Event-Loop%20%E6%9C%BA%E5%88%B6/">
+        setTimeout 是到了xx ms 就执行吗，了解浏览器的 Event-Loop 机制
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      <blockquote>
+<p>要想 JavaScript 玩得溜，还得了解波 JavaScript 执行机制/(ㄒoㄒ)/~~。</p>
+</blockquote>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近看了波 JavaScript 相关的文章，不得不说，JavaScript 我还真没玩明白（给我哭~。。。😅）。也挺久没写文了，实习（“摸🐟”）之余小记一波。</p>
+<blockquote>
+<p>回顾一句话：JavaScript 是一门单线程、非阻塞、异步、解释性脚本语言。</p>
+</blockquote>
+<p>本文的标题是：setTimeout 是到了xx ms 就执行吗，了解 Event-Loop 机制。先回答波：不是。</p>
+<p>来看下网上的一段经典 js 代码在浏览器中「Microsoft Edge 84.0.522.63（64位）」的执行结果。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;script start&#x27;</span>);</span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;setTimeout&#x27;</span>);</span><br><span class="line">&#125;,<span class="number">0</span>);</span><br><span class="line"><span class="built_in">Promise</span>.resolve().then(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;promise1&#x27;</span>);</span><br><span class="line">&#125;).then(<span class="function">() =&gt;</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;promise2&quot;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;script end&#x27;</span>);</span><br></pre></td></tr></table></figure>
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+          
+          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
+        
+        <time>2020-08-22</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/JavaScript/">JavaScript</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2020/08/22/setTimeout%E6%98%AF%E5%88%B0%E4%BA%86xx%20ms%20%E5%B0%B1%E6%89%A7%E8%A1%8C%E5%90%97%EF%BC%8C%E4%BA%86%E8%A7%A3%20Event-Loop%20%E6%9C%BA%E5%88%B6/'>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/2020/08/02/Process-IPC/">
+        操作系统笔记-IPC 机制
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      <blockquote>
+<p>进程间通信（IPC，Inter-Process Communication），指至少两个进程或线程间传送数据或信号的一些技术或方法。</p>
+</blockquote>
+<h2 id="总览"><a href="#总览" class="headerlink" title="总览"></a>总览</h2><div class="gallery ">
+              <p><img src="https://s1.ax1x.com/2020/08/02/atGjjf.png" class="lazyload" data-srcset="https://s1.ax1x.com/2020/08/02/atGjjf.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="IPC"></p>
+            </div>
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+          
+          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
+        
+        <time>2020-08-02</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2020/08/02/Process-IPC/'>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/2020/07/22/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%BF%9B-%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B/">
+        操作系统笔记-进/线程模型
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      <blockquote>
+<p>模型是指对于某个实际问题或客观事物、规律进行抽象后的一种形式化表达方式。- MBA 智库百科 - <a target="_blank" rel="noopener" href="https://wiki.mbalib.com/wiki/%E6%A8%A1%E5%9E%8B">模型</a></p>
+</blockquote>
+<h2 id="概念梳理"><a href="#概念梳理" class="headerlink" title="概念梳理"></a>概念梳理</h2><h3 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h3><ul>
+<li>进程是具有独立功能的程序关于某个数据集合上的一次运行活动，是系统进行资源分配和调度的独立单位。</li>
+<li>一个进程是某种类型活动的一个活动，它有程序、输入、输出以及状态。进程是对正在运行程序的一个抽象。单个处理器可以被若干进程共享，它使用某种调度算法决定何时停止一个进程的工作，并转而为另一个进程提供服务。一个程序可对应多个进程。</li>
+<li>系统资源以进程为单位分配，如内存、文件、每个进程拥有独立的地址空间。</li>
+</ul>
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+          
+          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
+        
+        <time>2020-07-22</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/Go/">Go</a><span class="sep"></span><a class="category-link" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a><span class="sep"></span><a class="category-link" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%BF%9B-%E7%BA%BF%E7%A8%8B/">进/线程</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2020/07/22/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%BF%9B-%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B/'>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/2020/07/08/React-Hooks-%E9%82%A3%E4%BA%9B%E4%BA%8B%E5%84%BF/">
+        React Hooks 那些事儿
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      <p>翻了波之前写的文章还有笔记，发现关于前端的文章并不多（好歹也划水做过点前端开发）。巧了，最近没什么好话题可写，做下 React Hooks 学习笔记吧。</p>
+<h2 id="Effect-Hook"><a href="#Effect-Hook" class="headerlink" title="Effect Hook"></a>Effect Hook</h2><p>不得不说 Hook 的出现降低了我们在 React 中处理副作用（side effect）的心智负担，通过 useEffect 就可以很好的完成之前需要使用几个生命周期函数配合才能完成的事。</p>
+<h3 id="Effect-Hook-死循环请求问题"><a href="#Effect-Hook-死循环请求问题" class="headerlink" title="Effect Hook 死循环请求问题"></a>Effect Hook 死循环请求问题</h3><p>由于 Effect Hook 不熟「官方文档没读透」，最近使用 useEffect 出现了异步请求发送了无限次的问题，翻🚗了。我有个组件大概是这么写的：</p>
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+          
+          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
+        
+        <time>2020-07-08</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/React/">React</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2020/07/08/React-Hooks-%E9%82%A3%E4%BA%9B%E4%BA%8B%E5%84%BF/'>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/2020/06/28/%E4%BD%BF%E7%94%A8docker-compose%E7%BC%96%E6%8E%92%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E5%BA%94%E7%94%A8/">
+        使用docker-compose编排前后端分离应用
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      <p>几个月过去了，是时候把当初的 <a target="_blank" rel="noopener" href="https://github.com/yeshan333/Flask-React-ToDoList#%E6%9B%B4%E6%96%B0%E8%AE%A1%E5%88%92">🚩</a> 干掉了。</p>
+<p>顺便提高下 docker 的熟练度，得闲看下原理🚩（假期看过，没总结…）。</p>
+<p>重装了波系统（Windows 2004 版本），这个版本下，Docker Desktop 是以 WSL2 为 backend 的，不用 Hyper -V 了，舒服了很多。</p>
+<p>细品了下（又摸鱼搞 DevOps），跑这个前后端分离项目需要到的容器还挺多，4 个左右（后端 REST 服务、数据库服务、前端服务），前端服务上了两个容器『貌似没必要』，一个用来过渡，一个跑挂着 SPA 的 Nginx。</p>
+<p>这次祭出了 Docker Compose，毕竟容器有点“小多”，单单用命令费劲。</p>
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+          
+          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
+        
+        <time>2020-06-28</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/docker/">docker</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2020/06/28/%E4%BD%BF%E7%94%A8docker-compose%E7%BC%96%E6%8E%92%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E5%BA%94%E7%94%A8/'>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/2020/06/26/%E7%BB%99%20GitHub%20commit%20%E5%8A%A0%E4%B8%AA%E5%B0%8F%E7%BB%BF%E6%A0%87/">
+        给 GitHub commit 加个小绿标
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      <p>最近一波重装系统啥都没了，最常用的 Git 配置肯定得安排回来的。记得之前给 git 的 commit 加了个签名，回想下为什么要给 commit 做下签名？因为它能让 GitHub 的 commit 历史更帅？看下加签名之前是怎么样的：</p>
+<div class="gallery ">
+              <p><img src="https://s1.ax1x.com/2020/06/26/NstacQ.png" class="lazyload" data-srcset="https://s1.ax1x.com/2020/06/26/NstacQ.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="对commit进行签名前"></p>
+            </div>
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+          
+          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
+        
+        <time>2020-06-26</time>
         
           <span class="dot"></span>
           <a class="category-link" href="/categories/Git/">Git</a>
@@ -566,66 +881,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       </div>
       
         <div>
-          <a class='readmore' href='/2021/03/10/git-submodules/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-    <div class='headimg-div'>
-      <a class='headimg-a' href="/2021/01/19/hexo-blog-synchronization-with-rsync/">
-        <img class='headimg' src='https://s3.ax1x.com/2021/01/20/sfyNy4.png'/>
-      </a>
-    </div>
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2021/01/19/hexo-blog-synchronization-with-rsync/">
-        使用 rsync-deploy-action 同步 Hexo 博客到个人服务器
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <p>前几天写了个基于 rsync 进行文件同步的 Action -&gt; <a target="_blank" rel="noopener" href="https://github.com/yeshan333/rsync-deploy-action">rsync-deploy-action</a>。目的有三个：</p>
-<ul>
-<li>1、深入了解波 <a target="_blank" rel="noopener" href="https://docs.github.com/en/actions/creating-actions">GitHub Actions</a>，感受下 GitHub 的文档；</li>
-<li>2、个人博客在我的腾讯云 CVM 服务器上是部署有一份的「域名：<a target="_blank" rel="noopener" href="https://shan333.cn/">shan333.cn</a>」，之前的博客同步方式是通过 Linux 的定时任务，觉得不太行，当前博客的更新并没有那么频繁，没必要每隔几个小时就 <code>git pull</code> 一下，且服务器还挂着其他东西，性能还是有点损耗的，换成通过 rsync 进行主动推送的方式好点；</li>
-<li>3、熟悉波 SSH 协议和 rsync 协议。</li>
-</ul>
-<p>今天撸一篇文章简单记录下这次折腾。</p>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-          
-          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
-        
-        <time>2021-01-19</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/DevOps/">DevOps</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2021/01/19/hexo-blog-synchronization-with-rsync/'>
+          <a class='readmore' href='/2020/06/26/%E7%BB%99%20GitHub%20commit%20%E5%8A%A0%E4%B8%AA%E5%B0%8F%E7%BB%BF%E6%A0%87/'>
             阅读全文
           </a>
         </div>
@@ -647,14 +903,14 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     
     <h2 class="article-title" >
-      <a href="/2021/01/06/2020-annual-reviewed/">
-        关注思考的过程，终将更加卓越 | 2020 年总结
+      <a href="/2020/06/21/%E5%B0%86Web%E5%BA%94%E7%94%A8%E4%B8%A2%E7%BB%99%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B/">
+        将 Web 应用丢给守护进程
       </a>
     </h2>
   
   <div class='md'>
     
-      <p><img src="https://s3.ax1x.com/2021/01/07/sZGi24.png" class="lazyload" data-srcset="https://s3.ax1x.com/2021/01/07/sZGi24.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="2021 new chapter"></p>
+      <p>最近老是要把 Web App/Service 部署在个人的服务器上进行测试，发现自己不怎么熟悉「前提：不上 docker ，逃~」，特写此文章来纪念下🤔👀（之前部署的  Web App/Service 都是丢给 <a target="_blank" rel="noopener" href="https://www.heroku.com/">Heroku</a>、<a target="_blank" rel="noopener" href="https://www.netlify.com/">Netlify</a>、GitHub 这样的 PaaS 平台运行，写个配置文件「action、yaml、toml」就完事了。自己整的玩意儿丢在自己服务器上跑的并不算多，今天费点劲，了解点基础设施。根据冰山模型，了解下 FaaS 能更好的了解 <a target="_blank" rel="noopener" href="https://shansan.top/knowledge-base/#/backend?id=iaas%e3%80%81paas%e3%80%81saas">PaaS</a>）。</p>
     
   </div>
   
@@ -664,71 +920,15 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           
           <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
         
-        <time>2021-01-06</time>
+        <time>2020-06-21</time>
         
           <span class="dot"></span>
-          <a class="category-link" href="/categories/blog/">blog</a>
+          <a class="category-link" href="/categories/Linux/">Linux</a>
         
       </div>
       
         <div>
-          <a class='readmore' href='/2021/01/06/2020-annual-reviewed/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-    <div class='headimg-div'>
-      <a class='headimg-a' href="/2021/01/01/2021-new-year/">
-        <img class='headimg' src='https://s3.ax1x.com/2020/12/31/rvR7lj.png'/>
-      </a>
-    </div>
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2021/01/01/2021-new-year/">
-        2021 Happy New Year
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        
-
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-          
-          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
-        
-        <time>2021-01-01</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/blog/">blog</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2021/01/01/2021-new-year/'>
+          <a class='readmore' href='/2020/06/21/%E5%B0%86Web%E5%BA%94%E7%94%A8%E4%B8%A2%E7%BB%99%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B/'>
             阅读全文
           </a>
         </div>
@@ -750,24 +950,15 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     
     <h2 class="article-title" >
-      <a href="/2020/12/13/%E8%80%8D%E4%B8%80%E4%B8%8BKafka/">
-        简单耍一下-Kafka
+      <a href="/2020/06/04/%E8%AF%91-%E9%80%9A%E8%BF%87-Git-%E5%92%8C-Angular-%E4%BA%86%E8%A7%A3%E8%AF%AD%E4%B9%89%E5%8C%96%E6%8F%90%E4%BA%A4%E4%BF%A1%E6%81%AF/">
+        (译)通过 Git 和 Angular 了解语义化提交信息
       </a>
     </h2>
   
   <div class='md'>
     
-      <blockquote>
-<p>趁着毕设初期，还能摸会儿🐟，了解波 Kafka。</p>
-</blockquote>
-<h2 id="Kafka-术语一览"><a href="#Kafka-术语一览" class="headerlink" title="Kafka 术语一览"></a>Kafka 术语一览</h2><blockquote>
-<p>Kafka，分布式消息引擎系统，主要功能是提供一套完备的消息发布与订阅解决方案。Kafka 也是一个分布式的、分区的、多副本的多订阅者，基于 Zookeeper 协调的分布式日志系统，可用于处理 Web 日志和消息服务。</p>
-</blockquote>
-<ul>
-<li>Topic：主题，承载消息（Record）的逻辑容器，每条发布到 Kafka 集群的消息都归属于某一个 Topic，实际应用中，不同的 topic 对应着不同的业务；</li>
-<li>Broker：Kafka 服务进程，一个 Kafka 集群由多个 Broker 服务进程组成，虽然多个 Broker 可在同一服务器上进行部署，但为了高可用，会将不同的 Broker 部署在不同的机器上；</li>
-<li>Partition：分区，一组有序的消息序列，一个 Topic 可以有多个分区，同一 Topic 下的 Partition 可以分布在不同的 Broker 中。Producer 生产的每一条消息都会被放到一个 Partition 中，每条消息在 Partition 中的位置信息由一个 Offset（偏移量）数据表征。Kafka 通过偏移量（Offset）来保证消息在分区内的顺序性；</li>
-</ul>
+      <p>受传统提交规范和 Angular 约定的启发，让我们来解释语义化提交术语，并演示提交信息的实际示例。</p>
+<p>许多项目决定以某种约定方式来标准化它们的提交信息。这种做法并不是新出现的，但在最近几年中越来越多地得到了应用。而且很可能您已经在某些项目中遇到过这样的提交消息。</p>
     
   </div>
   
@@ -777,15 +968,15 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           
           <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
         
-        <time>2020-12-13</time>
+        <time>2020-06-04</time>
         
           <span class="dot"></span>
-          <a class="category-link" href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/">中间件</a><span class="sep"></span><a class="category-link" href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/Kafka/">Kafka</a>
+          <a class="category-link" href="/categories/Git/">Git</a>
         
       </div>
       
         <div>
-          <a class='readmore' href='/2020/12/13/%E8%80%8D%E4%B8%80%E4%B8%8BKafka/'>
+          <a class='readmore' href='/2020/06/04/%E8%AF%91-%E9%80%9A%E8%BF%87-Git-%E5%92%8C-Angular-%E4%BA%86%E8%A7%A3%E8%AF%AD%E4%B9%89%E5%8C%96%E6%8F%90%E4%BA%A4%E4%BF%A1%E6%81%AF/'>
             阅读全文
           </a>
         </div>
@@ -812,7 +1003,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           </a>
         
         <p class="current">
-          3 / 22
+          3 / 13
         </p>
         
           <a class="next" rel="next" href="/page/4/">
@@ -925,7 +1116,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <div class="webinfo-item">
           <div>文章数目：</div>
-          <div>127 篇</div>
+          <div>128 篇</div>
         </div>
       
 
@@ -961,8 +1152,8 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         <div class="webinfo-item">
           <div>最后活动时间：</div>
           
-            <div id="last-update" style="display: none;">Sun Dec 26 2021 12:56:17 GMT+0000 (Coordinated Universal Time)</div>
-            <div id="last-update-show">2021-12-26 日</div>
+            <div id="last-update" style="display: none;">Sat Jan 01 2022 04:55:58 GMT+0000 (Coordinated Universal Time)</div>
+            <div id="last-update-show">2022-01-01 日</div>
           
         </div>
         
@@ -1012,7 +1203,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           try {
             document.getElementById('last-update-show').innerHTML = timeago(new Date(lastUpDate));
           } catch (error) {
-            document.getElementById('last-update-show').innerHTML = '2021-12-26 日';
+            document.getElementById('last-update-show').innerHTML = '2022-01-01 日';
           }
         </script>
         
@@ -1153,7 +1344,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           <li><a class="flat-box"
             title="/categories/blog/" href="/categories/blog/"
             id="categoriesblog"
-            ><div class='name'>blog</div><div class='badge'>(17)</div></a></li>
+            ><div class='name'>blog</div><div class='badge'>(18)</div></a></li>
         
           <li><a class="flat-box"
             title="/categories/docker/" href="/categories/docker/"

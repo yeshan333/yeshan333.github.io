@@ -483,20 +483,113 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     
     <h2 class="article-title" >
-      <a href="/2019/03/20/SQLAlchemy%E5%BB%BA%E7%AB%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E6%A8%A1%E5%9E%8B%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB/">
-        SQLAlchemy建立数据库模型之间的关系
+      <a href="/2018/10/14/C++-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-6/">
+        C++面向对象-6
       </a>
     </h2>
   
   <div class='md'>
     
-      <h1 id="常见关系："><a href="#常见关系：" class="headerlink" title="常见关系："></a>常见关系：</h1><ul>
-<li>一对多关系</li>
-<li>多对一关系</li>
-<li>多对多关系</li>
-<li>一对一关系</li>
+      <h1 id="C-多态"><a href="#C-多态" class="headerlink" title="C++多态"></a>C++多态</h1><p><code>C++的多态意味着调用成员函数时，会根据调用的对象的类型来执行不同的函数</code></p>
+<p>编译时的多态，编译时就确定了具体的操作过程。<br>运行时的多态，程序运行过程中才确定的操作过程。<br>操作的过程即称为联编，也称为绑定。</p>
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+          
+          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
+        
+        <time>2018-10-14</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/CPP/">CPP</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2018/10/14/C++-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-6/'>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/2018/10/13/Just-relax/">
+        Just relax
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=100% height=86 src="//music.163.com/outchain/player?type=2&id=498286736&auto=1&height=66"></iframe>
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+          
+          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
+        
+        <time>2018-10-13</time>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2018/10/13/Just-relax/'>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/2018/10/12/C++-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-5/">
+        C++面向对象-5
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=113839&auto=1&height=66"></iframe>
+
+<h1 id="派生类的构造函数"><a href="#派生类的构造函数" class="headerlink" title="派生类的构造函数"></a>派生类的构造函数</h1><p>attention:</p>
+<ul>
+<li>在创建一个派生类的时候，系统会先创建一个基类。</li>
+<li>派生类会吸收基类的全部成员，但不包括构造函数和析构函数。</li>
+<li>派生类在调用自己的构造函数之前，会先调用基类的构造函数。</li>
 </ul>
-<h1 id="一对多关系（一个作者，多篇文章）"><a href="#一对多关系（一个作者，多篇文章）" class="headerlink" title="一对多关系（一个作者，多篇文章）"></a>一对多关系（一个作者，多篇文章）</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 一对多关系，单作者-多文章，外键不可少</span></span><br><span class="line"><span class="comment">## 外键(ForeignKey)总在多的那边定义,关系(relationship)总在单的那边定义</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Author</span>(<span class="params">db.Model</span>):</span></span><br><span class="line">    <span class="built_in">id</span> = db.Column(db.Integer, primary_key=<span class="literal">True</span>)</span><br><span class="line">    name = db.Column(db.String(<span class="number">70</span>), unique=<span class="literal">True</span>)</span><br><span class="line">    phone = db.Column(db.String(<span class="number">20</span>))</span><br><span class="line">    <span class="comment"># articles为关系属性(一个集合，可以像列表一样操作，在关系的出发侧定义</span></span><br><span class="line">    <span class="comment">## relationship()函数的第一个参数为关系另一侧的模型名称(Article)</span></span><br><span class="line">    articles = db.relationship(<span class="string">&#x27;Article&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Article</span>(<span class="params">db.Model</span>):</span></span><br><span class="line">    <span class="built_in">id</span> = db.Column(db.Integer, primary_key=<span class="literal">True</span>)</span><br><span class="line">    title = db.Column(db.String(<span class="number">15</span>), index=<span class="literal">True</span>)</span><br><span class="line">    body = db.Column(db.Text)</span><br><span class="line">    <span class="comment"># 传入ForeignKey的参数形式为：&quot;表名.字段名&quot;</span></span><br><span class="line">    <span class="comment">## 模型类对应的表名由Flask-SQLAlchemy生成，默认为类名称的小写形式，多个单词通过下划线分隔</span></span><br><span class="line">    author_id = db.Column(db.Integer, db.ForeignKey(<span class="string">&#x27;author.id&#x27;</span>)) <span class="comment">#</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 外键字段(author_id)和关系属性(articles)的命名没有限制</span></span><br><span class="line"><span class="comment">## 建立关系可通过操作关系属性进行</span></span><br><span class="line">&gt;&gt;&gt;shansan = Author(name=<span class="string">&quot;shansan&quot;</span>)</span><br><span class="line">&gt;&gt;&gt;hello = Article(title=<span class="string">&quot;Hello world !&quot;</span>)</span><br><span class="line">&gt;&gt;&gt;boy = Article(title=<span class="string">&quot;Hello Boy !&quot;</span>)</span><br><span class="line">&gt;&gt;&gt;db.session.add(shansan) <span class="comment"># 将创建的数据库记录添加到会话中</span></span><br><span class="line">&gt;&gt;&gt;db.session.add(hello)</span><br><span class="line">&gt;&gt;&gt;db.session.add(boy)</span><br><span class="line">&gt;&gt;&gt;shansan.articles.append(hello) <span class="comment"># 操作关系属性</span></span><br><span class="line">&gt;&gt;&gt;shansan.articles.append(boy)</span><br><span class="line">&gt;&gt;&gt;db.session.commit()</span><br></pre></td></tr></table></figure>
     
   </div>
   
@@ -506,15 +599,15 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           
           <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
         
-        <time>2019-03-20</time>
+        <time>2018-10-12</time>
         
           <span class="dot"></span>
-          <a class="category-link" href="/categories/Flask/">Flask</a>
+          <a class="category-link" href="/categories/CPP/">CPP</a>
         
       </div>
       
         <div>
-          <a class='readmore' href='/2019/03/20/SQLAlchemy%E5%BB%BA%E7%AB%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E6%A8%A1%E5%9E%8B%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB/'>
+          <a class='readmore' href='/2018/10/12/C++-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-5/'>
             阅读全文
           </a>
         </div>
@@ -536,45 +629,17 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     
     <h2 class="article-title" >
-      <a href="/2019/03/16/Flask%E7%9A%84%E8%AF%B7%E6%B1%82%E9%92%A9%E5%AD%90%E4%B8%8E%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%80%E8%AE%B0/">
-        Flask的请求钩子与上下文简记
+      <a href="/2018/10/12/XXX/">
+        天文学学习记录
       </a>
     </h2>
   
   <div class='md'>
     
-      <h1 id="请求钩子-Hook"><a href="#请求钩子-Hook" class="headerlink" title="请求钩子(Hook)"></a>请求钩子(Hook)</h1><blockquote>
-<p>在客户端和服务器交互的过程中，有些准备工作或扫尾工作需要处理，比如：在请求开始时，建立数据库连接；在请求结束时，指定数据的交互格式。为了让&gt;每个视图函数避免编写重复功能的代码，Flask提供了通用设施的功能，即请求钩子。通过请求钩子，我们可以对请求进行预处理(preprocessing)和后处理&gt;(postprocessing)。</p>
+      <blockquote>
+<p>图床已挂，需要跨越 G-F-W</p>
 </blockquote>
-<p>Flask的请求钩子通过装饰器实现，每个钩子可以注册任意多个处理函数，默认的五种请求钩子如下:</p>
-<table>
-<thead>
-<tr>
-<th align="center">钩子</th>
-<th align="left">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">before_first_request</td>
-<td align="left">注册一个函数，在处理请求前运行</td>
-</tr>
-<tr>
-<td align="center">before_request</td>
-<td align="left">注册一个函数，在处理每个请求前运行</td>
-</tr>
-<tr>
-<td align="center">after_request</td>
-<td align="left">注册一个函数，如果有未处理的一场抛出。会在每个请求结束后运行</td>
-</tr>
-<tr>
-<td align="center">teardown_request</td>
-<td align="left">注册一个函数，即使有未处理的异常抛出，会在每个请求介绍后执行。如果发生异常，会传入异常对象作为参数注册到函数中</td>
-</tr>
-<tr>
-<td align="center">after_this_request</td>
-<td align="left">在视图函数内注册一个函数，在这个请求结束后运行</td>
-</tr>
-</tbody></table>
+<p><img src="https://i.imgur.com/3ExmrYT.gif" class="lazyload" data-srcset="https://i.imgur.com/3ExmrYT.gif" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
     
   </div>
   
@@ -584,15 +649,12 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           
           <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
         
-        <time>2019-03-16</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Flask/">Flask</a>
+        <time>2018-10-12</time>
         
       </div>
       
         <div>
-          <a class='readmore' href='/2019/03/16/Flask%E7%9A%84%E8%AF%B7%E6%B1%82%E9%92%A9%E5%AD%90%E4%B8%8E%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%80%E8%AE%B0/'>
+          <a class='readmore' href='/2018/10/12/XXX/'>
             阅读全文
           </a>
         </div>
@@ -614,24 +676,19 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     
     <h2 class="article-title" >
-      <a href="/2019/03/08/%E5%B0%86%E6%9C%AC%E5%9C%B0%E9%A1%B9%E7%9B%AE%E6%8E%A8%E9%80%81%E5%88%B0GitHub%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93/">
-        将本地项目推送到GitHub远程仓库
+      <a href="/2018/10/12/%E4%BF%A1%E6%81%AF%E6%A0%87%E8%AE%B0/">
+        信息标记
       </a>
     </h2>
   
   <div class='md'>
     
-      <h1 id="如何将本地项目推送到Github"><a href="#如何将本地项目推送到Github" class="headerlink" title="如何将本地项目推送到Github"></a>如何将本地项目推送到Github</h1><blockquote>
-<p>Tip：在本地要安装好Git，官网：<a target="_blank" rel="noopener" href="https://git-scm.com/">https://git-scm.com/</a></p>
-</blockquote>
-<p><img src="https://s2.ax1x.com/2019/03/08/kzni4K.png" class="lazyload" data-srcset="https://s2.ax1x.com/2019/03/08/kzni4K.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="kzni4K.png"></p>
-<blockquote>
-<p>一个学习Git的好地方：<a target="_blank" rel="noopener" href="https://try.github.io/">https://try.github.io/</a></p>
-</blockquote>
-<blockquote>
-<p>在线闯关实战，边练边学的好地方：<a target="_blank" rel="noopener" href="https://learngitbranching.js.org/">https://learngitbranching.js.org/</a></p>
-</blockquote>
-<h2 id="方法一：使用https推送"><a href="#方法一：使用https推送" class="headerlink" title="方法一：使用https推送"></a>方法一：使用https推送</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 步骤</span></span><br><span class="line"><span class="comment"># 1.创建一个目录</span></span><br><span class="line">mkdir Test</span><br><span class="line"><span class="comment"># 2.将当前目录变为git管理仓库</span></span><br><span class="line">git init</span><br><span class="line"><span class="comment"># 3.将文件添加到版本库，这里将目录下的所有文件都添加进去了</span></span><br><span class="line">git add .</span><br><span class="line"><span class="comment"># 4.告诉git将文件提交到仓库</span></span><br><span class="line">git commit -m <span class="string">&quot;first-commit&quot;</span></span><br><span class="line"><span class="comment"># 5.将当前仓库与远程仓库关联</span></span><br><span class="line">git remote add origin 远程仓库的https地址 <span class="comment"># eg: git remote add https://github.com/ssmath/Test.git</span></span><br><span class="line"><span class="comment"># 6.将仓库内master分支的所有内容推送到远程仓库,这里会使用到Github的账号密码</span></span><br><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure>
+      <h1 id="信息标记的三种形式"><a href="#信息标记的三种形式" class="headerlink" title="信息标记的三种形式"></a>信息标记的三种形式</h1><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=100% height=86 src="//music.163.com/outchain/player?type=2&id=442869498&auto=1&height=66"></iframe>
+
+<ul>
+<li>XML(eXtensible Markup Language)</li>
+<li>YAML(YAML Ain’t Markup Language)</li>
+<li>JSON(JaveScript Object Notation)
     
   </div>
   
@@ -641,65 +698,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           
           <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
         
-        <time>2019-03-08</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Git/">Git</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2019/03/08/%E5%B0%86%E6%9C%AC%E5%9C%B0%E9%A1%B9%E7%9B%AE%E6%8E%A8%E9%80%81%E5%88%B0GitHub%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2019/03/03/vscode%E9%85%8D%E7%BD%AEPipenv%E5%B7%A5%E4%BD%9C%E7%8E%AF%E5%A2%83/">
-        vscode配置Pipenv工作环境
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <h1 id="让vscode使用Pipenv工作环境"><a href="#让vscode使用Pipenv工作环境" class="headerlink" title="让vscode使用Pipenv工作环境"></a>让vscode使用Pipenv工作环境</h1><h2 id="1、查看Pipenv的位置"><a href="#1、查看Pipenv的位置" class="headerlink" title="1、查看Pipenv的位置"></a>1、查看Pipenv的位置</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 先激活Pipenv环境</span><br><span class="line">pipenv shell</span><br><span class="line"># 获取当前虚拟环境的位置</span><br><span class="line">pipenv --venv</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://raw.githubusercontent.com/yeshan333/blog_images/master/posts/0078bOVFgy1g0pe3ndazpj30ft01l746.jpg" class="lazyload" data-srcset="https://raw.githubusercontent.com/yeshan333/blog_images/master/posts/0078bOVFgy1g0pe3ndazpj30ft01l746.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
-<h2 id="2、打开setting-json配置文件"><a href="#2、打开setting-json配置文件" class="headerlink" title="2、打开setting.json配置文件"></a>2、打开setting.json配置文件</h2><ul>
-<li><p>Ctrl+Shift+P，输入settings，选择Open Settings(JSon)</p>
-</li>
-<li><p>将之前得到的Pipenv环境路径添加进去</p>
-<p>  “python.venvPath”: “C:\Users\Algorithm\.virtualenvs”</p>
-</li>
-</ul>
-<p><img src="https://raw.githubusercontent.com/yeshan333/blog_images/master/posts/0078bOVFgy1g0pdwtnoqtj30gu08rq3k.jpg" class="lazyload" data-srcset="https://raw.githubusercontent.com/yeshan333/blog_images/master/posts/0078bOVFgy1g0pdwtnoqtj30gu08rq3k.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
-<p><img src="https://raw.githubusercontent.com/yeshan333/blog_images/master/posts/0078bOVFgy1g0pdyyyuvqj30m405pjrh.jpg" class="lazyload" data-srcset="https://raw.githubusercontent.com/yeshan333/blog_images/master/posts/0078bOVFgy1g0pdyyyuvqj30m405pjrh.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-          
-          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
-        
-        <time>2019-03-03</time>
+        <time>2018-10-12</time>
         
           <span class="dot"></span>
           <a class="category-link" href="/categories/Python/">Python</a>
@@ -707,7 +706,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       </div>
       
         <div>
-          <a class='readmore' href='/2019/03/03/vscode%E9%85%8D%E7%BD%AEPipenv%E5%B7%A5%E4%BD%9C%E7%8E%AF%E5%A2%83/'>
+          <a class='readmore' href='/2018/10/12/%E4%BF%A1%E6%81%AF%E6%A0%87%E8%AE%B0/'>
             阅读全文
           </a>
         </div>
@@ -729,67 +728,23 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     
     <h2 class="article-title" >
-      <a href="/2019/02/05/Happy-New-Year/">
-        Happy New Year !
+      <a href="/2018/10/11/C++-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-4/">
+        C++面向对象-4
       </a>
     </h2>
   
   <div class='md'>
     
-      
-        12345678910111213141516171819202122232425262728C：printf(&quot;Happy New Year&quot;);C++ : cout&lt;&lt;&quot;Happy New Year&quot;;Objectivec: NSLog(@&quot;Happy New Year!&quot;);QBasic : Print &quot...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-          
-          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
-        
-        <time>2019-02-05</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/blog/">blog</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2019/02/05/Happy-New-Year/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=461748517&auto=1&height=66"></iframe>
 
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2019/01/22/HTML-CSS-%E5%88%92%E6%B0%B4/">
-        HTML&&CSS(划水~~~)
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <h1 id="HTML-超文本标记语言"><a href="#HTML-超文本标记语言" class="headerlink" title="HTML(超文本标记语言)"></a><a target="_blank" rel="noopener" href="http://www.w3school.com.cn/html/index.asp">HTML</a>(超文本标记语言)</h1><p>HTML标签不区分大小写。</p>
-<h2 id="HTML属性"><a href="#HTML属性" class="headerlink" title="HTML属性"></a>HTML属性</h2><ul>
-<li>ID属性指定一个标识符，用于唯一标识页面元素，这些标识符主要供Javascript和CSS使用</li>
-<li>class属性是一个全局属性，可用于建立元素编组。可以给多个元素指定相同的class属性，以便在CSS或Javascript中将这些元素作为一个编组来引用它们</li>
-<li>style属性用于定义标签的样式。任何标签中都可以指定属性style。使用style属性可以为标签指定一个或多个样式规则，** 在style定义多条规则的方法是用分号将他们分开 **</li>
+<h1 id="继承和派生"><a href="#继承和派生" class="headerlink" title="继承和派生"></a>继承和派生</h1><blockquote>
+<p>新类拥有原有类的全部属性为继承！原有类产生新类的过程为派生。</p>
+</blockquote>
+<p>原有类称为基类，产生的新类称为派生类。<br><a target="_blank" rel="noopener" href="http://www.dotcpp.com/course/cpp/200027.html">http://www.dotcpp.com/course/cpp/200027.html</a></p>
+<h2 id="继承方式（派生权限）"><a href="#继承方式（派生权限）" class="headerlink" title="继承方式（派生权限）"></a>继承方式（派生权限）</h2><ul>
+<li>公有继承</li>
+<li>私有继承</li>
+<li>保护继承</li>
 </ul>
     
   </div>
@@ -800,15 +755,210 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           
           <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
         
-        <time>2019-01-22</time>
+        <time>2018-10-11</time>
         
           <span class="dot"></span>
-          <a class="category-link" href="/categories/CSS/">CSS</a><span class="sep"></span><a class="category-link" href="/categories/HTML/">HTML</a>
+          <a class="category-link" href="/categories/CPP/">CPP</a>
         
       </div>
       
         <div>
-          <a class='readmore' href='/2019/01/22/HTML-CSS-%E5%88%92%E6%B0%B4/'>
+          <a class='readmore' href='/2018/10/11/C++-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-4/'>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/2018/10/10/%E6%B5%85%E5%B0%9DBeautifulSoup/">
+        浅尝BeautifulSoup
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup <span class="comment">#引入BeautifulSoup类</span></span><br><span class="line"></span><br><span class="line">url = <span class="string">&quot;https://python123.io/ws/demo.html&quot;</span></span><br><span class="line"></span><br><span class="line">r = requests.get(url)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(r.status_code)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;\n&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#demo = r.text    #html格式信息</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#soup = BeautifulSoup(demo,&quot;html.parser&quot;)#使用html.parser对demo进行html解析</span></span><br><span class="line">soup = BeautifulSoup(<span class="built_in">open</span>(<span class="string">r&quot;C:\Users\Administrator\Desktop\beautifulsoup\demo.html&quot;</span>))</span><br><span class="line"><span class="built_in">print</span>(soup.prettify())</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://www.crummy.com/software/BeautifulSoup/bs4/doc/">BeautifulSoup官方文档</a></p>
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+          
+          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
+        
+        <time>2018-10-10</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/Python/">Python</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2018/10/10/%E6%B5%85%E5%B0%9DBeautifulSoup/'>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/2018/10/09/C++-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-3/">
+        C++面向对象-3
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      <h1 id="友元函数和友元类"><a href="#友元函数和友元类" class="headerlink" title="友元函数和友元类"></a>友元函数和友元类</h1><blockquote>
+<p>友元的对象可以是全局的一般函数，也可以是其它类里的成员函数，这种叫做友元函数。<br>友元还可以是一个类，这种叫做友元类，这时整个类的所有成员都是友元</p>
+</blockquote>
+<p><img src="https://i.imgur.com/jJBlXph.png" class="lazyload" data-srcset="https://i.imgur.com/jJBlXph.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="demo"></p>
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+          
+          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
+        
+        <time>2018-10-09</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/CPP/">CPP</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2018/10/09/C++-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-3/'>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/2018/10/06/C++-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-2/">
+        C++面向对象-2
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      <h1 id="类的构造函数-Constructor-和析构函数-Destructor"><a href="#类的构造函数-Constructor-和析构函数-Destructor" class="headerlink" title="类的构造函数(Constructor)和析构函数(Destructor)"></a>类的构造函数(Constructor)和析构函数(Destructor)</h1><iframe src="http://open.iqiyi.com/developer/player_js/coopPlayerIndex.html?vid=c5d7868e19457dd682738eee9b4b05af&tvId=11980807509&accessToken=2.f22860a2479ad60d8da7697274de9346&appKey=3955c3425820435e86d0f4cdfe56f5e7&appId=1368&height=50%&width=100%" frameborder="0" allowfullscreen="true" width="100%" height="100%"></iframe>
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+          
+          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
+        
+        <time>2018-10-06</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/CPP/">CPP</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2018/10/06/C++-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-2/'>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/2018/10/05/C++-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">
+        C++面向对象
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      <h1 id="类-amp-对象"><a href="#类-amp-对象" class="headerlink" title="类 &amp; 对象"></a>类 &amp; 对象</h1><blockquote>
+<p><font color="red">类是对象的抽象和概括，而对象是类的具体和实例</font></p>
+</blockquote>
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=100% height=86 src="//music.163.com/outchain/player?type=2&id=1308818967&auto=1&height=66"></iframe>
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+          
+          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
+        
+        <time>2018-10-05</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/CPP/">CPP</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2018/10/05/C++-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/'>
             阅读全文
           </a>
         </div>
@@ -835,7 +985,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           </a>
         
         <p class="current">
-          11 / 22
+          11 / 13
         </p>
         
           <a class="next" rel="next" href="/page/12/">
@@ -948,7 +1098,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <div class="webinfo-item">
           <div>文章数目：</div>
-          <div>127 篇</div>
+          <div>128 篇</div>
         </div>
       
 
@@ -984,8 +1134,8 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         <div class="webinfo-item">
           <div>最后活动时间：</div>
           
-            <div id="last-update" style="display: none;">Sun Dec 26 2021 12:56:17 GMT+0000 (Coordinated Universal Time)</div>
-            <div id="last-update-show">2021-12-26 日</div>
+            <div id="last-update" style="display: none;">Sat Jan 01 2022 04:55:58 GMT+0000 (Coordinated Universal Time)</div>
+            <div id="last-update-show">2022-01-01 日</div>
           
         </div>
         
@@ -1035,7 +1185,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           try {
             document.getElementById('last-update-show').innerHTML = timeago(new Date(lastUpDate));
           } catch (error) {
-            document.getElementById('last-update-show').innerHTML = '2021-12-26 日';
+            document.getElementById('last-update-show').innerHTML = '2022-01-01 日';
           }
         </script>
         
@@ -1176,7 +1326,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           <li><a class="flat-box"
             title="/categories/blog/" href="/categories/blog/"
             id="categoriesblog"
-            ><div class='name'>blog</div><div class='badge'>(17)</div></a></li>
+            ><div class='name'>blog</div><div class='badge'>(18)</div></a></li>
         
           <li><a class="flat-box"
             title="/categories/docker/" href="/categories/docker/"

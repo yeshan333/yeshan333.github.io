@@ -483,16 +483,14 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     
     <h2 class="article-title" >
-      <a href="/2019/10/02/%E7%AE%80%E5%8D%95%E4%BA%86%E8%A7%A3%E4%B8%8BPython%E5%86%85%E7%BD%AE%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E7%9A%84%E6%80%A7%E8%83%BD/">
-        简单感受下Python内置数据类型常用操作的性能
+      <a href="/2019/01/03/%E8%A3%85%E9%A5%B0%E5%99%A8-python/">
+        装饰器--python
       </a>
     </h2>
   
   <div class='md'>
     
-      <h1 id="生成一个列表的几种方式的性能对比"><a href="#生成一个列表的几种方式的性能对比" class="headerlink" title="生成一个列表的几种方式的性能对比"></a>生成一个列表的几种方式的性能对比</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> timeit <span class="keyword">import</span> Timer</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 列表常用操作性能测试</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 迭代 + &#x27;+&#x27;</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test1</span>():</span></span><br><span class="line">    l = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1000</span>):</span><br><span class="line">        l = l + [i]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 迭代 + append</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test2</span>():</span></span><br><span class="line">    l = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1000</span>):</span><br><span class="line">        l.append(i)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 列表生成式</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test3</span>():</span></span><br><span class="line">    l = [i <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1000</span>)]</span><br><span class="line"></span><br><span class="line"><span class="comment"># list构造函数 + range</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test4</span>():</span></span><br><span class="line">    l = <span class="built_in">list</span>(<span class="built_in">range</span>(<span class="number">1000</span>))</span><br><span class="line"></span><br><span class="line">t1 = Timer(<span class="string">&quot;test1()&quot;</span>, <span class="string">&quot;from __main__ import test1&quot;</span>)</span><br><span class="line"><span class="comment"># print(&quot;concat %f seconds&quot; % t1.timeit(number=1000))</span></span><br><span class="line"></span><br><span class="line">t2 = Timer(<span class="string">&quot;test2()&quot;</span>, <span class="string">&quot;from __main__ import test2&quot;</span>)</span><br><span class="line"><span class="comment"># print(&quot;concat %f seconds&quot; % t2.timeit(number=1000))</span></span><br><span class="line"></span><br><span class="line">t3 = Timer(<span class="string">&quot;test3()&quot;</span>, <span class="string">&quot;from __main__ import test3&quot;</span>)</span><br><span class="line"><span class="comment"># print(&quot;concat %f seconds&quot; % t3.timeit(number=1000))</span></span><br><span class="line"></span><br><span class="line">t4 = Timer(<span class="string">&quot;test4()&quot;</span>, <span class="string">&quot;from __main__ import test4&quot;</span>)</span><br><span class="line"><span class="comment"># print(&quot;concat %f seconds&quot; % t4.timeit(number=1000))</span></span><br><span class="line"></span><br><span class="line">result = [t1.timeit(<span class="number">1000</span>), t2.timeit(<span class="number">1000</span>), t3.timeit(<span class="number">1000</span>), t4.timeit(<span class="number">1000</span>)]</span><br><span class="line">method = [<span class="string">&quot;for+ &#x27;+&#x27;&quot;</span>, <span class="string">&quot;for + append&quot;</span>, <span class="string">&quot;list comprehension&quot;</span>, <span class="string">&quot;list + range&quot;</span>]</span><br><span class="line"></span><br><span class="line">plt.bar(method, result, color=<span class="string">&#x27;rgby&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># plt.legend(&#x27;concat time&#x27;)</span></span><br><span class="line"><span class="comment"># print(zip(method, result))</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> x,y <span class="keyword">in</span> <span class="built_in">zip</span>(method, result):</span><br><span class="line">    plt.text(x, y, <span class="string">&quot;%fs&quot;</span> % y)</span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://cdn.jsdelivr.net/gh/ssmath/mypic/img/20191002194307.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/ssmath/mypic/img/20191002194307.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="Cost time"></p>
+      <h1 id="python装饰器回顾"><a href="#python装饰器回顾" class="headerlink" title="python装饰器回顾"></a>python装饰器回顾</h1><h2 id="返回函数"><a href="#返回函数" class="headerlink" title="返回函数"></a>返回函数</h2><p><img src="https://i.loli.net/2020/03/18/8MoeVXiUTxZzBEc.png" class="lazyload" data-srcset="https://i.loli.net/2020/03/18/8MoeVXiUTxZzBEc.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="返回函数"></p>
     
   </div>
   
@@ -502,7 +500,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           
           <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
         
-        <time>2019-10-02</time>
+        <time>2019-01-03</time>
         
           <span class="dot"></span>
           <a class="category-link" href="/categories/Python/">Python</a>
@@ -510,7 +508,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       </div>
       
         <div>
-          <a class='readmore' href='/2019/10/02/%E7%AE%80%E5%8D%95%E4%BA%86%E8%A7%A3%E4%B8%8BPython%E5%86%85%E7%BD%AE%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E7%9A%84%E6%80%A7%E8%83%BD/'>
+          <a class='readmore' href='/2019/01/03/%E8%A3%85%E9%A5%B0%E5%99%A8-python/'>
             阅读全文
           </a>
         </div>
@@ -532,20 +530,22 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     
     <h2 class="article-title" >
-      <a href="/2019/09/02/Python%E7%8E%AF%E5%A2%83%E7%AE%A1%E7%90%86/">
-        Python环境管理与项目依赖管理
+      <a href="/2019/01/01/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E5%8F%82%E8%80%83%E6%B1%87%E6%80%BB/">
+        博客搭建参考汇总
       </a>
     </h2>
   
   <div class='md'>
     
-      <blockquote>
-<p>个人简单记录下</p>
-</blockquote>
-<h1 id="virtualenv-pip"><a href="#virtualenv-pip" class="headerlink" title="virtualenv + pip"></a>virtualenv + pip</h1><blockquote>
-<p>virtualenv是一个用于创建”隔离的ython运行环境”的工具，<a target="_blank" rel="noopener" href="https://virtualenv.pypa.io/en/latest/">Docs</a><br>pip是Python的包管理工具，<a target="_blank" rel="noopener" href="https://pip.pypa.io/en/stable/">Docs</a></p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装virtualenv</span></span><br><span class="line">pip install virtualenv</span><br><span class="line"></span><br><span class="line"><span class="comment"># -------------------------------- #</span></span><br><span class="line"><span class="comment"># 虚拟环境的创建与使用</span></span><br><span class="line"><span class="comment"># 1、在当前工程目录下使用virtualenv创建一套独立的Python运行环境</span></span><br><span class="line">virtualenv venv  <span class="comment"># 环境名为venv（自由定义）</span></span><br><span class="line"><span class="comment"># 2、cd 到创建好的虚拟环境的Scripts目录，执行如下命令可激活或者退出虚拟环境</span></span><br><span class="line">activate    <span class="comment"># 激活，激活后命令提示符会变成当前工程目录Python环境名</span></span><br><span class="line">deactivate  <span class="comment"># 退出</span></span><br><span class="line"><span class="comment"># 3、激活虚拟环境后可使用pip为当前项目安装依赖，example：</span></span><br><span class="line">pip install numpy</span><br><span class="line"><span class="comment"># 4、使用pip freeze &gt; requirements.txt 可导出项目依赖到requirements.txt中</span></span><br><span class="line"><span class="comment"># 为项目创建一个新的、干净的环境时，可使用 pip install -r requiremen.txt 为项目安装依赖</span></span><br></pre></td></tr></table></figure>
+      
+        
+以下是我搭建博客参考的一些教程
+
+hexo博客搭建教程https://blog.csdn.net/gdutxiaoxu/article/details/53576018
+https://m.w3cschool.cn/hexo_blog/hexo_blog-tvpu244e.html
+https://www.cnblogs.com/jackyroc/p/7681938.html
+https:...
+      
     
   </div>
   
@@ -555,15 +555,15 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           
           <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
         
-        <time>2019-09-02</time>
+        <time>2019-01-01</time>
         
           <span class="dot"></span>
-          <a class="category-link" href="/categories/Python/">Python</a>
+          <a class="category-link" href="/categories/blog/">blog</a>
         
       </div>
       
         <div>
-          <a class='readmore' href='/2019/09/02/Python%E7%8E%AF%E5%A2%83%E7%AE%A1%E7%90%86/'>
+          <a class='readmore' href='/2019/01/01/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E5%8F%82%E8%80%83%E6%B1%87%E6%80%BB/'>
             阅读全文
           </a>
         </div>
@@ -585,21 +585,172 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     
     <h2 class="article-title" >
-      <a href="/2019/08/08/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
-        docker学习笔记
+      <a href="/2019/01/01/2019%E4%BD%A0%E5%A5%BD/">
+        2019你好
       </a>
     </h2>
   
   <div class='md'>
     
-      <blockquote>
-<p><a target="_blank" rel="noopener" href="https://labs.play-with-docker.com/">Play With Docker一个免费使用的基于web界面的Docker环境</a></p>
-</blockquote>
-<h1 id="常用docker命令"><a href="#常用docker命令" class="headerlink" title="常用docker命令"></a>常用docker命令</h1><p><strong>可使用<code>docker COMMAND --help</code>查看命令的用法</strong></p>
-<h2 id="Docker镜像相关"><a href="#Docker镜像相关" class="headerlink" title="Docker镜像相关"></a>Docker镜像相关</h2><ul>
-<li>1、<code>docker image pull</code>：用于下载镜像，镜像从远程镜像仓库服务的仓库中下载，默认从Docker Hub的仓库中拉取</li>
+      
+        
+
+      
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+          
+          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
+        
+        <time>2019-01-01</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/blog/">blog</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2019/01/01/2019%E4%BD%A0%E5%A5%BD/'>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/2018/12/31/%E8%87%B4%E6%95%AC2018/">
+        致敬2018
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      
+        博客 2018 使用的图床(imgur)已挂掉，大部分 2018 年的文章配的图需要使用 proxy 才能看到
+
+      
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+          
+          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
+        
+        <time>2018-12-31</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/blog/">blog</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2018/12/31/%E8%87%B4%E6%95%AC2018/'>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/2018/12/31/memory/">
+        基于Typecho搭建个人博客
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      
+        **本页图片已挂，需跨越 G-F?W **
+搭建依托于我的个人服务器的博客emmm。。。 2018年12月24日0点10分，忽然觉得无聊，打开某云，手一贱租了台云服务器（233~~~~）。嗯，既然都租了，那就再来个博客吧。
+基于typecho搭建的个人博客宝塔面板安装1yum install -y wget &amp;&amp; wget -O install.sh http://downl...
+      
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+          
+          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
+        
+        <time>2018-12-31</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/blog/">blog</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2018/12/31/memory/'>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/2018/12/15/%E7%BA%BF%E6%80%A7%E8%A1%A8%E7%9A%84%E9%93%BE%E5%BC%8F%E5%AD%98%E5%82%A8-%E5%8D%95%E9%93%BE%E8%A1%A8/">
+        线性表的链式存储-单链表
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      <h1 id="单链表操作"><a href="#单链表操作" class="headerlink" title="单链表操作"></a>单链表操作</h1><ul>
+<li><input type="checkbox" checked disable> 单链表的创建（尾插法、头插法）</li>
+<li><input type="checkbox" checked disable> 单链表的查找操作</li>
+<li><input type="checkbox" checked disable> 单链表的删除操作</li>
+<li><input type="checkbox" checked disable> 单链表的逆置操作(使用头插法)</li>
+<li><input type="checkbox" checked disable> 单链表表长的计算</li>
+<li><input type="checkbox" checked disable> 打印单链表</li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 格式：docker pull [OPTIONS] NAME[:TAG|@DIGEST]</span></span><br><span class="line"><span class="comment"># 说明：如果给出tag，一般拉取latest，name一般为username/repository,digest为镜像摘要可不给出</span></span><br><span class="line">docker image pull ubuntu:latest</span><br><span class="line"><span class="comment"># 这个拉取标签为latest的ubuntu官方镜像，latest: Pulling from library/ubuntu，latest不一定是最新镜像</span></span><br></pre></td></tr></table></figure>
     
   </div>
   
@@ -609,15 +760,15 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           
           <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
         
-        <time>2019-08-08</time>
+        <time>2018-12-15</time>
         
           <span class="dot"></span>
-          <a class="category-link" href="/categories/docker/">docker</a>
+          <a class="category-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
         
       </div>
       
         <div>
-          <a class='readmore' href='/2019/08/08/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+          <a class='readmore' href='/2018/12/15/%E7%BA%BF%E6%80%A7%E8%A1%A8%E7%9A%84%E9%93%BE%E5%BC%8F%E5%AD%98%E5%82%A8-%E5%8D%95%E9%93%BE%E8%A1%A8/'>
             阅读全文
           </a>
         </div>
@@ -639,17 +790,23 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     
     <h2 class="article-title" >
-      <a href="/2019/08/07/%E5%87%A0%E4%B8%AA%E4%B8%8D%E9%94%99%E7%9A%84Jupyter%20Notebook%E4%BA%91%E7%AB%AF%E5%B1%95%E7%A4%BA%E5%B9%B3%E5%8F%B0/">
-        几个不错的Jupyter Notebook云端展示平台
+      <a href="/2018/12/14/%E7%BA%BF%E6%80%A7%E8%A1%A8%E4%B9%8B%E9%A1%BA%E5%BA%8F%E5%AD%98%E5%82%A8-%E9%A1%BA%E5%BA%8F%E8%A1%A8/">
+        线性表之顺序存储-顺序表
       </a>
     </h2>
   
   <div class='md'>
     
-      <h1 id="jupyter-nbviewer"><a href="#jupyter-nbviewer" class="headerlink" title="jupyter nbviewer"></a>jupyter nbviewer</h1><p><a target="_blank" rel="noopener" href="https://nbviewer.jupyter.org/">URL:https://nbviewer.jupyter.org/</a></p>
-<p><img src="https://cdn.jsdelivr.net/gh/ssmath/mypic/img/20190807100641.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/ssmath/mypic/img/20190807100641.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
-<p>结合Github的示例用法：<a target="_blank" rel="noopener" href="https://nbviewer.jupyter.org/github/">https://nbviewer.jupyter.org/github/</a> + &lt;<code>用户名</code>或者<code>用户名/存放ipynb文件的仓库</code>或者<code>Gist ID</code>&gt;</p>
-<p>例如：<a target="_blank" rel="noopener" href="https://nbviewer.jupyter.org/github/yeshan333/JupyterNotebook-Show-sample">https://nbviewer.jupyter.org/github/yeshan333/JupyterNotebook-Show-sample</a></p>
+      <h1 id="顺序表的操作"><a href="#顺序表的操作" class="headerlink" title="顺序表的操作"></a>顺序表的操作</h1><ul>
+<li><input type="checkbox" checked disable> 向有序顺序表插入一个元素</li>
+<li><input type="checkbox" checked disable> 顺序表的冒泡排序</li>
+<li><input type="checkbox" checked disable> 顺序表的删除操作</li>
+<li><input type="checkbox" checked disable> 顺序表中元素的查找</li>
+<li><input type="checkbox" checked disable> 顺序表的逆置</li>
+<li><input type="checkbox" checked disable> 删除顺序表中的相同元素</li>
+<li><input type="checkbox" checked disable> 向顺序表的指定位置插入元素</li>
+<li><input type="checkbox" checked disable> 打印顺序表</li>
+</ul>
     
   </div>
   
@@ -659,15 +816,15 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           
           <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
         
-        <time>2019-08-07</time>
+        <time>2018-12-14</time>
         
           <span class="dot"></span>
-          <a class="category-link" href="/categories/Python/">Python</a>
+          <a class="category-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
         
       </div>
       
         <div>
-          <a class='readmore' href='/2019/08/07/%E5%87%A0%E4%B8%AA%E4%B8%8D%E9%94%99%E7%9A%84Jupyter%20Notebook%E4%BA%91%E7%AB%AF%E5%B1%95%E7%A4%BA%E5%B9%B3%E5%8F%B0/'>
+          <a class='readmore' href='/2018/12/14/%E7%BA%BF%E6%80%A7%E8%A1%A8%E4%B9%8B%E9%A1%BA%E5%BA%8F%E5%AD%98%E5%82%A8-%E9%A1%BA%E5%BA%8F%E8%A1%A8/'>
             阅读全文
           </a>
         </div>
@@ -689,25 +846,18 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     
     <h2 class="article-title" >
-      <a href="/2019/07/28/pdb-profile/">
-        pdb && cProfile
+      <a href="/2018/12/13/%E5%8B%BF%E5%BF%98%E5%9B%BD%E8%80%BB%EF%BC%8C%E5%90%BE%E8%BE%88%E8%87%AA%E5%BC%BA%EF%BC%81/">
+        勿忘国耻，吾辈自强！
       </a>
     </h2>
   
   <div class='md'>
     
-      <h1 id="pdb"><a href="#pdb" class="headerlink" title="pdb"></a>pdb</h1><blockquote>
-<p><a target="_blank" rel="noopener" href="https://docs.python.org/zh-cn/3.7/library/pdb.html#module-pdb">https://docs.python.org/zh-cn/3.7/library/pdb.html#module-pdb</a></p>
-</blockquote>
-<h2 id="使用方式"><a href="#使用方式" class="headerlink" title="使用方式"></a>使用方式</h2><ul>
-<li>1、在命令行下直接运行调试</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -m pdb test.py</span><br></pre></td></tr></table></figure>
+      
+        
 
-<p><img src="https://img.vim-cn.com/a2/72fea3f756ee8ece77496b3dcec3c7e4d2cd4c.png" class="lazyload" data-srcset="https://img.vim-cn.com/a2/72fea3f756ee8ece77496b3dcec3c7e4d2cd4c.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="示例"></p>
-<ul>
-<li>2、在需要被调试的代码中添加<code>import pdb</code>、<code>pdb.set_trace()</code>再运行代码进行调试</li>
-</ul>
+
+      
     
   </div>
   
@@ -717,15 +867,15 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           
           <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
         
-        <time>2019-07-28</time>
+        <time>2018-12-13</time>
         
           <span class="dot"></span>
-          <a class="category-link" href="/categories/Python/">Python</a>
+          <a class="category-link" href="/categories/Memory/">Memory</a>
         
       </div>
       
         <div>
-          <a class='readmore' href='/2019/07/28/pdb-profile/'>
+          <a class='readmore' href='/2018/12/13/%E5%8B%BF%E5%BF%98%E5%9B%BD%E8%80%BB%EF%BC%8C%E5%90%BE%E8%BE%88%E8%87%AA%E5%BC%BA%EF%BC%81/'>
             阅读全文
           </a>
         </div>
@@ -747,20 +897,22 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     
     <h2 class="article-title" >
-      <a href="/2019/07/26/Python-%E8%87%AA%E5%AE%9A%E4%B9%89%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%A1%E7%90%86%E5%99%A8/">
-        Python-自定义上下文管理器
+      <a href="/2018/12/03/biu%E4%B8%80%E4%B8%8BGDB/">
+        Biu一下GDB
       </a>
     </h2>
   
   <div class='md'>
     
-      <h1 id="上下文管理器"><a href="#上下文管理器" class="headerlink" title="上下文管理器"></a>上下文管理器</h1><ul>
-<li>上下文管理器可以帮助我们自动分配和释放资源</li>
-<li>上下文管理器需要配合<strong>with语句</strong>使用</li>
+      <h1 id="gcc常见编译选项"><a href="#gcc常见编译选项" class="headerlink" title="gcc常见编译选项"></a>gcc常见编译选项</h1><ul>
+<li>** -c **:只激活预处理、编译和汇编，也就是生成obj文件</li>
+<li>** -S **:只激活处理和编译，把文件编译成汇编代码</li>
+<li>** -o **:定制目标名称，缺省的时候编译出来的可执行程序名为a.exe(windows)或a.out(linux)</li>
+<li>** -Wall **:打开一些很有用的编译警告</li>
+<li>** -std **:指定C标准，如-std=99，使用C99标准</li>
+<li>** -g **:指示编译器，编译的时候添加调试信息</li>
+<li>** -O0 -O1 -O2 -O3 **：编译器的优化选项的4个级别，-O0表示没有优化,-O1为缺省值，-O3优化级别最高</li>
 </ul>
-<p>比如进行文件操作的时候我们可能会忘记操作后关闭文件（file close），使用<code>with open(filename, mode) as f</code>不需要我们手动关闭文件，不管处理文件中是否有异常出现，都能保证with语句执行完毕后关闭文件，有效防止资源泄露，安全多了。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># with 语句的一般格式</span></span><br><span class="line"><span class="keyword">with</span> context_expression [<span class="keyword">as</span> target(s)]:</span><br><span class="line">    <span class="keyword">with</span>-body</span><br></pre></td></tr></table></figure>
-<p><strong>在执行with-body会调用上下文管理器的__enter__方法，执行完with-body之后再调用上下文管理器的__exit__方法</strong></p>
     
   </div>
   
@@ -770,15 +922,62 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           
           <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
         
-        <time>2019-07-26</time>
+        <time>2018-12-03</time>
         
           <span class="dot"></span>
-          <a class="category-link" href="/categories/Python/">Python</a>
+          <a class="category-link" href="/categories/CPP/">CPP</a>
         
       </div>
       
         <div>
-          <a class='readmore' href='/2019/07/26/Python-%E8%87%AA%E5%AE%9A%E4%B9%89%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%A1%E7%90%86%E5%99%A8/'>
+          <a class='readmore' href='/2018/12/03/biu%E4%B8%80%E4%B8%8BGDB/'>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/2018/12/01/%E6%A0%87%E5%87%86%E5%BA%93%E5%AE%B9%E5%99%A8/">
+        标准库容器
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      <p><img src="https://i.imgur.com/T0WbcwD.png" class="lazyload" data-srcset="https://i.imgur.com/T0WbcwD.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+          
+          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
+        
+        <time>2018-12-01</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/CPP/">CPP</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2018/12/01/%E6%A0%87%E5%87%86%E5%BA%93%E5%AE%B9%E5%99%A8/'>
             阅读全文
           </a>
         </div>
@@ -805,7 +1004,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           </a>
         
         <p class="current">
-          8 / 22
+          8 / 13
         </p>
         
           <a class="next" rel="next" href="/page/9/">
@@ -918,7 +1117,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <div class="webinfo-item">
           <div>文章数目：</div>
-          <div>127 篇</div>
+          <div>128 篇</div>
         </div>
       
 
@@ -954,8 +1153,8 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         <div class="webinfo-item">
           <div>最后活动时间：</div>
           
-            <div id="last-update" style="display: none;">Sun Dec 26 2021 12:56:17 GMT+0000 (Coordinated Universal Time)</div>
-            <div id="last-update-show">2021-12-26 日</div>
+            <div id="last-update" style="display: none;">Sat Jan 01 2022 04:55:58 GMT+0000 (Coordinated Universal Time)</div>
+            <div id="last-update-show">2022-01-01 日</div>
           
         </div>
         
@@ -1005,7 +1204,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           try {
             document.getElementById('last-update-show').innerHTML = timeago(new Date(lastUpDate));
           } catch (error) {
-            document.getElementById('last-update-show').innerHTML = '2021-12-26 日';
+            document.getElementById('last-update-show').innerHTML = '2022-01-01 日';
           }
         </script>
         
@@ -1146,7 +1345,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           <li><a class="flat-box"
             title="/categories/blog/" href="/categories/blog/"
             id="categoriesblog"
-            ><div class='name'>blog</div><div class='badge'>(17)</div></a></li>
+            ><div class='name'>blog</div><div class='badge'>(18)</div></a></li>
         
           <li><a class="flat-box"
             title="/categories/docker/" href="/categories/docker/"

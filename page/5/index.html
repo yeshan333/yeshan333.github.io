@@ -483,16 +483,22 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     
     <h2 class="article-title" >
-      <a href="/2020/07/08/React-Hooks-%E9%82%A3%E4%BA%9B%E4%BA%8B%E5%84%BF/">
-        React Hooks 那些事儿
+      <a href="/2019/11/14/map-filter-reduce/">
+        map-filter-reduce
       </a>
     </h2>
   
   <div class='md'>
     
-      <p>翻了波之前写的文章还有笔记，发现关于前端的文章并不多（好歹也划水做过点前端开发）。巧了，最近没什么好话题可写，做下 React Hooks 学习笔记吧。</p>
-<h2 id="Effect-Hook"><a href="#Effect-Hook" class="headerlink" title="Effect Hook"></a>Effect Hook</h2><p>不得不说 Hook 的出现降低了我们在 React 中处理副作用（side effect）的心智负担，通过 useEffect 就可以很好的完成之前需要使用几个生命周期函数配合才能完成的事。</p>
-<h3 id="Effect-Hook-死循环请求问题"><a href="#Effect-Hook-死循环请求问题" class="headerlink" title="Effect Hook 死循环请求问题"></a>Effect Hook 死循环请求问题</h3><p>由于 Effect Hook 不熟「官方文档没读透」，最近使用 useEffect 出现了异步请求发送了无限次的问题，翻🚗了。我有个组件大概是这么写的：</p>
+      <blockquote>
+<p>听说函数式编程很⑥，咱也不知道，咱也不晓得，还没实际用过。emmm。。。。，先mark下Python中和函数式编程有关的部分功能先，又开始水了，立个flag🚩：慢慢完善</p>
+</blockquote>
+<h2 id="map"><a href="#map" class="headerlink" title="map"></a>map</h2><p>先看下Python官方文档的说法</p>
+<blockquote>
+<p>map(function, iterable, …)，返回一个将 function 应用于 iterable 中每一项并输出其结果的迭代器。 如果传入了额外的 iterable 参数，function 必须接受相同个数的实参并被应用于从所有可迭代对象中并行获取的项。</p>
+</blockquote>
+<p>见识一下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">cook</span>(<span class="params">something</span>):</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">if</span> something == <span class="string">&quot;cow&quot;</span>:</span><br><span class="line"><span class="meta">... </span>        <span class="keyword">return</span> <span class="string">&quot;hamburger&quot;</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">elif</span> something == <span class="string">&quot;tomato&quot;</span>:</span><br><span class="line"><span class="meta">... </span>        <span class="keyword">return</span> <span class="string">&quot;chips&quot;</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">elif</span> something == <span class="string">&quot;chicken&quot;</span>:</span><br><span class="line"><span class="meta">... </span>        <span class="keyword">return</span> <span class="string">&quot;ddrumstick&quot;</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">elif</span> something == <span class="string">&quot;corn&quot;</span>:</span><br><span class="line"><span class="meta">... </span>        <span class="keyword">return</span> <span class="string">&quot;popcorn&quot;</span></span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">list</span>(<span class="built_in">map</span>(cook, [<span class="string">&quot;cow&quot;</span>, <span class="string">&quot;tomato&quot;</span>, <span class="string">&quot;chicken&quot;</span>, <span class="string">&quot;corn&quot;</span>]))</span><br><span class="line">[<span class="string">&#x27;hamburger&#x27;</span>, <span class="string">&#x27;chips&#x27;</span>, <span class="string">&#x27;ddrumstick&#x27;</span>, <span class="string">&#x27;popcorn&#x27;</span>]</span><br></pre></td></tr></table></figure>
     
   </div>
   
@@ -502,15 +508,15 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           
           <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
         
-        <time>2020-07-08</time>
+        <time>2019-11-14</time>
         
           <span class="dot"></span>
-          <a class="category-link" href="/categories/React/">React</a>
+          <a class="category-link" href="/categories/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/">函数式编程</a>
         
       </div>
       
         <div>
-          <a class='readmore' href='/2020/07/08/React-Hooks-%E9%82%A3%E4%BA%9B%E4%BA%8B%E5%84%BF/'>
+          <a class='readmore' href='/2019/11/14/map-filter-reduce/'>
             阅读全文
           </a>
         </div>
@@ -532,18 +538,18 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     
     <h2 class="article-title" >
-      <a href="/2020/06/28/%E4%BD%BF%E7%94%A8docker-compose%E7%BC%96%E6%8E%92%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E5%BA%94%E7%94%A8/">
-        使用docker-compose编排前后端分离应用
+      <a href="/2019/10/27/clone%E5%90%8E%E5%A6%82%E4%BD%95checkout%E5%88%B0remote-branch/">
+        git clone后如何checkout到remote branch
       </a>
     </h2>
   
   <div class='md'>
     
-      <p>几个月过去了，是时候把当初的 <a target="_blank" rel="noopener" href="https://github.com/yeshan333/Flask-React-ToDoList#%E6%9B%B4%E6%96%B0%E8%AE%A1%E5%88%92">🚩</a> 干掉了。</p>
-<p>顺便提高下 docker 的熟练度，得闲看下原理🚩（假期看过，没总结…）。</p>
-<p>重装了波系统（Windows 2004 版本），这个版本下，Docker Desktop 是以 WSL2 为 backend 的，不用 Hyper -V 了，舒服了很多。</p>
-<p>细品了下（又摸鱼搞 DevOps），跑这个前后端分离项目需要到的容器还挺多，4 个左右（后端 REST 服务、数据库服务、前端服务），前端服务上了两个容器『貌似没必要』，一个用来过渡，一个跑挂着 SPA 的 Nginx。</p>
-<p>这次祭出了 Docker Compose，毕竟容器有点“小多”，单单用命令费劲。</p>
+      
+        what/why通常情况使用git clone github_repository_address下载下来的仓库使用git branch查看当前所有分支时只能看到master分支，但是想要切换到其他分支进行工作怎么办❓
+
+其实使用git clone下载的repository没那么简单😥，clone得到的是仓库所有的数据，不仅仅是复制在Github repository所能看到的master...
+      
     
   </div>
   
@@ -553,7 +559,219 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           
           <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
         
-        <time>2020-06-28</time>
+        <time>2019-10-27</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/Git/">Git</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2019/10/27/clone%E5%90%8E%E5%A6%82%E4%BD%95checkout%E5%88%B0remote-branch/'>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/2019/10/11/%E4%BD%BF%E7%94%A8Microsoft-Edge-Beta%E5%B0%86%E7%BD%91%E9%A1%B5%E5%8F%98%E6%88%90%E5%BA%94%E7%94%A8/">
+        使用Microsoft Edge Beta将网页变成应用
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      
+        
+今天无聊的我打开了装了很久都没用的Microsoft Edge Beta，一波乱戳，惊讶的发现Microsoft Edge Beta居然有将网页打包为应用的功能😂
+
+
+
+
+B站也有PC”客户端”了，真香😂
+
+      
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+          
+          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
+        
+        <time>2019-10-11</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/%E9%9A%8F%E7%AC%94/">随笔</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2019/10/11/%E4%BD%BF%E7%94%A8Microsoft-Edge-Beta%E5%B0%86%E7%BD%91%E9%A1%B5%E5%8F%98%E6%88%90%E5%BA%94%E7%94%A8/'>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/2019/10/02/%E7%AE%80%E5%8D%95%E4%BA%86%E8%A7%A3%E4%B8%8BPython%E5%86%85%E7%BD%AE%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E7%9A%84%E6%80%A7%E8%83%BD/">
+        简单感受下Python内置数据类型常用操作的性能
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      <h1 id="生成一个列表的几种方式的性能对比"><a href="#生成一个列表的几种方式的性能对比" class="headerlink" title="生成一个列表的几种方式的性能对比"></a>生成一个列表的几种方式的性能对比</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> timeit <span class="keyword">import</span> Timer</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 列表常用操作性能测试</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 迭代 + &#x27;+&#x27;</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test1</span>():</span></span><br><span class="line">    l = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1000</span>):</span><br><span class="line">        l = l + [i]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 迭代 + append</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test2</span>():</span></span><br><span class="line">    l = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1000</span>):</span><br><span class="line">        l.append(i)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 列表生成式</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test3</span>():</span></span><br><span class="line">    l = [i <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1000</span>)]</span><br><span class="line"></span><br><span class="line"><span class="comment"># list构造函数 + range</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test4</span>():</span></span><br><span class="line">    l = <span class="built_in">list</span>(<span class="built_in">range</span>(<span class="number">1000</span>))</span><br><span class="line"></span><br><span class="line">t1 = Timer(<span class="string">&quot;test1()&quot;</span>, <span class="string">&quot;from __main__ import test1&quot;</span>)</span><br><span class="line"><span class="comment"># print(&quot;concat %f seconds&quot; % t1.timeit(number=1000))</span></span><br><span class="line"></span><br><span class="line">t2 = Timer(<span class="string">&quot;test2()&quot;</span>, <span class="string">&quot;from __main__ import test2&quot;</span>)</span><br><span class="line"><span class="comment"># print(&quot;concat %f seconds&quot; % t2.timeit(number=1000))</span></span><br><span class="line"></span><br><span class="line">t3 = Timer(<span class="string">&quot;test3()&quot;</span>, <span class="string">&quot;from __main__ import test3&quot;</span>)</span><br><span class="line"><span class="comment"># print(&quot;concat %f seconds&quot; % t3.timeit(number=1000))</span></span><br><span class="line"></span><br><span class="line">t4 = Timer(<span class="string">&quot;test4()&quot;</span>, <span class="string">&quot;from __main__ import test4&quot;</span>)</span><br><span class="line"><span class="comment"># print(&quot;concat %f seconds&quot; % t4.timeit(number=1000))</span></span><br><span class="line"></span><br><span class="line">result = [t1.timeit(<span class="number">1000</span>), t2.timeit(<span class="number">1000</span>), t3.timeit(<span class="number">1000</span>), t4.timeit(<span class="number">1000</span>)]</span><br><span class="line">method = [<span class="string">&quot;for+ &#x27;+&#x27;&quot;</span>, <span class="string">&quot;for + append&quot;</span>, <span class="string">&quot;list comprehension&quot;</span>, <span class="string">&quot;list + range&quot;</span>]</span><br><span class="line"></span><br><span class="line">plt.bar(method, result, color=<span class="string">&#x27;rgby&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># plt.legend(&#x27;concat time&#x27;)</span></span><br><span class="line"><span class="comment"># print(zip(method, result))</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> x,y <span class="keyword">in</span> <span class="built_in">zip</span>(method, result):</span><br><span class="line">    plt.text(x, y, <span class="string">&quot;%fs&quot;</span> % y)</span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/ssmath/mypic/img/20191002194307.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/ssmath/mypic/img/20191002194307.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="Cost time"></p>
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+          
+          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
+        
+        <time>2019-10-02</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/Python/">Python</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2019/10/02/%E7%AE%80%E5%8D%95%E4%BA%86%E8%A7%A3%E4%B8%8BPython%E5%86%85%E7%BD%AE%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E7%9A%84%E6%80%A7%E8%83%BD/'>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/2019/09/02/Python%E7%8E%AF%E5%A2%83%E7%AE%A1%E7%90%86/">
+        Python环境管理与项目依赖管理
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      <blockquote>
+<p>个人简单记录下</p>
+</blockquote>
+<h1 id="virtualenv-pip"><a href="#virtualenv-pip" class="headerlink" title="virtualenv + pip"></a>virtualenv + pip</h1><blockquote>
+<p>virtualenv是一个用于创建”隔离的ython运行环境”的工具，<a target="_blank" rel="noopener" href="https://virtualenv.pypa.io/en/latest/">Docs</a><br>pip是Python的包管理工具，<a target="_blank" rel="noopener" href="https://pip.pypa.io/en/stable/">Docs</a></p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装virtualenv</span></span><br><span class="line">pip install virtualenv</span><br><span class="line"></span><br><span class="line"><span class="comment"># -------------------------------- #</span></span><br><span class="line"><span class="comment"># 虚拟环境的创建与使用</span></span><br><span class="line"><span class="comment"># 1、在当前工程目录下使用virtualenv创建一套独立的Python运行环境</span></span><br><span class="line">virtualenv venv  <span class="comment"># 环境名为venv（自由定义）</span></span><br><span class="line"><span class="comment"># 2、cd 到创建好的虚拟环境的Scripts目录，执行如下命令可激活或者退出虚拟环境</span></span><br><span class="line">activate    <span class="comment"># 激活，激活后命令提示符会变成当前工程目录Python环境名</span></span><br><span class="line">deactivate  <span class="comment"># 退出</span></span><br><span class="line"><span class="comment"># 3、激活虚拟环境后可使用pip为当前项目安装依赖，example：</span></span><br><span class="line">pip install numpy</span><br><span class="line"><span class="comment"># 4、使用pip freeze &gt; requirements.txt 可导出项目依赖到requirements.txt中</span></span><br><span class="line"><span class="comment"># 为项目创建一个新的、干净的环境时，可使用 pip install -r requiremen.txt 为项目安装依赖</span></span><br></pre></td></tr></table></figure>
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+          
+          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
+        
+        <time>2019-09-02</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/Python/">Python</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2019/09/02/Python%E7%8E%AF%E5%A2%83%E7%AE%A1%E7%90%86/'>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/2019/08/08/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+        docker学习笔记
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      <blockquote>
+<p><a target="_blank" rel="noopener" href="https://labs.play-with-docker.com/">Play With Docker一个免费使用的基于web界面的Docker环境</a></p>
+</blockquote>
+<h1 id="常用docker命令"><a href="#常用docker命令" class="headerlink" title="常用docker命令"></a>常用docker命令</h1><p><strong>可使用<code>docker COMMAND --help</code>查看命令的用法</strong></p>
+<h2 id="Docker镜像相关"><a href="#Docker镜像相关" class="headerlink" title="Docker镜像相关"></a>Docker镜像相关</h2><ul>
+<li>1、<code>docker image pull</code>：用于下载镜像，镜像从远程镜像仓库服务的仓库中下载，默认从Docker Hub的仓库中拉取</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 格式：docker pull [OPTIONS] NAME[:TAG|@DIGEST]</span></span><br><span class="line"><span class="comment"># 说明：如果给出tag，一般拉取latest，name一般为username/repository,digest为镜像摘要可不给出</span></span><br><span class="line">docker image pull ubuntu:latest</span><br><span class="line"><span class="comment"># 这个拉取标签为latest的ubuntu官方镜像，latest: Pulling from library/ubuntu，latest不一定是最新镜像</span></span><br></pre></td></tr></table></figure>
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+          
+          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
+        
+        <time>2019-08-08</time>
         
           <span class="dot"></span>
           <a class="category-link" href="/categories/docker/">docker</a>
@@ -561,7 +779,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       </div>
       
         <div>
-          <a class='readmore' href='/2020/06/28/%E4%BD%BF%E7%94%A8docker-compose%E7%BC%96%E6%8E%92%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E5%BA%94%E7%94%A8/'>
+          <a class='readmore' href='/2019/08/08/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
             阅读全文
           </a>
         </div>
@@ -583,17 +801,17 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     
     <h2 class="article-title" >
-      <a href="/2020/06/26/%E7%BB%99%20GitHub%20commit%20%E5%8A%A0%E4%B8%AA%E5%B0%8F%E7%BB%BF%E6%A0%87/">
-        给 GitHub commit 加个小绿标
+      <a href="/2019/08/07/%E5%87%A0%E4%B8%AA%E4%B8%8D%E9%94%99%E7%9A%84Jupyter%20Notebook%E4%BA%91%E7%AB%AF%E5%B1%95%E7%A4%BA%E5%B9%B3%E5%8F%B0/">
+        几个不错的Jupyter Notebook云端展示平台
       </a>
     </h2>
   
   <div class='md'>
     
-      <p>最近一波重装系统啥都没了，最常用的 Git 配置肯定得安排回来的。记得之前给 git 的 commit 加了个签名，回想下为什么要给 commit 做下签名？因为它能让 GitHub 的 commit 历史更帅？看下加签名之前是怎么样的：</p>
-<div class="gallery ">
-              <p><img src="https://s1.ax1x.com/2020/06/26/NstacQ.png" class="lazyload" data-srcset="https://s1.ax1x.com/2020/06/26/NstacQ.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="对commit进行签名前"></p>
-            </div>
+      <h1 id="jupyter-nbviewer"><a href="#jupyter-nbviewer" class="headerlink" title="jupyter nbviewer"></a>jupyter nbviewer</h1><p><a target="_blank" rel="noopener" href="https://nbviewer.jupyter.org/">URL:https://nbviewer.jupyter.org/</a></p>
+<p><img src="https://cdn.jsdelivr.net/gh/ssmath/mypic/img/20190807100641.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/ssmath/mypic/img/20190807100641.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>结合Github的示例用法：<a target="_blank" rel="noopener" href="https://nbviewer.jupyter.org/github/">https://nbviewer.jupyter.org/github/</a> + &lt;<code>用户名</code>或者<code>用户名/存放ipynb文件的仓库</code>或者<code>Gist ID</code>&gt;</p>
+<p>例如：<a target="_blank" rel="noopener" href="https://nbviewer.jupyter.org/github/yeshan333/JupyterNotebook-Show-sample">https://nbviewer.jupyter.org/github/yeshan333/JupyterNotebook-Show-sample</a></p>
     
   </div>
   
@@ -603,15 +821,15 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           
           <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
         
-        <time>2020-06-26</time>
+        <time>2019-08-07</time>
         
           <span class="dot"></span>
-          <a class="category-link" href="/categories/Git/">Git</a>
+          <a class="category-link" href="/categories/Python/">Python</a>
         
       </div>
       
         <div>
-          <a class='readmore' href='/2020/06/26/%E7%BB%99%20GitHub%20commit%20%E5%8A%A0%E4%B8%AA%E5%B0%8F%E7%BB%BF%E6%A0%87/'>
+          <a class='readmore' href='/2019/08/07/%E5%87%A0%E4%B8%AA%E4%B8%8D%E9%94%99%E7%9A%84Jupyter%20Notebook%E4%BA%91%E7%AB%AF%E5%B1%95%E7%A4%BA%E5%B9%B3%E5%8F%B0/'>
             阅读全文
           </a>
         </div>
@@ -633,130 +851,24 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     
     <h2 class="article-title" >
-      <a href="/2020/06/21/%E5%B0%86Web%E5%BA%94%E7%94%A8%E4%B8%A2%E7%BB%99%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B/">
-        将 Web 应用丢给守护进程
+      <a href="/2019/07/28/pdb-profile/">
+        pdb && cProfile
       </a>
     </h2>
   
   <div class='md'>
     
-      <p>最近老是要把 Web App/Service 部署在个人的服务器上进行测试，发现自己不怎么熟悉「前提：不上 docker ，逃~」，特写此文章来纪念下🤔👀（之前部署的  Web App/Service 都是丢给 <a target="_blank" rel="noopener" href="https://www.heroku.com/">Heroku</a>、<a target="_blank" rel="noopener" href="https://www.netlify.com/">Netlify</a>、GitHub 这样的 PaaS 平台运行，写个配置文件「action、yaml、toml」就完事了。自己整的玩意儿丢在自己服务器上跑的并不算多，今天费点劲，了解点基础设施。根据冰山模型，了解下 FaaS 能更好的了解 <a target="_blank" rel="noopener" href="https://shansan.top/knowledge-base/#/backend?id=iaas%e3%80%81paas%e3%80%81saas">PaaS</a>）。</p>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-          
-          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
-        
-        <time>2020-06-21</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Linux/">Linux</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2020/06/21/%E5%B0%86Web%E5%BA%94%E7%94%A8%E4%B8%A2%E7%BB%99%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/06/04/%E8%AF%91-%E9%80%9A%E8%BF%87-Git-%E5%92%8C-Angular-%E4%BA%86%E8%A7%A3%E8%AF%AD%E4%B9%89%E5%8C%96%E6%8F%90%E4%BA%A4%E4%BF%A1%E6%81%AF/">
-        (译)通过 Git 和 Angular 了解语义化提交信息
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <p>受传统提交规范和 Angular 约定的启发，让我们来解释语义化提交术语，并演示提交信息的实际示例。</p>
-<p>许多项目决定以某种约定方式来标准化它们的提交信息。这种做法并不是新出现的，但在最近几年中越来越多地得到了应用。而且很可能您已经在某些项目中遇到过这样的提交消息。</p>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-          
-          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
-        
-        <time>2020-06-04</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Git/">Git</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2020/06/04/%E8%AF%91-%E9%80%9A%E8%BF%87-Git-%E5%92%8C-Angular-%E4%BA%86%E8%A7%A3%E8%AF%AD%E4%B9%89%E5%8C%96%E6%8F%90%E4%BA%A4%E4%BF%A1%E6%81%AF/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/05/19/%E4%BA%86%E8%A7%A3%E4%B8%80%E6%B3%A2%E7%BB%8F%E5%85%B8%E7%9A%84-IO-%E6%A8%A1%E5%9E%8B/">
-        了解一波经典的 I/O 模型
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <p>最近读了波网络 I/O 相关的文章，做下总结、摘录。（未完）</p>
-<h2 id="经典-I-O-模型"><a href="#经典-I-O-模型" class="headerlink" title="经典 I/O 模型"></a>经典 I/O 模型</h2><ul>
-<li><div class='checkbox red checked'><input type="checkbox" checked="checked"/>
-            <p>阻塞式 I/O（blocking I/O）</p>
-            </div></li>
-<li><div class='checkbox red checked'><input type="checkbox" checked="checked"/>
-            <p>非阻塞式 I/O（non-blocking I/O）</p>
-            </div></li>
-<li><div class='checkbox red'><input type="checkbox" />
-            <p>I/O 多路复用（I/O multiplexing）</p>
-            </div></li>
-<li><div class='checkbox cyan'><input type="checkbox" />
-            <p>信号驱动式 I/O（signal driven I/O）</p>
-            </div></li>
-<li><div class='checkbox cyan'><input type="checkbox" />
-            <p>异步 I/O（asynchronous I/O）</p>
-            </div></li>
+      <h1 id="pdb"><a href="#pdb" class="headerlink" title="pdb"></a>pdb</h1><blockquote>
+<p><a target="_blank" rel="noopener" href="https://docs.python.org/zh-cn/3.7/library/pdb.html#module-pdb">https://docs.python.org/zh-cn/3.7/library/pdb.html#module-pdb</a></p>
+</blockquote>
+<h2 id="使用方式"><a href="#使用方式" class="headerlink" title="使用方式"></a>使用方式</h2><ul>
+<li>1、在命令行下直接运行调试</li>
 </ul>
-<h3 id="阻塞式-I-O-模型"><a href="#阻塞式-I-O-模型" class="headerlink" title="阻塞式 I/O 模型"></a>阻塞式 I/O 模型</h3><p>对于阻塞式 I/O，以套接字（Socket）的输入操作为例。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -m pdb test.py</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img.vim-cn.com/a2/72fea3f756ee8ece77496b3dcec3c7e4d2cd4c.png" class="lazyload" data-srcset="https://img.vim-cn.com/a2/72fea3f756ee8ece77496b3dcec3c7e4d2cd4c.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="示例"></p>
 <ul>
-<li>1、首先应用进程发起 I/O 系统调用后，应用进程阻塞，转到内核空间处理。</li>
-<li>2、之后，内核开始等待数据，等待数据到达之后，将内核中的数据拷贝到用户的缓冲区中，整个 I/O 处理完毕后返回进程。最后应用进程解除阻塞状态，处理数据。</li>
+<li>2、在需要被调试的代码中添加<code>import pdb</code>、<code>pdb.set_trace()</code>再运行代码进行调试</li>
 </ul>
     
   </div>
@@ -767,15 +879,129 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           
           <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
         
-        <time>2020-05-19</time>
+        <time>2019-07-28</time>
         
           <span class="dot"></span>
-          <a class="category-link" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a><span class="sep"></span><a class="category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+          <a class="category-link" href="/categories/Python/">Python</a>
         
       </div>
       
         <div>
-          <a class='readmore' href='/2020/05/19/%E4%BA%86%E8%A7%A3%E4%B8%80%E6%B3%A2%E7%BB%8F%E5%85%B8%E7%9A%84-IO-%E6%A8%A1%E5%9E%8B/'>
+          <a class='readmore' href='/2019/07/28/pdb-profile/'>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/2019/07/26/Python-%E8%87%AA%E5%AE%9A%E4%B9%89%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%A1%E7%90%86%E5%99%A8/">
+        Python-自定义上下文管理器
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      <h1 id="上下文管理器"><a href="#上下文管理器" class="headerlink" title="上下文管理器"></a>上下文管理器</h1><ul>
+<li>上下文管理器可以帮助我们自动分配和释放资源</li>
+<li>上下文管理器需要配合<strong>with语句</strong>使用</li>
+</ul>
+<p>比如进行文件操作的时候我们可能会忘记操作后关闭文件（file close），使用<code>with open(filename, mode) as f</code>不需要我们手动关闭文件，不管处理文件中是否有异常出现，都能保证with语句执行完毕后关闭文件，有效防止资源泄露，安全多了。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># with 语句的一般格式</span></span><br><span class="line"><span class="keyword">with</span> context_expression [<span class="keyword">as</span> target(s)]:</span><br><span class="line">    <span class="keyword">with</span>-body</span><br></pre></td></tr></table></figure>
+<p><strong>在执行with-body会调用上下文管理器的__enter__方法，执行完with-body之后再调用上下文管理器的__exit__方法</strong></p>
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+          
+          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
+        
+        <time>2019-07-26</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/Python/">Python</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2019/07/26/Python-%E8%87%AA%E5%AE%9A%E4%B9%89%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%A1%E7%90%86%E5%99%A8/'>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/2019/07/19/Python%E5%8D%8F%E7%A8%8B%EF%BC%88Coroutine%EF%BC%89/">
+        Python协程-asyncio、async/await
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      <blockquote>
+<p>看到吐血 <em>(´ཀ`」 ∠)</em></p>
+</blockquote>
+<ul>
+<li>协程(Coroutine)本质上是一个函数，特点是在代码块中可以将执行权交给其他协程</li>
+<li>众所周知，子程序（函数）都是层级调用的，如果在A中调用了B，那么B执行完毕返回后A才能执行完毕。<strong>协程与子程序有点类似，但是它在执行过程中可以中断，转而执行其他的协程，在适当的时候再回来继续执行。</strong></li>
+<li>协程与多线程相比的最大优势在于：协程是一个线程中执行，没有线程切换的开销；协程由用户决定在哪里交出控制权</li>
+<li>这里用到的是asyncio库(Python 3.7)，这个库包含了大部分实现协程的魔法工具<ul>
+<li>使用 async 修饰词声明异步函数</li>
+<li>使用 await 语句执行可等待对象（Coroutine、Task、Future）</li>
+<li>使用 asyncio.create_task 创建任务，将异步函数（协程）作为参数传入，等待<a target="_blank" rel="noopener" href="https://docs.python.org/3/library/asyncio-eventloop.html">event loop</a>执行</li>
+<li>使用 asyncio.run 函数运行协程程序，协程函数作为参数传入</li>
+</ul>
+</li>
+</ul>
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+          
+          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
+        
+        <time>2019-07-19</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/Python/">Python</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2019/07/19/Python%E5%8D%8F%E7%A8%8B%EF%BC%88Coroutine%EF%BC%89/'>
             阅读全文
           </a>
         </div>
@@ -802,7 +1028,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           </a>
         
         <p class="current">
-          5 / 22
+          5 / 13
         </p>
         
           <a class="next" rel="next" href="/page/6/">
@@ -915,7 +1141,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <div class="webinfo-item">
           <div>文章数目：</div>
-          <div>127 篇</div>
+          <div>128 篇</div>
         </div>
       
 
@@ -951,8 +1177,8 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         <div class="webinfo-item">
           <div>最后活动时间：</div>
           
-            <div id="last-update" style="display: none;">Sun Dec 26 2021 12:56:17 GMT+0000 (Coordinated Universal Time)</div>
-            <div id="last-update-show">2021-12-26 日</div>
+            <div id="last-update" style="display: none;">Sat Jan 01 2022 04:55:58 GMT+0000 (Coordinated Universal Time)</div>
+            <div id="last-update-show">2022-01-01 日</div>
           
         </div>
         
@@ -1002,7 +1228,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           try {
             document.getElementById('last-update-show').innerHTML = timeago(new Date(lastUpDate));
           } catch (error) {
-            document.getElementById('last-update-show').innerHTML = '2021-12-26 日';
+            document.getElementById('last-update-show').innerHTML = '2022-01-01 日';
           }
         </script>
         
@@ -1143,7 +1369,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           <li><a class="flat-box"
             title="/categories/blog/" href="/categories/blog/"
             id="categoriesblog"
-            ><div class='name'>blog</div><div class='badge'>(17)</div></a></li>
+            ><div class='name'>blog</div><div class='badge'>(18)</div></a></li>
         
           <li><a class="flat-box"
             title="/categories/docker/" href="/categories/docker/"

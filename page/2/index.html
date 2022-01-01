@@ -480,165 +480,6 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
   
   
-  
-    
-    <h2 class="article-title" >
-      <a href="/2021/09/25/common-use-linux-network-command/">
-        常用的 Linux 网络相关的命令
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <p>水文警告⚠😂，最近这些玩意用得多，微微记录一下，目前写的比较水，后面应该会补点实践经验🚩。</p>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-          
-          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
-        
-        <time>2021-09-25</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Linux/">Linux</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2021/09/25/common-use-linux-network-command/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-    <div class='headimg-div'>
-      <a class='headimg-a' href="/2021/08/28/prometheus-federation/">
-        <img class='headimg' src='https://z3.ax1x.com/2021/08/29/hG9wK1.png'/>
-      </a>
-    </div>
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2021/08/28/prometheus-federation/">
-        基于 Docker 搭建一个最小化的 Prometheus Federation「联邦」集群
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <blockquote>
-<p>一不小心就八月末了，我敲，最近大部分的时间都在了解 Prometheus，一直想“搂”篇文章出来，奈何一直在墨迹，是时候了，不然就九月了，完不成博客的 Flag 了，233333。</p>
-</blockquote>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本篇文章主要介绍了 Promethues Federation 集群化机制 &amp; 基于 Docker 搭建一个最小化的 Prometheus Federation 集群娱乐环境的相关操作。不是 Step By Step 的。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/yeshan333/blog_images@main/images/%E4%B9%B1%E6%9D%80.gif" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/yeshan333/blog_images@main/images/%E4%B9%B1%E6%9D%80.gif" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="乱杀"></p>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-          
-          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
-        
-        <time>2021-08-28</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Monitoring/">Monitoring</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2021/08/28/prometheus-federation/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-    <div class='headimg-div'>
-      <a class='headimg-a' href="/2021/07/10/checksum-gpg-tools/">
-        <img class='headimg' src='https://z3.ax1x.com/2021/07/11/W9bniR.png'/>
-      </a>
-    </div>
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2021/07/10/checksum-gpg-tools/">
-        对下载软件/文件进行校验的工具（Checksum and GPG）
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>之前装软件一直都没有验证安装文件的习惯，信息安全意识不高，碰巧最近没啥事，微微写篇文章记录下校验工具（互联网http、https、ftp 服务并没有那么安全，是可以被劫持篡改。老装软件选手了，是该养成个校验文件的习惯了）。</p>
-<p>在互联网下载软件/文件的时候经常会看到官方提供了一段⌈校验和（checksum）⌋或包含校验和的文件供校验。常见的校验和有 md5、SHA 家族等。还有部分软件/文件会提供 GPG 校验文件（signature file, SIG）给下载者进行校验。</p>
-<p>来看看这两种校验方式相关的工具。</p>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-          
-          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
-        
-        <time>2021-07-10</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Cryptography/">Cryptography</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2021/07/10/checksum-gpg-tools/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
     <div class='headimg-div'>
       <a class='headimg-a' href="/2021/06/29/osmosfeed-rss-reader/">
         <img class='headimg' src='https://cdn.jsdelivr.net/gh/ssmath/mypic/you%20really%20need%20rss.png'/>
@@ -797,6 +638,386 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           </div>
         
       
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+    <div class='headimg-div'>
+      <a class='headimg-a' href="/2021/04/25/enjoy-wslg/">
+        <img class='headimg' src='https://z3.ax1x.com/2021/04/25/cz309s.png'/>
+      </a>
+    </div>
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/2021/04/25/enjoy-wslg/">
+        Windows Insiders WSLg Linux GUI App 支持尝鲜
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      <p>2021 年 4 月 21 日，微软在 Developer Blogs 发布了 Windows 预览版 WSL（Windows Linux 子系统） 对 Linux GUI App 的支持的<a target="_blank" rel="noopener" href="https://devblogs.microsoft.com/commandline/the-initial-preview-of-gui-app-support-is-now-available-for-the-windows-subsystem-for-linux-2">公告🔗</a>，碰巧😀我最近重装了波电脑，系统换成了 Windows Insiders（Dev），正好可以感受波 Linux GUI App 的支持。btw，预览版的文件管理器支持访问 WSL 的文件了，6~ 的。</p>
+<div class="gallery ">
+              <p><img src="https://z3.ax1x.com/2021/04/25/czJUAO.png" class="lazyload" data-srcset="https://z3.ax1x.com/2021/04/25/czJUAO.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="Windows new icons"></p>
+            </div>
+
+<p>WSL 现在居然支持跑 Linux 图形应用了，真香（😎，虽然上一年 WSL 的 <a target="_blank" rel="noopener" href="https://devblogs.microsoft.com/commandline/the-windows-subsystem-for-linux-build-2020-summary/#wsl-gui">Roadmap</a> 中有说过要支持，但我没关注，老二手知识党了）。Quickstart -&gt;</p>
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+          
+          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
+        
+        <time>2021-04-25</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/WSL/">WSL</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2021/04/25/enjoy-wslg/'>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/2021/03/10/git-submodules/">
+        初探 Git Submodules
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      <p>之前一直想将一个 Git 仓库放到另一个 Git 仓库，有 Maven 多模块项目（Maven Multimodule Project）和 Gradle 多项目构建（Gradle Multiproject Build）那味儿。Git 这么骚，肯定也可以。“扫”了多个开源仓库，Get 到了 Git <code>submodule</code> 可以做这种操作，水篇文章记录波。</p>
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+          
+          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
+        
+        <time>2021-03-10</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/Git/">Git</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2021/03/10/git-submodules/'>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+    <div class='headimg-div'>
+      <a class='headimg-a' href="/2021/01/19/hexo-blog-synchronization-with-rsync/">
+        <img class='headimg' src='https://s3.ax1x.com/2021/01/20/sfyNy4.png'/>
+      </a>
+    </div>
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/2021/01/19/hexo-blog-synchronization-with-rsync/">
+        使用 rsync-deploy-action 同步 Hexo 博客到个人服务器
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      <p>前几天写了个基于 rsync 进行文件同步的 Action -&gt; <a target="_blank" rel="noopener" href="https://github.com/yeshan333/rsync-deploy-action">rsync-deploy-action</a>。目的有三个：</p>
+<ul>
+<li>1、深入了解波 <a target="_blank" rel="noopener" href="https://docs.github.com/en/actions/creating-actions">GitHub Actions</a>，感受下 GitHub 的文档；</li>
+<li>2、个人博客在我的腾讯云 CVM 服务器上是部署有一份的「域名：<a target="_blank" rel="noopener" href="https://shan333.cn/">shan333.cn</a>」，之前的博客同步方式是通过 Linux 的定时任务，觉得不太行，当前博客的更新并没有那么频繁，没必要每隔几个小时就 <code>git pull</code> 一下，且服务器还挂着其他东西，性能还是有点损耗的，换成通过 rsync 进行主动推送的方式好点；</li>
+<li>3、熟悉波 SSH 协议和 rsync 协议。</li>
+</ul>
+<p>今天撸一篇文章简单记录下这次折腾。</p>
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+          
+          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
+        
+        <time>2021-01-19</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/DevOps/">DevOps</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2021/01/19/hexo-blog-synchronization-with-rsync/'>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/2021/01/06/2020-annual-reviewed/">
+        关注思考的过程，终将更加卓越 | 2020 年总结
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      <p><img src="https://s3.ax1x.com/2021/01/07/sZGi24.png" class="lazyload" data-srcset="https://s3.ax1x.com/2021/01/07/sZGi24.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="2021 new chapter"></p>
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+          
+          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
+        
+        <time>2021-01-06</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/blog/">blog</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2021/01/06/2020-annual-reviewed/'>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+    <div class='headimg-div'>
+      <a class='headimg-a' href="/2021/01/01/2021-new-year/">
+        <img class='headimg' src='https://s3.ax1x.com/2020/12/31/rvR7lj.png'/>
+      </a>
+    </div>
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/2021/01/01/2021-new-year/">
+        2021 Happy New Year
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      
+        
+
+      
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+          
+          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
+        
+        <time>2021-01-01</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/blog/">blog</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2021/01/01/2021-new-year/'>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/2020/12/13/%E8%80%8D%E4%B8%80%E4%B8%8BKafka/">
+        简单耍一下-Kafka
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      <blockquote>
+<p>趁着毕设初期，还能摸会儿🐟，了解波 Kafka。</p>
+</blockquote>
+<h2 id="Kafka-术语一览"><a href="#Kafka-术语一览" class="headerlink" title="Kafka 术语一览"></a>Kafka 术语一览</h2><blockquote>
+<p>Kafka，分布式消息引擎系统，主要功能是提供一套完备的消息发布与订阅解决方案。Kafka 也是一个分布式的、分区的、多副本的多订阅者，基于 Zookeeper 协调的分布式日志系统，可用于处理 Web 日志和消息服务。</p>
+</blockquote>
+<ul>
+<li>Topic：主题，承载消息（Record）的逻辑容器，每条发布到 Kafka 集群的消息都归属于某一个 Topic，实际应用中，不同的 topic 对应着不同的业务；</li>
+<li>Broker：Kafka 服务进程，一个 Kafka 集群由多个 Broker 服务进程组成，虽然多个 Broker 可在同一服务器上进行部署，但为了高可用，会将不同的 Broker 部署在不同的机器上；</li>
+<li>Partition：分区，一组有序的消息序列，一个 Topic 可以有多个分区，同一 Topic 下的 Partition 可以分布在不同的 Broker 中。Producer 生产的每一条消息都会被放到一个 Partition 中，每条消息在 Partition 中的位置信息由一个 Offset（偏移量）数据表征。Kafka 通过偏移量（Offset）来保证消息在分区内的顺序性；</li>
+</ul>
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+          
+          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
+        
+        <time>2020-12-13</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/">中间件</a><span class="sep"></span><a class="category-link" href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/Kafka/">Kafka</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2020/12/13/%E8%80%8D%E4%B8%80%E4%B8%8BKafka/'>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+    <div class='headimg-div'>
+      <a class='headimg-a' href="/2020/11/15/%E4%BD%BF%E7%94%A8tcpdump%E5%92%8Cwireshark%E7%9C%8B%E4%B8%8BTCP%E6%8F%A1%E6%89%8B/">
+        <img class='headimg' src='https://cdn.jsdelivr.net/gh/ssmath/picgo-pic/img/20201115174718.png'/>
+      </a>
+    </div>
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/2020/11/15/%E4%BD%BF%E7%94%A8tcpdump%E5%92%8Cwireshark%E7%9C%8B%E4%B8%8BTCP%E6%8F%A1%E6%89%8B/">
+        使用tcpdump和Wireshark看下TCP握手
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      <p>tcpdump 和 Wireshark 是最常用的网络抓包和分析工具，作为经常和网络打交道的划水选手，怎么能不了解下呢？补篇博文回顾下相关操作。这里以 example.com 的一次 GET 请求为例，先使用 tcpdump 抓个包，再使用 Wireshark 看下 TCP 的握手。</p>
+<blockquote>
+<p>操作环境：WSL2(Ubuntu 20.04 LTS) + Windows 10</p>
+</blockquote>
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+          
+          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
+        
+        <time>2020-11-15</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2020/11/15/%E4%BD%BF%E7%94%A8tcpdump%E5%92%8Cwireshark%E7%9C%8B%E4%B8%8BTCP%E6%8F%A1%E6%89%8B/'>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
     
   </section>
   
@@ -811,7 +1032,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           </a>
         
         <p class="current">
-          2 / 22
+          2 / 13
         </p>
         
           <a class="next" rel="next" href="/page/3/">
@@ -924,7 +1145,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <div class="webinfo-item">
           <div>文章数目：</div>
-          <div>127 篇</div>
+          <div>128 篇</div>
         </div>
       
 
@@ -960,8 +1181,8 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         <div class="webinfo-item">
           <div>最后活动时间：</div>
           
-            <div id="last-update" style="display: none;">Sun Dec 26 2021 12:56:17 GMT+0000 (Coordinated Universal Time)</div>
-            <div id="last-update-show">2021-12-26 日</div>
+            <div id="last-update" style="display: none;">Sat Jan 01 2022 04:55:58 GMT+0000 (Coordinated Universal Time)</div>
+            <div id="last-update-show">2022-01-01 日</div>
           
         </div>
         
@@ -1011,7 +1232,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           try {
             document.getElementById('last-update-show').innerHTML = timeago(new Date(lastUpDate));
           } catch (error) {
-            document.getElementById('last-update-show').innerHTML = '2021-12-26 日';
+            document.getElementById('last-update-show').innerHTML = '2022-01-01 日';
           }
         </script>
         
@@ -1152,7 +1373,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           <li><a class="flat-box"
             title="/categories/blog/" href="/categories/blog/"
             id="categoriesblog"
-            ><div class='name'>blog</div><div class='badge'>(17)</div></a></li>
+            ><div class='name'>blog</div><div class='badge'>(18)</div></a></li>
         
           <li><a class="flat-box"
             title="/categories/docker/" href="/categories/docker/"
