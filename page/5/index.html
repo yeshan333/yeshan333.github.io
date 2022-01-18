@@ -515,6 +515,59 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     
     <h2 class="article-title" >
+      <a href="/2019/11/25/Serialization-and-Deserialization/">
+        Serialization and Deserialization
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      <h1 id="序列化与反序列化"><a href="#序列化与反序列化" class="headerlink" title="序列化与反序列化"></a>序列化与反序列化</h1><blockquote>
+<p>Serialization：Data Structure/Object –&gt; Binary String<br>Deserialization：Binary String –&gt; Data Structure/Object<br>Goals：Cross-platform Communication、Persistent Storage and More</p>
+</blockquote>
+<h1 id="Python中对象的序列化与反序列化"><a href="#Python中对象的序列化与反序列化" class="headerlink" title="Python中对象的序列化与反序列化"></a>Python中对象的序列化与反序列化</h1><h2 id="pickle-module"><a href="#pickle-module" class="headerlink" title="pickle module"></a>pickle module</h2><blockquote>
+<p>pickle 仅可用于 Python，pickle所使用的数据流格式仅可用于 Python<br>pickle 模块可以将复杂对象转换为字节流，也可以将字节流转换为具有相同内部结构的对象。<br>可被pickling和unpickling的对象：<a target="_blank" rel="noopener" href="https://docs.python.org/zh-cn/3/library/pickle.html#what-can-be-pickled-and-unpickled">https://docs.python.org/zh-cn/3/library/pickle.html#what-can-be-pickled-and-unpickled</a></p>
+</blockquote>
+<p>pickle提供了优秀的方法方便我们对对象进行pickling（封存）和unpickling（解封）</p>
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+          
+          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
+        
+        <time>2019-11-25</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/Python/">Python</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2019/11/25/Serialization-and-Deserialization/'>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
       <a href="/2019/11/14/map-filter-reduce/">
         map-filter-reduce
       </a>
@@ -985,67 +1038,6 @@ B站也有PC”客户端”了，真香😂
           </div>
         
       
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2019/07/19/Python%E5%8D%8F%E7%A8%8B%EF%BC%88Coroutine%EF%BC%89/">
-        Python协程-asyncio、async/await
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <blockquote>
-<p>看到吐血 <em>(´ཀ`」 ∠)</em></p>
-</blockquote>
-<ul>
-<li>协程(Coroutine)本质上是一个函数，特点是在代码块中可以将执行权交给其他协程</li>
-<li>众所周知，子程序（函数）都是层级调用的，如果在A中调用了B，那么B执行完毕返回后A才能执行完毕。<strong>协程与子程序有点类似，但是它在执行过程中可以中断，转而执行其他的协程，在适当的时候再回来继续执行。</strong></li>
-<li>协程与多线程相比的最大优势在于：协程是一个线程中执行，没有线程切换的开销；协程由用户决定在哪里交出控制权</li>
-<li>这里用到的是asyncio库(Python 3.7)，这个库包含了大部分实现协程的魔法工具<ul>
-<li>使用 async 修饰词声明异步函数</li>
-<li>使用 await 语句执行可等待对象（Coroutine、Task、Future）</li>
-<li>使用 asyncio.create_task 创建任务，将异步函数（协程）作为参数传入，等待<a target="_blank" rel="noopener" href="https://docs.python.org/3/library/asyncio-eventloop.html">event loop</a>执行</li>
-<li>使用 asyncio.run 函数运行协程程序，协程函数作为参数传入</li>
-</ul>
-</li>
-</ul>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-          
-          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
-        
-        <time>2019-07-19</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Python/">Python</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2019/07/19/Python%E5%8D%8F%E7%A8%8B%EF%BC%88Coroutine%EF%BC%89/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
     
   </section>
   
@@ -1173,7 +1165,7 @@ B站也有PC”客户端”了，真香😂
       
         <div class="webinfo-item">
           <div>文章数目：</div>
-          <div>128 篇</div>
+          <div>129 篇</div>
         </div>
       
 
@@ -1209,8 +1201,8 @@ B站也有PC”客户端”了，真香😂
         <div class="webinfo-item">
           <div>最后活动时间：</div>
           
-            <div id="last-update" style="display: none;">Mon Jan 17 2022 14:44:25 GMT+0000 (Coordinated Universal Time)</div>
-            <div id="last-update-show">2022-01-17 日</div>
+            <div id="last-update" style="display: none;">Tue Jan 18 2022 15:31:37 GMT+0000 (Coordinated Universal Time)</div>
+            <div id="last-update-show">2022-01-18 日</div>
           
         </div>
         
@@ -1260,7 +1252,7 @@ B站也有PC”客户端”了，真香😂
           try {
             document.getElementById('last-update-show').innerHTML = timeago(new Date(lastUpDate));
           } catch (error) {
-            document.getElementById('last-update-show').innerHTML = '2022-01-17 日';
+            document.getElementById('last-update-show').innerHTML = '2022-01-18 日';
           }
         </script>
         
