@@ -15,30 +15,8 @@
     <atom:link href="https://yeshan333.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>ShanSan&#39;s Blog</description>
-    <pubDate>Tue, 18 Jan 2022 23:24:04 GMT</pubDate>
+    <pubDate>Sat, 01 Jan 2022 12:55:00 GMT</pubDate>
     <generator>http://hexo.io/</generator>
-    
-    <item>
-      <title>碎了啊，快要破了 &amp; 现实与虚妄间徘徊</title>
-      <link>https://yeshan333.github.io/2022/01/18/broken-heart/</link>
-      <guid>https://yeshan333.github.io/2022/01/18/broken-heart/</guid>
-      <pubDate>Tue, 18 Jan 2022 23:24:04 GMT</pubDate>
-      
-      <description>&lt;p&gt;其实没有谁都是容易的呀，笑容和善良的背后是什么？一片本身就浑浊的答案。&lt;/p&gt;
-&lt;p&gt;只要平凡 - 张杰&amp;amp;张碧晨&lt;br&gt;(电影《我不是药神》主题曲)&lt;br&gt;作词：格格&lt;br&gt;作曲：黄超&lt;br&gt;也许很远或是昨天&lt;br&gt;在这里或在对岸&lt;br&gt;长路辗转离合悲欢&lt;br&gt;人聚又人散&lt;br&gt;放过对错才知答案&lt;br&gt;活着的勇敢&lt;br&gt;没有神的光环&lt;br&gt;你我生而平凡&lt;br&gt;在心碎中认清遗憾&lt;br&gt;生命漫长也短暂&lt;br&gt;跳动心脏长出藤蔓&lt;br&gt;愿为险而战&lt;br&gt;跌入灰暗坠入深渊&lt;br&gt;沾满泥土的脸&lt;br&gt;没有神的光环&lt;br&gt;握紧手中的平凡&lt;br&gt;此心此生无憾&lt;br&gt;生命的火已点燃&lt;br&gt;有一天也许会走远&lt;br&gt;也许还能再相见&lt;br&gt;无论在人群在天边&lt;br&gt;让我再看清你的脸&lt;br&gt;任泪水铺满了双眼&lt;br&gt;虽无言泪满面&lt;br&gt;不要神的光环&lt;br&gt;只要你的平凡&lt;/p&gt;</description>
-      
-      
-      
-      
-      <category domain="https://yeshan333.github.io/categories/blog/">blog</category>
-      
-      
-      <category domain="https://yeshan333.github.io/tags/blog/">blog</category>
-      
-      
-      <comments>https://yeshan333.github.io/2022/01/18/broken-heart/#disqus_thread</comments>
-      
-    </item>
     
     <item>
       <title>2021 | 肆意随心</title>
@@ -98,13 +76,13 @@
 &lt;!-- 我们都一样 --&gt;
 
 
-    &lt;div id=&quot;aplayer-CqLmMXgF&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+    &lt;div id=&quot;aplayer-avCYmgtq&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
          data-id=&quot;1340001174&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;true&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
     &gt;&lt;/div&gt;
 
 
 
-    &lt;div id=&quot;aplayer-QSJgfwqf&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+    &lt;div id=&quot;aplayer-bBDSaydv&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
          data-id=&quot;191252&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;false&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
     &gt;&lt;/div&gt;</description>
       
@@ -546,6 +524,36 @@
       
       
       <comments>https://yeshan333.github.io/2020/12/13/%E8%80%8D%E4%B8%80%E4%B8%8BKafka/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>使用tcpdump和Wireshark看下TCP握手</title>
+      <link>https://yeshan333.github.io/2020/11/15/%E4%BD%BF%E7%94%A8tcpdump%E5%92%8Cwireshark%E7%9C%8B%E4%B8%8BTCP%E6%8F%A1%E6%89%8B/</link>
+      <guid>https://yeshan333.github.io/2020/11/15/%E4%BD%BF%E7%94%A8tcpdump%E5%92%8Cwireshark%E7%9C%8B%E4%B8%8BTCP%E6%8F%A1%E6%89%8B/</guid>
+      <pubDate>Sun, 15 Nov 2020 15:52:13 GMT</pubDate>
+      
+      <description>&lt;p&gt;tcpdump 和 Wireshark 是最常用的网络抓包和分析工具，作为经常和网络打交道的划水选手，怎么能不了解下呢？补篇博文回顾下相关操作。这里以 example.com 的一次 GET 请求为例，先使用 tcpdump 抓个包，再使用 Wireshark 看下 TCP 的握手。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;操作环境：WSL2(Ubuntu 20.04 LTS) + Windows 10&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+      
+      
+      
+      
+      <category domain="https://yeshan333.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</category>
+      
+      
+      <category domain="https://yeshan333.github.io/tags/Wireshark/">Wireshark</category>
+      
+      <category domain="https://yeshan333.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E8%B7%AF/">计算机网路</category>
+      
+      <category domain="https://yeshan333.github.io/tags/TCP/">TCP</category>
+      
+      <category domain="https://yeshan333.github.io/tags/tcpdump/">tcpdump</category>
+      
+      
+      <comments>https://yeshan333.github.io/2020/11/15/%E4%BD%BF%E7%94%A8tcpdump%E5%92%8Cwireshark%E7%9C%8B%E4%B8%8BTCP%E6%8F%A1%E6%89%8B/#disqus_thread</comments>
       
     </item>
     
