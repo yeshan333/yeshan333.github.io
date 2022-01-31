@@ -592,6 +592,11 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <h2 id="复制状态机（Replicated-State-Machine）"><a href="#复制状态机（Replicated-State-Machine）" class="headerlink" title="复制状态机（Replicated State Machine）"></a>复制状态机（Replicated State Machine）</h2><p>在分布式系统领域，状态机被用于保证节点状态的一致性，分布式系统一致性算法是基于复制状态机（Replicated State Machine）提出来的。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/yeshan333/jsDelivrCDN@main/Figure-1-Replicated-state-machine-architecture.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/yeshan333/jsDelivrCDN@main/Figure-1-Replicated-state-machine-architecture.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="复制状态机架构"></p>
 <p>每一个 Server 节点都会有一个状态机，这个状态机的输入来源为一份储存着命令序列的日志，对于相同的命令输入，每个节点状态机（确定有限自动机 DFA，Deterministic Finite Automata）的输出是确定的、相同的。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://knowledge-sharing.gitbooks.io/raft/content/chapter2.html">复制状态机</a></li>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Finite-state_machine">Finite-state machine</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/double12gzh/p/13621445.html">使用 Golang 实现状态机</a></li>
+</ul>
 
   
   
@@ -806,7 +811,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%89%E9%99%90%E7%8A%B6%E6%80%81%E6%9C%BA%EF%BC%88Finite-State-Machine%EF%BC%89"><span class="toc-text">有限状态机（Finite State Machine）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Go-%E5%AE%9E%E7%8E%B0%E6%97%8B%E8%BD%AC%E9%97%A8%E7%9A%84-FSM"><span class="toc-text">Go 实现旋转门的 FSM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FSM-%E5%BA%94%E7%94%A8-%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90"><span class="toc-text">FSM 应用-词法分析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%8D%E5%88%B6%E7%8A%B6%E6%80%81%E6%9C%BA%EF%BC%88Replicated-State-Machine%EF%BC%89"><span class="toc-text">复制状态机（Replicated State Machine）</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%89%E9%99%90%E7%8A%B6%E6%80%81%E6%9C%BA%EF%BC%88Finite-State-Machine%EF%BC%89"><span class="toc-text">有限状态机（Finite State Machine）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Go-%E5%AE%9E%E7%8E%B0%E6%97%8B%E8%BD%AC%E9%97%A8%E7%9A%84-FSM"><span class="toc-text">Go 实现旋转门的 FSM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FSM-%E5%BA%94%E7%94%A8-%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90"><span class="toc-text">FSM 应用-词法分析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%8D%E5%88%B6%E7%8A%B6%E6%80%81%E6%9C%BA%EF%BC%88Replicated-State-Machine%EF%BC%89"><span class="toc-text">复制状态机（Replicated State Machine）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol>
     </div>
   </section>
 
