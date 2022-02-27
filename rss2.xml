@@ -15,8 +15,45 @@
     <atom:link href="https://yeshan333.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>ShanSan&#39;s Blog</description>
-    <pubDate>Mon, 31 Jan 2022 17:32:51 GMT</pubDate>
+    <pubDate>Sat, 26 Feb 2022 22:54:38 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>profiling &amp; Flame Graphs</title>
+      <link>https://yeshan333.github.io/2022/02/26/profiling-flame-graph/</link>
+      <guid>https://yeshan333.github.io/2022/02/26/profiling-flame-graph/</guid>
+      <pubDate>Sat, 26 Feb 2022 22:54:38 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot;</description>
+          
+        
+      
+      
+      
+      
+      <category domain="https://yeshan333.github.io/categories/Performance/">Performance</category>
+      
+      <category domain="https://yeshan333.github.io/categories/Performance/Profiling/">Profiling</category>
+      
+      
+      <category domain="https://yeshan333.github.io/tags/React/">React</category>
+      
+      <category domain="https://yeshan333.github.io/tags/Elixir/">Elixir</category>
+      
+      <category domain="https://yeshan333.github.io/tags/Go/">Go</category>
+      
+      <category domain="https://yeshan333.github.io/tags/Profiling/">Profiling</category>
+      
+      <category domain="https://yeshan333.github.io/tags/Flame-Graphs/">Flame Graphs</category>
+      
+      
+      <comments>https://yeshan333.github.io/2022/02/26/profiling-flame-graph/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>状态机的一点儿事（fsm-smr-dfsm）</title>
@@ -107,13 +144,13 @@
 &lt;!-- 我们都一样 --&gt;
 
 
-    &lt;div id=&quot;aplayer-dzDpZFLf&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+    &lt;div id=&quot;aplayer-PqoeIWHP&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
          data-id=&quot;1340001174&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;true&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
     &gt;&lt;/div&gt;
 
 
 
-    &lt;div id=&quot;aplayer-EpLHOMOy&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+    &lt;div id=&quot;aplayer-Nbjmsdmy&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
          data-id=&quot;191252&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;false&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
     &gt;&lt;/div&gt;</description>
       
@@ -518,43 +555,6 @@
       
       
       <comments>https://yeshan333.github.io/2021/01/01/2021-new-year/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>简单耍一下-Kafka</title>
-      <link>https://yeshan333.github.io/2020/12/13/%E8%80%8D%E4%B8%80%E4%B8%8BKafka/</link>
-      <guid>https://yeshan333.github.io/2020/12/13/%E8%80%8D%E4%B8%80%E4%B8%8BKafka/</guid>
-      <pubDate>Sun, 13 Dec 2020 20:30:14 GMT</pubDate>
-      
-      <description>&lt;blockquote&gt;
-&lt;p&gt;趁着毕设初期，还能摸会儿🐟，了解波 Kafka。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id=&quot;Kafka-术语一览&quot;&gt;&lt;a href=&quot;#Kafka-术语一览&quot; class=&quot;headerlink&quot; title=&quot;Kafka 术语一览&quot;&gt;&lt;/a&gt;Kafka 术语一览&lt;/h2&gt;&lt;blockquote&gt;
-&lt;p&gt;Kafka，分布式消息引擎系统，主要功能是提供一套完备的消息发布与订阅解决方案。Kafka 也是一个分布式的、分区的、多副本的多订阅者，基于 Zookeeper 协调的分布式日志系统，可用于处理 Web 日志和消息服务。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;ul&gt;
-&lt;li&gt;Topic：主题，承载消息（Record）的逻辑容器，每条发布到 Kafka 集群的消息都归属于某一个 Topic，实际应用中，不同的 topic 对应着不同的业务；&lt;/li&gt;
-&lt;li&gt;Broker：Kafka 服务进程，一个 Kafka 集群由多个 Broker 服务进程组成，虽然多个 Broker 可在同一服务器上进行部署，但为了高可用，会将不同的 Broker 部署在不同的机器上；&lt;/li&gt;
-&lt;li&gt;Partition：分区，一组有序的消息序列，一个 Topic 可以有多个分区，同一 Topic 下的 Partition 可以分布在不同的 Broker 中。Producer 生产的每一条消息都会被放到一个 Partition 中，每条消息在 Partition 中的位置信息由一个 Offset（偏移量）数据表征。Kafka 通过偏移量（Offset）来保证消息在分区内的顺序性；&lt;/li&gt;
-&lt;/ul&gt;</description>
-      
-      
-      
-      
-      <category domain="https://yeshan333.github.io/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/">中间件</category>
-      
-      <category domain="https://yeshan333.github.io/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/Kafka/">Kafka</category>
-      
-      
-      <category domain="https://yeshan333.github.io/tags/Kafka/">Kafka</category>
-      
-      <category domain="https://yeshan333.github.io/tags/%E6%B6%88%E6%81%AF%E5%BC%95%E6%93%8E%E7%B3%BB%E7%BB%9F/">消息引擎系统</category>
-      
-      <category domain="https://yeshan333.github.io/tags/%E6%B5%81%E5%A4%84%E7%90%86%E5%B9%B3%E5%8F%B0/">流处理平台</category>
-      
-      
-      <comments>https://yeshan333.github.io/2020/12/13/%E8%80%8D%E4%B8%80%E4%B8%8BKafka/#disqus_thread</comments>
       
     </item>
     
