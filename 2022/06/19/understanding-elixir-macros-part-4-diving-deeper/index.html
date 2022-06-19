@@ -549,7 +549,18 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
   
   
-  <p>在前一篇文章中, 我向你展示了分析输入 AST 并对其进行处理的一些基本方法. 今天我们将研究一些更复杂的 AST 转换. 这将重提已经解释过的技术. 这样做的目的是为了表明深入研究 AST 并不是很难的, 尽管最终的结果代码很容易变得相当复杂, 而且有点黑科技（hacky).</p>
+  <blockquote>
+<p>Elixir Macros 系列文章译文</p>
+<ul>
+<li>[1] <a target="_blank" rel="noopener" href="https://shan333.cn/2022/06/18/understanding-elixir-macros-part-1-basics/">(译) Understanding Elixir Macros, Part 1 Basics</a></li>
+<li>[2] <a target="_blank" rel="noopener" href="https://shan333.cn/2022/06/19/understanding-elixir-macros-part-2-macro-theory/">(译) Understanding Elixir Macros, Part 2 - Micro Theory</a></li>
+<li>[3] <a target="_blank" rel="noopener" href="https://shan333.cn/2022/06/19/understanding-elixir-macros-part-3-gettingto-the-ast/">(译) Understanding Elixir Macros, Part 3 - Getting into the AST</a></li>
+<li>[4] <a target="_blank" rel="noopener" href="https://shan333.cn/2022/06/19/understanding-elixir-macros-part-4-diving-deeper/">(译) Understanding Elixir Macros, Part 4 - Diving Deeper</a></li>
+<li>[5] <a target="_blank" rel="noopener" href="https://shan333.cn/2022/06/19/understanding-elixir-macros-part-5-reshaping-the-ast/">(译) Understanding Elixir Macros, Part 5 - Reshaping the AST</a></li>
+<li>[6] <a target="_blank" rel="noopener" href="https://shan333.cn/2022/06/19/understanding-elixir-macros-part-6-in-place-code-generation/">(译) Understanding Elixir Macros, Part 6 - In-place Code Generation</a><br>原文 <a target="_blank" rel="noopener" href="https://github.com/sasa1977/erlangelist/blob/master/site/articles/macros_1.md">GitHub</a> 仓库, 作者: Saša Jurić.</li>
+</ul>
+</blockquote>
+<p>在前一篇文章中, 我向你展示了分析输入 AST 并对其进行处理的一些基本方法. 今天我们将研究一些更复杂的 AST 转换. 这将重提已经解释过的技术. 这样做的目的是为了表明深入研究 AST 并不是很难的, 尽管最终的结果代码很容易变得相当复杂, 而且有点黑科技（hacky).</p>
 <h2 id="追踪函数调用"><a href="#追踪函数调用" class="headerlink" title="追踪函数调用"></a>追踪函数调用</h2><p>在本文中, 我们将创建一个宏 <code>deftraceable</code>, 它允许我们定义可跟踪的函数. 可跟踪函数的工作方式与普通函数一样, 但每当我们调用它时, 都会打印出调试信息. 大致思路是这样的:</p>
 <figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">defmodule</span> <span class="title">Test</span></span> <span class="keyword">do</span></span><br><span class="line">  <span class="keyword">import</span> Tracer</span><br><span class="line"></span><br><span class="line">  deftraceable my_fun(a,b) <span class="keyword">do</span></span><br><span class="line">    a/b</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">Test.my_fun(<span class="number">6</span>,<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># =&gt; test.ex(line 4) Test.my_fun(6,2) = 3</span></span><br></pre></td></tr></table></figure>
 
@@ -621,6 +632,9 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">iex(<span class="number">1</span>)&gt; <span class="class"><span class="keyword">defmodule</span> <span class="title">Tracer</span></span> <span class="keyword">do</span> ... <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">iex(<span class="number">2</span>)&gt; <span class="class"><span class="keyword">defmodule</span> <span class="title">Test</span></span> <span class="keyword">do</span></span><br><span class="line">          <span class="keyword">import</span> Tracer</span><br><span class="line"></span><br><span class="line">          deftraceable my_fun(a,b) <span class="keyword">when</span> a&lt;b <span class="keyword">do</span></span><br><span class="line">            a/b</span><br><span class="line">          <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">          deftraceable my_fun(a,b) <span class="keyword">do</span></span><br><span class="line">            a/b</span><br><span class="line">          <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">iex(<span class="number">3</span>)&gt; Test.my_fun(<span class="number">5</span>,<span class="number">10</span>)</span><br><span class="line">iex(line <span class="number">4</span>) Test.my_fun(<span class="number">5</span>,<span class="number">10</span>) = 0.<span class="number">5</span></span><br><span class="line">0.<span class="number">5</span></span><br><span class="line"></span><br><span class="line">iex(<span class="number">4</span>)&gt; Test.my_fun(<span class="number">10</span>, <span class="number">5</span>)</span><br><span class="line">iex(line <span class="number">7</span>) Test.my_fun(<span class="number">10</span>,<span class="number">5</span>) = <span class="number">2.0</span></span><br></pre></td></tr></table></figure>
 
 <p>这个练习的主要目的是说明可以从输入 AST 中推断出一些东西. 在这个例子中, 我们设法检测和处理函数 guards. 显然, 因为它依赖于 AST 的内部结构, 代码变得更加复杂了. 在这种情况下, 代码依旧比较简单, 但你将在后面的文章中看到我是如何解决 <code>deftraceable</code> 宏剩余的问题的, 事情可能很快变得杂乱起来了.</p>
+<blockquote>
+<p>原文: <a target="_blank" rel="noopener" href="https://www.theerlangelist.com/article/macros_4">https://www.theerlangelist.com/article/macros_4</a></p>
+</blockquote>
 
   
   
@@ -737,15 +751,21 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class='prev' href='/2022/06/19/understanding-elixir-macros-part-5-reshaping-the-ast/'>
           <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>(译) Understanding Elixir Macros, Part 5 - Reshaping the AST</p>
-          <p class='content'>上次我介绍了一个基本版本的可追溯宏 deftraceable, 它允许我们编写可跟踪的函数. 这个宏的最终版本还有一些遗留的问题, 今天我们将解决其中一个 — 参数模式匹配.
-从今天的练习应该认...</p>
+          <p class='content'>
+Elixir Macros 系列文章译文
+
+[1] (译) Understanding Elixir Macros, Part 1 Basics
+[2] (译) Understanding E...</p>
         </a>
       
       
         <a class='next' href='/2022/06/19/understanding-elixir-macros-part-3-gettingto-the-ast/'>
           <p class='title'>(译) Understanding Elixir Macros, Part 3 - Getting into the AST<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
-          <p class='content'>是时候继续探索 Elixir 的宏了. 上次我介绍了一些关于宏的基本原理, 今天, 我将进入一个较少谈及的领域, 并讨论Elixir AST 的一些细节.
-跟踪函数调用到目前为止, 你只看到了接...</p>
+          <p class='content'>
+Elixir Macros 系列文章译文
+
+[1] (译) Understanding Elixir Macros, Part 1 Basics
+[2] (译) Understanding E...</p>
         </a>
       
     </div>

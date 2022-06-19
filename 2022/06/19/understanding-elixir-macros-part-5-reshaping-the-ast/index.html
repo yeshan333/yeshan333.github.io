@@ -549,7 +549,18 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
   
   
-  <p>上次我介绍了一个基本版本的可追溯宏 <code>deftraceable</code>, 它允许我们编写可跟踪的函数. 这个宏的最终版本还有一些遗留的问题, 今天我们将解决其中一个 — 参数模式匹配.</p>
+  <blockquote>
+<p>Elixir Macros 系列文章译文</p>
+<ul>
+<li>[1] <a target="_blank" rel="noopener" href="https://shan333.cn/2022/06/18/understanding-elixir-macros-part-1-basics/">(译) Understanding Elixir Macros, Part 1 Basics</a></li>
+<li>[2] <a target="_blank" rel="noopener" href="https://shan333.cn/2022/06/19/understanding-elixir-macros-part-2-macro-theory/">(译) Understanding Elixir Macros, Part 2 - Micro Theory</a></li>
+<li>[3] <a target="_blank" rel="noopener" href="https://shan333.cn/2022/06/19/understanding-elixir-macros-part-3-gettingto-the-ast/">(译) Understanding Elixir Macros, Part 3 - Getting into the AST</a></li>
+<li>[4] <a target="_blank" rel="noopener" href="https://shan333.cn/2022/06/19/understanding-elixir-macros-part-4-diving-deeper/">(译) Understanding Elixir Macros, Part 4 - Diving Deeper</a></li>
+<li>[5] <a target="_blank" rel="noopener" href="https://shan333.cn/2022/06/19/understanding-elixir-macros-part-5-reshaping-the-ast/">(译) Understanding Elixir Macros, Part 5 - Reshaping the AST</a></li>
+<li>[6] <a target="_blank" rel="noopener" href="https://shan333.cn/2022/06/19/understanding-elixir-macros-part-6-in-place-code-generation/">(译) Understanding Elixir Macros, Part 6 - In-place Code Generation</a><br>原文 <a target="_blank" rel="noopener" href="https://github.com/sasa1977/erlangelist/blob/master/site/articles/macros_1.md">GitHub</a> 仓库, 作者: Saša Jurić.</li>
+</ul>
+</blockquote>
+<p>上次我介绍了一个基本版本的可追溯宏 <code>deftraceable</code>, 它允许我们编写可跟踪的函数. 这个宏的最终版本还有一些遗留的问题, 今天我们将解决其中一个 — 参数模式匹配.</p>
 <p>从今天的练习应该认识到, 我们必须仔细考虑关于宏可能接收到的输入的所有假设情况.</p>
 <h2 id="问题所在"><a href="#问题所在" class="headerlink" title="问题所在"></a>问题所在</h2><p>正如我上次所暗示的那样, 当前版本的 <code>deftraceable</code> 不能使用模式匹配的参数. 让我们来演示一下这个问题:</p>
 <figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">iex(<span class="number">1</span>)&gt; <span class="class"><span class="keyword">defmodule</span> <span class="title">Tracer</span></span> <span class="keyword">do</span> ... <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">iex(<span class="number">2</span>)&gt; <span class="class"><span class="keyword">defmodule</span> <span class="title">Test</span></span> <span class="keyword">do</span></span><br><span class="line">          <span class="keyword">import</span> Tracer</span><br><span class="line"></span><br><span class="line">          deftraceable div(_, 0), <span class="symbol">do:</span> <span class="symbol">:error</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">** (CompileError) <span class="symbol">iex:</span><span class="number">5</span>: unbound variable _</span><br></pre></td></tr></table></figure>
@@ -597,6 +608,9 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
 <p>正如你所看到的那样, 可以进入 AST, 分解它, 并在其中散布一些自定义的注入代码, 这并不算很复杂. 缺点是, 编写的宏的代码变得越来越复杂, 并且更难分析.</p>
 <p>今天的话题到此结束. 下一次, 我将讨论原地代码生成技术.</p>
+<blockquote>
+<p>原文: <a target="_blank" rel="noopener" href="https://www.theerlangelist.com/article/macros_5">https://www.theerlangelist.com/article/macros_5</a></p>
+</blockquote>
 
   
   
@@ -713,13 +727,21 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class='prev' href='/2022/06/19/understanding-elixir-macros-part-6-in-place-code-generation/'>
           <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>(译) Understanding Elixir Macros, Part 6 - In-place Code Generation</p>
-          <p class='content'>这是宏系列文章的最后一篇. 在开始之前, 我想提一下 Björn Rochel, 他已经将他的 Apex 库中的 deftraceable 宏改进了. 因为他发现系列文章中 deftraceab...</p>
+          <p class='content'>
+Elixir Macros 系列文章译文
+
+[1] (译) Understanding Elixir Macros, Part 1 Basics
+[2] (译) Understanding E...</p>
         </a>
       
       
         <a class='next' href='/2022/06/19/understanding-elixir-macros-part-4-diving-deeper/'>
           <p class='title'>(译) Understanding Elixir Macros, Part 4 - Diving Deeper<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
-          <p class='content'>在前一篇文章中, 我向你展示了分析输入 AST 并对其进行处理的一些基本方法. 今天我们将研究一些更复杂的 AST 转换. 这将重提已经解释过的技术. 这样做的目的是为了表明深入研究 AST 并...</p>
+          <p class='content'>
+Elixir Macros 系列文章译文
+
+[1] (译) Understanding Elixir Macros, Part 1 Basics
+[2] (译) Understanding E...</p>
         </a>
       
     </div>

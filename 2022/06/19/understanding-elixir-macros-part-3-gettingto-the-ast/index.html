@@ -549,7 +549,18 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
   
   
-  <p>是时候继续探索 Elixir 的宏了. 上次我介绍了一些关于宏的基本原理, 今天, 我将进入一个较少谈及的领域, 并讨论Elixir AST 的一些细节.</p>
+  <blockquote>
+<p>Elixir Macros 系列文章译文</p>
+<ul>
+<li>[1] <a target="_blank" rel="noopener" href="https://shan333.cn/2022/06/18/understanding-elixir-macros-part-1-basics/">(译) Understanding Elixir Macros, Part 1 Basics</a></li>
+<li>[2] <a target="_blank" rel="noopener" href="https://shan333.cn/2022/06/19/understanding-elixir-macros-part-2-macro-theory/">(译) Understanding Elixir Macros, Part 2 - Micro Theory</a></li>
+<li>[3] <a target="_blank" rel="noopener" href="https://shan333.cn/2022/06/19/understanding-elixir-macros-part-3-gettingto-the-ast/">(译) Understanding Elixir Macros, Part 3 - Getting into the AST</a></li>
+<li>[4] <a target="_blank" rel="noopener" href="https://shan333.cn/2022/06/19/understanding-elixir-macros-part-4-diving-deeper/">(译) Understanding Elixir Macros, Part 4 - Diving Deeper</a></li>
+<li>[5] <a target="_blank" rel="noopener" href="https://shan333.cn/2022/06/19/understanding-elixir-macros-part-5-reshaping-the-ast/">(译) Understanding Elixir Macros, Part 5 - Reshaping the AST</a></li>
+<li>[6] <a target="_blank" rel="noopener" href="https://shan333.cn/2022/06/19/understanding-elixir-macros-part-6-in-place-code-generation/">(译) Understanding Elixir Macros, Part 6 - In-place Code Generation</a><br>原文 <a target="_blank" rel="noopener" href="https://github.com/sasa1977/erlangelist/blob/master/site/articles/macros_1.md">GitHub</a> 仓库, 作者: Saša Jurić.</li>
+</ul>
+</blockquote>
+<p>是时候继续探索 Elixir 的宏了. 上次我介绍了一些关于宏的基本原理, 今天, 我将进入一个较少谈及的领域, 并讨论Elixir AST 的一些细节.</p>
 <h2 id="跟踪函数调用"><a href="#跟踪函数调用" class="headerlink" title="跟踪函数调用"></a>跟踪函数调用</h2><p>到目前为止, 你只看到了接受输入 AST 片段并将它们组合在一起的基础宏, 并在输入片段周围或之间添加了一些额外的样板代码. 由于我们不分析或解析输入的 AST, 这可能是最干净(或最不 hackiest)的宏编写风格, 这样的宏相当简单且容易理解.</p>
 <p>然而, 有时候我们需要解析输入的 AST 片段以获取某些特殊信息. 一个简单的例子是 <code>ExUnit</code> 的断言. 例如, 表达式<code>assert 1+1 == 2+2</code> 会出现这个错误:</p>
 <figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Assertion <span class="keyword">with</span> == failed</span><br><span class="line"><span class="symbol">code:</span> <span class="number">1</span>+<span class="number">1</span> == <span class="number">2</span>+<span class="number">2</span></span><br><span class="line"><span class="symbol">lhs:</span>  <span class="number">1</span></span><br><span class="line"><span class="symbol">rhs:</span>  <span class="number">2</span></span><br></pre></td></tr></table></figure>
@@ -612,6 +623,9 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <p>有趣的事情发生在第 9 行. 在这里我使用了 <code>unquote(operator)(left, right)</code> 来对操作符进行简单的泛型分派. 你可能认为我可以使用 <code>left unquote(operator) right</code> 来替代, 但它并不能运算. 原因是 <code>operator</code> 变量保存的是一个原子（如<code>:==</code>）. 因此, 这个天真的 quoted 会产生 <code>left :== right</code>, 这甚至不符合 Elixir 的语法规定.</p>
 <p>记住, 在 quoted 时, 我们不组装字符串, 而是组装 AST 片段. 所以, 当我们想生成一个二进制操作代码时, 我们需要注入一个正确的 AST, 它（如前所述）与双参数的函数调用相同. 因此, 我们可以简单地使用函数调用的方式 <code>unquote(operator)(left, right)</code>.</p>
 <p>这一点讲完了, 今天的这一章也该结束了. 它有点短, 但略微复杂些. 下一章, 我将深入 AST 解析的话题.</p>
+<blockquote>
+<p>原文: <a target="_blank" rel="noopener" href="https://www.theerlangelist.com/article/macros_3">https://www.theerlangelist.com/article/macros_3</a></p>
+</blockquote>
 
   
   
@@ -728,14 +742,21 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class='prev' href='/2022/06/19/understanding-elixir-macros-part-4-diving-deeper/'>
           <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>(译) Understanding Elixir Macros, Part 4 - Diving Deeper</p>
-          <p class='content'>在前一篇文章中, 我向你展示了分析输入 AST 并对其进行处理的一些基本方法. 今天我们将研究一些更复杂的 AST 转换. 这将重提已经解释过的技术. 这样做的目的是为了表明深入研究 AST 并...</p>
+          <p class='content'>
+Elixir Macros 系列文章译文
+
+[1] (译) Understanding Elixir Macros, Part 1 Basics
+[2] (译) Understanding E...</p>
         </a>
       
       
         <a class='next' href='/2022/06/19/understanding-elixir-macros-part-2-macro-theory/'>
           <p class='title'>(译) Understanding Elixir Macros, Part 2 - Micro Theory<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
-          <p class='content'>这是 Elixir 中的宏系列的第二篇. 上一次我们讨论了编译过程和 Elixir AST, 最后讲了一个基本的宏的例子 trace. 今天, 我们会更详细地讲解宏的机制.
-可能有一些内容会和上...</p>
+          <p class='content'>
+Elixir Macros 系列文章译文
+
+[1] (译) Understanding Elixir Macros, Part 1 Basics
+[2] (译) Understanding E...</p>
         </a>
       
     </div>

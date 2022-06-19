@@ -549,7 +549,18 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
   
   
-  <p>这是宏系列文章的最后一篇. 在开始之前, 我想提一下 Björn Rochel, 他已经将他的 <a target="_blank" rel="noopener" href="https://github.com/BjRo/apex">Apex</a> 库中的 <code>deftraceable</code> 宏改进了. 因为他发现系列文章中 <code>deftraceable</code> 的版本不能正确处理默认参数<code>（arg \ def_value)</code>, 于是实现了一个修复 <a target="_blank" rel="noopener" href="https://github.com/BjRo/apex/blob/ca3cfbcf4473a4314d8dfa7f4bed610be652a03b/lib/apex/awesome_def.ex#L57-L59">fix</a>.</p>
+  <blockquote>
+<p>Elixir Macros 系列文章译文</p>
+<ul>
+<li>[1] <a target="_blank" rel="noopener" href="https://shan333.cn/2022/06/18/understanding-elixir-macros-part-1-basics/">(译) Understanding Elixir Macros, Part 1 Basics</a></li>
+<li>[2] <a target="_blank" rel="noopener" href="https://shan333.cn/2022/06/19/understanding-elixir-macros-part-2-macro-theory/">(译) Understanding Elixir Macros, Part 2 - Micro Theory</a></li>
+<li>[3] <a target="_blank" rel="noopener" href="https://shan333.cn/2022/06/19/understanding-elixir-macros-part-3-gettingto-the-ast/">(译) Understanding Elixir Macros, Part 3 - Getting into the AST</a></li>
+<li>[4] <a target="_blank" rel="noopener" href="https://shan333.cn/2022/06/19/understanding-elixir-macros-part-4-diving-deeper/">(译) Understanding Elixir Macros, Part 4 - Diving Deeper</a></li>
+<li>[5] <a target="_blank" rel="noopener" href="https://shan333.cn/2022/06/19/understanding-elixir-macros-part-5-reshaping-the-ast/">(译) Understanding Elixir Macros, Part 5 - Reshaping the AST</a></li>
+<li>[6] <a target="_blank" rel="noopener" href="https://shan333.cn/2022/06/19/understanding-elixir-macros-part-6-in-place-code-generation/">(译) Understanding Elixir Macros, Part 6 - In-place Code Generation</a><br>原文 <a target="_blank" rel="noopener" href="https://github.com/sasa1977/erlangelist/blob/master/site/articles/macros_1.md">GitHub</a> 仓库, 作者: Saša Jurić.</li>
+</ul>
+</blockquote>
+<p>这是宏系列文章的最后一篇. 在开始之前, 我想提一下 Björn Rochel, 他已经将他的 <a target="_blank" rel="noopener" href="https://github.com/BjRo/apex">Apex</a> 库中的 <code>deftraceable</code> 宏改进了. 因为他发现系列文章中 <code>deftraceable</code> 的版本不能正确处理默认参数<code>（arg \ def_value)</code>, 于是实现了一个修复 <a target="_blank" rel="noopener" href="https://github.com/BjRo/apex/blob/ca3cfbcf4473a4314d8dfa7f4bed610be652a03b/lib/apex/awesome_def.ex#L57-L59">fix</a>.</p>
 <p>这次, 让我们结束这个宏的故事. 今天的文章知识点可能是整个系列中涉及最广的, 我们将讨论原地代码生成的相关技术, 以及它可能对宏的影响.</p>
 <h2 id="在-module-中生成代码"><a href="#在-module-中生成代码" class="headerlink" title="在 module 中生成代码"></a>在 module 中生成代码</h2><p>正如我在第 1 章中提到的那样, 宏并不是 Elixir 中唯一的元编程机制. 我们也可以在模块中直接生成代码. 为了唤起你的记忆, 我们来看看下面的例子:</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">defmodule Fsm do</span><br><span class="line">  fsm = [</span><br><span class="line">    running: &#123;:pause, :paused&#125;,</span><br><span class="line">    running: &#123;:stop, :stopped&#125;,</span><br><span class="line">    paused: &#123;:resume, :running&#125;</span><br><span class="line">  ]</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">  #</span><span class="bash"> Dynamically generating <span class="built_in">functions</span> directly <span class="keyword">in</span> the module</span></span><br><span class="line">  for &#123;state, &#123;action, next_state&#125;&#125; &lt;- fsm do</span><br><span class="line">    def unquote(action)(unquote(state)), do: unquote(next_state)</span><br><span class="line">  end</span><br><span class="line">  def initial, do: :running</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">Fsm.initial</span><br><span class="line"><span class="meta">#</span><span class="bash"> :running</span></span><br><span class="line"></span><br><span class="line">Fsm.initial |&gt; Fsm.pause</span><br><span class="line"><span class="meta">#</span><span class="bash"> :paused</span></span><br><span class="line"></span><br><span class="line">Fsm.initial |&gt; Fsm.pause |&gt; Fsm.pause</span><br><span class="line"><span class="meta">#</span><span class="bash"> ** (FunctionClauseError) no <span class="keyword">function</span> clause matching <span class="keyword">in</span> Fsm.pause/1</span></span><br></pre></td></tr></table></figure>
@@ -664,6 +675,9 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <p>一定要记住 — 在展开阶段, 宏相当于 AST 片段的普通组合. 如果你理解调用者的上下文和宏输入, 那么直接执行转换或在必要时通过延迟执行转换并不算难.</p>
 <p>本系列绝不可能涵盖方方面面和所有的细节. 如果你想了解更多, <a target="_blank" rel="noopener" href="https://hexdocs.pm/elixir/Kernel.SpecialForms.html#quote/2">quote/2 special form</a> 的文档是一个不错的地方. 您还可以在 <a target="_blank" rel="noopener" href="https://hexdocs.pm/elixir/Macro.html">Macro</a> 和 <a target="_blank" rel="noopener" href="https://hexdocs.pm/elixir/Code.html">Code</a> 模块中找到一些有用的帮助程序.</p>
 <p>Happy meta-programming!</p>
+<blockquote>
+<p>原文: <a target="_blank" rel="noopener" href="https://www.theerlangelist.com/article/macros_6">https://www.theerlangelist.com/article/macros_6</a></p>
+</blockquote>
 
   
   
@@ -781,8 +795,11 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class='next' href='/2022/06/19/understanding-elixir-macros-part-5-reshaping-the-ast/'>
           <p class='title'>(译) Understanding Elixir Macros, Part 5 - Reshaping the AST<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
-          <p class='content'>上次我介绍了一个基本版本的可追溯宏 deftraceable, 它允许我们编写可跟踪的函数. 这个宏的最终版本还有一些遗留的问题, 今天我们将解决其中一个 — 参数模式匹配.
-从今天的练习应该认...</p>
+          <p class='content'>
+Elixir Macros 系列文章译文
+
+[1] (译) Understanding Elixir Macros, Part 1 Basics
+[2] (译) Understanding E...</p>
         </a>
       
     </div>

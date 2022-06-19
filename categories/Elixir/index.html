@@ -540,8 +540,12 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <div class='md'>
     
       
-        这是宏系列文章的最后一篇. 在开始之前, 我想提一下 Björn Rochel, 他已经将他的 Apex 库中的 deftraceable 宏改进了. 因为他发现系列文章中 deftraceable 的版本不能正确处理默认参数（arg \ def_value), 于是实现了一个修复 fix.
-这次, 让我们结束这个宏的故事. 今天的文章知识点可能是整个系列中涉及最广的, 我们将讨论原地代码生...
+        
+Elixir Macros 系列文章译文
+
+[1] (译) Understanding Elixir Macros, Part 1 Basics
+[2] (译) Understanding Elixir Macros, Part 2 - Micro Theory
+[3] (译) Understanding Elixir Macros, Part 3 - Getting into the A...
       
     
   </div>
@@ -590,10 +594,12 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <div class='md'>
     
       
-        上次我介绍了一个基本版本的可追溯宏 deftraceable, 它允许我们编写可跟踪的函数. 这个宏的最终版本还有一些遗留的问题, 今天我们将解决其中一个 — 参数模式匹配.
-从今天的练习应该认识到, 我们必须仔细考虑关于宏可能接收到的输入的所有假设情况.
-问题所在正如我上次所暗示的那样, 当前版本的 deftraceable 不能使用模式匹配的参数. 让我们来演示一下这个问题:
-12345...
+        
+Elixir Macros 系列文章译文
+
+[1] (译) Understanding Elixir Macros, Part 1 Basics
+[2] (译) Understanding Elixir Macros, Part 2 - Micro Theory
+[3] (译) Understanding Elixir Macros, Part 3 - Getting into the A...
       
     
   </div>
@@ -642,8 +648,12 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <div class='md'>
     
       
-        在前一篇文章中, 我向你展示了分析输入 AST 并对其进行处理的一些基本方法. 今天我们将研究一些更复杂的 AST 转换. 这将重提已经解释过的技术. 这样做的目的是为了表明深入研究 AST 并不是很难的, 尽管最终的结果代码很容易变得相当复杂, 而且有点黑科技（hacky).
-追踪函数调用在本文中, 我们将创建一个宏 deftraceable, 它允许我们定义可跟踪的函数. 可跟踪函数的工...
+        
+Elixir Macros 系列文章译文
+
+[1] (译) Understanding Elixir Macros, Part 1 Basics
+[2] (译) Understanding Elixir Macros, Part 2 - Micro Theory
+[3] (译) Understanding Elixir Macros, Part 3 - Getting into the A...
       
     
   </div>
@@ -692,8 +702,12 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <div class='md'>
     
       
-        是时候继续探索 Elixir 的宏了. 上次我介绍了一些关于宏的基本原理, 今天, 我将进入一个较少谈及的领域, 并讨论Elixir AST 的一些细节.
-跟踪函数调用到目前为止, 你只看到了接受输入 AST 片段并将它们组合在一起的基础宏, 并在输入片段周围或之间添加了一些额外的样板代码. 由于我们不分析或解析输入的 AST, 这可能是最干净(或最不 hackiest)的宏编写风格, 这样...
+        
+Elixir Macros 系列文章译文
+
+[1] (译) Understanding Elixir Macros, Part 1 Basics
+[2] (译) Understanding Elixir Macros, Part 2 - Micro Theory
+[3] (译) Understanding Elixir Macros, Part 3 - Getting into the A...
       
     
   </div>
@@ -742,8 +756,12 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <div class='md'>
     
       
-        这是 Elixir 中的宏系列的第二篇. 上一次我们讨论了编译过程和 Elixir AST, 最后讲了一个基本的宏的例子 trace. 今天, 我们会更详细地讲解宏的机制.
-可能有一些内容会和上一篇重复, 但我认为这对于理解运作原理和 AST 的生成很有帮助. 掌握了这些以后, 你对于自己的宏代码就更有信心了. 基础很重要, 因为随着更多地用到宏, 代码可能会由许多的 quote/unquo...
+        
+Elixir Macros 系列文章译文
+
+[1] (译) Understanding Elixir Macros, Part 1 Basics
+[2] (译) Understanding Elixir Macros, Part 2 - Micro Theory
+[3] (译) Understanding Elixir Macros, Part 3 - Getting into the A...
       
     
   </div>
@@ -792,8 +810,12 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <div class='md'>
     
       
-        这是讨论宏 (Macros) 微系列文章的第一篇. 我原本计划在我即将出版的《Elixir in Action》一书中讨论这个主题, 但最终决定不这么做, 因为这个主题不符合这本书的主题, 这本书更关注底层 VM 和 OTP 的关键部分.
-就我个人而言, 我觉得宏的主题非常有趣, 在本系列文章中, 我将试图解释它们是如何工作的, 提供一些关于如何编写宏的基本技巧和建议. 虽然我确信编写宏不是...
+        
+Elixir Macros 系列文章译文
+
+[1] (译) Understanding Elixir Macros, Part 1 Basics
+[2] (译) Understanding Elixir Macros, Part 2 - Micro Theory
+[3] (译) Understanding Elixir Macros, Part 3 - Getting into the A...
       
     
   </div>
@@ -969,7 +991,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         <div class="webinfo-item">
           <div>最后活动时间：</div>
           
-            <div id="last-update" style="display: none;">Sun Jun 19 2022 16:48:15 GMT+0000 (Coordinated Universal Time)</div>
+            <div id="last-update" style="display: none;">Sun Jun 19 2022 17:10:16 GMT+0000 (Coordinated Universal Time)</div>
             <div id="last-update-show">2022-06-19 日</div>
           
         </div>

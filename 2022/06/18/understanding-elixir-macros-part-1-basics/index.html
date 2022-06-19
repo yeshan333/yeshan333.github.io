@@ -549,7 +549,18 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
   
   
-  <p>这是讨论宏 (Macros) 微系列文章的第一篇. 我原本计划在我即将出版的<a target="_blank" rel="noopener" href="https://book.douban.com/subject/25897187/">《Elixir in Action》</a>一书中讨论这个主题, 但最终决定不这么做, 因为这个主题不符合这本书的主题, 这本书更关注底层 VM 和 OTP 的关键部分.</p>
+  <blockquote>
+<p>Elixir Macros 系列文章译文</p>
+<ul>
+<li>[1] <a target="_blank" rel="noopener" href="https://shan333.cn/2022/06/18/understanding-elixir-macros-part-1-basics/">(译) Understanding Elixir Macros, Part 1 Basics</a></li>
+<li>[2] <a target="_blank" rel="noopener" href="https://shan333.cn/2022/06/19/understanding-elixir-macros-part-2-macro-theory/">(译) Understanding Elixir Macros, Part 2 - Micro Theory</a></li>
+<li>[3] <a target="_blank" rel="noopener" href="https://shan333.cn/2022/06/19/understanding-elixir-macros-part-3-gettingto-the-ast/">(译) Understanding Elixir Macros, Part 3 - Getting into the AST</a></li>
+<li>[4] <a target="_blank" rel="noopener" href="https://shan333.cn/2022/06/19/understanding-elixir-macros-part-4-diving-deeper/">(译) Understanding Elixir Macros, Part 4 - Diving Deeper</a></li>
+<li>[5] <a target="_blank" rel="noopener" href="https://shan333.cn/2022/06/19/understanding-elixir-macros-part-5-reshaping-the-ast/">(译) Understanding Elixir Macros, Part 5 - Reshaping the AST</a></li>
+<li>[6] <a target="_blank" rel="noopener" href="https://shan333.cn/2022/06/19/understanding-elixir-macros-part-6-in-place-code-generation/">(译) Understanding Elixir Macros, Part 6 - In-place Code Generation</a><br>原文 <a target="_blank" rel="noopener" href="https://github.com/sasa1977/erlangelist/blob/master/site/articles/macros_1.md">GitHub</a> 仓库, 作者: Saša Jurić.</li>
+</ul>
+</blockquote>
+<p>这是讨论宏 (Macros) 微系列文章的第一篇. 我原本计划在我即将出版的<a target="_blank" rel="noopener" href="https://book.douban.com/subject/25897187/">《Elixir in Action》</a>一书中讨论这个主题, 但最终决定不这么做, 因为这个主题不符合这本书的主题, 这本书更关注底层 VM 和 OTP 的关键部分.</p>
 <p>就我个人而言, 我觉得宏的主题非常有趣, 在本系列文章中, 我将试图解释它们是如何工作的, 提供一些关于如何编写宏的基本技巧和建议. 虽然我确信编写宏不是很难, 但与普通的 Elixir 代码相比, 它确实需要更高视角的关注. 因此, 我认为这了解 Elixir 编译器的一些内部细节是非常有帮助的. 了解事情在幕后是如何运行之后, 就可以更容易地理解元编程代码.</p>
 <p>这是篇中级水平的文章. 如果你很熟悉 Elixir 和 Erlang, 但对宏还感觉到困惑, 那么这些内容很适合你. 如果你刚开始接触 Elixir 和 Erlang, 那么最好从其它地方开始. 比如 <a target="_blank" rel="noopener" href="https://elixir-lang.org/getting-started/introduction.html">Getting started guide</a>, 或者一些可靠的书.</p>
 <h2 id="元编程-Meta-programming"><a href="#元编程-Meta-programming" class="headerlink" title="元编程 (Meta-programming)"></a>元编程 (Meta-programming)</h2><p>或许你已经对 Elixir 中的元编程有一点了解. 其主要的思想就是我们可以编写一些代码, 它们会根据某些输入来生成代码.</p>
@@ -672,6 +683,9 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Code_point">codepoints</a>: 通常是一个数字, 用于表示 Unicode 字符.</li>
 <li><a target="_blank" rel="noopener" href="https://www.erlang.org/doc/reference_manual/data_types.html#terms">Terms</a>: 任何数据类型中的一段数据都被称为 term.</li>
 </ul>
+<blockquote>
+<p>原文：<a target="_blank" rel="noopener" href="https://www.theerlangelist.com/article/macros_1">https://www.theerlangelist.com/article/macros_1</a></p>
+</blockquote>
 
   
   
@@ -788,8 +802,11 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class='prev' href='/2022/06/19/understanding-elixir-macros-part-2-macro-theory/'>
           <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>(译) Understanding Elixir Macros, Part 2 - Micro Theory</p>
-          <p class='content'>这是 Elixir 中的宏系列的第二篇. 上一次我们讨论了编译过程和 Elixir AST, 最后讲了一个基本的宏的例子 trace. 今天, 我们会更详细地讲解宏的机制.
-可能有一些内容会和上...</p>
+          <p class='content'>
+Elixir Macros 系列文章译文
+
+[1] (译) Understanding Elixir Macros, Part 1 Basics
+[2] (译) Understanding E...</p>
         </a>
       
       

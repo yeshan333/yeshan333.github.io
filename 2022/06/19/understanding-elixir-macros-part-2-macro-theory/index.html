@@ -549,7 +549,18 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
   
   
-  <p>这是 Elixir 中的宏系列的第二篇. 上一次我们讨论了编译过程和 Elixir AST, 最后讲了一个基本的宏的例子 trace. 今天, 我们会更详细地讲解宏的机制.</p>
+  <blockquote>
+<p>Elixir Macros 系列文章译文</p>
+<ul>
+<li>[1] <a target="_blank" rel="noopener" href="https://shan333.cn/2022/06/18/understanding-elixir-macros-part-1-basics/">(译) Understanding Elixir Macros, Part 1 Basics</a></li>
+<li>[2] <a target="_blank" rel="noopener" href="https://shan333.cn/2022/06/19/understanding-elixir-macros-part-2-macro-theory/">(译) Understanding Elixir Macros, Part 2 - Micro Theory</a></li>
+<li>[3] <a target="_blank" rel="noopener" href="https://shan333.cn/2022/06/19/understanding-elixir-macros-part-3-gettingto-the-ast/">(译) Understanding Elixir Macros, Part 3 - Getting into the AST</a></li>
+<li>[4] <a target="_blank" rel="noopener" href="https://shan333.cn/2022/06/19/understanding-elixir-macros-part-4-diving-deeper/">(译) Understanding Elixir Macros, Part 4 - Diving Deeper</a></li>
+<li>[5] <a target="_blank" rel="noopener" href="https://shan333.cn/2022/06/19/understanding-elixir-macros-part-5-reshaping-the-ast/">(译) Understanding Elixir Macros, Part 5 - Reshaping the AST</a></li>
+<li>[6] <a target="_blank" rel="noopener" href="https://shan333.cn/2022/06/19/understanding-elixir-macros-part-6-in-place-code-generation/">(译) Understanding Elixir Macros, Part 6 - In-place Code Generation</a><br>原文 <a target="_blank" rel="noopener" href="https://github.com/sasa1977/erlangelist/blob/master/site/articles/macros_1.md">GitHub</a> 仓库, 作者: Saša Jurić.</li>
+</ul>
+</blockquote>
+<p>这是 Elixir 中的宏系列的第二篇. 上一次我们讨论了编译过程和 Elixir AST, 最后讲了一个基本的宏的例子 trace. 今天, 我们会更详细地讲解宏的机制.</p>
 <p>可能有一些内容会和上一篇重复, 但我认为这对于理解运作原理和 AST 的生成很有帮助. 掌握了这些以后, 你对于自己的宏代码就更有信心了. 基础很重要, 因为随着更多地用到宏, 代码可能会由许多的 <code>quote/unquote</code> 结构组成.</p>
 <h2 id="调用一个宏"><a href="#调用一个宏" class="headerlink" title="调用一个宏"></a>调用一个宏</h2><p>我们最需要重视的是展开阶段. 编译器在这个阶段调用了各种宏（以及其它代码生成结构）来生成最终的 AST.</p>
 <p>例如, 宏 <code>trace</code> 的典型用法是这样的:</p>
@@ -660,6 +671,9 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <h2 id="附注"><a href="#附注" class="headerlink" title="附注"></a>附注</h2><ul>
 <li>mixin: Mixin 即 Mix-in, 常被译为 “混入”, 是一种编程模式, 在 Python 等面向对象语言中, 通常它是实现了某种功能单元的类, 用于被其他子类继承, 将功能组合到子类中.</li>
 </ul>
+<blockquote>
+<p>原文: <a target="_blank" rel="noopener" href="https://www.theerlangelist.com/article/macros_2">https://www.theerlangelist.com/article/macros_2</a></p>
+</blockquote>
 
   
   
@@ -776,14 +790,21 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class='prev' href='/2022/06/19/understanding-elixir-macros-part-3-gettingto-the-ast/'>
           <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>(译) Understanding Elixir Macros, Part 3 - Getting into the AST</p>
-          <p class='content'>是时候继续探索 Elixir 的宏了. 上次我介绍了一些关于宏的基本原理, 今天, 我将进入一个较少谈及的领域, 并讨论Elixir AST 的一些细节.
-跟踪函数调用到目前为止, 你只看到了接...</p>
+          <p class='content'>
+Elixir Macros 系列文章译文
+
+[1] (译) Understanding Elixir Macros, Part 1 Basics
+[2] (译) Understanding E...</p>
         </a>
       
       
         <a class='next' href='/2022/06/18/understanding-elixir-macros-part-1-basics/'>
           <p class='title'>(译) Understanding Elixir Macros, Part 1 Basics<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
-          <p class='content'>这是讨论宏 (Macros) 微系列文章的第一篇. 我原本计划在我即将出版的《Elixir in Action》一书中讨论这个主题, 但最终决定不这么做, 因为这个主题不符合这本书的主题, 这本...</p>
+          <p class='content'>
+Elixir Macros 系列文章译文
+
+[1] (译) Understanding Elixir Macros, Part 1 Basics
+[2] (译) Understanding E...</p>
         </a>
       
     </div>
