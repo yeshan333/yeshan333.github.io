@@ -1,0 +1,1851 @@
+<!DOCTYPE html>
+<html lang="zh-CN,en,zh-TW,default">
+  <head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/tree/4.3.1'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <link rel="preload" href="/css/first.css" as="style">
+  
+
+  <!-- 页面元数据 -->
+  
+  <title>(译) Understanding Elixir Macros, Part 6 - In-place Code Generation - ShanSan</title>
+  
+    <meta name="keywords" content="Elixir Macros">
+  
+
+  
+
+  <!-- feed -->
+  
+    <link rel="alternate" href="/rss2.xml" title="ShanSan" type="application/rss+xml">
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  
+    <link rel="shortcut icon" type='image/x-icon' href="https://img.vim-cn.com/bb/db444be0b7fda59c69d5c64167f9668b0b66bd.png">
+  
+
+  <!-- import link -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/first.css">
+
+  
+
+  
+  <link rel="stylesheet" href="/css/style.css" media="print" onload="this.media='all';this.onload=null">
+  <noscript><link rel="stylesheet" href="/css/style.css"></noscript>
+  
+
+  <script id="loadcss"></script>
+
+  
+<script>
+if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode))
+    document.write(
+	'<style>'+
+		'html{'+
+			'overflow-x: hidden !important;'+
+			'overflow-y: hidden !important;'+
+		'}'+
+		'.kill-ie{'+
+			'text-align:center;'+
+			'height: 100%;'+
+			'margin-top: 15%;'+
+			'margin-bottom: 5500%;'+
+		'}'+
+	'</style>'+
+    '<div class="kill-ie">'+
+        '<h1><b>抱歉，您的浏览器无法访问本站</b></h1>'+
+        '<h3>微软已经于2016年终止了对 Internet Explorer (IE) 10 及更早版本的支持，<br/>'+
+        '继续使用存在极大的安全隐患，请使用当代主流的浏览器进行访问。</h3><br/>'+
+        '<a target="_blank" rel="noopener" href="https://www.microsoft.com/zh-cn/WindowsForBusiness/End-of-IE-support"><strong>了解详情 ></strong></a>'+
+    '</div>');
+</script>
+
+
+<noscript>
+	<style>
+		html{
+			overflow-x: hidden !important;
+			overflow-y: hidden !important;
+		}
+		.kill-noscript{
+			text-align:center;
+			height: 100%;
+			margin-top: 15%;
+			margin-bottom: 5500%;
+		}
+	</style>
+    <div class="kill-noscript">
+        <h1><b>抱歉，您的浏览器无法访问本站</b></h1>
+        <h3>本页面需要浏览器支持（启用）JavaScript</h3><br/>
+        <a target="_blank" rel="noopener" href="https://www.baidu.com/s?wd=启用JavaScript"><strong>了解详情 ></strong></a>
+    </div>
+</noscript>
+
+</head>
+
+  <body>
+    
+
+<header id="l_header" class="l_header auto shadow blur " style='opacity: 0' >
+  <div class='container'>
+  <div id='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h m-phone' id="pjax-header-nav-list">
+        <li><a id="s-comment" class="fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a id="s-toc" class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+          
+          
+            ShanSan
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h m-pc'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博文
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" 
+                  
+                  
+                  >
+                  <i class='fas fa-ellipsis-v fa-fw'></i>与我相关
+                </a>
+                
+                  <ul class="list-v">
+                    
+                      
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://github.com/yeshan333
+                  
+                  
+                  
+                    id="https:githubcomyeshan333"
+                  >
+                  <i class='fab fa-github-square fa-fw'></i>Github
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://slide.shan333.cn
+                  
+                  
+                  
+                    id="https:slideshan333cn"
+                  >
+                  <i class='fab fa-slideshare fa-fw'></i>slides
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://shansan.top/knowledge-base/
+                  
+                  
+                  
+                    id="https:shansantopknowledge-base"
+                  >
+                  <i class='far fa-sticky-note fa-fw'></i>notes
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://stats.uptimerobot.com/OknEPcNEVr
+                  
+                  
+                  
+                    id="https:statsuptimerobotcomOknEPcNEVr"
+                  >
+                  Monitor
+                </a>
+                
+              </li>
+            
+          
+                    
+                  </ul>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/cloud-native/
+                  
+                  
+                  
+                    id="cloud-native"
+                  >
+                  <i class='fas fa-cloud fa-fw'></i>云原生
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="寻你所想" />
+        </form>
+      </div>
+
+			<ul class='switcher nav-list-h m-phone'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博文
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" 
+                  
+                  
+                  >
+                  <i class='fas fa-ellipsis-v fa-fw'></i>与我相关
+                </a>
+                
+                  <ul class="list-v">
+                    
+                      
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://github.com/yeshan333
+                  
+                  
+                  
+                    id="https:githubcomyeshan333"
+                  >
+                  <i class='fab fa-github-square fa-fw'></i>Github
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://slide.shan333.cn
+                  
+                  
+                  
+                    id="https:slideshan333cn"
+                  >
+                  <i class='fab fa-slideshare fa-fw'></i>slides
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://shansan.top/knowledge-base/
+                  
+                  
+                  
+                    id="https:shansantopknowledge-base"
+                  >
+                  <i class='far fa-sticky-note fa-fw'></i>notes
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://stats.uptimerobot.com/OknEPcNEVr
+                  
+                  
+                  
+                    id="https:statsuptimerobotcomOknEPcNEVr"
+                  >
+                  Monitor
+                </a>
+                
+              </li>
+            
+          
+                    
+                  </ul>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/cloud-native/
+                  
+                  
+                  
+                    id="cloud-native"
+                  >
+                  <i class='fas fa-cloud fa-fw'></i>云原生
+                </a>
+                
+              </li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</header>
+
+    <div id="l_body">
+      <div id="l_cover">
+  
+      
+  
+  </div>
+
+      <div id="safearea">
+        <div class="body-wrapper" id="pjax-container">
+          
+
+<div class='l_main'>
+  <article class="article post white-box reveal md shadow article-type-post" id="post" itemscope itemprop="blogPost">
+  
+
+
+  
+  <div class="article-meta" id="top">
+    
+    
+    
+      <h1 class="title">
+        (译) Understanding Elixir Macros, Part 6 - In-place Code Generation
+      </h1>
+      <div class='new-meta-box'>
+        
+          
+            
+<div class='new-meta-item author'>
+  <a class='author' target="_blank" href="https://github.com/yeshan333" rel="nofollow noopener">
+    <img no-lazy src="https://z3.ax1x.com/2021/11/07/I1qTFx.png">
+    <p>yeshan333</p>
+  </a>
+</div>
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>首发于：2022年6月19日</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Elixir-Macros/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>Elixir-Macros</p></a></div>
+
+
+          
+        
+      </div>
+    
+  </div>
+
+
+  
+  
+  <p>这是宏系列文章的最后一篇. 在开始之前, 我想提一下 Björn Rochel, 他已经将他的 <a target="_blank" rel="noopener" href="https://github.com/BjRo/apex">Apex</a> 库中的 <code>deftraceable</code> 宏改进了. 因为他发现系列文章中 <code>deftraceable</code> 的版本不能正确处理默认参数<code>（arg \ def_value)</code>, 于是实现了一个修复 <a target="_blank" rel="noopener" href="https://github.com/BjRo/apex/blob/ca3cfbcf4473a4314d8dfa7f4bed610be652a03b/lib/apex/awesome_def.ex#L57-L59">fix</a>.</p>
+<p>这次, 让我们结束这个宏的故事. 今天的文章知识点可能是整个系列中涉及最广的, 我们将讨论原地代码生成的相关技术, 以及它可能对宏的影响.</p>
+<h2 id="在-module-中生成代码"><a href="#在-module-中生成代码" class="headerlink" title="在 module 中生成代码"></a>在 module 中生成代码</h2><p>正如我在第 1 章中提到的那样, 宏并不是 Elixir 中唯一的元编程机制. 我们也可以在模块中直接生成代码. 为了唤起你的记忆, 我们来看看下面的例子:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">defmodule Fsm do</span><br><span class="line">  fsm = [</span><br><span class="line">    running: &#123;:pause, :paused&#125;,</span><br><span class="line">    running: &#123;:stop, :stopped&#125;,</span><br><span class="line">    paused: &#123;:resume, :running&#125;</span><br><span class="line">  ]</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">  #</span><span class="bash"> Dynamically generating <span class="built_in">functions</span> directly <span class="keyword">in</span> the module</span></span><br><span class="line">  for &#123;state, &#123;action, next_state&#125;&#125; &lt;- fsm do</span><br><span class="line">    def unquote(action)(unquote(state)), do: unquote(next_state)</span><br><span class="line">  end</span><br><span class="line">  def initial, do: :running</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">Fsm.initial</span><br><span class="line"><span class="meta">#</span><span class="bash"> :running</span></span><br><span class="line"></span><br><span class="line">Fsm.initial |&gt; Fsm.pause</span><br><span class="line"><span class="meta">#</span><span class="bash"> :paused</span></span><br><span class="line"></span><br><span class="line">Fsm.initial |&gt; Fsm.pause |&gt; Fsm.pause</span><br><span class="line"><span class="meta">#</span><span class="bash"> ** (FunctionClauseError) no <span class="keyword">function</span> clause matching <span class="keyword">in</span> Fsm.pause/1</span></span><br></pre></td></tr></table></figure>
+
+<p>在这里, 我们直接在模块中动态生成函数子句（clause）. 这允许我们针对某些输入（在本例中是关键字列表）进行元编程, 并生成代码, 而无需编写专门的宏.</p>
+<p>注意, 在上面的代码中, 我们如何使用 <code>unquote</code> 将变量注入到函数子句定义中. 这与宏的工作方式完全一致. 请记住, <code>def</code> 也是一个宏, 并且宏接收的参数总是被 <code>quoted</code>. 因此, 如果您想要一个宏参数接收某个变量的值, 您必须在传递该变量时使用 <code>unquote</code>. 仅仅调用 <code>def action</code> 是不够的, 因为 <code>def</code> 宏接收到的是对 <code>action</code> 的 unquoted, 而不是变量 <code>action</code> 中的值.</p>
+<p>当然, 您可以以这种动态的方式调用自己的宏, 原理是一样的. 然而, 有一个意想不到的情况 — 生成（evaluation） 的顺序与你的预期可能不符.</p>
+<h2 id="展开的顺序"><a href="#展开的顺序" class="headerlink" title="展开的顺序"></a>展开的顺序</h2><p>正如你所预料的那般, 模块级代码（不是任何函数的一部分的代码）在扩展阶段被执行. 有些令人意外的是, 这将发生在所有宏（除了 <code>def</code>）展开之后. 很容易去证明这一点：</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">iex(<span class="number">1</span>)&gt; <span class="class"><span class="keyword">defmodule</span> <span class="title">MyMacro</span></span> <span class="keyword">do</span></span><br><span class="line">          <span class="function"><span class="keyword">defmacro</span> <span class="title">my_macro</span></span> <span class="keyword">do</span></span><br><span class="line">            IO.puts <span class="string">&quot;my_macro called&quot;</span></span><br><span class="line">            <span class="keyword">nil</span></span><br><span class="line">          <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">iex(<span class="number">2</span>)&gt; <span class="class"><span class="keyword">defmodule</span> <span class="title">Test</span></span> <span class="keyword">do</span></span><br><span class="line">          <span class="keyword">import</span> MyMacro</span><br><span class="line"></span><br><span class="line">          IO.puts <span class="string">&quot;module-level expression&quot;</span></span><br><span class="line">          my_macro</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Output:</span></span><br><span class="line">my_macro called</span><br><span class="line"><span class="keyword">module</span>-level expression</span><br></pre></td></tr></table></figure>
+
+<p>从输出看出, 即使代码中相应的 <code>IO.puts</code> 调用在宏调用之前, 但 <code>mymacro</code> 还是在 <code>IO.puts</code> 之前被调用了. 这证明编译器首先解析所有标准宏. 然后模块生成开始, 也是在这个阶段, 模块级代码以及对 <code>def</code> 的调用被执行.</p>
+<h2 id="模块级友好宏"><a href="#模块级友好宏" class="headerlink" title="模块级友好宏"></a>模块级友好宏</h2><p>这对我们自己的宏有一些重要的影响. 例如, 我们的 <code>deftraceable</code> 宏也可以动态调用. 但是, 现在它还不能工作：</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">iex(<span class="number">1</span>)&gt; <span class="class"><span class="keyword">defmodule</span> <span class="title">Tracer</span></span> <span class="keyword">do</span> ... <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">iex(<span class="number">2</span>)&gt; <span class="class"><span class="keyword">defmodule</span> <span class="title">Test</span></span> <span class="keyword">do</span></span><br><span class="line">          <span class="keyword">import</span> Tracer</span><br><span class="line"></span><br><span class="line">          fsm = [</span><br><span class="line">            <span class="symbol">running:</span> &#123;<span class="symbol">:pause</span>, <span class="symbol">:paused</span>&#125;,</span><br><span class="line">            <span class="symbol">running:</span> &#123;<span class="symbol">:stop</span>, <span class="symbol">:stopped</span>&#125;,</span><br><span class="line">            <span class="symbol">paused:</span> &#123;<span class="symbol">:resume</span>, <span class="symbol">:running</span>&#125;</span><br><span class="line">          ]</span><br><span class="line"></span><br><span class="line">          <span class="keyword">for</span> &#123;state, &#123;action, next_state&#125;&#125; &lt;- fsm <span class="keyword">do</span></span><br><span class="line">            <span class="comment"># Using deftraceable dynamically</span></span><br><span class="line">            deftraceable unquote(action)(unquote(state)), <span class="symbol">do:</span> unquote(next_state)</span><br><span class="line">          <span class="keyword">end</span></span><br><span class="line">          deftraceable initial, <span class="symbol">do:</span> <span class="symbol">:running</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">** (MatchError) no match of right hand side <span class="symbol">value:</span> <span class="symbol">:error</span></span><br><span class="line">    expanding <span class="symbol">macro:</span> Tracer.deftraceable/<span class="number">2</span></span><br><span class="line">    <span class="symbol">iex:</span><span class="number">13</span>: Test (<span class="keyword">module</span>)</span><br></pre></td></tr></table></figure>
+
+<p>出现一个有点神秘, 而且不是非常有帮助的错误提示. 那么出了什么问题？如上一节所述, 在 in-place 模块执行开始之前, 将扩展宏. 对我们来说, 这意味着 <code>deftraceable</code> 被调用之前, <code>for</code> 语境甚至还没有执行.</p>
+<p>因此, 即使它是从当前语境中调用, <code>deftraceable</code> 实际上将只被调用一次. 此外, 由于未对当前语境进行求值, 因此当我们的宏被调用时, 内部变量 <code>state</code>, <code>action</code> 和 <code>next_state</code> 都不存在.</p>
+<p>怎么可以让它工作？本质上, 我们的宏将靠 <code>unquote</code> 来调用 - head 和 body 将分别包含代表 <code>unquote(action)(unquote(state))</code> 和 <code>unquote(next_state)</code>的 AST.</p>
+<p>现在, 回想一下当前版本的 <code>deftraceable</code>, 我们对宏中的输入做了一些假设. 这里是一段伪代码：</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">defmacro</span> <span class="title">deftraceable</span></span>(head, body) <span class="keyword">do</span></span><br><span class="line">  <span class="comment"># 这里, 我们假设输入头部是什么样的, 并执行一些操作</span></span><br><span class="line">  <span class="comment"># AST 转换基于这些假设.</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">quote</span> <span class="keyword">do</span></span><br><span class="line">    ...</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p>这就是我们的问题. 如果我们在原地生成代码的同时动态地调用 <code>deftraceable</code>, 那么这样的假设就不再成立.</p>
+<h2 id="延迟代码生成"><a href="#延迟代码生成" class="headerlink" title="延迟代码生成"></a>延迟代码生成</h2><p>当宏执行时, 区分宏上下文和调用者的上下文是很重要的:</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">defmacro</span> <span class="title">my_macro</span></span> <span class="keyword">do</span></span><br><span class="line">  <span class="comment"># Macro context（宏上下文）: 这里的代码是宏的正常部分, 并在宏运行时被执行</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">quote</span> <span class="keyword">do</span></span><br><span class="line">    <span class="comment"># Caller&#x27;s context（调用者上下文）: 生成的代码在宏所在的位置运行</span></span><br><span class="line">  <span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p>这就是让事情变得有点棘手的地方. 如果我们想支持对宏的模块级动态调用, 就不应该在宏上下文中做任何假定. 相反, 我们应该将代码生成推迟到调用方的上下文中.</p>
+<p>用这段代码说明：</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">defmacro</span> <span class="title">deftraceable</span></span>(head, body) <span class="keyword">do</span></span><br><span class="line">  <span class="comment"># Macro context: 我们不应该对输入 AST 做任何假设</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">quote</span> <span class="keyword">do</span></span><br><span class="line">    <span class="comment"># Caller&#x27;s context: 我们应该在这里转换输入的 AST, 然后在这里做出我们的假设</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p>为什么我们可以在调用者的上下文（Caller’s context）中进行假设? 因为这段代码将在所有宏展开后运行. 例如, 请记住, 即使我们的宏是从一个推导式中调用的, 它也只会被调用一次. 但是, 宏生成的代码将在推导式中运行 — 对每个元素运行一次.</p>
+<p>因此, 这种方法相当于推迟了最终的代码生成. 我们生成的中间模块级语句将生成最终代码, 而不是立即生成目标代码. 这些中间语句将在扩展的最后时刻运行, 在所有其他宏都已处理之后:</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">defmodule</span> <span class="title">Test</span></span> <span class="keyword">do</span></span><br><span class="line">  ...</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> &#123;state, &#123;action, next_state&#125;&#125; &lt;- fsm <span class="keyword">do</span></span><br><span class="line">    <span class="comment"># 在 deftraceable 扩展后, 这里我们将得到一个</span></span><br><span class="line">    <span class="comment"># 生成在目标函数的代码, 此代码会被推导式执行.</span></span><br><span class="line">    <span class="comment"># 即在每一次 for 循环中被调用一次.</span></span><br><span class="line">    <span class="comment"># 此时, 我们在调用者的上下文中,</span></span><br><span class="line">    <span class="comment"># 并且可以访问 state、action和 next_state 变量</span></span><br><span class="line">    <span class="comment"># 正确生成相应的函数.</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">  ...</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p>在实现解决方案之前, 必须注意到这不是一个通用的模式, 你应该考虑是否真的需要这个方法.</p>
+<p>如果你的宏不打算用于模块级别, 那么你可能应该避免使用这种技术. 否则, 如果从函数定义内部调用宏, 并且将代码生成操作移动到调用者的上下文中, 那么实际上将代码执行从编译时（compile-time）移动到了运行时（run-time）, 这会影响到性能.</p>
+<p>此外, 即使你的宏是在模块级别上运行的, 只要你对输入不做任何假定, 就没有必要使用这项技巧. 例如, 在第 2 章中, 我们模拟了 Plug 的 <code>get</code> 宏:</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">defmacro</span> <span class="title">get</span></span>(route, body) <span class="keyword">do</span></span><br><span class="line">  <span class="keyword">quote</span> <span class="keyword">do</span></span><br><span class="line">    <span class="function"><span class="keyword">defp</span> <span class="title">do_match</span></span>(<span class="string">&quot;GET&quot;</span>, unquote(route), var!(conn)) <span class="keyword">do</span></span><br><span class="line">      unquote(body[<span class="symbol">:do</span>])</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p>即使这个宏在模块级上工作, 它并没有假设 AST 的结构, 只是在调用者的上下文中注入输入片段, 并散布一些样板代码. 当然, 我们希望 body 会有一个 <code>:do</code> 选项, 但我们并没有对 <code>body[:do]</code> AST的具体形状和结构作任何假定.</p>
+<p>总结一下, 如果你的宏是在模块级别调用的, 这可能是通用的模式:</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">defmacro</span> ...</span></span><br><span class="line"><span class="function">  # 宏上下文（<span class="title">Macro</span></span> context）:</span><br><span class="line">  <span class="comment"># 可以在这里做任何准备工作,</span></span><br><span class="line">  <span class="comment"># 只要不对输入的 AST 作任何假设</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">quote</span> <span class="keyword">do</span></span><br><span class="line">    <span class="comment"># 调用者上下文（Caller&#x27;s context）:</span></span><br><span class="line">    <span class="comment"># 如果你需要分析或转换输入的 AST, 你应该在这里进行.</span></span><br><span class="line">  <span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p>由于调用者上下文（Caller’s context）是模块级的, 因此这种延迟转换仍将在编译时发生, 不会有运行时性能损失.</p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>鉴于这些讨论, 解决方案相对简单, 但解释它相当复杂. 所以我将从展示最终的结果开始（注意注释）:</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">defmodule</span> <span class="title">Tracer</span></span> <span class="keyword">do</span></span><br><span class="line">  <span class="function"><span class="keyword">defmacro</span> <span class="title">deftraceable</span></span>(head, body) <span class="keyword">do</span></span><br><span class="line">    ＃ 这是最重要的更改, 让我们能正确传递</span><br><span class="line">    ＃ 输入 AST 到调用者的上下文中. 我稍后会解释这是如何工作的.</span><br><span class="line">    <span class="keyword">quote</span> <span class="symbol">bind_quoted:</span> [</span><br><span class="line">      <span class="symbol">head:</span> Macro.escape(head, <span class="symbol">unquote:</span> <span class="keyword">true</span>),</span><br><span class="line">      <span class="symbol">body:</span> Macro.escape(body, <span class="symbol">unquote:</span> <span class="keyword">true</span>)</span><br><span class="line">    ] <span class="keyword">do</span></span><br><span class="line">      <span class="comment"># Caller&#x27;s context: 我们将从这里生成代码</span></span><br><span class="line"></span><br><span class="line">      ＃ 由于代码生成被推迟到调用者上下文,</span><br><span class="line">      ＃ 我们现在可以对输入 AST 做出我们的假设.</span><br><span class="line"></span><br><span class="line">      ＃ 此代码大部分与以前的版本相同</span><br><span class="line">      ＃</span><br><span class="line">      ＃ 注意, 这些变量现在在调用者的上下文中创建</span><br><span class="line">      &#123;fun_name, args_ast&#125; = Tracer.name_and_args(head)</span><br><span class="line">      &#123;arg_names, decorated_args&#125; = Tracer.decorate_args(args_ast)</span><br><span class="line"></span><br><span class="line">      <span class="comment"># 与以前的版本完全相同.</span></span><br><span class="line">      head = Macro.postwalk(head,</span><br><span class="line">        <span class="keyword">fn</span></span><br><span class="line">          (&#123;fun_ast, context, old_args&#125;) <span class="keyword">when</span> (</span><br><span class="line">            fun_ast == fun_name <span class="keyword">and</span> old_args == args_ast</span><br><span class="line">          ) -&gt;</span><br><span class="line">            &#123;fun_ast, context, decorated_args&#125;</span><br><span class="line">          (other) -&gt; other</span><br><span class="line">      <span class="keyword">end</span>)</span><br><span class="line"></span><br><span class="line">      <span class="comment"># 此代码与以前的版本完全相同.</span></span><br><span class="line">      <span class="comment"># Note: 但是, 请注意, 代码像前面三个表达式那样</span></span><br><span class="line">      <span class="comment"># 在相同的上下文中执行.</span></span><br><span class="line">      <span class="comment">#</span></span><br><span class="line">      <span class="comment"># 因此,  unquote(head) 在这里引用了 head 变量</span></span><br><span class="line">      <span class="comment"># 在此上下文中计算, 而不是宏上下文.</span></span><br><span class="line">      <span class="comment"># 这同样适用于其它发生在函数体中的 unquote.</span></span><br><span class="line">      <span class="comment">#</span></span><br><span class="line">      <span class="comment"># 这就是延迟代码生成的意义所在. 我们的宏产生</span></span><br><span class="line">      <span class="comment"># 此代码, 然后依次生成最终代码.</span></span><br><span class="line">      <span class="function"><span class="keyword">def</span> <span class="title">unquote</span></span>(head) <span class="keyword">do</span></span><br><span class="line">        file = __ENV__.file</span><br><span class="line">        line = __ENV__.line</span><br><span class="line">        <span class="keyword">module</span> = __ENV__.module</span><br><span class="line"></span><br><span class="line">        function_name = unquote(fun_name)</span><br><span class="line">        passed_args = unquote(arg_names) |&gt; Enum.map(&amp;inspect/<span class="number">1</span>) |&gt; Enum.join(<span class="string">&quot;,&quot;</span>)</span><br><span class="line"></span><br><span class="line">        result = unquote(body[<span class="symbol">:do</span>])</span><br><span class="line"></span><br><span class="line">        loc = <span class="string">&quot;<span class="subst">#&#123;file&#125;</span>(line <span class="subst">#&#123;line&#125;</span>)&quot;</span></span><br><span class="line">        call = <span class="string">&quot;<span class="subst">#&#123;<span class="keyword">module</span>&#125;</span>.<span class="subst">#&#123;function_name&#125;</span>(<span class="subst">#&#123;passed_args&#125;</span>) = <span class="subst">#&#123;inspect result&#125;</span>&quot;</span></span><br><span class="line">        IO.puts <span class="string">&quot;<span class="subst">#&#123;loc&#125;</span> <span class="subst">#&#123;call&#125;</span>&quot;</span></span><br><span class="line"></span><br><span class="line">        result</span><br><span class="line">      <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># 与前一个版本相同, 但函数被导出, 因为它们</span></span><br><span class="line">  <span class="comment"># 必须从调用方的上下文中调用.</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">name_and_args</span></span>(&#123;<span class="symbol">:when</span>, _, [short_head | _]&#125;) <span class="keyword">do</span></span><br><span class="line">    name_and_args(short_head)</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">name_and_args</span></span>(short_head) <span class="keyword">do</span></span><br><span class="line">    Macro.decompose_call(short_head)</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">decorate_args</span></span>([]), <span class="symbol">do:</span> &#123;[],[]&#125;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">decorate_args</span></span>(args_ast) <span class="keyword">do</span></span><br><span class="line">    <span class="keyword">for</span> &#123;arg_ast, index&#125; &lt;- Enum.with_index(args_ast) <span class="keyword">do</span></span><br><span class="line">      arg_name = Macro.var(<span class="symbol">:<span class="string">&quot;arg<span class="subst">#&#123;index&#125;</span>&quot;</span></span>, __MODULE__)</span><br><span class="line"></span><br><span class="line">      full_arg = <span class="keyword">quote</span> <span class="keyword">do</span></span><br><span class="line">        unquote(arg_ast) = unquote(arg_name)</span><br><span class="line">      <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">      &#123;arg_name, full_arg&#125;</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    |&gt; Enum.unzip</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p>让我们试试这个宏:、</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">iex(<span class="number">1</span>)&gt; <span class="class"><span class="keyword">defmodule</span> <span class="title">Tracer</span></span> <span class="keyword">do</span> ... <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">iex(<span class="number">2</span>)&gt; <span class="class"><span class="keyword">defmodule</span> <span class="title">Test</span></span> <span class="keyword">do</span></span><br><span class="line">          <span class="keyword">import</span> Tracer</span><br><span class="line"></span><br><span class="line">          fsm = [</span><br><span class="line">            <span class="symbol">running:</span> &#123;<span class="symbol">:pause</span>, <span class="symbol">:paused</span>&#125;,</span><br><span class="line">            <span class="symbol">running:</span> &#123;<span class="symbol">:stop</span>, <span class="symbol">:stopped</span>&#125;,</span><br><span class="line">            <span class="symbol">paused:</span> &#123;<span class="symbol">:resume</span>, <span class="symbol">:running</span>&#125;</span><br><span class="line">          ]</span><br><span class="line"></span><br><span class="line">          <span class="keyword">for</span> &#123;state, &#123;action, next_state&#125;&#125; &lt;- fsm <span class="keyword">do</span></span><br><span class="line">            deftraceable unquote(action)(unquote(state)), <span class="symbol">do:</span> unquote(next_state)</span><br><span class="line">          <span class="keyword">end</span></span><br><span class="line">          deftraceable initial, <span class="symbol">do:</span> <span class="symbol">:running</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">iex(<span class="number">3</span>)&gt; Test.initial |&gt; Test.pause |&gt; Test.resume |&gt; Test.stop</span><br><span class="line"></span><br><span class="line">iex(line <span class="number">15</span>) Elixir.Test.initial() = <span class="symbol">:running</span></span><br><span class="line">iex(line <span class="number">13</span>) Elixir.Test.pause(<span class="symbol">:running</span>) = <span class="symbol">:paused</span></span><br><span class="line">iex(line <span class="number">13</span>) Elixir.Test.resume(<span class="symbol">:paused</span>) = <span class="symbol">:running</span></span><br><span class="line">iex(line <span class="number">13</span>) Elixir.Test.stop(<span class="symbol">:running</span>) = <span class="symbol">:stopped</span></span><br></pre></td></tr></table></figure>
+
+<p>正如你所看到的那样, 修改并不复杂. 我们设法保持我们的大部分代码完整, 虽然我们不得不用一些技巧：<code>bind_quoted：true</code> 和 <code>Macro.escape</code>:</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">quote</span> <span class="symbol">bind_quoted:</span> [</span><br><span class="line">  <span class="symbol">head:</span> Macro.escape(head, <span class="symbol">unquote:</span> <span class="keyword">true</span>),</span><br><span class="line">  <span class="symbol">body:</span> Macro.escape(body, <span class="symbol">unquote:</span> <span class="keyword">true</span>)</span><br><span class="line">] <span class="keyword">do</span></span><br><span class="line">  ...</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p>让我们仔细看看它们是什么意思.</p>
+<h2 id="bind-quoted"><a href="#bind-quoted" class="headerlink" title="bind_quoted"></a>bind_quoted</h2><p>记住, 我们的宏生成一个代码, 它将生成最终的代码. 在第一级生成的代码（由我们的宏返回的代码）的某处, 我们需要放置以下表达式：</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">unquote</span></span>(head) <span class="keyword">do</span> ... <span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p>这个表达式将在调用者的上下文（客户端模块）中被调用, 它的任务是生成函数. 如在注释中提到的, 重要的是要理解<code>unquote(head)</code> 在这里引用的是存在于调用者上下文中的 head 变量. 我们不是从宏上下文注入一个变量, 而是一个存在于调用者上下文中的变量.</p>
+<p>但是, 我们不能使用简单的 <code>quote</code> 生成这样的表达式：</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">quote</span> <span class="keyword">do</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">unquote</span></span>(head) <span class="keyword">do</span> ... <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p>记住 <code>unquote</code> 如何工作. 它往 <code>unquote</code> 调用里的 <code>head</code> 变量中注入了 AST. 这不是我们想要的. 我们想要的是生成表示对 <code>unquote</code> 的调用的 AST, 然后在调用者的上下文中执行, 并引用调用者的 <code>head</code> 变量.</p>
+<p>这可以通过提供 <code>unquote：false</code> 选项来实现：</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">quote</span> <span class="symbol">unquote:</span> <span class="keyword">false</span> <span class="keyword">do</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">unquote</span></span>(head) <span class="keyword">do</span> ... <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p>这里, 我们将生成代表 <code>unquote</code> 调用的代码. 如果这个代码被注入到正确的地方, 且其中变量 <code>head</code> 存在, 我们将最终调用 <code>def</code> 宏, 传递 <code>head</code> 变量中的任何值.</p>
+<p>所以似乎使用 <code>unquote: false</code> 可以达到我们想要的效果, 但有一个缺点, 我们不能从宏上下文访问任何变量：</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">foo = <span class="symbol">:bar</span></span><br><span class="line"><span class="keyword">quote</span> <span class="symbol">unquote:</span> <span class="keyword">false</span> <span class="keyword">do</span></span><br><span class="line">  unquote(foo)    <span class="comment"># &lt;- 由于 unquote: false, 工作不正常</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p>使用 <code>unquote: false</code> 有效地阻止立即注入 AST, 并将 <code>unquote</code> 当作任意其它函数调用. 因此, 我们不能将某些东西注入到目标 AST. 这里 <code>bind_quoted</code> 派上了用场. 通过提供 <code>bind_quoted: bindings</code>, 我们可以禁用立即unquoting, 同时仍然绑定我们想要传递到调用者上下文的任何数据：</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">quote</span> <span class="symbol">bind_quoted:</span> [</span><br><span class="line">  <span class="symbol">foo:</span> ...,</span><br><span class="line">  <span class="symbol">bar:</span> ...</span><br><span class="line">] <span class="keyword">do</span></span><br><span class="line">  unquote(whatever)  <span class="comment"># &lt;- 类似于 unquote: false 的作用</span></span><br><span class="line"></span><br><span class="line">  foo  <span class="comment"># &lt;- 由于 bind_quoted 而可访问</span></span><br><span class="line">  bar  <span class="comment"># &lt;- 由于 bind_quoted 而可访问</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="代码注入-vs-数据传输"><a href="#代码注入-vs-数据传输" class="headerlink" title="代码注入 vs 数据传输"></a>代码注入 vs 数据传输</h2><p>我们要面临的另一个问题是: 从宏传递到调用者上下文的内容在默认情况下是注入的, 而不是传输的. 因此, 当你使用 <code>unquote(som_ast)</code> 时, 你正在将一个 AST 片段注入到用 <code>quote</code> expression 构建的另一个 AST 片段中.</p>
+<p>有时候, 我们希望传输数据, 而不是注入数据.  我们来看一个例子.  假设我们有一些三元组, 我们想要传输到调用者的上下文中:</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">iex(<span class="number">1</span>)&gt; data = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;</span><br><span class="line">&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<p>现在, 让我们尝试使用典型的 <code>unquote</code> 进行传输：</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">iex(<span class="number">2</span>)&gt; ast = <span class="keyword">quote</span> <span class="keyword">do</span> IO.inspect(unquote(data)) <span class="keyword">end</span></span><br><span class="line">&#123;&#123;<span class="symbol">:</span>., [], [&#123;<span class="symbol">:__aliases__</span>, [<span class="symbol">alias:</span> <span class="keyword">false</span>], [<span class="symbol">:IO</span>]&#125;, <span class="symbol">:inspect</span>]&#125;, [], [&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;]&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这似乎是有效的.  让我们试着 eval 看下的结果:</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">iex(<span class="number">3</span>)&gt; Code.eval_quoted(ast)</span><br><span class="line">** (CompileError) <span class="symbol">nofile:</span> invalid quoted <span class="symbol">expression:</span> &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<p>那么这里发生了什么? 问题是我们并没有真正传输 <code>&#123;1,2,3&#125;</code> 三元组. 我们将其注入到目标 AST 中, 注入意味着 <code>&#123;1,2,3&#125;</code> 本身被视为一个 AST 片段, 这显然是错误的.</p>
+<p>在这种情况下, 我们真正想要的是数据传输. 在代码生成上下文中, 我们有一些数据要传输到调用者的上下文中. 这就是<code>Macro.escape</code> 作用所处. 通过转义一个 term, 我们可以确保它是被传输的, 而不是被注入的. 当我们调用 <code>unquote(Macro.escape(term))</code> 时, 我们将注入一个 AST, 以 <code>term</code> 描述数据.</p>
+<p>让我们试试:</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">iex(<span class="number">3</span>)&gt; ast = <span class="keyword">quote</span> <span class="keyword">do</span> IO.inspect(unquote(Macro.escape(data))) <span class="keyword">end</span></span><br><span class="line">&#123;&#123;<span class="symbol">:</span>., [], [&#123;<span class="symbol">:__aliases__</span>, [<span class="symbol">alias:</span> <span class="keyword">false</span>], [<span class="symbol">:IO</span>]&#125;, <span class="symbol">:inspect</span>]&#125;, [],</span><br><span class="line"> [&#123;<span class="symbol">:</span>&#123;&#125;, [], [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]&#125;]&#125;</span><br><span class="line"></span><br><span class="line">iex(<span class="number">4</span>)&gt; Code.eval_quoted(ast)</span><br><span class="line">&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如你所见, 我们成功传送了未受影响的数据.</p>
+<p>再看我们的延迟代码生成, 这正是我们需要的. 与注入目标 AST 不同, 我们想要传输输入 AST, 完全保留它的形状:</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">defmacro</span> <span class="title">deftraceable</span></span>(head, body) <span class="keyword">do</span></span><br><span class="line">  <span class="comment"># 这里我们有 head 和 body 的 AST</span></span><br><span class="line">  <span class="keyword">quote</span> <span class="keyword">do</span></span><br><span class="line">    <span class="comment"># 我们在这里需要相同的 head和 body 的AST, 以便生成</span></span><br><span class="line">    <span class="comment"># 最终代码.</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p>通过使用 <code>Macro.escape/1</code>, 我们可以确保输入 AST 被原原本本地传输回调用者的上下文, 在那里我们将生成最终的代码.</p>
+<p>正如前一节所讨论的, 我们使用了 <code>bind_quoted</code>, 但原理相同:</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">quote</span> <span class="symbol">bind_quoted:</span> [</span><br><span class="line">  <span class="symbol">head:</span> Macro.escape(head, <span class="symbol">unquote:</span> <span class="keyword">true</span>),</span><br><span class="line">  <span class="symbol">body:</span> Macro.escape(body, <span class="symbol">unquote:</span> <span class="keyword">true</span>)</span><br><span class="line">] <span class="keyword">do</span></span><br><span class="line">  <span class="comment"># 这里我们有了从宏上下文中得到的</span></span><br><span class="line">  <span class="comment"># head 和 body 的精确副本.</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Escaping-和-unquote-true"><a href="#Escaping-和-unquote-true" class="headerlink" title="Escaping 和 unquote: true"></a>Escaping 和 unquote: true</h2><p>注意我们传递给了 <code>Macro.escape</code> 一个欺骗性的 <code>unquote: true</code> 选项. 这是最难解释的. 为了能够理解它, 你必须清楚 AST 是如何传递给宏并返回到调用者的上下文中的.</p>
+<p>首先, 记住我们如何调用我们的宏：</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">deftraceable unquote(action)(unquote(state)) <span class="keyword">do</span> ... <span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p>现在, 由于宏实际上接收到的是 quoted 的参数, <code>head</code> 参数将等同于以下内容：</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 这是宏上下文中的 head 参数实际包含的内容</span></span><br><span class="line"><span class="keyword">quote</span> <span class="symbol">unquote:</span> <span class="keyword">false</span> <span class="keyword">do</span></span><br><span class="line">  unquote(action)(unquote(state))</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p>请记住, <code>Macro.escape</code> 会保存数据, 因此当你在其他 AST 中传输变量时, 其内容将保持不变. 考虑下上面的 head 形状, 这是我们在宏展开后最终会出现的情况:</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 调用者的上下文</span></span><br><span class="line"><span class="keyword">for</span> &#123;state, &#123;action, next_state&#125;&#125; &lt;- fsm <span class="keyword">do</span></span><br><span class="line">  <span class="comment"># 这里是我们生成函数的代码. 由于 bind_quoted, 这里</span></span><br><span class="line">  <span class="comment"># 我们可以使用 head 和 body 变量.</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># 变量 head 等效于</span></span><br><span class="line">  <span class="comment">#   quote unquote: false do</span></span><br><span class="line">  <span class="comment">#     unquote(action)(unquote(state))</span></span><br><span class="line">  <span class="comment">#   end</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># 我们真正需要的是:</span></span><br><span class="line">  <span class="comment">#   quote do</span></span><br><span class="line">  <span class="comment">#     unquote(action)(unquote(state))</span></span><br><span class="line">  <span class="comment">#   end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p>为什么我们需要 quoted head 的第二种形式? 因为这个 AST 现在是在调用者的上下文中形成的, 在这个上下文中我们有可用的 <code>action</code> 和 <code>state</code> 变量. 第二个表达式会用到这些变量的内容.</p>
+<p>这就是所谓的 <code>unquoted: true</code> 的作用. 当我们调用 <code>Macro.escape(input_ast, unquote: true)</code> 时, 我们仍然(大部分)保留传输数据的形状, 但输入 AST 中的 <code>unquote</code> 片段(例如, <code>unquote(action)</code> )将在调用方的上下文中解析.</p>
+<p>总的来说, 输入 AST 到调用者上下文的正确传输方式如下所示:</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">defmacro</span> <span class="title">deftraceable</span></span>(head, body) <span class="keyword">do</span></span><br><span class="line">  <span class="keyword">quote</span> <span class="symbol">bind_quoted:</span> [</span><br><span class="line">    <span class="symbol">head:</span> Macro.escape(head, <span class="symbol">unquote:</span> <span class="keyword">true</span>),</span><br><span class="line">    <span class="symbol">body:</span> Macro.escape(body, <span class="symbol">unquote:</span> <span class="keyword">true</span>)</span><br><span class="line">  ] <span class="keyword">do</span></span><br><span class="line">    <span class="comment"># Generate the code here</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line">  ...</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p>这并不算难, 但需要一些时间来理解这里到底发生了什么. 试着确保你不是盲目地做 escapes（和/或 <code>unquote: true</code>）, 而不理解这是你真正想要的. 毕竟, 这不是默认的行为是有原因的.</p>
+<p>在编写宏时, 要考虑你是否要注入一些 AST, 或者不加更改地传输数据. 在后一种情况, 你需要使用 <code>Macro.escape</code>. 如果传输的数据是一个 AST 且可能包含 <code>unquote</code> 片段, 那么您可能需要以 <code>unquote: true</code> 的方式使用 <code>Macro.escape</code> .</p>
+<h2 id="回顾"><a href="#回顾" class="headerlink" title="回顾"></a>回顾</h2><p>关于 Elixir 宏的系列文章到此结束了. 我希望你觉得这些文章有趣且有学习意义, 并且对宏的工作机制有了更多的了解和使用信心.</p>
+<p>一定要记住 — 在展开阶段, 宏相当于 AST 片段的普通组合. 如果你理解调用者的上下文和宏输入, 那么直接执行转换或在必要时通过延迟执行转换并不算难.</p>
+<p>本系列绝不可能涵盖方方面面和所有的细节. 如果你想了解更多, <a target="_blank" rel="noopener" href="https://hexdocs.pm/elixir/Kernel.SpecialForms.html#quote/2">quote/2 special form</a> 的文档是一个不错的地方. 您还可以在 <a target="_blank" rel="noopener" href="https://hexdocs.pm/elixir/Macro.html">Macro</a> 和 <a target="_blank" rel="noopener" href="https://hexdocs.pm/elixir/Code.html">Code</a> 模块中找到一些有用的帮助程序.</p>
+<p>Happy meta-programming!</p>
+
+  
+  
+    
+    <div class='footer'>
+      
+      
+      
+        <div class='copyright'>
+          <blockquote>
+            
+              
+                <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+              
+            
+              
+                <p>我的博客即将同步至腾讯云+社区，邀请大家一同入驻：<a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/support-plan?invite_code=1utoln9pyvwqu">https://cloud.tencent.com/developer/support-plan?invite_code=1utoln9pyvwqu</a></p>
+
+              
+            
+          </blockquote>
+        </div>
+      
+      
+    </div>
+  
+  
+    
+
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2022-06-19T17:47:21+00:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2022年6月19日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Elixir-Macros/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>Elixir-Macros</p></a></div>
+
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-6-in-place-code-generation/&title=(译) Understanding Elixir Macros, Part 6 - In-place Code Generation - ShanSan&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-6-in-place-code-generation/&title=(译) Understanding Elixir Macros, Part 6 - In-place Code Generation - ShanSan&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-6-in-place-code-generation/&title=(译) Understanding Elixir Macros, Part 6 - In-place Code Generation - ShanSan&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </div>
+
+
+  
+  
+
+  
+    <div class="prev-next">
+      
+      
+        <a class='next' href='/2022/06/19/understanding-elixir-macros-part-5-reshaping-the-ast/'>
+          <p class='title'>(译) Understanding Elixir Macros, Part 5 - Reshaping the AST<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>上次我介绍了一个基本版本的可追溯宏 deftraceable, 它允许我们编写可跟踪的函数. 这个宏的最终版本还有一些遗留的问题, 今天我们将解决其中一个 — 参数模式匹配.
+从今天的练习应该认...</p>
+        </a>
+      
+    </div>
+  
+</article>
+
+
+  
+
+  <article class="post white-box reveal shadow" id="comments">
+    <p ct><i class='fas fa-comments'></i> 评论</p>
+    
+    <div id="waline">
+  <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+</div>
+
+  </article>
+
+
+
+
+
+  <script>
+  // https://github.com/theme-next/hexo-theme-next/blob/master/layout/_third-party/math/mathjax.swig
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.0/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    // 文章章节标题不能为 “MathJax” ，否则会报错。
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+
+
+</div>
+<aside class='l_side'>
+  
+  
+    
+    
+
+
+
+  <section class="widget toc-wrapper shadow desktop mobile" id="toc-div" >
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%A8-module-%E4%B8%AD%E7%94%9F%E6%88%90%E4%BB%A3%E7%A0%81"><span class="toc-text">在 module 中生成代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B1%95%E5%BC%80%E7%9A%84%E9%A1%BA%E5%BA%8F"><span class="toc-text">展开的顺序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%9D%97%E7%BA%A7%E5%8F%8B%E5%A5%BD%E5%AE%8F"><span class="toc-text">模块级友好宏</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BB%B6%E8%BF%9F%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90"><span class="toc-text">延迟代码生成</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-text">解决方案</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#bind-quoted"><span class="toc-text">bind_quoted</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E6%B3%A8%E5%85%A5-vs-%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93"><span class="toc-text">代码注入 vs 数据传输</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Escaping-%E5%92%8C-unquote-true"><span class="toc-text">Escaping 和 unquote: true</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9E%E9%A1%BE"><span class="toc-text">回顾</span></a></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+
+		  
+		  <!--此文件用来存放一些不方便取值的变量-->
+<!--思路大概是将值藏到重加载的区域内-->
+
+<script>
+  window.pdata={}
+  pdata.ispage=true;
+  pdata.postTitle="(译) Understanding Elixir Macros, Part 6 - In-place Code Generation";
+  pdata.commentPath="";
+  pdata.commentPlaceholder="";
+  // header 这里无论是否开启pjax都需要
+  var l_header=document.getElementById("l_header");
+  
+  l_header.classList.add("show");
+  
+  
+</script>
+
+        </div>
+        
+  
+  <footer class="footer clearfix">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
+
+  
+    <meting-js
+      theme='#1BCDFC'
+      autoplay='false'
+      volume='0.7'
+      loop='all'
+      order='list'
+      fixed='false'
+      list-max-height='320px'
+      server='netease'
+      type='playlist'
+      id='6729508229'
+      list-folded='true'>
+    </meting-js>
+  
+
+
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+            
+              <a href="mailto:1329441308@qq.com"
+                class="social fas fa-envelope flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+                
+              </a>
+            
+          
+            
+              <a href="https://github.com/yeshan333?tab=repositories"
+                class="social fab fa-github flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+                
+              </a>
+            
+          
+            
+              <a href="https://music.163.com/#/my/m/music/playlist?id=2617691792"
+                class="social fas fa-music flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+                
+              </a>
+            
+          
+            
+              <a href="https://www.zhihu.com/people/si-kong-ji-54/activities"
+                class="social fab fa-zhihu flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+                
+              </a>
+            
+          
+            
+              <a href="https://yeshan333.github.io/rss2.xml"
+                class="social fas fa-rss flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+                
+              </a>
+            
+          
+        </div>
+      
+    
+      
+        <div><p>博客内容遵循 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+</div>
+      
+    
+      
+        本站使用
+        <a href="https://github.com/volantis-x/hexo-theme-volantis/tree/4.3.1" target="_blank" class="codename">Volantis</a>
+        作为主题，总访问量为
+          <span id="busuanzi_value_site_pv"><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+          次
+        
+      
+    
+      
+        <div class='copyright'>
+        <p><a target="_blank" rel="noopener" href="https://shansan.top/">Copyright © 2018-2022 ShanSan</a></p>
+
+        </div>
+      
+    
+      
+        
+          <div><p><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">桂ICP备19000444号</a></p>
+</div>
+        
+      
+    
+  </footer>
+
+
+        <a id="s-top" class="fas fa-arrow-up fa-fw" href="javascript:void(0)"></a>
+      </div>
+    </div>
+    <div>
+      <script>
+/************这个文件存放不需要重载的全局变量和全局函数*********/
+window.volantis={};
+window.volantis.loadcss=document.getElementById("loadcss");
+/******************** Pjax ********************************/
+function VPjax(){
+	this.list=[] // 存放回调函数
+	this.start=()=>{
+	  for(var i=0;i<this.list.length;i++){
+		this.list[i].run();
+	  }
+	}
+	this.push=(fn,name)=>{
+		var f=new PjaxItem(fn,name);
+		this.list.push(f);
+	}
+	// 构造一个可以run的对象
+	function PjaxItem(fn,name){
+		// 函数名称
+		this.name = name || fn.name
+		// run方法
+		this.run=()=>{
+			fn()
+		}
+	}
+}
+volantis.pjax={}
+volantis.pjax.method={
+	complete: new VPjax(),
+	error: new VPjax(),
+	send: new VPjax()
+}
+volantis.pjax={
+	...volantis.pjax,
+	push: volantis.pjax.method.complete.push,
+	error: volantis.pjax.method.error.push,
+	send: volantis.pjax.method.send.push
+}
+/********************脚本懒加载函数********************************/
+// 已经加入了setTimeout
+function loadScript(src, cb) {
+	setTimeout(function() {
+		var HEAD = document.getElementsByTagName('head')[0] || document.documentElement;
+		var script = document.createElement('script');
+		script.setAttribute('type','text/javascript');
+		if (cb) script.onload = cb;
+		script.setAttribute('src', src);
+		HEAD.appendChild(script);
+	});
+}
+//https://github.com/filamentgroup/loadCSS
+var loadCSS = function( href, before, media, attributes ){
+	var doc = window.document;
+	var ss = doc.createElement( "link" );
+	var ref;
+	if( before ){
+		ref = before;
+	}
+	else {
+		var refs = ( doc.body || doc.getElementsByTagName( "head" )[ 0 ] ).childNodes;
+		ref = refs[ refs.length - 1];
+	}
+	var sheets = doc.styleSheets;
+	if( attributes ){
+		for( var attributeName in attributes ){
+			if( attributes.hasOwnProperty( attributeName ) ){
+				ss.setAttribute( attributeName, attributes[attributeName] );
+			}
+		}
+	}
+	ss.rel = "stylesheet";
+	ss.href = href;
+	ss.media = "only x";
+	function ready( cb ){
+		if( doc.body ){
+			return cb();
+		}
+		setTimeout(function(){
+			ready( cb );
+		});
+	}
+	ready( function(){
+		ref.parentNode.insertBefore( ss, ( before ? ref : ref.nextSibling ) );
+	});
+	var onloadcssdefined = function( cb ){
+		var resolvedHref = ss.href;
+		var i = sheets.length;
+		while( i-- ){
+			if( sheets[ i ].href === resolvedHref ){
+				return cb();
+			}
+		}
+		setTimeout(function() {
+			onloadcssdefined( cb );
+		});
+	};
+	function loadCB(){
+		if( ss.addEventListener ){
+			ss.removeEventListener( "load", loadCB );
+		}
+		ss.media = media || "all";
+	}
+	if( ss.addEventListener ){
+		ss.addEventListener( "load", loadCB);
+	}
+	ss.onloadcssdefined = onloadcssdefined;
+	onloadcssdefined( loadCB );
+	return ss;
+};
+</script>
+<script>
+  
+  loadCSS("https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14/css/all.min.css", window.volantis.loadcss);
+  
+  
+  
+  
+</script>
+<!-- required -->
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5/dist/jquery.min.js"></script>
+
+<script>
+  function pjax_fancybox() {
+    $(".md .gallery").find("img").each(function () { //渲染 fancybox
+      var element = document.createElement("a"); // a 标签
+      $(element).attr("class", "fancybox");
+      $(element).attr("pjax-fancybox", "");  // 过滤 pjax
+      $(element).attr("href", $(this).attr("src"));
+      if ($(this).attr("data-original")) {
+        $(element).attr("href", $(this).attr("data-original"));
+      }
+      $(element).attr("data-fancybox", "images");
+      var caption = "";   // 描述信息
+      if ($(this).attr('alt')) {  // 判断当前页面是否存在描述信息
+        $(element).attr('data-caption', $(this).attr('alt'));
+        caption = $(this).attr('alt');
+      }
+      var div = document.createElement("div");
+      $(div).addClass("fancybox");
+      $(this).wrap(div); // 最外层套 div ，其实主要作用还是 class 样式
+      var span = document.createElement("span");
+      $(span).addClass("image-caption");
+      $(span).text(caption); // 加描述
+      $(this).after(span);  // 再套一层描述
+      $(this).wrap(element);  // 最后套 a 标签
+    })
+    $(".md .gallery").find("img").fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+      closeClick: true,
+      helpers: {
+        overlay: {closeClick: true}
+      },
+      buttons: [
+        "zoom",
+        "close"
+      ]
+    });
+  };
+  function SCload_fancybox() {
+    if ($(".md .gallery").find("img").length == 0) return;
+    loadCSS("https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css", document.getElementById("loadcss"));
+    loadScript('https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', pjax_fancybox)
+  };
+  $(function () {
+    SCload_fancybox();
+  });
+  function Pjax_SCload_fancybox(){
+	if (typeof $.fancybox == "undefined") {
+	 SCload_fancybox();
+    } else {
+	 pjax_fancybox();
+    }
+  }
+  volantis.pjax.push(Pjax_SCload_fancybox)
+  volantis.pjax.send(()=>{
+      if (typeof $.fancybox != "undefined") {
+        $.fancybox.close();    // 关闭弹窗
+      }
+  },'fancybox')
+</script>
+
+
+<!-- internal -->
+
+
+
+
+<script>
+  function loadIssuesJS() {
+    if ($(".md").find(".issues-api").length == 0) return;
+	
+	  loadScript('/js/issues.js');
+	
+  };
+  $(function () {
+    loadIssuesJS();
+  });
+  volantis.pjax.push(()=>{
+	if (typeof IssuesAPI == "undefined") {
+	  loadIssuesJS();
+	}
+  },"IssuesJS")
+</script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 0
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    lazyLoadInstance.update();
+  });
+  document.addEventListener('pjax:complete', function () {
+    lazyLoadInstance.update();
+  });
+</script>
+
+
+
+
+  
+
+<script>
+  window.FPConfig = {
+	delay: 0,
+	ignoreKeywords: [],
+	maxRPS: 5,
+	hoverDelay: 25
+  };
+</script>
+<script defer src="https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"></script>
+
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+    var clipboard = new ClipboardJS('.btn-copy', {
+        target: function (trigger) {
+            return trigger.nextElementSibling
+        }
+    });
+    function wait(callback, seconds) {
+        var timelag = null;
+        timelag = window.setTimeout(callback, seconds)
+    }
+    function pjax_initCopyCode() {
+		if($(".highlight .code pre").length+$(".article pre code").length==0)return;
+        var copyHtml = '';
+        copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+        copyHtml += '<i class="fas fa-copy"></i><span>COPY</span>';
+        copyHtml += '</button>';
+        $(".highlight .code pre").before(copyHtml);
+        $(".article pre code").before(copyHtml);
+        clipboard.off('success').on('success', function (e) {
+            let $btn = $(e.trigger);
+            $btn.addClass('copied');
+            let $icon = $($btn.find('i'));
+            $icon.removeClass('fa-copy');
+            $icon.addClass('fa-check-circle');
+            let $span = $($btn.find('span'));
+            $span[0].innerText = 'COPIED';
+            wait(function () {
+                $icon.removeClass('fa-check-circle');
+                $icon.addClass('fa-copy');
+                $span[0].innerText = 'COPY'
+            }, 2000)
+        });
+        clipboard.off('error').on('error', function (e) {
+            e.clearSelection();
+            let $btn = $(e.trigger);
+            $btn.addClass('copy-failed');
+            let $icon = $($btn.find('i'));
+            $icon.removeClass('fa-copy');
+            $icon.addClass('fa-times-circle');
+            let $span = $($btn.find('span'));
+            $span[0].innerText = 'COPY FAILED';
+            wait(function () {
+                $icon.removeClass('fa-times-circle');
+                $icon.addClass('fa-copy');
+                $span[0].innerText = 'COPY'
+            }, 2000)
+        })
+    }
+    $(function () {
+        pjax_initCopyCode()
+    });
+	volantis.pjax.push(pjax_initCopyCode)
+</script>
+
+
+
+
+
+
+  <script>
+  let APlayerController = new Object();
+  APlayerController.id = '6729508229';  // 设定全局音乐播放ID
+  APlayerController.volume = '0.7';
+  loadCSS("https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css", window.volantis.loadcss);
+  // APlayer 需要在  MetingJS 之前加载
+  loadScript("https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js")
+  window.volantis.APlayerLoaded=0 // APlayer加载完成状态
+  var checkAPlayer = setInterval(function () {
+    if (!window.APlayer) return // APlayer加载完成？
+	  if ($("#safearea").css("display")!="block") return // 文章内容加载完成？ see: source/css/first.styl
+    clearInterval(checkAPlayer)
+	  if (!window.volantis.APlayerLoaded&&!window.MetingJSElement){ // APlayer只能加载一次
+      window.volantis.APlayerLoaded=1 // APlayer加载完成
+      loadScript("https://cdn.jsdelivr.net/npm/meting@2.0/dist/Meting.min.js") // 加载 MetingJS
+	  }
+  }, 2500) // 按照网速调节差分2.5s
+  // rightmenu see: layout/_partial/rightmenu.ejs
+
+</script>
+
+
+
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js"></script>
+
+
+<script>
+  function pjax_waline() {
+    if(!document.querySelectorAll("#waline")[0])return;
+    let pagePlaceholder = pdata.commentPlaceholder || "快来评论吧~";
+    let path = pdata.commentPath;
+    if (path.length == 0) {
+      let defaultPath = '';
+      path = defaultPath || decodeURI(window.location.pathname);
+    }
+    new Waline(Object.assign({"js":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","path":null,"placeholder":"快来评论吧~","imageHosting":"https://7bu.top/api/upload","meta":["nick","mail","link"],"requiredFields":["nick","mail"],"serverURL":"https://yeshan333-waline.vercel.app","avatar":"robohash","pageSize":10,"lang":"zh-CN"}, {
+     el: '#waline',
+     path: path,
+     placeholder: pagePlaceholder,
+     uploadImage: function(file) {
+      const formData = new FormData();
+      formData.append('image', file);
+      return fetch('https://7bu.top/api/upload', {
+      	method: 'POST',
+      	body: formData
+      }).then(resp => resp.json()).then(resp => resp.data.url);
+   },
+  }));
+  }
+  $(function () {
+    pjax_waline();
+  });
+  volantis.pjax.push(pjax_waline);
+</script>
+
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js" data-pjax></script>
+
+
+
+  
+<script src="/js/app.js"></script>
+
+
+
+<!-- optional -->
+
+  <script>
+const SearchServiceimagePath="https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@master/img/";
+const ROOT =  ("/" || "/").endsWith('/') ? ("/" || "/") : ("//" || "/" );
+
+$('.input.u-search-input').one('focus',function(){
+	
+		loadScript('https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@2.6.4/js/search.js',setSearchService);
+	
+})
+
+function listenSearch(){
+  
+    customSearch = new HexoSearch({
+      imagePath: SearchServiceimagePath
+    });
+  
+}
+function setSearchService() {
+	listenSearch();
+	
+}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  <script defer>
+
+  const LCCounter = {
+    app_id: 'u9j57bwJod4EDmXWdxrwuqQT-MdYXbMMI',
+    app_key: 'jfHtEKVE24j0IVCGHbvuFClp',
+    custom_api_server: '',
+
+    // 查询存储的记录
+    getRecord(Counter, url, title) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({url})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
+            }
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {url, title: title, times: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
+        });
+      })
+    },
+
+    // 发起自增请求
+    increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
+          }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    },
+
+    // 构建自增请求体
+    buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "times": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    },
+
+    // 校验是否为有效的 UV
+    validUV() {
+      var key = 'LeanCloudUVTimestamp';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    },
+
+    addCount(Counter) {
+      var enableIncr = '' === 'true' && window.location.hostname !== 'localhost';
+      enableIncr = true;
+      var getterArr = [];
+      var incrArr = [];
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#lc-sv');
+      if (pvCtn || enableIncr) {
+        var pvGetter = this.getRecord(Counter, 'https://yeshan333.github.io' + '/#lc-sv', 'Visits').then((record) => {
+          incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-sv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + 1;
+              if (pvCtn) {
+                pvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#lc-uv');
+      if (uvCtn || enableIncr) {
+        var uvGetter = this.getRecord(Counter, 'https://yeshan333.github.io' + '/#lc-uv', 'Visitors').then((record) => {
+          var vuv = this.validUV();
+          vuv && incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-uv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + (vuv ? 1 : 0);
+              if (uvCtn) {
+                uvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 请求文章的浏览数，如果是当前页面就自增
+      var allPV = document.querySelectorAll('#lc-pv');
+      if (allPV.length > 0 || enableIncr) {
+        for (i = 0; i < allPV.length; i++) {
+          let pv = allPV[i];
+          let title = pv.getAttribute('data-title');
+          var url = 'https://yeshan333.github.io' + pv.getAttribute('data-path');
+          if (url) {
+            var viewGetter = this.getRecord(Counter, url, title).then((record) => {
+              // 是当前页面就自增
+              let curPath = window.location.pathname;
+              if (curPath.includes('index.html')) {
+                curPath = curPath.substring(0, curPath.lastIndexOf('index.html'));
+              }
+              if (pv.getAttribute('data-path') == curPath) {
+                incrArr.push(this.buildIncrement(record.objectId));
+              }
+              if (pv) {
+                var ele = pv.querySelector('#lc-pv #number');
+                if (ele) {
+                  if (pv.getAttribute('data-path') == curPath) {
+                    ele.innerText = (record.times || 0) + 1;
+                  } else {
+                    ele.innerText = record.times || 0;
+                  }
+                  pv.style.display = 'inline';
+                }
+              }
+            });
+            getterArr.push(viewGetter);
+          }
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && this.increment(Counter, incrArr);
+        })
+      }
+
+    },
+
+
+    fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': this.app_id,
+            'X-LC-Key': this.app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      this.addCount(Counter);
+    },
+
+    refreshCounter() {
+      var api_server = this.app_id.slice(-9) !== '-MdYXbMMI' ? this.custom_api_server : `https://${ this.app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+      if (api_server) {
+        this.fetchData(api_server);
+      } else {
+        fetch('https://app-router.leancloud.cn/2/route?appId=' + this.app_id)
+          .then(resp => resp.json())
+          .then(({api_server}) => {
+            this.fetchData('https://' + api_server);
+          });
+      }
+    }
+
+  };
+
+  LCCounter.refreshCounter();
+
+  document.addEventListener('pjax:complete', function () {
+    LCCounter.refreshCounter();
+  });
+</script>
+
+
+
+
+  <script>
+const rootElement = document.documentElement;
+const darkModeStorageKey = "user-color-scheme";
+const rootElementDarkModeAttributeName = "data-user-color-scheme";
+
+const setLS = (k, v) => {
+    localStorage.setItem(k, v);
+};
+
+const removeLS = (k) => {
+    localStorage.removeItem(k);
+};
+
+const getLS = (k) => {
+    return localStorage.getItem(k);
+};
+
+const getModeFromCSSMediaQuery = () => {
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
+};
+
+const resetRootDarkModeAttributeAndLS = () => {
+  rootElement.removeAttribute(rootElementDarkModeAttributeName);
+  removeLS(darkModeStorageKey);
+};
+
+const validColorModeKeys = {
+  dark: true,
+  light: true,
+};
+
+const applyCustomDarkModeSettings = (mode) => {
+  const currentSetting = mode || getLS(darkModeStorageKey);
+
+  if (currentSetting === getModeFromCSSMediaQuery()) {
+    resetRootDarkModeAttributeAndLS();
+  } else if (validColorModeKeys[currentSetting]) {
+    rootElement.setAttribute(rootElementDarkModeAttributeName, currentSetting);
+  } else {
+    resetRootDarkModeAttributeAndLS();
+  }
+};
+
+const invertDarkModeObj = {
+  dark: "light",
+  light: "dark",
+};
+
+/**
+ * get target mode
+ */
+const toggleCustomDarkMode = () => {
+  let currentSetting = getLS(darkModeStorageKey);
+
+  if (validColorModeKeys[currentSetting]) {
+    currentSetting = invertDarkModeObj[currentSetting];
+  } else if (currentSetting === null) {
+    currentSetting = invertDarkModeObj[getModeFromCSSMediaQuery()];
+  } else {
+    return;
+  }
+  setLS(darkModeStorageKey, currentSetting);
+  return currentSetting;
+};
+
+/**
+ * bind click event for toggle button
+ */
+var btn=$("#wrapper .toggle-mode-btn,#rightmenu-wrapper .toggle-mode-btn");
+function bindToggleButton() {
+    btn.on('click',(e) => {
+      const mode = toggleCustomDarkMode();
+      applyCustomDarkModeSettings(mode);
+    });
+}
+
+applyCustomDarkModeSettings();
+document.addEventListener("DOMContentLoaded", bindToggleButton);
+volantis.pjax.push(bindToggleButton);
+volantis.pjax.send(()=>{
+	btn.unbind('click');
+},'toggle-mode-btn-unbind');
+</script>
+
+
+
+
+
+
+
+
+<script>
+function listennSidebarTOC() {
+  const navItems = document.querySelectorAll(".toc li");
+  if (!navItems.length) return;
+  const sections = [...navItems].map((element) => {
+    const link = element.querySelector(".toc-link");
+    const target = document.getElementById(
+      decodeURI(link.getAttribute("href")).replace("#", "")
+    );
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      window.scrollTo({
+		top: target.offsetTop + 100,
+		
+		behavior: "smooth"
+		
+	  });
+    });
+    return target;
+  });
+
+  function activateNavByIndex(target) {
+    if (target.classList.contains("active-current")) return;
+
+    document.querySelectorAll(".toc .active").forEach((element) => {
+      element.classList.remove("active", "active-current");
+    });
+    target.classList.add("active", "active-current");
+    let parent = target.parentNode;
+    while (!parent.matches(".toc")) {
+      if (parent.matches("li")) parent.classList.add("active");
+      parent = parent.parentNode;
+    }
+  }
+
+  function findIndex(entries) {
+    let index = 0;
+    let entry = entries[index];
+    if (entry.boundingClientRect.top > 0) {
+      index = sections.indexOf(entry.target);
+      return index === 0 ? 0 : index - 1;
+    }
+    for (; index < entries.length; index++) {
+      if (entries[index].boundingClientRect.top <= 0) {
+        entry = entries[index];
+      } else {
+        return sections.indexOf(entry.target);
+      }
+    }
+    return sections.indexOf(entry.target);
+  }
+
+  function createIntersectionObserver(marginTop) {
+    marginTop = Math.floor(marginTop + 10000);
+    let intersectionObserver = new IntersectionObserver(
+      (entries, observe) => {
+        let scrollHeight = document.documentElement.scrollHeight + 100;
+        if (scrollHeight > marginTop) {
+          observe.disconnect();
+          createIntersectionObserver(scrollHeight);
+          return;
+        }
+        let index = findIndex(entries);
+        activateNavByIndex(navItems[index]);
+      },
+      {
+        rootMargin: marginTop + "px 0px -100% 0px",
+        threshold: 0,
+      }
+    );
+    sections.forEach((element) => {
+      element && intersectionObserver.observe(element);
+    });
+  }
+  createIntersectionObserver(document.documentElement.scrollHeight);
+}
+
+document.addEventListener("DOMContentLoaded", listennSidebarTOC);
+document.addEventListener("pjax:success", listennSidebarTOC);
+</script>
+
+<!-- more -->
+
+  
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yeshan333/jsDelivrCDN/piao.js" />
+
+  <script type="text/javascript" src="https://cdn.staticfile.org/jquery/1.7.2/jquery.min.js" />
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yeshan333/jsDelivrCDN/attatkmouse.js" />
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yeshan333/jsDelivrCDN/clearbit.js" />
+
+  <script async defer data-domain="shansan.top" src="https://plausible.io/js/plausible.js" />
+
+
+
+ 
+	  
+    </div>
+  </body>
+</html>

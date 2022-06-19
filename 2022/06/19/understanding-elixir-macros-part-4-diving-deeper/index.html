@@ -1,0 +1,1814 @@
+<!DOCTYPE html>
+<html lang="zh-CN,en,zh-TW,default">
+  <head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/tree/4.3.1'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <link rel="preload" href="/css/first.css" as="style">
+  
+
+  <!-- 页面元数据 -->
+  
+  <title>(译) Understanding Elixir Macros, Part 4 - Diving Deeper - ShanSan</title>
+  
+    <meta name="keywords" content="Elixir Macros">
+  
+
+  
+
+  <!-- feed -->
+  
+    <link rel="alternate" href="/rss2.xml" title="ShanSan" type="application/rss+xml">
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  
+    <link rel="shortcut icon" type='image/x-icon' href="https://img.vim-cn.com/bb/db444be0b7fda59c69d5c64167f9668b0b66bd.png">
+  
+
+  <!-- import link -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/first.css">
+
+  
+
+  
+  <link rel="stylesheet" href="/css/style.css" media="print" onload="this.media='all';this.onload=null">
+  <noscript><link rel="stylesheet" href="/css/style.css"></noscript>
+  
+
+  <script id="loadcss"></script>
+
+  
+<script>
+if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode))
+    document.write(
+	'<style>'+
+		'html{'+
+			'overflow-x: hidden !important;'+
+			'overflow-y: hidden !important;'+
+		'}'+
+		'.kill-ie{'+
+			'text-align:center;'+
+			'height: 100%;'+
+			'margin-top: 15%;'+
+			'margin-bottom: 5500%;'+
+		'}'+
+	'</style>'+
+    '<div class="kill-ie">'+
+        '<h1><b>抱歉，您的浏览器无法访问本站</b></h1>'+
+        '<h3>微软已经于2016年终止了对 Internet Explorer (IE) 10 及更早版本的支持，<br/>'+
+        '继续使用存在极大的安全隐患，请使用当代主流的浏览器进行访问。</h3><br/>'+
+        '<a target="_blank" rel="noopener" href="https://www.microsoft.com/zh-cn/WindowsForBusiness/End-of-IE-support"><strong>了解详情 ></strong></a>'+
+    '</div>');
+</script>
+
+
+<noscript>
+	<style>
+		html{
+			overflow-x: hidden !important;
+			overflow-y: hidden !important;
+		}
+		.kill-noscript{
+			text-align:center;
+			height: 100%;
+			margin-top: 15%;
+			margin-bottom: 5500%;
+		}
+	</style>
+    <div class="kill-noscript">
+        <h1><b>抱歉，您的浏览器无法访问本站</b></h1>
+        <h3>本页面需要浏览器支持（启用）JavaScript</h3><br/>
+        <a target="_blank" rel="noopener" href="https://www.baidu.com/s?wd=启用JavaScript"><strong>了解详情 ></strong></a>
+    </div>
+</noscript>
+
+</head>
+
+  <body>
+    
+
+<header id="l_header" class="l_header auto shadow blur " style='opacity: 0' >
+  <div class='container'>
+  <div id='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h m-phone' id="pjax-header-nav-list">
+        <li><a id="s-comment" class="fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a id="s-toc" class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+          
+          
+            ShanSan
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h m-pc'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博文
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" 
+                  
+                  
+                  >
+                  <i class='fas fa-ellipsis-v fa-fw'></i>与我相关
+                </a>
+                
+                  <ul class="list-v">
+                    
+                      
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://github.com/yeshan333
+                  
+                  
+                  
+                    id="https:githubcomyeshan333"
+                  >
+                  <i class='fab fa-github-square fa-fw'></i>Github
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://slide.shan333.cn
+                  
+                  
+                  
+                    id="https:slideshan333cn"
+                  >
+                  <i class='fab fa-slideshare fa-fw'></i>slides
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://shansan.top/knowledge-base/
+                  
+                  
+                  
+                    id="https:shansantopknowledge-base"
+                  >
+                  <i class='far fa-sticky-note fa-fw'></i>notes
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://stats.uptimerobot.com/OknEPcNEVr
+                  
+                  
+                  
+                    id="https:statsuptimerobotcomOknEPcNEVr"
+                  >
+                  Monitor
+                </a>
+                
+              </li>
+            
+          
+                    
+                  </ul>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/cloud-native/
+                  
+                  
+                  
+                    id="cloud-native"
+                  >
+                  <i class='fas fa-cloud fa-fw'></i>云原生
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="寻你所想" />
+        </form>
+      </div>
+
+			<ul class='switcher nav-list-h m-phone'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博文
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" 
+                  
+                  
+                  >
+                  <i class='fas fa-ellipsis-v fa-fw'></i>与我相关
+                </a>
+                
+                  <ul class="list-v">
+                    
+                      
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://github.com/yeshan333
+                  
+                  
+                  
+                    id="https:githubcomyeshan333"
+                  >
+                  <i class='fab fa-github-square fa-fw'></i>Github
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://slide.shan333.cn
+                  
+                  
+                  
+                    id="https:slideshan333cn"
+                  >
+                  <i class='fab fa-slideshare fa-fw'></i>slides
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://shansan.top/knowledge-base/
+                  
+                  
+                  
+                    id="https:shansantopknowledge-base"
+                  >
+                  <i class='far fa-sticky-note fa-fw'></i>notes
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://stats.uptimerobot.com/OknEPcNEVr
+                  
+                  
+                  
+                    id="https:statsuptimerobotcomOknEPcNEVr"
+                  >
+                  Monitor
+                </a>
+                
+              </li>
+            
+          
+                    
+                  </ul>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/cloud-native/
+                  
+                  
+                  
+                    id="cloud-native"
+                  >
+                  <i class='fas fa-cloud fa-fw'></i>云原生
+                </a>
+                
+              </li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</header>
+
+    <div id="l_body">
+      <div id="l_cover">
+  
+      
+  
+  </div>
+
+      <div id="safearea">
+        <div class="body-wrapper" id="pjax-container">
+          
+
+<div class='l_main'>
+  <article class="article post white-box reveal md shadow article-type-post" id="post" itemscope itemprop="blogPost">
+  
+
+
+  
+  <div class="article-meta" id="top">
+    
+    
+    
+      <h1 class="title">
+        (译) Understanding Elixir Macros, Part 4 - Diving Deeper
+      </h1>
+      <div class='new-meta-box'>
+        
+          
+            
+<div class='new-meta-item author'>
+  <a class='author' target="_blank" href="https://github.com/yeshan333" rel="nofollow noopener">
+    <img no-lazy src="https://z3.ax1x.com/2021/11/07/I1qTFx.png">
+    <p>yeshan333</p>
+  </a>
+</div>
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>首发于：2022年6月19日</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Elixir-Macros/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>Elixir-Macros</p></a></div>
+
+
+          
+        
+      </div>
+    
+  </div>
+
+
+  
+  
+  <p>在前一篇文章中, 我向你展示了分析输入 AST 并对其进行处理的一些基本方法. 今天我们将研究一些更复杂的 AST 转换. 这将重提已经解释过的技术. 这样做的目的是为了表明深入研究 AST 并不是很难的, 尽管最终的结果代码很容易变得相当复杂, 而且有点黑科技（hacky).</p>
+<h2 id="追踪函数调用"><a href="#追踪函数调用" class="headerlink" title="追踪函数调用"></a>追踪函数调用</h2><p>在本文中, 我们将创建一个宏 <code>deftraceable</code>, 它允许我们定义可跟踪的函数. 可跟踪函数的工作方式与普通函数一样, 但每当我们调用它时, 都会打印出调试信息. 大致思路是这样的:</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">defmodule</span> <span class="title">Test</span></span> <span class="keyword">do</span></span><br><span class="line">  <span class="keyword">import</span> Tracer</span><br><span class="line"></span><br><span class="line">  deftraceable my_fun(a,b) <span class="keyword">do</span></span><br><span class="line">    a/b</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">Test.my_fun(<span class="number">6</span>,<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># =&gt; test.ex(line 4) Test.my_fun(6,2) = 3</span></span><br></pre></td></tr></table></figure>
+
+<p>这个例子当然是虚构的. 你不需要设计这样的宏, 因为 Erlang 已经有非常强大的<a target="_blank" rel="noopener" href="https://www.erlang.org/doc/man/dbg.html">跟踪功能</a>, 而且有一个 <a target="_blank" rel="noopener" href="https://github.com/fishcakez/dbg">Elixir 包</a>可用. 然而, 这个例子很有趣, 因为它需要一些更深层次的 AST 转换技巧.</p>
+<p>在开始之前, 我要再提一次, 你应该仔细考虑你是否真的需要这样的结构. 例如 <code>deftraceable</code> 这样的宏引入了一个每个代码维护者都需要了解的东西. 看着代码, 它背后发生的事不是显而易见的. 如果每个人都设计这样的结构, 每个 Elixir 项目都会很快地变成自定义语言的大锅汤. 当代码主要依赖于复杂的宏时, 即使对于有经验的开发人员, 即使是有经验的开发人员也很难理解严重依赖于复杂宏的底层代码的流程.</p>
+<p>但是在适合使用宏的情况下, 你不应该仅仅因为有人声称宏是不好的, 就不使用它. 例如, 如果在 Erlang 中没有跟踪功能, 我们就需要设计一些宏来帮助我们（实际上不需要类似上述的例子, 但那是另外一个话题）, 否则我们的代码就会有大量重复的模板代码.</p>
+<p>在我看来, 模板代码太多是不好的, 因为代码中有了太多形式化的噪音, 因此更难阅读和理解. 宏有助于减少这些噪声, 但在使用宏之前, 请先考虑是否可以使用运行时结构（函数, 模块, 协议）来解决重复.</p>
+<p>看完这个长长的免责声明, 让我们开始实现 <code>deftraceable</code>吧. 首先, 手动生成对应的代码.</p>
+<p>让我们回顾下用法:</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">deftraceable my_fun(a,b) <span class="keyword">do</span></span><br><span class="line">  a/b</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p>生成的代码类似于这样:</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">my_fun</span></span>(a, b) <span class="keyword">do</span></span><br><span class="line">  file = __ENV__.file</span><br><span class="line">  line = __ENV__.line</span><br><span class="line">  <span class="keyword">module</span> = __ENV__.module</span><br><span class="line">  function_name = <span class="string">&quot;my_fun&quot;</span></span><br><span class="line">  passed_args = [a,b] |&gt; Enum.map(&amp;inspect/<span class="number">1</span>) |&gt; Enum.join(<span class="string">&quot;,&quot;</span>)</span><br><span class="line"></span><br><span class="line">  result = a/b</span><br><span class="line"></span><br><span class="line">  loc = <span class="string">&quot;<span class="subst">#&#123;file&#125;</span>(line <span class="subst">#&#123;line&#125;</span>)&quot;</span></span><br><span class="line">  call = <span class="string">&quot;<span class="subst">#&#123;<span class="keyword">module</span>&#125;</span>.<span class="subst">#&#123;function_name&#125;</span>(<span class="subst">#&#123;passed_args&#125;</span>) = <span class="subst">#&#123;inspect result&#125;</span>&quot;</span></span><br><span class="line">  IO.puts <span class="string">&quot;<span class="subst">#&#123;loc&#125;</span> <span class="subst">#&#123;call&#125;</span>&quot;</span></span><br><span class="line"></span><br><span class="line">  result</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p>这个想法很简单. 我们从编译器环境中获取各种数据, 然后计算结果, 最后将所有内容打印到屏幕上.</p>
+<p>该代码依赖于 <code>__ENV__</code> 特殊形式, 可用于在最终 AST 中注入各种编译时信息(例如行号和文件). <code>__ENV__</code> 是一个结构体, 每当你在代码中使用它时, 它将在编译时扩展为适当的值.  因此, 只要在代码中写入 <code>__ENV__.file</code>.  文件生成的字节码将包含包含文件名的(二进制)字符串常量.</p>
+<p>现在我们需要动态构建这个代码. 让我们来看看大概的样子（outline）：</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">defmacro</span> <span class="title">deftraceable</span></span>(??) <span class="keyword">do</span></span><br><span class="line">  <span class="keyword">quote</span> <span class="keyword">do</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">unquote</span></span>(head) <span class="keyword">do</span></span><br><span class="line">      file = __ENV__.file</span><br><span class="line">      line = __ENV__.line</span><br><span class="line">      <span class="keyword">module</span> = __ENV__.module</span><br><span class="line">      function_name = ??</span><br><span class="line">      passed_args = ?? |&gt; Enum.map(&amp;inspect/<span class="number">1</span>) |&gt; Enum.join(<span class="string">&quot;,&quot;</span>)</span><br><span class="line"></span><br><span class="line">      result = ??</span><br><span class="line"></span><br><span class="line">      loc = <span class="string">&quot;<span class="subst">#&#123;file&#125;</span>(line <span class="subst">#&#123;line&#125;</span>)&quot;</span></span><br><span class="line">      call = <span class="string">&quot;<span class="subst">#&#123;<span class="keyword">module</span>&#125;</span>.<span class="subst">#&#123;function_name&#125;</span>(<span class="subst">#&#123;passed_args&#125;</span>) = <span class="subst">#&#123;inspect result&#125;</span>&quot;</span></span><br><span class="line">      IO.puts <span class="string">&quot;<span class="subst">#&#123;loc&#125;</span> <span class="subst">#&#123;call&#125;</span>&quot;</span></span><br><span class="line"></span><br><span class="line">      result</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p>这里我们在需要基于输入参数动态注入 AST 片段的地方放置问号（??）. 特别地, 我们必须从传递的参数中推导出函数名、参数名和函数体.</p>
+<p>现在, 当我们调用宏 <code>deftraceable my_fun(...) do ... end</code>, 宏接收两个参数 — 函数头（函数名和参数列表）和包含函数体的关键字列表. 这些都是被 quoted 的.</p>
+<p>我是如何知道的？其实我不知道. 我一般通过不断试错来获得的这些信息. 基本上, 我从定义一个宏开始：</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">defmacro</span> <span class="title">deftraceable</span></span>(arg1) <span class="keyword">do</span></span><br><span class="line">  IO.inspect arg1</span><br><span class="line">  <span class="keyword">nil</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p>然后我尝试从一些测试模块或 shell 中调用宏. 我将通过向宏定义中添加另一个参数来测试. 一旦我得到结果, 我会试图找出参数表示什么, 然后开始构建宏.</p>
+<p>宏结束处的 <code>nil</code> 确保我们不生成任何东西（我们生成的 <code>nil</code> 通常与调用者代码无关）. 这允许我进一步构建片段而不注入代码. 我通常依靠 <code>IO.inspect</code>和 <code>Macro.to_string/1</code> 来验证中间结果, 一旦我满意了, 我会删除 <code>nil</code> 部分, 看看是否能工作.</p>
+<p>此时 <code>deftraceable</code> 接收函数头和身体. 函数头将是一个我们之前描述的结构的 AST 片段：</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;function_name, context, [arg1, arg2, ...]</span><br></pre></td></tr></table></figure>
+
+<p>所以接下来我们需要：</p>
+<ul>
+<li>从 quoted 的头中提取函数名和参数</li>
+<li>将这些值注入我们的宏返回的 AST 中</li>
+<li>将函数体注入同一个 AST</li>
+<li>打印跟踪信息</li>
+</ul>
+<p>我们可以使用模式匹配从这个 AST 片段中提取函数名和参数, 有一个 <code>Macro.decompose_call/1</code> 的辅助功能函数可以帮我们做到. 做完这些步骤, 宏的最终版本实现如下所示：</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">defmodule</span> <span class="title">Tracer</span></span> <span class="keyword">do</span></span><br><span class="line">  <span class="function"><span class="keyword">defmacro</span> <span class="title">deftraceable</span></span>(head, body) <span class="keyword">do</span></span><br><span class="line">    <span class="comment"># 提取函数名和参数</span></span><br><span class="line">    &#123;fun_name, args_ast&#125; = Macro.decompose_call(head)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">quote</span> <span class="keyword">do</span></span><br><span class="line">      <span class="function"><span class="keyword">def</span> <span class="title">unquote</span></span>(head) <span class="keyword">do</span></span><br><span class="line">        file = __ENV__.file</span><br><span class="line">        line = __ENV__.line</span><br><span class="line">        <span class="keyword">module</span> = __ENV__.module</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 注入函数名和参数到 AST 中</span></span><br><span class="line">        function_name = unquote(fun_name)</span><br><span class="line">        passed_args = unquote(args_ast) |&gt; Enum.map(&amp;inspect/<span class="number">1</span>) |&gt; Enum.join(<span class="string">&quot;,&quot;</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 将函数体注入到 AST</span></span><br><span class="line">        result = unquote(body[<span class="symbol">:do</span>])</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 打印 trace 跟踪信息</span></span><br><span class="line">        loc = <span class="string">&quot;<span class="subst">#&#123;file&#125;</span>(line <span class="subst">#&#123;line&#125;</span>)&quot;</span></span><br><span class="line">        call = <span class="string">&quot;<span class="subst">#&#123;<span class="keyword">module</span>&#125;</span>.<span class="subst">#&#123;function_name&#125;</span>(<span class="subst">#&#123;passed_args&#125;</span>) = <span class="subst">#&#123;inspect result&#125;</span>&quot;</span></span><br><span class="line">        IO.puts <span class="string">&quot;<span class="subst">#&#123;loc&#125;</span> <span class="subst">#&#123;call&#125;</span>&quot;</span></span><br><span class="line"></span><br><span class="line">        result</span><br><span class="line">      <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p>让我们试一下：</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">iex(<span class="number">1</span>)&gt; <span class="class"><span class="keyword">defmodule</span> <span class="title">Tracer</span></span> <span class="keyword">do</span> ... <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">iex(<span class="number">2</span>)&gt; <span class="class"><span class="keyword">defmodule</span> <span class="title">Test</span></span> <span class="keyword">do</span></span><br><span class="line">          <span class="keyword">import</span> Tracer</span><br><span class="line"></span><br><span class="line">          deftraceable my_fun(a,b) <span class="keyword">do</span></span><br><span class="line">            a/b</span><br><span class="line">          <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">iex(<span class="number">3</span>)&gt; Test.my_fun(<span class="number">10</span>,<span class="number">5</span>)</span><br><span class="line">iex(line <span class="number">4</span>) Test.my_fun(<span class="number">10</span>,<span class="number">5</span>) = <span class="number">2.0</span>   <span class="comment"># trace output</span></span><br><span class="line"><span class="number">2.0</span></span><br></pre></td></tr></table></figure>
+
+<p>这似乎起作用了. 然而, 我应该立即指出, 这种实现存在一些问题:</p>
+<ul>
+<li>宏不能很好地处理守卫（guards）</li>
+<li>模式匹配参数并不总是有效的（例如, 当使用 _ 来匹配任何 term 时）</li>
+<li>在模块中直接动态生成代码时, 宏不起作用.</li>
+</ul>
+<p>我将逐一解释这些问题, 首先从守卫（guards）开始, 其余问题留待以后的文章再讨论.</p>
+<h2 id="处理-guards-（守卫）"><a href="#处理-guards-（守卫）" class="headerlink" title="处理 guards （守卫）"></a>处理 guards （守卫）</h2><p>所有具有可追溯性的问题都源于我们对输入 AST 做了一些事实假设. 这是一个危险的领域, 我们必须小心地涵盖所有情况.</p>
+<p>例如, 宏假设 head 只包含函数名称和参数列表. 因此, 如果我们想定义一个带守卫的可跟踪函数, <code>deftraceable</code> 将不起作用:</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">deftraceable my_fun(a,b) <span class="keyword">when</span> a &lt; b <span class="keyword">do</span></span><br><span class="line">  a/b</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p>在这种情况下, 我们的头部（宏的第一个参数）也将包含守卫（guards）的信息, 并且不能被 <code>macro .decompose_call/1</code> 解析. 解决方案是检测这种情况, 并以一种特殊的方式处理它.</p>
+<p>首先, 让我们来看看这个 head 是如何被 quoted 的:</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">iex(<span class="number">16</span>)&gt; <span class="keyword">quote</span> <span class="keyword">do</span> my_fun(a,b) <span class="keyword">when</span> a &lt; b <span class="keyword">end</span></span><br><span class="line">&#123;<span class="symbol">:when</span>, [],</span><br><span class="line"> [</span><br><span class="line">   &#123;<span class="symbol">:my_fun</span>, [],</span><br><span class="line">    [&#123;<span class="symbol">:a</span>, [<span class="symbol">if_undefined:</span> <span class="symbol">:apply</span>], Elixir&#125;, &#123;<span class="symbol">:b</span>, [<span class="symbol">if_undefined:</span> <span class="symbol">:apply</span>], Elixir&#125;]&#125;,</span><br><span class="line">   &#123;<span class="symbol">:&lt;</span>, [<span class="symbol">context:</span> Elixir, <span class="symbol">import:</span> Kernel],</span><br><span class="line">    [&#123;<span class="symbol">:a</span>, [<span class="symbol">if_undefined:</span> <span class="symbol">:apply</span>], Elixir&#125;, &#123;<span class="symbol">:b</span>, [<span class="symbol">if_undefined:</span> <span class="symbol">:apply</span>], Elixir&#125;]&#125;</span><br><span class="line"> ]&#125;</span><br></pre></td></tr></table></figure>
+
+<p>所以实际上我们的 guard head 实际上是这样的: <code>&#123;:when, _, [name_and_args, ...]&#125;</code>, 我们可以依靠它来使用模式匹配提取函数名称和参数:</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">defmodule</span> <span class="title">Tracer</span></span> <span class="keyword">do</span></span><br><span class="line">  ...</span><br><span class="line">  <span class="function"><span class="keyword">defp</span> <span class="title">name_and_args</span></span>(&#123;<span class="symbol">:when</span>, _, [short_head | _]&#125;) <span class="keyword">do</span></span><br><span class="line">    name_and_args(short_head)</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">defp</span> <span class="title">name_and_args</span></span>(short_head) <span class="keyword">do</span></span><br><span class="line">    Macro.decompose_call(short_head)</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line">  ...</span><br></pre></td></tr></table></figure>
+
+<p>当然, 我们需要从宏中调用这个函数:</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">defmodule</span> <span class="title">Tracer</span></span> <span class="keyword">do</span></span><br><span class="line">  ...</span><br><span class="line">  <span class="function"><span class="keyword">defmacro</span> <span class="title">deftraceable</span></span>(head, body) <span class="keyword">do</span></span><br><span class="line">    &#123;fun_name, args_ast&#125; = name_and_args(head)</span><br><span class="line"></span><br><span class="line">    ... <span class="comment"># 不变</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line">  ...</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p>如您所见, 可以定义额外的私有函数并从宏调用它们. 毕竟, 宏只是一个函数, 当调用它时, 包含的模块已经编译并加载到编译器的 VM 中(否则, 宏无法运行).</p>
+<p>以下是宏 <code>deftraceable</code> 的完整版本:</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">defmodule</span> <span class="title">Tracer</span></span> <span class="keyword">do</span></span><br><span class="line">  <span class="function"><span class="keyword">defmacro</span> <span class="title">deftraceable</span></span>(head, body) <span class="keyword">do</span></span><br><span class="line">    &#123;fun_name, args_ast&#125; = name_and_args(head)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">quote</span> <span class="keyword">do</span></span><br><span class="line">      <span class="function"><span class="keyword">def</span> <span class="title">unquote</span></span>(head) <span class="keyword">do</span></span><br><span class="line">        file = __ENV__.file</span><br><span class="line">        line = __ENV__.line</span><br><span class="line">        <span class="keyword">module</span> = __ENV__.module</span><br><span class="line"></span><br><span class="line">        function_name = unquote(fun_name)</span><br><span class="line">        passed_args = unquote(args_ast) |&gt; Enum.map(&amp;inspect/<span class="number">1</span>) |&gt; Enum.join(<span class="string">&quot;,&quot;</span>)</span><br><span class="line"></span><br><span class="line">        result = unquote(body[<span class="symbol">:do</span>])</span><br><span class="line"></span><br><span class="line">        loc = <span class="string">&quot;<span class="subst">#&#123;file&#125;</span>(line <span class="subst">#&#123;line&#125;</span>)&quot;</span></span><br><span class="line">        call = <span class="string">&quot;<span class="subst">#&#123;<span class="keyword">module</span>&#125;</span>.<span class="subst">#&#123;function_name&#125;</span>(<span class="subst">#&#123;passed_args&#125;</span>) = <span class="subst">#&#123;inspect result&#125;</span>&quot;</span></span><br><span class="line">        IO.puts <span class="string">&quot;<span class="subst">#&#123;loc&#125;</span> <span class="subst">#&#123;call&#125;</span>&quot;</span></span><br><span class="line"></span><br><span class="line">        result</span><br><span class="line">      <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">defp</span> <span class="title">name_and_args</span></span>(&#123;<span class="symbol">:when</span>, _, [short_head | _]&#125;) <span class="keyword">do</span></span><br><span class="line">    name_and_args(short_head)</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">defp</span> <span class="title">name_and_args</span></span>(short_head) <span class="keyword">do</span></span><br><span class="line">    Macro.decompose_call(short_head)</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p>让我们来试验一下:</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">iex(<span class="number">1</span>)&gt; <span class="class"><span class="keyword">defmodule</span> <span class="title">Tracer</span></span> <span class="keyword">do</span> ... <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">iex(<span class="number">2</span>)&gt; <span class="class"><span class="keyword">defmodule</span> <span class="title">Test</span></span> <span class="keyword">do</span></span><br><span class="line">          <span class="keyword">import</span> Tracer</span><br><span class="line"></span><br><span class="line">          deftraceable my_fun(a,b) <span class="keyword">when</span> a&lt;b <span class="keyword">do</span></span><br><span class="line">            a/b</span><br><span class="line">          <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">          deftraceable my_fun(a,b) <span class="keyword">do</span></span><br><span class="line">            a/b</span><br><span class="line">          <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">iex(<span class="number">3</span>)&gt; Test.my_fun(<span class="number">5</span>,<span class="number">10</span>)</span><br><span class="line">iex(line <span class="number">4</span>) Test.my_fun(<span class="number">5</span>,<span class="number">10</span>) = 0.<span class="number">5</span></span><br><span class="line">0.<span class="number">5</span></span><br><span class="line"></span><br><span class="line">iex(<span class="number">4</span>)&gt; Test.my_fun(<span class="number">10</span>, <span class="number">5</span>)</span><br><span class="line">iex(line <span class="number">7</span>) Test.my_fun(<span class="number">10</span>,<span class="number">5</span>) = <span class="number">2.0</span></span><br></pre></td></tr></table></figure>
+
+<p>这个练习的主要目的是说明可以从输入 AST 中推断出一些东西. 在这个例子中, 我们设法检测和处理函数 guards. 显然, 因为它依赖于 AST 的内部结构, 代码变得更加复杂了. 在这种情况下, 代码依旧比较简单, 但你将在后面的文章中看到我是如何解决 <code>deftraceable</code> 宏剩余的问题的, 事情可能很快变得杂乱起来了.</p>
+
+  
+  
+    
+    <div class='footer'>
+      
+      
+      
+        <div class='copyright'>
+          <blockquote>
+            
+              
+                <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+              
+            
+              
+                <p>我的博客即将同步至腾讯云+社区，邀请大家一同入驻：<a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/support-plan?invite_code=1utoln9pyvwqu">https://cloud.tencent.com/developer/support-plan?invite_code=1utoln9pyvwqu</a></p>
+
+              
+            
+          </blockquote>
+        </div>
+      
+      
+    </div>
+  
+  
+    
+
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2022-06-19T12:02:19+00:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2022年6月19日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Elixir-Macros/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>Elixir-Macros</p></a></div>
+
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-4-diving-deeper/&title=(译) Understanding Elixir Macros, Part 4 - Diving Deeper - ShanSan&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-4-diving-deeper/&title=(译) Understanding Elixir Macros, Part 4 - Diving Deeper - ShanSan&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-4-diving-deeper/&title=(译) Understanding Elixir Macros, Part 4 - Diving Deeper - ShanSan&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </div>
+
+
+  
+  
+
+  
+    <div class="prev-next">
+      
+        <a class='prev' href='/2022/06/19/understanding-elixir-macros-part-5-reshaping-the-ast/'>
+          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>(译) Understanding Elixir Macros, Part 5 - Reshaping the AST</p>
+          <p class='content'>上次我介绍了一个基本版本的可追溯宏 deftraceable, 它允许我们编写可跟踪的函数. 这个宏的最终版本还有一些遗留的问题, 今天我们将解决其中一个 — 参数模式匹配.
+从今天的练习应该认...</p>
+        </a>
+      
+      
+        <a class='next' href='/2022/06/19/understanding-elixir-macros-part-3-gettingto-the-ast/'>
+          <p class='title'>(译) Understanding Elixir Macros, Part 3 - Getting into the AST<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>是时候继续探索 Elixir 的宏了. 上次我介绍了一些关于宏的基本原理, 今天, 我将进入一个较少谈及的领域, 并讨论Elixir AST 的一些细节.
+跟踪函数调用到目前为止, 你只看到了接...</p>
+        </a>
+      
+    </div>
+  
+</article>
+
+
+  
+
+  <article class="post white-box reveal shadow" id="comments">
+    <p ct><i class='fas fa-comments'></i> 评论</p>
+    
+    <div id="waline">
+  <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+</div>
+
+  </article>
+
+
+
+
+
+  <script>
+  // https://github.com/theme-next/hexo-theme-next/blob/master/layout/_third-party/math/mathjax.swig
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.0/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    // 文章章节标题不能为 “MathJax” ，否则会报错。
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+
+
+</div>
+<aside class='l_side'>
+  
+  
+    
+    
+
+
+
+  <section class="widget toc-wrapper shadow desktop mobile" id="toc-div" >
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%BD%E8%B8%AA%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8"><span class="toc-text">追踪函数调用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%84%E7%90%86-guards-%EF%BC%88%E5%AE%88%E5%8D%AB%EF%BC%89"><span class="toc-text">处理 guards （守卫）</span></a></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+
+		  
+		  <!--此文件用来存放一些不方便取值的变量-->
+<!--思路大概是将值藏到重加载的区域内-->
+
+<script>
+  window.pdata={}
+  pdata.ispage=true;
+  pdata.postTitle="(译) Understanding Elixir Macros, Part 4 - Diving Deeper";
+  pdata.commentPath="";
+  pdata.commentPlaceholder="";
+  // header 这里无论是否开启pjax都需要
+  var l_header=document.getElementById("l_header");
+  
+  l_header.classList.add("show");
+  
+  
+</script>
+
+        </div>
+        
+  
+  <footer class="footer clearfix">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
+
+  
+    <meting-js
+      theme='#1BCDFC'
+      autoplay='false'
+      volume='0.7'
+      loop='all'
+      order='list'
+      fixed='false'
+      list-max-height='320px'
+      server='netease'
+      type='playlist'
+      id='6729508229'
+      list-folded='true'>
+    </meting-js>
+  
+
+
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+            
+              <a href="mailto:1329441308@qq.com"
+                class="social fas fa-envelope flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+                
+              </a>
+            
+          
+            
+              <a href="https://github.com/yeshan333?tab=repositories"
+                class="social fab fa-github flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+                
+              </a>
+            
+          
+            
+              <a href="https://music.163.com/#/my/m/music/playlist?id=2617691792"
+                class="social fas fa-music flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+                
+              </a>
+            
+          
+            
+              <a href="https://www.zhihu.com/people/si-kong-ji-54/activities"
+                class="social fab fa-zhihu flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+                
+              </a>
+            
+          
+            
+              <a href="https://yeshan333.github.io/rss2.xml"
+                class="social fas fa-rss flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+                
+              </a>
+            
+          
+        </div>
+      
+    
+      
+        <div><p>博客内容遵循 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+</div>
+      
+    
+      
+        本站使用
+        <a href="https://github.com/volantis-x/hexo-theme-volantis/tree/4.3.1" target="_blank" class="codename">Volantis</a>
+        作为主题，总访问量为
+          <span id="busuanzi_value_site_pv"><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+          次
+        
+      
+    
+      
+        <div class='copyright'>
+        <p><a target="_blank" rel="noopener" href="https://shansan.top/">Copyright © 2018-2022 ShanSan</a></p>
+
+        </div>
+      
+    
+      
+        
+          <div><p><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">桂ICP备19000444号</a></p>
+</div>
+        
+      
+    
+  </footer>
+
+
+        <a id="s-top" class="fas fa-arrow-up fa-fw" href="javascript:void(0)"></a>
+      </div>
+    </div>
+    <div>
+      <script>
+/************这个文件存放不需要重载的全局变量和全局函数*********/
+window.volantis={};
+window.volantis.loadcss=document.getElementById("loadcss");
+/******************** Pjax ********************************/
+function VPjax(){
+	this.list=[] // 存放回调函数
+	this.start=()=>{
+	  for(var i=0;i<this.list.length;i++){
+		this.list[i].run();
+	  }
+	}
+	this.push=(fn,name)=>{
+		var f=new PjaxItem(fn,name);
+		this.list.push(f);
+	}
+	// 构造一个可以run的对象
+	function PjaxItem(fn,name){
+		// 函数名称
+		this.name = name || fn.name
+		// run方法
+		this.run=()=>{
+			fn()
+		}
+	}
+}
+volantis.pjax={}
+volantis.pjax.method={
+	complete: new VPjax(),
+	error: new VPjax(),
+	send: new VPjax()
+}
+volantis.pjax={
+	...volantis.pjax,
+	push: volantis.pjax.method.complete.push,
+	error: volantis.pjax.method.error.push,
+	send: volantis.pjax.method.send.push
+}
+/********************脚本懒加载函数********************************/
+// 已经加入了setTimeout
+function loadScript(src, cb) {
+	setTimeout(function() {
+		var HEAD = document.getElementsByTagName('head')[0] || document.documentElement;
+		var script = document.createElement('script');
+		script.setAttribute('type','text/javascript');
+		if (cb) script.onload = cb;
+		script.setAttribute('src', src);
+		HEAD.appendChild(script);
+	});
+}
+//https://github.com/filamentgroup/loadCSS
+var loadCSS = function( href, before, media, attributes ){
+	var doc = window.document;
+	var ss = doc.createElement( "link" );
+	var ref;
+	if( before ){
+		ref = before;
+	}
+	else {
+		var refs = ( doc.body || doc.getElementsByTagName( "head" )[ 0 ] ).childNodes;
+		ref = refs[ refs.length - 1];
+	}
+	var sheets = doc.styleSheets;
+	if( attributes ){
+		for( var attributeName in attributes ){
+			if( attributes.hasOwnProperty( attributeName ) ){
+				ss.setAttribute( attributeName, attributes[attributeName] );
+			}
+		}
+	}
+	ss.rel = "stylesheet";
+	ss.href = href;
+	ss.media = "only x";
+	function ready( cb ){
+		if( doc.body ){
+			return cb();
+		}
+		setTimeout(function(){
+			ready( cb );
+		});
+	}
+	ready( function(){
+		ref.parentNode.insertBefore( ss, ( before ? ref : ref.nextSibling ) );
+	});
+	var onloadcssdefined = function( cb ){
+		var resolvedHref = ss.href;
+		var i = sheets.length;
+		while( i-- ){
+			if( sheets[ i ].href === resolvedHref ){
+				return cb();
+			}
+		}
+		setTimeout(function() {
+			onloadcssdefined( cb );
+		});
+	};
+	function loadCB(){
+		if( ss.addEventListener ){
+			ss.removeEventListener( "load", loadCB );
+		}
+		ss.media = media || "all";
+	}
+	if( ss.addEventListener ){
+		ss.addEventListener( "load", loadCB);
+	}
+	ss.onloadcssdefined = onloadcssdefined;
+	onloadcssdefined( loadCB );
+	return ss;
+};
+</script>
+<script>
+  
+  loadCSS("https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14/css/all.min.css", window.volantis.loadcss);
+  
+  
+  
+  
+</script>
+<!-- required -->
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5/dist/jquery.min.js"></script>
+
+<script>
+  function pjax_fancybox() {
+    $(".md .gallery").find("img").each(function () { //渲染 fancybox
+      var element = document.createElement("a"); // a 标签
+      $(element).attr("class", "fancybox");
+      $(element).attr("pjax-fancybox", "");  // 过滤 pjax
+      $(element).attr("href", $(this).attr("src"));
+      if ($(this).attr("data-original")) {
+        $(element).attr("href", $(this).attr("data-original"));
+      }
+      $(element).attr("data-fancybox", "images");
+      var caption = "";   // 描述信息
+      if ($(this).attr('alt')) {  // 判断当前页面是否存在描述信息
+        $(element).attr('data-caption', $(this).attr('alt'));
+        caption = $(this).attr('alt');
+      }
+      var div = document.createElement("div");
+      $(div).addClass("fancybox");
+      $(this).wrap(div); // 最外层套 div ，其实主要作用还是 class 样式
+      var span = document.createElement("span");
+      $(span).addClass("image-caption");
+      $(span).text(caption); // 加描述
+      $(this).after(span);  // 再套一层描述
+      $(this).wrap(element);  // 最后套 a 标签
+    })
+    $(".md .gallery").find("img").fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+      closeClick: true,
+      helpers: {
+        overlay: {closeClick: true}
+      },
+      buttons: [
+        "zoom",
+        "close"
+      ]
+    });
+  };
+  function SCload_fancybox() {
+    if ($(".md .gallery").find("img").length == 0) return;
+    loadCSS("https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css", document.getElementById("loadcss"));
+    loadScript('https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', pjax_fancybox)
+  };
+  $(function () {
+    SCload_fancybox();
+  });
+  function Pjax_SCload_fancybox(){
+	if (typeof $.fancybox == "undefined") {
+	 SCload_fancybox();
+    } else {
+	 pjax_fancybox();
+    }
+  }
+  volantis.pjax.push(Pjax_SCload_fancybox)
+  volantis.pjax.send(()=>{
+      if (typeof $.fancybox != "undefined") {
+        $.fancybox.close();    // 关闭弹窗
+      }
+  },'fancybox')
+</script>
+
+
+<!-- internal -->
+
+
+
+
+<script>
+  function loadIssuesJS() {
+    if ($(".md").find(".issues-api").length == 0) return;
+	
+	  loadScript('/js/issues.js');
+	
+  };
+  $(function () {
+    loadIssuesJS();
+  });
+  volantis.pjax.push(()=>{
+	if (typeof IssuesAPI == "undefined") {
+	  loadIssuesJS();
+	}
+  },"IssuesJS")
+</script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 0
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    lazyLoadInstance.update();
+  });
+  document.addEventListener('pjax:complete', function () {
+    lazyLoadInstance.update();
+  });
+</script>
+
+
+
+
+  
+
+<script>
+  window.FPConfig = {
+	delay: 0,
+	ignoreKeywords: [],
+	maxRPS: 5,
+	hoverDelay: 25
+  };
+</script>
+<script defer src="https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"></script>
+
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+    var clipboard = new ClipboardJS('.btn-copy', {
+        target: function (trigger) {
+            return trigger.nextElementSibling
+        }
+    });
+    function wait(callback, seconds) {
+        var timelag = null;
+        timelag = window.setTimeout(callback, seconds)
+    }
+    function pjax_initCopyCode() {
+		if($(".highlight .code pre").length+$(".article pre code").length==0)return;
+        var copyHtml = '';
+        copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+        copyHtml += '<i class="fas fa-copy"></i><span>COPY</span>';
+        copyHtml += '</button>';
+        $(".highlight .code pre").before(copyHtml);
+        $(".article pre code").before(copyHtml);
+        clipboard.off('success').on('success', function (e) {
+            let $btn = $(e.trigger);
+            $btn.addClass('copied');
+            let $icon = $($btn.find('i'));
+            $icon.removeClass('fa-copy');
+            $icon.addClass('fa-check-circle');
+            let $span = $($btn.find('span'));
+            $span[0].innerText = 'COPIED';
+            wait(function () {
+                $icon.removeClass('fa-check-circle');
+                $icon.addClass('fa-copy');
+                $span[0].innerText = 'COPY'
+            }, 2000)
+        });
+        clipboard.off('error').on('error', function (e) {
+            e.clearSelection();
+            let $btn = $(e.trigger);
+            $btn.addClass('copy-failed');
+            let $icon = $($btn.find('i'));
+            $icon.removeClass('fa-copy');
+            $icon.addClass('fa-times-circle');
+            let $span = $($btn.find('span'));
+            $span[0].innerText = 'COPY FAILED';
+            wait(function () {
+                $icon.removeClass('fa-times-circle');
+                $icon.addClass('fa-copy');
+                $span[0].innerText = 'COPY'
+            }, 2000)
+        })
+    }
+    $(function () {
+        pjax_initCopyCode()
+    });
+	volantis.pjax.push(pjax_initCopyCode)
+</script>
+
+
+
+
+
+
+  <script>
+  let APlayerController = new Object();
+  APlayerController.id = '6729508229';  // 设定全局音乐播放ID
+  APlayerController.volume = '0.7';
+  loadCSS("https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css", window.volantis.loadcss);
+  // APlayer 需要在  MetingJS 之前加载
+  loadScript("https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js")
+  window.volantis.APlayerLoaded=0 // APlayer加载完成状态
+  var checkAPlayer = setInterval(function () {
+    if (!window.APlayer) return // APlayer加载完成？
+	  if ($("#safearea").css("display")!="block") return // 文章内容加载完成？ see: source/css/first.styl
+    clearInterval(checkAPlayer)
+	  if (!window.volantis.APlayerLoaded&&!window.MetingJSElement){ // APlayer只能加载一次
+      window.volantis.APlayerLoaded=1 // APlayer加载完成
+      loadScript("https://cdn.jsdelivr.net/npm/meting@2.0/dist/Meting.min.js") // 加载 MetingJS
+	  }
+  }, 2500) // 按照网速调节差分2.5s
+  // rightmenu see: layout/_partial/rightmenu.ejs
+
+</script>
+
+
+
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js"></script>
+
+
+<script>
+  function pjax_waline() {
+    if(!document.querySelectorAll("#waline")[0])return;
+    let pagePlaceholder = pdata.commentPlaceholder || "快来评论吧~";
+    let path = pdata.commentPath;
+    if (path.length == 0) {
+      let defaultPath = '';
+      path = defaultPath || decodeURI(window.location.pathname);
+    }
+    new Waline(Object.assign({"js":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","path":null,"placeholder":"快来评论吧~","imageHosting":"https://7bu.top/api/upload","meta":["nick","mail","link"],"requiredFields":["nick","mail"],"serverURL":"https://yeshan333-waline.vercel.app","avatar":"robohash","pageSize":10,"lang":"zh-CN"}, {
+     el: '#waline',
+     path: path,
+     placeholder: pagePlaceholder,
+     uploadImage: function(file) {
+      const formData = new FormData();
+      formData.append('image', file);
+      return fetch('https://7bu.top/api/upload', {
+      	method: 'POST',
+      	body: formData
+      }).then(resp => resp.json()).then(resp => resp.data.url);
+   },
+  }));
+  }
+  $(function () {
+    pjax_waline();
+  });
+  volantis.pjax.push(pjax_waline);
+</script>
+
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js" data-pjax></script>
+
+
+
+  
+<script src="/js/app.js"></script>
+
+
+
+<!-- optional -->
+
+  <script>
+const SearchServiceimagePath="https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@master/img/";
+const ROOT =  ("/" || "/").endsWith('/') ? ("/" || "/") : ("//" || "/" );
+
+$('.input.u-search-input').one('focus',function(){
+	
+		loadScript('https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@2.6.4/js/search.js',setSearchService);
+	
+})
+
+function listenSearch(){
+  
+    customSearch = new HexoSearch({
+      imagePath: SearchServiceimagePath
+    });
+  
+}
+function setSearchService() {
+	listenSearch();
+	
+}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  <script defer>
+
+  const LCCounter = {
+    app_id: 'u9j57bwJod4EDmXWdxrwuqQT-MdYXbMMI',
+    app_key: 'jfHtEKVE24j0IVCGHbvuFClp',
+    custom_api_server: '',
+
+    // 查询存储的记录
+    getRecord(Counter, url, title) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({url})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
+            }
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {url, title: title, times: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
+        });
+      })
+    },
+
+    // 发起自增请求
+    increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
+          }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    },
+
+    // 构建自增请求体
+    buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "times": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    },
+
+    // 校验是否为有效的 UV
+    validUV() {
+      var key = 'LeanCloudUVTimestamp';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    },
+
+    addCount(Counter) {
+      var enableIncr = '' === 'true' && window.location.hostname !== 'localhost';
+      enableIncr = true;
+      var getterArr = [];
+      var incrArr = [];
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#lc-sv');
+      if (pvCtn || enableIncr) {
+        var pvGetter = this.getRecord(Counter, 'https://yeshan333.github.io' + '/#lc-sv', 'Visits').then((record) => {
+          incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-sv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + 1;
+              if (pvCtn) {
+                pvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#lc-uv');
+      if (uvCtn || enableIncr) {
+        var uvGetter = this.getRecord(Counter, 'https://yeshan333.github.io' + '/#lc-uv', 'Visitors').then((record) => {
+          var vuv = this.validUV();
+          vuv && incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-uv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + (vuv ? 1 : 0);
+              if (uvCtn) {
+                uvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 请求文章的浏览数，如果是当前页面就自增
+      var allPV = document.querySelectorAll('#lc-pv');
+      if (allPV.length > 0 || enableIncr) {
+        for (i = 0; i < allPV.length; i++) {
+          let pv = allPV[i];
+          let title = pv.getAttribute('data-title');
+          var url = 'https://yeshan333.github.io' + pv.getAttribute('data-path');
+          if (url) {
+            var viewGetter = this.getRecord(Counter, url, title).then((record) => {
+              // 是当前页面就自增
+              let curPath = window.location.pathname;
+              if (curPath.includes('index.html')) {
+                curPath = curPath.substring(0, curPath.lastIndexOf('index.html'));
+              }
+              if (pv.getAttribute('data-path') == curPath) {
+                incrArr.push(this.buildIncrement(record.objectId));
+              }
+              if (pv) {
+                var ele = pv.querySelector('#lc-pv #number');
+                if (ele) {
+                  if (pv.getAttribute('data-path') == curPath) {
+                    ele.innerText = (record.times || 0) + 1;
+                  } else {
+                    ele.innerText = record.times || 0;
+                  }
+                  pv.style.display = 'inline';
+                }
+              }
+            });
+            getterArr.push(viewGetter);
+          }
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && this.increment(Counter, incrArr);
+        })
+      }
+
+    },
+
+
+    fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': this.app_id,
+            'X-LC-Key': this.app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      this.addCount(Counter);
+    },
+
+    refreshCounter() {
+      var api_server = this.app_id.slice(-9) !== '-MdYXbMMI' ? this.custom_api_server : `https://${ this.app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+      if (api_server) {
+        this.fetchData(api_server);
+      } else {
+        fetch('https://app-router.leancloud.cn/2/route?appId=' + this.app_id)
+          .then(resp => resp.json())
+          .then(({api_server}) => {
+            this.fetchData('https://' + api_server);
+          });
+      }
+    }
+
+  };
+
+  LCCounter.refreshCounter();
+
+  document.addEventListener('pjax:complete', function () {
+    LCCounter.refreshCounter();
+  });
+</script>
+
+
+
+
+  <script>
+const rootElement = document.documentElement;
+const darkModeStorageKey = "user-color-scheme";
+const rootElementDarkModeAttributeName = "data-user-color-scheme";
+
+const setLS = (k, v) => {
+    localStorage.setItem(k, v);
+};
+
+const removeLS = (k) => {
+    localStorage.removeItem(k);
+};
+
+const getLS = (k) => {
+    return localStorage.getItem(k);
+};
+
+const getModeFromCSSMediaQuery = () => {
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
+};
+
+const resetRootDarkModeAttributeAndLS = () => {
+  rootElement.removeAttribute(rootElementDarkModeAttributeName);
+  removeLS(darkModeStorageKey);
+};
+
+const validColorModeKeys = {
+  dark: true,
+  light: true,
+};
+
+const applyCustomDarkModeSettings = (mode) => {
+  const currentSetting = mode || getLS(darkModeStorageKey);
+
+  if (currentSetting === getModeFromCSSMediaQuery()) {
+    resetRootDarkModeAttributeAndLS();
+  } else if (validColorModeKeys[currentSetting]) {
+    rootElement.setAttribute(rootElementDarkModeAttributeName, currentSetting);
+  } else {
+    resetRootDarkModeAttributeAndLS();
+  }
+};
+
+const invertDarkModeObj = {
+  dark: "light",
+  light: "dark",
+};
+
+/**
+ * get target mode
+ */
+const toggleCustomDarkMode = () => {
+  let currentSetting = getLS(darkModeStorageKey);
+
+  if (validColorModeKeys[currentSetting]) {
+    currentSetting = invertDarkModeObj[currentSetting];
+  } else if (currentSetting === null) {
+    currentSetting = invertDarkModeObj[getModeFromCSSMediaQuery()];
+  } else {
+    return;
+  }
+  setLS(darkModeStorageKey, currentSetting);
+  return currentSetting;
+};
+
+/**
+ * bind click event for toggle button
+ */
+var btn=$("#wrapper .toggle-mode-btn,#rightmenu-wrapper .toggle-mode-btn");
+function bindToggleButton() {
+    btn.on('click',(e) => {
+      const mode = toggleCustomDarkMode();
+      applyCustomDarkModeSettings(mode);
+    });
+}
+
+applyCustomDarkModeSettings();
+document.addEventListener("DOMContentLoaded", bindToggleButton);
+volantis.pjax.push(bindToggleButton);
+volantis.pjax.send(()=>{
+	btn.unbind('click');
+},'toggle-mode-btn-unbind');
+</script>
+
+
+
+
+
+
+
+
+<script>
+function listennSidebarTOC() {
+  const navItems = document.querySelectorAll(".toc li");
+  if (!navItems.length) return;
+  const sections = [...navItems].map((element) => {
+    const link = element.querySelector(".toc-link");
+    const target = document.getElementById(
+      decodeURI(link.getAttribute("href")).replace("#", "")
+    );
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      window.scrollTo({
+		top: target.offsetTop + 100,
+		
+		behavior: "smooth"
+		
+	  });
+    });
+    return target;
+  });
+
+  function activateNavByIndex(target) {
+    if (target.classList.contains("active-current")) return;
+
+    document.querySelectorAll(".toc .active").forEach((element) => {
+      element.classList.remove("active", "active-current");
+    });
+    target.classList.add("active", "active-current");
+    let parent = target.parentNode;
+    while (!parent.matches(".toc")) {
+      if (parent.matches("li")) parent.classList.add("active");
+      parent = parent.parentNode;
+    }
+  }
+
+  function findIndex(entries) {
+    let index = 0;
+    let entry = entries[index];
+    if (entry.boundingClientRect.top > 0) {
+      index = sections.indexOf(entry.target);
+      return index === 0 ? 0 : index - 1;
+    }
+    for (; index < entries.length; index++) {
+      if (entries[index].boundingClientRect.top <= 0) {
+        entry = entries[index];
+      } else {
+        return sections.indexOf(entry.target);
+      }
+    }
+    return sections.indexOf(entry.target);
+  }
+
+  function createIntersectionObserver(marginTop) {
+    marginTop = Math.floor(marginTop + 10000);
+    let intersectionObserver = new IntersectionObserver(
+      (entries, observe) => {
+        let scrollHeight = document.documentElement.scrollHeight + 100;
+        if (scrollHeight > marginTop) {
+          observe.disconnect();
+          createIntersectionObserver(scrollHeight);
+          return;
+        }
+        let index = findIndex(entries);
+        activateNavByIndex(navItems[index]);
+      },
+      {
+        rootMargin: marginTop + "px 0px -100% 0px",
+        threshold: 0,
+      }
+    );
+    sections.forEach((element) => {
+      element && intersectionObserver.observe(element);
+    });
+  }
+  createIntersectionObserver(document.documentElement.scrollHeight);
+}
+
+document.addEventListener("DOMContentLoaded", listennSidebarTOC);
+document.addEventListener("pjax:success", listennSidebarTOC);
+</script>
+
+<!-- more -->
+
+  
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yeshan333/jsDelivrCDN/piao.js" />
+
+  <script type="text/javascript" src="https://cdn.staticfile.org/jquery/1.7.2/jquery.min.js" />
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yeshan333/jsDelivrCDN/attatkmouse.js" />
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yeshan333/jsDelivrCDN/clearbit.js" />
+
+  <script async defer data-domain="shansan.top" src="https://plausible.io/js/plausible.js" />
+
+
+
+ 
+	  
+    </div>
+  </body>
+</html>

@@ -109,9 +109,6 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     </div>
 </noscript>
 
-<link rel="stylesheet" href="/assets/css/APlayer.min.css" class="aplayer-style-marker">
-<script src="/assets/js/APlayer.min.js" class="aplayer-script-marker"></script>
-<script src="/assets/js/Meting.min.js" class="meting-script-marker"></script>
 </head>
 
   <body>
@@ -855,6 +852,18 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         
           
         
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
       
     
     
@@ -868,8 +877,310 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     
     <h2 class="article-title" >
+      <a href="/2022/06/19/understanding-elixir-macros-part-6-in-place-code-generation/">
+        (译) Understanding Elixir Macros, Part 6 - In-place Code Generation
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      
+        这是宏系列文章的最后一篇. 在开始之前, 我想提一下 Björn Rochel, 他已经将他的 Apex 库中的 deftraceable 宏改进了. 因为他发现系列文章中 deftraceable 的版本不能正确处理默认参数（arg \ def_value), 于是实现了一个修复 fix.
+这次, 让我们结束这个宏的故事. 今天的文章知识点可能是整个系列中涉及最广的, 我们将讨论原地代码生...
+      
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+          
+          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
+        
+        <time>2022-06-19</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/Elixir/">Elixir</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2022/06/19/understanding-elixir-macros-part-6-in-place-code-generation/'>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/2022/06/19/understanding-elixir-macros-part-5-reshaping-the-ast/">
+        (译) Understanding Elixir Macros, Part 5 - Reshaping the AST
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      
+        上次我介绍了一个基本版本的可追溯宏 deftraceable, 它允许我们编写可跟踪的函数. 这个宏的最终版本还有一些遗留的问题, 今天我们将解决其中一个 — 参数模式匹配.
+从今天的练习应该认识到, 我们必须仔细考虑关于宏可能接收到的输入的所有假设情况.
+问题所在正如我上次所暗示的那样, 当前版本的 deftraceable 不能使用模式匹配的参数. 让我们来演示一下这个问题:
+12345...
+      
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+          
+          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
+        
+        <time>2022-06-19</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/Elixir/">Elixir</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2022/06/19/understanding-elixir-macros-part-5-reshaping-the-ast/'>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/2022/06/19/understanding-elixir-macros-part-4-diving-deeper/">
+        (译) Understanding Elixir Macros, Part 4 - Diving Deeper
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      
+        在前一篇文章中, 我向你展示了分析输入 AST 并对其进行处理的一些基本方法. 今天我们将研究一些更复杂的 AST 转换. 这将重提已经解释过的技术. 这样做的目的是为了表明深入研究 AST 并不是很难的, 尽管最终的结果代码很容易变得相当复杂, 而且有点黑科技（hacky).
+追踪函数调用在本文中, 我们将创建一个宏 deftraceable, 它允许我们定义可跟踪的函数. 可跟踪函数的工...
+      
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+          
+          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
+        
+        <time>2022-06-19</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/Elixir/">Elixir</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2022/06/19/understanding-elixir-macros-part-4-diving-deeper/'>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/2022/06/19/understanding-elixir-macros-part-3-gettingto-the-ast/">
+        (译) Understanding Elixir Macros, Part 3 - Getting into the AST
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      
+        是时候继续探索 Elixir 的宏了. 上次我介绍了一些关于宏的基本原理, 今天, 我将进入一个较少谈及的领域, 并讨论Elixir AST 的一些细节.
+跟踪函数调用到目前为止, 你只看到了接受输入 AST 片段并将它们组合在一起的基础宏, 并在输入片段周围或之间添加了一些额外的样板代码. 由于我们不分析或解析输入的 AST, 这可能是最干净(或最不 hackiest)的宏编写风格, 这样...
+      
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+          
+          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
+        
+        <time>2022-06-19</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/Elixir/">Elixir</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2022/06/19/understanding-elixir-macros-part-3-gettingto-the-ast/'>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/2022/06/19/understanding-elixir-macros-part-2-macro-theory/">
+        (译) Understanding Elixir Macros, Part 2 - Micro Theory
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      
+        这是 Elixir 中的宏系列的第二篇. 上一次我们讨论了编译过程和 Elixir AST, 最后讲了一个基本的宏的例子 trace. 今天, 我们会更详细地讲解宏的机制.
+可能有一些内容会和上一篇重复, 但我认为这对于理解运作原理和 AST 的生成很有帮助. 掌握了这些以后, 你对于自己的宏代码就更有信心了. 基础很重要, 因为随着更多地用到宏, 代码可能会由许多的 quote/unquo...
+      
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+          
+          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
+        
+        <time>2022-06-19</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/Elixir/">Elixir</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2022/06/19/understanding-elixir-macros-part-2-macro-theory/'>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/2022/06/18/understanding-elixir-macros-part-1-basics/">
+        (译) Understanding Elixir Macros, Part 1 Basics
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      
+        这是讨论宏 (Macros) 微系列文章的第一篇. 我原本计划在我即将出版的《Elixir in Action》一书中讨论这个主题, 但最终决定不这么做, 因为这个主题不符合这本书的主题, 这本书更关注底层 VM 和 OTP 的关键部分.
+就我个人而言, 我觉得宏的主题非常有趣, 在本系列文章中, 我将试图解释它们是如何工作的, 提供一些关于如何编写宏的基本技巧和建议. 虽然我确信编写宏不是...
+      
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+          
+          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
+        
+        <time>2022-06-18</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/Elixir/">Elixir</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2022/06/18/understanding-elixir-macros-part-1-basics/'>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
       <a href="/2022/04/23/understanding-prometheus-range-vectors/">
-        (译)理解 Prometheus 的范围向量 (Range Vector)
+        (译) 理解 Prometheus 的范围向量 (Range Vector)
       </a>
     </h2>
   
@@ -1075,337 +1386,6 @@ Flame Graph，火焰图。火焰图是一种常用的可...
           </div>
         
       
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-    <div class='headimg-div'>
-      <a class='headimg-a' href="/2022/01/01/2021-annual-reviewed/">
-        <img class='headimg' src='https://s4.ax1x.com/2022/01/01/T5fXpF.png'/>
-      </a>
-    </div>
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2022/01/01/2021-annual-reviewed/">
-        2021 | 肆意随心
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <h2 id="Yeah"><a href="#Yeah" class="headerlink" title="Yeah"></a>Yeah</h2><p>“兜兜转转”又一年了，又到了该水年度 Review 的时候啦✅❇️。</p>
-<p>算下来，博客三年了，准备开启新的三年了。这篇总结也算是第三篇总结了，3 - 可以说是我很喜欢的数字，挺多网名（ShanSan、yeshan333），还有博客域名（shansan.top、shan333.cn、…）是和“三”有关的（and so on），也算是“谐音梗”啦😎？</p>
-<p>回头看看之前写的几篇总结，还挺有意思的。21 年似乎并没有太多那么刻意去做的事，想到了就去试试了。这一次，不需要那么的有条理性，随手一记。</p>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-          
-          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
-        
-        <time>2022-01-01</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/blog/">blog</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2022/01/01/2021-annual-reviewed/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2021/12/26/git-lfs-and-thin-repo/">
-        Git 仓库瘦身与 LFS 大文件存储
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <p>熟悉 Git 的小伙伴应该都知道随着 Git 仓库维护的时间越来越久，追踪的文件越来越多，git 存储的 <a target="_blank" rel="noopener" href="https://git-scm.com/book/en/v2/Git-Internals-Git-Objects">objects</a> 数量会极其庞大，每次从远程仓库 git clone 的时候都会墨迹很久。如果我们不小心 <code>git add</code> 了一个体积很大的文件，且 <code>git push</code> 到了远程仓库，那么我们 <code>git clone</code> 的时候也会很慢。</p>
-<p>看一下 GitHub 上的 <a target="_blank" rel="noopener" href="https://github.com/microsoft/vscode">microsoft/vscode</a> 仓库，都有 九万多个 commit 了，可想而知 objects 的数量应该很恐怖，尝试 clone 一下（一百多万个 objects）：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/yeshan333/blog_images@main/github_vscode.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/yeshan333/blog_images@main/github_vscode.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="github vscode repo"></p>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-          
-          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
-        
-        <time>2021-12-26</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Git/">Git</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2021/12/26/git-lfs-and-thin-repo/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2021/12/04/deserve/">
-        Deserve
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <p>今天凌晨五点就醒了，积累了好多好多的情绪啊！</p>
-<!-- 年轻的战场 -->
-
-<!-- 我们都一样 -->
-
-
-    <div id="aplayer-aINoykqY" class="aplayer aplayer-tag-marker meting-tag-marker"
-         data-id="1340001174" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"
-    ></div>
-
-
-
-    <div id="aplayer-vrKdipdZ" class="aplayer aplayer-tag-marker meting-tag-marker"
-         data-id="191252" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"
-    ></div>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-          
-          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
-        
-        <time>2021-12-04</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/blog/">blog</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2021/12/04/deserve/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-    <div class='headimg-div'>
-      <a class='headimg-a' href="/2021/11/27/loopback-addr/">
-        <img class='headimg' src='https://cdn.jsdelivr.net/gh/yeshan333/blog_images@main/loopback_banner.png'/>
-      </a>
-    </div>
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2021/11/27/loopback-addr/">
-        回环地址的一点儿破事
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <p>心血来潮，小水一篇！</p>
-<h2 id="回环地址（loopback-address）"><a href="#回环地址（loopback-address）" class="headerlink" title="回环地址（loopback address）"></a>回环地址（loopback address）</h2><blockquote>
-<p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Loopback">loopback</a> 在维基百科上有一段这样的解释：Loopback (also written loop-back) is the routing of electronic signals or digital data streams back to their source without intentional processing or modification. It is primarily a means of testing the communications infrastructure.<br>通熟的说就是将由“源”发送出去的数据路由回“源”。</p>
-</blockquote>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-          
-          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
-        
-        <time>2021-11-27</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2021/11/27/loopback-addr/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-    <div class='headimg-div'>
-      <a class='headimg-a' href="/2021/11/14/back-to-october/">
-        <img class='headimg' src='https://z3.ax1x.com/2021/11/14/I6fgTP.jpg'/>
-      </a>
-    </div>
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2021/11/14/back-to-october/">
-        回到十月-生活中的一点儿小确幸
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        前言不知不觉，离开校园将近四个月了，正式工作（摸🐟~）也差不多四个多月了，最近经历了很多事，头发也掉了不少😂 {微微害怕了}。之前一直有想法想补充一些带有生活气息的博文到自己的博客中，印象中 2021 年的 reviewed 有提到过，总觉得自己的博客少了点味儿（生活的味道），毕竟我也是个活脱脱的人啊，也是有 “感觉” 的。
-趁着周末，来一篇。略微回顾了下这几个月，觉得最应该写的就是 1...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-          
-          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
-        
-        <time>2021-11-14</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/blog/">blog</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2021/11/14/back-to-october/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-    <div class='headimg-div'>
-      <a class='headimg-a' href="/2021/10/24/create-k8s-cluster/">
-        <img class='headimg' src='https://z3.ax1x.com/2021/10/24/5fAWlQ.jpg'/>
-      </a>
-    </div>
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2021/10/24/create-k8s-cluster/">
-        使用 Kubeadm 搭建个公网 k8s 集群（单控制平面集群）
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>YY：国庆的时候趁着阿里云和腾讯云的轻量级服务器做促销一不小心剁了个手😎😢，2 Cores，4G RAM 还是阔以的，既然买了，那不能不用呀🚩，之前一直想着搭建个 k8s 集群玩玩，本地开发机虽然起了个 k8s（拿 Docker Desktop 起的，不 dei 劲），但就一个 Node，不爽，对 k8s 的体验不到位😒，1024，是时候用起来了，折腾一下，顺便让最近浮躁的心冷静一下。</p>
-<p>这次拿官方的 Kubeadm 耍一下，以阿里云的轻量级应用服务器为 Control 节点，腾讯云的轻量级应用服务器为 Worker 节点，说干就干。</p>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-          
-          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
-        
-        <time>2021-10-24</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Kubernetes/">Kubernetes</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2021/10/24/create-k8s-cluster/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
     
   </section>
   
@@ -1527,7 +1507,7 @@ Flame Graph，火焰图。火焰图是一种常用的可...
       
         <div class="webinfo-item">
           <div>文章数目：</div>
-          <div>132 篇</div>
+          <div>138 篇</div>
         </div>
       
 
@@ -1563,8 +1543,8 @@ Flame Graph，火焰图。火焰图是一种常用的可...
         <div class="webinfo-item">
           <div>最后活动时间：</div>
           
-            <div id="last-update" style="display: none;">Sun May 08 2022 03:28:37 GMT+0000 (Coordinated Universal Time)</div>
-            <div id="last-update-show">2022-05-08 日</div>
+            <div id="last-update" style="display: none;">Sun Jun 19 2022 16:48:15 GMT+0000 (Coordinated Universal Time)</div>
+            <div id="last-update-show">2022-06-19 日</div>
           
         </div>
         
@@ -1614,7 +1594,7 @@ Flame Graph，火焰图。火焰图是一种常用的可...
           try {
             document.getElementById('last-update-show').innerHTML = timeago(new Date(lastUpDate));
           } catch (error) {
-            document.getElementById('last-update-show').innerHTML = '2022-05-08 日';
+            document.getElementById('last-update-show').innerHTML = '2022-06-19 日';
           }
         </script>
         
@@ -1681,6 +1661,11 @@ Flame Graph，火焰图。火焰图是一种常用的可...
             title="/categories/DevOps/" href="/categories/DevOps/"
             id="categoriesDevOps"
             ><div class='name'>DevOps</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box"
+            title="/categories/Elixir/" href="/categories/Elixir/"
+            id="categoriesElixir"
+            ><div class='name'>Elixir</div><div class='badge'>(6)</div></a></li>
         
           <li><a class="flat-box"
             title="/categories/Flask/" href="/categories/Flask/"
@@ -1864,7 +1849,7 @@ Flame Graph，火焰图。火焰图是一种常用的可...
 
 
     <div class='content'>
-      <a href="/tags/Algorithm/" style="font-size: 16.22px; color: #8a8a8a">Algorithm</a> <a href="/tags/Astronomy/" style="font-size: 15.11px; color: #919191">Astronomy</a> <a href="/tags/BeautifulSoup/" style="font-size: 14px; color: #999">BeautifulSoup</a> <a href="/tags/C/" style="font-size: 16.22px; color: #8a8a8a">C</a> <a href="/tags/CPP/" style="font-size: 24px; color: #555">CPP</a> <a href="/tags/CPU-Bound/" style="font-size: 14px; color: #999">CPU Bound</a> <a href="/tags/CSS/" style="font-size: 14px; color: #999">CSS</a> <a href="/tags/Compiler/" style="font-size: 14px; color: #999">Compiler</a> <a href="/tags/DevOps/" style="font-size: 15.11px; color: #919191">DevOps</a> <a href="/tags/Docker/" style="font-size: 14px; color: #999">Docker</a> <a href="/tags/Elixir/" style="font-size: 14px; color: #999">Elixir</a> <a href="/tags/Event-Loop/" style="font-size: 14px; color: #999">Event-Loop</a> <a href="/tags/FSM/" style="font-size: 14px; color: #999">FSM</a> <a href="/tags/Federation/" style="font-size: 14px; color: #999">Federation</a> <a href="/tags/Flame-Graphs/" style="font-size: 14px; color: #999">Flame Graphs</a> <a href="/tags/Flask/" style="font-size: 17.33px; color: #828282">Flask</a> <a href="/tags/GDB/" style="font-size: 14px; color: #999">GDB</a> <a href="/tags/GPG/" style="font-size: 15.11px; color: #919191">GPG</a> <a href="/tags/GUI/" style="font-size: 14px; color: #999">GUI</a> <a href="/tags/Git/" style="font-size: 19.56px; color: #737373">Git</a> <a href="/tags/Github-Actions/" style="font-size: 14px; color: #999">Github Actions</a> <a href="/tags/Go/" style="font-size: 14px; color: #999">Go</a> <a href="/tags/Grafana/" style="font-size: 14px; color: #999">Grafana</a> <a href="/tags/HTML/" style="font-size: 15.11px; color: #919191">HTML</a> <a href="/tags/I-O%E6%A8%A1%E5%9E%8B/" style="font-size: 14px; color: #999">I/O模型</a> <a href="/tags/IO-Bound/" style="font-size: 14px; color: #999">IO Bound</a> <a href="/tags/JavaScript/" style="font-size: 14px; color: #999">JavaScript</a> <a href="/tags/Json/" style="font-size: 14px; color: #999">Json</a> <a href="/tags/Jupyter/" style="font-size: 14px; color: #999">Jupyter</a> <a href="/tags/Kafka/" style="font-size: 14px; color: #999">Kafka</a> <a href="/tags/Kubeadm/" style="font-size: 14px; color: #999">Kubeadm</a> <a href="/tags/Kubernetes/" style="font-size: 14px; color: #999">Kubernetes</a> <a href="/tags/Latex/" style="font-size: 14px; color: #999">Latex</a> <a href="/tags/Lexer/" style="font-size: 14px; color: #999">Lexer</a> <a href="/tags/Linux/" style="font-size: 17.33px; color: #828282">Linux</a> <a href="/tags/Load-Balance/" style="font-size: 14px; color: #999">Load Balance</a> <a href="/tags/MATLAB/" style="font-size: 14px; color: #999">MATLAB</a> <a href="/tags/MD5/" style="font-size: 14px; color: #999">MD5</a> <a href="/tags/Marshal/" style="font-size: 14px; color: #999">Marshal</a> <a href="/tags/Memory/" style="font-size: 14px; color: #999">Memory</a> <a href="/tags/Monitoring/" style="font-size: 14px; color: #999">Monitoring</a> <a href="/tags/Monorepo/" style="font-size: 14px; color: #999">Monorepo</a> <a href="/tags/Nginx/" style="font-size: 14px; color: #999">Nginx</a> <a href="/tags/Profiling/" style="font-size: 14px; color: #999">Profiling</a> <a href="/tags/Prometheus/" style="font-size: 15.11px; color: #919191">Prometheus</a> <a href="/tags/Python/" style="font-size: 22.89px; color: #5d5d5d">Python</a> <a href="/tags/RSS-Reader/" style="font-size: 14px; color: #999">RSS Reader</a> <a href="/tags/React/" style="font-size: 16.22px; color: #8a8a8a">React</a> <a href="/tags/Requests/" style="font-size: 15.11px; color: #919191">Requests</a> <a href="/tags/Scrapy/" style="font-size: 14px; color: #999">Scrapy</a> <a href="/tags/TCP/" style="font-size: 14px; color: #999">TCP</a> <a href="/tags/UnMarshal/" style="font-size: 14px; color: #999">UnMarshal</a> <a href="/tags/WSL/" style="font-size: 14px; color: #999">WSL</a> <a href="/tags/Wireshark/" style="font-size: 15.11px; color: #919191">Wireshark</a> <a href="/tags/blog/" style="font-size: 21.78px; color: #646464">blog</a> <a href="/tags/debug/" style="font-size: 14px; color: #999">debug</a> <a href="/tags/docker/" style="font-size: 15.11px; color: #919191">docker</a> <a href="/tags/hexo/" style="font-size: 17.33px; color: #828282">hexo</a> <a href="/tags/json/" style="font-size: 14px; color: #999">json</a> <a href="/tags/markdown/" style="font-size: 17.33px; color: #828282">markdown</a> <a href="/tags/math/" style="font-size: 14px; color: #999">math</a> <a href="/tags/memory/" style="font-size: 14px; color: #999">memory</a> <a href="/tags/tcpdump/" style="font-size: 14px; color: #999">tcpdump</a> <a href="/tags/%E4%B8%8A%E4%B8%8B%E6%96%87/" style="font-size: 14px; color: #999">上下文</a> <a href="/tags/%E4%BF%A1%E6%81%AF%E6%A0%87%E8%AE%B0/" style="font-size: 14px; color: #999">信息标记</a> <a href="/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/" style="font-size: 14px; color: #999">函数式编程</a> <a href="/tags/%E5%8A%A0%E5%AF%86/" style="font-size: 14px; color: #999">加密</a> <a href="/tags/%E5%8D%8F%E7%A8%8B/" style="font-size: 14px; color: #999">协程</a> <a href="/tags/%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95/" style="font-size: 14px; color: #999">压力测试</a> <a href="/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/" style="font-size: 14px; color: #999">工程化</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 15.11px; color: #919191">数据结构</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" style="font-size: 14px; color: #999">服务器进程管理</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E7%BC%96%E6%8E%92/" style="font-size: 14px; color: #999">服务编排</a> <a href="/tags/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/" style="font-size: 14px; color: #999">架构设计</a> <a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 14px; color: #999">正则表达式</a> <a href="/tags/%E6%B5%81%E5%A4%84%E7%90%86%E5%B9%B3%E5%8F%B0/" style="font-size: 14px; color: #999">流处理平台</a> <a href="/tags/%E6%B6%88%E6%81%AF%E5%BC%95%E6%93%8E%E7%B3%BB%E7%BB%9F/" style="font-size: 14px; color: #999">消息引擎系统</a> <a href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" style="font-size: 14px; color: #999">消息队列</a> <a href="/tags/%E6%B7%B1%E6%8B%B7%E8%B4%9D%E4%B8%8E%E6%B5%85%E6%8B%B7%E8%B4%9D/" style="font-size: 14px; color: #999">深拷贝与浅拷贝</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 18.44px; color: #7b7b7b">爬虫</a> <a href="/tags/%E7%8E%AF%E5%A2%83%E7%AE%A1%E7%90%86/" style="font-size: 14px; color: #999">环境管理</a> <a href="/tags/%E7%BA%BF%E7%A8%8B/" style="font-size: 14px; color: #999">线程</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E8%B7%AF/" style="font-size: 14px; color: #999">计算机网路</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 14px; color: #999">设计模式</a> <a href="/tags/%E8%AF%91%E6%96%87/" style="font-size: 14px; color: #999">译文</a> <a href="/tags/%E8%BF%9B%E7%A8%8B/" style="font-size: 14px; color: #999">进程</a> <a href="/tags/%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1/" style="font-size: 14px; color: #999">进程通信</a> <a href="/tags/%E9%9A%8F%E7%AC%94/" style="font-size: 20.67px; color: #6c6c6c">随笔</a> <a href="/tags/%E9%9A%90%E7%A7%81/" style="font-size: 14px; color: #999">隐私</a> <a href="/tags/%E9%9D%99%E6%80%81%E7%B1%BB%E5%9E%8B%E6%A3%80%E6%9F%A5/" style="font-size: 14px; color: #999">静态类型检查</a> <a href="/tags/%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86/" style="font-size: 14px; color: #999">项目管理</a>
+      <a href="/tags/Algorithm/" style="font-size: 16.22px; color: #8a8a8a">Algorithm</a> <a href="/tags/Astronomy/" style="font-size: 15.11px; color: #919191">Astronomy</a> <a href="/tags/BeautifulSoup/" style="font-size: 14px; color: #999">BeautifulSoup</a> <a href="/tags/C/" style="font-size: 16.22px; color: #8a8a8a">C</a> <a href="/tags/CPP/" style="font-size: 24px; color: #555">CPP</a> <a href="/tags/CPU-Bound/" style="font-size: 14px; color: #999">CPU Bound</a> <a href="/tags/CSS/" style="font-size: 14px; color: #999">CSS</a> <a href="/tags/Compiler/" style="font-size: 14px; color: #999">Compiler</a> <a href="/tags/DevOps/" style="font-size: 15.11px; color: #919191">DevOps</a> <a href="/tags/Docker/" style="font-size: 14px; color: #999">Docker</a> <a href="/tags/Elixir/" style="font-size: 14px; color: #999">Elixir</a> <a href="/tags/Elixir-Macros/" style="font-size: 18.44px; color: #7b7b7b">Elixir-Macros</a> <a href="/tags/Event-Loop/" style="font-size: 14px; color: #999">Event-Loop</a> <a href="/tags/FSM/" style="font-size: 14px; color: #999">FSM</a> <a href="/tags/Federation/" style="font-size: 14px; color: #999">Federation</a> <a href="/tags/Flame-Graphs/" style="font-size: 14px; color: #999">Flame Graphs</a> <a href="/tags/Flask/" style="font-size: 17.33px; color: #828282">Flask</a> <a href="/tags/GDB/" style="font-size: 14px; color: #999">GDB</a> <a href="/tags/GPG/" style="font-size: 15.11px; color: #919191">GPG</a> <a href="/tags/GUI/" style="font-size: 14px; color: #999">GUI</a> <a href="/tags/Git/" style="font-size: 19.56px; color: #737373">Git</a> <a href="/tags/Github-Actions/" style="font-size: 14px; color: #999">Github Actions</a> <a href="/tags/Go/" style="font-size: 14px; color: #999">Go</a> <a href="/tags/Grafana/" style="font-size: 14px; color: #999">Grafana</a> <a href="/tags/HTML/" style="font-size: 15.11px; color: #919191">HTML</a> <a href="/tags/I-O%E6%A8%A1%E5%9E%8B/" style="font-size: 14px; color: #999">I/O模型</a> <a href="/tags/IO-Bound/" style="font-size: 14px; color: #999">IO Bound</a> <a href="/tags/JavaScript/" style="font-size: 14px; color: #999">JavaScript</a> <a href="/tags/Json/" style="font-size: 14px; color: #999">Json</a> <a href="/tags/Jupyter/" style="font-size: 14px; color: #999">Jupyter</a> <a href="/tags/Kafka/" style="font-size: 14px; color: #999">Kafka</a> <a href="/tags/Kubeadm/" style="font-size: 14px; color: #999">Kubeadm</a> <a href="/tags/Kubernetes/" style="font-size: 14px; color: #999">Kubernetes</a> <a href="/tags/Latex/" style="font-size: 14px; color: #999">Latex</a> <a href="/tags/Lexer/" style="font-size: 14px; color: #999">Lexer</a> <a href="/tags/Linux/" style="font-size: 17.33px; color: #828282">Linux</a> <a href="/tags/Load-Balance/" style="font-size: 14px; color: #999">Load Balance</a> <a href="/tags/MATLAB/" style="font-size: 14px; color: #999">MATLAB</a> <a href="/tags/MD5/" style="font-size: 14px; color: #999">MD5</a> <a href="/tags/Marshal/" style="font-size: 14px; color: #999">Marshal</a> <a href="/tags/Memory/" style="font-size: 14px; color: #999">Memory</a> <a href="/tags/Monitoring/" style="font-size: 14px; color: #999">Monitoring</a> <a href="/tags/Monorepo/" style="font-size: 14px; color: #999">Monorepo</a> <a href="/tags/Nginx/" style="font-size: 14px; color: #999">Nginx</a> <a href="/tags/Profiling/" style="font-size: 14px; color: #999">Profiling</a> <a href="/tags/Prometheus/" style="font-size: 15.11px; color: #919191">Prometheus</a> <a href="/tags/Python/" style="font-size: 22.89px; color: #5d5d5d">Python</a> <a href="/tags/RSS-Reader/" style="font-size: 14px; color: #999">RSS Reader</a> <a href="/tags/React/" style="font-size: 16.22px; color: #8a8a8a">React</a> <a href="/tags/Requests/" style="font-size: 15.11px; color: #919191">Requests</a> <a href="/tags/Scrapy/" style="font-size: 14px; color: #999">Scrapy</a> <a href="/tags/TCP/" style="font-size: 14px; color: #999">TCP</a> <a href="/tags/UnMarshal/" style="font-size: 14px; color: #999">UnMarshal</a> <a href="/tags/WSL/" style="font-size: 14px; color: #999">WSL</a> <a href="/tags/Wireshark/" style="font-size: 15.11px; color: #919191">Wireshark</a> <a href="/tags/blog/" style="font-size: 21.78px; color: #646464">blog</a> <a href="/tags/debug/" style="font-size: 14px; color: #999">debug</a> <a href="/tags/docker/" style="font-size: 15.11px; color: #919191">docker</a> <a href="/tags/hexo/" style="font-size: 17.33px; color: #828282">hexo</a> <a href="/tags/json/" style="font-size: 14px; color: #999">json</a> <a href="/tags/markdown/" style="font-size: 17.33px; color: #828282">markdown</a> <a href="/tags/math/" style="font-size: 14px; color: #999">math</a> <a href="/tags/memory/" style="font-size: 14px; color: #999">memory</a> <a href="/tags/tcpdump/" style="font-size: 14px; color: #999">tcpdump</a> <a href="/tags/%E4%B8%8A%E4%B8%8B%E6%96%87/" style="font-size: 14px; color: #999">上下文</a> <a href="/tags/%E4%BF%A1%E6%81%AF%E6%A0%87%E8%AE%B0/" style="font-size: 14px; color: #999">信息标记</a> <a href="/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/" style="font-size: 14px; color: #999">函数式编程</a> <a href="/tags/%E5%8A%A0%E5%AF%86/" style="font-size: 14px; color: #999">加密</a> <a href="/tags/%E5%8D%8F%E7%A8%8B/" style="font-size: 14px; color: #999">协程</a> <a href="/tags/%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95/" style="font-size: 14px; color: #999">压力测试</a> <a href="/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/" style="font-size: 14px; color: #999">工程化</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 15.11px; color: #919191">数据结构</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" style="font-size: 14px; color: #999">服务器进程管理</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E7%BC%96%E6%8E%92/" style="font-size: 14px; color: #999">服务编排</a> <a href="/tags/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/" style="font-size: 14px; color: #999">架构设计</a> <a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 14px; color: #999">正则表达式</a> <a href="/tags/%E6%B5%81%E5%A4%84%E7%90%86%E5%B9%B3%E5%8F%B0/" style="font-size: 14px; color: #999">流处理平台</a> <a href="/tags/%E6%B6%88%E6%81%AF%E5%BC%95%E6%93%8E%E7%B3%BB%E7%BB%9F/" style="font-size: 14px; color: #999">消息引擎系统</a> <a href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" style="font-size: 14px; color: #999">消息队列</a> <a href="/tags/%E6%B7%B1%E6%8B%B7%E8%B4%9D%E4%B8%8E%E6%B5%85%E6%8B%B7%E8%B4%9D/" style="font-size: 14px; color: #999">深拷贝与浅拷贝</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 18.44px; color: #7b7b7b">爬虫</a> <a href="/tags/%E7%8E%AF%E5%A2%83%E7%AE%A1%E7%90%86/" style="font-size: 14px; color: #999">环境管理</a> <a href="/tags/%E7%BA%BF%E7%A8%8B/" style="font-size: 14px; color: #999">线程</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E8%B7%AF/" style="font-size: 14px; color: #999">计算机网路</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 14px; color: #999">设计模式</a> <a href="/tags/%E8%AF%91%E6%96%87/" style="font-size: 14px; color: #999">译文</a> <a href="/tags/%E8%BF%9B%E7%A8%8B/" style="font-size: 14px; color: #999">进程</a> <a href="/tags/%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1/" style="font-size: 14px; color: #999">进程通信</a> <a href="/tags/%E9%9A%8F%E7%AC%94/" style="font-size: 20.67px; color: #6c6c6c">随笔</a> <a href="/tags/%E9%9A%90%E7%A7%81/" style="font-size: 14px; color: #999">隐私</a> <a href="/tags/%E9%9D%99%E6%80%81%E7%B1%BB%E5%9E%8B%E6%A3%80%E6%9F%A5/" style="font-size: 14px; color: #999">静态类型检查</a> <a href="/tags/%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86/" style="font-size: 14px; color: #999">项目管理</a>
     </div>
   </section>
 

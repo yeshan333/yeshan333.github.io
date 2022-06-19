@@ -515,6 +515,335 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     
     <h2 class="article-title" >
+      <a href="/2019/07/12/breaking%E4%B8%80%E5%A6%82%E6%97%A2%E5%BE%80%E7%9A%84%E5%B8%85/">
+        breaking一如既往的帅
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      
+        
+
+
+
+** 看到了就爱上了，(๑•̀ㅂ•́)و✧Cloud的style move真的帅~~~（虽然很久没玩breaking了。。。。。(ノへ￣、)）**
+
+      
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+          
+          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
+        
+        <time>2019-07-12</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/%E9%9A%8F%E7%AC%94/">随笔</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2019/07/12/breaking%E4%B8%80%E5%A6%82%E6%97%A2%E5%BE%80%E7%9A%84%E5%B8%85/'>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/2019/06/18/latex%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95%E7%AE%80%E8%AE%B0/">
+        Latex基本语法简记
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      <blockquote>
+<p>备注：当前博客使用的 latex 渲染引擎有点问题，本篇文章更好的阅读体验：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41022329/article/details/92798759">https://blog.csdn.net/qq_41022329/article/details/92798759</a></p>
+</blockquote>
+<h1 id="公式插入方式"><a href="#公式插入方式" class="headerlink" title="公式插入方式"></a>公式插入方式</h1><ol>
+<li>行内公式可用<code>\(...\)</code>或<code>$...$</code></li>
+</ol>
+<ul>
+<li>例如<code>$ f(x)=x^2 $</code>,显示为$ f(x)=x^2 $</li>
+</ul>
+<ol start="2">
+<li>独立公式（单独另起一行,公式会居中），使用<code>$$...$$</code>或<code>\[...\]</code></li>
+</ol>
+<ul>
+<li>例如：<code>$$ \int&#123;f(x)dx&#125; $$</code>或 <code>$$ \int_a^b&#123;f(x)dx&#125; $$</code>，显示为:</li>
+</ul>
+<p>$$ \int{f(x)dx} $$</p>
+<p>$$ \int_a^b{f(x)dx} $$</p>
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+          
+          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
+        
+        <time>2019-06-18</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/math/">math</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2019/06/18/latex%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95%E7%AE%80%E8%AE%B0/'>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/2019/06/17/MATLAB%E5%9F%BA%E6%93%8D%E5%A4%8D%E4%B9%A0/">
+        MATLAB基操复习
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      <h1 id="MATLAB基本操作"><a href="#MATLAB基本操作" class="headerlink" title="MATLAB基本操作"></a>MATLAB基本操作</h1><p><strong>1. 对象定义</strong><br>使用sym定义单个对象、使用syms定义多个对象</p>
+<p><strong>2. 使用<code>limit</code>求极限</strong></p>
+<p>$$ \lim_{v \rightarrow a} f(x) $$</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">limit(f,v,a) <span class="comment">% 使用limit(f,v,a,&#x27;left&#x27;)可求左极限</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>3. 导数</strong><br>使用<code>diff(f,v,n)</code>对$ f(v)=v^{t-1} $求 $ n $ 阶导 $ \frac{d^nf}{d^nv} $，n缺省时，默认为1，diff(f)默认求一阶导数。</p>
+<p><strong>4. 定积分和不定积分</strong><br>使用<code>int(f,v)</code>求f对变量v的不定积分，使用<code>int(f,v,a,b)</code>求f对变量v的定积分,a、b为积分上下标。$ \int{f(v)dv} $、$ \int^{a}_{b}{f(v)dv} $。</p>
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+          
+          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
+        
+        <time>2019-06-17</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/math/">math</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2019/06/17/MATLAB%E5%9F%BA%E6%93%8D%E5%A4%8D%E4%B9%A0/'>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/2019/06/08/%E6%90%9C%E7%B4%A2%E6%8A%80%E5%B7%A7/">
+        搜索技巧
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      <p><img src="https://img.vim-cn.com/53/05dc36e9f6a84026c3eeba794c9e7c473f57be.png" class="lazyload" data-srcset="https://img.vim-cn.com/53/05dc36e9f6a84026c3eeba794c9e7c473f57be.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="https://img.vim-cn.com/53/05dc36e9f6a84026c3eeba794c9e7c473f57be.png"></p>
+<blockquote>
+<p>搜索也是门学问啊，GFW之下，世道艰难。 (ノ~、)</p>
+</blockquote>
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+          
+          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
+        
+        <time>2019-06-08</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/%E9%9A%8F%E7%AC%94/">随笔</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2019/06/08/%E6%90%9C%E7%B4%A2%E6%8A%80%E5%B7%A7/'>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/2019/05/24/Python%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">
+        Python面向对象
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      <ul>
+<li>对象：一个自包含的实体，用一组可识别的特性和行为来标识</li>
+<li>类：具有相同的属性和功能的对象的抽象的集合</li>
+<li>实例：一个真实的对象，实例化就是创建对象的过程</li>
+<li>多态：可对不同类型的对象执行相同的操作，而这些操作就像“被施了魔法”一样能够正常运行</li>
+<li>封装：对外部隐藏有关对象工作原理的细节</li>
+<li>继承：可基于通用类创建专用类</li>
+</ul>
+<h1 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h1><ul>
+<li>多态可以让我们在不知道变量指向哪种对象时，也能够对其执行操作，且操作的行为将随对象所属的类型（类）而异。每当不知道对象是什么样就能对其执行操作，都是多态在起作用</li>
+<li>多态以 继承 和 重写 父类方法 为前提</li>
+<li>多态是调用方法的技巧，不会影响到类的内部设计</li>
+<li>多态性即向不同的对象发送同一个消息，不同的对象在接收时会产生不同的行为（即方法）</li>
+<li>听说Python天然就多态</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self,name,sex</span>):</span></span><br><span class="line">        self.name = name</span><br><span class="line">        self.sex = sex</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">print_title</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">if</span> self.sex == <span class="string">&quot;male&quot;</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;man&quot;</span>)</span><br><span class="line">        <span class="keyword">elif</span> self.sex == <span class="string">&quot;female&quot;</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;woman&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Child</span>(<span class="params">Person</span>):</span>                <span class="comment"># Child 继承 Person</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">print_title</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">if</span> self.sex == <span class="string">&quot;male&quot;</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;boy&quot;</span>)</span><br><span class="line">        <span class="keyword">elif</span> self.sex == <span class="string">&quot;female&quot;</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;girl&quot;</span>)</span><br><span class="line"></span><br><span class="line">May = Child(<span class="string">&quot;May&quot;</span>,<span class="string">&quot;female&quot;</span>)</span><br><span class="line">Peter = Person(<span class="string">&quot;Peter&quot;</span>,<span class="string">&quot;male&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(May.name,May.sex,Peter.name,Peter.sex)</span><br><span class="line"><span class="comment"># 同一消息</span></span><br><span class="line">May.print_title()</span><br><span class="line">Peter.print_title()</span><br></pre></td></tr></table></figure>
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+          
+          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
+        
+        <time>2019-05-24</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/Python/">Python</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2019/05/24/Python%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/'>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/2019/05/22/Jupyter-Notebooks%E7%9A%84%E7%AE%80%E5%8D%95%E4%BA%86%E8%A7%A3/">
+        Jupyter Notebooks的简单了解
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      撸一手Jupyter
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+          
+          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
+        
+        <time>2019-05-22</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/Python/">Python</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2019/05/22/Jupyter-Notebooks%E7%9A%84%E7%AE%80%E5%8D%95%E4%BA%86%E8%A7%A3/'>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
       <a href="/2019/05/11/Python%E5%A4%9A%E8%BF%9B%E7%A8%8B-%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
         Python多进程&&多线程（初步）
       </a>
@@ -696,356 +1025,6 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           </div>
         
       
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2019/03/20/%E6%88%91%E4%B8%8Evim%E7%9A%84%E4%BA%B2%E5%AF%86%E6%8E%A5%E8%A7%A6/">
-        我与vim的亲密接触(ˉ▽￣～)
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <blockquote>
-<p>emmm，闲来无事，打算了解下神奇vim（用来zhuangbi）。在终端操作很帅(ˉ▽￣～)~~！<br>什么是vim？？Vim是从 vi 发展出来的一个文本编辑器。代码补完、编译及错误跳转等方便编程的功能特别丰富，在程序员中被广泛使用。</p>
-</blockquote>
-<h1 id="vi-vim的使用"><a href="#vi-vim的使用" class="headerlink" title="vi/vim的使用"></a>vi/vim的使用</h1><p>vi/vim有三种模式：</p>
-<ul>
-<li><strong>命令模式</strong>：控制光标移动，可对文本进行复制、粘贴、删除和查找等工作。刚启动时就是这个模式。</li>
-<li><strong>输入模式</strong>：正常的文本录入。</li>
-<li><strong>末行模式</strong>：保存或退出文档，以及设置编辑环境。又可成为底线命令模式。</li>
-</ul>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-          
-          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
-        
-        <time>2019-03-20</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Linux/">Linux</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2019/03/20/%E6%88%91%E4%B8%8Evim%E7%9A%84%E4%BA%B2%E5%AF%86%E6%8E%A5%E8%A7%A6/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2019/03/20/SQLAlchemy%E5%BB%BA%E7%AB%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E6%A8%A1%E5%9E%8B%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB/">
-        SQLAlchemy建立数据库模型之间的关系
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <h1 id="常见关系："><a href="#常见关系：" class="headerlink" title="常见关系："></a>常见关系：</h1><ul>
-<li>一对多关系</li>
-<li>多对一关系</li>
-<li>多对多关系</li>
-<li>一对一关系</li>
-</ul>
-<h1 id="一对多关系（一个作者，多篇文章）"><a href="#一对多关系（一个作者，多篇文章）" class="headerlink" title="一对多关系（一个作者，多篇文章）"></a>一对多关系（一个作者，多篇文章）</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 一对多关系，单作者-多文章，外键不可少</span></span><br><span class="line"><span class="comment">## 外键(ForeignKey)总在多的那边定义,关系(relationship)总在单的那边定义</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Author</span>(<span class="params">db.Model</span>):</span></span><br><span class="line">    <span class="built_in">id</span> = db.Column(db.Integer, primary_key=<span class="literal">True</span>)</span><br><span class="line">    name = db.Column(db.String(<span class="number">70</span>), unique=<span class="literal">True</span>)</span><br><span class="line">    phone = db.Column(db.String(<span class="number">20</span>))</span><br><span class="line">    <span class="comment"># articles为关系属性(一个集合，可以像列表一样操作，在关系的出发侧定义</span></span><br><span class="line">    <span class="comment">## relationship()函数的第一个参数为关系另一侧的模型名称(Article)</span></span><br><span class="line">    articles = db.relationship(<span class="string">&#x27;Article&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Article</span>(<span class="params">db.Model</span>):</span></span><br><span class="line">    <span class="built_in">id</span> = db.Column(db.Integer, primary_key=<span class="literal">True</span>)</span><br><span class="line">    title = db.Column(db.String(<span class="number">15</span>), index=<span class="literal">True</span>)</span><br><span class="line">    body = db.Column(db.Text)</span><br><span class="line">    <span class="comment"># 传入ForeignKey的参数形式为：&quot;表名.字段名&quot;</span></span><br><span class="line">    <span class="comment">## 模型类对应的表名由Flask-SQLAlchemy生成，默认为类名称的小写形式，多个单词通过下划线分隔</span></span><br><span class="line">    author_id = db.Column(db.Integer, db.ForeignKey(<span class="string">&#x27;author.id&#x27;</span>)) <span class="comment">#</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 外键字段(author_id)和关系属性(articles)的命名没有限制</span></span><br><span class="line"><span class="comment">## 建立关系可通过操作关系属性进行</span></span><br><span class="line">&gt;&gt;&gt;shansan = Author(name=<span class="string">&quot;shansan&quot;</span>)</span><br><span class="line">&gt;&gt;&gt;hello = Article(title=<span class="string">&quot;Hello world !&quot;</span>)</span><br><span class="line">&gt;&gt;&gt;boy = Article(title=<span class="string">&quot;Hello Boy !&quot;</span>)</span><br><span class="line">&gt;&gt;&gt;db.session.add(shansan) <span class="comment"># 将创建的数据库记录添加到会话中</span></span><br><span class="line">&gt;&gt;&gt;db.session.add(hello)</span><br><span class="line">&gt;&gt;&gt;db.session.add(boy)</span><br><span class="line">&gt;&gt;&gt;shansan.articles.append(hello) <span class="comment"># 操作关系属性</span></span><br><span class="line">&gt;&gt;&gt;shansan.articles.append(boy)</span><br><span class="line">&gt;&gt;&gt;db.session.commit()</span><br></pre></td></tr></table></figure>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-          
-          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
-        
-        <time>2019-03-20</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Flask/">Flask</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2019/03/20/SQLAlchemy%E5%BB%BA%E7%AB%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E6%A8%A1%E5%9E%8B%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2019/03/16/Flask%E7%9A%84%E8%AF%B7%E6%B1%82%E9%92%A9%E5%AD%90%E4%B8%8E%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%80%E8%AE%B0/">
-        Flask的请求钩子与上下文简记
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <h1 id="请求钩子-Hook"><a href="#请求钩子-Hook" class="headerlink" title="请求钩子(Hook)"></a>请求钩子(Hook)</h1><blockquote>
-<p>在客户端和服务器交互的过程中，有些准备工作或扫尾工作需要处理，比如：在请求开始时，建立数据库连接；在请求结束时，指定数据的交互格式。为了让&gt;每个视图函数避免编写重复功能的代码，Flask提供了通用设施的功能，即请求钩子。通过请求钩子，我们可以对请求进行预处理(preprocessing)和后处理&gt;(postprocessing)。</p>
-</blockquote>
-<p>Flask的请求钩子通过装饰器实现，每个钩子可以注册任意多个处理函数，默认的五种请求钩子如下:</p>
-<table>
-<thead>
-<tr>
-<th align="center">钩子</th>
-<th align="left">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">before_first_request</td>
-<td align="left">注册一个函数，在处理请求前运行</td>
-</tr>
-<tr>
-<td align="center">before_request</td>
-<td align="left">注册一个函数，在处理每个请求前运行</td>
-</tr>
-<tr>
-<td align="center">after_request</td>
-<td align="left">注册一个函数，如果有未处理的一场抛出。会在每个请求结束后运行</td>
-</tr>
-<tr>
-<td align="center">teardown_request</td>
-<td align="left">注册一个函数，即使有未处理的异常抛出，会在每个请求介绍后执行。如果发生异常，会传入异常对象作为参数注册到函数中</td>
-</tr>
-<tr>
-<td align="center">after_this_request</td>
-<td align="left">在视图函数内注册一个函数，在这个请求结束后运行</td>
-</tr>
-</tbody></table>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-          
-          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
-        
-        <time>2019-03-16</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Flask/">Flask</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2019/03/16/Flask%E7%9A%84%E8%AF%B7%E6%B1%82%E9%92%A9%E5%AD%90%E4%B8%8E%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%80%E8%AE%B0/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2019/03/08/%E5%B0%86%E6%9C%AC%E5%9C%B0%E9%A1%B9%E7%9B%AE%E6%8E%A8%E9%80%81%E5%88%B0GitHub%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93/">
-        将本地项目推送到GitHub远程仓库
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <h1 id="如何将本地项目推送到Github"><a href="#如何将本地项目推送到Github" class="headerlink" title="如何将本地项目推送到Github"></a>如何将本地项目推送到Github</h1><blockquote>
-<p>Tip：在本地要安装好Git，官网：<a target="_blank" rel="noopener" href="https://git-scm.com/">https://git-scm.com/</a></p>
-</blockquote>
-<p><img src="https://s2.ax1x.com/2019/03/08/kzni4K.png" class="lazyload" data-srcset="https://s2.ax1x.com/2019/03/08/kzni4K.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="kzni4K.png"></p>
-<blockquote>
-<p>一个学习Git的好地方：<a target="_blank" rel="noopener" href="https://try.github.io/">https://try.github.io/</a></p>
-</blockquote>
-<blockquote>
-<p>在线闯关实战，边练边学的好地方：<a target="_blank" rel="noopener" href="https://learngitbranching.js.org/">https://learngitbranching.js.org/</a></p>
-</blockquote>
-<h2 id="方法一：使用https推送"><a href="#方法一：使用https推送" class="headerlink" title="方法一：使用https推送"></a>方法一：使用https推送</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 步骤</span></span><br><span class="line"><span class="comment"># 1.创建一个目录</span></span><br><span class="line">mkdir Test</span><br><span class="line"><span class="comment"># 2.将当前目录变为git管理仓库</span></span><br><span class="line">git init</span><br><span class="line"><span class="comment"># 3.将文件添加到版本库，这里将目录下的所有文件都添加进去了</span></span><br><span class="line">git add .</span><br><span class="line"><span class="comment"># 4.告诉git将文件提交到仓库</span></span><br><span class="line">git commit -m <span class="string">&quot;first-commit&quot;</span></span><br><span class="line"><span class="comment"># 5.将当前仓库与远程仓库关联</span></span><br><span class="line">git remote add origin 远程仓库的https地址 <span class="comment"># eg: git remote add https://github.com/ssmath/Test.git</span></span><br><span class="line"><span class="comment"># 6.将仓库内master分支的所有内容推送到远程仓库,这里会使用到Github的账号密码</span></span><br><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-          
-          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
-        
-        <time>2019-03-08</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Git/">Git</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2019/03/08/%E5%B0%86%E6%9C%AC%E5%9C%B0%E9%A1%B9%E7%9B%AE%E6%8E%A8%E9%80%81%E5%88%B0GitHub%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2019/03/03/vscode%E9%85%8D%E7%BD%AEPipenv%E5%B7%A5%E4%BD%9C%E7%8E%AF%E5%A2%83/">
-        vscode配置Pipenv工作环境
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <h1 id="让vscode使用Pipenv工作环境"><a href="#让vscode使用Pipenv工作环境" class="headerlink" title="让vscode使用Pipenv工作环境"></a>让vscode使用Pipenv工作环境</h1><h2 id="1、查看Pipenv的位置"><a href="#1、查看Pipenv的位置" class="headerlink" title="1、查看Pipenv的位置"></a>1、查看Pipenv的位置</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 先激活Pipenv环境</span><br><span class="line">pipenv shell</span><br><span class="line"># 获取当前虚拟环境的位置</span><br><span class="line">pipenv --venv</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://raw.githubusercontent.com/yeshan333/blog_images/master/posts/0078bOVFgy1g0pe3ndazpj30ft01l746.jpg" class="lazyload" data-srcset="https://raw.githubusercontent.com/yeshan333/blog_images/master/posts/0078bOVFgy1g0pe3ndazpj30ft01l746.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
-<h2 id="2、打开setting-json配置文件"><a href="#2、打开setting-json配置文件" class="headerlink" title="2、打开setting.json配置文件"></a>2、打开setting.json配置文件</h2><ul>
-<li><p>Ctrl+Shift+P，输入settings，选择Open Settings(JSon)</p>
-</li>
-<li><p>将之前得到的Pipenv环境路径添加进去</p>
-<p>  “python.venvPath”: “C:\Users\Algorithm\.virtualenvs”</p>
-</li>
-</ul>
-<p><img src="https://raw.githubusercontent.com/yeshan333/blog_images/master/posts/0078bOVFgy1g0pdwtnoqtj30gu08rq3k.jpg" class="lazyload" data-srcset="https://raw.githubusercontent.com/yeshan333/blog_images/master/posts/0078bOVFgy1g0pdwtnoqtj30gu08rq3k.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
-<p><img src="https://raw.githubusercontent.com/yeshan333/blog_images/master/posts/0078bOVFgy1g0pdyyyuvqj30m405pjrh.jpg" class="lazyload" data-srcset="https://raw.githubusercontent.com/yeshan333/blog_images/master/posts/0078bOVFgy1g0pdyyyuvqj30m405pjrh.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-          
-          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
-        
-        <time>2019-03-03</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Python/">Python</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2019/03/03/vscode%E9%85%8D%E7%BD%AEPipenv%E5%B7%A5%E4%BD%9C%E7%8E%AF%E5%A2%83/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2019/02/05/Happy-New-Year/">
-        Happy New Year !
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        12345678910111213141516171819202122232425262728C：printf(&quot;Happy New Year&quot;);C++ : cout&lt;&lt;&quot;Happy New Year&quot;;Objectivec: NSLog(@&quot;Happy New Year!&quot;);QBasic : Print &quot...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-          
-          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
-        
-        <time>2019-02-05</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/blog/">blog</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2019/02/05/Happy-New-Year/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
     
   </section>
   
@@ -1173,7 +1152,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <div class="webinfo-item">
           <div>文章数目：</div>
-          <div>132 篇</div>
+          <div>138 篇</div>
         </div>
       
 
@@ -1209,8 +1188,8 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         <div class="webinfo-item">
           <div>最后活动时间：</div>
           
-            <div id="last-update" style="display: none;">Sun May 08 2022 03:28:37 GMT+0000 (Coordinated Universal Time)</div>
-            <div id="last-update-show">2022-05-08 日</div>
+            <div id="last-update" style="display: none;">Sun Jun 19 2022 16:48:15 GMT+0000 (Coordinated Universal Time)</div>
+            <div id="last-update-show">2022-06-19 日</div>
           
         </div>
         
@@ -1260,7 +1239,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           try {
             document.getElementById('last-update-show').innerHTML = timeago(new Date(lastUpDate));
           } catch (error) {
-            document.getElementById('last-update-show').innerHTML = '2022-05-08 日';
+            document.getElementById('last-update-show').innerHTML = '2022-06-19 日';
           }
         </script>
         
@@ -1327,6 +1306,11 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
             title="/categories/DevOps/" href="/categories/DevOps/"
             id="categoriesDevOps"
             ><div class='name'>DevOps</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box"
+            title="/categories/Elixir/" href="/categories/Elixir/"
+            id="categoriesElixir"
+            ><div class='name'>Elixir</div><div class='badge'>(6)</div></a></li>
         
           <li><a class="flat-box"
             title="/categories/Flask/" href="/categories/Flask/"
@@ -1510,7 +1494,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
 
     <div class='content'>
-      <a href="/tags/Algorithm/" style="font-size: 16.22px; color: #8a8a8a">Algorithm</a> <a href="/tags/Astronomy/" style="font-size: 15.11px; color: #919191">Astronomy</a> <a href="/tags/BeautifulSoup/" style="font-size: 14px; color: #999">BeautifulSoup</a> <a href="/tags/C/" style="font-size: 16.22px; color: #8a8a8a">C</a> <a href="/tags/CPP/" style="font-size: 24px; color: #555">CPP</a> <a href="/tags/CPU-Bound/" style="font-size: 14px; color: #999">CPU Bound</a> <a href="/tags/CSS/" style="font-size: 14px; color: #999">CSS</a> <a href="/tags/Compiler/" style="font-size: 14px; color: #999">Compiler</a> <a href="/tags/DevOps/" style="font-size: 15.11px; color: #919191">DevOps</a> <a href="/tags/Docker/" style="font-size: 14px; color: #999">Docker</a> <a href="/tags/Elixir/" style="font-size: 14px; color: #999">Elixir</a> <a href="/tags/Event-Loop/" style="font-size: 14px; color: #999">Event-Loop</a> <a href="/tags/FSM/" style="font-size: 14px; color: #999">FSM</a> <a href="/tags/Federation/" style="font-size: 14px; color: #999">Federation</a> <a href="/tags/Flame-Graphs/" style="font-size: 14px; color: #999">Flame Graphs</a> <a href="/tags/Flask/" style="font-size: 17.33px; color: #828282">Flask</a> <a href="/tags/GDB/" style="font-size: 14px; color: #999">GDB</a> <a href="/tags/GPG/" style="font-size: 15.11px; color: #919191">GPG</a> <a href="/tags/GUI/" style="font-size: 14px; color: #999">GUI</a> <a href="/tags/Git/" style="font-size: 19.56px; color: #737373">Git</a> <a href="/tags/Github-Actions/" style="font-size: 14px; color: #999">Github Actions</a> <a href="/tags/Go/" style="font-size: 14px; color: #999">Go</a> <a href="/tags/Grafana/" style="font-size: 14px; color: #999">Grafana</a> <a href="/tags/HTML/" style="font-size: 15.11px; color: #919191">HTML</a> <a href="/tags/I-O%E6%A8%A1%E5%9E%8B/" style="font-size: 14px; color: #999">I/O模型</a> <a href="/tags/IO-Bound/" style="font-size: 14px; color: #999">IO Bound</a> <a href="/tags/JavaScript/" style="font-size: 14px; color: #999">JavaScript</a> <a href="/tags/Json/" style="font-size: 14px; color: #999">Json</a> <a href="/tags/Jupyter/" style="font-size: 14px; color: #999">Jupyter</a> <a href="/tags/Kafka/" style="font-size: 14px; color: #999">Kafka</a> <a href="/tags/Kubeadm/" style="font-size: 14px; color: #999">Kubeadm</a> <a href="/tags/Kubernetes/" style="font-size: 14px; color: #999">Kubernetes</a> <a href="/tags/Latex/" style="font-size: 14px; color: #999">Latex</a> <a href="/tags/Lexer/" style="font-size: 14px; color: #999">Lexer</a> <a href="/tags/Linux/" style="font-size: 17.33px; color: #828282">Linux</a> <a href="/tags/Load-Balance/" style="font-size: 14px; color: #999">Load Balance</a> <a href="/tags/MATLAB/" style="font-size: 14px; color: #999">MATLAB</a> <a href="/tags/MD5/" style="font-size: 14px; color: #999">MD5</a> <a href="/tags/Marshal/" style="font-size: 14px; color: #999">Marshal</a> <a href="/tags/Memory/" style="font-size: 14px; color: #999">Memory</a> <a href="/tags/Monitoring/" style="font-size: 14px; color: #999">Monitoring</a> <a href="/tags/Monorepo/" style="font-size: 14px; color: #999">Monorepo</a> <a href="/tags/Nginx/" style="font-size: 14px; color: #999">Nginx</a> <a href="/tags/Profiling/" style="font-size: 14px; color: #999">Profiling</a> <a href="/tags/Prometheus/" style="font-size: 15.11px; color: #919191">Prometheus</a> <a href="/tags/Python/" style="font-size: 22.89px; color: #5d5d5d">Python</a> <a href="/tags/RSS-Reader/" style="font-size: 14px; color: #999">RSS Reader</a> <a href="/tags/React/" style="font-size: 16.22px; color: #8a8a8a">React</a> <a href="/tags/Requests/" style="font-size: 15.11px; color: #919191">Requests</a> <a href="/tags/Scrapy/" style="font-size: 14px; color: #999">Scrapy</a> <a href="/tags/TCP/" style="font-size: 14px; color: #999">TCP</a> <a href="/tags/UnMarshal/" style="font-size: 14px; color: #999">UnMarshal</a> <a href="/tags/WSL/" style="font-size: 14px; color: #999">WSL</a> <a href="/tags/Wireshark/" style="font-size: 15.11px; color: #919191">Wireshark</a> <a href="/tags/blog/" style="font-size: 21.78px; color: #646464">blog</a> <a href="/tags/debug/" style="font-size: 14px; color: #999">debug</a> <a href="/tags/docker/" style="font-size: 15.11px; color: #919191">docker</a> <a href="/tags/hexo/" style="font-size: 17.33px; color: #828282">hexo</a> <a href="/tags/json/" style="font-size: 14px; color: #999">json</a> <a href="/tags/markdown/" style="font-size: 17.33px; color: #828282">markdown</a> <a href="/tags/math/" style="font-size: 14px; color: #999">math</a> <a href="/tags/memory/" style="font-size: 14px; color: #999">memory</a> <a href="/tags/tcpdump/" style="font-size: 14px; color: #999">tcpdump</a> <a href="/tags/%E4%B8%8A%E4%B8%8B%E6%96%87/" style="font-size: 14px; color: #999">上下文</a> <a href="/tags/%E4%BF%A1%E6%81%AF%E6%A0%87%E8%AE%B0/" style="font-size: 14px; color: #999">信息标记</a> <a href="/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/" style="font-size: 14px; color: #999">函数式编程</a> <a href="/tags/%E5%8A%A0%E5%AF%86/" style="font-size: 14px; color: #999">加密</a> <a href="/tags/%E5%8D%8F%E7%A8%8B/" style="font-size: 14px; color: #999">协程</a> <a href="/tags/%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95/" style="font-size: 14px; color: #999">压力测试</a> <a href="/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/" style="font-size: 14px; color: #999">工程化</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 15.11px; color: #919191">数据结构</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" style="font-size: 14px; color: #999">服务器进程管理</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E7%BC%96%E6%8E%92/" style="font-size: 14px; color: #999">服务编排</a> <a href="/tags/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/" style="font-size: 14px; color: #999">架构设计</a> <a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 14px; color: #999">正则表达式</a> <a href="/tags/%E6%B5%81%E5%A4%84%E7%90%86%E5%B9%B3%E5%8F%B0/" style="font-size: 14px; color: #999">流处理平台</a> <a href="/tags/%E6%B6%88%E6%81%AF%E5%BC%95%E6%93%8E%E7%B3%BB%E7%BB%9F/" style="font-size: 14px; color: #999">消息引擎系统</a> <a href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" style="font-size: 14px; color: #999">消息队列</a> <a href="/tags/%E6%B7%B1%E6%8B%B7%E8%B4%9D%E4%B8%8E%E6%B5%85%E6%8B%B7%E8%B4%9D/" style="font-size: 14px; color: #999">深拷贝与浅拷贝</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 18.44px; color: #7b7b7b">爬虫</a> <a href="/tags/%E7%8E%AF%E5%A2%83%E7%AE%A1%E7%90%86/" style="font-size: 14px; color: #999">环境管理</a> <a href="/tags/%E7%BA%BF%E7%A8%8B/" style="font-size: 14px; color: #999">线程</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E8%B7%AF/" style="font-size: 14px; color: #999">计算机网路</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 14px; color: #999">设计模式</a> <a href="/tags/%E8%AF%91%E6%96%87/" style="font-size: 14px; color: #999">译文</a> <a href="/tags/%E8%BF%9B%E7%A8%8B/" style="font-size: 14px; color: #999">进程</a> <a href="/tags/%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1/" style="font-size: 14px; color: #999">进程通信</a> <a href="/tags/%E9%9A%8F%E7%AC%94/" style="font-size: 20.67px; color: #6c6c6c">随笔</a> <a href="/tags/%E9%9A%90%E7%A7%81/" style="font-size: 14px; color: #999">隐私</a> <a href="/tags/%E9%9D%99%E6%80%81%E7%B1%BB%E5%9E%8B%E6%A3%80%E6%9F%A5/" style="font-size: 14px; color: #999">静态类型检查</a> <a href="/tags/%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86/" style="font-size: 14px; color: #999">项目管理</a>
+      <a href="/tags/Algorithm/" style="font-size: 16.22px; color: #8a8a8a">Algorithm</a> <a href="/tags/Astronomy/" style="font-size: 15.11px; color: #919191">Astronomy</a> <a href="/tags/BeautifulSoup/" style="font-size: 14px; color: #999">BeautifulSoup</a> <a href="/tags/C/" style="font-size: 16.22px; color: #8a8a8a">C</a> <a href="/tags/CPP/" style="font-size: 24px; color: #555">CPP</a> <a href="/tags/CPU-Bound/" style="font-size: 14px; color: #999">CPU Bound</a> <a href="/tags/CSS/" style="font-size: 14px; color: #999">CSS</a> <a href="/tags/Compiler/" style="font-size: 14px; color: #999">Compiler</a> <a href="/tags/DevOps/" style="font-size: 15.11px; color: #919191">DevOps</a> <a href="/tags/Docker/" style="font-size: 14px; color: #999">Docker</a> <a href="/tags/Elixir/" style="font-size: 14px; color: #999">Elixir</a> <a href="/tags/Elixir-Macros/" style="font-size: 18.44px; color: #7b7b7b">Elixir-Macros</a> <a href="/tags/Event-Loop/" style="font-size: 14px; color: #999">Event-Loop</a> <a href="/tags/FSM/" style="font-size: 14px; color: #999">FSM</a> <a href="/tags/Federation/" style="font-size: 14px; color: #999">Federation</a> <a href="/tags/Flame-Graphs/" style="font-size: 14px; color: #999">Flame Graphs</a> <a href="/tags/Flask/" style="font-size: 17.33px; color: #828282">Flask</a> <a href="/tags/GDB/" style="font-size: 14px; color: #999">GDB</a> <a href="/tags/GPG/" style="font-size: 15.11px; color: #919191">GPG</a> <a href="/tags/GUI/" style="font-size: 14px; color: #999">GUI</a> <a href="/tags/Git/" style="font-size: 19.56px; color: #737373">Git</a> <a href="/tags/Github-Actions/" style="font-size: 14px; color: #999">Github Actions</a> <a href="/tags/Go/" style="font-size: 14px; color: #999">Go</a> <a href="/tags/Grafana/" style="font-size: 14px; color: #999">Grafana</a> <a href="/tags/HTML/" style="font-size: 15.11px; color: #919191">HTML</a> <a href="/tags/I-O%E6%A8%A1%E5%9E%8B/" style="font-size: 14px; color: #999">I/O模型</a> <a href="/tags/IO-Bound/" style="font-size: 14px; color: #999">IO Bound</a> <a href="/tags/JavaScript/" style="font-size: 14px; color: #999">JavaScript</a> <a href="/tags/Json/" style="font-size: 14px; color: #999">Json</a> <a href="/tags/Jupyter/" style="font-size: 14px; color: #999">Jupyter</a> <a href="/tags/Kafka/" style="font-size: 14px; color: #999">Kafka</a> <a href="/tags/Kubeadm/" style="font-size: 14px; color: #999">Kubeadm</a> <a href="/tags/Kubernetes/" style="font-size: 14px; color: #999">Kubernetes</a> <a href="/tags/Latex/" style="font-size: 14px; color: #999">Latex</a> <a href="/tags/Lexer/" style="font-size: 14px; color: #999">Lexer</a> <a href="/tags/Linux/" style="font-size: 17.33px; color: #828282">Linux</a> <a href="/tags/Load-Balance/" style="font-size: 14px; color: #999">Load Balance</a> <a href="/tags/MATLAB/" style="font-size: 14px; color: #999">MATLAB</a> <a href="/tags/MD5/" style="font-size: 14px; color: #999">MD5</a> <a href="/tags/Marshal/" style="font-size: 14px; color: #999">Marshal</a> <a href="/tags/Memory/" style="font-size: 14px; color: #999">Memory</a> <a href="/tags/Monitoring/" style="font-size: 14px; color: #999">Monitoring</a> <a href="/tags/Monorepo/" style="font-size: 14px; color: #999">Monorepo</a> <a href="/tags/Nginx/" style="font-size: 14px; color: #999">Nginx</a> <a href="/tags/Profiling/" style="font-size: 14px; color: #999">Profiling</a> <a href="/tags/Prometheus/" style="font-size: 15.11px; color: #919191">Prometheus</a> <a href="/tags/Python/" style="font-size: 22.89px; color: #5d5d5d">Python</a> <a href="/tags/RSS-Reader/" style="font-size: 14px; color: #999">RSS Reader</a> <a href="/tags/React/" style="font-size: 16.22px; color: #8a8a8a">React</a> <a href="/tags/Requests/" style="font-size: 15.11px; color: #919191">Requests</a> <a href="/tags/Scrapy/" style="font-size: 14px; color: #999">Scrapy</a> <a href="/tags/TCP/" style="font-size: 14px; color: #999">TCP</a> <a href="/tags/UnMarshal/" style="font-size: 14px; color: #999">UnMarshal</a> <a href="/tags/WSL/" style="font-size: 14px; color: #999">WSL</a> <a href="/tags/Wireshark/" style="font-size: 15.11px; color: #919191">Wireshark</a> <a href="/tags/blog/" style="font-size: 21.78px; color: #646464">blog</a> <a href="/tags/debug/" style="font-size: 14px; color: #999">debug</a> <a href="/tags/docker/" style="font-size: 15.11px; color: #919191">docker</a> <a href="/tags/hexo/" style="font-size: 17.33px; color: #828282">hexo</a> <a href="/tags/json/" style="font-size: 14px; color: #999">json</a> <a href="/tags/markdown/" style="font-size: 17.33px; color: #828282">markdown</a> <a href="/tags/math/" style="font-size: 14px; color: #999">math</a> <a href="/tags/memory/" style="font-size: 14px; color: #999">memory</a> <a href="/tags/tcpdump/" style="font-size: 14px; color: #999">tcpdump</a> <a href="/tags/%E4%B8%8A%E4%B8%8B%E6%96%87/" style="font-size: 14px; color: #999">上下文</a> <a href="/tags/%E4%BF%A1%E6%81%AF%E6%A0%87%E8%AE%B0/" style="font-size: 14px; color: #999">信息标记</a> <a href="/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/" style="font-size: 14px; color: #999">函数式编程</a> <a href="/tags/%E5%8A%A0%E5%AF%86/" style="font-size: 14px; color: #999">加密</a> <a href="/tags/%E5%8D%8F%E7%A8%8B/" style="font-size: 14px; color: #999">协程</a> <a href="/tags/%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95/" style="font-size: 14px; color: #999">压力测试</a> <a href="/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/" style="font-size: 14px; color: #999">工程化</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 15.11px; color: #919191">数据结构</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" style="font-size: 14px; color: #999">服务器进程管理</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E7%BC%96%E6%8E%92/" style="font-size: 14px; color: #999">服务编排</a> <a href="/tags/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/" style="font-size: 14px; color: #999">架构设计</a> <a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 14px; color: #999">正则表达式</a> <a href="/tags/%E6%B5%81%E5%A4%84%E7%90%86%E5%B9%B3%E5%8F%B0/" style="font-size: 14px; color: #999">流处理平台</a> <a href="/tags/%E6%B6%88%E6%81%AF%E5%BC%95%E6%93%8E%E7%B3%BB%E7%BB%9F/" style="font-size: 14px; color: #999">消息引擎系统</a> <a href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" style="font-size: 14px; color: #999">消息队列</a> <a href="/tags/%E6%B7%B1%E6%8B%B7%E8%B4%9D%E4%B8%8E%E6%B5%85%E6%8B%B7%E8%B4%9D/" style="font-size: 14px; color: #999">深拷贝与浅拷贝</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 18.44px; color: #7b7b7b">爬虫</a> <a href="/tags/%E7%8E%AF%E5%A2%83%E7%AE%A1%E7%90%86/" style="font-size: 14px; color: #999">环境管理</a> <a href="/tags/%E7%BA%BF%E7%A8%8B/" style="font-size: 14px; color: #999">线程</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E8%B7%AF/" style="font-size: 14px; color: #999">计算机网路</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 14px; color: #999">设计模式</a> <a href="/tags/%E8%AF%91%E6%96%87/" style="font-size: 14px; color: #999">译文</a> <a href="/tags/%E8%BF%9B%E7%A8%8B/" style="font-size: 14px; color: #999">进程</a> <a href="/tags/%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1/" style="font-size: 14px; color: #999">进程通信</a> <a href="/tags/%E9%9A%8F%E7%AC%94/" style="font-size: 20.67px; color: #6c6c6c">随笔</a> <a href="/tags/%E9%9A%90%E7%A7%81/" style="font-size: 14px; color: #999">隐私</a> <a href="/tags/%E9%9D%99%E6%80%81%E7%B1%BB%E5%9E%8B%E6%A3%80%E6%9F%A5/" style="font-size: 14px; color: #999">静态类型检查</a> <a href="/tags/%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86/" style="font-size: 14px; color: #999">项目管理</a>
     </div>
   </section>
 

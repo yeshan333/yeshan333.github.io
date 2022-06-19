@@ -15,11 +15,173 @@
     <atom:link href="https://yeshan333.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>ShanSan&#39;s Blog</description>
-    <pubDate>Sat, 23 Apr 2022 15:38:37 GMT</pubDate>
+    <pubDate>Sun, 19 Jun 2022 17:47:21 GMT</pubDate>
     <generator>http://hexo.io/</generator>
     
     <item>
-      <title>(译)理解 Prometheus 的范围向量 (Range Vector)</title>
+      <title>(译) Understanding Elixir Macros, Part 6 - In-place Code Generation</title>
+      <link>https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-6-in-place-code-generation/</link>
+      <guid>https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-6-in-place-code-generation/</guid>
+      <pubDate>Sun, 19 Jun 2022 17:47:21 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot;</description>
+          
+        
+      
+      
+      
+      
+      <category domain="https://yeshan333.github.io/categories/Elixir/">Elixir</category>
+      
+      
+      <category domain="https://yeshan333.github.io/tags/Elixir-Macros/">Elixir-Macros</category>
+      
+      
+      <comments>https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-6-in-place-code-generation/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>(译) Understanding Elixir Macros, Part 5 - Reshaping the AST</title>
+      <link>https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-5-reshaping-the-ast/</link>
+      <guid>https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-5-reshaping-the-ast/</guid>
+      <pubDate>Sun, 19 Jun 2022 16:56:29 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot;</description>
+          
+        
+      
+      
+      
+      
+      <category domain="https://yeshan333.github.io/categories/Elixir/">Elixir</category>
+      
+      
+      <category domain="https://yeshan333.github.io/tags/Elixir-Macros/">Elixir-Macros</category>
+      
+      
+      <comments>https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-5-reshaping-the-ast/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>(译) Understanding Elixir Macros, Part 4 - Diving Deeper</title>
+      <link>https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-4-diving-deeper/</link>
+      <guid>https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-4-diving-deeper/</guid>
+      <pubDate>Sun, 19 Jun 2022 12:02:19 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot;</description>
+          
+        
+      
+      
+      
+      
+      <category domain="https://yeshan333.github.io/categories/Elixir/">Elixir</category>
+      
+      
+      <category domain="https://yeshan333.github.io/tags/Elixir-Macros/">Elixir-Macros</category>
+      
+      
+      <comments>https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-4-diving-deeper/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>(译) Understanding Elixir Macros, Part 3 - Getting into the AST</title>
+      <link>https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-3-gettingto-the-ast/</link>
+      <guid>https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-3-gettingto-the-ast/</guid>
+      <pubDate>Sun, 19 Jun 2022 10:53:07 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot;</description>
+          
+        
+      
+      
+      
+      
+      <category domain="https://yeshan333.github.io/categories/Elixir/">Elixir</category>
+      
+      
+      <category domain="https://yeshan333.github.io/tags/Elixir-Macros/">Elixir-Macros</category>
+      
+      
+      <comments>https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-3-gettingto-the-ast/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>(译) Understanding Elixir Macros, Part 2 - Micro Theory</title>
+      <link>https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-2-macro-theory/</link>
+      <guid>https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-2-macro-theory/</guid>
+      <pubDate>Sun, 19 Jun 2022 00:36:03 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot;</description>
+          
+        
+      
+      
+      
+      
+      <category domain="https://yeshan333.github.io/categories/Elixir/">Elixir</category>
+      
+      
+      <category domain="https://yeshan333.github.io/tags/Elixir-Macros/">Elixir-Macros</category>
+      
+      
+      <comments>https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-2-macro-theory/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>(译) Understanding Elixir Macros, Part 1 Basics</title>
+      <link>https://yeshan333.github.io/2022/06/18/understanding-elixir-macros-part-1-basics/</link>
+      <guid>https://yeshan333.github.io/2022/06/18/understanding-elixir-macros-part-1-basics/</guid>
+      <pubDate>Sat, 18 Jun 2022 14:13:45 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot;</description>
+          
+        
+      
+      
+      
+      
+      <category domain="https://yeshan333.github.io/categories/Elixir/">Elixir</category>
+      
+      
+      <category domain="https://yeshan333.github.io/tags/Elixir-Macros/">Elixir-Macros</category>
+      
+      
+      <comments>https://yeshan333.github.io/2022/06/18/understanding-elixir-macros-part-1-basics/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>(译) 理解 Prometheus 的范围向量 (Range Vector)</title>
       <link>https://yeshan333.github.io/2022/04/23/understanding-prometheus-range-vectors/</link>
       <guid>https://yeshan333.github.io/2022/04/23/understanding-prometheus-range-vectors/</guid>
       <pubDate>Sat, 23 Apr 2022 15:38:37 GMT</pubDate>
@@ -202,13 +364,13 @@
 &lt;!-- 我们都一样 --&gt;
 
 
-    &lt;div id=&quot;aplayer-aINoykqY&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+    &lt;div id=&quot;aplayer-qBQoKdLO&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
          data-id=&quot;1340001174&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;true&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
     &gt;&lt;/div&gt;
 
 
 
-    &lt;div id=&quot;aplayer-vrKdipdZ&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+    &lt;div id=&quot;aplayer-KKtkuixh&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
          data-id=&quot;191252&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;false&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
     &gt;&lt;/div&gt;</description>
       
@@ -411,160 +573,6 @@
       
       
       <comments>https://yeshan333.github.io/2021/07/10/checksum-gpg-tools/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>使用 osmosfeed 创建自己的 Web RSS 阅读器</title>
-      <link>https://yeshan333.github.io/2021/06/29/osmosfeed-rss-reader/</link>
-      <guid>https://yeshan333.github.io/2021/06/29/osmosfeed-rss-reader/</guid>
-      <pubDate>Tue, 29 Jun 2021 15:34:20 GMT</pubDate>
-      
-      <description>&lt;p&gt;之前一直用 App Store 上的一个 RSS 阅读器 RSS Reader Prime 订阅技术周刊和 dalao 的技术博客，不得不说挺好用的，奈何全线下架了，现在就平板上保留着这个 App，手机上没有（国区好用的 RSS 阅读器基本无了）。有时候又想着用手机读读技术文章（板子太大，不好拿），于是乎翻了下 GitHub &lt;a href=&quot;https://github.com/topics/rss-reader&quot;&gt;rss-reader topic&lt;/a&gt; 下的相关阅读器项目，挑了手基于 Web 和 GitHub Pages 的 RSS 阅读器（Web 才是真的“跨端”，2333~），水篇文章微微记录下。&lt;/p&gt;</description>
-      
-      
-      
-      
-      <category domain="https://yeshan333.github.io/categories/blog/">blog</category>
-      
-      <category domain="https://yeshan333.github.io/categories/RSS/">RSS</category>
-      
-      
-      <category domain="https://yeshan333.github.io/tags/RSS-Reader/">RSS Reader</category>
-      
-      
-      <comments>https://yeshan333.github.io/2021/06/29/osmosfeed-rss-reader/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>热传导方程非特征 Cauchy 问题的一些笔记</title>
-      <link>https://yeshan333.github.io/2021/05/16/heat-conduction-equation/</link>
-      <guid>https://yeshan333.github.io/2021/05/16/heat-conduction-equation/</guid>
-      <pubDate>Sun, 16 May 2021 15:14:31 GMT</pubDate>
-      
-      <description>&lt;p&gt;毕设工作即将结束之际，附上一份笔记到博客-数学物理方程-热传导方程.&lt;/p&gt;</description>
-      
-      
-      
-      
-      <category domain="https://yeshan333.github.io/categories/math/">math</category>
-      
-      
-      <category domain="https://yeshan333.github.io/tags/math/">math</category>
-      
-      
-      <comments>https://yeshan333.github.io/2021/05/16/heat-conduction-equation/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>简单了解波 Mono-repo &amp; Multi-repo（Poly-repo）</title>
-      <link>https://yeshan333.github.io/2021/04/30/term-monorepo-multirepo/</link>
-      <guid>https://yeshan333.github.io/2021/04/30/term-monorepo-multirepo/</guid>
-      <pubDate>Fri, 30 Apr 2021 23:30:00 GMT</pubDate>
-      
-      <description>&lt;p&gt;Mono-repo 和 Multi-repo 是软件开发中代码管理的两个不同策略。Mono-repo &amp;amp; Multi-repo 孰优孰劣是个老生常谈得话题了，这里就不 &lt;a href=&quot;https://hackernoon.com/mono-repo-vs-multi-repo-vs-hybrid-whats-the-right-approach-dv1a3ugn&quot;&gt;PK&lt;/a&gt; 了，“略微”看下两者区别。&lt;/p&gt;
-&lt;p&gt;当我们使用 Git 作为版本控制系统管理项目的代码时，那么 monorepo 与 multirepo 的定义表述如下：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;monorepo，使用一个 Git 仓库管理项目相关的多个 模块/包/功能/应用。&lt;/li&gt;
-&lt;li&gt;multirepo（又称为 polyrepo），使用多个 Git 仓库分别管理项目的每一个 模块/包/功能/应用。&lt;/li&gt;
-&lt;/ul&gt;</description>
-      
-      
-      
-      
-      <category domain="https://yeshan333.github.io/categories/Architecture/">Architecture</category>
-      
-      
-      <category domain="https://yeshan333.github.io/tags/%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86/">项目管理</category>
-      
-      <category domain="https://yeshan333.github.io/tags/Monorepo/">Monorepo</category>
-      
-      
-      <comments>https://yeshan333.github.io/2021/04/30/term-monorepo-multirepo/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>Windows Insiders WSLg Linux GUI App 支持尝鲜</title>
-      <link>https://yeshan333.github.io/2021/04/25/enjoy-wslg/</link>
-      <guid>https://yeshan333.github.io/2021/04/25/enjoy-wslg/</guid>
-      <pubDate>Sun, 25 Apr 2021 18:59:48 GMT</pubDate>
-      
-      <description>&lt;p&gt;2021 年 4 月 21 日，微软在 Developer Blogs 发布了 Windows 预览版 WSL（Windows Linux 子系统） 对 Linux GUI App 的支持的&lt;a href=&quot;https://devblogs.microsoft.com/commandline/the-initial-preview-of-gui-app-support-is-now-available-for-the-windows-subsystem-for-linux-2&quot;&gt;公告🔗&lt;/a&gt;，碰巧😀我最近重装了波电脑，系统换成了 Windows Insiders（Dev），正好可以感受波 Linux GUI App 的支持。btw，预览版的文件管理器支持访问 WSL 的文件了，6~ 的。&lt;/p&gt;
-&lt;div class=&quot;gallery &quot;&gt;
-              &lt;p&gt;&lt;img src=&quot;https://z3.ax1x.com/2021/04/25/czJUAO.png&quot; alt=&quot;Windows new icons&quot;&gt;&lt;/p&gt;
-            &lt;/div&gt;
-
-&lt;p&gt;WSL 现在居然支持跑 Linux 图形应用了，真香（😎，虽然上一年 WSL 的 &lt;a href=&quot;https://devblogs.microsoft.com/commandline/the-windows-subsystem-for-linux-build-2020-summary/#wsl-gui&quot;&gt;Roadmap&lt;/a&gt; 中有说过要支持，但我没关注，老二手知识党了）。Quickstart -&amp;gt;&lt;/p&gt;</description>
-      
-      
-      
-      
-      <category domain="https://yeshan333.github.io/categories/WSL/">WSL</category>
-      
-      
-      <category domain="https://yeshan333.github.io/tags/Linux/">Linux</category>
-      
-      <category domain="https://yeshan333.github.io/tags/WSL/">WSL</category>
-      
-      <category domain="https://yeshan333.github.io/tags/GUI/">GUI</category>
-      
-      
-      <comments>https://yeshan333.github.io/2021/04/25/enjoy-wslg/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>初探 Git Submodules</title>
-      <link>https://yeshan333.github.io/2021/03/10/git-submodules/</link>
-      <guid>https://yeshan333.github.io/2021/03/10/git-submodules/</guid>
-      <pubDate>Wed, 10 Mar 2021 15:51:15 GMT</pubDate>
-      
-      <description>&lt;p&gt;之前一直想将一个 Git 仓库放到另一个 Git 仓库，有 Maven 多模块项目（Maven Multimodule Project）和 Gradle 多项目构建（Gradle Multiproject Build）那味儿。Git 这么骚，肯定也可以。“扫”了多个开源仓库，Get 到了 Git &lt;code&gt;submodule&lt;/code&gt; 可以做这种操作，水篇文章记录波。&lt;/p&gt;</description>
-      
-      
-      
-      
-      <category domain="https://yeshan333.github.io/categories/Git/">Git</category>
-      
-      
-      <category domain="https://yeshan333.github.io/tags/Git/">Git</category>
-      
-      
-      <comments>https://yeshan333.github.io/2021/03/10/git-submodules/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>使用 rsync-deploy-action 同步 Hexo 博客到个人服务器</title>
-      <link>https://yeshan333.github.io/2021/01/19/hexo-blog-synchronization-with-rsync/</link>
-      <guid>https://yeshan333.github.io/2021/01/19/hexo-blog-synchronization-with-rsync/</guid>
-      <pubDate>Tue, 19 Jan 2021 20:02:51 GMT</pubDate>
-      
-      <description>&lt;p&gt;前几天写了个基于 rsync 进行文件同步的 Action -&amp;gt; &lt;a href=&quot;https://github.com/yeshan333/rsync-deploy-action&quot;&gt;rsync-deploy-action&lt;/a&gt;。目的有三个：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;1、深入了解波 &lt;a href=&quot;https://docs.github.com/en/actions/creating-actions&quot;&gt;GitHub Actions&lt;/a&gt;，感受下 GitHub 的文档；&lt;/li&gt;
-&lt;li&gt;2、个人博客在我的腾讯云 CVM 服务器上是部署有一份的「域名：&lt;a href=&quot;https://shan333.cn/&quot;&gt;shan333.cn&lt;/a&gt;」，之前的博客同步方式是通过 Linux 的定时任务，觉得不太行，当前博客的更新并没有那么频繁，没必要每隔几个小时就 &lt;code&gt;git pull&lt;/code&gt; 一下，且服务器还挂着其他东西，性能还是有点损耗的，换成通过 rsync 进行主动推送的方式好点；&lt;/li&gt;
-&lt;li&gt;3、熟悉波 SSH 协议和 rsync 协议。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;今天撸一篇文章简单记录下这次折腾。&lt;/p&gt;</description>
-      
-      
-      
-      
-      <category domain="https://yeshan333.github.io/categories/DevOps/">DevOps</category>
-      
-      
-      <category domain="https://yeshan333.github.io/tags/Github-Actions/">Github Actions</category>
-      
-      <category domain="https://yeshan333.github.io/tags/DevOps/">DevOps</category>
-      
-      <category domain="https://yeshan333.github.io/tags/Nginx/">Nginx</category>
-      
-      
-      <comments>https://yeshan333.github.io/2021/01/19/hexo-blog-synchronization-with-rsync/#disqus_thread</comments>
       
     </item>
     

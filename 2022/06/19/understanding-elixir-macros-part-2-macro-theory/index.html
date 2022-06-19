@@ -1,0 +1,1852 @@
+<!DOCTYPE html>
+<html lang="zh-CN,en,zh-TW,default">
+  <head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/tree/4.3.1'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <link rel="preload" href="/css/first.css" as="style">
+  
+
+  <!-- 页面元数据 -->
+  
+  <title>(译) Understanding Elixir Macros, Part 2 - Micro Theory - ShanSan</title>
+  
+    <meta name="keywords" content="Elixir Macros">
+  
+
+  
+
+  <!-- feed -->
+  
+    <link rel="alternate" href="/rss2.xml" title="ShanSan" type="application/rss+xml">
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  
+    <link rel="shortcut icon" type='image/x-icon' href="https://img.vim-cn.com/bb/db444be0b7fda59c69d5c64167f9668b0b66bd.png">
+  
+
+  <!-- import link -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/first.css">
+
+  
+
+  
+  <link rel="stylesheet" href="/css/style.css" media="print" onload="this.media='all';this.onload=null">
+  <noscript><link rel="stylesheet" href="/css/style.css"></noscript>
+  
+
+  <script id="loadcss"></script>
+
+  
+<script>
+if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode))
+    document.write(
+	'<style>'+
+		'html{'+
+			'overflow-x: hidden !important;'+
+			'overflow-y: hidden !important;'+
+		'}'+
+		'.kill-ie{'+
+			'text-align:center;'+
+			'height: 100%;'+
+			'margin-top: 15%;'+
+			'margin-bottom: 5500%;'+
+		'}'+
+	'</style>'+
+    '<div class="kill-ie">'+
+        '<h1><b>抱歉，您的浏览器无法访问本站</b></h1>'+
+        '<h3>微软已经于2016年终止了对 Internet Explorer (IE) 10 及更早版本的支持，<br/>'+
+        '继续使用存在极大的安全隐患，请使用当代主流的浏览器进行访问。</h3><br/>'+
+        '<a target="_blank" rel="noopener" href="https://www.microsoft.com/zh-cn/WindowsForBusiness/End-of-IE-support"><strong>了解详情 ></strong></a>'+
+    '</div>');
+</script>
+
+
+<noscript>
+	<style>
+		html{
+			overflow-x: hidden !important;
+			overflow-y: hidden !important;
+		}
+		.kill-noscript{
+			text-align:center;
+			height: 100%;
+			margin-top: 15%;
+			margin-bottom: 5500%;
+		}
+	</style>
+    <div class="kill-noscript">
+        <h1><b>抱歉，您的浏览器无法访问本站</b></h1>
+        <h3>本页面需要浏览器支持（启用）JavaScript</h3><br/>
+        <a target="_blank" rel="noopener" href="https://www.baidu.com/s?wd=启用JavaScript"><strong>了解详情 ></strong></a>
+    </div>
+</noscript>
+
+</head>
+
+  <body>
+    
+
+<header id="l_header" class="l_header auto shadow blur " style='opacity: 0' >
+  <div class='container'>
+  <div id='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h m-phone' id="pjax-header-nav-list">
+        <li><a id="s-comment" class="fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a id="s-toc" class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+          
+          
+            ShanSan
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h m-pc'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博文
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" 
+                  
+                  
+                  >
+                  <i class='fas fa-ellipsis-v fa-fw'></i>与我相关
+                </a>
+                
+                  <ul class="list-v">
+                    
+                      
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://github.com/yeshan333
+                  
+                  
+                  
+                    id="https:githubcomyeshan333"
+                  >
+                  <i class='fab fa-github-square fa-fw'></i>Github
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://slide.shan333.cn
+                  
+                  
+                  
+                    id="https:slideshan333cn"
+                  >
+                  <i class='fab fa-slideshare fa-fw'></i>slides
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://shansan.top/knowledge-base/
+                  
+                  
+                  
+                    id="https:shansantopknowledge-base"
+                  >
+                  <i class='far fa-sticky-note fa-fw'></i>notes
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://stats.uptimerobot.com/OknEPcNEVr
+                  
+                  
+                  
+                    id="https:statsuptimerobotcomOknEPcNEVr"
+                  >
+                  Monitor
+                </a>
+                
+              </li>
+            
+          
+                    
+                  </ul>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/cloud-native/
+                  
+                  
+                  
+                    id="cloud-native"
+                  >
+                  <i class='fas fa-cloud fa-fw'></i>云原生
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="寻你所想" />
+        </form>
+      </div>
+
+			<ul class='switcher nav-list-h m-phone'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博文
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" 
+                  
+                  
+                  >
+                  <i class='fas fa-ellipsis-v fa-fw'></i>与我相关
+                </a>
+                
+                  <ul class="list-v">
+                    
+                      
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://github.com/yeshan333
+                  
+                  
+                  
+                    id="https:githubcomyeshan333"
+                  >
+                  <i class='fab fa-github-square fa-fw'></i>Github
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://slide.shan333.cn
+                  
+                  
+                  
+                    id="https:slideshan333cn"
+                  >
+                  <i class='fab fa-slideshare fa-fw'></i>slides
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://shansan.top/knowledge-base/
+                  
+                  
+                  
+                    id="https:shansantopknowledge-base"
+                  >
+                  <i class='far fa-sticky-note fa-fw'></i>notes
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://stats.uptimerobot.com/OknEPcNEVr
+                  
+                  
+                  
+                    id="https:statsuptimerobotcomOknEPcNEVr"
+                  >
+                  Monitor
+                </a>
+                
+              </li>
+            
+          
+                    
+                  </ul>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/cloud-native/
+                  
+                  
+                  
+                    id="cloud-native"
+                  >
+                  <i class='fas fa-cloud fa-fw'></i>云原生
+                </a>
+                
+              </li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</header>
+
+    <div id="l_body">
+      <div id="l_cover">
+  
+      
+  
+  </div>
+
+      <div id="safearea">
+        <div class="body-wrapper" id="pjax-container">
+          
+
+<div class='l_main'>
+  <article class="article post white-box reveal md shadow article-type-post" id="post" itemscope itemprop="blogPost">
+  
+
+
+  
+  <div class="article-meta" id="top">
+    
+    
+    
+      <h1 class="title">
+        (译) Understanding Elixir Macros, Part 2 - Micro Theory
+      </h1>
+      <div class='new-meta-box'>
+        
+          
+            
+<div class='new-meta-item author'>
+  <a class='author' target="_blank" href="https://github.com/yeshan333" rel="nofollow noopener">
+    <img no-lazy src="https://z3.ax1x.com/2021/11/07/I1qTFx.png">
+    <p>yeshan333</p>
+  </a>
+</div>
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>首发于：2022年6月19日</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Elixir-Macros/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>Elixir-Macros</p></a></div>
+
+
+          
+        
+      </div>
+    
+  </div>
+
+
+  
+  
+  <p>这是 Elixir 中的宏系列的第二篇. 上一次我们讨论了编译过程和 Elixir AST, 最后讲了一个基本的宏的例子 trace. 今天, 我们会更详细地讲解宏的机制.</p>
+<p>可能有一些内容会和上一篇重复, 但我认为这对于理解运作原理和 AST 的生成很有帮助. 掌握了这些以后, 你对于自己的宏代码就更有信心了. 基础很重要, 因为随着更多地用到宏, 代码可能会由许多的 <code>quote/unquote</code> 结构组成.</p>
+<h2 id="调用一个宏"><a href="#调用一个宏" class="headerlink" title="调用一个宏"></a>调用一个宏</h2><p>我们最需要重视的是展开阶段. 编译器在这个阶段调用了各种宏（以及其它代码生成结构）来生成最终的 AST.</p>
+<p>例如, 宏 <code>trace</code> 的典型用法是这样的:</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">defmodule</span> <span class="title">MyModule</span></span> <span class="keyword">do</span></span><br><span class="line">  <span class="keyword">require</span> Tracer</span><br><span class="line">  ...</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">some_fun</span></span>(...) <span class="keyword">do</span></span><br><span class="line">    Tracer.trace(...)</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p>像之前所提到的那样, 编译器从一个类似于这段代码的 AST 开始. 这个 AST 之后会被扩展, 然后生成最后的代码. 因此, 在这段代码的展开阶段, Tracer.trace/1会被调用.</p>
+<p>我们的宏接受了输入的 AST, 然后必须生成输出的 AST. 之后编译器会简单地用输出的 AST 替换掉对宏的调用. 这个过程是渐进的 — 一个宏可以返回调用其他宏(甚至它本身)的 AST. 编译器会再次扩展, 直到不可以扩展为止.</p>
+<p>调用宏使得我们有机会修改代码的含义. 一个典型的宏会获取输入的 AST 并修改它, 在它周围添加一些代码.</p>
+<p>那就是我们使用宏 trace 所做的事情. 我们得到了一个 quoted expression（例如 <code>1+2</code>）, 然后返回了这个:</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">result = <span class="number">1</span> + <span class="number">2</span></span><br><span class="line">Tracer.print(<span class="string">&quot;1 + 2&quot;</span>, result)</span><br><span class="line">result</span><br></pre></td></tr></table></figure>
+
+<p>要在代码的任何地方调用宏（包括 shell 里）, 你都必须先调用 <code>require Tracer</code> 或 <code>import Tracer</code>. 为什么呢？因为宏有两个看似矛盾的性质:</p>
+<ul>
+<li>宏也是 Elixir 代码</li>
+<li>宏在在最终的字节码生成之前的展开阶段运行</li>
+</ul>
+<p>Elixir 代码是如何在被生成之前运行的？它不能. 要调用一个宏, 其容器模块（宏的定义所在的模块）必须已经被编译.</p>
+<p>因此, 要运行 <code>Tracer</code> 模块中所定义的宏, 我们必须确认它已经被编译了. 也就是说, 我们必须向编译器提供一个关于我们所需求的模块的顺序. 当我们 <code>require</code> 了一个模块, 我们会让 <code>Elixir</code> 暂停当前模块的编译, 直到我们 <code>require</code><br>的模块编译好并载入到了编译器的运行时（编译器所在的 Erlang VM 实例）. 只有在 <code>Tracer</code> 模块完全编译好并对编译器可用的情况下, 我们才能调用 <code>trace</code> 宏.</p>
+<p>使用 <code>import</code> 也有相同效果, 只不过它还在词法上引入了所有的公共函数和宏, 使得我们可以用 <code>trace</code> 替代 <code>Tracer.trace</code>.</p>
+<p>由于宏也是函数, 而 Elixir 在调用函数时可以省略括号, 所以我们可以这样写:</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Tracer.trace <span class="number">1</span>+<span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+<p>这很可能是 Elixir 之所以不在函数调用时要求括号的最主要原因. 记住, 大多数语言结构都是宏. 如果括号是必须的, 那么我们需要编写的代码将会更加嘈杂.</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">defmodule</span>(<span class="title">MyModule</span></span>, <span class="symbol">do:</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span>(<span class="title">function_1</span></span>, <span class="symbol">do:</span> ...)</span><br><span class="line">  <span class="function"><span class="keyword">def</span>(<span class="title">function_2</span></span>, <span class="symbol">do:</span> ...)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<h2 id="Hygiene"><a href="#Hygiene" class="headerlink" title="Hygiene"></a>Hygiene</h2><p>在上一篇文章中我们提到, 宏默认是整洁（Hygiene）的. 意思就是宏引入的变量有其自己的私有作用域, 不会影响代码的其他部分. . 这就是我们能够在我们的 <code>trace</code> 宏中安全地引入 result 变量的原因:</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">quote</span> <span class="keyword">do</span></span><br><span class="line">  result = unquote(expression_ast)  <span class="comment"># result 是宏的私有变量</span></span><br><span class="line">  ...</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p>该变量不会干扰调用这个宏的代码. 在调用宏的地方, 可以随意的声明你自己的 <code>result</code> 变量, 它不会被 <code>tracer</code> 宏中的 <code>result</code> 变量隐藏.</p>
+<p>大多数时候 <code>hygiene</code> 是我们想要的效果, 但是也有例外. 有时候, 可能需要创建在调用者作用域内可用的变量. 下面我们通过 <code>Plug</code> 库的一个用例来演示, 我们如何使用 <code>Plug</code> 来制定路由:</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">get <span class="string">&quot;/resource1&quot;</span> <span class="keyword">do</span></span><br><span class="line">  send_resp(conn, <span class="number">200</span>, ...)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">post <span class="string">&quot;/resource2&quot;</span> <span class="keyword">do</span></span><br><span class="line">  send_resp(conn, <span class="number">200</span>, ...)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p>注意, 上面这两个宏是如何使用并不存在的 <code>conn</code> 变量. 这是因为, <code>get</code> 宏在生成的代码中绑定了该变量. 可以想象一下, 产生的代码如下:</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">defp</span> <span class="title">do_match</span></span>(<span class="string">&quot;GET&quot;</span>, <span class="string">&quot;/resource1&quot;</span>, conn) <span class="keyword">do</span></span><br><span class="line">    ...</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="function"><span class="keyword">defp</span> <span class="title">do_match</span></span>(<span class="string">&quot;POST&quot;</span>, <span class="string">&quot;/resource2&quot;</span>, conn) <span class="keyword">do</span></span><br><span class="line">    ...</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p>注意: <code>Plug</code> 产生的真实代码是不同的, 这里为了演示对其进行了简化.</p>
+<p>这是一个例子, 宏引入了一个变量, 它必须不是 <code>hygienic</code> 的. 变量 <code>conn</code> 由 <code>get</code> 宏引入, 必须对调用者可见.</p>
+<p>另一个例子是使用 ExActor 的. 看看下面的例子:</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">defmodule</span> <span class="title">MyServer</span></span> <span class="keyword">do</span></span><br><span class="line">  ...</span><br><span class="line">  defcall my_request(...), <span class="symbol">do:</span> reply(result)</span><br><span class="line">  ...</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p>如果你对 <code>GenServer</code> 很熟悉, 那么你知道一个 <code>call</code> 的结果必须是 <code>&#123;:reply, response, state&#125;</code> 的形式. 然而, 在上述代码中, 甚至没有提到 <code>state</code>. 那么我们是如何返回 <code>state</code> 的呢？这是因为 <code>defcall</code> 宏生成了一个隐藏的<code>state</code> 变量, 它之后将被 <code>reply</code> 宏明确使用.</p>
+<p>在上面两种情况中, 宏都必须创建一个不 hygienic 的变量, 而且必须在宏所引用的代码之外可见. 为达到这个目的, 可以使用 <code>var!</code> 结构. 下面是 <code>Plug</code>的 <code>get</code> 宏的简化版本:</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">defmacro</span> <span class="title">get</span></span>(route, body) <span class="keyword">do</span></span><br><span class="line">  <span class="keyword">quote</span> <span class="keyword">do</span></span><br><span class="line">    <span class="function"><span class="keyword">defp</span> <span class="title">do_match</span></span>(<span class="string">&quot;GET&quot;</span>, unquote(route), var!(conn)) <span class="keyword">do</span></span><br><span class="line">      <span class="comment"># put body AST here</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p>注意我们如何使用 <code>var!(conn)</code> 的. 通过这样做, 我们指定 <code>conn</code> 是一个对调用者可见的变量.</p>
+<p>上述代码没有解释 body 是如何注入的. 在这之前, 你需要理解宏所接受的参数.</p>
+<h2 id="宏参数"><a href="#宏参数" class="headerlink" title="宏参数"></a>宏参数</h2><p>你要记住, 宏本质上是在扩展阶段被导入的 Elixir 函数, 然后生成最终的 AST. 宏的特别之处在于它所接受的参数都是quoted 的. 这就是我们之所以能够调用:</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">my_fun</span></span> <span class="keyword">do</span></span><br><span class="line">  ...</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p>等同于:</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span>(<span class="title">my_fun</span></span>, <span class="symbol">do:</span> (...))</span><br></pre></td></tr></table></figure>
+
+<p>注意我们如何调用 <code>def</code> 宏, 传递 <code>my_fun</code>, 即使这个变量不存在. 这完全没问题, 因为我们实际上传递的是 <code>quote(do: my_fun)</code> 的结果, 而引用（quote）不要求变量存在. 在内部, <code>def</code> 宏会接收到包含了 <code>:my_fun</code> 的引用形式. <code>def</code> 宏会使用这个信息来生成对应名称的函数.</p>
+<p>这里再提一下 <code>do...end</code> 块. 任何时候发送一个 <code>do...end</code> 块给一个宏, 都相当于发送一个带有 <code>:do</code> 键的关键词列表（keywords list）.</p>
+<p>所以如下调用:</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">my_macro arg1, arg2 <span class="keyword">do</span> ... <span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p>等同于</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">my_macro(arg1, arg2, <span class="symbol">do:</span> ...)</span><br></pre></td></tr></table></figure>
+
+<p>这些只不过是 Elixir 中的语法糖. 解释器将 <code>do ... end</code> 转换成了 <code>&#123;:do, ...&#125;</code>.</p>
+<p>现在, 我只提到了参数是被引用（quoted）的. 然而, 对于许多常量（原子, 数字, 字符串）, 引用（quoted）形式和输入值完全一样. 此外, 二元元组和列表会在被引用（quoted）时保持它们的结构. 这意味着 <code>quote(do: &#123;a, b&#125;)</code> 将会返回一个二元元组, 它的两个值都是被引用（quoted）的.</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">iex(<span class="number">1</span>)&gt; <span class="keyword">quote</span> <span class="keyword">do</span> <span class="symbol">:an_atom</span> <span class="keyword">end</span></span><br><span class="line"><span class="symbol">:an_atom</span></span><br><span class="line"></span><br><span class="line">iex(<span class="number">2</span>)&gt; <span class="keyword">quote</span> <span class="keyword">do</span> <span class="string">&quot;a string&quot;</span> <span class="keyword">end</span></span><br><span class="line"><span class="string">&quot;a string&quot;</span></span><br><span class="line"></span><br><span class="line">iex(<span class="number">3</span>)&gt; <span class="keyword">quote</span> <span class="keyword">do</span> <span class="number">3.14</span> <span class="keyword">end</span></span><br><span class="line"><span class="number">3.14</span></span><br><span class="line"></span><br><span class="line">iex(<span class="number">4</span>)&gt; <span class="keyword">quote</span> <span class="keyword">do</span> &#123;<span class="number">1</span>,<span class="number">2</span>&#125; <span class="keyword">end</span></span><br><span class="line">&#123;<span class="number">1</span>, <span class="number">2</span>&#125;</span><br><span class="line"></span><br><span class="line">iex(<span class="number">5</span>)&gt; <span class="keyword">quote</span> <span class="keyword">do</span> [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>] <span class="keyword">end</span></span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]</span><br></pre></td></tr></table></figure>
+
+<p>对三元元组的引用（quoted）不会保留它的形状:</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">iex(<span class="number">6</span>)&gt; <span class="keyword">quote</span> <span class="keyword">do</span> &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125; <span class="keyword">end</span></span><br><span class="line">&#123;<span class="symbol">:</span>&#123;&#125;, [], [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]&#125;</span><br></pre></td></tr></table></figure>
+
+<p>由于列表和二元元组在被引用时能保留结构, 所以关键词列表（<a target="_blank" rel="noopener" href="https://hexdocs.pm/elixir/1.12/Keyword.html">keywords list</a>）也可以:</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">iex(<span class="number">7</span>)&gt; <span class="keyword">quote</span> <span class="keyword">do</span> [<span class="symbol">a:</span> <span class="number">1</span>, <span class="symbol">b:</span> <span class="number">2</span>] <span class="keyword">end</span></span><br><span class="line">[<span class="symbol">a:</span> <span class="number">1</span>, <span class="symbol">b:</span> <span class="number">2</span>]</span><br><span class="line"></span><br><span class="line">iex(<span class="number">8</span>)&gt; <span class="keyword">quote</span> <span class="keyword">do</span> [<span class="symbol">a:</span> x, <span class="symbol">b:</span> y] <span class="keyword">end</span></span><br><span class="line">[<span class="symbol">a:</span> &#123;<span class="symbol">:x</span>, [], Elixir&#125;, <span class="symbol">b:</span> &#123;<span class="symbol">:y</span>, [], Elixir&#125;]</span><br></pre></td></tr></table></figure>
+
+<p>在第一个例子中, 你可以看到输入的关键词列表完全没变. 第二个例子证明了复杂的部分（例如调用 <code>x</code>和 <code>y</code>）会是 quoted 形式. 但是列表还保持着它的形状. 这仍然是一个键为 <code>:a</code> 和 <code>:b</code> 的关键词列表.</p>
+<h2 id="将它们放在一起"><a href="#将它们放在一起" class="headerlink" title="将它们放在一起"></a>将它们放在一起</h2><p>为什么这些都很重要? 因为在宏代码中, 您可以很容易地从关键字列表中获取所需要的选项, 而不需要分析一些令人费解的AST. 之前, 我们留下了这个草图代码:</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">defmacro</span> <span class="title">get</span></span>(route, body) <span class="keyword">do</span></span><br><span class="line">  <span class="keyword">quote</span> <span class="keyword">do</span></span><br><span class="line">    <span class="function"><span class="keyword">defp</span> <span class="title">do_match</span></span>(<span class="string">&quot;GET&quot;</span>, unquote(route), var!(conn)) <span class="keyword">do</span></span><br><span class="line">      <span class="comment"># put body AST here</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p>记住, <code>do ... end</code> 和 <code>do: ...</code> 是一样的, 所以当我们调用 <code>get route do ... end</code> 时, 我们实际上是在调用 <code>get(route, do: ...)</code> 记住宏参数是 quoted 的, 但也要知道 quoted 的关键字列表保持它们的形状, 可以使用 <code>body[:do]</code>获取宏中引用的主体:</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">defmacro</span> <span class="title">get</span></span>(route, body) <span class="keyword">do</span></span><br><span class="line">  <span class="keyword">quote</span> <span class="keyword">do</span></span><br><span class="line">    <span class="function"><span class="keyword">defp</span> <span class="title">do_match</span></span>(<span class="string">&quot;GET&quot;</span>, unquote(route), var!(conn)) <span class="keyword">do</span></span><br><span class="line">      unquote(body[<span class="symbol">:do</span>])</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p>因此, 我们只需将 quoted 的输入主体注入到正在生成的 <code>do_match</code> 子句（clause）主体中.</p>
+<p>如之前所述, 这就是宏的用途. 它接收一些 AST 片段, 并将它们与样板代码组合在一起, 以生成最终结果. 理想情况下, 当我们这样做时, 我们不需要关心输入 AST 的内容, 在我们的例子中, 我们只需要在生成的函数中注入函数体, 而不需要关心函数体中实际有什么.</p>
+<p>测试这个宏很简单. 以下是所需代码的最小化:</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">defmodule</span> <span class="title">Plug.Router</span></span> <span class="keyword">do</span></span><br><span class="line">  <span class="comment"># 宏 get 从客户端删除样板代码</span></span><br><span class="line">  <span class="comment"># 确保生成的代码符合泛型逻辑所需的一些标准</span></span><br><span class="line">  <span class="function"><span class="keyword">defmacro</span> <span class="title">get</span></span>(route, body) <span class="keyword">do</span></span><br><span class="line">    <span class="keyword">quote</span> <span class="keyword">do</span></span><br><span class="line">      <span class="function"><span class="keyword">defp</span> <span class="title">do_match</span></span>(<span class="string">&quot;GET&quot;</span>, unquote(route), var!(conn)) <span class="keyword">do</span></span><br><span class="line">        unquote(body[<span class="symbol">:do</span>])</span><br><span class="line">      <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p>现在, 我们可以实现一个客户端模块:</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">defmodule</span> <span class="title">MyRouter</span></span> <span class="keyword">do</span></span><br><span class="line">  <span class="keyword">import</span> Plug.Router</span><br><span class="line"></span><br><span class="line">  <span class="comment"># 多子句 dispatch 的通用代码</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">match</span></span>(type, route) <span class="keyword">do</span></span><br><span class="line">    do_match(type, route, <span class="symbol">:dummy_connection</span>)</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># 使用宏最小化样板代码量</span></span><br><span class="line">  get <span class="string">&quot;/hello&quot;</span>, <span class="symbol">do:</span> &#123;conn, <span class="string">&quot;Hi!&quot;</span>&#125;</span><br><span class="line">  get <span class="string">&quot;/goodbye&quot;</span>, <span class="symbol">do:</span> &#123;conn, <span class="string">&quot;Bye!&quot;</span>&#125;</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p>测试一下:</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">MyRouter.match(<span class="string">&quot;GET&quot;</span>, <span class="string">&quot;/hello&quot;</span>) |&gt; IO.inspect</span><br><span class="line"><span class="comment"># &#123;:dummy_connection, &quot;Hi!&quot;&#125;</span></span><br><span class="line"></span><br><span class="line">MyRouter.match(<span class="string">&quot;GET&quot;</span>, <span class="string">&quot;/goodbye&quot;</span>) |&gt; IO.inspect</span><br><span class="line"><span class="comment"># &#123;:dummy_connection, &quot;Bye!&quot;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>注意 <code>match/2</code> 的代码. 它是通用的代码, 依赖于 <code>do_match/3</code> 的实现.</p>
+<h2 id="使用模块"><a href="#使用模块" class="headerlink" title="使用模块"></a>使用模块</h2><p>观察上述代码, 你可以看到 <code>match/2</code> 的胶水代码存在于客户端模块中. 这肯定算不上完美, 因为每个客户端都必须提供对这个函数的正确实现, 而且必须调用 <code>do_match</code> 函数.</p>
+<p>更好的选择是, <code>Plug.Router</code> 能够将这个实现抽象提供给我们. 我们可以使用 <code>use</code> 宏, 大概就是其它语言中的 mixin.</p>
+<p>总体思路如下:</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">defmodule</span> <span class="title">ClientCode</span></span> <span class="keyword">do</span></span><br><span class="line">  <span class="comment"># 调用 mixin</span></span><br><span class="line">  <span class="keyword">use</span> GenericCode, <span class="symbol">option_1:</span> value_1, <span class="symbol">option_2:</span> value_2, ...</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">defmodule</span> <span class="title">GenericCode</span></span> <span class="keyword">do</span></span><br><span class="line">  <span class="comment"># 在模块被使用的时候调用</span></span><br><span class="line">  <span class="function"><span class="keyword">defmacro</span> <span class="title">__using__</span></span>(options) <span class="keyword">do</span></span><br><span class="line">    <span class="comment"># 生成一个AST, 该 AST 将被插入到 use 的地方</span></span><br><span class="line">    <span class="keyword">quote</span> <span class="keyword">do</span></span><br><span class="line">      ...</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p>因此, 使用 <code>use</code> 机制允许我们向调用者的上下文中注入一些代码. 就像是替代了这些:</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">defmodule</span> <span class="title">ClientCode</span></span> <span class="keyword">do</span></span><br><span class="line">  <span class="keyword">require</span> GenericCode</span><br><span class="line">  GenericCode.__using__(...)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p>这可以通过查看 Elixir 的<a target="_blank" rel="noopener" href="https://github.com/elixir-lang/elixir/blob/v0.14.0/lib/elixir/lib/kernel.ex#L3531-L3532">源代码</a>来证明. 这证明了另一点 — 不断展开. <code>use</code> 宏生成调用另一个宏的代码. 或者更巧妙地说, 用生成代码来生成代码. 正如前面提到的, 编译器会递归地展开它所发现的所有宏定义, 直到没有可展开的宏为止..</p>
+<p>有了这些知识, 我们可以将 <code>match</code> 函数的实现转移到通用的 <code>Plug.Router</code> 模块:</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">defmodule</span> <span class="title">Plug.Router</span></span> <span class="keyword">do</span></span><br><span class="line">  <span class="function"><span class="keyword">defmacro</span> <span class="title">__using__</span></span>(_options) <span class="keyword">do</span></span><br><span class="line">    <span class="keyword">quote</span> <span class="keyword">do</span></span><br><span class="line">      <span class="keyword">import</span> Plug.Router</span><br><span class="line"></span><br><span class="line">      <span class="function"><span class="keyword">def</span> <span class="title">match</span></span>(type, route) <span class="keyword">do</span></span><br><span class="line">        do_match(type, route, <span class="symbol">:dummy_connection</span>)</span><br><span class="line">      <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">defmacro</span> <span class="title">get</span></span>(route, body) <span class="keyword">do</span></span><br><span class="line">    ... <span class="comment"># 这段代码保持不变</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p>这使得客户端代码非常精简:</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">defmodule</span> <span class="title">MyRouter</span></span> <span class="keyword">do</span></span><br><span class="line">  <span class="keyword">use</span> Plug.Router</span><br><span class="line"></span><br><span class="line">  get <span class="string">&quot;/hello&quot;</span>, <span class="symbol">do:</span> &#123;conn, <span class="string">&quot;Hi!&quot;</span>&#125;</span><br><span class="line">  get <span class="string">&quot;/goodbye&quot;</span>, <span class="symbol">do:</span> &#123;conn, <span class="string">&quot;Bye!&quot;</span>&#125;</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p><code>__using__</code> 宏生成的 AST 会简单地被注入到调用 <code>use Plug.Router</code> 的地方. 特别注意我们是如何从 <code>__using__</code> 宏里使用 <code>import Plug.Router</code> 的, 这不是必要的. 但这让你可以使用 <code>get</code> 替代使用 <code>Plug.Router.get</code>.</p>
+<p>那么我们得到了什么？各种样板代码汇集到了一个地方（<code>Plug.Router</code>). 不仅仅简化了客户端代码, 也让这个抽象正确闭合. 模块 <code>Plug.Router</code>确保了 <code>get</code> 宏所生成的任何东西都能适合使用 <code>match</code> 的通用代码. 在客户端中, 我们只要 <code>use</code>那个模块, 然后用它提供的宏来组合我们的 router.</p>
+<p>总结一下本章的内容. 许多细节没有提到, 但希望你对于宏是如何与 Elixir 编译器相结合的有了更好的理解. 在下一部分, 我们会更深入, 并开始探索如何分解输入的 AST.</p>
+<h2 id="附注"><a href="#附注" class="headerlink" title="附注"></a>附注</h2><ul>
+<li>mixin: Mixin 即 Mix-in, 常被译为 “混入”, 是一种编程模式, 在 Python 等面向对象语言中, 通常它是实现了某种功能单元的类, 用于被其他子类继承, 将功能组合到子类中.</li>
+</ul>
+
+  
+  
+    
+    <div class='footer'>
+      
+      
+      
+        <div class='copyright'>
+          <blockquote>
+            
+              
+                <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+              
+            
+              
+                <p>我的博客即将同步至腾讯云+社区，邀请大家一同入驻：<a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/support-plan?invite_code=1utoln9pyvwqu">https://cloud.tencent.com/developer/support-plan?invite_code=1utoln9pyvwqu</a></p>
+
+              
+            
+          </blockquote>
+        </div>
+      
+      
+    </div>
+  
+  
+    
+
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2022-06-19T00:36:03+00:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2022年6月19日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Elixir-Macros/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>Elixir-Macros</p></a></div>
+
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-2-macro-theory/&title=(译) Understanding Elixir Macros, Part 2 - Micro Theory - ShanSan&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-2-macro-theory/&title=(译) Understanding Elixir Macros, Part 2 - Micro Theory - ShanSan&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-2-macro-theory/&title=(译) Understanding Elixir Macros, Part 2 - Micro Theory - ShanSan&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </div>
+
+
+  
+  
+
+  
+    <div class="prev-next">
+      
+        <a class='prev' href='/2022/06/19/understanding-elixir-macros-part-3-gettingto-the-ast/'>
+          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>(译) Understanding Elixir Macros, Part 3 - Getting into the AST</p>
+          <p class='content'>是时候继续探索 Elixir 的宏了. 上次我介绍了一些关于宏的基本原理, 今天, 我将进入一个较少谈及的领域, 并讨论Elixir AST 的一些细节.
+跟踪函数调用到目前为止, 你只看到了接...</p>
+        </a>
+      
+      
+        <a class='next' href='/2022/06/18/understanding-elixir-macros-part-1-basics/'>
+          <p class='title'>(译) Understanding Elixir Macros, Part 1 Basics<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>这是讨论宏 (Macros) 微系列文章的第一篇. 我原本计划在我即将出版的《Elixir in Action》一书中讨论这个主题, 但最终决定不这么做, 因为这个主题不符合这本书的主题, 这本...</p>
+        </a>
+      
+    </div>
+  
+</article>
+
+
+  
+
+  <article class="post white-box reveal shadow" id="comments">
+    <p ct><i class='fas fa-comments'></i> 评论</p>
+    
+    <div id="waline">
+  <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+</div>
+
+  </article>
+
+
+
+
+
+  <script>
+  // https://github.com/theme-next/hexo-theme-next/blob/master/layout/_third-party/math/mathjax.swig
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.0/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    // 文章章节标题不能为 “MathJax” ，否则会报错。
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+
+
+</div>
+<aside class='l_side'>
+  
+  
+    
+    
+
+
+
+  <section class="widget toc-wrapper shadow desktop mobile" id="toc-div" >
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B0%83%E7%94%A8%E4%B8%80%E4%B8%AA%E5%AE%8F"><span class="toc-text">调用一个宏</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hygiene"><span class="toc-text">Hygiene</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%8F%E5%8F%82%E6%95%B0"><span class="toc-text">宏参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%86%E5%AE%83%E4%BB%AC%E6%94%BE%E5%9C%A8%E4%B8%80%E8%B5%B7"><span class="toc-text">将它们放在一起</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%A8%A1%E5%9D%97"><span class="toc-text">使用模块</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%99%84%E6%B3%A8"><span class="toc-text">附注</span></a></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+
+		  
+		  <!--此文件用来存放一些不方便取值的变量-->
+<!--思路大概是将值藏到重加载的区域内-->
+
+<script>
+  window.pdata={}
+  pdata.ispage=true;
+  pdata.postTitle="(译) Understanding Elixir Macros, Part 2 - Micro Theory";
+  pdata.commentPath="";
+  pdata.commentPlaceholder="";
+  // header 这里无论是否开启pjax都需要
+  var l_header=document.getElementById("l_header");
+  
+  l_header.classList.add("show");
+  
+  
+</script>
+
+        </div>
+        
+  
+  <footer class="footer clearfix">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
+
+  
+    <meting-js
+      theme='#1BCDFC'
+      autoplay='false'
+      volume='0.7'
+      loop='all'
+      order='list'
+      fixed='false'
+      list-max-height='320px'
+      server='netease'
+      type='playlist'
+      id='6729508229'
+      list-folded='true'>
+    </meting-js>
+  
+
+
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+            
+              <a href="mailto:1329441308@qq.com"
+                class="social fas fa-envelope flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+                
+              </a>
+            
+          
+            
+              <a href="https://github.com/yeshan333?tab=repositories"
+                class="social fab fa-github flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+                
+              </a>
+            
+          
+            
+              <a href="https://music.163.com/#/my/m/music/playlist?id=2617691792"
+                class="social fas fa-music flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+                
+              </a>
+            
+          
+            
+              <a href="https://www.zhihu.com/people/si-kong-ji-54/activities"
+                class="social fab fa-zhihu flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+                
+              </a>
+            
+          
+            
+              <a href="https://yeshan333.github.io/rss2.xml"
+                class="social fas fa-rss flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+                
+              </a>
+            
+          
+        </div>
+      
+    
+      
+        <div><p>博客内容遵循 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+</div>
+      
+    
+      
+        本站使用
+        <a href="https://github.com/volantis-x/hexo-theme-volantis/tree/4.3.1" target="_blank" class="codename">Volantis</a>
+        作为主题，总访问量为
+          <span id="busuanzi_value_site_pv"><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+          次
+        
+      
+    
+      
+        <div class='copyright'>
+        <p><a target="_blank" rel="noopener" href="https://shansan.top/">Copyright © 2018-2022 ShanSan</a></p>
+
+        </div>
+      
+    
+      
+        
+          <div><p><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">桂ICP备19000444号</a></p>
+</div>
+        
+      
+    
+  </footer>
+
+
+        <a id="s-top" class="fas fa-arrow-up fa-fw" href="javascript:void(0)"></a>
+      </div>
+    </div>
+    <div>
+      <script>
+/************这个文件存放不需要重载的全局变量和全局函数*********/
+window.volantis={};
+window.volantis.loadcss=document.getElementById("loadcss");
+/******************** Pjax ********************************/
+function VPjax(){
+	this.list=[] // 存放回调函数
+	this.start=()=>{
+	  for(var i=0;i<this.list.length;i++){
+		this.list[i].run();
+	  }
+	}
+	this.push=(fn,name)=>{
+		var f=new PjaxItem(fn,name);
+		this.list.push(f);
+	}
+	// 构造一个可以run的对象
+	function PjaxItem(fn,name){
+		// 函数名称
+		this.name = name || fn.name
+		// run方法
+		this.run=()=>{
+			fn()
+		}
+	}
+}
+volantis.pjax={}
+volantis.pjax.method={
+	complete: new VPjax(),
+	error: new VPjax(),
+	send: new VPjax()
+}
+volantis.pjax={
+	...volantis.pjax,
+	push: volantis.pjax.method.complete.push,
+	error: volantis.pjax.method.error.push,
+	send: volantis.pjax.method.send.push
+}
+/********************脚本懒加载函数********************************/
+// 已经加入了setTimeout
+function loadScript(src, cb) {
+	setTimeout(function() {
+		var HEAD = document.getElementsByTagName('head')[0] || document.documentElement;
+		var script = document.createElement('script');
+		script.setAttribute('type','text/javascript');
+		if (cb) script.onload = cb;
+		script.setAttribute('src', src);
+		HEAD.appendChild(script);
+	});
+}
+//https://github.com/filamentgroup/loadCSS
+var loadCSS = function( href, before, media, attributes ){
+	var doc = window.document;
+	var ss = doc.createElement( "link" );
+	var ref;
+	if( before ){
+		ref = before;
+	}
+	else {
+		var refs = ( doc.body || doc.getElementsByTagName( "head" )[ 0 ] ).childNodes;
+		ref = refs[ refs.length - 1];
+	}
+	var sheets = doc.styleSheets;
+	if( attributes ){
+		for( var attributeName in attributes ){
+			if( attributes.hasOwnProperty( attributeName ) ){
+				ss.setAttribute( attributeName, attributes[attributeName] );
+			}
+		}
+	}
+	ss.rel = "stylesheet";
+	ss.href = href;
+	ss.media = "only x";
+	function ready( cb ){
+		if( doc.body ){
+			return cb();
+		}
+		setTimeout(function(){
+			ready( cb );
+		});
+	}
+	ready( function(){
+		ref.parentNode.insertBefore( ss, ( before ? ref : ref.nextSibling ) );
+	});
+	var onloadcssdefined = function( cb ){
+		var resolvedHref = ss.href;
+		var i = sheets.length;
+		while( i-- ){
+			if( sheets[ i ].href === resolvedHref ){
+				return cb();
+			}
+		}
+		setTimeout(function() {
+			onloadcssdefined( cb );
+		});
+	};
+	function loadCB(){
+		if( ss.addEventListener ){
+			ss.removeEventListener( "load", loadCB );
+		}
+		ss.media = media || "all";
+	}
+	if( ss.addEventListener ){
+		ss.addEventListener( "load", loadCB);
+	}
+	ss.onloadcssdefined = onloadcssdefined;
+	onloadcssdefined( loadCB );
+	return ss;
+};
+</script>
+<script>
+  
+  loadCSS("https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14/css/all.min.css", window.volantis.loadcss);
+  
+  
+  
+  
+</script>
+<!-- required -->
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5/dist/jquery.min.js"></script>
+
+<script>
+  function pjax_fancybox() {
+    $(".md .gallery").find("img").each(function () { //渲染 fancybox
+      var element = document.createElement("a"); // a 标签
+      $(element).attr("class", "fancybox");
+      $(element).attr("pjax-fancybox", "");  // 过滤 pjax
+      $(element).attr("href", $(this).attr("src"));
+      if ($(this).attr("data-original")) {
+        $(element).attr("href", $(this).attr("data-original"));
+      }
+      $(element).attr("data-fancybox", "images");
+      var caption = "";   // 描述信息
+      if ($(this).attr('alt')) {  // 判断当前页面是否存在描述信息
+        $(element).attr('data-caption', $(this).attr('alt'));
+        caption = $(this).attr('alt');
+      }
+      var div = document.createElement("div");
+      $(div).addClass("fancybox");
+      $(this).wrap(div); // 最外层套 div ，其实主要作用还是 class 样式
+      var span = document.createElement("span");
+      $(span).addClass("image-caption");
+      $(span).text(caption); // 加描述
+      $(this).after(span);  // 再套一层描述
+      $(this).wrap(element);  // 最后套 a 标签
+    })
+    $(".md .gallery").find("img").fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+      closeClick: true,
+      helpers: {
+        overlay: {closeClick: true}
+      },
+      buttons: [
+        "zoom",
+        "close"
+      ]
+    });
+  };
+  function SCload_fancybox() {
+    if ($(".md .gallery").find("img").length == 0) return;
+    loadCSS("https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css", document.getElementById("loadcss"));
+    loadScript('https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', pjax_fancybox)
+  };
+  $(function () {
+    SCload_fancybox();
+  });
+  function Pjax_SCload_fancybox(){
+	if (typeof $.fancybox == "undefined") {
+	 SCload_fancybox();
+    } else {
+	 pjax_fancybox();
+    }
+  }
+  volantis.pjax.push(Pjax_SCload_fancybox)
+  volantis.pjax.send(()=>{
+      if (typeof $.fancybox != "undefined") {
+        $.fancybox.close();    // 关闭弹窗
+      }
+  },'fancybox')
+</script>
+
+
+<!-- internal -->
+
+
+
+
+<script>
+  function loadIssuesJS() {
+    if ($(".md").find(".issues-api").length == 0) return;
+	
+	  loadScript('/js/issues.js');
+	
+  };
+  $(function () {
+    loadIssuesJS();
+  });
+  volantis.pjax.push(()=>{
+	if (typeof IssuesAPI == "undefined") {
+	  loadIssuesJS();
+	}
+  },"IssuesJS")
+</script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 0
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    lazyLoadInstance.update();
+  });
+  document.addEventListener('pjax:complete', function () {
+    lazyLoadInstance.update();
+  });
+</script>
+
+
+
+
+  
+
+<script>
+  window.FPConfig = {
+	delay: 0,
+	ignoreKeywords: [],
+	maxRPS: 5,
+	hoverDelay: 25
+  };
+</script>
+<script defer src="https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"></script>
+
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+    var clipboard = new ClipboardJS('.btn-copy', {
+        target: function (trigger) {
+            return trigger.nextElementSibling
+        }
+    });
+    function wait(callback, seconds) {
+        var timelag = null;
+        timelag = window.setTimeout(callback, seconds)
+    }
+    function pjax_initCopyCode() {
+		if($(".highlight .code pre").length+$(".article pre code").length==0)return;
+        var copyHtml = '';
+        copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+        copyHtml += '<i class="fas fa-copy"></i><span>COPY</span>';
+        copyHtml += '</button>';
+        $(".highlight .code pre").before(copyHtml);
+        $(".article pre code").before(copyHtml);
+        clipboard.off('success').on('success', function (e) {
+            let $btn = $(e.trigger);
+            $btn.addClass('copied');
+            let $icon = $($btn.find('i'));
+            $icon.removeClass('fa-copy');
+            $icon.addClass('fa-check-circle');
+            let $span = $($btn.find('span'));
+            $span[0].innerText = 'COPIED';
+            wait(function () {
+                $icon.removeClass('fa-check-circle');
+                $icon.addClass('fa-copy');
+                $span[0].innerText = 'COPY'
+            }, 2000)
+        });
+        clipboard.off('error').on('error', function (e) {
+            e.clearSelection();
+            let $btn = $(e.trigger);
+            $btn.addClass('copy-failed');
+            let $icon = $($btn.find('i'));
+            $icon.removeClass('fa-copy');
+            $icon.addClass('fa-times-circle');
+            let $span = $($btn.find('span'));
+            $span[0].innerText = 'COPY FAILED';
+            wait(function () {
+                $icon.removeClass('fa-times-circle');
+                $icon.addClass('fa-copy');
+                $span[0].innerText = 'COPY'
+            }, 2000)
+        })
+    }
+    $(function () {
+        pjax_initCopyCode()
+    });
+	volantis.pjax.push(pjax_initCopyCode)
+</script>
+
+
+
+
+
+
+  <script>
+  let APlayerController = new Object();
+  APlayerController.id = '6729508229';  // 设定全局音乐播放ID
+  APlayerController.volume = '0.7';
+  loadCSS("https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css", window.volantis.loadcss);
+  // APlayer 需要在  MetingJS 之前加载
+  loadScript("https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js")
+  window.volantis.APlayerLoaded=0 // APlayer加载完成状态
+  var checkAPlayer = setInterval(function () {
+    if (!window.APlayer) return // APlayer加载完成？
+	  if ($("#safearea").css("display")!="block") return // 文章内容加载完成？ see: source/css/first.styl
+    clearInterval(checkAPlayer)
+	  if (!window.volantis.APlayerLoaded&&!window.MetingJSElement){ // APlayer只能加载一次
+      window.volantis.APlayerLoaded=1 // APlayer加载完成
+      loadScript("https://cdn.jsdelivr.net/npm/meting@2.0/dist/Meting.min.js") // 加载 MetingJS
+	  }
+  }, 2500) // 按照网速调节差分2.5s
+  // rightmenu see: layout/_partial/rightmenu.ejs
+
+</script>
+
+
+
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js"></script>
+
+
+<script>
+  function pjax_waline() {
+    if(!document.querySelectorAll("#waline")[0])return;
+    let pagePlaceholder = pdata.commentPlaceholder || "快来评论吧~";
+    let path = pdata.commentPath;
+    if (path.length == 0) {
+      let defaultPath = '';
+      path = defaultPath || decodeURI(window.location.pathname);
+    }
+    new Waline(Object.assign({"js":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","path":null,"placeholder":"快来评论吧~","imageHosting":"https://7bu.top/api/upload","meta":["nick","mail","link"],"requiredFields":["nick","mail"],"serverURL":"https://yeshan333-waline.vercel.app","avatar":"robohash","pageSize":10,"lang":"zh-CN"}, {
+     el: '#waline',
+     path: path,
+     placeholder: pagePlaceholder,
+     uploadImage: function(file) {
+      const formData = new FormData();
+      formData.append('image', file);
+      return fetch('https://7bu.top/api/upload', {
+      	method: 'POST',
+      	body: formData
+      }).then(resp => resp.json()).then(resp => resp.data.url);
+   },
+  }));
+  }
+  $(function () {
+    pjax_waline();
+  });
+  volantis.pjax.push(pjax_waline);
+</script>
+
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js" data-pjax></script>
+
+
+
+  
+<script src="/js/app.js"></script>
+
+
+
+<!-- optional -->
+
+  <script>
+const SearchServiceimagePath="https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@master/img/";
+const ROOT =  ("/" || "/").endsWith('/') ? ("/" || "/") : ("//" || "/" );
+
+$('.input.u-search-input').one('focus',function(){
+	
+		loadScript('https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@2.6.4/js/search.js',setSearchService);
+	
+})
+
+function listenSearch(){
+  
+    customSearch = new HexoSearch({
+      imagePath: SearchServiceimagePath
+    });
+  
+}
+function setSearchService() {
+	listenSearch();
+	
+}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  <script defer>
+
+  const LCCounter = {
+    app_id: 'u9j57bwJod4EDmXWdxrwuqQT-MdYXbMMI',
+    app_key: 'jfHtEKVE24j0IVCGHbvuFClp',
+    custom_api_server: '',
+
+    // 查询存储的记录
+    getRecord(Counter, url, title) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({url})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
+            }
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {url, title: title, times: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
+        });
+      })
+    },
+
+    // 发起自增请求
+    increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
+          }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    },
+
+    // 构建自增请求体
+    buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "times": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    },
+
+    // 校验是否为有效的 UV
+    validUV() {
+      var key = 'LeanCloudUVTimestamp';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    },
+
+    addCount(Counter) {
+      var enableIncr = '' === 'true' && window.location.hostname !== 'localhost';
+      enableIncr = true;
+      var getterArr = [];
+      var incrArr = [];
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#lc-sv');
+      if (pvCtn || enableIncr) {
+        var pvGetter = this.getRecord(Counter, 'https://yeshan333.github.io' + '/#lc-sv', 'Visits').then((record) => {
+          incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-sv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + 1;
+              if (pvCtn) {
+                pvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#lc-uv');
+      if (uvCtn || enableIncr) {
+        var uvGetter = this.getRecord(Counter, 'https://yeshan333.github.io' + '/#lc-uv', 'Visitors').then((record) => {
+          var vuv = this.validUV();
+          vuv && incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-uv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + (vuv ? 1 : 0);
+              if (uvCtn) {
+                uvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 请求文章的浏览数，如果是当前页面就自增
+      var allPV = document.querySelectorAll('#lc-pv');
+      if (allPV.length > 0 || enableIncr) {
+        for (i = 0; i < allPV.length; i++) {
+          let pv = allPV[i];
+          let title = pv.getAttribute('data-title');
+          var url = 'https://yeshan333.github.io' + pv.getAttribute('data-path');
+          if (url) {
+            var viewGetter = this.getRecord(Counter, url, title).then((record) => {
+              // 是当前页面就自增
+              let curPath = window.location.pathname;
+              if (curPath.includes('index.html')) {
+                curPath = curPath.substring(0, curPath.lastIndexOf('index.html'));
+              }
+              if (pv.getAttribute('data-path') == curPath) {
+                incrArr.push(this.buildIncrement(record.objectId));
+              }
+              if (pv) {
+                var ele = pv.querySelector('#lc-pv #number');
+                if (ele) {
+                  if (pv.getAttribute('data-path') == curPath) {
+                    ele.innerText = (record.times || 0) + 1;
+                  } else {
+                    ele.innerText = record.times || 0;
+                  }
+                  pv.style.display = 'inline';
+                }
+              }
+            });
+            getterArr.push(viewGetter);
+          }
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && this.increment(Counter, incrArr);
+        })
+      }
+
+    },
+
+
+    fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': this.app_id,
+            'X-LC-Key': this.app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      this.addCount(Counter);
+    },
+
+    refreshCounter() {
+      var api_server = this.app_id.slice(-9) !== '-MdYXbMMI' ? this.custom_api_server : `https://${ this.app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+      if (api_server) {
+        this.fetchData(api_server);
+      } else {
+        fetch('https://app-router.leancloud.cn/2/route?appId=' + this.app_id)
+          .then(resp => resp.json())
+          .then(({api_server}) => {
+            this.fetchData('https://' + api_server);
+          });
+      }
+    }
+
+  };
+
+  LCCounter.refreshCounter();
+
+  document.addEventListener('pjax:complete', function () {
+    LCCounter.refreshCounter();
+  });
+</script>
+
+
+
+
+  <script>
+const rootElement = document.documentElement;
+const darkModeStorageKey = "user-color-scheme";
+const rootElementDarkModeAttributeName = "data-user-color-scheme";
+
+const setLS = (k, v) => {
+    localStorage.setItem(k, v);
+};
+
+const removeLS = (k) => {
+    localStorage.removeItem(k);
+};
+
+const getLS = (k) => {
+    return localStorage.getItem(k);
+};
+
+const getModeFromCSSMediaQuery = () => {
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
+};
+
+const resetRootDarkModeAttributeAndLS = () => {
+  rootElement.removeAttribute(rootElementDarkModeAttributeName);
+  removeLS(darkModeStorageKey);
+};
+
+const validColorModeKeys = {
+  dark: true,
+  light: true,
+};
+
+const applyCustomDarkModeSettings = (mode) => {
+  const currentSetting = mode || getLS(darkModeStorageKey);
+
+  if (currentSetting === getModeFromCSSMediaQuery()) {
+    resetRootDarkModeAttributeAndLS();
+  } else if (validColorModeKeys[currentSetting]) {
+    rootElement.setAttribute(rootElementDarkModeAttributeName, currentSetting);
+  } else {
+    resetRootDarkModeAttributeAndLS();
+  }
+};
+
+const invertDarkModeObj = {
+  dark: "light",
+  light: "dark",
+};
+
+/**
+ * get target mode
+ */
+const toggleCustomDarkMode = () => {
+  let currentSetting = getLS(darkModeStorageKey);
+
+  if (validColorModeKeys[currentSetting]) {
+    currentSetting = invertDarkModeObj[currentSetting];
+  } else if (currentSetting === null) {
+    currentSetting = invertDarkModeObj[getModeFromCSSMediaQuery()];
+  } else {
+    return;
+  }
+  setLS(darkModeStorageKey, currentSetting);
+  return currentSetting;
+};
+
+/**
+ * bind click event for toggle button
+ */
+var btn=$("#wrapper .toggle-mode-btn,#rightmenu-wrapper .toggle-mode-btn");
+function bindToggleButton() {
+    btn.on('click',(e) => {
+      const mode = toggleCustomDarkMode();
+      applyCustomDarkModeSettings(mode);
+    });
+}
+
+applyCustomDarkModeSettings();
+document.addEventListener("DOMContentLoaded", bindToggleButton);
+volantis.pjax.push(bindToggleButton);
+volantis.pjax.send(()=>{
+	btn.unbind('click');
+},'toggle-mode-btn-unbind');
+</script>
+
+
+
+
+
+
+
+
+<script>
+function listennSidebarTOC() {
+  const navItems = document.querySelectorAll(".toc li");
+  if (!navItems.length) return;
+  const sections = [...navItems].map((element) => {
+    const link = element.querySelector(".toc-link");
+    const target = document.getElementById(
+      decodeURI(link.getAttribute("href")).replace("#", "")
+    );
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      window.scrollTo({
+		top: target.offsetTop + 100,
+		
+		behavior: "smooth"
+		
+	  });
+    });
+    return target;
+  });
+
+  function activateNavByIndex(target) {
+    if (target.classList.contains("active-current")) return;
+
+    document.querySelectorAll(".toc .active").forEach((element) => {
+      element.classList.remove("active", "active-current");
+    });
+    target.classList.add("active", "active-current");
+    let parent = target.parentNode;
+    while (!parent.matches(".toc")) {
+      if (parent.matches("li")) parent.classList.add("active");
+      parent = parent.parentNode;
+    }
+  }
+
+  function findIndex(entries) {
+    let index = 0;
+    let entry = entries[index];
+    if (entry.boundingClientRect.top > 0) {
+      index = sections.indexOf(entry.target);
+      return index === 0 ? 0 : index - 1;
+    }
+    for (; index < entries.length; index++) {
+      if (entries[index].boundingClientRect.top <= 0) {
+        entry = entries[index];
+      } else {
+        return sections.indexOf(entry.target);
+      }
+    }
+    return sections.indexOf(entry.target);
+  }
+
+  function createIntersectionObserver(marginTop) {
+    marginTop = Math.floor(marginTop + 10000);
+    let intersectionObserver = new IntersectionObserver(
+      (entries, observe) => {
+        let scrollHeight = document.documentElement.scrollHeight + 100;
+        if (scrollHeight > marginTop) {
+          observe.disconnect();
+          createIntersectionObserver(scrollHeight);
+          return;
+        }
+        let index = findIndex(entries);
+        activateNavByIndex(navItems[index]);
+      },
+      {
+        rootMargin: marginTop + "px 0px -100% 0px",
+        threshold: 0,
+      }
+    );
+    sections.forEach((element) => {
+      element && intersectionObserver.observe(element);
+    });
+  }
+  createIntersectionObserver(document.documentElement.scrollHeight);
+}
+
+document.addEventListener("DOMContentLoaded", listennSidebarTOC);
+document.addEventListener("pjax:success", listennSidebarTOC);
+</script>
+
+<!-- more -->
+
+  
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yeshan333/jsDelivrCDN/piao.js" />
+
+  <script type="text/javascript" src="https://cdn.staticfile.org/jquery/1.7.2/jquery.min.js" />
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yeshan333/jsDelivrCDN/attatkmouse.js" />
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yeshan333/jsDelivrCDN/clearbit.js" />
+
+  <script async defer data-domain="shansan.top" src="https://plausible.io/js/plausible.js" />
+
+
+
+ 
+	  
+    </div>
+  </body>
+</html>

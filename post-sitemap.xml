@@ -9,6 +9,54 @@
 
 
     <url>
+        <loc>https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-6-in-place-code-generation/</loc>
+        <lastmod>2022-06-19T17:47:21.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-5-reshaping-the-ast/</loc>
+        <lastmod>2022-06-19T16:56:29.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-4-diving-deeper/</loc>
+        <lastmod>2022-06-19T12:02:19.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-3-gettingto-the-ast/</loc>
+        <lastmod>2022-06-19T10:53:07.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-2-macro-theory/</loc>
+        <lastmod>2022-06-19T00:36:03.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://yeshan333.github.io/2022/06/18/understanding-elixir-macros-part-1-basics/</loc>
+        <lastmod>2022-06-18T14:13:45.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>https://yeshan333.github.io/2022/04/23/understanding-prometheus-range-vectors/</loc>
         <lastmod>2022-04-23T15:38:37.000Z</lastmod>
         <changefreq>weekly</changefreq>
