@@ -15,8 +15,37 @@
     <atom:link href="https://yeshan333.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>ShanSan&#39;s Blog</description>
-    <pubDate>Sun, 19 Jun 2022 17:47:21 GMT</pubDate>
+    <pubDate>Wed, 29 Jun 2022 23:14:26 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>Elixir 连续运行时代码覆盖率采集方案</title>
+      <link>https://yeshan333.github.io/2022/06/29/elixir-run-time-code-line-level-coverage-collection/</link>
+      <guid>https://yeshan333.github.io/2022/06/29/elixir-run-time-code-line-level-coverage-collection/</guid>
+      <pubDate>Wed, 29 Jun 2022 23:14:26 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot;</description>
+          
+        
+      
+      
+      
+      
+      <category domain="https://yeshan333.github.io/categories/Elixir/">Elixir</category>
+      
+      
+      <category domain="https://yeshan333.github.io/tags/Elixir/">Elixir</category>
+      
+      <category domain="https://yeshan333.github.io/tags/Test-Coverage/">Test Coverage</category>
+      
+      
+      <comments>https://yeshan333.github.io/2022/06/29/elixir-run-time-code-line-level-coverage-collection/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>(译) Understanding Elixir Macros, Part 6 - In-place Code Generation</title>
@@ -364,13 +393,13 @@
 &lt;!-- 我们都一样 --&gt;
 
 
-    &lt;div id=&quot;aplayer-kgkNBxOy&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+    &lt;div id=&quot;aplayer-SyRBVNux&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
          data-id=&quot;1340001174&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;true&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
     &gt;&lt;/div&gt;
 
 
 
-    &lt;div id=&quot;aplayer-iAFSQaFL&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+    &lt;div id=&quot;aplayer-zBSyrlPp&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
          data-id=&quot;191252&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;false&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
     &gt;&lt;/div&gt;</description>
       
@@ -548,31 +577,6 @@
       
       
       <comments>https://yeshan333.github.io/2021/08/28/prometheus-federation/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>对下载软件/文件进行校验的工具（Checksum and GPG）</title>
-      <link>https://yeshan333.github.io/2021/07/10/checksum-gpg-tools/</link>
-      <guid>https://yeshan333.github.io/2021/07/10/checksum-gpg-tools/</guid>
-      <pubDate>Sat, 10 Jul 2021 18:23:57 GMT</pubDate>
-      
-      <description>&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;之前装软件一直都没有验证安装文件的习惯，信息安全意识不高，碰巧最近没啥事，微微写篇文章记录下校验工具（互联网http、https、ftp 服务并没有那么安全，是可以被劫持篡改。老装软件选手了，是该养成个校验文件的习惯了）。&lt;/p&gt;
-&lt;p&gt;在互联网下载软件/文件的时候经常会看到官方提供了一段⌈校验和（checksum）⌋或包含校验和的文件供校验。常见的校验和有 md5、SHA 家族等。还有部分软件/文件会提供 GPG 校验文件（signature file, SIG）给下载者进行校验。&lt;/p&gt;
-&lt;p&gt;来看看这两种校验方式相关的工具。&lt;/p&gt;</description>
-      
-      
-      
-      
-      <category domain="https://yeshan333.github.io/categories/Cryptography/">Cryptography</category>
-      
-      
-      <category domain="https://yeshan333.github.io/tags/GPG/">GPG</category>
-      
-      <category domain="https://yeshan333.github.io/tags/MD5/">MD5</category>
-      
-      
-      <comments>https://yeshan333.github.io/2021/07/10/checksum-gpg-tools/#disqus_thread</comments>
       
     </item>
     

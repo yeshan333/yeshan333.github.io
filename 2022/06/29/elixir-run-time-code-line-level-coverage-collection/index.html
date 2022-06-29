@@ -1,0 +1,1863 @@
+<!DOCTYPE html>
+<html lang="zh-CN,en,zh-TW,default">
+  <head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/tree/4.3.1'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <link rel="preload" href="/css/first.css" as="style">
+  
+
+  <!-- 页面元数据 -->
+  
+  <title>Elixir 连续运行时代码覆盖率采集方案 - ShanSan</title>
+  
+    <meta name="keywords" content="elixir-run-time-code-line-level-coverage-collection">
+  
+
+  
+
+  <!-- feed -->
+  
+    <link rel="alternate" href="/rss2.xml" title="ShanSan" type="application/rss+xml">
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  
+    <link rel="shortcut icon" type='image/x-icon' href="https://img.vim-cn.com/bb/db444be0b7fda59c69d5c64167f9668b0b66bd.png">
+  
+
+  <!-- import link -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/first.css">
+
+  
+
+  
+  <link rel="stylesheet" href="/css/style.css" media="print" onload="this.media='all';this.onload=null">
+  <noscript><link rel="stylesheet" href="/css/style.css"></noscript>
+  
+
+  <script id="loadcss"></script>
+
+  
+<script>
+if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode))
+    document.write(
+	'<style>'+
+		'html{'+
+			'overflow-x: hidden !important;'+
+			'overflow-y: hidden !important;'+
+		'}'+
+		'.kill-ie{'+
+			'text-align:center;'+
+			'height: 100%;'+
+			'margin-top: 15%;'+
+			'margin-bottom: 5500%;'+
+		'}'+
+	'</style>'+
+    '<div class="kill-ie">'+
+        '<h1><b>抱歉，您的浏览器无法访问本站</b></h1>'+
+        '<h3>微软已经于2016年终止了对 Internet Explorer (IE) 10 及更早版本的支持，<br/>'+
+        '继续使用存在极大的安全隐患，请使用当代主流的浏览器进行访问。</h3><br/>'+
+        '<a target="_blank" rel="noopener" href="https://www.microsoft.com/zh-cn/WindowsForBusiness/End-of-IE-support"><strong>了解详情 ></strong></a>'+
+    '</div>');
+</script>
+
+
+<noscript>
+	<style>
+		html{
+			overflow-x: hidden !important;
+			overflow-y: hidden !important;
+		}
+		.kill-noscript{
+			text-align:center;
+			height: 100%;
+			margin-top: 15%;
+			margin-bottom: 5500%;
+		}
+	</style>
+    <div class="kill-noscript">
+        <h1><b>抱歉，您的浏览器无法访问本站</b></h1>
+        <h3>本页面需要浏览器支持（启用）JavaScript</h3><br/>
+        <a target="_blank" rel="noopener" href="https://www.baidu.com/s?wd=启用JavaScript"><strong>了解详情 ></strong></a>
+    </div>
+</noscript>
+
+</head>
+
+  <body>
+    
+
+<header id="l_header" class="l_header auto shadow blur " style='opacity: 0' >
+  <div class='container'>
+  <div id='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h m-phone' id="pjax-header-nav-list">
+        <li><a id="s-comment" class="fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a id="s-toc" class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+          
+          
+            ShanSan
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h m-pc'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博文
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" 
+                  
+                  
+                  >
+                  <i class='fas fa-ellipsis-v fa-fw'></i>与我相关
+                </a>
+                
+                  <ul class="list-v">
+                    
+                      
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://github.com/yeshan333
+                  
+                  
+                  
+                    id="https:githubcomyeshan333"
+                  >
+                  <i class='fab fa-github-square fa-fw'></i>Github
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://slide.shan333.cn
+                  
+                  
+                  
+                    id="https:slideshan333cn"
+                  >
+                  <i class='fab fa-slideshare fa-fw'></i>slides
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://shansan.top/knowledge-base/
+                  
+                  
+                  
+                    id="https:shansantopknowledge-base"
+                  >
+                  <i class='far fa-sticky-note fa-fw'></i>notes
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://stats.uptimerobot.com/OknEPcNEVr
+                  
+                  
+                  
+                    id="https:statsuptimerobotcomOknEPcNEVr"
+                  >
+                  Monitor
+                </a>
+                
+              </li>
+            
+          
+                    
+                  </ul>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/cloud-native/
+                  
+                  
+                  
+                    id="cloud-native"
+                  >
+                  <i class='fas fa-cloud fa-fw'></i>云原生
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="寻你所想" />
+        </form>
+      </div>
+
+			<ul class='switcher nav-list-h m-phone'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博文
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" 
+                  
+                  
+                  >
+                  <i class='fas fa-ellipsis-v fa-fw'></i>与我相关
+                </a>
+                
+                  <ul class="list-v">
+                    
+                      
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://github.com/yeshan333
+                  
+                  
+                  
+                    id="https:githubcomyeshan333"
+                  >
+                  <i class='fab fa-github-square fa-fw'></i>Github
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://slide.shan333.cn
+                  
+                  
+                  
+                    id="https:slideshan333cn"
+                  >
+                  <i class='fab fa-slideshare fa-fw'></i>slides
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://shansan.top/knowledge-base/
+                  
+                  
+                  
+                    id="https:shansantopknowledge-base"
+                  >
+                  <i class='far fa-sticky-note fa-fw'></i>notes
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://stats.uptimerobot.com/OknEPcNEVr
+                  
+                  
+                  
+                    id="https:statsuptimerobotcomOknEPcNEVr"
+                  >
+                  Monitor
+                </a>
+                
+              </li>
+            
+          
+                    
+                  </ul>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/cloud-native/
+                  
+                  
+                  
+                    id="cloud-native"
+                  >
+                  <i class='fas fa-cloud fa-fw'></i>云原生
+                </a>
+                
+              </li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</header>
+
+    <div id="l_body">
+      <div id="l_cover">
+  
+      
+  
+  </div>
+
+      <div id="safearea">
+        <div class="body-wrapper" id="pjax-container">
+          
+
+<div class='l_main'>
+  <article class="article post white-box reveal md shadow article-type-post" id="post" itemscope itemprop="blogPost">
+  
+
+
+  
+  <div class="article-meta" id="top">
+    
+    
+    
+      <h1 class="title">
+        Elixir 连续运行时代码覆盖率采集方案
+      </h1>
+      <div class='new-meta-box'>
+        
+          
+            
+<div class='new-meta-item author'>
+  <a class='author' target="_blank" href="https://github.com/yeshan333" rel="nofollow noopener">
+    <img no-lazy src="https://z3.ax1x.com/2021/11/07/I1qTFx.png">
+    <p>yeshan333</p>
+  </a>
+</div>
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>首发于：2022年6月29日</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Elixir/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>Elixir</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Test-Coverage/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>Test Coverage</p></a></div>
+
+
+          
+        
+      </div>
+    
+  </div>
+
+
+  
+  
+  <h2 id="1-浅谈代码覆盖率"><a href="#1-浅谈代码覆盖率" class="headerlink" title="1. 浅谈代码覆盖率"></a>1. 浅谈代码覆盖率</h2><p>作为 SET 和 SWE, 我们经常需要编写单元测试或集成测试用例来验证系统/应用的正确性, 但同时我们也常会质疑我们的测试是否充分了. 这时测试覆盖率是可以辅助用来衡量我们测试充分程度的一种手段, 增强发布成功率与信心, 同时给了我们更多可思考的视角. 值的注意的是代码覆盖率高不能说明代码质量高, 但是反过来看, 代码覆盖率低, 代码质量不会高到哪里去.</p>
+<p>大部分的编程语言都自带了单元测试覆盖率的收集能力, Elixir 也同样如此, 官方提供的 <a target="_blank" rel="noopener" href="https://hexdocs.pm/mix/1.13.4/Mix.Tasks.Test.html#module-coverage">mix 构建工具</a>自带了覆盖率的收集能力,  但目前只适用于离线（offline）系统, 对于运行时系统, 并不适用. 本文将会基于 Erlang 的 cover 模块, 给出一个 Elixir 运行时系统的解决方案. 既然 cover 是 Erlang 的内置模块, 但为什么它也同样适用于 Elixir, 我们将会在后续的环节中揭开它神秘的面纱. 在开始之前, 让我们先看下开源社区进行运行时系统代码覆盖率采集的两种主流方式（这里我们看下语言社区生态庞大的 Java 的字节码插桩方式）:</p>
+<p><img src="https://cdn.jsdelivr.net/gh/yeshan333/jsDelivrCDN@main/elixir-run-time-coverage/java_bytecode_tecs.jpg" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/yeshan333/jsDelivrCDN@main/elixir-run-time-coverage/java_bytecode_tecs.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="java_bytecode_tecs"></p>
+<p>接下来让我们关注一下本文的 Elixir 运行时覆盖率收集的核心 - cover 模块.</p>
+<h2 id="2-深度解析-Erlang-Cover-覆盖率收集实现机制"><a href="#2-深度解析-Erlang-Cover-覆盖率收集实现机制" class="headerlink" title="2. 深度解析 Erlang Cover 覆盖率收集实现机制"></a>2. 深度解析 Erlang Cover 覆盖率收集实现机制</h2><h3 id="2-1-Erlang-Cover-简介"><a href="#2-1-Erlang-Cover-简介" class="headerlink" title="2.1 Erlang Cover 简介"></a>2.1 Erlang Cover 简介</h3><p>cover 是 Erlang 内置工具集（<a target="_blank" rel="noopener" href="https://www.erlang.org/doc/apps/tools/index.html">tools set</a>）的一部分, 提供了代码覆盖率收集的能力.</p>
+<h3 id="2-2-Erlang-代码覆盖率收集实现分析"><a href="#2-2-Erlang-代码覆盖率收集实现分析" class="headerlink" title="2.2 Erlang 代码覆盖率收集实现分析"></a>2.2 Erlang 代码覆盖率收集实现分析</h3><p>从 Erlang 关于 <a target="_blank" rel="noopener" href="https://www.erlang.org/doc/man/cover.html">cover</a> 模块官方手册可以知道, cover 统计了 Erlang 程序中每一可执行（<a target="_blank" rel="noopener" href="https://www.erlang.org/doc/man/cover.html#description">executable line</a>）被执行的次数.</p>
+<p>从官方文档的介绍来看, cover 可以用于运行时系统的代码覆盖率收集, cover 进行代码插桩时, 并不会对任何模块的代码源文件或编译后生成的 beam 文件进行修改（即业界所说的 On-The-Fly 模式）. 运行时系统每次可执行行被调用一次, 都会更新调用次数到 cover 用于存储数据的内存数据库中, 用于后续的覆盖率分析.</p>
+<p>接下来, 我们将会去探索下 cover 进行 On-The-Fly 插桩的细节.</p>
+<h3 id="2-3-了解-BEAM-File-Format"><a href="#2-3-了解-BEAM-File-Format" class="headerlink" title="2.3 了解 BEAM File Format"></a>2.3 了解 BEAM File Format</h3><p>在进一步了解 cover 实现细节之前, 我们有必要先了解下 Elixir 源码编译后的产物 BEAM 文件的格式. Elixir （.ex 文件）编译后的产物与 Erlang （.erl 文件）一样, 都是一个二进制分块文件（binary chunked file）, 它被划分为了多个 section, 用于存储程序运行时用到的信息（如虚拟机操作指令）. Erlang/Elixir 中, 每一个模块都会有一个对应的 BEAM 文件. BEAM 文件大致的结构如下图:</p>
+<p><img src="https://cdn.jsdelivr.net/gh/yeshan333/jsDelivrCDN@main/elixir-run-time-coverage/beamfile-format.jpg" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/yeshan333/jsDelivrCDN@main/elixir-run-time-coverage/beamfile-format.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="BEAM FILE FORMAT"></p>
+<p>让我们来通过一个 Elixir mini demo 项目查看下 beam 文件大概内容:</p>
+<ul>
+<li>Step 1、clone 项目 <a target="_blank" rel="noopener" href="https://github.com/yeshan333/explore_ast_app">yeshan333/explore_ast_app</a> 到本地:</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/yeshan333/explore_ast_app.git</span><br><span class="line">cd explore_ast_app</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li> Step 2、构建此项目为 OTP release 格式, 本地需要安装 Elixir 和 Erlang:</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MIX_ENV=prod mix distillery.release</span><br></pre></td></tr></table></figure>
+
+<p>可以关注到, 每一个 Elixir 模块, 都被编译成了一个 BEAM 文件（于目录<code>_build/prod/rel/explore_ast_app/lib/explore_ast_app-0.1.0/ebin</code> 中可以看到）.</p>
+<ul>
+<li>Step 3、接下来让我们通过 Erlang 的标准库 <a target="_blank" rel="noopener" href="https://www.erlang.org/doc/man/beam_lib.html">beam_lib</a> 文件查看 Beam 文件中的 chunk:</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 打开 iex console</span></span><br><span class="line">iex -S mix</span><br></pre></td></tr></table></figure>
+
+<p>查看编译后 BEAM 文件 (<code>Elixir.ExploreAstApp.beam</code>) 的所有 chunks:</p>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">$ iex -S mix</span><br><span class="line">Erlang/OTP <span class="number">24</span> [erts-<span class="number">12.1</span>] [source] [<span class="number">64</span>-bit] [smp:<span class="number">12</span>:<span class="number">12</span>] [ds:<span class="number">12</span>:<span class="number">12</span>:<span class="number">10</span>] [async-threads:<span class="number">1</span>] [jit] [dtrace]</span><br><span class="line"></span><br><span class="line">Interactive Elixir (<span class="number">1.12</span>.<span class="number">3</span>) - press Ctrl+C to exit (type h() ENTER for help)</span><br><span class="line"><span class="function"><span class="title">iex</span><span class="params">(<span class="number">1</span>)</span>&gt; <span class="title">beam_file_path</span> = &quot;_<span class="title">build</span>/<span class="title">prod</span>/<span class="title">rel</span>/<span class="title">explore_ast_app</span>/<span class="title">lib</span>/<span class="title">explore_ast_app</span>-0.1.0/<span class="title">ebin</span>/E<span class="title">lixir</span>.E<span class="title">xploreAstApp</span>.<span class="title">beam</span>&quot;</span></span><br><span class="line"><span class="function">&quot;_<span class="title">build</span>/<span class="title">prod</span>/<span class="title">rel</span>/<span class="title">explore_ast_app</span>/<span class="title">lib</span>/<span class="title">explore_ast_app</span>-0.1.0/<span class="title">ebin</span>/E<span class="title">lixir</span>.E<span class="title">xploreAstApp</span>.<span class="title">beam</span>&quot;</span></span><br><span class="line"><span class="function"><span class="title">iex</span><span class="params">(<span class="number">2</span>)</span>&gt; <span class="title">all_chunks</span> = :<span class="title">beam_lib</span>.<span class="title">all_chunks</span><span class="params">(String.to_charlist(beam_file_path))</span></span></span><br><span class="line"><span class="function">&#123;:<span class="title">ok</span>, E<span class="title">xploreAstApp</span>,</span></span><br><span class="line"><span class="function"> [</span></span><br><span class="line"><span class="function">   &#123;<span class="title">&#x27;AtU8&#x27;</span>,</span></span><br><span class="line"><span class="function">    &lt;&lt;0, 0, 0, 15, 20, 69, 108, 105, 120, 105, 114, 46, 69, 120, 112, 108, 111,</span></span><br><span class="line"><span class="function">      114, 101, 65, 115, 116, 65, 112, 112, 8, 95, 95, 105, 110, 102, 111, 95,</span></span><br><span class="line"><span class="function">      95, 10, 97, 116, 116, 114, 105, 98, 117, 116, 101, ...&gt;&gt;&#125;,</span></span><br><span class="line"><span class="function">   &#123;<span class="title">&#x27;Code&#x27;</span>,</span></span><br><span class="line"><span class="function">    &lt;&lt;0, 0, 0, 16, 0, 0, 0, 0, 0, 0, 0, 169, 0, 0, 0, 14, 0, 0, 0, 4, 1, 16,</span></span><br><span class="line"><span class="function">      153, 0, 2, 18, 34, 16, 1, 32, 59, 3, 21, 23, 8, 16, 50, 117, 66, 117, 82,</span></span><br><span class="line"><span class="function">      101, 98, ...&gt;&gt;&#125;,</span></span><br><span class="line"><span class="function">   &#123;<span class="title">&#x27;StrT&#x27;</span>, &quot;&quot;&#125;,</span></span><br><span class="line"><span class="function">   &#123;<span class="title">&#x27;ImpT&#x27;</span>,</span></span><br><span class="line"><span class="function">    &lt;&lt;0, 0, 0, 2, 0, 0, 0, 11, 0, 0, 0, 12, 0, 0, 0, 2, 0, 0, 0, 11, 0, 0, 0,</span></span><br><span class="line"><span class="function">      12, 0, 0, 0, 1&gt;&gt;&#125;,</span></span><br><span class="line"><span class="function">   &#123;<span class="title">&#x27;ExpT&#x27;</span>,</span></span><br><span class="line"><span class="function">    &lt;&lt;0, 0, 0, 4, 0, 0, 0, 15, 0, 0, 0, 1, 0, 0, 0, 13, 0, 0, 0, 15, 0, 0, 0, 0,</span></span><br><span class="line"><span class="function">      0, 0, 0, 11, 0, 0, 0, 13, 0, 0, 0, 0, 0, 0, 0, 9, ...&gt;&gt;&#125;,</span></span><br><span class="line"><span class="function">   &#123;<span class="title">&#x27;LitT&#x27;</span>,</span></span><br><span class="line"><span class="function">    &lt;&lt;0, 0, 0, 52, 120, 156, 99, 96, 96, 96, 98, 96, 96, 16, 106, 206, 1, 146,</span></span><br><span class="line"><span class="function">      140, 25, 76, 229, 172, 25, 169, 57, 57, 249, 137, 12, 89, 64, 190, 88,</span></span><br><span class="line"><span class="function">      115, 46, 144, 20, 248, ...&gt;&gt;&#125;,</span></span><br><span class="line"><span class="function">   &#123;<span class="title">&#x27;LocT&#x27;</span>, &lt;&lt;0, 0, 0, 0&gt;&gt;&#125;,</span></span><br><span class="line"><span class="function">   &#123;<span class="title">&#x27;Attr&#x27;</span>,</span></span><br><span class="line"><span class="function">    &lt;&lt;131, 108, 0, 0, 0, 1, 104, 2, 100, 0, 3, 118, 115, 110, 108, 0, 0, 0, 1,</span></span><br><span class="line"><span class="function">      110, 16, 0, 165, 236, 94, 47, 119, 160, 184, 33, 240, 28, 89, 11, 22, 130,</span></span><br><span class="line"><span class="function">      207, ...&gt;&gt;&#125;,</span></span><br><span class="line"><span class="function">   &#123;<span class="title">&#x27;CInf&#x27;</span>,</span></span><br><span class="line"><span class="function">    &lt;&lt;131, 108, 0, 0, 0, 3, 104, 2, 100, 0, 7, 118, 101, 114, 115, 105, 111,</span></span><br><span class="line"><span class="function">      110, 107, 0, 5, 56, 46, 48, 46, 51, 104, 2, 100, 0, 7, 111, 112, 116, 105,</span></span><br><span class="line"><span class="function">      111, ...&gt;&gt;&#125;,</span></span><br><span class="line"><span class="function">   &#123;<span class="title">&#x27;Dbgi&#x27;</span>,</span></span><br><span class="line"><span class="function">    &lt;&lt;131, 80, 0, 0, 1, 143, 120, 156, 117, 80, 203, 78, 3, 49, 12, 76, 233, 67,</span></span><br><span class="line"><span class="function">      162, 5, 113, 65, 124, 70, 87, 253, 2, 212, 67, 63, 129, 115, 148, 221,</span></span><br><span class="line"><span class="function">      120, ...&gt;&gt;&#125;,</span></span><br><span class="line"><span class="function">   &#123;<span class="title">&#x27;Docs&#x27;</span>,</span></span><br><span class="line"><span class="function">    &lt;&lt;131, 80, 0, 0, 0, 241, 120, 156, 93, 142, 205, 10, 194, 48, 16, 132, 215,</span></span><br><span class="line"><span class="function">      74, 91, 9, 248, 14, 129, 94, 244, 82, 241, 234, 65, 40, 88, 241, 45, 108,</span></span><br><span class="line"><span class="function">      ...&gt;&gt;&#125;,</span></span><br><span class="line"><span class="function">   &#123;<span class="title">&#x27;ExCk&#x27;</span>,</span></span><br><span class="line"><span class="function">    &lt;&lt;131, 104, 2, 100, 0, 17, 101, 108, 105, 120, 105, 114, 95, 99, 104, 101,</span></span><br><span class="line"><span class="function">      99, 107, 101, 114, 95, 118, 49, 116, 0, 0, 0, 1, 100, 0, 7, 101, 120,</span></span><br><span class="line"><span class="function">      ...&gt;&gt;&#125;,</span></span><br><span class="line"><span class="function">   &#123;<span class="title">&#x27;Line&#x27;</span>,</span></span><br><span class="line"><span class="function">    &lt;&lt;0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 1, 0, 0, 0, 1, 18, 241, 0,</span></span><br><span class="line"><span class="function">      22, 108, 105, 98, 47, 101, 120, 112, 108, ...&gt;&gt;&#125;</span></span><br><span class="line"><span class="function"> ]&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>可以看到, 获取到的 chunks 是和之前的图对应的. 我们还可以通过 <a target="_blank" rel="noopener" href="https://www.erlang.org/doc/man/beam_lib.html">beam_lib</a> 标准库获取到模块（ExploreAstApp）对应的 Erlang AST（抽象语法树）:</p>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">iex</span><span class="params">(<span class="number">3</span>)</span>&gt; <span class="title">result</span> = :<span class="title">beam_lib</span>.<span class="title">chunks</span><span class="params">(String.to_charlist(beam_file_path), [:abstract_code])</span></span></span><br><span class="line"><span class="function">&#123;:<span class="title">ok</span>,</span></span><br><span class="line"><span class="function"> &#123;E<span class="title">xploreAstApp</span>,</span></span><br><span class="line"><span class="function">  [</span></span><br><span class="line"><span class="function">    <span class="title">abstract_code</span>: &#123;:<span class="title">raw_abstract_v1</span>,</span></span><br><span class="line"><span class="function">     [</span></span><br><span class="line"><span class="function">       &#123;:<span class="title">attribute</span>, 1, :<span class="title">file</span>, &#123;<span class="title">&#x27;lib</span>/<span class="title">explore_ast_app</span>.<span class="title">ex&#x27;</span>, 1&#125;&#125;,</span></span><br><span class="line"><span class="function">       &#123;:<span class="title">attribute</span>, 1, :<span class="title">module</span>, E<span class="title">xploreAstApp</span>&#125;,</span></span><br><span class="line"><span class="function">       &#123;:<span class="title">attribute</span>, 1, :<span class="title">compile</span>, [:<span class="title">no_auto_import</span>]&#125;,</span></span><br><span class="line"><span class="function">       &#123;:<span class="title">attribute</span>, 1, :<span class="title">export</span>, [__<span class="title">info__</span>: 1, <span class="title">hello</span>: 0]&#125;,</span></span><br><span class="line"><span class="function">       &#123;:<span class="title">attribute</span>, 1, :<span class="title">spec</span>,</span></span><br><span class="line"><span class="function">        &#123;&#123;:__<span class="title">info__</span>, 1&#125;,</span></span><br><span class="line"><span class="function">         [</span></span><br><span class="line"><span class="function">           &#123;:<span class="title">type</span>, 1, :<span class="title">fun</span>,</span></span><br><span class="line"><span class="function">            [</span></span><br><span class="line"><span class="function">              &#123;:<span class="title">type</span>, 1, :<span class="title">product</span>,</span></span><br><span class="line"><span class="function">               [</span></span><br><span class="line"><span class="function">                 &#123;:<span class="title">type</span>, 1, :<span class="title">union</span>,</span></span><br><span class="line"><span class="function">                  [</span></span><br><span class="line"><span class="function">                    &#123;:<span class="title">atom</span>, 1, :<span class="title">attributes</span>&#125;,</span></span><br><span class="line"><span class="function">                    &#123;:<span class="title">atom</span>, 1, :<span class="title">compile</span>&#125;,</span></span><br><span class="line"><span class="function">                    &#123;:<span class="title">atom</span>, 1, :<span class="title">functions</span>&#125;,</span></span><br><span class="line"><span class="function">                    &#123;:<span class="title">atom</span>, 1, :<span class="title">macros</span>&#125;,</span></span><br><span class="line"><span class="function">                    &#123;:<span class="title">atom</span>, 1, :<span class="title">md5</span>&#125;,</span></span><br><span class="line"><span class="function">                    &#123;:<span class="title">atom</span>, 1, :<span class="title">exports_md5</span>&#125;,</span></span><br><span class="line"><span class="function">                    &#123;:<span class="title">atom</span>, 1, :<span class="title">module</span>&#125;,</span></span><br><span class="line"><span class="function">                    &#123;:<span class="title">atom</span>, 1, :<span class="title">deprecated</span>&#125;</span></span><br><span class="line"><span class="function">                  ]&#125;</span></span><br><span class="line"><span class="function">               ]&#125;,</span></span><br><span class="line"><span class="function">              &#123;:<span class="title">type</span>, 1, :<span class="title">any</span>, []&#125;</span></span><br><span class="line"><span class="function">            ]&#125;</span></span><br><span class="line"><span class="function">         ]&#125;&#125;,</span></span><br><span class="line"><span class="function">       &#123;:<span class="title">function</span>, 0, :__<span class="title">info__</span>, 1,</span></span><br><span class="line"><span class="function">        [</span></span><br><span class="line"><span class="function">          &#123;:<span class="title">clause</span>, 0, [&#123;:<span class="title">atom</span>, 0, :<span class="title">module</span>&#125;], [], [&#123;:<span class="title">atom</span>, 0, E<span class="title">xploreAstApp</span>&#125;]&#125;,</span></span><br><span class="line"><span class="function">          &#123;:<span class="title">clause</span>, 0, [&#123;:<span class="title">atom</span>, 0, :<span class="title">functions</span>&#125;], [],</span></span><br><span class="line"><span class="function">           [</span></span><br><span class="line"><span class="function">             &#123;:<span class="title">cons</span>, 0, &#123;:<span class="title">tuple</span>, 0, [&#123;:<span class="title">atom</span>, 0, :<span class="title">hello</span>&#125;, &#123;:<span class="title">integer</span>, 0, 0&#125;]&#125;,</span></span><br><span class="line"><span class="function">              &#123;<span class="title">nil</span>, 0&#125;&#125;</span></span><br><span class="line"><span class="function">           ]&#125;,</span></span><br><span class="line"><span class="function">          &#123;:<span class="title">clause</span>, 0, [&#123;:<span class="title">atom</span>, 0, :<span class="title">macros</span>&#125;], [], [<span class="title">nil</span>: 0]&#125;,</span></span><br><span class="line"><span class="function">          &#123;:<span class="title">clause</span>, 0, [&#123;:<span class="title">atom</span>, 0, :<span class="title">exports_md5</span>&#125;], [],</span></span><br><span class="line"><span class="function">           [</span></span><br><span class="line"><span class="function">             &#123;:<span class="title">bin</span>, 0,</span></span><br><span class="line"><span class="function">              [</span></span><br><span class="line"><span class="function">                &#123;:<span class="title">bin_element</span>, 0,</span></span><br><span class="line"><span class="function">                 &#123;:<span class="title">string</span>, 0,</span></span><br><span class="line"><span class="function">                  [240, 105, 247, 119, 22, 50, 219, 207, 90, 95, 127, 92, ...]&#125;,</span></span><br><span class="line"><span class="function">                 :<span class="title">default</span>, :<span class="title">default</span>&#125;</span></span><br><span class="line"><span class="function">              ]&#125;</span></span><br><span class="line"><span class="function">           ]&#125;,</span></span><br><span class="line"><span class="function">          &#123;:<span class="title">clause</span>, 0, [&#123;:<span class="title">match</span>, 0, &#123;:<span class="title">var</span>, 0, :K<span class="title">ey</span>&#125;, &#123;:<span class="title">atom</span>, 0, :<span class="title">attributes</span>&#125;&#125;],</span></span><br><span class="line"><span class="function">           [],</span></span><br><span class="line"><span class="function">           [</span></span><br><span class="line"><span class="function">             &#123;:<span class="title">call</span>, 0,</span></span><br><span class="line"><span class="function">              &#123;:<span class="title">remote</span>, 0, &#123;:<span class="title">atom</span>, 0, :<span class="title">erlang</span>&#125;, &#123;:<span class="title">atom</span>, 0, :<span class="title">get_module_info</span>&#125;&#125;,</span></span><br><span class="line"><span class="function">              [&#123;:<span class="title">atom</span>, 0, E<span class="title">xploreAstApp</span>&#125;, &#123;:<span class="title">var</span>, 0, :K<span class="title">ey</span>&#125;]&#125;</span></span><br><span class="line"><span class="function">           ]&#125;,</span></span><br><span class="line"><span class="function">          &#123;:<span class="title">clause</span>, 0, [&#123;:<span class="title">match</span>, 0, &#123;:<span class="title">var</span>, 0, :K<span class="title">ey</span>&#125;, &#123;:<span class="title">atom</span>, 0, :<span class="title">compile</span>&#125;&#125;], [],</span></span><br><span class="line"><span class="function">           [</span></span><br><span class="line"><span class="function">             &#123;:<span class="title">call</span>, 0,</span></span><br><span class="line"><span class="function">              &#123;:<span class="title">remote</span>, 0, &#123;:<span class="title">atom</span>, 0, :<span class="title">erlang</span>&#125;, &#123;:<span class="title">atom</span>, 0, :<span class="title">get_module_info</span>&#125;&#125;,</span></span><br><span class="line"><span class="function">              [&#123;:<span class="title">atom</span>, 0, E<span class="title">xploreAstApp</span>&#125;, &#123;:<span class="title">var</span>, 0, :K<span class="title">ey</span>&#125;]&#125;</span></span><br><span class="line"><span class="function">           ]&#125;,</span></span><br><span class="line"><span class="function">          &#123;:<span class="title">clause</span>, 0, [&#123;:<span class="title">match</span>, 0, &#123;:<span class="title">var</span>, 0, :K<span class="title">ey</span>&#125;, &#123;:<span class="title">atom</span>, 0, :<span class="title">md5</span>&#125;&#125;], [],</span></span><br><span class="line"><span class="function">           [</span></span><br><span class="line"><span class="function">             &#123;:<span class="title">call</span>, 0,</span></span><br><span class="line"><span class="function">              &#123;:<span class="title">remote</span>, 0, &#123;:<span class="title">atom</span>, 0, :<span class="title">erlang</span>&#125;, &#123;:<span class="title">atom</span>, 0, :<span class="title">get_module_info</span>&#125;&#125;,</span></span><br><span class="line"><span class="function">              [&#123;:<span class="title">atom</span>, 0, E<span class="title">xploreAstApp</span>&#125;, &#123;:<span class="title">var</span>, 0, :K<span class="title">ey</span>&#125;]&#125;</span></span><br><span class="line"><span class="function">           ]&#125;,</span></span><br><span class="line"><span class="function">          &#123;:<span class="title">clause</span>, 0, [&#123;:<span class="title">atom</span>, 0, :<span class="title">deprecated</span>&#125;], [], [<span class="title">nil</span>: 0]&#125;</span></span><br><span class="line"><span class="function">        ]&#125;,</span></span><br><span class="line"><span class="function">       &#123;:<span class="title">function</span>, 15, :<span class="title">hello</span>, 0, [&#123;:<span class="title">clause</span>, 15, [], [], [&#123;:<span class="title">atom</span>, 0, :<span class="title">world</span>&#125;]&#125;]&#125;</span></span><br><span class="line"><span class="function">     ]&#125;</span></span><br><span class="line"><span class="function">  ]&#125;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>可以看到 AST 以 <a target="_blank" rel="noopener" href="https://www.erlang.org/doc/reference_manual/data_types.html#terms">Erlang Terms</a> 的形式表示（称之为 Abstract Code）, 方便阅读. 该 Abstract Code, 在 cover 进行 on-the-fly 插桩过程中大有妙用.</p>
+<p>上述 AST 结构简单易读, 我们可以很简单的将其与模块编译前的源代码（<code>lib/explore_ast_app.ex</code>）对应起来, 虽然该 AST 结构是最终的 Erlang AST, 被 Erlang 编译器添加了部分额外的信息, 但不影响阅读:</p>
+<p><img src="https://cdn.jsdelivr.net/gh/yeshan333/jsDelivrCDN@main/elixir-run-time-coverage/ex_source_ast_code_mapper.jpg" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/yeshan333/jsDelivrCDN@main/elixir-run-time-coverage/ex_source_ast_code_mapper.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="ex_source_ast_code_mapper"></p>
+<p>元组（tuple）中的第二个元素一般表示所处的源码行数. 你可以通过官方文档详细了解下 Erlang 的 <a target="_blank" rel="noopener" href="https://www.erlang.org/doc/apps/erts/absform.html">Abstract Format</a>, 动手多观察几个 BEAM 文件的 Erlang AST 的结构, 便可了熟于心. 值得注意的是 Abstract Code 在 <a target="_blank" rel="noopener" href="https://github.com/erlang/otp/pull/1367">OTP 20 之前</a>是存放在 BEAM 文件的 Abst Chunk 中的.</p>
+<p>如果你想了解更多关于 BEAM 文件的细节, 可以查看以下两篇文档:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://beam-wisdoms.clau.se/en/latest/indepth-beam-file.html#beam-term-format">http://beam-wisdoms.clau.se/en/latest/indepth-beam-file.html#beam-term-format</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.stenmans.org/theBeamBook/#BEAM_files">https://blog.stenmans.org/theBeamBook/#BEAM_files</a></li>
+</ul>
+<h3 id="2-4-Elixir-源码编译过程"><a href="#2-4-Elixir-源码编译过程" class="headerlink" title="2.4 Elixir 源码编译过程"></a>2.4 Elixir 源码编译过程</h3><p>了解了 BEAM File Format（BEAM 文件格式）之后, 我们还有必要了解下 Elixir 代码的编译过程, 有助于我们更好的理解 cover. Elixir 源码的编译为 BEAM 文件的过程可能和你想象的不太一样, 不直接从 Elixir 的 AST, 经过编译器后端的处理后成为可执行的 BEAM Code, 中间还有一个过程, 如下图所示:</p>
+<p><img src="https://cdn.jsdelivr.net/gh/yeshan333/jsDelivrCDN@main/elixir-run-time-coverage/Elixir-Compilation.jpg" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/yeshan333/jsDelivrCDN@main/elixir-run-time-coverage/Elixir-Compilation.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="Elixir-Compilation"></p>
+<p>上图的过程可以描述为:</p>
+<ul>
+<li>Step 1、Elixir 源代码会被自定义的词法分析器（<a target="_blank" rel="noopener" href="https://github.com/elixir-lang/elixir/blob/main/lib/elixir/src/elixir_tokenizer.erl">elixir_tokenizer</a>）和 <a target="_blank" rel="noopener" href="https://www.erlang.org/doc/man/yecc.html">yacc</a> 进行语法分析生成初始版的 Elixir AST, AST 以 Elixir Terms 的形式表示；如果你对 Elixir 的 AST 感兴趣, 可以关注下这个项目 <a target="_blank" rel="noopener" href="https://github.com/arjan/ast_ninja">arjan/ast_ninja</a>.</li>
+<li>Step 2、在 Elixir AST 阶段, 一些自定义的和内置的宏（Macros）还没有被展开, 这些宏在 Expanded Elixir AST 展开为最终的 Elixir AST（final Elixir AST）；</li>
+<li>Step 3、final Elixir AST 经过 Elixir Compiler 处理会被转换为 Erlang 标准的 AST 形式（<a target="_blank" rel="noopener" href="https://www.erlang.org/doc/apps/erts/absform.html">Erlang Abstract Format</a>）;</li>
+<li>Step 4、最后, Elixir 会使用 Erlang 的 Compiler 处理  Erlang AST, 将其转换为可被 BEAM 虚拟机（VM）执行的 BEAM 字节码. 关于 compiler 的细节, 可以查看: <a target="_blank" rel="noopener" href="https://github.com/elixir-lang/elixir/blob/main/lib/elixir/src/elixir_compiler.erl">elixir_compiler.erl</a> 和 <a target="_blank" rel="noopener" href="https://github.com/elixir-lang/elixir/blob/main/lib/elixir/src/elixir_erl.erl">elixir_erl.erl</a> 源码, 如果你也想了解 Erlang Compiler 的细节, 可以查看 <a target="_blank" rel="noopener" href="https://blog.stenmans.org/theBeamBook/#CH-Compiler">theBeamBook/#CH-Compiler</a>.</li>
+</ul>
+<h3 id="2-5-Cover-On-The-Fly-插桩实现"><a href="#2-5-Cover-On-The-Fly-插桩实现" class="headerlink" title="2.5 Cover On-The-Fly 插桩实现"></a>2.5 Cover On-The-Fly 插桩实现</h3><p>现在该来到正餐环节了, 让我们来看看 cover 是如何进行插桩和覆盖率收集的, 使用 cover 完成代码覆盖率收集, 必须要知道三把屠龙利剑:</p>
+<p><img src="https://cdn.jsdelivr.net/gh/yeshan333/jsDelivrCDN@main/elixir-run-time-coverage/swords.jpg" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/yeshan333/jsDelivrCDN@main/elixir-run-time-coverage/swords.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="swords"></p>
+<ul>
+<li><code>cover:start</code>: 用于创建 cover 覆盖率收集进程, 它会完成存储覆盖率数据的相关 ets 表的创建, <a target="_blank" rel="noopener" href="https://github.com/erlang/otp/blob/2f0a547f78363a2504405e82e3ab3ea35b9e6a88/lib/tools/src/cover.erl#L159">cover.erl#L159</a> &amp; <a target="_blank" rel="noopener" href="https://github.com/erlang/otp/blob/2f0a547f78363a2504405e82e3ab3ea35b9e6a88/lib/tools/src/cover.erl#L632">cover.erl#L632</a>, 还可以启动远程（remote） Erlang 节点的 cover 进程.</li>
+<li><code>cover:compile_beam</code>: 进行插桩, cover 会读取 BEAM 文件的 abstract_code 的内容, 即 Erlang AST, 关键代码在 <a target="_blank" rel="noopener" href="https://github.com/erlang/otp/blob/2f0a547f78363a2504405e82e3ab3ea35b9e6a88/lib/tools/src/cover.erl#L1541">cover.erl#L1541</a>, 然后对 Erlang AST From 进行 transform 和 munge, 它会调用 <a target="_blank" rel="noopener" href="https://github.com/erlang/otp/blob/2f0a547f78363a2504405e82e3ab3ea35b9e6a88/lib/tools/src/cover.erl#L1938">bump_call</a>, 在每一个可执行行后插入如下 abstract_code:</li>
+</ul>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;call,A,&#123;remote,A,&#123;atom,A,ets&#125;,&#123;atom,A,update_counter&#125;&#125;,</span><br><span class="line"> [&#123;atom,A,?COVER_TABLE&#125;,</span><br><span class="line">  &#123;tuple,A,[&#123;atom,A,?BUMP_REC_NAME&#125;,</span><br><span class="line">            &#123;atom,A,Vars#vars.module&#125;,</span><br><span class="line">            &#123;atom,A,Vars#vars.function&#125;,</span><br><span class="line">            &#123;integer,A,Vars#vars.arity&#125;,</span><br><span class="line">            &#123;integer,A,Vars#vars.clause&#125;,</span><br><span class="line">            &#123;integer,A,Line&#125;]&#125;,</span><br><span class="line">  &#123;integer,A,<span class="number">1</span>&#125;]&#125;.</span><br></pre></td></tr></table></figure>
+
+<p>通过前文对 Erlang AST 的了解, 我们知道这相当于插入了如下一行代码:</p>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ets:update_counter(?COVER_TABLE, #bump&#123;module=Module, function=Function, arity=Arity, clause=Clause, line=Line&#125;, <span class="number">1</span>).</span><br></pre></td></tr></table></figure>
+
+<p>然后对于被 munge 后的 Erlang AST Form, cover 使用了 <a target="_blank" rel="noopener" href="https://www.erlang.org/doc/man/compile.html#forms-2">Erlang Compiler</a> 从被 munge 后的 AST 表达形式中获取 Erlang Beam Code（又称 object code, 即字节码, VM 执行指令）<a target="_blank" rel="noopener" href="https://github.com/erlang/otp/blob/2f0a547f78363a2504405e82e3ab3ea35b9e6a88/lib/tools/src/cover.erl#L1580">cover.erl#L1580</a>, 然后利用 <a target="_blank" rel="noopener" href="https://www.erlang.org/doc/man/code.html#load_binary-3">Erlang code server</a> 将获取到的新 object code 替换旧的 object code, <code>load_binary</code> <a target="_blank" rel="noopener" href="https://github.com/erlang/otp/blob/2f0a547f78363a2504405e82e3ab3ea35b9e6a88/lib/tools/src/cover.erl#L1581">cover.erl#L1581</a> 到了 ERTS（<a target="_blank" rel="noopener" href="https://blog.stenmans.org/theBeamBook/#P-ERTS">Erlang Run Time System</a>）中 . cover 完成了 Erlang AST 插桩流程, 这样, 每当可执行行被执行, 对应的 ets 存储表都会更新该行被 call 的次数.</p>
+<ul>
+<li><code>cover:analyze</code>: 分析 ets 表中存储的数据, 可获取可执行被执行（called）的次数, 可用于统计覆盖率数据.</li>
+</ul>
+<blockquote>
+<p>munge: 用于对数据或文件进行一系列可能具有破坏性或不可撤销的更改.</p>
+</blockquote>
+<h2 id="3-Elixir-Application-运行时覆盖率采集示例"><a href="#3-Elixir-Application-运行时覆盖率采集示例" class="headerlink" title="3. Elixir Application 运行时覆盖率采集示例"></a>3. Elixir Application 运行时覆盖率采集示例</h2><p>通过前文, 在了解了 Erlang Cover 模块的实现细节之后, 让我们以一个部署运行的 Elixir Application（我们会使用之前的 <a target="_blank" rel="noopener" href="https://github.com/yeshan333/explore_ast_app">yeshan333/explore_ast_app</a> ） 为例, 进行Elixir 应用运行时的大型测试（系统 &amp; 集成测试）代码行级覆盖率采集.</p>
+<p>这里我们会使用到一个工具库: <a target="_blank" rel="noopener" href="https://github.com/yeshan333/ex_integration_coveralls">ex_integration_coveralls</a> 进行覆盖率的分析, 它是 Erlang 模块 cover 的一个 Elixir Wrapper.  让我们开始:</p>
+<ul>
+<li>Step 1、添加 <code>ex_integration_coveralls</code> 依赖到     <code>mix.exs</code> 文件中:</li>
+</ul>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">defp deps do</span><br><span class="line">  [</span><br><span class="line">    ...,</span><br><span class="line">    &#123;:ex_integration_coveralls, <span class="string">&quot;~&gt; 0.3.0&quot;</span>&#125;</span><br><span class="line">  ]</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p>拉取依赖, 重新构建项目:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mix deps.get</span><br><span class="line">MIX_ENV=prod mix distillery.release</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Step 2、启动项目:</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">_build/prod/rel/explore_ast_app/bin/explore_ast_app foreground</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Step 3、连接运行时应用节点的 remote_console:</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">_build/prod/rel/explore_ast_app/bin/explore_ast_app remote_console</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Step 4、利用 ex_integration_coveralls （ExIntegrationCoveralls.execute） 启动 cover, 执行代码覆盖率收集:</li>
+</ul>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">iex</span><span class="params">(explore_ast_app@<span class="number">127.0</span>.<span class="number">0.1</span>)</span>1&gt; <span class="title">compiled_beam_dir_path</span> = &quot;/U<span class="title">sers</span>/<span class="title">yeshan</span>/<span class="title">oss_github</span>/<span class="title">explore_ast_app</span>/_<span class="title">build</span>/<span class="title">prod</span>/<span class="title">rel</span>/<span class="title">explore_ast_app</span>/<span class="title">lib</span>/<span class="title">explore_ast_app</span>-0.1.0/<span class="title">ebin</span>&quot;</span></span><br><span class="line"><span class="function">&quot;/U<span class="title">sers</span>/<span class="title">yeshan</span>/<span class="title">oss_github</span>/<span class="title">explore_ast_app</span>/_<span class="title">build</span>/<span class="title">prod</span>/<span class="title">rel</span>/<span class="title">explore_ast_app</span>/<span class="title">lib</span>/<span class="title">explore_ast_app</span>-0.1.0/<span class="title">ebin</span>&quot;</span></span><br><span class="line"><span class="function"><span class="title">iex</span><span class="params">(explore_ast_app@<span class="number">127.0</span>.<span class="number">0.1</span>)</span>2&gt; E<span class="title">xIntegrationCoveralls</span>.<span class="title">execute</span><span class="params">(compiled_beam_dir_path)</span></span></span><br><span class="line"><span class="function">[</span></span><br><span class="line"><span class="function">  <span class="title">ok</span>: E<span class="title">xploreAstApp</span>.R<span class="title">outer</span>,</span></span><br><span class="line"><span class="function">  <span class="title">ok</span>: E<span class="title">xploreAstApp</span>.P<span class="title">lug</span>.V<span class="title">erifyRequest</span>.I<span class="title">ncompleteRequestError</span>,</span></span><br><span class="line"><span class="function">  <span class="title">ok</span>: E<span class="title">xploreAstApp</span>.P<span class="title">lug</span>.V<span class="title">erifyRequest</span>,</span></span><br><span class="line"><span class="function">  <span class="title">ok</span>: E<span class="title">xploreAstApp</span>.A<span class="title">pplication</span>,</span></span><br><span class="line"><span class="function">  <span class="title">ok</span>: E<span class="title">xploreAstApp</span></span></span><br><span class="line"><span class="function">]</span></span><br><span class="line"><span class="function"><span class="title">iex</span><span class="params">(explore_ast_app@<span class="number">127.0</span>.<span class="number">0.1</span>)</span>3&gt; <span class="title">compile_time_source_lib_abs_path</span> = &quot;/U<span class="title">sers</span>/<span class="title">yeshan</span>/<span class="title">oss_github</span>/<span class="title">explore_ast_app</span>&quot;</span></span><br><span class="line"><span class="function">&quot;/U<span class="title">sers</span>/<span class="title">yeshan</span>/<span class="title">oss_github</span>/<span class="title">explore_ast_app</span>&quot;</span></span><br><span class="line"><span class="function"><span class="title">iex</span><span class="params">(explore_ast_app@<span class="number">127.0</span>.<span class="number">0.1</span>)</span>4&gt; <span class="title">source_code_abs_path</span> = &quot;/U<span class="title">sers</span>/<span class="title">yeshan</span>/<span class="title">oss_github</span>/<span class="title">explore_ast_app</span>&quot;</span></span><br><span class="line"><span class="function">&quot;/U<span class="title">sers</span>/<span class="title">yeshan</span>/<span class="title">oss_github</span>/<span class="title">explore_ast_app</span>&quot;</span></span><br><span class="line"><span class="function"><span class="title">iex</span><span class="params">(explore_ast_app@<span class="number">127.0</span>.<span class="number">0.1</span>)</span>5&gt; E<span class="title">xIntegrationCoveralls</span>.<span class="title">get_total_coverage</span><span class="params">(compile_time_source_lib_abs_path, source_code_abs_path)</span></span></span><br><span class="line"><span class="function">0</span></span><br></pre></td></tr></table></figure>
+
+<p>可以看到, 初始的覆盖率是 0, 还没有代码被调用.</p>
+<ul>
+<li>Step 5、让我们执行以下 cURL :</li>
+</ul>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"> $</span><span class="bash"> curl --location --request GET <span class="string">&#x27;http://localhost:8080/hello&#x27;</span></span></span><br><span class="line">hello %</span><br></pre></td></tr></table></figure>
+
+<p>再次查看代码覆盖率数据:</p>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">iex</span><span class="params">(explore_ast_app@<span class="number">127.0</span>.<span class="number">0.1</span>)</span>6&gt; E<span class="title">xIntegrationCoveralls</span>.<span class="title">get_total_coverage</span><span class="params">(compile_time_source_lib_abs_path, source_code_abs_path)</span></span></span><br><span class="line"><span class="function">17.1</span></span><br></pre></td></tr></table></figure>
+
+<p>可以看到, cURL（测试）对该项目的覆盖率是 17.1%.</p>
+<p>我们还可以使用如下方式查看更为详尽的代码覆盖情况, 比如查看 <code>lib/explore_ast_app/router.ex</code> 的代码覆盖情况（nil 表示该行不是 executable line）:</p>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">iex</span><span class="params">(explore_ast_app@<span class="number">127.0</span>.<span class="number">0.1</span>)</span>7&gt; <span class="title">result</span> = E<span class="title">xIntegrationCoveralls</span>.<span class="title">get_coverage_report</span><span class="params">(compile_time_source_lib_abs_path, source_code_abs_path)</span></span></span><br><span class="line"><span class="function">.......</span></span><br><span class="line"><span class="function"><span class="title">iex</span><span class="params">(explore_ast_app@<span class="number">127.0</span>.<span class="number">0.1</span>)</span>8&gt; E<span class="title">num</span>.<span class="title">at</span><span class="params">(Map.get(result, :files), <span class="number">3</span>)</span></span></span><br><span class="line"><span class="function">%E<span class="title">xIntegrationCoveralls</span>.S<span class="title">tats</span>.S<span class="title">ource</span>&#123;</span></span><br><span class="line"><span class="function">  <span class="title">coverage</span>: 18.2,</span></span><br><span class="line"><span class="function">  <span class="title">filename</span>: &quot;<span class="title">lib</span>/<span class="title">explore_ast_app</span>/<span class="title">router</span>.<span class="title">ex</span>&quot;,</span></span><br><span class="line"><span class="function">  <span class="title">hits</span>: 4,</span></span><br><span class="line"><span class="function">  <span class="title">misses</span>: 18,</span></span><br><span class="line"><span class="function">  <span class="title">sloc</span>: 22,</span></span><br><span class="line"><span class="function">  <span class="title">source</span>: [</span></span><br><span class="line"><span class="function">    %E<span class="title">xIntegrationCoveralls</span>.S<span class="title">tats</span>.L<span class="title">ine</span>&#123;</span></span><br><span class="line"><span class="function">      <span class="title">coverage</span>: 1,</span></span><br><span class="line"><span class="function">      <span class="title">source</span>: &quot;<span class="title">defmodule</span> E<span class="title">xploreAstApp</span>.R<span class="title">outer</span> <span class="title">do</span>&quot;</span></span><br><span class="line"><span class="function">    &#125;,</span></span><br><span class="line"><span class="function">    %E<span class="title">xIntegrationCoveralls</span>.S<span class="title">tats</span>.L<span class="title">ine</span>&#123;<span class="title">coverage</span>: 1, <span class="title">source</span>: &quot;  <span class="title">use</span> P<span class="title">lug</span>.R<span class="title">outer</span>&quot;&#125;,</span></span><br><span class="line"><span class="function">    %E<span class="title">xIntegrationCoveralls</span>.S<span class="title">tats</span>.L<span class="title">ine</span>&#123;</span></span><br><span class="line"><span class="function">      <span class="title">coverage</span>: <span class="title">nil</span>,</span></span><br><span class="line"><span class="function">      <span class="title">source</span>: &quot;  <span class="title">use</span> P<span class="title">lug</span>.E<span class="title">rrorHandler</span>&quot;</span></span><br><span class="line"><span class="function">    &#125;,</span></span><br><span class="line"><span class="function">    %E<span class="title">xIntegrationCoveralls</span>.S<span class="title">tats</span>.L<span class="title">ine</span>&#123;<span class="title">coverage</span>: <span class="title">nil</span>, <span class="title">source</span>: &quot;&quot;&#125;,</span></span><br><span class="line"><span class="function">    %E<span class="title">xIntegrationCoveralls</span>.S<span class="title">tats</span>.L<span class="title">ine</span>&#123;</span></span><br><span class="line"><span class="function">      <span class="title">coverage</span>: <span class="title">nil</span>,</span></span><br><span class="line"><span class="function">      <span class="title">source</span>: &quot;  <span class="title">import</span> P<span class="title">lug</span>.C<span class="title">onn</span>&quot;</span></span><br><span class="line"><span class="function">    &#125;,</span></span><br><span class="line"><span class="function">    %E<span class="title">xIntegrationCoveralls</span>.S<span class="title">tats</span>.L<span class="title">ine</span>&#123;<span class="title">coverage</span>: <span class="title">nil</span>, <span class="title">source</span>: &quot;&quot;&#125;,</span></span><br><span class="line"><span class="function">    %E<span class="title">xIntegrationCoveralls</span>.S<span class="title">tats</span>.L<span class="title">ine</span>&#123;</span></span><br><span class="line"><span class="function">      <span class="title">coverage</span>: <span class="title">nil</span>,</span></span><br><span class="line"><span class="function">      <span class="title">source</span>: &quot;  <span class="title">alias</span> E<span class="title">xploreAstApp</span>.P<span class="title">lug</span>.V<span class="title">erifyRequest</span>&quot;</span></span><br><span class="line"><span class="function">    &#125;,</span></span><br><span class="line"><span class="function">    %E<span class="title">xIntegrationCoveralls</span>.S<span class="title">tats</span>.L<span class="title">ine</span>&#123;<span class="title">coverage</span>: <span class="title">nil</span>, <span class="title">source</span>: &quot;&quot;&#125;,</span></span><br><span class="line"><span class="function">    %E<span class="title">xIntegrationCoveralls</span>.S<span class="title">tats</span>.L<span class="title">ine</span>&#123;</span></span><br><span class="line"><span class="function">      <span class="title">coverage</span>: <span class="title">nil</span>,</span></span><br><span class="line"><span class="function">      <span class="title">source</span>: &quot;  <span class="title">plug</span> P<span class="title">lug</span>.P<span class="title">arsers</span>, <span class="title">parsers</span>: [:<span class="title">urlencoded</span>, :<span class="title">multipart</span>]&quot;</span></span><br><span class="line"><span class="function">    &#125;,</span></span><br><span class="line"><span class="function">    %E<span class="title">xIntegrationCoveralls</span>.S<span class="title">tats</span>.L<span class="title">ine</span>&#123;</span></span><br><span class="line"><span class="function">      <span class="title">coverage</span>: <span class="title">nil</span>,</span></span><br><span class="line"><span class="function">      <span class="title">source</span>: &quot;  <span class="title">plug</span> V<span class="title">erifyRequest</span>, <span class="title">fields</span>: [\&quot;<span class="title">content</span>\&quot;, \&quot;<span class="title">mimetype</span>\&quot;], <span class="title">paths</span>: [\&quot;/<span class="title">upload</span>\&quot;]&quot;</span></span><br><span class="line"><span class="function">    &#125;,</span></span><br><span class="line"><span class="function">    %E<span class="title">xIntegrationCoveralls</span>.S<span class="title">tats</span>.L<span class="title">ine</span>&#123;<span class="title">coverage</span>: <span class="title">nil</span>, <span class="title">source</span>: &quot;  <span class="title">plug</span> :<span class="title">match</span>&quot;&#125;,</span></span><br><span class="line"><span class="function">    %E<span class="title">xIntegrationCoveralls</span>.S<span class="title">tats</span>.L<span class="title">ine</span>&#123;</span></span><br><span class="line"><span class="function">      <span class="title">coverage</span>: <span class="title">nil</span>,</span></span><br><span class="line"><span class="function">      <span class="title">source</span>: &quot;  <span class="title">plug</span> P<span class="title">lug</span>.P<span class="title">arsers</span>, <span class="title">parsers</span>: [:<span class="title">json</span>], <span class="title">pass</span>: [\&quot;<span class="title">application</span>/<span class="title">json</span>\&quot;], <span class="title">json_decoder</span>: J<span class="title">ason</span>&quot;</span></span><br><span class="line"><span class="function">    &#125;,</span></span><br><span class="line"><span class="function">    %E<span class="title">xIntegrationCoveralls</span>.S<span class="title">tats</span>.L<span class="title">ine</span>&#123;</span></span><br><span class="line"><span class="function">      <span class="title">coverage</span>: <span class="title">nil</span>,</span></span><br><span class="line"><span class="function">      <span class="title">source</span>: &quot;  <span class="title">plug</span> :<span class="title">dispatch</span>&quot;</span></span><br><span class="line"><span class="function">    &#125;,</span></span><br><span class="line"><span class="function">    %E<span class="title">xIntegrationCoveralls</span>.S<span class="title">tats</span>.L<span class="title">ine</span>&#123;<span class="title">coverage</span>: <span class="title">nil</span>, <span class="title">source</span>: &quot;&quot;&#125;,</span></span><br><span class="line"><span class="function">    %E<span class="title">xIntegrationCoveralls</span>.S<span class="title">tats</span>.L<span class="title">ine</span>&#123;</span></span><br><span class="line"><span class="function">      <span class="title">coverage</span>: 0,</span></span><br><span class="line"><span class="function">      <span class="title">source</span>: &quot;  <span class="title">get</span> \&quot;/<span class="title">welcome</span>\&quot; <span class="title">do</span>&quot;</span></span><br><span class="line"><span class="function">    &#125;,</span></span><br><span class="line"><span class="function">    %E<span class="title">xIntegrationCoveralls</span>.S<span class="title">tats</span>.L<span class="title">ine</span>&#123;</span></span><br><span class="line"><span class="function">      <span class="title">coverage</span>: 0,</span></span><br><span class="line"><span class="function">      <span class="title">source</span>: &quot;    <span class="title">send_resp</span><span class="params">(conn, <span class="number">200</span>, \<span class="string">&quot;Welcome\&quot;)&quot;</span></span></span></span><br><span class="line"><span class="params"><span class="function">    &#125;,</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="comment">%ExIntegrationCoveralls.Stats.Line&#123;coverage: nil, source: &quot;  end&quot;&#125;,</span></span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="comment">%ExIntegrationCoveralls.Stats.Line&#123;coverage: nil, source: &quot;&quot;&#125;,</span></span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="comment">%ExIntegrationCoveralls.Stats.Line&#123;</span></span></span></span><br><span class="line"><span class="params"><span class="function">      coverage: <span class="number">0</span>,</span></span></span><br><span class="line"><span class="params"><span class="function">      source: <span class="string">&quot;  get \&quot;/upload\&quot; do&quot;</span></span></span></span><br><span class="line"><span class="params"><span class="function">    &#125;,</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="comment">%ExIntegrationCoveralls.Stats.Line&#123;</span></span></span></span><br><span class="line"><span class="params"><span class="function">      coverage: <span class="number">0</span>,</span></span></span><br><span class="line"><span class="params"><span class="function">      source: <span class="string">&quot;    send_resp(conn, 201, \&quot;Uploaded\&quot;)&quot;</span></span></span></span><br><span class="line"><span class="params"><span class="function">    &#125;,</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="comment">%ExIntegrationCoveralls.Stats.Line&#123;coverage: nil, source: &quot;  end&quot;&#125;,</span></span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="comment">%ExIntegrationCoveralls.Stats.Line&#123;coverage: nil, source: &quot;&quot;&#125;,</span></span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="comment">%ExIntegrationCoveralls.Stats.Line&#123;</span></span></span></span><br><span class="line"><span class="params"><span class="function">      coverage: <span class="number">1</span>,</span></span></span><br><span class="line"><span class="params"><span class="function">      source: <span class="string">&quot;  get \&quot;/hello\&quot; do&quot;</span></span></span></span><br><span class="line"><span class="params"><span class="function">    &#125;,</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="comment">%ExIntegrationCoveralls.Stats.Line&#123;</span></span></span></span><br><span class="line"><span class="params"><span class="function">      coverage: nil,</span></span></span><br><span class="line"><span class="params"><span class="function">      source: <span class="string">&quot;    # query parameter is user like this:&quot;</span></span></span></span><br><span class="line"><span class="params"><span class="function">    &#125;,</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="comment">%ExIntegrationCoveralls.Stats.Line&#123;</span></span></span></span><br><span class="line"><span class="params"><span class="function">      coverage: nil,</span></span></span><br><span class="line"><span class="params"><span class="function">      source: <span class="string">&quot;    # http://localhost:4001/hello?name=John&quot;</span></span></span></span><br><span class="line"><span class="params"><span class="function">    &#125;,</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="comment">%ExIntegrationCoveralls.Stats.Line&#123;</span></span></span></span><br><span class="line"><span class="params"><span class="function">      coverage: nil,</span></span></span><br><span class="line"><span class="params"><span class="function">      source: <span class="string">&quot;    # which will create %&#123;\&quot;name\&quot; =&gt; \&quot;John\&quot;&#125;&quot;</span></span></span></span><br><span class="line"><span class="params"><span class="function">    &#125;,</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="comment">%ExIntegrationCoveralls.Stats.Line&#123;</span></span></span></span><br><span class="line"><span class="params"><span class="function">      coverage: <span class="number">1</span>,</span></span></span><br><span class="line"><span class="params"><span class="function">      source: <span class="string">&quot;      send_resp(conn, 200, \&quot;hello \#&#123;Map.get(conn.query_params, \&quot;name\&quot;)&#125;\&quot;)&quot;</span></span></span></span><br><span class="line"><span class="params"><span class="function">    &#125;,</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="comment">%ExIntegrationCoveralls.Stats.Line&#123;coverage: nil, source: &quot;  end&quot;&#125;,</span></span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="comment">%ExIntegrationCoveralls.Stats.Line&#123;coverage: nil, source: &quot;&quot;&#125;,</span></span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="comment">%ExIntegrationCoveralls.Stats.Line&#123;</span></span></span></span><br><span class="line"><span class="params"><span class="function">      coverage: <span class="number">0</span>,</span></span></span><br><span class="line"><span class="params"><span class="function">      source: <span class="string">&quot;  get \&quot;/hello/:name\&quot; do&quot;</span></span></span></span><br><span class="line"><span class="params"><span class="function">    &#125;,</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="comment">%ExIntegrationCoveralls.Stats.Line&#123;</span></span></span></span><br><span class="line"><span class="params"><span class="function">      coverage: <span class="number">0</span>,</span></span></span><br><span class="line"><span class="params"><span class="function">      source: <span class="string">&quot;    send_resp(conn, 200, \&quot;hello \#&#123;name&#125;\&quot;)&quot;</span></span></span></span><br><span class="line"><span class="params"><span class="function">    &#125;,</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="comment">%ExIntegrationCoveralls.Stats.Line&#123;coverage: nil, source: &quot;  end&quot;&#125;,</span></span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="comment">%ExIntegrationCoveralls.Stats.Line&#123;coverage: nil, source: &quot;&quot;&#125;,</span></span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="comment">%ExIntegrationCoveralls.Stats.Line&#123;</span></span></span></span><br><span class="line"><span class="params"><span class="function">      coverage: <span class="number">0</span>,</span></span></span><br><span class="line"><span class="params"><span class="function">      source: <span class="string">&quot;  post \&quot;/hello\&quot; do&quot;</span></span></span></span><br><span class="line"><span class="params"><span class="function">    &#125;,</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="comment">%ExIntegrationCoveralls.Stats.Line&#123;</span></span></span></span><br><span class="line"><span class="params"><span class="function">      coverage: nil,</span></span></span><br><span class="line"><span class="params"><span class="function">      source: <span class="string">&quot;    # json body of POST request &#123;\&quot;name\&quot;: \&quot;John\&quot;&#125; is parsed to %&#123;\&quot;name\&quot; =&gt; \&quot;John\&quot;&#125;&quot;</span></span></span></span><br><span class="line"><span class="params"><span class="function">    &#125;,</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="comment">%ExIntegrationCoveralls.Stats.Line&#123;</span></span></span></span><br><span class="line"><span class="params"><span class="function">      coverage: nil,</span></span></span><br><span class="line"><span class="params"><span class="function">      source: <span class="string">&quot;    # so it can be accesable with e.g. Map.get(conn.body_params, \&quot;name\&quot;) or with pattern matching&quot;</span></span></span></span><br><span class="line"><span class="params"><span class="function">    &#125;,</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="comment">%ExIntegrationCoveralls.Stats.Line&#123;coverage: 0, source: &quot;    name =&quot;&#125;,</span></span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="comment">%ExIntegrationCoveralls.Stats.Line&#123;</span></span></span></span><br><span class="line"><span class="params"><span class="function">      coverage: <span class="number">0</span>,</span></span></span><br><span class="line"><span class="params"><span class="function">      source: <span class="string">&quot;      case conn.body_params do&quot;</span></span></span></span><br><span class="line"><span class="params"><span class="function">    &#125;,</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="comment">%ExIntegrationCoveralls.Stats.Line&#123;</span></span></span></span><br><span class="line"><span class="params"><span class="function">      coverage: <span class="number">0</span>,</span></span></span><br><span class="line"><span class="params"><span class="function">      source: <span class="string">&quot;        %&#123;\&quot;name\&quot; =&gt; a_name &#125; -&gt; a_name&quot;</span></span></span></span><br><span class="line"><span class="params"><span class="function">    &#125;,</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="comment">%ExIntegrationCoveralls.Stats.Line&#123;</span></span></span></span><br><span class="line"><span class="params"><span class="function">      coverage: nil,</span></span></span><br><span class="line"><span class="params"><span class="function">      source: <span class="string">&quot;        _ -&gt; \&quot;\&quot;&quot;</span></span></span></span><br><span class="line"><span class="params"><span class="function">    &#125;,</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="comment">%ExIntegrationCoveralls.Stats.Line&#123;coverage: nil, source: &quot;      end&quot;&#125;,</span></span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="comment">%ExIntegrationCoveralls.Stats.Line&#123;coverage: nil, source: &quot;&quot;&#125;,</span></span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="comment">%ExIntegrationCoveralls.Stats.Line&#123;coverage: nil, ...&#125;,</span></span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="comment">%ExIntegrationCoveralls.Stats.Line&#123;...&#125;,</span></span></span></span><br><span class="line"><span class="params"><span class="function">    ...</span></span></span><br><span class="line"><span class="params"><span class="function">  ]</span></span></span><br><span class="line"><span class="params"><span class="function">&#125;</span></span></span><br></pre></td></tr></table></figure>
+
+<p>基于 <a target="_blank" rel="noopener" href="https://github.com/yeshan333/ex_integration_coveralls/blob/39e24bc5c9e76a625cddfa4039d386db1429ba41/lib/ex_integration_coveralls.ex#L93">post_cov_stats_to_ud_ci</a> 接口，可以进一步对接内部或外部的类似于 <a target="_blank" rel="noopener" href="https://about.codecov.io/">Codecov</a> 的覆盖率系统.</p>
+<p><img src="https://cdn.jsdelivr.net/gh/yeshan333/jsDelivrCDN@main/elixir-run-time-coverage/coverage_system.jpg" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/yeshan333/jsDelivrCDN@main/elixir-run-time-coverage/coverage_system.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="coverage_system"></p>
+<p>基于此, 我们可以实现在 Elixir Application 不停止运行的情况下, 配合大型（集成 &amp; 系统）测试能力, 完成代码覆盖率的收集.</p>
+<h2 id="4-大规模-Elixir-Erlang-微服务集群连续运行时覆盖率收集方案"><a href="#4-大规模-Elixir-Erlang-微服务集群连续运行时覆盖率收集方案" class="headerlink" title="4. 大规模 Elixir/Erlang 微服务集群连续运行时覆盖率收集方案"></a>4. 大规模 Elixir/Erlang 微服务集群连续运行时覆盖率收集方案</h2><p>随着 Elixir 微服务系统规模的不断扩大, 前一节所展现的覆盖率收集手段需要进一步的演进. 参考 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/introduction/overview/#architecture">Prometheus Pull-Base</a> 的设计, 总体设计（Pull &amp; Push 模式结合）如下:</p>
+<p><img src="https://cdn.jsdelivr.net/gh/yeshan333/jsDelivrCDN@main/elixir-run-time-coverage/java_bytecode_tecs.jpg" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/yeshan333/jsDelivrCDN@main/elixir-run-time-coverage/java_bytecode_tecs.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="coverage-arch"></p>
+<p>我们基于 <a target="_blank" rel="noopener" href="https://github.com/yeshan333/ex_integration_coveralls">ex_integration_coveralls</a> 做拓展, 在 Elixir Application 启动后, 拉起一个 http worker 将代码覆盖率数据实时暴露出去, 由 Coverage Push Gateway 负责定时拉取覆盖率数据（Gateway 可以是一个 OTP Application, ）, 在集成/系统测试系统告知测试结束后, Gateway 将覆盖率 push 给 Cover Center（覆盖率中心）进行代码覆盖率展示.</p>
+<p>End（long way to go）.</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://storage.googleapis.com/pub-tools-public-publication-data/pdf/36f4140541f8dd555fb8aaee2fd719d59ffab041.pdf">Code Coverage at Google</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.erlang.org/doc/man/cover.html#description">Erlang cover</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.erlang.org/blog/a-brief-beam-primer/">A brief introduction to BEAM</a></li>
+<li><a target="_blank" rel="noopener" href="http://gomoripeti.github.io/beam_by_example/">A peak into the Erlang compiler and BEAM bytecode</a></li>
+<li><a target="_blank" rel="noopener" href="https://elixirforum.com/t/getting-each-stage-of-elixirs-compilation-all-the-way-to-the-beam-bytecode/1873/5">Getting each stage of Elixir’s compilation all the way to the BEAM bytecode</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/parroty/excoveralls">excoveralls</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/hrzndhrn/beam_file">BeamFile - A peek into the BEAM file</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/KronicDeth/intellij-elixir#beam-files">https://github.com/KronicDeth/intellij-elixir#beam-files</a></li>
+</ul>
+
+  
+  
+    
+    <div class='footer'>
+      
+      
+      
+        <div class='copyright'>
+          <blockquote>
+            
+              
+                <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+              
+            
+              
+                <p>我的博客即将同步至腾讯云+社区，邀请大家一同入驻：<a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/support-plan?invite_code=1utoln9pyvwqu">https://cloud.tencent.com/developer/support-plan?invite_code=1utoln9pyvwqu</a></p>
+
+              
+            
+          </blockquote>
+        </div>
+      
+      
+    </div>
+  
+  
+    
+
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2022-06-29T23:14:26+00:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2022年6月29日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Elixir/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>Elixir</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Test-Coverage/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>Test Coverage</p></a></div>
+
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://yeshan333.github.io/2022/06/29/elixir-run-time-code-line-level-coverage-collection/&title=Elixir 连续运行时代码覆盖率采集方案 - ShanSan&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://yeshan333.github.io/2022/06/29/elixir-run-time-code-line-level-coverage-collection/&title=Elixir 连续运行时代码覆盖率采集方案 - ShanSan&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://yeshan333.github.io/2022/06/29/elixir-run-time-code-line-level-coverage-collection/&title=Elixir 连续运行时代码覆盖率采集方案 - ShanSan&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </div>
+
+
+  
+  
+
+  
+    <div class="prev-next">
+      
+      
+        <a class='next' href='/2022/06/19/understanding-elixir-macros-part-6-in-place-code-generation/'>
+          <p class='title'>(译) Understanding Elixir Macros, Part 6 - In-place Code Generation<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>
+Elixir Macros 系列文章译文
+
+[1] (译) Understanding Elixir Macros, Part 1 Basics
+[2] (译) Understanding E...</p>
+        </a>
+      
+    </div>
+  
+</article>
+
+
+  
+
+  <article class="post white-box reveal shadow" id="comments">
+    <p ct><i class='fas fa-comments'></i> 评论</p>
+    
+    <div id="waline">
+  <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+</div>
+
+  </article>
+
+
+
+
+
+  <script>
+  // https://github.com/theme-next/hexo-theme-next/blob/master/layout/_third-party/math/mathjax.swig
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.0/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    // 文章章节标题不能为 “MathJax” ，否则会报错。
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+
+
+</div>
+<aside class='l_side'>
+  
+  
+    
+    
+
+
+
+  <section class="widget toc-wrapper shadow desktop mobile" id="toc-div" >
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%B5%85%E8%B0%88%E4%BB%A3%E7%A0%81%E8%A6%86%E7%9B%96%E7%8E%87"><span class="toc-text">1. 浅谈代码覆盖率</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90-Erlang-Cover-%E8%A6%86%E7%9B%96%E7%8E%87%E6%94%B6%E9%9B%86%E5%AE%9E%E7%8E%B0%E6%9C%BA%E5%88%B6"><span class="toc-text">2. 深度解析 Erlang Cover 覆盖率收集实现机制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-Erlang-Cover-%E7%AE%80%E4%BB%8B"><span class="toc-text">2.1 Erlang Cover 简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-Erlang-%E4%BB%A3%E7%A0%81%E8%A6%86%E7%9B%96%E7%8E%87%E6%94%B6%E9%9B%86%E5%AE%9E%E7%8E%B0%E5%88%86%E6%9E%90"><span class="toc-text">2.2 Erlang 代码覆盖率收集实现分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%E4%BA%86%E8%A7%A3-BEAM-File-Format"><span class="toc-text">2.3 了解 BEAM File Format</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-Elixir-%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B"><span class="toc-text">2.4 Elixir 源码编译过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-5-Cover-On-The-Fly-%E6%8F%92%E6%A1%A9%E5%AE%9E%E7%8E%B0"><span class="toc-text">2.5 Cover On-The-Fly 插桩实现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Elixir-Application-%E8%BF%90%E8%A1%8C%E6%97%B6%E8%A6%86%E7%9B%96%E7%8E%87%E9%87%87%E9%9B%86%E7%A4%BA%E4%BE%8B"><span class="toc-text">3. Elixir Application 运行时覆盖率采集示例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%A4%A7%E8%A7%84%E6%A8%A1-Elixir-Erlang-%E5%BE%AE%E6%9C%8D%E5%8A%A1%E9%9B%86%E7%BE%A4%E8%BF%9E%E7%BB%AD%E8%BF%90%E8%A1%8C%E6%97%B6%E8%A6%86%E7%9B%96%E7%8E%87%E6%94%B6%E9%9B%86%E6%96%B9%E6%A1%88"><span class="toc-text">4. 大规模 Elixir&#x2F;Erlang 微服务集群连续运行时覆盖率收集方案</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+
+		  
+		  <!--此文件用来存放一些不方便取值的变量-->
+<!--思路大概是将值藏到重加载的区域内-->
+
+<script>
+  window.pdata={}
+  pdata.ispage=true;
+  pdata.postTitle="Elixir 连续运行时代码覆盖率采集方案";
+  pdata.commentPath="";
+  pdata.commentPlaceholder="";
+  // header 这里无论是否开启pjax都需要
+  var l_header=document.getElementById("l_header");
+  
+  l_header.classList.add("show");
+  
+  
+</script>
+
+        </div>
+        
+  
+  <footer class="footer clearfix">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
+
+  
+    <meting-js
+      theme='#1BCDFC'
+      autoplay='false'
+      volume='0.7'
+      loop='all'
+      order='list'
+      fixed='false'
+      list-max-height='320px'
+      server='netease'
+      type='playlist'
+      id='6729508229'
+      list-folded='true'>
+    </meting-js>
+  
+
+
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+            
+              <a href="mailto:1329441308@qq.com"
+                class="social fas fa-envelope flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+                
+              </a>
+            
+          
+            
+              <a href="https://github.com/yeshan333?tab=repositories"
+                class="social fab fa-github flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+                
+              </a>
+            
+          
+            
+              <a href="https://music.163.com/#/my/m/music/playlist?id=2617691792"
+                class="social fas fa-music flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+                
+              </a>
+            
+          
+            
+              <a href="https://www.zhihu.com/people/si-kong-ji-54/activities"
+                class="social fab fa-zhihu flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+                
+              </a>
+            
+          
+            
+              <a href="https://yeshan333.github.io/rss2.xml"
+                class="social fas fa-rss flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+                
+              </a>
+            
+          
+        </div>
+      
+    
+      
+        <div><p>博客内容遵循 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+</div>
+      
+    
+      
+        本站使用
+        <a href="https://github.com/volantis-x/hexo-theme-volantis/tree/4.3.1" target="_blank" class="codename">Volantis</a>
+        作为主题，总访问量为
+          <span id="busuanzi_value_site_pv"><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+          次
+        
+      
+    
+      
+        <div class='copyright'>
+        <p><a target="_blank" rel="noopener" href="https://shansan.top/">Copyright © 2018-2022 ShanSan</a></p>
+
+        </div>
+      
+    
+      
+        
+          <div><p><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">桂ICP备19000444号</a></p>
+</div>
+        
+      
+    
+  </footer>
+
+
+        <a id="s-top" class="fas fa-arrow-up fa-fw" href="javascript:void(0)"></a>
+      </div>
+    </div>
+    <div>
+      <script>
+/************这个文件存放不需要重载的全局变量和全局函数*********/
+window.volantis={};
+window.volantis.loadcss=document.getElementById("loadcss");
+/******************** Pjax ********************************/
+function VPjax(){
+	this.list=[] // 存放回调函数
+	this.start=()=>{
+	  for(var i=0;i<this.list.length;i++){
+		this.list[i].run();
+	  }
+	}
+	this.push=(fn,name)=>{
+		var f=new PjaxItem(fn,name);
+		this.list.push(f);
+	}
+	// 构造一个可以run的对象
+	function PjaxItem(fn,name){
+		// 函数名称
+		this.name = name || fn.name
+		// run方法
+		this.run=()=>{
+			fn()
+		}
+	}
+}
+volantis.pjax={}
+volantis.pjax.method={
+	complete: new VPjax(),
+	error: new VPjax(),
+	send: new VPjax()
+}
+volantis.pjax={
+	...volantis.pjax,
+	push: volantis.pjax.method.complete.push,
+	error: volantis.pjax.method.error.push,
+	send: volantis.pjax.method.send.push
+}
+/********************脚本懒加载函数********************************/
+// 已经加入了setTimeout
+function loadScript(src, cb) {
+	setTimeout(function() {
+		var HEAD = document.getElementsByTagName('head')[0] || document.documentElement;
+		var script = document.createElement('script');
+		script.setAttribute('type','text/javascript');
+		if (cb) script.onload = cb;
+		script.setAttribute('src', src);
+		HEAD.appendChild(script);
+	});
+}
+//https://github.com/filamentgroup/loadCSS
+var loadCSS = function( href, before, media, attributes ){
+	var doc = window.document;
+	var ss = doc.createElement( "link" );
+	var ref;
+	if( before ){
+		ref = before;
+	}
+	else {
+		var refs = ( doc.body || doc.getElementsByTagName( "head" )[ 0 ] ).childNodes;
+		ref = refs[ refs.length - 1];
+	}
+	var sheets = doc.styleSheets;
+	if( attributes ){
+		for( var attributeName in attributes ){
+			if( attributes.hasOwnProperty( attributeName ) ){
+				ss.setAttribute( attributeName, attributes[attributeName] );
+			}
+		}
+	}
+	ss.rel = "stylesheet";
+	ss.href = href;
+	ss.media = "only x";
+	function ready( cb ){
+		if( doc.body ){
+			return cb();
+		}
+		setTimeout(function(){
+			ready( cb );
+		});
+	}
+	ready( function(){
+		ref.parentNode.insertBefore( ss, ( before ? ref : ref.nextSibling ) );
+	});
+	var onloadcssdefined = function( cb ){
+		var resolvedHref = ss.href;
+		var i = sheets.length;
+		while( i-- ){
+			if( sheets[ i ].href === resolvedHref ){
+				return cb();
+			}
+		}
+		setTimeout(function() {
+			onloadcssdefined( cb );
+		});
+	};
+	function loadCB(){
+		if( ss.addEventListener ){
+			ss.removeEventListener( "load", loadCB );
+		}
+		ss.media = media || "all";
+	}
+	if( ss.addEventListener ){
+		ss.addEventListener( "load", loadCB);
+	}
+	ss.onloadcssdefined = onloadcssdefined;
+	onloadcssdefined( loadCB );
+	return ss;
+};
+</script>
+<script>
+  
+  loadCSS("https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14/css/all.min.css", window.volantis.loadcss);
+  
+  
+  
+  
+</script>
+<!-- required -->
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5/dist/jquery.min.js"></script>
+
+<script>
+  function pjax_fancybox() {
+    $(".md .gallery").find("img").each(function () { //渲染 fancybox
+      var element = document.createElement("a"); // a 标签
+      $(element).attr("class", "fancybox");
+      $(element).attr("pjax-fancybox", "");  // 过滤 pjax
+      $(element).attr("href", $(this).attr("src"));
+      if ($(this).attr("data-original")) {
+        $(element).attr("href", $(this).attr("data-original"));
+      }
+      $(element).attr("data-fancybox", "images");
+      var caption = "";   // 描述信息
+      if ($(this).attr('alt')) {  // 判断当前页面是否存在描述信息
+        $(element).attr('data-caption', $(this).attr('alt'));
+        caption = $(this).attr('alt');
+      }
+      var div = document.createElement("div");
+      $(div).addClass("fancybox");
+      $(this).wrap(div); // 最外层套 div ，其实主要作用还是 class 样式
+      var span = document.createElement("span");
+      $(span).addClass("image-caption");
+      $(span).text(caption); // 加描述
+      $(this).after(span);  // 再套一层描述
+      $(this).wrap(element);  // 最后套 a 标签
+    })
+    $(".md .gallery").find("img").fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+      closeClick: true,
+      helpers: {
+        overlay: {closeClick: true}
+      },
+      buttons: [
+        "zoom",
+        "close"
+      ]
+    });
+  };
+  function SCload_fancybox() {
+    if ($(".md .gallery").find("img").length == 0) return;
+    loadCSS("https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css", document.getElementById("loadcss"));
+    loadScript('https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', pjax_fancybox)
+  };
+  $(function () {
+    SCload_fancybox();
+  });
+  function Pjax_SCload_fancybox(){
+	if (typeof $.fancybox == "undefined") {
+	 SCload_fancybox();
+    } else {
+	 pjax_fancybox();
+    }
+  }
+  volantis.pjax.push(Pjax_SCload_fancybox)
+  volantis.pjax.send(()=>{
+      if (typeof $.fancybox != "undefined") {
+        $.fancybox.close();    // 关闭弹窗
+      }
+  },'fancybox')
+</script>
+
+
+<!-- internal -->
+
+
+
+
+<script>
+  function loadIssuesJS() {
+    if ($(".md").find(".issues-api").length == 0) return;
+	
+	  loadScript('/js/issues.js');
+	
+  };
+  $(function () {
+    loadIssuesJS();
+  });
+  volantis.pjax.push(()=>{
+	if (typeof IssuesAPI == "undefined") {
+	  loadIssuesJS();
+	}
+  },"IssuesJS")
+</script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 0
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    lazyLoadInstance.update();
+  });
+  document.addEventListener('pjax:complete', function () {
+    lazyLoadInstance.update();
+  });
+</script>
+
+
+
+
+  
+
+<script>
+  window.FPConfig = {
+	delay: 0,
+	ignoreKeywords: [],
+	maxRPS: 5,
+	hoverDelay: 25
+  };
+</script>
+<script defer src="https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"></script>
+
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+    var clipboard = new ClipboardJS('.btn-copy', {
+        target: function (trigger) {
+            return trigger.nextElementSibling
+        }
+    });
+    function wait(callback, seconds) {
+        var timelag = null;
+        timelag = window.setTimeout(callback, seconds)
+    }
+    function pjax_initCopyCode() {
+		if($(".highlight .code pre").length+$(".article pre code").length==0)return;
+        var copyHtml = '';
+        copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+        copyHtml += '<i class="fas fa-copy"></i><span>COPY</span>';
+        copyHtml += '</button>';
+        $(".highlight .code pre").before(copyHtml);
+        $(".article pre code").before(copyHtml);
+        clipboard.off('success').on('success', function (e) {
+            let $btn = $(e.trigger);
+            $btn.addClass('copied');
+            let $icon = $($btn.find('i'));
+            $icon.removeClass('fa-copy');
+            $icon.addClass('fa-check-circle');
+            let $span = $($btn.find('span'));
+            $span[0].innerText = 'COPIED';
+            wait(function () {
+                $icon.removeClass('fa-check-circle');
+                $icon.addClass('fa-copy');
+                $span[0].innerText = 'COPY'
+            }, 2000)
+        });
+        clipboard.off('error').on('error', function (e) {
+            e.clearSelection();
+            let $btn = $(e.trigger);
+            $btn.addClass('copy-failed');
+            let $icon = $($btn.find('i'));
+            $icon.removeClass('fa-copy');
+            $icon.addClass('fa-times-circle');
+            let $span = $($btn.find('span'));
+            $span[0].innerText = 'COPY FAILED';
+            wait(function () {
+                $icon.removeClass('fa-times-circle');
+                $icon.addClass('fa-copy');
+                $span[0].innerText = 'COPY'
+            }, 2000)
+        })
+    }
+    $(function () {
+        pjax_initCopyCode()
+    });
+	volantis.pjax.push(pjax_initCopyCode)
+</script>
+
+
+
+
+
+
+  <script>
+  let APlayerController = new Object();
+  APlayerController.id = '6729508229';  // 设定全局音乐播放ID
+  APlayerController.volume = '0.7';
+  loadCSS("https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css", window.volantis.loadcss);
+  // APlayer 需要在  MetingJS 之前加载
+  loadScript("https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js")
+  window.volantis.APlayerLoaded=0 // APlayer加载完成状态
+  var checkAPlayer = setInterval(function () {
+    if (!window.APlayer) return // APlayer加载完成？
+	  if ($("#safearea").css("display")!="block") return // 文章内容加载完成？ see: source/css/first.styl
+    clearInterval(checkAPlayer)
+	  if (!window.volantis.APlayerLoaded&&!window.MetingJSElement){ // APlayer只能加载一次
+      window.volantis.APlayerLoaded=1 // APlayer加载完成
+      loadScript("https://cdn.jsdelivr.net/npm/meting@2.0/dist/Meting.min.js") // 加载 MetingJS
+	  }
+  }, 2500) // 按照网速调节差分2.5s
+  // rightmenu see: layout/_partial/rightmenu.ejs
+
+</script>
+
+
+
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js"></script>
+
+
+<script>
+  function pjax_waline() {
+    if(!document.querySelectorAll("#waline")[0])return;
+    let pagePlaceholder = pdata.commentPlaceholder || "快来评论吧~";
+    let path = pdata.commentPath;
+    if (path.length == 0) {
+      let defaultPath = '';
+      path = defaultPath || decodeURI(window.location.pathname);
+    }
+    new Waline(Object.assign({"js":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","path":null,"placeholder":"快来评论吧~","imageHosting":"https://7bu.top/api/upload","meta":["nick","mail","link"],"requiredFields":["nick","mail"],"serverURL":"https://yeshan333-waline.vercel.app","avatar":"robohash","pageSize":10,"lang":"zh-CN"}, {
+     el: '#waline',
+     path: path,
+     placeholder: pagePlaceholder,
+     uploadImage: function(file) {
+      const formData = new FormData();
+      formData.append('image', file);
+      return fetch('https://7bu.top/api/upload', {
+      	method: 'POST',
+      	body: formData
+      }).then(resp => resp.json()).then(resp => resp.data.url);
+   },
+  }));
+  }
+  $(function () {
+    pjax_waline();
+  });
+  volantis.pjax.push(pjax_waline);
+</script>
+
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js" data-pjax></script>
+
+
+
+  
+<script src="/js/app.js"></script>
+
+
+
+<!-- optional -->
+
+  <script>
+const SearchServiceimagePath="https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@master/img/";
+const ROOT =  ("/" || "/").endsWith('/') ? ("/" || "/") : ("//" || "/" );
+
+$('.input.u-search-input').one('focus',function(){
+	
+		loadScript('https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@2.6.4/js/search.js',setSearchService);
+	
+})
+
+function listenSearch(){
+  
+    customSearch = new HexoSearch({
+      imagePath: SearchServiceimagePath
+    });
+  
+}
+function setSearchService() {
+	listenSearch();
+	
+}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  <script defer>
+
+  const LCCounter = {
+    app_id: 'u9j57bwJod4EDmXWdxrwuqQT-MdYXbMMI',
+    app_key: 'jfHtEKVE24j0IVCGHbvuFClp',
+    custom_api_server: '',
+
+    // 查询存储的记录
+    getRecord(Counter, url, title) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({url})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
+            }
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {url, title: title, times: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
+        });
+      })
+    },
+
+    // 发起自增请求
+    increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
+          }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    },
+
+    // 构建自增请求体
+    buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "times": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    },
+
+    // 校验是否为有效的 UV
+    validUV() {
+      var key = 'LeanCloudUVTimestamp';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    },
+
+    addCount(Counter) {
+      var enableIncr = '' === 'true' && window.location.hostname !== 'localhost';
+      enableIncr = true;
+      var getterArr = [];
+      var incrArr = [];
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#lc-sv');
+      if (pvCtn || enableIncr) {
+        var pvGetter = this.getRecord(Counter, 'https://yeshan333.github.io' + '/#lc-sv', 'Visits').then((record) => {
+          incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-sv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + 1;
+              if (pvCtn) {
+                pvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#lc-uv');
+      if (uvCtn || enableIncr) {
+        var uvGetter = this.getRecord(Counter, 'https://yeshan333.github.io' + '/#lc-uv', 'Visitors').then((record) => {
+          var vuv = this.validUV();
+          vuv && incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-uv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + (vuv ? 1 : 0);
+              if (uvCtn) {
+                uvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 请求文章的浏览数，如果是当前页面就自增
+      var allPV = document.querySelectorAll('#lc-pv');
+      if (allPV.length > 0 || enableIncr) {
+        for (i = 0; i < allPV.length; i++) {
+          let pv = allPV[i];
+          let title = pv.getAttribute('data-title');
+          var url = 'https://yeshan333.github.io' + pv.getAttribute('data-path');
+          if (url) {
+            var viewGetter = this.getRecord(Counter, url, title).then((record) => {
+              // 是当前页面就自增
+              let curPath = window.location.pathname;
+              if (curPath.includes('index.html')) {
+                curPath = curPath.substring(0, curPath.lastIndexOf('index.html'));
+              }
+              if (pv.getAttribute('data-path') == curPath) {
+                incrArr.push(this.buildIncrement(record.objectId));
+              }
+              if (pv) {
+                var ele = pv.querySelector('#lc-pv #number');
+                if (ele) {
+                  if (pv.getAttribute('data-path') == curPath) {
+                    ele.innerText = (record.times || 0) + 1;
+                  } else {
+                    ele.innerText = record.times || 0;
+                  }
+                  pv.style.display = 'inline';
+                }
+              }
+            });
+            getterArr.push(viewGetter);
+          }
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && this.increment(Counter, incrArr);
+        })
+      }
+
+    },
+
+
+    fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': this.app_id,
+            'X-LC-Key': this.app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      this.addCount(Counter);
+    },
+
+    refreshCounter() {
+      var api_server = this.app_id.slice(-9) !== '-MdYXbMMI' ? this.custom_api_server : `https://${ this.app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+      if (api_server) {
+        this.fetchData(api_server);
+      } else {
+        fetch('https://app-router.leancloud.cn/2/route?appId=' + this.app_id)
+          .then(resp => resp.json())
+          .then(({api_server}) => {
+            this.fetchData('https://' + api_server);
+          });
+      }
+    }
+
+  };
+
+  LCCounter.refreshCounter();
+
+  document.addEventListener('pjax:complete', function () {
+    LCCounter.refreshCounter();
+  });
+</script>
+
+
+
+
+  <script>
+const rootElement = document.documentElement;
+const darkModeStorageKey = "user-color-scheme";
+const rootElementDarkModeAttributeName = "data-user-color-scheme";
+
+const setLS = (k, v) => {
+    localStorage.setItem(k, v);
+};
+
+const removeLS = (k) => {
+    localStorage.removeItem(k);
+};
+
+const getLS = (k) => {
+    return localStorage.getItem(k);
+};
+
+const getModeFromCSSMediaQuery = () => {
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
+};
+
+const resetRootDarkModeAttributeAndLS = () => {
+  rootElement.removeAttribute(rootElementDarkModeAttributeName);
+  removeLS(darkModeStorageKey);
+};
+
+const validColorModeKeys = {
+  dark: true,
+  light: true,
+};
+
+const applyCustomDarkModeSettings = (mode) => {
+  const currentSetting = mode || getLS(darkModeStorageKey);
+
+  if (currentSetting === getModeFromCSSMediaQuery()) {
+    resetRootDarkModeAttributeAndLS();
+  } else if (validColorModeKeys[currentSetting]) {
+    rootElement.setAttribute(rootElementDarkModeAttributeName, currentSetting);
+  } else {
+    resetRootDarkModeAttributeAndLS();
+  }
+};
+
+const invertDarkModeObj = {
+  dark: "light",
+  light: "dark",
+};
+
+/**
+ * get target mode
+ */
+const toggleCustomDarkMode = () => {
+  let currentSetting = getLS(darkModeStorageKey);
+
+  if (validColorModeKeys[currentSetting]) {
+    currentSetting = invertDarkModeObj[currentSetting];
+  } else if (currentSetting === null) {
+    currentSetting = invertDarkModeObj[getModeFromCSSMediaQuery()];
+  } else {
+    return;
+  }
+  setLS(darkModeStorageKey, currentSetting);
+  return currentSetting;
+};
+
+/**
+ * bind click event for toggle button
+ */
+var btn=$("#wrapper .toggle-mode-btn,#rightmenu-wrapper .toggle-mode-btn");
+function bindToggleButton() {
+    btn.on('click',(e) => {
+      const mode = toggleCustomDarkMode();
+      applyCustomDarkModeSettings(mode);
+    });
+}
+
+applyCustomDarkModeSettings();
+document.addEventListener("DOMContentLoaded", bindToggleButton);
+volantis.pjax.push(bindToggleButton);
+volantis.pjax.send(()=>{
+	btn.unbind('click');
+},'toggle-mode-btn-unbind');
+</script>
+
+
+
+
+
+
+
+
+<script>
+function listennSidebarTOC() {
+  const navItems = document.querySelectorAll(".toc li");
+  if (!navItems.length) return;
+  const sections = [...navItems].map((element) => {
+    const link = element.querySelector(".toc-link");
+    const target = document.getElementById(
+      decodeURI(link.getAttribute("href")).replace("#", "")
+    );
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      window.scrollTo({
+		top: target.offsetTop + 100,
+		
+		behavior: "smooth"
+		
+	  });
+    });
+    return target;
+  });
+
+  function activateNavByIndex(target) {
+    if (target.classList.contains("active-current")) return;
+
+    document.querySelectorAll(".toc .active").forEach((element) => {
+      element.classList.remove("active", "active-current");
+    });
+    target.classList.add("active", "active-current");
+    let parent = target.parentNode;
+    while (!parent.matches(".toc")) {
+      if (parent.matches("li")) parent.classList.add("active");
+      parent = parent.parentNode;
+    }
+  }
+
+  function findIndex(entries) {
+    let index = 0;
+    let entry = entries[index];
+    if (entry.boundingClientRect.top > 0) {
+      index = sections.indexOf(entry.target);
+      return index === 0 ? 0 : index - 1;
+    }
+    for (; index < entries.length; index++) {
+      if (entries[index].boundingClientRect.top <= 0) {
+        entry = entries[index];
+      } else {
+        return sections.indexOf(entry.target);
+      }
+    }
+    return sections.indexOf(entry.target);
+  }
+
+  function createIntersectionObserver(marginTop) {
+    marginTop = Math.floor(marginTop + 10000);
+    let intersectionObserver = new IntersectionObserver(
+      (entries, observe) => {
+        let scrollHeight = document.documentElement.scrollHeight + 100;
+        if (scrollHeight > marginTop) {
+          observe.disconnect();
+          createIntersectionObserver(scrollHeight);
+          return;
+        }
+        let index = findIndex(entries);
+        activateNavByIndex(navItems[index]);
+      },
+      {
+        rootMargin: marginTop + "px 0px -100% 0px",
+        threshold: 0,
+      }
+    );
+    sections.forEach((element) => {
+      element && intersectionObserver.observe(element);
+    });
+  }
+  createIntersectionObserver(document.documentElement.scrollHeight);
+}
+
+document.addEventListener("DOMContentLoaded", listennSidebarTOC);
+document.addEventListener("pjax:success", listennSidebarTOC);
+</script>
+
+<!-- more -->
+
+  
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yeshan333/jsDelivrCDN/piao.js" />
+
+  <script type="text/javascript" src="https://cdn.staticfile.org/jquery/1.7.2/jquery.min.js" />
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yeshan333/jsDelivrCDN/attatkmouse.js" />
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yeshan333/jsDelivrCDN/clearbit.js" />
+
+  <script async defer data-domain="shansan.top" src="https://plausible.io/js/plausible.js" />
+
+
+
+ 
+	  
+    </div>
+  </body>
+</html>
