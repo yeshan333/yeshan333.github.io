@@ -15,8 +15,37 @@
     <atom:link href="https://yeshan333.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>ShanSan&#39;s Blog</description>
-    <pubDate>Wed, 29 Jun 2022 23:14:26 GMT</pubDate>
+    <pubDate>Wed, 31 Aug 2022 22:43:10 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>the-solution-of-elixir-continuous-runtime-system-code-coverage-collection</title>
+      <link>https://yeshan333.github.io/2022/08/31/the-solution-of-elixir-continuous-runtime-system-code-coverage-collection/</link>
+      <guid>https://yeshan333.github.io/2022/08/31/the-solution-of-elixir-continuous-runtime-system-code-coverage-collection/</guid>
+      <pubDate>Wed, 31 Aug 2022 22:43:10 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot;</description>
+          
+        
+      
+      
+      
+      
+      <category domain="https://yeshan333.github.io/categories/Elixir/">Elixir</category>
+      
+      
+      <category domain="https://yeshan333.github.io/tags/Elixir/">Elixir</category>
+      
+      <category domain="https://yeshan333.github.io/tags/Test-Coverage/">Test Coverage</category>
+      
+      
+      <comments>https://yeshan333.github.io/2022/08/31/the-solution-of-elixir-continuous-runtime-system-code-coverage-collection/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>Elixir 连续运行时代码覆盖率采集方案</title>
@@ -393,13 +422,13 @@
 &lt;!-- 我们都一样 --&gt;
 
 
-    &lt;div id=&quot;aplayer-cDjxnQGh&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+    &lt;div id=&quot;aplayer-JoznCimx&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
          data-id=&quot;1340001174&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;true&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
     &gt;&lt;/div&gt;
 
 
 
-    &lt;div id=&quot;aplayer-rnSkqUoE&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+    &lt;div id=&quot;aplayer-enbUjjtt&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
          data-id=&quot;191252&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;false&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
     &gt;&lt;/div&gt;</description>
       
@@ -544,39 +573,6 @@
       
       
       <comments>https://yeshan333.github.io/2021/09/25/common-use-linux-network-command/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>基于 Docker 搭建一个最小化的 Prometheus Federation「联邦」集群</title>
-      <link>https://yeshan333.github.io/2021/08/28/prometheus-federation/</link>
-      <guid>https://yeshan333.github.io/2021/08/28/prometheus-federation/</guid>
-      <pubDate>Sat, 28 Aug 2021 17:25:18 GMT</pubDate>
-      
-      <description>&lt;blockquote&gt;
-&lt;p&gt;一不小心就八月末了，我敲，最近大部分的时间都在了解 Prometheus，一直想“搂”篇文章出来，奈何一直在墨迹，是时候了，不然就九月了，完不成博客的 Flag 了，233333。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;本篇文章主要介绍了 Promethues Federation 集群化机制 &amp;amp; 基于 Docker 搭建一个最小化的 Prometheus Federation 集群娱乐环境的相关操作。不是 Step By Step 的。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/yeshan333/blog_images@main/images/%E4%B9%B1%E6%9D%80.gif&quot; alt=&quot;乱杀&quot;&gt;&lt;/p&gt;</description>
-      
-      
-      
-      
-      <category domain="https://yeshan333.github.io/categories/Monitoring/">Monitoring</category>
-      
-      
-      <category domain="https://yeshan333.github.io/tags/Prometheus/">Prometheus</category>
-      
-      <category domain="https://yeshan333.github.io/tags/Grafana/">Grafana</category>
-      
-      <category domain="https://yeshan333.github.io/tags/Federation/">Federation</category>
-      
-      <category domain="https://yeshan333.github.io/tags/Docker/">Docker</category>
-      
-      <category domain="https://yeshan333.github.io/tags/Monitoring/">Monitoring</category>
-      
-      
-      <comments>https://yeshan333.github.io/2021/08/28/prometheus-federation/#disqus_thread</comments>
       
     </item>
     
