@@ -11,7 +11,7 @@
     
     <url>
         <loc>https://yeshan333.github.io/categories/</loc>
-        <lastmod>2022-10-09T08:53:31.855Z</lastmod>
+        <lastmod>2022-10-09T08:58:18.773Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
@@ -20,16 +20,7 @@
     
     <url>
         <loc>https://yeshan333.github.io/tags/</loc>
-        <lastmod>2022-10-09T08:53:31.855Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    
-    
-    
-    <url>
-        <loc>https://yeshan333.github.io/404.html</loc>
-        <lastmod>2022-10-09T08:53:31.847Z</lastmod>
+        <lastmod>2022-10-09T08:58:18.773Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
@@ -38,7 +29,16 @@
     
     <url>
         <loc>https://yeshan333.github.io/PyChina/</loc>
-        <lastmod>2022-10-09T08:53:31.847Z</lastmod>
+        <lastmod>2022-10-09T08:58:18.765Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    
+    
+    <url>
+        <loc>https://yeshan333.github.io/404.html</loc>
+        <lastmod>2022-10-09T08:58:18.761Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
