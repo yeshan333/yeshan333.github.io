@@ -217,14 +217,6 @@ button {
     backdrop-filter: saturate(200%) blur(20px);
   }
 }
-@supports (backdrop-filter: blur(20px)) {
-  .blur#comments {
-    backdrop-filter: unset;
-  }
-}
-#layoutHelper-comments {
-  margin-bottom: 100px;
-}
 .shadow {
   box-shadow: 0 1px 2px 0px rgba(0,0,0,0.1);
   -webkit-box-shadow: 0 1px 2px 0px rgba(0,0,0,0.1);
@@ -1919,7 +1911,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1667633512499),
+    lastupdate: new Date(1667638776018),
     sidebar: {
       for_page: ["blogger","webinfo","category","tagcloud","wonderful_link","qrcode","my_follow"],
       for_post: ["toc"],
@@ -2901,6 +2893,18 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
             
 
 
+<div class="new-meta-item browse">
+  <a class='notlink'>
+    <p>
+      <i class="fa-solid fa-eye fa-fw" aria-hidden="true"></i>
+      
+      <span id="busuanzi_value_page_pv"><i class="fa-solid fa-loader fa-spin fa-fw" aria-hidden="true"></i></span>
+      
+      <span>次浏览</span>
+    </p>
+  </a>
+</div>
+
 
           
         
@@ -2941,13 +2945,13 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <div class="timenode"><div class="meta"><p><p>2020-03-11 Hexo 主题升级</p>
 </p></div><div class="body"><p>主题升级至<a target="_blank" rel="noopener" href="https://volantis.js.org/">volantis@2.0.2</a>(原material-x主题改名了)，紧跟dalao更新步伐</p></div></div>
 
-<div class="timenode"><div class="meta"><p><p>2020-04-29 <a href="mailto:&#118;&#111;&#x6c;&#x61;&#110;&#116;&#x69;&#115;&#x40;&#x32;&#x2e;&#x30;&#46;&#50;">&#118;&#111;&#x6c;&#x61;&#110;&#116;&#x69;&#115;&#x40;&#x32;&#x2e;&#x30;&#46;&#50;</a> -&gt; <a href="mailto:&#x76;&#111;&#x6c;&#x61;&#x6e;&#116;&#105;&#x73;&#x40;&#50;&#46;&#54;&#46;&#53;">&#x76;&#111;&#x6c;&#x61;&#x6e;&#116;&#105;&#x73;&#x40;&#50;&#46;&#54;&#46;&#53;</a></p>
+<div class="timenode"><div class="meta"><p><p>2020-04-29 <a href="mailto:&#x76;&#x6f;&#x6c;&#x61;&#110;&#116;&#x69;&#x73;&#64;&#50;&#x2e;&#48;&#x2e;&#x32;">&#x76;&#x6f;&#x6c;&#x61;&#110;&#116;&#x69;&#x73;&#64;&#50;&#x2e;&#48;&#x2e;&#x32;</a> -&gt; <a href="mailto:&#118;&#111;&#108;&#97;&#110;&#116;&#105;&#115;&#64;&#x32;&#x2e;&#54;&#x2e;&#x35;">&#118;&#111;&#108;&#97;&#110;&#116;&#105;&#115;&#64;&#x32;&#x2e;&#54;&#x2e;&#x35;</a></p>
 </p></div><div class="body"></div></div>
 
 <div class="timenode"><div class="meta"><p><p>2021-01-18 云服务器博客同步引入 CI/CD</p>
 </p></div><div class="body"><p>写了个基于 rsync 协议的 GitHub Action 用于 CD 博客到 CVM 服务器，博文👉<a target="_blank" rel="noopener" href="https://shan333.cn/2021/01/19/hexo-blog-synchronization-with-rsync/">使用 rsync-deploy-action 同步 Hexo 博客到个人服务器</a></p></div></div>
 
-<div class="timenode"><div class="meta"><p><p>2021-03-10 <a href="mailto:&#x76;&#111;&#x6c;&#x61;&#x6e;&#116;&#x69;&#x73;&#x40;&#x32;&#46;&#54;&#46;&#53;">&#x76;&#111;&#x6c;&#x61;&#x6e;&#116;&#x69;&#x73;&#x40;&#x32;&#46;&#54;&#46;&#53;</a> -&gt; <a href="mailto:&#x76;&#111;&#108;&#x61;&#x6e;&#x74;&#x69;&#115;&#x40;&#x34;&#46;&#51;&#46;&#x31;">&#x76;&#111;&#108;&#x61;&#x6e;&#x74;&#x69;&#115;&#x40;&#x34;&#46;&#51;&#46;&#x31;</a>，hexo@4.0.0 -&gt; <a href="mailto:&#104;&#x65;&#x78;&#111;&#x40;&#53;&#x2e;&#52;&#46;&#48;">&#104;&#x65;&#x78;&#111;&#x40;&#53;&#x2e;&#52;&#46;&#48;</a></p>
+<div class="timenode"><div class="meta"><p><p>2021-03-10 <a href="mailto:&#x76;&#x6f;&#108;&#97;&#110;&#x74;&#105;&#x73;&#64;&#x32;&#x2e;&#54;&#46;&#53;">&#x76;&#x6f;&#108;&#97;&#110;&#x74;&#105;&#x73;&#64;&#x32;&#x2e;&#54;&#46;&#53;</a> -&gt; <a href="mailto:&#118;&#x6f;&#x6c;&#97;&#110;&#x74;&#105;&#115;&#64;&#x34;&#46;&#x33;&#46;&#x31;">&#118;&#x6f;&#x6c;&#97;&#110;&#x74;&#105;&#115;&#64;&#x34;&#46;&#x33;&#46;&#x31;</a>，hexo@4.0.0 -&gt; <a href="mailto:&#104;&#x65;&#x78;&#x6f;&#x40;&#53;&#x2e;&#52;&#46;&#x30;">&#104;&#x65;&#x78;&#x6f;&#x40;&#53;&#x2e;&#52;&#46;&#x30;</a></p>
 </p></div><div class="body"></div></div>
 
 <div class="timenode"><div class="meta"><p><p>2021-06-25 切换评论系统 valine -&gt; waline</p>
@@ -3308,7 +3312,17 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         本站使用
         <a href="https://github.com/volantis-x/hexo-theme-volantis/#5.7.6" target="_blank" class="codename">Volantis</a>
-        作为主题
+        作为主题，总访问量为
+          <span id="busuanzi_value_site_pv"><i class="fa-solid fa-loader fa-spin fa-fw" aria-hidden="true"></i></span>
+          次
+        
+      
+    
+      
+        
+          <div><p><span id="lc-sv">本站总访问量为 <span id='number'><i class="fa-solid fa-loader fa-spin fa-fw" aria-hidden="true"></i></span> 次</span></p>
+</div>
+        
       
     
       
@@ -3997,55 +4011,76 @@ window.matchMedia('(prefers-color-scheme: light)').addListener(darkModelListener
 
 
       <script>
-  volantis.layoutHelper("comments",`<div id="waline"><i class="fa-solid fa-cog fa-spin fa-fw fa-2x"></i></div>`)
-  
-  function pjax_waline() {
-    if(!document.querySelector("#waline"))return;
-    let locale = {};
+  volantis.layoutHelper("comments",`<div id="artalk_container"><i class="fa-solid fa-cog fa-spin fa-fw fa-2x"></i></div>`);
+  function load_artalk() {
+    if(!document.querySelectorAll("#artalk_container")[0])return;
+    volantis.css("https://cdn.bootcdn.net/ajax/libs/artalk/2.4.3/Artalk.css");
+    volantis.js("https://cdn.bootcdn.net/ajax/libs/artalk/2.4.3/Artalk.js").then(pjax_artalk);
+  }
+
+  function pjax_artalk() {
+    if(!document.querySelectorAll("#artalk_container")[0])return;
     let path = pdata.commentPath;
-    let pagePlaceholder = pdata.commentPlaceholder || "快来评论吧";
+    let placeholder = pdata.commentPlaceholder || "" || "";
     if (path.length == 0) {
-      let defaultPath = '';
-      path = defaultPath || decodeURI(window.location.pathname);
+      path = '' || decodeURI(window.location.pathname);
     }
-    if(pagePlaceholder.length != 0) {
-      locale.placeholder = pagePlaceholder;
+    if(!':year/:month/:day/:title/'.includes('/index.html')) {
+      path = path.replaceAll('/index.html', '/').replaceAll('.html', '')
     }
 
-    try {
-      Waline.init(Object.assign(Object.assign({"js":"https://unpkg.com/@waline/client@v2/dist/waline.js","css":"https://unpkg.com/@waline/client@v2/dist/waline.css","path":null,"placeholder":"快来评论吧","serverURL":"https://yeshan333-waline.vercel.app","imageUploader":{"api":null,"token":null,"resp":null},"pageview":false,"comment":true}, {
-        el: '#waline',
-        path: path,
-        // https://github.com/volantis-x/hexo-theme-volantis/issues/713
-        
-        locale,
-      }),pdata.commentConfig));
-    } catch (error) {
-      alert(`Waline ${error}`)
-    }
-    fancybox_waline()
-  }
+    volantis.artalk = new Artalk(Object.assign({"js":"https://cdn.bootcdn.net/ajax/libs/artalk/2.4.3/Artalk.js","css":"https://cdn.bootcdn.net/ajax/libs/artalk/2.4.3/Artalk.css","server":"http://1.12.42.92:2333/api","path":null,"placeholder":null,"imageUploader":{"api":null,"token":null,"resp":null}}, {
+      el: '#artalk_container',
+      pageKey: path,
+      pageTitle: document.title,
+      placeholder: placeholder,
+      useBackendConf: true,
+      site: 'ShanSan',
+      darkMode: volantis.dark.mode === "dark",
+      pvEl: '#artalk_visitors',
 
-  function fancybox_waline() {
-    if(typeof VolantisFancyBox === "undefined") {
-      const checkFancyBox = setInterval(() => {
-        if(typeof VolantisFancyBox === "undefined") return;
-        clearInterval(checkFancyBox);
-        VolantisFancyBox.bind('#waline .wl-content img:not(.wl-emoji)');
+      
+    }));
+
+    Artalk.use(ctx => {
+      ctx.on('list-loaded', () => {
+        if (typeof VolantisFancyBox === "undefined"){
+          const checkFancyBox = setInterval(() => {
+            if(typeof VolantisFancyBox === "undefined") return;
+            clearInterval(checkFancyBox);
+            VolantisFancyBox.groupBind('.atk-content img:not([atk-emoticon])', 'Comments');
+          })
+        } else {
+          VolantisFancyBox.groupBind('.atk-content img:not([atk-emoticon])', 'Comments');
+        }
       })
-    } else {
-      VolantisFancyBox.bind('#waline .wl-content img:not(.wl-emoji)');
-    }
+    })
   }
 
-  volantis.css('https://unpkg.com/@waline/client@v2/dist/waline.css')
-  volantis.js('https://unpkg.com/@waline/client@v2/dist/waline.js').then(pjax_waline)
-  volantis.pjax.push(pjax_waline);
+  load_artalk();
+  volantis.pjax.push(()=>{
+    if (typeof Artalk === "undefined") {
+      load_artalk();
+    } else {
+      pjax_artalk();
+    }
+  },'artalk');
+
+  function dark_artalk() {
+    if(!document.querySelectorAll("#artalk_container")[0]) return;
+    volantis.artalk.then(ctx => {
+      ctx.setDarkMode(volantis.dark.mode === "dark")
+    })
+  }
+  volantis.dark.push(dark_artalk);
 </script>
+
     
 
 
 
+
+  <script defer src="https://unpkg.com/volantis-static@0.0.1654736714924/libs/busuanzi/js/busuanzi.pure.mini.js" data-pjax></script>
 
 
 <!-- optional -->
