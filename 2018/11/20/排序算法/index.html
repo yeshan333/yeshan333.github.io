@@ -1908,7 +1908,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1667668354251),
+    lastupdate: new Date(1667741437447),
     sidebar: {
       for_page: ["blogger","webinfo","category","tagcloud","wonderful_link","qrcode","my_follow"],
       for_post: ["toc"],
@@ -2970,7 +2970,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       <div class="vlts-rps"><a class="item" href="/2018/10/02/ACM入门/" title="ACM入门（占个位）" rel="bookmark "><img src="https://gcore.jsdelivr.net/gh/MHG-LAB/cron@gh-pages/bing/bing.jpg" class="lazyload" data-srcset="https://gcore.jsdelivr.net/gh/MHG-LAB/cron@gh-pages/bing/bing.jpg" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">ACM入门（占个位）</span><span class="excerpt">A+B for Input-Output Practice(using C++)1.
 
 
-Problem Descript...</span></a><a class="item" href="/2018/11/19/二分查找/" title="二分查找" rel="bookmark "><img src="https://img.vim-cn.com/ea/4e858038b377ee0c3ff1d6539001791b4a7644.jpg" class="lazyload" data-srcset="https://img.vim-cn.com/ea/4e858038b377ee0c3ff1d6539001791b4a7644.jpg" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">二分查找</span></a></div></section></div>
+Problem Descript...</span></a><a class="item" href="/2018/11/19/二分查找/" title="二分查找" rel="bookmark "><img src="https://pic1.imgdb.cn/item/6367af5816f2c2beb1891990.jpg" class="lazyload" data-srcset="https://pic1.imgdb.cn/item/6367af5816f2c2beb1891990.jpg" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">二分查找</span></a></div></section></div>
       
       <!-- 版权声明组件 -->
       
@@ -4187,6 +4187,41 @@ window.matchMedia('(prefers-color-scheme: light)').addListener(darkModelListener
   volantis.requestAnimationFrame(pjax_highlightjs_copyCode)
   volantis.pjax.push(pjax_highlightjs_copyCode)
 
+</script>
+
+
+
+
+
+
+  
+
+
+
+
+<script>
+  const genUuid = () => {
+    let s = [];
+    let hexDigits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    for (let i = 0; i < 36; i++) {
+      s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1)
+    }
+    s[14] = "4"
+    s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1)
+    s[8] = s[13] = s[18] = s[23] = "-"
+    let uuid = s.join("")
+    return uuid;
+  }
+  setTimeout(() => {
+    let uin = localStorage.getItem('Aegis_UIN');
+    if(!uin) {
+      uin = genUuid();
+      localStorage.setItem('Aegis_UIN', uin);
+    }
+    volantis.js("https://cdn-go.cn/aegis/aegis-sdk/latest/aegis.min.js").then(()=>{
+      const aegis=new Aegis({id:"YrvKLIbY6p854Lqnb4",reportApiSpeed:true,reportAssetSpeed:true,spa:true,uin:uin});
+    })
+  }, 1000)
 </script>
 
 

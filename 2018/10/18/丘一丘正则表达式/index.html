@@ -1914,7 +1914,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1667668354251),
+    lastupdate: new Date(1667741437447),
     sidebar: {
       for_page: ["blogger","webinfo","category","tagcloud","wonderful_link","qrcode","my_follow"],
       for_post: ["toc"],
@@ -3474,7 +3474,7 @@ namespace namespace_name
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="toc-text">正则表达式常用操作符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B2%BE%E7%A1%AE%E5%8C%B9%E9%85%8D"><span class="toc-text">精确匹配</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%AB%98%E9%98%B6%E7%B2%BE%E7%A1%AE%E5%8C%B9%E9%85%8D-%E7%BB%8F%E5%85%B8%E5%AE%9E%E4%BE%8B"><span class="toc-text">高阶精确匹配,经典实例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#re%E5%BA%93%E5%8A%9F%E8%83%BD%E5%87%BD%E6%95%B0"><span class="toc-text">re库功能函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#re%E5%BA%93%E7%9A%84%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%94%A8%E6%B3%95"><span class="toc-text">re库的面向对象用法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#re%E5%BA%93%E7%9A%84Match%E5%AF%B9%E8%B1%A1"><span class="toc-text">re库的Match对象</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Match%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%B1%9E%E6%80%A7"><span class="toc-text">Match对象的属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Match%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-text">Match对象的方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#re%E5%BA%93%E7%9A%84%E8%B4%AA%E5%A9%AA%E5%8C%B9%E9%85%8D%E5%92%8C%E6%9C%80%E5%B0%8F%E5%8C%B9%E9%85%8D"><span class="toc-text">re库的贪婪匹配和最小匹配</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F-regular-expression-regex-RE"><span class="toc-text">正则表达式(regular expression,regex,RE)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="toc-text">正则表达式常用操作符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B2%BE%E7%A1%AE%E5%8C%B9%E9%85%8D"><span class="toc-text">精确匹配</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%AB%98%E9%98%B6%E7%B2%BE%E7%A1%AE%E5%8C%B9%E9%85%8D-%E7%BB%8F%E5%85%B8%E5%AE%9E%E4%BE%8B"><span class="toc-text">高阶精确匹配,经典实例</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#python%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%A8%A1%E5%9D%97%EF%BC%8C%EF%BC%88Re%E6%A8%A1%E5%9D%97%EF%BC%89"><span class="toc-text">python正则表达式模块，（Re模块）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#re%E5%BA%93%E5%8A%9F%E8%83%BD%E5%87%BD%E6%95%B0"><span class="toc-text">re库功能函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#re%E5%BA%93%E7%9A%84%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%94%A8%E6%B3%95"><span class="toc-text">re库的面向对象用法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#re%E5%BA%93%E7%9A%84Match%E5%AF%B9%E8%B1%A1"><span class="toc-text">re库的Match对象</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Match%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%B1%9E%E6%80%A7"><span class="toc-text">Match对象的属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Match%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-text">Match对象的方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#re%E5%BA%93%E7%9A%84%E8%B4%AA%E5%A9%AA%E5%8C%B9%E9%85%8D%E5%92%8C%E6%9C%80%E5%B0%8F%E5%8C%B9%E9%85%8D"><span class="toc-text">re库的贪婪匹配和最小匹配</span></a></li></ol></li></ol>
     </div>
   </section>
 
@@ -4482,6 +4482,41 @@ window.matchMedia('(prefers-color-scheme: light)').addListener(darkModelListener
   volantis.requestAnimationFrame(pjax_highlightjs_copyCode)
   volantis.pjax.push(pjax_highlightjs_copyCode)
 
+</script>
+
+
+
+
+
+
+  
+
+
+
+
+<script>
+  const genUuid = () => {
+    let s = [];
+    let hexDigits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    for (let i = 0; i < 36; i++) {
+      s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1)
+    }
+    s[14] = "4"
+    s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1)
+    s[8] = s[13] = s[18] = s[23] = "-"
+    let uuid = s.join("")
+    return uuid;
+  }
+  setTimeout(() => {
+    let uin = localStorage.getItem('Aegis_UIN');
+    if(!uin) {
+      uin = genUuid();
+      localStorage.setItem('Aegis_UIN', uin);
+    }
+    volantis.js("https://cdn-go.cn/aegis/aegis-sdk/latest/aegis.min.js").then(()=>{
+      const aegis=new Aegis({id:"YrvKLIbY6p854Lqnb4",reportApiSpeed:true,reportAssetSpeed:true,spa:true,uin:uin});
+    })
+  }, 1000)
 </script>
 
 

@@ -1915,7 +1915,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1667668354251),
+    lastupdate: new Date(1667741437447),
     sidebar: {
       for_page: ["blogger","webinfo","category","tagcloud","wonderful_link","qrcode","my_follow"],
       for_post: ["toc"],
@@ -2942,7 +2942,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <p>后端服务的基础环境搭建好了，随手写个路由，看下能不能用先</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># app.py</span></span><br><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/&#x27;</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">index</span>():</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;&lt;h1&gt;Hello React+Flask!&lt;/h1&gt;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    app.run(<span class="string">&#x27;127.0.0.1&#x27;</span>, port=<span class="number">5000</span>, debug=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://img.vim-cn.com/03/9b18cb0cd65b8249a0e9069d4845e6d27744af.png" class="lazyload" data-srcset="https://img.vim-cn.com/03/9b18cb0cd65b8249a0e9069d4845e6d27744af.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="效果.png"></p>
+<p><img src="https://pic1.imgdb.cn/item/6367a11a16f2c2beb16e86ad.jpg" class="lazyload" data-srcset="https://pic1.imgdb.cn/item/6367a11a16f2c2beb16e86ad.jpg" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="效果.png"></p>
 <h1 id="Frontend-React"><a href="#Frontend-React" class="headerlink" title="Frontend-React"></a>Frontend-React</h1><blockquote>
 <p>前端React应用的开发环境使用官方提供的脚手架<a target="_blank" rel="noopener" href="https://zh-hans.reactjs.org/docs/create-a-new-react-app.html#create-react-app">create-react-app</a>搭建。</p>
 </blockquote>
@@ -2953,7 +2953,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//index.js</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">ReactDOM</span> <span class="keyword">from</span> <span class="string">&#x27;react-dom&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">App</span> <span class="keyword">extends</span> <span class="title class_ inherited__">React.Component</span> &#123;</span><br><span class="line">    <span class="title function_">render</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;container&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;<span class="name">h1</span> <span class="attr">className</span>=<span class="string">&quot;center-align&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                    盒装一流弊<span class="tag">&lt;<span class="name">br</span>/&gt;</span></span></span><br><span class="line"><span class="language-xml">                    <span class="tag">&lt;<span class="name">span</span> <span class="attr">className</span>=<span class="string">&quot;waves-effect waves-light btn&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                        <span class="tag">&lt;<span class="name">i</span> <span class="attr">className</span>=<span class="string">&quot;material-icons right&quot;</span>&gt;</span>cloud<span class="tag">&lt;/<span class="name">i</span>&gt;</span>您说的都对</span></span><br><span class="line"><span class="language-xml">                    <span class="tag">&lt;/<span class="name">span</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title class_">ReactDOM</span>.<span class="title function_">render</span>(<span class="language-xml"><span class="tag">&lt;<span class="name">App</span> /&gt;</span></span>, <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;root&#x27;</span>))</span><br></pre></td></tr></table></figure>
 
 <p>OK，预览下效果，顺便调试（没啥可调试的/(ㄒoㄒ)/~~）。<code>npm start</code>。效果如下：</p>
-<p><img src="https://img.vim-cn.com/e5/a82817a8d6d3d240674cef5c65e955b929aba1.png" class="lazyload" data-srcset="https://img.vim-cn.com/e5/a82817a8d6d3d240674cef5c65e955b929aba1.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="React App预览效果.png"></p>
+<p><img src="https://pic1.imgdb.cn/item/6367a12b16f2c2beb16e99dd.jpg" class="lazyload" data-srcset="https://pic1.imgdb.cn/item/6367a12b16f2c2beb16e99dd.jpg" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="React App预览效果.png"></p>
 <p>没多大问题的话，是时候打包写好的React App给后端服务了。</p>
 <h1 id="Done"><a href="#Done" class="headerlink" title="Done"></a>Done</h1><p>很舒服的是<a target="_blank" rel="noopener" href="https://create-react-app.dev/docs/deployment">create-react-app</a>封装好了 Babel 和 webpack，我们可以直接使用<code>npm run build</code>打包写好的App到frontend/build目录中。然后手动将生成的文件分别挪到Flask的<a target="_blank" rel="noopener" href="https://exploreflask.com/en/latest/templates.html">templates</a>和<a target="_blank" rel="noopener" href="https://exploreflask.com/en/latest/static.html">static</a>目录中即可。<strong>等等？手动</strong>，能不能使用CLI，dang然阔以。</p>
 <p>npm 允许我们在package.json文件里面，使用scripts字段自定义脚本命令。更舒服的是<code>npm script</code>提供了<code>pre</code>和<code>post</code>钩子。我们可以给<code>build</code>脚本命令提供两个钩子<code>prebuild</code>和<code>postbuild</code>。编辑后的<code>package.json</code>文件的Script命令如下如下：</p>
@@ -2963,11 +2963,11 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">rm</span> -rf ..\\templates\\index.html &amp;&amp; <span class="built_in">rm</span> -rf ..\\static</span><br><span class="line">react-scripts build</span><br><span class="line"><span class="built_in">mv</span> build\\index.html ..\\templates\\ &amp;&amp;  <span class="built_in">mv</span> build\\static ..\\static</span><br></pre></td></tr></table></figure>
 
 <p>OK，我们试试。如下：</p>
-<p><img src="https://img.vim-cn.com/a1/be51d238380ead4e8c6d6b6fba6eb0bbe55c5e.gif" class="lazyload" data-srcset="https://img.vim-cn.com/a1/be51d238380ead4e8c6d6b6fba6eb0bbe55c5e.gif" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="示范.gif"></p>
+<p><img src="https://pic1.imgdb.cn/item/6367a1c116f2c2beb16f6008.gif" class="lazyload" data-srcset="https://pic1.imgdb.cn/item/6367a1c116f2c2beb16f6008.gif" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="示范.gif"></p>
 <p>Nice，没毛病。🎉🎉🎉。改下<code>app.py</code>:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, render_template</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/&#x27;</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">index</span>():</span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">&#x27;index.html&#x27;</span>)  <span class="comment"># 渲染打包好的React App的页面</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    app.run(<span class="string">&#x27;127.0.0.1&#x27;</span>, port=<span class="number">5000</span>, debug=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://img.vim-cn.com/06/aa0b2dc80df8c8bfc021e57a93981fe07acc02.png" class="lazyload" data-srcset="https://img.vim-cn.com/06/aa0b2dc80df8c8bfc021e57a93981fe07acc02.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="效果.png"></p>
+<p><img src="https://pic1.imgdb.cn/item/6367a1e216f2c2beb16fbeb6.png" class="lazyload" data-srcset="https://pic1.imgdb.cn/item/6367a1e216f2c2beb16fbeb6.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="效果.png"></p>
 <p><strong>冇问题啊！收工！！！</strong></p>
 <h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
 <li><a target="_blank" rel="noopener" href="https://zh-hans.reactjs.org/docs/create-a-new-react-app.html#create-react-app">React Docs</a></li>
@@ -3179,7 +3179,7 @@ Jinja2模板中文文档
       
       
         <a class='next' href='/2019/12/31/2019%E5%B9%B4%E6%80%BB%E7%BB%93/'>
-          <p class='title'>2019年总结<i class="fa-solid fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='title'>2019 年总结<i class="fa-solid fa-chevron-right" aria-hidden="true"></i></p>
           <p class='content'>
 
 
@@ -3242,7 +3242,7 @@ Jinja2模板中文文档
 
 
     <div class='content'>
-        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Backend-Flask"><span class="toc-text">Backend-Flask</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Frontend-React"><span class="toc-text">Frontend-React</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Done"><span class="toc-text">Done</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#References"><span class="toc-text">References</span></a></li></ol>
     </div>
   </section>
 
@@ -4250,6 +4250,41 @@ window.matchMedia('(prefers-color-scheme: light)').addListener(darkModelListener
   volantis.requestAnimationFrame(pjax_highlightjs_copyCode)
   volantis.pjax.push(pjax_highlightjs_copyCode)
 
+</script>
+
+
+
+
+
+
+  
+
+
+
+
+<script>
+  const genUuid = () => {
+    let s = [];
+    let hexDigits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    for (let i = 0; i < 36; i++) {
+      s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1)
+    }
+    s[14] = "4"
+    s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1)
+    s[8] = s[13] = s[18] = s[23] = "-"
+    let uuid = s.join("")
+    return uuid;
+  }
+  setTimeout(() => {
+    let uin = localStorage.getItem('Aegis_UIN');
+    if(!uin) {
+      uin = genUuid();
+      localStorage.setItem('Aegis_UIN', uin);
+    }
+    volantis.js("https://cdn-go.cn/aegis/aegis-sdk/latest/aegis.min.js").then(()=>{
+      const aegis=new Aegis({id:"YrvKLIbY6p854Lqnb4",reportApiSpeed:true,reportAssetSpeed:true,spa:true,uin:uin});
+    })
+  }, 1000)
 </script>
 
 

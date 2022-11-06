@@ -1908,7 +1908,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1667668354251),
+    lastupdate: new Date(1667741437447),
     sidebar: {
       for_page: ["blogger","webinfo","category","tagcloud","wonderful_link","qrcode","my_follow"],
       for_post: ["toc"],
@@ -3160,7 +3160,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
 
     <div class='content'>
-        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%90%AD%E5%BB%BA%E4%BE%9D%E6%89%98%E4%BA%8E%E6%88%91%E7%9A%84%E4%B8%AA%E4%BA%BA%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E5%8D%9A%E5%AE%A2"><span class="toc-text">搭建依托于我的个人服务器的博客</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8Etypecho%E6%90%AD%E5%BB%BA%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2"><span class="toc-text">基于typecho搭建的个人博客</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF%E5%AE%89%E8%A3%85"><span class="toc-text">宝塔面板安装</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BD%91%E7%AB%99%E6%90%AD%E5%BB%BA"><span class="toc-text">网站搭建</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%97%AF%EF%BC%8C%E6%8E%A5%E4%B8%8B%E6%9D%A5%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%EF%BC%8C%E8%BF%99%E9%87%8C%E4%BD%BF%E7%94%A8%E5%AE%9D%E5%A1%94%E5%90%8E%E5%8F%B0%E6%97%A0%E8%84%91%E5%AE%89%E8%A3%85-%E4%B8%8D%E5%A5%BD%E6%84%8F%E6%80%9D%EF%BC%8C%E6%88%91%E5%A4%AA%E8%8F%9C-%E8%BF%98%E6%98%AF%E7%94%A8%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%93%8D%E4%BD%9C%E5%90%A7"><span class="toc-text">嗯，接下来搭建博客，这里使用宝塔后台无脑安装(不好意思，我太菜),还是用命令行操作吧</span></a></li></ol>
     </div>
   </section>
 
@@ -4168,6 +4168,41 @@ window.matchMedia('(prefers-color-scheme: light)').addListener(darkModelListener
   volantis.requestAnimationFrame(pjax_highlightjs_copyCode)
   volantis.pjax.push(pjax_highlightjs_copyCode)
 
+</script>
+
+
+
+
+
+
+  
+
+
+
+
+<script>
+  const genUuid = () => {
+    let s = [];
+    let hexDigits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    for (let i = 0; i < 36; i++) {
+      s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1)
+    }
+    s[14] = "4"
+    s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1)
+    s[8] = s[13] = s[18] = s[23] = "-"
+    let uuid = s.join("")
+    return uuid;
+  }
+  setTimeout(() => {
+    let uin = localStorage.getItem('Aegis_UIN');
+    if(!uin) {
+      uin = genUuid();
+      localStorage.setItem('Aegis_UIN', uin);
+    }
+    volantis.js("https://cdn-go.cn/aegis/aegis-sdk/latest/aegis.min.js").then(()=>{
+      const aegis=new Aegis({id:"YrvKLIbY6p854Lqnb4",reportApiSpeed:true,reportAssetSpeed:true,spa:true,uin:uin});
+    })
+  }, 1000)
 </script>
 
 

@@ -1949,7 +1949,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1667668354251),
+    lastupdate: new Date(1667741437447),
     sidebar: {
       for_page: ["blogger","webinfo","category","tagcloud","wonderful_link","qrcode","my_follow"],
       for_post: ["toc"],
@@ -3426,7 +3426,7 @@ req...</p>
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%AB%E6%8D%B7%E9%94%AE"><span class="toc-text">快捷键</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87%E6%97%B6%E9%97%B4%E5%8F%AF%E4%BD%BF%E7%94%A8MarkdownPad2%E9%BB%98%E8%AE%A4%E7%9A%84%E5%9B%BE%E5%BA%8A"><span class="toc-text">插入图片时间可使用MarkdownPad2默认的图床</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8F%92%E5%85%A5%E8%A7%86%E9%A2%91%E6%BC%94%E7%A4%BA"><span class="toc-text">插入视频演示</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Markdown%E7%BC%96%E8%BE%91%E5%99%A8%E4%BD%BF%E7%94%A8-MarkdownPad2"><span class="toc-text">Markdown编辑器使用-MarkdownPad2</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%AB%E6%8D%B7%E9%94%AE"><span class="toc-text">快捷键</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87%E6%97%B6%E9%97%B4%E5%8F%AF%E4%BD%BF%E7%94%A8MarkdownPad2%E9%BB%98%E8%AE%A4%E7%9A%84%E5%9B%BE%E5%BA%8A"><span class="toc-text">插入图片时间可使用MarkdownPad2默认的图床</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8F%92%E5%85%A5%E8%A7%86%E9%A2%91%E6%BC%94%E7%A4%BA"><span class="toc-text">插入视频演示</span></a></li></ol></li></ol>
     </div>
   </section>
 
@@ -4434,6 +4434,41 @@ window.matchMedia('(prefers-color-scheme: light)').addListener(darkModelListener
   volantis.requestAnimationFrame(pjax_highlightjs_copyCode)
   volantis.pjax.push(pjax_highlightjs_copyCode)
 
+</script>
+
+
+
+
+
+
+  
+
+
+
+
+<script>
+  const genUuid = () => {
+    let s = [];
+    let hexDigits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    for (let i = 0; i < 36; i++) {
+      s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1)
+    }
+    s[14] = "4"
+    s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1)
+    s[8] = s[13] = s[18] = s[23] = "-"
+    let uuid = s.join("")
+    return uuid;
+  }
+  setTimeout(() => {
+    let uin = localStorage.getItem('Aegis_UIN');
+    if(!uin) {
+      uin = genUuid();
+      localStorage.setItem('Aegis_UIN', uin);
+    }
+    volantis.js("https://cdn-go.cn/aegis/aegis-sdk/latest/aegis.min.js").then(()=>{
+      const aegis=new Aegis({id:"YrvKLIbY6p854Lqnb4",reportApiSpeed:true,reportAssetSpeed:true,spa:true,uin:uin});
+    })
+  }, 1000)
 </script>
 
 

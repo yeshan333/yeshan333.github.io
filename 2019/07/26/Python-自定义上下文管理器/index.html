@@ -1913,7 +1913,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1667668354251),
+    lastupdate: new Date(1667741437447),
     sidebar: {
       for_page: ["blogger","webinfo","category","tagcloud","wonderful_link","qrcode","my_follow"],
       for_post: ["toc"],
@@ -2930,7 +2930,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 模拟 Python 的打开文件、关闭文件操作</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Filemanager</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, name, mode</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;calling __init__ method&#x27;</span>)</span><br><span class="line">        self.name = name</span><br><span class="line">        self.mode = mode</span><br><span class="line">        self.file = <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__enter__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;caling __enter__ method&#x27;</span>)</span><br><span class="line">        self.file = <span class="built_in">open</span>(self.name, self.mode)</span><br><span class="line">        <span class="keyword">return</span> self.file</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__exit__</span>(<span class="params">self, exc_type, exc_val, exc_tb</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;caling __exit__ method&#x27;</span>)</span><br><span class="line">        <span class="keyword">if</span> self.file:</span><br><span class="line">            self.file.close</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Filemanager为上下文管理器</span></span><br><span class="line"><span class="comment"># with Filemanager(&#x27;test.txt&#x27;, &#x27;w&#x27;) as f 是上下文表达式，f为资源对象</span></span><br><span class="line"><span class="keyword">with</span> Filemanager(<span class="string">&#x27;test.txt&#x27;</span>, <span class="string">&#x27;w&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;ready to write to file&#x27;</span>)</span><br><span class="line">    f.write(<span class="string">&#x27;Hello World&#x27;</span>)</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://img.vim-cn.com/a0/ab04491fd66278800b3203d25393bf07ff993f.png" class="lazyload" data-srcset="https://img.vim-cn.com/a0/ab04491fd66278800b3203d25393bf07ff993f.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="运行结果"></p>
+<p><img src="https://pic1.imgdb.cn/item/6367a21716f2c2beb17018d0.png" class="lazyload" data-srcset="https://pic1.imgdb.cn/item/6367a21716f2c2beb17018d0.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="运行结果"></p>
 <ul>
 <li>运行结果解析：<ul>
 <li>1、with 语句调用__init__方法，初始化对象</li>
@@ -2976,13 +2976,13 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       <i class="fa-solid fa-bookmark fa-fw" aria-hidden="true"></i><span>相关文章</span>
     </section>
     <section class='body'>
-      <div class="vlts-rps"><a class="item" href="/2019/05/22/Jupyter-Notebooks的简单了解/" title="Jupyter Notebooks的简单了解" rel="bookmark "><img src="https://s2.ax1x.com/2019/05/22/VCCz7R.md.png" class="lazyload" data-srcset="https://s2.ax1x.com/2019/05/22/VCCz7R.md.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">Jupyter Notebooks的简单了解</span><span class="excerpt">撸一手Jupyter</span></a><a class="item" href="/2019/07/19/Python协程（Coroutine）/" title="Python协程-asyncio、async/await" rel="bookmark "><img src="https://img.vim-cn.com/e4/2864cd5a7adf8d63775b3069bf77fc25294742.png" class="lazyload" data-srcset="https://img.vim-cn.com/e4/2864cd5a7adf8d63775b3069bf77fc25294742.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">Python协程-asyncio、async/await</span><span class="excerpt">
+      <div class="vlts-rps"><a class="item" href="/2019/05/22/Jupyter-Notebooks的简单了解/" title="Jupyter Notebooks的简单了解" rel="bookmark "><img src="https://s2.ax1x.com/2019/05/22/VCCz7R.md.png" class="lazyload" data-srcset="https://s2.ax1x.com/2019/05/22/VCCz7R.md.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">Jupyter Notebooks的简单了解</span><span class="excerpt">撸一手Jupyter</span></a><a class="item" href="/2019/07/19/Python协程（Coroutine）/" title="Python协程-asyncio、async/await" rel="bookmark "><img src="https://s1.ax1x.com/2022/11/06/xjumWD.png" class="lazyload" data-srcset="https://s1.ax1x.com/2022/11/06/xjumWD.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">Python协程-asyncio、async/await</span><span class="excerpt">
 看到吐血 (´ཀ`」 ∠)
 
 
 协程(Coroutine)本质上是一个函数，特点是在代码块中可以将执行权交给其他协程
 众...</span></a><a class="item" href="/2019/05/11/Python多进程-多线程/" title="Python多进程&&多线程（初步）" rel="bookmark "><img src="https://s2.ax1x.com/2019/05/14/EIcIMt.png" class="lazyload" data-srcset="https://s2.ax1x.com/2019/05/14/EIcIMt.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">Python多进程&&多线程（初步）</span><span class="excerpt">进程 &amp;&amp; 线程
-进程：进程是操作系统中执行的一个程序，操作系统以进程为单位分配存储空间，每个进程都有自己...</span></a><a class="item" href="/2019/09/02/Python环境管理/" title="Python环境管理与项目依赖管理" rel="bookmark "><img src="https://img.vim-cn.com/d0/174c52397492e29396bd3b35be1b842c560a5f.png" class="lazyload" data-srcset="https://img.vim-cn.com/d0/174c52397492e29396bd3b35be1b842c560a5f.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">Python环境管理与项目依赖管理</span><span class="excerpt">
+进程：进程是操作系统中执行的一个程序，操作系统以进程为单位分配存储空间，每个进程都有自己...</span></a><a class="item" href="/2019/09/02/Python环境管理/" title="Python 环境管理与项目依赖管理" rel="bookmark "><img src="https://s1.ax1x.com/2022/11/06/xjuEo6.png" class="lazyload" data-srcset="https://s1.ax1x.com/2022/11/06/xjuEo6.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">Python 环境管理与项目依赖管理</span><span class="excerpt">
 个人简单记录下
 
 virtualenv + pip
@@ -3218,7 +3218,7 @@ https://docs.python.org/zh-cn/3.7/library/pdb.html#module-pdb
 
 
     <div class='content'>
-        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%A1%E7%90%86%E5%99%A8"><span class="toc-text">上下文管理器</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9F%BA%E4%B8%8E%E7%B1%BB%E7%9A%84%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%A1%E7%90%86%E5%99%A8"><span class="toc-text">基与类的上下文管理器</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9F%BA%E4%B8%8E%E7%94%9F%E6%88%90%E5%99%A8%E7%9A%84%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%A1%E7%90%86%E5%99%A8"><span class="toc-text">基与生成器的上下文管理器</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol>
     </div>
   </section>
 
@@ -4226,6 +4226,41 @@ window.matchMedia('(prefers-color-scheme: light)').addListener(darkModelListener
   volantis.requestAnimationFrame(pjax_highlightjs_copyCode)
   volantis.pjax.push(pjax_highlightjs_copyCode)
 
+</script>
+
+
+
+
+
+
+  
+
+
+
+
+<script>
+  const genUuid = () => {
+    let s = [];
+    let hexDigits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    for (let i = 0; i < 36; i++) {
+      s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1)
+    }
+    s[14] = "4"
+    s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1)
+    s[8] = s[13] = s[18] = s[23] = "-"
+    let uuid = s.join("")
+    return uuid;
+  }
+  setTimeout(() => {
+    let uin = localStorage.getItem('Aegis_UIN');
+    if(!uin) {
+      uin = genUuid();
+      localStorage.setItem('Aegis_UIN', uin);
+    }
+    volantis.js("https://cdn-go.cn/aegis/aegis-sdk/latest/aegis.min.js").then(()=>{
+      const aegis=new Aegis({id:"YrvKLIbY6p854Lqnb4",reportApiSpeed:true,reportAssetSpeed:true,spa:true,uin:uin});
+    })
+  }, 1000)
 </script>
 
 

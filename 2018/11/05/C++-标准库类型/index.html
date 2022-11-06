@@ -1925,7 +1925,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1667668354251),
+    lastupdate: new Date(1667741437447),
     sidebar: {
       for_page: ["blogger","webinfo","category","tagcloud","wonderful_link","qrcode","my_follow"],
       for_post: ["toc"],
@@ -3396,7 +3396,7 @@ auto让编译器通过初始值来...</p>
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E5%92%8C%E5%88%9D%E5%A7%8B%E5%8C%96string%E5%AF%B9%E8%B1%A1"><span class="toc-text">定义和初始化string对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#string%E5%AF%B9%E8%B1%A1%E4%B8%8A%E7%9A%84%E6%93%8D%E4%BD%9C"><span class="toc-text">string对象上的操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E5%92%8C%E5%88%9D%E5%A7%8B%E5%8C%96vector%E5%AF%B9%E8%B1%A1"><span class="toc-text">定义和初始化vector对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vector%E5%AF%B9%E8%B1%A1%E4%B8%8A%E7%9A%84%E6%93%8D%E4%BD%9C"><span class="toc-text">vector对象上的操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E8%8C%83%E5%9B%B4for%E8%AF%AD%E5%8F%A5%E5%A4%84%E7%90%86vector%E5%AF%B9%E8%B1%A1"><span class="toc-text">使用范围for语句处理vector对象</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8D%E5%8F%AF%E7%94%A8%E4%B8%8B%E6%A0%87%E5%BD%A2%E5%BC%8F%E4%B8%BAvector%E5%AF%B9%E8%B1%A1%E6%B7%BB%E5%8A%A0%E5%85%83%E7%B4%A0"><span class="toc-text">不可用下标形式为vector对象添加元素</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A0%87%E5%87%86%E5%BA%93%E7%B1%BB%E5%9E%8Bstring"><span class="toc-text">标准库类型string</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E5%92%8C%E5%88%9D%E5%A7%8B%E5%8C%96string%E5%AF%B9%E8%B1%A1"><span class="toc-text">定义和初始化string对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#string%E5%AF%B9%E8%B1%A1%E4%B8%8A%E7%9A%84%E6%93%8D%E4%BD%9C"><span class="toc-text">string对象上的操作</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A0%87%E5%87%86%E5%BA%93%E7%B1%BB%E5%9E%8Bvector"><span class="toc-text">标准库类型vector</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E5%92%8C%E5%88%9D%E5%A7%8B%E5%8C%96vector%E5%AF%B9%E8%B1%A1"><span class="toc-text">定义和初始化vector对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vector%E5%AF%B9%E8%B1%A1%E4%B8%8A%E7%9A%84%E6%93%8D%E4%BD%9C"><span class="toc-text">vector对象上的操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E8%8C%83%E5%9B%B4for%E8%AF%AD%E5%8F%A5%E5%A4%84%E7%90%86vector%E5%AF%B9%E8%B1%A1"><span class="toc-text">使用范围for语句处理vector对象</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8D%E5%8F%AF%E7%94%A8%E4%B8%8B%E6%A0%87%E5%BD%A2%E5%BC%8F%E4%B8%BAvector%E5%AF%B9%E8%B1%A1%E6%B7%BB%E5%8A%A0%E5%85%83%E7%B4%A0"><span class="toc-text">不可用下标形式为vector对象添加元素</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0begin-%E5%92%8Cend-%E9%81%8D%E5%8E%86%E6%95%B0%E7%BB%84"><span class="toc-text">使用标准库函数begin()和end()遍历数组</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E5%8F%AF%E8%BF%AD%E4%BB%A3%E5%AF%B9%E8%B1%A1%EF%BC%88%E5%AE%B9%E5%99%A8-string%E5%AF%B9%E8%B1%A1%EF%BC%89%E7%9A%84%E6%88%90%E5%91%98begin-%E5%92%8Cend-%E8%BF%9B%E8%A1%8C%E9%81%8D%E5%8E%86"><span class="toc-text">使用可迭代对象（容器||string对象）的成员begin()和end()进行遍历</span></a></li></ol>
     </div>
   </section>
 
@@ -4404,6 +4404,41 @@ window.matchMedia('(prefers-color-scheme: light)').addListener(darkModelListener
   volantis.requestAnimationFrame(pjax_highlightjs_copyCode)
   volantis.pjax.push(pjax_highlightjs_copyCode)
 
+</script>
+
+
+
+
+
+
+  
+
+
+
+
+<script>
+  const genUuid = () => {
+    let s = [];
+    let hexDigits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    for (let i = 0; i < 36; i++) {
+      s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1)
+    }
+    s[14] = "4"
+    s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1)
+    s[8] = s[13] = s[18] = s[23] = "-"
+    let uuid = s.join("")
+    return uuid;
+  }
+  setTimeout(() => {
+    let uin = localStorage.getItem('Aegis_UIN');
+    if(!uin) {
+      uin = genUuid();
+      localStorage.setItem('Aegis_UIN', uin);
+    }
+    volantis.js("https://cdn-go.cn/aegis/aegis-sdk/latest/aegis.min.js").then(()=>{
+      const aegis=new Aegis({id:"YrvKLIbY6p854Lqnb4",reportApiSpeed:true,reportAssetSpeed:true,spa:true,uin:uin});
+    })
+  }, 1000)
 </script>
 
 

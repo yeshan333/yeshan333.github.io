@@ -1915,7 +1915,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1667668354251),
+    lastupdate: new Date(1667741437447),
     sidebar: {
       for_page: ["blogger","webinfo","category","tagcloud","wonderful_link","qrcode","my_follow"],
       for_post: ["toc"],
@@ -3232,7 +3232,7 @@ ctrl+K...</p>
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E4%BA%AC%E4%B8%9C%E5%95%86%E5%93%81%E9%A1%B5%E9%9D%A2%E7%9A%84%E7%88%AC%E5%8F%96"><span class="toc-text">1.京东商品页面的爬取</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E4%BA%9A%E9%A9%AC%E5%AD%99%E5%95%86%E5%93%81%E9%A1%B5%E9%9D%A2%E7%9A%84%E7%88%AC%E5%8F%96"><span class="toc-text">2.亚马孙商品页面的爬取</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E7%99%BE%E5%BA%A6-360%E6%90%9C%E7%B4%A2%E5%85%B3%E9%94%AE%E5%AD%97%E6%8F%90%E4%BA%A4"><span class="toc-text">3.百度&#x2F;360搜索关键字提交</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-IP%E5%9C%B0%E5%9D%80%E5%BD%92%E5%B1%9E%E5%9C%B0%E6%9F%A5%E8%AF%A2"><span class="toc-text">4.IP地址归属地查询</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E7%BD%91%E7%BB%9C%E5%9B%BE%E7%89%87%E7%9A%84%E7%88%AC%E5%8F%96%E5%92%8C%E5%82%A8%E5%AD%98"><span class="toc-text">5.网络图片的爬取和储存</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#requests%E5%BA%93%E5%85%A5%E9%97%A8%E5%AE%9E%E6%93%8D"><span class="toc-text">requests库入门实操</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E4%BA%AC%E4%B8%9C%E5%95%86%E5%93%81%E9%A1%B5%E9%9D%A2%E7%9A%84%E7%88%AC%E5%8F%96"><span class="toc-text">1.京东商品页面的爬取</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E4%BA%9A%E9%A9%AC%E5%AD%99%E5%95%86%E5%93%81%E9%A1%B5%E9%9D%A2%E7%9A%84%E7%88%AC%E5%8F%96"><span class="toc-text">2.亚马孙商品页面的爬取</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E7%99%BE%E5%BA%A6-360%E6%90%9C%E7%B4%A2%E5%85%B3%E9%94%AE%E5%AD%97%E6%8F%90%E4%BA%A4"><span class="toc-text">3.百度&#x2F;360搜索关键字提交</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-IP%E5%9C%B0%E5%9D%80%E5%BD%92%E5%B1%9E%E5%9C%B0%E6%9F%A5%E8%AF%A2"><span class="toc-text">4.IP地址归属地查询</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E7%BD%91%E7%BB%9C%E5%9B%BE%E7%89%87%E7%9A%84%E7%88%AC%E5%8F%96%E5%92%8C%E5%82%A8%E5%AD%98"><span class="toc-text">5.网络图片的爬取和储存</span></a></li></ol></li></ol>
     </div>
   </section>
 
@@ -4240,6 +4240,41 @@ window.matchMedia('(prefers-color-scheme: light)').addListener(darkModelListener
   volantis.requestAnimationFrame(pjax_highlightjs_copyCode)
   volantis.pjax.push(pjax_highlightjs_copyCode)
 
+</script>
+
+
+
+
+
+
+  
+
+
+
+
+<script>
+  const genUuid = () => {
+    let s = [];
+    let hexDigits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    for (let i = 0; i < 36; i++) {
+      s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1)
+    }
+    s[14] = "4"
+    s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1)
+    s[8] = s[13] = s[18] = s[23] = "-"
+    let uuid = s.join("")
+    return uuid;
+  }
+  setTimeout(() => {
+    let uin = localStorage.getItem('Aegis_UIN');
+    if(!uin) {
+      uin = genUuid();
+      localStorage.setItem('Aegis_UIN', uin);
+    }
+    volantis.js("https://cdn-go.cn/aegis/aegis-sdk/latest/aegis.min.js").then(()=>{
+      const aegis=new Aegis({id:"YrvKLIbY6p854Lqnb4",reportApiSpeed:true,reportAssetSpeed:true,spa:true,uin:uin});
+    })
+  }, 1000)
 </script>
 
 

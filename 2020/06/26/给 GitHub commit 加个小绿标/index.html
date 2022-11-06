@@ -1911,7 +1911,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1667668354251),
+    lastupdate: new Date(1667741437447),
     sidebar: {
       for_page: ["blogger","webinfo","category","tagcloud","wonderful_link","qrcode","my_follow"],
       for_post: ["toc"],
@@ -2978,7 +2978,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       <i class="fa-solid fa-bookmark fa-fw" aria-hidden="true"></i><span>相关文章</span>
     </section>
     <section class='body'>
-      <div class="vlts-rps"><a class="item" href="/2021/07/10/checksum-gpg-tools/" title="对下载软件/文件进行校验的工具（Checksum and GPG）" rel="bookmark "><img src="https://z3.ax1x.com/2021/07/10/WpK4aQ.png" class="lazyload" data-srcset="https://z3.ax1x.com/2021/07/10/WpK4aQ.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">对下载软件/文件进行校验的工具（Checksum and GPG）</span><span class="excerpt">前言之前装软件一直都没有验证安装文件的习惯，信息安全意识不高，碰巧最近没啥事，微微写篇文章记录下校验工具（互联网http、...</span></a><a class="item" href="/2019/04/08/Git-Branch-Practice/" title="Git Branch Practice" rel="bookmark "><img src="https://img.vim-cn.com/00/950a7bad9cc5835194268fce6d40a444b7cfcc.png" class="lazyload" data-srcset="https://img.vim-cn.com/00/950a7bad9cc5835194268fce6d40a444b7cfcc.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">Git Branch Practice</span><span class="excerpt">Git Branch Practice</span></a></div></section></div>
+      <div class="vlts-rps"><a class="item" href="/2021/07/10/checksum-gpg-tools/" title="对下载软件/文件进行校验的工具（Checksum and GPG）" rel="bookmark "><img src="https://z3.ax1x.com/2021/07/10/WpK4aQ.png" class="lazyload" data-srcset="https://z3.ax1x.com/2021/07/10/WpK4aQ.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">对下载软件/文件进行校验的工具（Checksum and GPG）</span><span class="excerpt">前言之前装软件一直都没有验证安装文件的习惯，信息安全意识不高，碰巧最近没啥事，微微写篇文章记录下校验工具（互联网http、...</span></a><a class="item" href="/2019/04/08/Git-Branch-Practice/" title="Git Branch Practice" rel="bookmark "><img src="https://pic1.imgdb.cn/item/6367b0a916f2c2beb18cd5ac.png" class="lazyload" data-srcset="https://pic1.imgdb.cn/item/6367b0a916f2c2beb18cd5ac.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">Git Branch Practice</span><span class="excerpt">Git Branch Practice</span></a></div></section></div>
       
       <!-- 版权声明组件 -->
       
@@ -4191,6 +4191,41 @@ window.matchMedia('(prefers-color-scheme: light)').addListener(darkModelListener
   volantis.requestAnimationFrame(pjax_highlightjs_copyCode)
   volantis.pjax.push(pjax_highlightjs_copyCode)
 
+</script>
+
+
+
+
+
+
+  
+
+
+
+
+<script>
+  const genUuid = () => {
+    let s = [];
+    let hexDigits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    for (let i = 0; i < 36; i++) {
+      s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1)
+    }
+    s[14] = "4"
+    s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1)
+    s[8] = s[13] = s[18] = s[23] = "-"
+    let uuid = s.join("")
+    return uuid;
+  }
+  setTimeout(() => {
+    let uin = localStorage.getItem('Aegis_UIN');
+    if(!uin) {
+      uin = genUuid();
+      localStorage.setItem('Aegis_UIN', uin);
+    }
+    volantis.js("https://cdn-go.cn/aegis/aegis-sdk/latest/aegis.min.js").then(()=>{
+      const aegis=new Aegis({id:"YrvKLIbY6p854Lqnb4",reportApiSpeed:true,reportAssetSpeed:true,spa:true,uin:uin});
+    })
+  }, 1000)
 </script>
 
 

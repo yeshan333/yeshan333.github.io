@@ -1915,7 +1915,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1667668354251),
+    lastupdate: new Date(1667741437447),
     sidebar: {
       for_page: ["blogger","webinfo","category","tagcloud","wonderful_link","qrcode","my_follow"],
       for_post: ["toc"],
@@ -3217,7 +3217,7 @@ cout:一个ostream对象，从标准...</p>
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#initializer-list%E5%BD%A2%E5%8F%82"><span class="toc-text">initializer_list形参</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#main-%E5%A4%84%E7%90%86%E5%91%BD%E4%BB%A4%E8%A1%8C"><span class="toc-text">main:处理命令行</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%90%AB%E6%9C%89%E5%8F%AF%E5%8F%98%E5%BD%A2%E5%8F%82%E7%9A%84%E5%87%BD%E6%95%B0"><span class="toc-text">含有可变形参的函数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#initializer-list%E5%BD%A2%E5%8F%82"><span class="toc-text">initializer_list形参</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E8%BF%94%E5%9B%9E%E5%80%BC%E2%80%94%E2%80%93%E5%88%97%E8%A1%A8%E5%88%9D%E5%A7%8B%E5%8C%96%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="toc-text">函数返回值—–列表初始化返回值</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B0%83%E8%AF%95%E5%B8%AE%E5%8A%A9%EF%BC%8C%E9%A2%84%E5%AE%9A%E4%B9%89%E8%B7%9F%E8%B8%AA%E8%B0%83%E8%AF%95"><span class="toc-text">调试帮助，预定义跟踪调试</span></a></li></ol>
     </div>
   </section>
 
@@ -4225,6 +4225,41 @@ window.matchMedia('(prefers-color-scheme: light)').addListener(darkModelListener
   volantis.requestAnimationFrame(pjax_highlightjs_copyCode)
   volantis.pjax.push(pjax_highlightjs_copyCode)
 
+</script>
+
+
+
+
+
+
+  
+
+
+
+
+<script>
+  const genUuid = () => {
+    let s = [];
+    let hexDigits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    for (let i = 0; i < 36; i++) {
+      s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1)
+    }
+    s[14] = "4"
+    s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1)
+    s[8] = s[13] = s[18] = s[23] = "-"
+    let uuid = s.join("")
+    return uuid;
+  }
+  setTimeout(() => {
+    let uin = localStorage.getItem('Aegis_UIN');
+    if(!uin) {
+      uin = genUuid();
+      localStorage.setItem('Aegis_UIN', uin);
+    }
+    volantis.js("https://cdn-go.cn/aegis/aegis-sdk/latest/aegis.min.js").then(()=>{
+      const aegis=new Aegis({id:"YrvKLIbY6p854Lqnb4",reportApiSpeed:true,reportAssetSpeed:true,spa:true,uin:uin});
+    })
+  }, 1000)
 </script>
 
 

@@ -1908,7 +1908,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1667668354251),
+    lastupdate: new Date(1667741437447),
     sidebar: {
       for_page: ["blogger","webinfo","category","tagcloud","wonderful_link","qrcode","my_follow"],
       for_post: ["toc"],
@@ -3202,7 +3202,7 @@ Problem Descript...</span></a><a class="item" href="/2018/11/05/C++-11特性-1/"
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%EF%BC%88Constructor%EF%BC%89"><span class="toc-text">1.构造函数（Constructor）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0%EF%BC%88Destructor%EF%BC%89"><span class="toc-text">2.析构函数（Destructor）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8B%B7%E8%B4%9D%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="toc-text">拷贝构造函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#C-%E4%B8%AD%E7%9A%84this%E6%8C%87%E9%92%88"><span class="toc-text">C++中的this指针</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E5%AD%97new%E5%92%8Cdelete"><span class="toc-text">关键字new和delete</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%B1%BB%E7%9A%84%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0-Constructor-%E5%92%8C%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0-Destructor"><span class="toc-text">类的构造函数(Constructor)和析构函数(Destructor)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%EF%BC%88Constructor%EF%BC%89"><span class="toc-text">1.构造函数（Constructor）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0%EF%BC%88Destructor%EF%BC%89"><span class="toc-text">2.析构函数（Destructor）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8B%B7%E8%B4%9D%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="toc-text">拷贝构造函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#C-%E4%B8%AD%E7%9A%84this%E6%8C%87%E9%92%88"><span class="toc-text">C++中的this指针</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E5%AD%97new%E5%92%8Cdelete"><span class="toc-text">关键字new和delete</span></a></li></ol></li></ol></li></ol></li></ol>
     </div>
   </section>
 
@@ -4210,6 +4210,41 @@ window.matchMedia('(prefers-color-scheme: light)').addListener(darkModelListener
   volantis.requestAnimationFrame(pjax_highlightjs_copyCode)
   volantis.pjax.push(pjax_highlightjs_copyCode)
 
+</script>
+
+
+
+
+
+
+  
+
+
+
+
+<script>
+  const genUuid = () => {
+    let s = [];
+    let hexDigits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    for (let i = 0; i < 36; i++) {
+      s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1)
+    }
+    s[14] = "4"
+    s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1)
+    s[8] = s[13] = s[18] = s[23] = "-"
+    let uuid = s.join("")
+    return uuid;
+  }
+  setTimeout(() => {
+    let uin = localStorage.getItem('Aegis_UIN');
+    if(!uin) {
+      uin = genUuid();
+      localStorage.setItem('Aegis_UIN', uin);
+    }
+    volantis.js("https://cdn-go.cn/aegis/aegis-sdk/latest/aegis.min.js").then(()=>{
+      const aegis=new Aegis({id:"YrvKLIbY6p854Lqnb4",reportApiSpeed:true,reportAssetSpeed:true,spa:true,uin:uin});
+    })
+  }, 1000)
 </script>
 
 

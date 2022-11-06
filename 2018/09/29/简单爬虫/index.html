@@ -1928,7 +1928,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1667668354251),
+    lastupdate: new Date(1667741437447),
     sidebar: {
       for_page: ["blogger","webinfo","category","tagcloud","wonderful_link","qrcode","my_follow"],
       for_post: ["toc"],
@@ -3444,7 +3444,7 @@ ctrl+K...</p>
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Requests%E5%BA%93%E7%9A%847%E4%B8%AA%E4%B8%BB%E8%A6%81%E6%96%B9%E6%B3%95"><span class="toc-text">Requests库的7个主要方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Requests%E5%BA%93%E7%9A%84get-%E6%96%B9%E6%B3%95"><span class="toc-text">Requests库的get()方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Response%E5%AF%B9%E8%B1%A1"><span class="toc-text">Response对象</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Response%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%B1%9E%E6%80%A7"><span class="toc-text">Response对象的属性</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Requests%E5%BA%93%E7%9A%84%E5%BC%82%E5%B8%B8"><span class="toc-text">Requests库的异常</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#python%E7%88%AC%E5%8F%96%E7%BD%91%E9%A1%B5%E4%BB%A3%E7%A0%81%E9%80%9A%E7%94%A8%E6%A1%86%E6%9E%B6"><span class="toc-text">python爬取网页代码通用框架</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Requests%E5%BA%93%E7%9A%84request-%E6%96%B9%E6%B3%95"><span class="toc-text">Requests库的request()方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#kwargs-%E6%8E%A7%E5%88%B6%E8%AE%BF%E9%97%AE%E5%8F%82%E6%95%B0%EF%BC%8C%EF%BC%88%E5%8F%AF%E9%80%89%EF%BC%89"><span class="toc-text">kwargs:控制访问参数，（可选）</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Requests%E5%BA%93%E5%85%A5%E9%97%A8"><span class="toc-text">Requests库入门</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Requests%E5%BA%93%E7%9A%847%E4%B8%AA%E4%B8%BB%E8%A6%81%E6%96%B9%E6%B3%95"><span class="toc-text">Requests库的7个主要方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Requests%E5%BA%93%E7%9A%84get-%E6%96%B9%E6%B3%95"><span class="toc-text">Requests库的get()方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Response%E5%AF%B9%E8%B1%A1"><span class="toc-text">Response对象</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Response%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%B1%9E%E6%80%A7"><span class="toc-text">Response对象的属性</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Requests%E5%BA%93%E7%9A%84%E5%BC%82%E5%B8%B8"><span class="toc-text">Requests库的异常</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#python%E7%88%AC%E5%8F%96%E7%BD%91%E9%A1%B5%E4%BB%A3%E7%A0%81%E9%80%9A%E7%94%A8%E6%A1%86%E6%9E%B6"><span class="toc-text">python爬取网页代码通用框架</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Requests%E5%BA%93%E7%9A%84request-%E6%96%B9%E6%B3%95"><span class="toc-text">Requests库的request()方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#kwargs-%E6%8E%A7%E5%88%B6%E8%AE%BF%E9%97%AE%E5%8F%82%E6%95%B0%EF%BC%8C%EF%BC%88%E5%8F%AF%E9%80%89%EF%BC%89"><span class="toc-text">kwargs:控制访问参数，（可选）</span></a></li></ol></li></ol></li></ol>
     </div>
   </section>
 
@@ -4452,6 +4452,41 @@ window.matchMedia('(prefers-color-scheme: light)').addListener(darkModelListener
   volantis.requestAnimationFrame(pjax_highlightjs_copyCode)
   volantis.pjax.push(pjax_highlightjs_copyCode)
 
+</script>
+
+
+
+
+
+
+  
+
+
+
+
+<script>
+  const genUuid = () => {
+    let s = [];
+    let hexDigits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    for (let i = 0; i < 36; i++) {
+      s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1)
+    }
+    s[14] = "4"
+    s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1)
+    s[8] = s[13] = s[18] = s[23] = "-"
+    let uuid = s.join("")
+    return uuid;
+  }
+  setTimeout(() => {
+    let uin = localStorage.getItem('Aegis_UIN');
+    if(!uin) {
+      uin = genUuid();
+      localStorage.setItem('Aegis_UIN', uin);
+    }
+    volantis.js("https://cdn-go.cn/aegis/aegis-sdk/latest/aegis.min.js").then(()=>{
+      const aegis=new Aegis({id:"YrvKLIbY6p854Lqnb4",reportApiSpeed:true,reportAssetSpeed:true,spa:true,uin:uin});
+    })
+  }, 1000)
 </script>
 
 
