@@ -9,6 +9,14 @@
 
 
     <url>
+        <loc>https://yeshan333.github.io/2022/11/26/Elixir-Tip-Case-vs-With/</loc>
+        <lastmod>2022-11-26T23:10:46.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>https://yeshan333.github.io/2022/08/31/the-solution-of-elixir-continuous-runtime-system-code-coverage-collection/</loc>
         <lastmod>2022-08-31T22:43:10.000Z</lastmod>
         <changefreq>weekly</changefreq>
