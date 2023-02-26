@@ -1909,7 +1909,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1669479805080),
+    lastupdate: new Date(1677398480572),
     sidebar: {
       for_page: ["blogger","webinfo","category","tagcloud","wonderful_link","qrcode","my_follow"],
       for_post: ["toc"],
@@ -2827,6 +2827,81 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         
           <div class='post-wrapper'>
             <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
+  <link itemprop="mainEntityOfPage" href="https://yeshan333.github.io/2019/05/11/Python多进程-多线程/">
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="ShanSan">
+  </span>
+  <span hidden itemprop="post" itemscope itemtype="http://schema.org/Post">
+    <meta itemprop="name" content="ShanSan">
+    <meta itemprop="description" content="ShanSan's Blog">
+  </span>
+  
+  
+  
+    <span hidden>
+      <meta itemprop="image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
+    </span>
+  
+  
+    
+    <h2 class="article-title"  itemprop="name headline">
+      <a href="/2019/05/11/Python%E5%A4%9A%E8%BF%9B%E7%A8%8B-%E5%A4%9A%E7%BA%BF%E7%A8%8B/"  itemprop="url">
+        Python多进程&&多线程（初步）
+      </a>
+    </h2>
+  
+  <div class='md article-desc' itemprop="articleBody">
+    
+      <h1 id="进程-amp-amp-线程"><a href="#进程-amp-amp-线程" class="headerlink" title="进程 &amp;&amp; 线程"></a>进程 &amp;&amp; 线程</h1><blockquote>
+<p>进程：进程是操作系统中执行的一个程序，操作系统以进程为单位分配存储空间，每个进程都有自己的地址空间、数据栈以及其他用于跟踪进程执行的辅助数据，操作系统管理所有进程的执行，为它们合理的分配资源。进程可以通过fork或者wpawn的方式来创建新的进程执行其他任务，不过新的进程有自己独立的内存空间和数据栈，所以必须通过进程间的通信机制（IPC，Inter Process Communication）来实现数据共享，具体的方式包括管道、信号、套接字、共享内存等。</p>
+</blockquote>
+<blockquote>
+<p>线程：进程的一个执行单元。线程在同一个进程中执行，共享程序的上下文。一个进程中的各个线程与主线程共享同一片数据空间，因而相比与独立的进程，线程间的信息共享和通信更为容易。线程一般是以并发的方式执行的。注意在单核CPU系统中，真正的并发是不可能的，所以新城的执行实际上是这样规划的：每个线程执行一小会，然后让步给其他线程的任务（再次排队等候更多的CPU执行时间）。在整个线程的执行过程中，每个线程执行它自己的特定的任务，在必要时和其他进程进行结果通信。</p>
+</blockquote>
+<h1 id="Python多进程（使用multiprocessing）"><a href="#Python多进程（使用multiprocessing）" class="headerlink" title="Python多进程（使用multiprocessing）"></a>Python多进程（使用multiprocessing）</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> time <span class="keyword">import</span> time, sleep</span><br><span class="line"><span class="keyword">from</span> random <span class="keyword">import</span> randint</span><br><span class="line"><span class="keyword">from</span> multiprocessing <span class="keyword">import</span> Process</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">my_task</span>(<span class="params">name</span>):</span><br><span class="line">    sleep_time = randint(<span class="number">1</span>,<span class="number">10</span>)</span><br><span class="line">    sleep(sleep_time)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;你叫了一声%s，它鸟你用了%d秒&quot;</span> % (name, sleep_time))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">main</span>():</span><br><span class="line">    start = time()</span><br><span class="line">    process_1 = Process(target=my_task, args=[<span class="string">&quot;yeshan&quot;</span>, ])</span><br><span class="line">    process_2 = Process(target=my_task, args=[<span class="string">&quot;foel&quot;</span>, ])</span><br><span class="line">    <span class="comment"># 启动进程</span></span><br><span class="line">    process_1.start()</span><br><span class="line">    process_2.start()</span><br><span class="line">    <span class="comment"># 等待进程执行结束</span></span><br><span class="line">    process_1.join()</span><br><span class="line">    process_2.join()</span><br><span class="line">    end = time()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;一共花费了%f秒&quot;</span> % (end-start))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+          
+          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
+          <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+            <meta itemprop="image" content="https://z3.ax1x.com/2021/11/07/I1qTFx.png">
+            <meta itemprop="name" content="yeshan333">
+            <meta itemprop="url" content="https://github.com/yeshan333">
+          </span>
+        
+        <time itemprop="dateCreated datePublished" datetime="2019-05-11T21:40:32+00:00">2019-05-11</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/Python/">Python</a>
+          
+            <span hidden itemprop="about" itemscope itemtype="http://schema.org/Thing">
+              <a href="/categories/Python/" itemprop="url"><span itemprop="name">Python</span></a>
+            </span>
+          
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2019/05/11/Python%E5%A4%9A%E8%BF%9B%E7%A8%8B-%E5%A4%9A%E7%BA%BF%E7%A8%8B/' itemprop="url">
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
   <link itemprop="mainEntityOfPage" href="https://yeshan333.github.io/2019/04/23/HTTPie的使用/">
   <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
     <meta itemprop="name" content="ShanSan">
@@ -3499,84 +3574,6 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           </div>
         
       
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
-  <link itemprop="mainEntityOfPage" href="https://yeshan333.github.io/2019/01/22/HTML-CSS-划水/">
-  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="ShanSan">
-  </span>
-  <span hidden itemprop="post" itemscope itemtype="http://schema.org/Post">
-    <meta itemprop="name" content="ShanSan">
-    <meta itemprop="description" content="ShanSan's Blog">
-  </span>
-  
-  
-  
-    <span hidden>
-      <meta itemprop="image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
-    </span>
-  
-  
-    
-    <h2 class="article-title"  itemprop="name headline">
-      <a href="/2019/01/22/HTML-CSS-%E5%88%92%E6%B0%B4/"  itemprop="url">
-        HTML&&CSS(划水~~~)
-      </a>
-    </h2>
-  
-  <div class='md article-desc' itemprop="articleBody">
-    
-      <h1 id="HTML-超文本标记语言"><a href="#HTML-超文本标记语言" class="headerlink" title="HTML(超文本标记语言)"></a><a target="_blank" rel="noopener" href="http://www.w3school.com.cn/html/index.asp">HTML</a>(超文本标记语言)</h1><p>HTML标签不区分大小写。</p>
-<h2 id="HTML属性"><a href="#HTML属性" class="headerlink" title="HTML属性"></a>HTML属性</h2><ul>
-<li>ID属性指定一个标识符，用于唯一标识页面元素，这些标识符主要供Javascript和CSS使用</li>
-<li>class属性是一个全局属性，可用于建立元素编组。可以给多个元素指定相同的class属性，以便在CSS或Javascript中将这些元素作为一个编组来引用它们</li>
-<li>style属性用于定义标签的样式。任何标签中都可以指定属性style。使用style属性可以为标签指定一个或多个样式规则，** 在style定义多条规则的方法是用分号将他们分开 **</li>
-</ul>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-          
-          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
-          <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-            <meta itemprop="image" content="https://z3.ax1x.com/2021/11/07/I1qTFx.png">
-            <meta itemprop="name" content="yeshan333">
-            <meta itemprop="url" content="https://github.com/yeshan333">
-          </span>
-        
-        <time itemprop="dateCreated datePublished" datetime="2019-01-22T17:09:40+00:00">2019-01-22</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/CSS/">CSS</a><span class="sep"></span><a class="category-link" href="/categories/HTML/">HTML</a>
-          
-            <span hidden itemprop="about" itemscope itemtype="http://schema.org/Thing">
-              <a href="/categories/HTML/" itemprop="url"><span itemprop="name">HTML</span></a>
-            </span>
-          
-            <span hidden itemprop="about" itemscope itemtype="http://schema.org/Thing">
-              <a href="/categories/CSS/" itemprop="url"><span itemprop="name">CSS</span></a>
-            </span>
-          
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2019/01/22/HTML-CSS-%E5%88%92%E6%B0%B4/' itemprop="url">
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
     
   </section>
   
@@ -3706,7 +3703,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <div class="webinfo-item">
           <div>文章数目：</div>
-          <div>141 篇</div>
+          <div>142 篇</div>
         </div>
       
 
@@ -3741,7 +3738,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <div class="webinfo-item">
           <div>最后活动时间：</div>
-          <div id="last-update-show">2022-11-26 日</div>
+          <div id="last-update-show">2023-02-26 日</div>
         </div>
       
     </div>

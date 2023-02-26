@@ -4,6 +4,19 @@
   
     
     <entry>
+      <title>2022 Summary</title>
+      <link href="/2023/02/26/2022-annual-reviewed/"/>
+      <url>/2023/02/26/2022-annual-reviewed/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">  <script id="hbeData" type="hbeData" data-hmacdigest="6a5385d200879ec0567441dc24a697fb1b35ab228194c11fa8530677bb107862">1ec7695694e17493cccce13bcef13164d2f0517ce9393dd782fe3ca24c7ae096</script>  <div class="hbe hbe-content">    <div class="hbe hbe-input hbe-input-default">      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">        <span class="hbe hbe-input-label-content hbe-input-label-content-default">Welcome to my blog, enter password to read.</span>      </label>    </div>  </div></div><script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>（译）Elixir Tip: Case vs. With</title>
       <link href="/2022/11/26/Elixir-Tip-Case-vs-With/"/>
       <url>/2022/11/26/Elixir-Tip-Case-vs-With/</url>
@@ -405,7 +418,7 @@
       <link href="/2021/12/04/deserve/"/>
       <url>/2021/12/04/deserve/</url>
       
-        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><p>今天凌晨五点就醒了，积累了好多好多的情绪啊！</p><!-- 年轻的战场 --><!-- 我们都一样 -->    <div id="aplayer-MwzkHRri" class="aplayer aplayer-tag-marker meting-tag-marker"         data-id="1340001174" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"    ></div>    <div id="aplayer-DEIELelO" class="aplayer aplayer-tag-marker meting-tag-marker"         data-id="191252" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"    ></div><span id="more"></span>]]></content>
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><p>今天凌晨五点就醒了，积累了好多好多的情绪啊！</p><!-- 年轻的战场 --><!-- 我们都一样 -->    <div id="aplayer-WDKQyVvC" class="aplayer aplayer-tag-marker meting-tag-marker"         data-id="1340001174" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"    ></div>    <div id="aplayer-ZlDyWAQy" class="aplayer aplayer-tag-marker meting-tag-marker"         data-id="191252" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"    ></div><span id="more"></span>]]></content>
       
       
       <categories>

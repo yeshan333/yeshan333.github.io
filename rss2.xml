@@ -15,8 +15,25 @@
     <atom:link href="https://yeshan333.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>ShanSan&#39;s Blog</description>
-    <pubDate>Sat, 26 Nov 2022 23:10:46 GMT</pubDate>
+    <pubDate>Sun, 26 Feb 2023 15:59:12 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>2022 Summary</title>
+      <link>https://yeshan333.github.io/2023/02/26/2022-annual-reviewed/</link>
+      <guid>https://yeshan333.github.io/2023/02/26/2022-annual-reviewed/</guid>
+      <pubDate>Sun, 26 Feb 2023 15:59:12 GMT</pubDate>
+      
+      <description>Welcome to my blog, enter password to read.</description>
+      
+      
+      
+      
+      
+      
+      <comments>https://yeshan333.github.io/2023/02/26/2022-annual-reviewed/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>（译）Elixir Tip: Case vs. With</title>
@@ -449,13 +466,13 @@
 &lt;!-- 我们都一样 --&gt;
 
 
-    &lt;div id=&quot;aplayer-MwzkHRri&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+    &lt;div id=&quot;aplayer-WDKQyVvC&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
          data-id=&quot;1340001174&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;true&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
     &gt;&lt;/div&gt;
 
 
 
-    &lt;div id=&quot;aplayer-DEIELelO&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+    &lt;div id=&quot;aplayer-ZlDyWAQy&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
          data-id=&quot;191252&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;false&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
     &gt;&lt;/div&gt;</description>
       
@@ -544,41 +561,6 @@
       
       
       <comments>https://yeshan333.github.io/2021/10/24/create-k8s-cluster/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>从平均负载开始，这进程是 CPU Bound 还是 IO Bound 的？</title>
-      <link>https://yeshan333.github.io/2021/10/07/io-bound-cpu-bound-with-average-load/</link>
-      <guid>https://yeshan333.github.io/2021/10/07/io-bound-cpu-bound-with-average-load/</guid>
-      <pubDate>Thu, 07 Oct 2021 16:12:38 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot;</description>
-          
-        
-      
-      
-      
-      
-      <category domain="https://yeshan333.github.io/categories/Linux/">Linux</category>
-      
-      <category domain="https://yeshan333.github.io/categories/Linux/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">性能优化</category>
-      
-      
-      <category domain="https://yeshan333.github.io/tags/Linux/">Linux</category>
-      
-      <category domain="https://yeshan333.github.io/tags/%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95/">压力测试</category>
-      
-      <category domain="https://yeshan333.github.io/tags/CPU-Bound/">CPU Bound</category>
-      
-      <category domain="https://yeshan333.github.io/tags/IO-Bound/">IO Bound</category>
-      
-      
-      <comments>https://yeshan333.github.io/2021/10/07/io-bound-cpu-bound-with-average-load/#disqus_thread</comments>
       
     </item>
     
