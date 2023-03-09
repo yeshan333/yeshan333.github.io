@@ -1,3 +1,4 @@
+https://yeshan333.github.io/2023/03/09/become-a-romantic-muscian/
 https://yeshan333.github.io/2023/02/26/2022-annual-reviewed/
 https://yeshan333.github.io/2022/11/26/Elixir-Tip-Case-vs-With/
 https://yeshan333.github.io/2022/08/31/the-solution-of-elixir-continuous-runtime-system-code-coverage-collection/
@@ -7,4 +8,3 @@ https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-5-reshap
 https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-4-diving-deeper/
 https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-3-gettingto-the-ast/
 https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-2-macro-theory/
-https://yeshan333.github.io/2022/06/18/understanding-elixir-macros-part-1-basics/

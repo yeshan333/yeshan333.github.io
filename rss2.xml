@@ -15,8 +15,25 @@
     <atom:link href="https://yeshan333.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>ShanSan&#39;s Blog</description>
-    <pubDate>Sun, 26 Feb 2023 15:59:12 GMT</pubDate>
+    <pubDate>Thu, 09 Mar 2023 22:40:24 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>??????</title>
+      <link>https://yeshan333.github.io/2023/03/09/become-a-romantic-muscian/</link>
+      <guid>https://yeshan333.github.io/2023/03/09/become-a-romantic-muscian/</guid>
+      <pubDate>Thu, 09 Mar 2023 22:40:24 GMT</pubDate>
+      
+      <description>即将开启！</description>
+      
+      
+      
+      
+      
+      
+      <comments>https://yeshan333.github.io/2023/03/09/become-a-romantic-muscian/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>2022 | Summary</title>
@@ -476,13 +493,13 @@
 &lt;!-- 我们都一样 --&gt;
 
 
-    &lt;div id=&quot;aplayer-zAmoMvRa&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+    &lt;div id=&quot;aplayer-SYWbaMHS&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
          data-id=&quot;1340001174&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;true&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
     &gt;&lt;/div&gt;
 
 
 
-    &lt;div id=&quot;aplayer-eTqzXexg&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+    &lt;div id=&quot;aplayer-oiPVcNcT&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
          data-id=&quot;191252&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;false&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
     &gt;&lt;/div&gt;</description>
       
@@ -547,30 +564,6 @@
       
       
       <comments>https://yeshan333.github.io/2021/11/14/back-to-october/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>使用 Kubeadm 搭建个公网 k8s 集群（单控制平面集群）</title>
-      <link>https://yeshan333.github.io/2021/10/24/create-k8s-cluster/</link>
-      <guid>https://yeshan333.github.io/2021/10/24/create-k8s-cluster/</guid>
-      <pubDate>Sun, 24 Oct 2021 13:51:19 GMT</pubDate>
-      
-      <description>&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;YY：国庆的时候趁着阿里云和腾讯云的轻量级服务器做促销一不小心剁了个手😎😢，2 Cores，4G RAM 还是阔以的，既然买了，那不能不用呀🚩，之前一直想着搭建个 k8s 集群玩玩，本地开发机虽然起了个 k8s（拿 Docker Desktop 起的，不 dei 劲），但就一个 Node，不爽，对 k8s 的体验不到位😒，1024，是时候用起来了，折腾一下，顺便让最近浮躁的心冷静一下。&lt;/p&gt;
-&lt;p&gt;这次拿官方的 Kubeadm 耍一下，以阿里云的轻量级应用服务器为 Control 节点，腾讯云的轻量级应用服务器为 Worker 节点，说干就干。&lt;/p&gt;</description>
-      
-      
-      
-      
-      <category domain="https://yeshan333.github.io/categories/Kubernetes/">Kubernetes</category>
-      
-      
-      <category domain="https://yeshan333.github.io/tags/Kubernetes/">Kubernetes</category>
-      
-      <category domain="https://yeshan333.github.io/tags/Kubeadm/">Kubeadm</category>
-      
-      
-      <comments>https://yeshan333.github.io/2021/10/24/create-k8s-cluster/#disqus_thread</comments>
       
     </item>
     

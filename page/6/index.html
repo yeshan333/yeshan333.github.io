@@ -1909,7 +1909,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1677902368838),
+    lastupdate: new Date(1678373156936),
     sidebar: {
       for_page: ["blogger","webinfo","category","tagcloud","wonderful_link","qrcode","my_follow"],
       for_post: ["toc"],
@@ -2827,6 +2827,86 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         
           <div class='post-wrapper'>
             <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
+  <link itemprop="mainEntityOfPage" href="https://yeshan333.github.io/2020/01/13/React-Flask打造前后端分离项目开发环境/">
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="ShanSan">
+  </span>
+  <span hidden itemprop="post" itemscope itemtype="http://schema.org/Post">
+    <meta itemprop="name" content="ShanSan">
+    <meta itemprop="description" content="ShanSan's Blog">
+  </span>
+  
+  
+  
+    <span hidden>
+      <meta itemprop="image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
+    </span>
+  
+  
+    
+    <h2 class="article-title"  itemprop="name headline">
+      <a href="/2020/01/13/React-Flask%E6%89%93%E9%80%A0%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/"  itemprop="url">
+        React+Flask打造前后端分离项目开发环境
+      </a>
+    </h2>
+  
+  <div class='md article-desc' itemprop="articleBody">
+    
+      <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
+<p>新的一年，开始水第一篇技术文。碰巧最近React玩得多，撸一篇文章纪念一下开发环境的搭建。🤔</p>
+</blockquote>
+<ul>
+<li>开篇两问：<ul>
+<li>什么是React？：React，用于构建用户界面的 JavaScript 库（官网复制粘贴，真香，不用怎么写template了，舒服</li>
+<li>什么是Flask？：一个使用Python编写的轻量级Web应用框架。用来写<a target="_blank" rel="noopener" href="https://jimmysong.io/kubernetes-handbook/cloud-native/cloud-native-definition.html">云原生应用</a>很香！</li>
+</ul>
+</li>
+</ul>
+<p>先看下最终的项目结构，如下：<a target="_blank" rel="noopener" href="https://github.com/yeshan333/React-Flask--Development-Environment">《项目源码》</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">├── app.py</span><br><span class="line">├── <span class="built_in">env</span></span><br><span class="line">|  ├── Include</span><br><span class="line">|  ├── Lib</span><br><span class="line">|  ├── LICENSE.txt</span><br><span class="line">|  ├── Scripts</span><br><span class="line">|  └── tcl</span><br><span class="line">├── frontend</span><br><span class="line">|  ├── build</span><br><span class="line">|  ├── node_modules</span><br><span class="line">|  ├── package-lock.json</span><br><span class="line">|  ├── package.json</span><br><span class="line">|  ├── public</span><br><span class="line">|  ├── README.md</span><br><span class="line">|  └── src</span><br><span class="line">├── static</span><br><span class="line">|  └── js</span><br><span class="line">└── templates</span><br><span class="line">   └── index.html</span><br></pre></td></tr></table></figure>
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+          
+          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
+          <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+            <meta itemprop="image" content="https://z3.ax1x.com/2021/11/07/I1qTFx.png">
+            <meta itemprop="name" content="yeshan333">
+            <meta itemprop="url" content="https://github.com/yeshan333">
+          </span>
+        
+        <time itemprop="dateCreated datePublished" datetime="2020-01-13T12:56:16+00:00">2020-01-13</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/React/">React</a>
+          
+            <span hidden itemprop="about" itemscope itemtype="http://schema.org/Thing">
+              <a href="/categories/React/" itemprop="url"><span itemprop="name">React</span></a>
+            </span>
+          
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2020/01/13/React-Flask%E6%89%93%E9%80%A0%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/' itemprop="url">
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
   <link itemprop="mainEntityOfPage" href="https://yeshan333.github.io/2019/12/31/2019年总结/">
   <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
     <meta itemprop="name" content="ShanSan">
@@ -3488,82 +3568,6 @@ B站也有PC”客户端”了，真香😂
           </div>
         
       
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
-  <link itemprop="mainEntityOfPage" href="https://yeshan333.github.io/2019/08/08/docker学习笔记/">
-  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="ShanSan">
-  </span>
-  <span hidden itemprop="post" itemscope itemtype="http://schema.org/Post">
-    <meta itemprop="name" content="ShanSan">
-    <meta itemprop="description" content="ShanSan's Blog">
-  </span>
-  
-  
-  
-    <span hidden>
-      <meta itemprop="image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
-    </span>
-  
-  
-    
-    <h2 class="article-title"  itemprop="name headline">
-      <a href="/2019/08/08/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"  itemprop="url">
-        docker学习笔记
-      </a>
-    </h2>
-  
-  <div class='md article-desc' itemprop="articleBody">
-    
-      <blockquote>
-<p><a target="_blank" rel="noopener" href="https://labs.play-with-docker.com/">Play With Docker一个免费使用的基于web界面的Docker环境</a></p>
-</blockquote>
-<h1 id="常用docker命令"><a href="#常用docker命令" class="headerlink" title="常用docker命令"></a>常用docker命令</h1><p><strong>可使用<code>docker COMMAND --help</code>查看命令的用法</strong></p>
-<h2 id="Docker镜像相关"><a href="#Docker镜像相关" class="headerlink" title="Docker镜像相关"></a>Docker镜像相关</h2><ul>
-<li>1、<code>docker image pull</code>：用于下载镜像，镜像从远程镜像仓库服务的仓库中下载，默认从Docker Hub的仓库中拉取</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 格式：docker pull [OPTIONS] NAME[:TAG|@DIGEST]</span></span><br><span class="line"><span class="comment"># 说明：如果给出tag，一般拉取latest，name一般为username/repository,digest为镜像摘要可不给出</span></span><br><span class="line">docker image pull ubuntu:latest</span><br><span class="line"><span class="comment"># 这个拉取标签为latest的ubuntu官方镜像，latest: Pulling from library/ubuntu，latest不一定是最新镜像</span></span><br></pre></td></tr></table></figure>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-          
-          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
-          <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-            <meta itemprop="image" content="https://z3.ax1x.com/2021/11/07/I1qTFx.png">
-            <meta itemprop="name" content="yeshan333">
-            <meta itemprop="url" content="https://github.com/yeshan333">
-          </span>
-        
-        <time itemprop="dateCreated datePublished" datetime="2019-08-08T17:29:19+00:00">2019-08-08</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/docker/">docker</a>
-          
-            <span hidden itemprop="about" itemscope itemtype="http://schema.org/Thing">
-              <a href="/categories/docker/" itemprop="url"><span itemprop="name">docker</span></a>
-            </span>
-          
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2019/08/08/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/' itemprop="url">
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
     
   </section>
   
@@ -3693,7 +3697,7 @@ B站也有PC”客户端”了，真香😂
       
         <div class="webinfo-item">
           <div>文章数目：</div>
-          <div>142 篇</div>
+          <div>143 篇</div>
         </div>
       
 
@@ -3728,7 +3732,7 @@ B站也有PC”客户端”了，真香😂
       
         <div class="webinfo-item">
           <div>最后活动时间：</div>
-          <div id="last-update-show">2023-03-04 日</div>
+          <div id="last-update-show">2023-03-09 日</div>
         </div>
       
     </div>
