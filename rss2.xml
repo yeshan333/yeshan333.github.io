@@ -15,8 +15,39 @@
     <atom:link href="https://yeshan333.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>ShanSan&#39;s Blog</description>
-    <pubDate>Thu, 09 Mar 2023 22:40:24 GMT</pubDate>
+    <pubDate>Sat, 11 Mar 2023 14:26:29 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>(译) Server-Sent Events: the alternative to WebSockets you should be using</title>
+      <link>https://yeshan333.github.io/2023/03/11/sse-websocket/</link>
+      <guid>https://yeshan333.github.io/2023/03/11/sse-websocket/</guid>
+      <pubDate>Sat, 11 Mar 2023 14:26:29 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot;</description>
+          
+        
+      
+      
+      
+      
+      <category domain="https://yeshan333.github.io/categories/SSE/">SSE</category>
+      
+      
+      <category domain="https://yeshan333.github.io/tags/Python/">Python</category>
+      
+      <category domain="https://yeshan333.github.io/tags/Websocket/">Websocket</category>
+      
+      <category domain="https://yeshan333.github.io/tags/SSE/">SSE</category>
+      
+      
+      <comments>https://yeshan333.github.io/2023/03/11/sse-websocket/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>??????</title>
@@ -493,13 +524,13 @@
 &lt;!-- 我们都一样 --&gt;
 
 
-    &lt;div id=&quot;aplayer-SYWbaMHS&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+    &lt;div id=&quot;aplayer-ezDktfoT&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
          data-id=&quot;1340001174&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;true&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
     &gt;&lt;/div&gt;
 
 
 
-    &lt;div id=&quot;aplayer-oiPVcNcT&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+    &lt;div id=&quot;aplayer-dFijyZFY&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
          data-id=&quot;191252&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;false&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
     &gt;&lt;/div&gt;</description>
       
@@ -537,33 +568,6 @@
       
       
       <comments>https://yeshan333.github.io/2021/11/27/loopback-addr/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>回到十月-生活中的一点儿小确幸</title>
-      <link>https://yeshan333.github.io/2021/11/14/back-to-october/</link>
-      <guid>https://yeshan333.github.io/2021/11/14/back-to-october/</guid>
-      <pubDate>Sun, 14 Nov 2021 10:21:37 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot;</description>
-          
-        
-      
-      
-      
-      
-      <category domain="https://yeshan333.github.io/categories/blog/">blog</category>
-      
-      
-      <category domain="https://yeshan333.github.io/tags/blog/">blog</category>
-      
-      
-      <comments>https://yeshan333.github.io/2021/11/14/back-to-october/#disqus_thread</comments>
       
     </item>
     
