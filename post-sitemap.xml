@@ -9,6 +9,14 @@
 
 
     <url>
+        <loc>https://yeshan333.github.io/2023/08/12/elixir-deps-debug-skills/</loc>
+        <lastmod>2023-08-12T16:15:40.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>https://yeshan333.github.io/2023/03/11/sse-websocket/</loc>
         <lastmod>2023-03-11T14:26:29.000Z</lastmod>
         <changefreq>weekly</changefreq>

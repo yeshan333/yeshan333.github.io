@@ -1,3 +1,4 @@
+https://yeshan333.github.io/2023/08/12/elixir-deps-debug-skills/
 https://yeshan333.github.io/2023/03/11/sse-websocket/
 https://yeshan333.github.io/2023/03/09/become-a-romantic-muscian/
 https://yeshan333.github.io/2023/02/26/2022-annual-reviewed/
@@ -7,4 +8,3 @@ https://yeshan333.github.io/2022/06/29/elixir-run-time-code-line-level-coverage-
 https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-6-in-place-code-generation/
 https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-5-reshaping-the-ast/
 https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-4-diving-deeper/
-https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-3-gettingto-the-ast/

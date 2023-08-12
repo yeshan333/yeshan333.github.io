@@ -15,8 +15,39 @@
     <atom:link href="https://yeshan333.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>ShanSan&#39;s Blog</description>
-    <pubDate>Sat, 11 Mar 2023 14:26:29 GMT</pubDate>
+    <pubDate>Sat, 12 Aug 2023 16:15:40 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>Elixir 依赖 (deps) 调试的小技巧</title>
+      <link>https://yeshan333.github.io/2023/08/12/elixir-deps-debug-skills/</link>
+      <guid>https://yeshan333.github.io/2023/08/12/elixir-deps-debug-skills/</guid>
+      <pubDate>Sat, 12 Aug 2023 16:15:40 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot;</description>
+          
+        
+      
+      
+      
+      
+      <category domain="https://yeshan333.github.io/categories/Elixir/">Elixir</category>
+      
+      
+      <category domain="https://yeshan333.github.io/tags/Elixir/">Elixir</category>
+      
+      <category domain="https://yeshan333.github.io/tags/Deps/">Deps</category>
+      
+      <category domain="https://yeshan333.github.io/tags/Mix/">Mix</category>
+      
+      
+      <comments>https://yeshan333.github.io/2023/08/12/elixir-deps-debug-skills/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>(译) Server-Sent Events: the alternative to WebSockets you should be using</title>
@@ -524,13 +555,13 @@
 &lt;!-- 我们都一样 --&gt;
 
 
-    &lt;div id=&quot;aplayer-oXivlCpK&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+    &lt;div id=&quot;aplayer-ZuDMcBYe&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
          data-id=&quot;1340001174&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;true&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
     &gt;&lt;/div&gt;
 
 
 
-    &lt;div id=&quot;aplayer-nbTzBkzY&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+    &lt;div id=&quot;aplayer-ZUvQSqpM&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
          data-id=&quot;191252&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;false&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
     &gt;&lt;/div&gt;</description>
       
@@ -544,30 +575,6 @@
       
       
       <comments>https://yeshan333.github.io/2021/12/04/deserve/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>回环地址的一点儿破事</title>
-      <link>https://yeshan333.github.io/2021/11/27/loopback-addr/</link>
-      <guid>https://yeshan333.github.io/2021/11/27/loopback-addr/</guid>
-      <pubDate>Sat, 27 Nov 2021 11:41:50 GMT</pubDate>
-      
-      <description>&lt;p&gt;心血来潮，小水一篇！&lt;/p&gt;
-&lt;h2 id=&quot;回环地址（loopback-address）&quot;&gt;&lt;a href=&quot;#回环地址（loopback-address）&quot; class=&quot;headerlink&quot; title=&quot;回环地址（loopback address）&quot;&gt;&lt;/a&gt;回环地址（loopback address）&lt;/h2&gt;&lt;blockquote&gt;
-&lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Loopback&quot;&gt;loopback&lt;/a&gt; 在维基百科上有一段这样的解释：Loopback (also written loop-back) is the routing of electronic signals or digital data streams back to their source without intentional processing or modification. It is primarily a means of testing the communications infrastructure.&lt;br&gt;通熟的说就是将由“源”发送出去的数据路由回“源”。&lt;/p&gt;
-&lt;/blockquote&gt;</description>
-      
-      
-      
-      
-      <category domain="https://yeshan333.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</category>
-      
-      
-      <category domain="https://yeshan333.github.io/tags/Wireshark/">Wireshark</category>
-      
-      
-      <comments>https://yeshan333.github.io/2021/11/27/loopback-addr/#disqus_thread</comments>
       
     </item>
     
