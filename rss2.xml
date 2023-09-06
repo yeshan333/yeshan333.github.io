@@ -7,7 +7,7 @@
     <link>https://yeshan333.github.io/</link>
     
     <image>
-      <url>https://s1.ax1x.com/2022/10/09/xJ7yMF.png</url>
+      <url>https://guangzhoushan.oss-cn-guangzhou.aliyuncs.com/blog/blog.avatar.jpg</url>
       <title>ShanSan</title>
       <link>https://yeshan333.github.io/</link>
     </image>
@@ -24,13 +24,7 @@
       <guid>https://yeshan333.github.io/2023/08/12/elixir-deps-debug-skills/</guid>
       <pubDate>Sat, 12 Aug 2023 16:15:40 GMT</pubDate>
       
-        
-        
-          
-          
-      <description>&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot;</description>
-          
-        
+      <description>Elixir 依赖 (deps) 调试的小技巧</description>
       
       
       
@@ -59,7 +53,8 @@
         
           
           
-      <description>&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot;</description>
+      <description>&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; class=&quot;aplayer-secondary-script-marker&quot;&gt;&lt;/script&gt;&lt;script class=&quot;meting-secondary-script-marker&quot; src=&quot;/assets/js/Meting.min.js&quot;&gt;&lt;/script&gt;&lt;blockquote&gt;
+&lt;p&gt;原文地址: &lt;a</description>
           
         
       
@@ -107,7 +102,7 @@
         
           
           
-      <description>&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot;</description>
+      <description>&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; class=&quot;aplayer-secondary-script-marker&quot;&gt;&lt;/script&gt;&lt;script class=&quot;meting-secondary-script-marker&quot; src=&quot;/assets/js/Meting.min.js&quot;&gt;&lt;/script&gt;&lt;p&gt;迟来的总结，2022</description>
           
         
       
@@ -134,7 +129,7 @@
         
           
           
-      <description>&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot;</description>
+      <description>&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; class=&quot;aplayer-secondary-script-marker&quot;&gt;&lt;/script&gt;&lt;script class=&quot;meting-secondary-script-marker&quot; src=&quot;/assets/js/Meting.min.js&quot;&gt;&lt;/script&gt;&lt;p&gt;从 1.2 版本开始, &lt;code&gt;with&lt;/code&gt; 运算符是需要点时间去理解的 ELixir 特性之一.</description>
           
         
       
@@ -161,7 +156,8 @@
         
           
           
-      <description>&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot;</description>
+      <description>&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; class=&quot;aplayer-secondary-script-marker&quot;&gt;&lt;/script&gt;&lt;script class=&quot;meting-secondary-script-marker&quot; src=&quot;/assets/js/Meting.min.js&quot;&gt;&lt;/script&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;a</description>
           
         
       
@@ -190,7 +186,7 @@
         
           
           
-      <description>&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot;</description>
+      <description>&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; class=&quot;aplayer-secondary-script-marker&quot;&gt;&lt;/script&gt;&lt;script class=&quot;meting-secondary-script-marker&quot; src=&quot;/assets/js/Meting.min.js&quot;&gt;&lt;/script&gt;&lt;h2 id=&quot;1-浅谈代码覆盖率&quot;&gt;&lt;a href=&quot;#1-浅谈代码覆盖率&quot; class=&quot;headerlink&quot;</description>
           
         
       
@@ -219,7 +215,10 @@
         
           
           
-      <description>&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot;</description>
+      <description>&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; class=&quot;aplayer-secondary-script-marker&quot;&gt;&lt;/script&gt;&lt;script class=&quot;meting-secondary-script-marker&quot; src=&quot;/assets/js/Meting.min.js&quot;&gt;&lt;/script&gt;&lt;blockquote&gt;
+&lt;p&gt;Elixir Macros 系列文章译文&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;[1] &lt;a</description>
           
         
       
@@ -246,7 +245,10 @@
         
           
           
-      <description>&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot;</description>
+      <description>&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; class=&quot;aplayer-secondary-script-marker&quot;&gt;&lt;/script&gt;&lt;script class=&quot;meting-secondary-script-marker&quot; src=&quot;/assets/js/Meting.min.js&quot;&gt;&lt;/script&gt;&lt;blockquote&gt;
+&lt;p&gt;Elixir Macros 系列文章译文&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;[1] &lt;a</description>
           
         
       
@@ -273,7 +275,10 @@
         
           
           
-      <description>&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot;</description>
+      <description>&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; class=&quot;aplayer-secondary-script-marker&quot;&gt;&lt;/script&gt;&lt;script class=&quot;meting-secondary-script-marker&quot; src=&quot;/assets/js/Meting.min.js&quot;&gt;&lt;/script&gt;&lt;blockquote&gt;
+&lt;p&gt;Elixir Macros 系列文章译文&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;[1] &lt;a</description>
           
         
       
@@ -300,7 +305,10 @@
         
           
           
-      <description>&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot;</description>
+      <description>&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; class=&quot;aplayer-secondary-script-marker&quot;&gt;&lt;/script&gt;&lt;script class=&quot;meting-secondary-script-marker&quot; src=&quot;/assets/js/Meting.min.js&quot;&gt;&lt;/script&gt;&lt;blockquote&gt;
+&lt;p&gt;Elixir Macros 系列文章译文&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;[1] &lt;a</description>
           
         
       
@@ -327,7 +335,10 @@
         
           
           
-      <description>&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot;</description>
+      <description>&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; class=&quot;aplayer-secondary-script-marker&quot;&gt;&lt;/script&gt;&lt;script class=&quot;meting-secondary-script-marker&quot; src=&quot;/assets/js/Meting.min.js&quot;&gt;&lt;/script&gt;&lt;blockquote&gt;
+&lt;p&gt;Elixir Macros 系列文章译文&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;[1] &lt;a</description>
           
         
       
@@ -354,7 +365,10 @@
         
           
           
-      <description>&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot;</description>
+      <description>&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; class=&quot;aplayer-secondary-script-marker&quot;&gt;&lt;/script&gt;&lt;script class=&quot;meting-secondary-script-marker&quot; src=&quot;/assets/js/Meting.min.js&quot;&gt;&lt;/script&gt;&lt;blockquote&gt;
+&lt;p&gt;Elixir Macros 系列文章译文&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;[1] &lt;a</description>
           
         
       
@@ -381,7 +395,7 @@
         
           
           
-      <description>&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot;</description>
+      <description>&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; class=&quot;aplayer-secondary-script-marker&quot;&gt;&lt;/script&gt;&lt;script class=&quot;meting-secondary-script-marker&quot; src=&quot;/assets/js/Meting.min.js&quot;&gt;&lt;/script&gt;&lt;p&gt;Prometheus 中 Range Vector</description>
           
         
       
@@ -408,7 +422,7 @@
         
           
           
-      <description>&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot;</description>
+      <description>&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; class=&quot;aplayer-secondary-script-marker&quot;&gt;&lt;/script&gt;&lt;script class=&quot;meting-secondary-script-marker&quot; src=&quot;/assets/js/Meting.min.js&quot;&gt;&lt;/script&gt;&lt;p&gt;在编写 Web Service 等涉及数据序列化和反序列化的场景，对于 JSON 类型的数据，在 Go</description>
           
         
       
@@ -439,7 +453,7 @@
         
           
           
-      <description>&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot;</description>
+      <description>&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; class=&quot;aplayer-secondary-script-marker&quot;&gt;&lt;/script&gt;&lt;script class=&quot;meting-secondary-script-marker&quot; src=&quot;/assets/js/Meting.min.js&quot;&gt;&lt;/script&gt;&lt;p&gt;忽然想起来还没怎么用过 profiling</description>
           
         
       
@@ -476,7 +490,7 @@
         
           
           
-      <description>&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot;</description>
+      <description>&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; class=&quot;aplayer-secondary-script-marker&quot;&gt;&lt;/script&gt;&lt;script class=&quot;meting-secondary-script-marker&quot; src=&quot;/assets/js/Meting.min.js&quot;&gt;&lt;/script&gt;&lt;h2 id=&quot;有限状态机（Finite-State-Machine）&quot;&gt;&lt;a</description>
           
         
       
@@ -555,13 +569,13 @@
 &lt;!-- 我们都一样 --&gt;
 
 
-    &lt;div id=&quot;aplayer-ZuDMcBYe&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+    &lt;div id=&quot;aplayer-pkVWjFAL&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
          data-id=&quot;1340001174&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;true&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
     &gt;&lt;/div&gt;
 
 
 
-    &lt;div id=&quot;aplayer-ZUvQSqpM&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+    &lt;div id=&quot;aplayer-yjRbgfam&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
          data-id=&quot;191252&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;false&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
     &gt;&lt;/div&gt;</description>
       
@@ -575,6 +589,347 @@
       
       
       <comments>https://yeshan333.github.io/2021/12/04/deserve/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>回环地址的一点儿破事</title>
+      <link>https://yeshan333.github.io/2021/11/27/loopback-addr/</link>
+      <guid>https://yeshan333.github.io/2021/11/27/loopback-addr/</guid>
+      <pubDate>Sat, 27 Nov 2021 11:41:50 GMT</pubDate>
+      
+      <description>&lt;p&gt;心血来潮，小水一篇！&lt;/p&gt;
+&lt;h2 id=&quot;回环地址（loopback-address）&quot;&gt;&lt;a href=&quot;#回环地址（loopback-address）&quot; class=&quot;headerlink&quot; title=&quot;回环地址（loopback address）&quot;&gt;&lt;/a&gt;回环地址（loopback address）&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Loopback&quot;&gt;loopback&lt;/a&gt; 在维基百科上有一段这样的解释：Loopback (also written loop-back) is the routing of electronic signals or digital data streams back to their source without intentional processing or modification. It is primarily a means of testing the communications infrastructure.&lt;br&gt;通熟的说就是将由“源”发送出去的数据路由回“源”。&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+      
+      
+      
+      
+      <category domain="https://yeshan333.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</category>
+      
+      
+      <category domain="https://yeshan333.github.io/tags/Wireshark/">Wireshark</category>
+      
+      
+      <comments>https://yeshan333.github.io/2021/11/27/loopback-addr/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>回到十月-生活中的一点儿小确幸</title>
+      <link>https://yeshan333.github.io/2021/11/14/back-to-october/</link>
+      <guid>https://yeshan333.github.io/2021/11/14/back-to-october/</guid>
+      <pubDate>Sun, 14 Nov 2021 10:21:37 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; class=&quot;aplayer-secondary-script-marker&quot;&gt;&lt;/script&gt;&lt;script class=&quot;meting-secondary-script-marker&quot; src=&quot;/assets/js/Meting.min.js&quot;&gt;&lt;/script&gt;&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot;</description>
+          
+        
+      
+      
+      
+      
+      <category domain="https://yeshan333.github.io/categories/blog/">blog</category>
+      
+      
+      <category domain="https://yeshan333.github.io/tags/blog/">blog</category>
+      
+      
+      <comments>https://yeshan333.github.io/2021/11/14/back-to-october/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>使用 Kubeadm 搭建个公网 k8s 集群（单控制平面集群）</title>
+      <link>https://yeshan333.github.io/2021/10/24/create-k8s-cluster/</link>
+      <guid>https://yeshan333.github.io/2021/10/24/create-k8s-cluster/</guid>
+      <pubDate>Sun, 24 Oct 2021 13:51:19 GMT</pubDate>
+      
+      <description>&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;YY：国庆的时候趁着阿里云和腾讯云的轻量级服务器做促销一不小心剁了个手😎😢，2 Cores，4G RAM 还是阔以的，既然买了，那不能不用呀🚩，之前一直想着搭建个 k8s 集群玩玩，本地开发机虽然起了个 k8s（拿 Docker Desktop 起的，不 dei 劲），但就一个 Node，不爽，对 k8s 的体验不到位😒，1024，是时候用起来了，折腾一下，顺便让最近浮躁的心冷静一下。&lt;/p&gt;
+&lt;p&gt;这次拿官方的 Kubeadm 耍一下，以阿里云的轻量级应用服务器为 Control 节点，腾讯云的轻量级应用服务器为 Worker 节点，说干就干。&lt;/p&gt;</description>
+      
+      
+      
+      
+      <category domain="https://yeshan333.github.io/categories/Kubernetes/">Kubernetes</category>
+      
+      
+      <category domain="https://yeshan333.github.io/tags/Kubernetes/">Kubernetes</category>
+      
+      <category domain="https://yeshan333.github.io/tags/Kubeadm/">Kubeadm</category>
+      
+      
+      <comments>https://yeshan333.github.io/2021/10/24/create-k8s-cluster/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>从平均负载开始，这进程是 CPU Bound 还是 IO Bound 的？</title>
+      <link>https://yeshan333.github.io/2021/10/07/io-bound-cpu-bound-with-average-load/</link>
+      <guid>https://yeshan333.github.io/2021/10/07/io-bound-cpu-bound-with-average-load/</guid>
+      <pubDate>Thu, 07 Oct 2021 16:12:38 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; class=&quot;aplayer-secondary-script-marker&quot;&gt;&lt;/script&gt;&lt;script class=&quot;meting-secondary-script-marker&quot; src=&quot;/assets/js/Meting.min.js&quot;&gt;&lt;/script&gt;&lt;p&gt;在排查性能问题的时候，我们经常会使用 top 或者 uptime 两个 Linux 命令，top 命令和</description>
+          
+        
+      
+      
+      
+      
+      <category domain="https://yeshan333.github.io/categories/Linux/">Linux</category>
+      
+      <category domain="https://yeshan333.github.io/categories/Linux/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">性能优化</category>
+      
+      
+      <category domain="https://yeshan333.github.io/tags/Linux/">Linux</category>
+      
+      <category domain="https://yeshan333.github.io/tags/%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95/">压力测试</category>
+      
+      <category domain="https://yeshan333.github.io/tags/CPU-Bound/">CPU Bound</category>
+      
+      <category domain="https://yeshan333.github.io/tags/IO-Bound/">IO Bound</category>
+      
+      
+      <comments>https://yeshan333.github.io/2021/10/07/io-bound-cpu-bound-with-average-load/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>常用的 Linux 网络相关的命令</title>
+      <link>https://yeshan333.github.io/2021/09/25/common-use-linux-network-command/</link>
+      <guid>https://yeshan333.github.io/2021/09/25/common-use-linux-network-command/</guid>
+      <pubDate>Sat, 25 Sep 2021 16:34:52 GMT</pubDate>
+      
+      <description>&lt;p&gt;水文警告⚠😂，最近这些玩意用得多，微微记录一下，目前写的比较水，后面应该会补点实践经验🚩。&lt;/p&gt;</description>
+      
+      
+      
+      
+      <category domain="https://yeshan333.github.io/categories/Linux/">Linux</category>
+      
+      
+      <category domain="https://yeshan333.github.io/tags/Linux/">Linux</category>
+      
+      
+      <comments>https://yeshan333.github.io/2021/09/25/common-use-linux-network-command/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>基于 Docker 搭建一个最小化的 Prometheus Federation「联邦」集群</title>
+      <link>https://yeshan333.github.io/2021/08/28/prometheus-federation/</link>
+      <guid>https://yeshan333.github.io/2021/08/28/prometheus-federation/</guid>
+      <pubDate>Sat, 28 Aug 2021 17:25:18 GMT</pubDate>
+      
+      <description>&lt;blockquote&gt;
+&lt;p&gt;一不小心就八月末了，我敲，最近大部分的时间都在了解 Prometheus，一直想“搂”篇文章出来，奈何一直在墨迹，是时候了，不然就九月了，完不成博客的 Flag 了，233333。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;本篇文章主要介绍了 Promethues Federation 集群化机制 &amp;amp; 基于 Docker 搭建一个最小化的 Prometheus Federation 集群娱乐环境的相关操作。不是 Step By Step 的。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/yeshan333/blog_images@main/images/%E4%B9%B1%E6%9D%80.gif&quot; alt=&quot;乱杀&quot;&gt;&lt;/p&gt;</description>
+      
+      
+      
+      
+      <category domain="https://yeshan333.github.io/categories/Monitoring/">Monitoring</category>
+      
+      
+      <category domain="https://yeshan333.github.io/tags/Prometheus/">Prometheus</category>
+      
+      <category domain="https://yeshan333.github.io/tags/Grafana/">Grafana</category>
+      
+      <category domain="https://yeshan333.github.io/tags/Federation/">Federation</category>
+      
+      <category domain="https://yeshan333.github.io/tags/Docker/">Docker</category>
+      
+      <category domain="https://yeshan333.github.io/tags/Monitoring/">Monitoring</category>
+      
+      
+      <comments>https://yeshan333.github.io/2021/08/28/prometheus-federation/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>对下载软件/文件进行校验的工具（Checksum and GPG）</title>
+      <link>https://yeshan333.github.io/2021/07/10/checksum-gpg-tools/</link>
+      <guid>https://yeshan333.github.io/2021/07/10/checksum-gpg-tools/</guid>
+      <pubDate>Sat, 10 Jul 2021 18:23:57 GMT</pubDate>
+      
+      <description>&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;之前装软件一直都没有验证安装文件的习惯，信息安全意识不高，碰巧最近没啥事，微微写篇文章记录下校验工具（互联网http、https、ftp 服务并没有那么安全，是可以被劫持篡改。老装软件选手了，是该养成个校验文件的习惯了）。&lt;/p&gt;
+&lt;p&gt;在互联网下载软件/文件的时候经常会看到官方提供了一段⌈校验和（checksum）⌋或包含校验和的文件供校验。常见的校验和有 md5、SHA 家族等。还有部分软件/文件会提供 GPG 校验文件（signature file, SIG）给下载者进行校验。&lt;/p&gt;
+&lt;p&gt;来看看这两种校验方式相关的工具。&lt;/p&gt;</description>
+      
+      
+      
+      
+      <category domain="https://yeshan333.github.io/categories/Cryptography/">Cryptography</category>
+      
+      
+      <category domain="https://yeshan333.github.io/tags/MD5/">MD5</category>
+      
+      <category domain="https://yeshan333.github.io/tags/GPG/">GPG</category>
+      
+      
+      <comments>https://yeshan333.github.io/2021/07/10/checksum-gpg-tools/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>使用 osmosfeed 创建自己的 Web RSS 阅读器</title>
+      <link>https://yeshan333.github.io/2021/06/29/osmosfeed-rss-reader/</link>
+      <guid>https://yeshan333.github.io/2021/06/29/osmosfeed-rss-reader/</guid>
+      <pubDate>Tue, 29 Jun 2021 15:34:20 GMT</pubDate>
+      
+      <description>&lt;p&gt;之前一直用 App Store 上的一个 RSS 阅读器 RSS Reader Prime 订阅技术周刊和 dalao 的技术博客，不得不说挺好用的，奈何全线下架了，现在就平板上保留着这个 App，手机上没有（国区好用的 RSS 阅读器基本无了）。有时候又想着用手机读读技术文章（板子太大，不好拿），于是乎翻了下 GitHub &lt;a href=&quot;https://github.com/topics/rss-reader&quot;&gt;rss-reader topic&lt;/a&gt; 下的相关阅读器项目，挑了手基于 Web 和 GitHub Pages 的 RSS 阅读器（Web 才是真的“跨端”，2333~），水篇文章微微记录下。&lt;/p&gt;</description>
+      
+      
+      
+      
+      <category domain="https://yeshan333.github.io/categories/blog/">blog</category>
+      
+      <category domain="https://yeshan333.github.io/categories/RSS/">RSS</category>
+      
+      
+      <category domain="https://yeshan333.github.io/tags/RSS-Reader/">RSS Reader</category>
+      
+      
+      <comments>https://yeshan333.github.io/2021/06/29/osmosfeed-rss-reader/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>热传导方程非特征 Cauchy 问题的一些笔记</title>
+      <link>https://yeshan333.github.io/2021/05/16/heat-conduction-equation/</link>
+      <guid>https://yeshan333.github.io/2021/05/16/heat-conduction-equation/</guid>
+      <pubDate>Sun, 16 May 2021 15:14:31 GMT</pubDate>
+      
+      <description>&lt;p&gt;毕设工作即将结束之际，附上一份笔记到博客-数学物理方程-热传导方程.&lt;/p&gt;</description>
+      
+      
+      
+      
+      <category domain="https://yeshan333.github.io/categories/math/">math</category>
+      
+      
+      <category domain="https://yeshan333.github.io/tags/math/">math</category>
+      
+      
+      <comments>https://yeshan333.github.io/2021/05/16/heat-conduction-equation/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>简单了解波 Mono-repo &amp; Multi-repo（Poly-repo）</title>
+      <link>https://yeshan333.github.io/2021/04/30/term-monorepo-multirepo/</link>
+      <guid>https://yeshan333.github.io/2021/04/30/term-monorepo-multirepo/</guid>
+      <pubDate>Fri, 30 Apr 2021 23:30:00 GMT</pubDate>
+      
+      <description>&lt;p&gt;Mono-repo 和 Multi-repo 是软件开发中代码管理的两个不同策略。Mono-repo &amp;amp; Multi-repo 孰优孰劣是个老生常谈得话题了，这里就不 &lt;a href=&quot;https://hackernoon.com/mono-repo-vs-multi-repo-vs-hybrid-whats-the-right-approach-dv1a3ugn&quot;&gt;PK&lt;/a&gt; 了，“略微”看下两者区别。&lt;/p&gt;
+&lt;p&gt;当我们使用 Git 作为版本控制系统管理项目的代码时，那么 monorepo 与 multirepo 的定义表述如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;monorepo，使用一个 Git 仓库管理项目相关的多个 模块/包/功能/应用。&lt;/li&gt;
+&lt;li&gt;multirepo（又称为 polyrepo），使用多个 Git 仓库分别管理项目的每一个 模块/包/功能/应用。&lt;/li&gt;
+&lt;/ul&gt;</description>
+      
+      
+      
+      
+      <category domain="https://yeshan333.github.io/categories/Architecture/">Architecture</category>
+      
+      
+      <category domain="https://yeshan333.github.io/tags/%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86/">项目管理</category>
+      
+      <category domain="https://yeshan333.github.io/tags/Monorepo/">Monorepo</category>
+      
+      
+      <comments>https://yeshan333.github.io/2021/04/30/term-monorepo-multirepo/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>Windows Insiders WSLg Linux GUI App 支持尝鲜</title>
+      <link>https://yeshan333.github.io/2021/04/25/enjoy-wslg/</link>
+      <guid>https://yeshan333.github.io/2021/04/25/enjoy-wslg/</guid>
+      <pubDate>Sun, 25 Apr 2021 18:59:48 GMT</pubDate>
+      
+      <description>&lt;p&gt;2021 年 4 月 21 日，微软在 Developer Blogs 发布了 Windows 预览版 WSL（Windows Linux 子系统） 对 Linux GUI App 的支持的&lt;a href=&quot;https://devblogs.microsoft.com/commandline/the-initial-preview-of-gui-app-support-is-now-available-for-the-windows-subsystem-for-linux-2&quot;&gt;公告🔗&lt;/a&gt;，碰巧😀我最近重装了波电脑，系统换成了 Windows Insiders（Dev），正好可以感受波 Linux GUI App 的支持。btw，预览版的文件管理器支持访问 WSL 的文件了，6~ 的。&lt;/p&gt;
+&lt;div galleryFlag itemscope itemtype=&quot;http://schema.org/ImageGallery&quot; class=&quot;gallery &quot; data-group=&#39;default&#39;&gt;&lt;div class=&#39;fancybox&#39;&gt;&lt;a class=&#39;fancybox&#39; pjax-fancybox itemscope itemtype=&quot;http://schema.org/ImageObject&quot; itemprop=&quot;url&quot; href=&#39;https://z3.ax1x.com/2021/04/25/czJUAO.png&#39; data-fancybox=&#39;default&#39; data-caption=&#39;Windows new icons&#39;&gt;&lt;img fancybox itemprop=&quot;contentUrl&quot; src=&quot;https://z3.ax1x.com/2021/04/25/czJUAO.png&quot; alt=&quot;Windows new icons&quot;&gt;&lt;/a&gt;&lt;span class=&#39;image-caption&#39;&gt;Windows new icons&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;WSL 现在居然支持跑 Linux 图形应用了，真香（😎，虽然上一年 WSL 的 &lt;a href=&quot;https://devblogs.microsoft.com/commandline/the-windows-subsystem-for-linux-build-2020-summary/#wsl-gui&quot;&gt;Roadmap&lt;/a&gt; 中有说过要支持，但我没关注，老二手知识党了）。Quickstart -&amp;gt;&lt;/p&gt;</description>
+      
+      
+      
+      
+      <category domain="https://yeshan333.github.io/categories/WSL/">WSL</category>
+      
+      
+      <category domain="https://yeshan333.github.io/tags/Linux/">Linux</category>
+      
+      <category domain="https://yeshan333.github.io/tags/WSL/">WSL</category>
+      
+      <category domain="https://yeshan333.github.io/tags/GUI/">GUI</category>
+      
+      
+      <comments>https://yeshan333.github.io/2021/04/25/enjoy-wslg/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>初探 Git Submodules</title>
+      <link>https://yeshan333.github.io/2021/03/10/git-submodules/</link>
+      <guid>https://yeshan333.github.io/2021/03/10/git-submodules/</guid>
+      <pubDate>Wed, 10 Mar 2021 15:51:15 GMT</pubDate>
+      
+      <description>&lt;p&gt;之前一直想将一个 Git 仓库放到另一个 Git 仓库，有 Maven 多模块项目（Maven Multimodule Project）和 Gradle 多项目构建（Gradle Multiproject Build）那味儿。Git 这么骚，肯定也可以。“扫”了多个开源仓库，Get 到了 Git &lt;code&gt;submodule&lt;/code&gt; 可以做这种操作，水篇文章记录波。&lt;/p&gt;</description>
+      
+      
+      
+      
+      <category domain="https://yeshan333.github.io/categories/Git/">Git</category>
+      
+      
+      <category domain="https://yeshan333.github.io/tags/Git/">Git</category>
+      
+      
+      <comments>https://yeshan333.github.io/2021/03/10/git-submodules/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>使用 rsync-deploy-action 同步 Hexo 博客到个人服务器</title>
+      <link>https://yeshan333.github.io/2021/01/19/hexo-blog-synchronization-with-rsync/</link>
+      <guid>https://yeshan333.github.io/2021/01/19/hexo-blog-synchronization-with-rsync/</guid>
+      <pubDate>Tue, 19 Jan 2021 20:02:51 GMT</pubDate>
+      
+      <description>&lt;p&gt;前几天写了个基于 rsync 进行文件同步的 Action -&amp;gt; &lt;a href=&quot;https://github.com/yeshan333/rsync-deploy-action&quot;&gt;rsync-deploy-action&lt;/a&gt;。目的有三个：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;1、深入了解波 &lt;a href=&quot;https://docs.github.com/en/actions/creating-actions&quot;&gt;GitHub Actions&lt;/a&gt;，感受下 GitHub 的文档；&lt;/li&gt;
+&lt;li&gt;2、个人博客在我的腾讯云 CVM 服务器上是部署有一份的「域名：&lt;a href=&quot;https://shan333.cn/&quot;&gt;shan333.cn&lt;/a&gt;」，之前的博客同步方式是通过 Linux 的定时任务，觉得不太行，当前博客的更新并没有那么频繁，没必要每隔几个小时就 &lt;code&gt;git pull&lt;/code&gt; 一下，且服务器还挂着其他东西，性能还是有点损耗的，换成通过 rsync 进行主动推送的方式好点；&lt;/li&gt;
+&lt;li&gt;3、熟悉波 SSH 协议和 rsync 协议。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;今天撸一篇文章简单记录下这次折腾。&lt;/p&gt;</description>
+      
+      
+      
+      
+      <category domain="https://yeshan333.github.io/categories/DevOps/">DevOps</category>
+      
+      
+      <category domain="https://yeshan333.github.io/tags/Github-Actions/">Github Actions</category>
+      
+      <category domain="https://yeshan333.github.io/tags/DevOps/">DevOps</category>
+      
+      <category domain="https://yeshan333.github.io/tags/Nginx/">Nginx</category>
+      
+      
+      <comments>https://yeshan333.github.io/2021/01/19/hexo-blog-synchronization-with-rsync/#disqus_thread</comments>
       
     </item>
     
