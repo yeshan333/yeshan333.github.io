@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN,en,zh-TW,default">
     <head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/#5.7.6'>
-  <meta name="generator" content="Hexo 5.4.2">
+  <meta name="generator" content="Hexo 7.1.1">
   <meta name="Volantis" content="5.7.6">
   <meta charset="utf-8">
   <!-- SEO相关 -->
@@ -47,7 +47,7 @@ $$ \lim_{v \rightarrow a} f(x) $$
 <meta property="og:title" content="MATLAB基操复习">
 <meta property="og:url" content="https://yeshan333.github.io/2019/06/17/MATLAB%E5%9F%BA%E6%93%8D%E5%A4%8D%E4%B9%A0/index.html">
 <meta property="og:site_name" content="ShanSan">
-<meta property="og:description" content="MATLAB基本操作1. 对象定义使用sym定义单个对象、使用syms定义多个对象 2. 使用limit求极限 $$ \lim_{v \rightarrow a} f(x) $$ 1limit(f,v,a) % 使用limit(f,v,a,&amp;#x27;left&amp;#x27;)可求左极限  3. 导数使用diff(f,v,n)对$ f(v)&#x3D;v^{t-1} $求 $ n $ 阶导 $ \frac{d^">
+<meta property="og:description" content="MATLAB基本操作1. 对象定义使用sym定义单个对象、使用syms定义多个对象 2. 使用limit求极限 $$ \lim_{v \rightarrow a} f(x) $$ 1limit(f,v,a) % 使用limit(f,v,a,&#x27;left&#x27;)可求左极限  3. 导数使用diff(f,v,n)对$ f(v)&#x3D;v^{t-1} $求 $ n $ 阶导 $ \fr">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
 <meta property="article:published_time" content="2019-06-17T19:51:57.000Z">
@@ -1914,7 +1914,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1707222514978),
+    lastupdate: new Date(1707225652253),
     sidebar: {
       for_page: ["blogger","webinfo","category","tagcloud","wonderful_link","qrcode","my_follow"],
       for_post: ["toc"],
@@ -2920,7 +2920,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <p>$$ \lim_{v \rightarrow a} f(x) $$</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">limit(f,v,a) <span class="comment">% 使用limit(f,v,a,&#x27;left&#x27;)可求左极限</span></span><br></pre></td></tr></table></figure>
 
-<p><strong>3. 导数</strong><br>使用<code>diff(f,v,n)</code>对$ f(v)=v^{t-1} $求 $ n $ 阶导 $ \frac{d^nf}{d^nv} $，n缺省时，默认为1，diff(f)默认求一阶导数。</p>
+<p><strong>3. 导数</strong><br>使用<code>diff(f,v,n)</code>对$ f(v)&#x3D;v^{t-1} $求 $ n $ 阶导 $ \frac{d^nf}{d^nv} $，n缺省时，默认为1，diff(f)默认求一阶导数。</p>
 <p><strong>4. 定积分和不定积分</strong><br>使用<code>int(f,v)</code>求f对变量v的不定积分，使用<code>int(f,v,a,b)</code>求f对变量v的定积分,a、b为积分上下标。$ \int{f(v)dv} $、$ \int^{a}_{b}{f(v)dv} $。</p>
 <span id="more"></span>
 
@@ -3011,7 +3011,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 </tr>
 <tr>
 <td align="center">exitflag</td>
-<td align="left">描述退出条件:exitflag&gt;0,表目标函数收敛于解x处；exitflag=0,表已达到函数评价或迭代的最大次数；exitflag&lt;0,表目标函数不收敛</td>
+<td align="left">描述退出条件:exitflag&gt;0,表目标函数收敛于解x处；exitflag&#x3D;0,表已达到函数评价或迭代的最大次数；exitflag&lt;0,表目标函数不收敛</td>
 </tr>
 <tr>
 <td align="center">output</td>
@@ -3019,35 +3019,35 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 </tr>
 </tbody></table>
 <h2 id="一元函数无约束优化问题-fminbnd"><a href="#一元函数无约束优化问题-fminbnd" class="headerlink" title="一元函数无约束优化问题-fminbnd"></a>一元函数无约束优化问题-fminbnd</h2><h3 id="常用格式"><a href="#常用格式" class="headerlink" title="常用格式"></a>常用格式</h3><p>$$ min f(x)， x_1&lt;x&lt;x_2 $$</p>
-<p>（1）x= fminbnd (fun, x1, x2)<br>（2）x= fminbnd (fun, x1, x2 , options)<br>（3）[x , fval]= fminbnd（…）<br>（4）[x , fval , exitflag]= fminbnd（…）<br>（5）[x , fval , exitflag , output]= fminbnd（…）<br>函数fminbnd的算法基于黄金分割法和二次插值法，它要求目标函数必须是连续函数，并可能只给出局部最优解</p>
-<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><p>求函数 $ f(x)=2e^{-x}sin(x) $ 在 $ 0&lt;x&lt;8 $ 时的最小值</p>
+<p>（1）x&#x3D; fminbnd (fun, x1, x2)<br>（2）x&#x3D; fminbnd (fun, x1, x2 , options)<br>（3）[x , fval]&#x3D; fminbnd（…）<br>（4）[x , fval , exitflag]&#x3D; fminbnd（…）<br>（5）[x , fval , exitflag , output]&#x3D; fminbnd（…）<br>函数fminbnd的算法基于黄金分割法和二次插值法，它要求目标函数必须是连续函数，并可能只给出局部最优解</p>
+<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><p>求函数 $ f(x)&#x3D;2e^{-x}sin(x) $ 在 $ 0&lt;x&lt;8 $ 时的最小值</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">% 如果求最大需要对f取反</span></span><br><span class="line">f = @(x) (<span class="number">2</span>*<span class="built_in">exp</span>(-x)*<span class="built_in">sin</span>(x));</span><br><span class="line">[x,fval] = fminbnd(f,<span class="number">0</span>,<span class="number">8</span>);</span><br><span class="line">x</span><br><span class="line">fval</span><br></pre></td></tr></table></figure>
 
-<h2 id="多元函数无约束优化问题-fminunc"><a href="#多元函数无约束优化问题-fminunc" class="headerlink" title="多元函数无约束优化问题-fminunc"></a>多元函数无约束优化问题-fminunc</h2><h3 id="常用格式-1"><a href="#常用格式-1" class="headerlink" title="常用格式"></a>常用格式</h3><p>$$ min f(X)，这里X为n维变量 $$<br>fminunc常用格式为:<br>   （1）x= fminunc（fun, X0）；<br>   （2）x= fminunc（fun, X0，options）；<br>   （3）[x，fval]= fminunc（…）；<br>   （4）[x，fval，exitflag]= fminunc（…）；<br>   （5）[x，fval，exitflag，output]= fminunc（…）<br>其中 X0为初始值</p>
-<h3 id="例子-1"><a href="#例子-1" class="headerlink" title="例子"></a>例子</h3><p>求函数$ f(x_1,x_2)=(4x_1^2+2x_2^2+4x_1x_2+2x_2^2+1)e^x $的最小值,$ X_0=[-1,1] $</p>
+<h2 id="多元函数无约束优化问题-fminunc"><a href="#多元函数无约束优化问题-fminunc" class="headerlink" title="多元函数无约束优化问题-fminunc"></a>多元函数无约束优化问题-fminunc</h2><h3 id="常用格式-1"><a href="#常用格式-1" class="headerlink" title="常用格式"></a>常用格式</h3><p>$$ min f(X)，这里X为n维变量 $$<br>fminunc常用格式为:<br>   （1）x&#x3D; fminunc（fun, X0）；<br>   （2）x&#x3D; fminunc（fun, X0，options）；<br>   （3）[x，fval]&#x3D; fminunc（…）；<br>   （4）[x，fval，exitflag]&#x3D; fminunc（…）；<br>   （5）[x，fval，exitflag，output]&#x3D; fminunc（…）<br>其中 X0为初始值</p>
+<h3 id="例子-1"><a href="#例子-1" class="headerlink" title="例子"></a>例子</h3><p>求函数$ f(x_1,x_2)&#x3D;(4x_1^2+2x_2^2+4x_1x_2+2x_2^2+1)e^x $的最小值,$ X_0&#x3D;[-1,1] $</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">f = @(x) (<span class="number">4</span>*x(<span class="number">1</span>)^<span class="number">2</span>+<span class="number">2</span>*x(<span class="number">2</span>)^<span class="number">2</span>+<span class="number">4</span>*x(<span class="number">1</span>)*x(<span class="number">2</span>)+<span class="number">2</span>*x(<span class="number">2</span>)+<span class="number">1</span>)*<span class="built_in">exp</span>(x(<span class="number">1</span>));</span><br><span class="line">x0 = [<span class="number">-1</span>,<span class="number">1</span>];</span><br><span class="line">[x,fval] = fminunc(f, x0);</span><br><span class="line">x</span><br><span class="line">fval</span><br></pre></td></tr></table></figure>
 
-<h1 id="线性规划问题求解"><a href="#线性规划问题求解" class="headerlink" title="线性规划问题求解"></a>线性规划问题求解</h1><h2 id="使用linprog求解一般线性规划问题"><a href="#使用linprog求解一般线性规划问题" class="headerlink" title="使用linprog求解一般线性规划问题"></a>使用linprog求解一般线性规划问题</h2><p>常见问题（linprog默认求最小值）<br>$$ minz=cX $$</p>
-<p>$$ s.t. \begin{cases}<br>AX\leq{b}\<br>Aeq\cdot{X}=beq\<br>VLB\leq{X}\leq{VUB}<br>\end{cases}$$</p>
+<h1 id="线性规划问题求解"><a href="#线性规划问题求解" class="headerlink" title="线性规划问题求解"></a>线性规划问题求解</h1><h2 id="使用linprog求解一般线性规划问题"><a href="#使用linprog求解一般线性规划问题" class="headerlink" title="使用linprog求解一般线性规划问题"></a>使用linprog求解一般线性规划问题</h2><p>常见问题（linprog默认求最小值）<br>$$ minz&#x3D;cX $$</p>
+<p>$$ s.t. \begin{cases}<br>AX\leq{b}\<br>Aeq\cdot{X}&#x3D;beq\<br>VLB\leq{X}\leq{VUB}<br>\end{cases}$$</p>
 <p>求解命令</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[x,fval] = linprog(c,A,b,Aeq,beq,VLB,VUB)</span><br></pre></td></tr></table></figure>
 
-<h2 id="例子-2"><a href="#例子-2" class="headerlink" title="例子"></a>例子</h2><p>$$ min z=13x_1+9x_2+10x_3+11x_4+12x_5+8x_6 $$</p>
-<p>$$ s.t.\left{<br>\begin{aligned}<br>&amp; x_1+x_2=400\<br>&amp; x_2+x_5=600\<br>&amp; x_3+x_6=500\<br>&amp; 0.4x_1+1.1x_2+x_3\leq{800}\<br>&amp; 0.5x_4+1.2x_5+1.3x_6\leq{900}\<br>&amp; x_i\geq0,i=1,2,…,6<br>\end{aligned}<br>\right.<br>$$</p>
+<h2 id="例子-2"><a href="#例子-2" class="headerlink" title="例子"></a>例子</h2><p>$$ min z&#x3D;13x_1+9x_2+10x_3+11x_4+12x_5+8x_6 $$</p>
+<p>$$ s.t.\left{<br>\begin{aligned}<br>&amp; x_1+x_2&#x3D;400\<br>&amp; x_2+x_5&#x3D;600\<br>&amp; x_3+x_6&#x3D;500\<br>&amp; 0.4x_1+1.1x_2+x_3\leq{800}\<br>&amp; 0.5x_4+1.2x_5+1.3x_6\leq{900}\<br>&amp; x_i\geq0,i&#x3D;1,2,…,6<br>\end{aligned}<br>\right.<br>$$</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">f = [<span class="number">13</span> <span class="number">9</span> <span class="number">10</span> <span class="number">11</span> <span class="number">12</span> <span class="number">8</span>];</span><br><span class="line">A =  [<span class="number">0.4</span> <span class="number">1.1</span> <span class="number">1</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span></span><br><span class="line">      <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0.5</span> <span class="number">1.2</span> <span class="number">1.3</span>];</span><br><span class="line">b = [<span class="number">800</span>; <span class="number">900</span>];</span><br><span class="line">Aeq=[<span class="number">1</span> <span class="number">0</span> <span class="number">0</span> <span class="number">1</span> <span class="number">0</span> <span class="number">0</span></span><br><span class="line">     <span class="number">0</span> <span class="number">1</span> <span class="number">0</span> <span class="number">0</span> <span class="number">1</span> <span class="number">0</span></span><br><span class="line">     <span class="number">0</span> <span class="number">0</span> <span class="number">1</span> <span class="number">0</span> <span class="number">0</span> <span class="number">1</span>];</span><br><span class="line">beq=[<span class="number">400</span> <span class="number">600</span> <span class="number">500</span>];</span><br><span class="line">vlb = <span class="built_in">zeros</span>(<span class="number">6</span>,<span class="number">1</span>);</span><br><span class="line">vub=[];</span><br><span class="line">[x,fval] = linprog(f,A,b,Aeq,beq,vlb,vub)</span><br></pre></td></tr></table></figure>
 
 <h2 id="使用bintprog求解0-1规划问题"><a href="#使用bintprog求解0-1规划问题" class="headerlink" title="使用bintprog求解0-1规划问题"></a>使用bintprog求解0-1规划问题</h2><p><strong>matlab2014以上版本使用<code>intlinprog</code>求解0-1规划问题</strong></p>
-<p>$$ minz=cX $$</p>
-<p>$$ s.t. \begin{cases}<br>AX\leq{b}\<br>Aeq\cdot{X}=beq\<br>X为0-1变量<br>\end{cases}$$</p>
+<p>$$ minz&#x3D;cX $$</p>
+<p>$$ s.t. \begin{cases}<br>AX\leq{b}\<br>Aeq\cdot{X}&#x3D;beq\<br>X为0-1变量<br>\end{cases}$$</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">% 命令</span></span><br><span class="line">[x,fval] = bintprog(c,A,b,Aeq,beq)</span><br></pre></td></tr></table></figure>
 
-<h3 id="例子-3"><a href="#例子-3" class="headerlink" title="例子"></a>例子</h3><p>$$ min z=3x_1+7x_2-x_3+x_4 $$<br>$$ s.t.<br>\begin{cases}<br>2x_1-x_2+x_3-x_4\geq{1}\<br>x_1-x_2+6x_3+4x_4\geq{8}\<br>5x_1+3x_2+x_4\geq{5}\<br>x_i=0或1（i=1,2,3,4）<br>\end{cases}<br>$$</p>
+<h3 id="例子-3"><a href="#例子-3" class="headerlink" title="例子"></a>例子</h3><p>$$ min z&#x3D;3x_1+7x_2-x_3+x_4 $$<br>$$ s.t.<br>\begin{cases}<br>2x_1-x_2+x_3-x_4\geq{1}\<br>x_1-x_2+6x_3+4x_4\geq{8}\<br>5x_1+3x_2+x_4\geq{5}\<br>x_i&#x3D;0或1（i&#x3D;1,2,3,4）<br>\end{cases}<br>$$</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">z = [<span class="number">3</span>;<span class="number">7</span>;<span class="number">-1</span>;<span class="number">1</span>];</span><br><span class="line">A = [<span class="number">-2</span> <span class="number">1</span> <span class="number">-1</span> <span class="number">1</span>;</span><br><span class="line">     <span class="number">-1</span> <span class="number">1</span> <span class="number">-6</span> <span class="number">-4</span>;</span><br><span class="line">     <span class="number">-5</span> <span class="number">-3</span> <span class="number">0</span> <span class="number">-1</span>];</span><br><span class="line">b = [<span class="number">-1</span>;<span class="number">-8</span>;<span class="number">-5</span>];</span><br><span class="line">Aeq = [];</span><br><span class="line">beq = [];</span><br><span class="line"></span><br><span class="line">[x,fval] = bintprog(z,A,b,Aeq,beq)</span><br></pre></td></tr></table></figure>
 
 <h1 id="数据插值与拟合"><a href="#数据插值与拟合" class="headerlink" title="数据插值与拟合"></a>数据插值与拟合</h1><h2 id="数据插值，使用interpl进行一维插值"><a href="#数据插值，使用interpl进行一维插值" class="headerlink" title="数据插值，使用interpl进行一维插值"></a>数据插值，使用interpl进行一维插值</h2><p>matlab命令</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yi = interpl(X,Y,xi,method)</span><br></pre></td></tr></table></figure>
 
-<p>该命令用指定的算法找出一个一元函数，然后以该函数给出xi处的值。其中x=[x1,x2,…,xn]’和 y=[y1,y2,…,yn]’两个向量分别为给定的一组自变量和函数值，用来表示已知样本点数据；<strong>xi为待求插值点处横坐标，可以是一个标量，也可以是一个向量</strong>，是向量时，必须单调；yi得到返回的对应纵坐标。</p>
+<p>该命令用指定的算法找出一个一元函数，然后以该函数给出xi处的值。其中x&#x3D;[x1,x2,…,xn]’和 y&#x3D;[y1,y2,…,yn]’两个向量分别为给定的一组自变量和函数值，用来表示已知样本点数据；<strong>xi为待求插值点处横坐标，可以是一个标量，也可以是一个向量</strong>，是向量时，必须单调；yi得到返回的对应纵坐标。</p>
 <ul>
 <li>method可以选取以下方法之一：<ul>
 <li>‘nearest’：最近邻点插值，直接完成计算；</li>
@@ -3057,15 +3057,15 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 </ul>
 </li>
 </ul>
-<h3 id="例子-4"><a href="#例子-4" class="headerlink" title="例子"></a>例子</h3><p>作函数$ y=(x^2-3x+7)e^{-4x}sin(2x) $在[0,1]取间隔为0.1的点图，用插值进行实验</p>
+<h3 id="例子-4"><a href="#例子-4" class="headerlink" title="例子"></a>例子</h3><p>作函数$ y&#x3D;(x^2-3x+7)e^{-4x}sin(2x) $在[0,1]取间隔为0.1的点图，用插值进行实验</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">x=<span class="number">0</span>:<span class="number">0.1</span>:<span class="number">1</span>;</span><br><span class="line">y=(x.^<span class="number">2</span><span class="number">-3</span>*x+<span class="number">7</span>).*<span class="built_in">exp</span>(<span class="number">-4</span>*x).*<span class="built_in">sin</span>(<span class="number">2</span>*x);  <span class="comment">%产生原始数据</span></span><br><span class="line"></span><br><span class="line">subplot(<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>);</span><br><span class="line"><span class="built_in">plot</span>(x,y,x,y,<span class="string">&#x27;ro&#x27;</span>)    <span class="comment">%作图</span></span><br><span class="line">xx=<span class="number">0</span>:<span class="number">0.02</span>:<span class="number">1</span>;  <span class="comment">%待求插值点</span></span><br><span class="line">yy=interp1(x,y,xx,<span class="string">&#x27;spline&#x27;</span>);   <span class="comment">%此处可用nearest,cubic,spline分别试验</span></span><br><span class="line"></span><br><span class="line">subplot(<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>)</span><br><span class="line"><span class="built_in">plot</span>(x,y,<span class="string">&#x27;ro&#x27;</span>,xx,yy,<span class="string">&#x27;b&#x27;</span>)    <span class="comment">%作图</span></span><br></pre></td></tr></table></figure>
 
 <h2 id="曲线拟合"><a href="#曲线拟合" class="headerlink" title="曲线拟合"></a>曲线拟合</h2><h3 id="拟合函数polyfit"><a href="#拟合函数polyfit" class="headerlink" title="拟合函数polyfit"></a>拟合函数polyfit</h3><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">p=polyfit(x,y,n)</span><br><span class="line">[p,s]= polyfit(x,y,n)</span><br></pre></td></tr></table></figure>
 <p>说明：x,y为数据点，n为多项式阶数，返回p为幂次从高到低的多项式系数向量p。p是n+1维参数向量p(1)，p(2)….那么拟合后对应的多项式即为：<br>$$ p(1)x^n+p(2)x^{n-1}+\cdot\cdot\cdot+p(n)x+p(n+1) $$</p>
 <p>x必须是单调的。矩阵s用于生成预测值的误差估计</p>
 <h3 id="多项式求值函数polyval"><a href="#多项式求值函数polyval" class="headerlink" title="多项式求值函数polyval"></a>多项式求值函数polyval</h3><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">y=polyval(p,x)</span><br><span class="line">[y,DELTA]=polyval(p,x,s)</span><br></pre></td></tr></table></figure>
-<p>说明：y=polyval(p,x)为返回对应自变量x在给定系数p的多项式的值；<br>[y,DELTA]=polyval(p,x,s) 使用polyfit函数的选项输出s得出误差估计DELTA。它假设polyfit函数数据输入的误差是独立正态的，并且方差为常数。则DELTA将至少包含50%的预测值。</p>
-<h3 id="例子-5"><a href="#例子-5" class="headerlink" title="例子"></a>例子</h3><p>求如下给定数据的拟合曲线<br>x=[0.5,1.0,1.5,2.0,2.5,3.0]，y=[1.75,2.45,3.81,4.80,7.00,8.60]</p>
+<p>说明：y&#x3D;polyval(p,x)为返回对应自变量x在给定系数p的多项式的值；<br>[y,DELTA]&#x3D;polyval(p,x,s) 使用polyfit函数的选项输出s得出误差估计DELTA。它假设polyfit函数数据输入的误差是独立正态的，并且方差为常数。则DELTA将至少包含50%的预测值。</p>
+<h3 id="例子-5"><a href="#例子-5" class="headerlink" title="例子"></a>例子</h3><p>求如下给定数据的拟合曲线<br>x&#x3D;[0.5,1.0,1.5,2.0,2.5,3.0]，y&#x3D;[1.75,2.45,3.81,4.80,7.00,8.60]</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">x=[<span class="number">0.5</span>,<span class="number">1.0</span>,<span class="number">1.5</span>,<span class="number">2.0</span>,<span class="number">2.5</span>,<span class="number">3.0</span>];</span><br><span class="line">y=[<span class="number">1.75</span>,<span class="number">2.45</span>,<span class="number">3.81</span>,<span class="number">4.80</span>,<span class="number">7.00</span>,<span class="number">8.60</span>];</span><br><span class="line"><span class="built_in">plot</span>(x,y,‘*r’)  <span class="comment">%先观察数据点的大致形态</span></span><br><span class="line">p=polyfit(x,y,<span class="number">2</span>)  <span class="comment">%用二次多项式拟合</span></span><br><span class="line">x1=<span class="number">0.5</span>:<span class="number">0.05</span>:<span class="number">3.0</span>; <span class="comment">% 步长0.05</span></span><br><span class="line">y1=polyval(p,x1);</span><br><span class="line"><span class="built_in">plot</span>(x,y,<span class="string">&#x27;*r&#x27;</span>,x1,y1,<span class="string">&#x27;-b&#x27;</span>)</span><br></pre></td></tr></table></figure>
 
 
@@ -3148,7 +3148,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 $$ \lim_{v \rightarrow a} f(x) $$
 1limit(f,v,a) % 使用limit(f,v,a,&#x27;left&#x27;)可求左极限
 
-3. 导数使用diff(f,v,n)对$ f(v)=v^{t-1} $求 $ n $ 阶导 $ \frac{d^nf}{d^nv} $，n缺省时，默认为1，diff(f)默认求一阶导数。
+3. 导数使用diff(f,v,n)对$ f(v)&#x3D;v^{t-1} $求 $ n $ 阶导 $ \frac{d^nf}{d^nv} $，n缺省时，默认为1，diff(f)默认求一阶导数。
 4. 定积分和不定积分使用int(f,v)求f对变量v的不定积分，使用int(f,v,a,b)求f对变量v的定积分,a、b为积分上下标。$ \int{f(v)dv} $、$ \int^{a}_{b}{f(v)dv} $。"
           
           >
@@ -3166,7 +3166,7 @@ $$ \lim_{v \rightarrow a} f(x) $$
 $$ \lim_{v \rightarrow a} f(x) $$
 1limit(f,v,a) % 使用limit(f,v,a,&#x27;left&#x27;)可求左极限
 
-3. 导数使用diff(f,v,n)对$ f(v)=v^{t-1} $求 $ n $ 阶导 $ \frac{d^nf}{d^nv} $，n缺省时，默认为1，diff(f)默认求一阶导数。
+3. 导数使用diff(f,v,n)对$ f(v)&#x3D;v^{t-1} $求 $ n $ 阶导 $ \frac{d^nf}{d^nv} $，n缺省时，默认为1，diff(f)默认求一阶导数。
 4. 定积分和不定积分使用int(f,v)求f对变量v的不定积分，使用int(f,v,a,b)求f对变量v的定积分,a、b为积分上下标。$ \int{f(v)dv} $、$ \int^{a}_{b}{f(v)dv} $。"
           
           >
@@ -3184,7 +3184,7 @@ $$ \lim_{v \rightarrow a} f(x) $$
 $$ \lim_{v \rightarrow a} f(x) $$
 1limit(f,v,a) % 使用limit(f,v,a,&#x27;left&#x27;)可求左极限
 
-3. 导数使用diff(f,v,n)对$ f(v)=v^{t-1} $求 $ n $ 阶导 $ \frac{d^nf}{d^nv} $，n缺省时，默认为1，diff(f)默认求一阶导数。
+3. 导数使用diff(f,v,n)对$ f(v)&#x3D;v^{t-1} $求 $ n $ 阶导 $ \frac{d^nf}{d^nv} $，n缺省时，默认为1，diff(f)默认求一阶导数。
 4. 定积分和不定积分使用int(f,v)求f对变量v的不定积分，使用int(f,v,a,b)求f对变量v的定积分,a、b为积分上下标。$ \int{f(v)dv} $、$ \int^{a}_{b}{f(v)dv} $。"
           
           >
@@ -4544,7 +4544,7 @@ window.matchMedia('(prefers-color-scheme: light)').addListener(darkModelListener
 </script>
 
 
-  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"ShanSan","url":"https://yeshan333.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"ShanSan","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://yeshan333.github.io/","sameAs":["https://github.com/volantis-x"],"description":"ShanSan's Blog"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://yeshan333.github.io/","name":"ShanSan"}},{"@type":"ListItem","position":2,"item":{"@id":"https://yeshan333.github.io/categories/math/","name":"math"}},{"@type":"ListItem","position":3,"item":{"@id":"https://yeshan333.github.io/2019/06/17/MATLAB基操复习/","name":"MATLAB基操复习"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"ShanSan","url":"https://yeshan333.github.io/","keywords":["ShanSan","Cloudys","shan333","shansan"],"description":"ShanSan's Blog","author":{"@type":"Person","name":"ShanSan","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://yeshan333.github.io/","description":"ShanSan's Blog"},"publisher":{"@type":"Organization","name":"ShanSan","url":"https://yeshan333.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://yeshan333.github.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"MATLAB基操复习","description":"MATLAB基本操作1. 对象定义使用sym定义单个对象、使用syms定义多个对象\n2. 使用limit求极限\n$$ \\lim_{v \\rightarrow a} f(x) $$\n1limit(f,v,a) % 使用limit(f,v,a,&#x27;left&#x27;)可求左极限\n\n3. 导数使用diff(f,v,n)对$ f(v)=v^{t-1} $求 $ n $ 阶导 $ \\frac{d^nf}{d^nv} $，n缺省时，默认为1，diff(f)默认求一阶导数。\n4. 定积分和不定积分使用int(f,v)求f对变量v的不定积分，使用int(f,v,a,b)求f对变量v的定积分,a、b为积分上下标。$ \\int{f(v)dv} $、$ \\int^{a}_{b}{f(v)dv} $。","inLanguage":["zh-CN","en","zh-TW","default"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://yeshan333.github.io/2019/06/17/MATLAB%E5%9F%BA%E6%93%8D%E5%A4%8D%E4%B9%A0/"},"author":{"@type":"Person","name":"ShanSan","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://yeshan333.github.io/"},"publisher":{"@type":"Organization","name":"ShanSan","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"https://yeshan333.github.io/2019/06/17/MATLAB%E5%9F%BA%E6%93%8D%E5%A4%8D%E4%B9%A0/","wordCount":348,"datePublished":"2019-06-17T19:51:57.000Z","dateModified":"2019-06-17T19:51:57.000Z","articleSection":"math","keywords":"MATLAB","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
+  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"ShanSan","url":"https://yeshan333.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"ShanSan","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://yeshan333.github.io/","sameAs":["https://github.com/volantis-x"],"description":"ShanSan's Blog"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://yeshan333.github.io/","name":"ShanSan"}},{"@type":"ListItem","position":2,"item":{"@id":"https://yeshan333.github.io/categories/math/","name":"math"}},{"@type":"ListItem","position":3,"item":{"@id":"https://yeshan333.github.io/2019/06/17/MATLAB基操复习/","name":"MATLAB基操复习"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"ShanSan","url":"https://yeshan333.github.io/","keywords":["ShanSan","Cloudys","shan333","shansan"],"description":"ShanSan's Blog","author":{"@type":"Person","name":"ShanSan","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://yeshan333.github.io/","description":"ShanSan's Blog"},"publisher":{"@type":"Organization","name":"ShanSan","url":"https://yeshan333.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://yeshan333.github.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"MATLAB基操复习","description":"MATLAB基本操作1. 对象定义使用sym定义单个对象、使用syms定义多个对象\n2. 使用limit求极限\n$$ \\lim_{v \\rightarrow a} f(x) $$\n1limit(f,v,a) % 使用limit(f,v,a,&#x27;left&#x27;)可求左极限\n\n3. 导数使用diff(f,v,n)对$ f(v)&#x3D;v^{t-1} $求 $ n $ 阶导 $ \\frac{d^nf}{d^nv} $，n缺省时，默认为1，diff(f)默认求一阶导数。\n4. 定积分和不定积分使用int(f,v)求f对变量v的不定积分，使用int(f,v,a,b)求f对变量v的定积分,a、b为积分上下标。$ \\int{f(v)dv} $、$ \\int^{a}_{b}{f(v)dv} $。","inLanguage":["zh-CN","en","zh-TW","default"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://yeshan333.github.io/2019/06/17/MATLAB%E5%9F%BA%E6%93%8D%E5%A4%8D%E4%B9%A0/"},"author":{"@type":"Person","name":"ShanSan","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://yeshan333.github.io/"},"publisher":{"@type":"Organization","name":"ShanSan","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"https://yeshan333.github.io/2019/06/17/MATLAB%E5%9F%BA%E6%93%8D%E5%A4%8D%E4%B9%A0/","wordCount":353,"datePublished":"2019-06-17T19:51:57.000Z","dateModified":"2019-06-17T19:51:57.000Z","articleSection":"math","keywords":"MATLAB","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
 
 
 

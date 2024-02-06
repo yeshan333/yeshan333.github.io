@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN,en,zh-TW,default">
     <head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/#5.7.6'>
-  <meta name="generator" content="Hexo 5.4.2">
+  <meta name="generator" content="Hexo 7.1.1">
   <meta name="Volantis" content="5.7.6">
   <meta charset="utf-8">
   <!-- SEO相关 -->
@@ -1910,7 +1910,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1707222514978),
+    lastupdate: new Date(1707225652253),
     sidebar: {
       for_page: ["blogger","webinfo","category","tagcloud","wonderful_link","qrcode","my_follow"],
       for_post: ["toc"],
@@ -2911,7 +2911,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
   <div id="layoutHelper-page-plugins"></div>
   <div id="post-body" itemprop="articleBody">
-    <h1 id="进程-amp-amp-线程"><a href="#进程-amp-amp-线程" class="headerlink" title="进程 &amp;&amp; 线程"></a>进程 &amp;&amp; 线程</h1><blockquote>
+    <h1 id="进程-线程"><a href="#进程-线程" class="headerlink" title="进程 &amp;&amp; 线程"></a>进程 &amp;&amp; 线程</h1><blockquote>
 <p>进程：进程是操作系统中执行的一个程序，操作系统以进程为单位分配存储空间，每个进程都有自己的地址空间、数据栈以及其他用于跟踪进程执行的辅助数据，操作系统管理所有进程的执行，为它们合理的分配资源。进程可以通过fork或者wpawn的方式来创建新的进程执行其他任务，不过新的进程有自己独立的内存空间和数据栈，所以必须通过进程间的通信机制（IPC，Inter Process Communication）来实现数据共享，具体的方式包括管道、信号、套接字、共享内存等。</p>
 </blockquote>
 <blockquote>
@@ -2967,11 +2967,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 上下文管理器需要配合with语句使用
 
 比如进行文件操作的时候我...</span></a><a class="item" href="/2019/07/19/Python协程（Coroutine）/" title="Python协程-asyncio、async/await" rel="bookmark "><img src="https://s1.ax1x.com/2022/11/06/xjumWD.png" class="lazyload" data-srcset="https://s1.ax1x.com/2022/11/06/xjumWD.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">Python协程-asyncio、async/await</span><span class="excerpt">
-看到吐血 (´ཀ`」 ∠)
+看到吐血 (´ཀ&#96;」 ∠)
 
 
-协程(Coroutine)本质上是一个函数，特点是在代码块中可以将执行权交给其他协程
-众...</span></a><a class="item" href="/2019/09/02/Python环境管理/" title="Python 环境管理与项目依赖管理" rel="bookmark "><img src="https://s1.ax1x.com/2022/11/06/xjuEo6.png" class="lazyload" data-srcset="https://s1.ax1x.com/2022/11/06/xjuEo6.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">Python 环境管理与项目依赖管理</span><span class="excerpt">
+协程(Coroutine)本质上是一个函数，特点是在代码块中可以将执行权交给其他...</span></a><a class="item" href="/2019/09/02/Python环境管理/" title="Python 环境管理与项目依赖管理" rel="bookmark "><img src="https://s1.ax1x.com/2022/11/06/xjuEo6.png" class="lazyload" data-srcset="https://s1.ax1x.com/2022/11/06/xjuEo6.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">Python 环境管理与项目依赖管理</span><span class="excerpt">
 个人简单记录下
 
 virtualenv + pip
@@ -3200,7 +3199,7 @@ HTTPie（发音为aitch-tee-tee-pie）是一个命令行HTTP客户端。其目�
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B-amp-amp-%E7%BA%BF%E7%A8%8B"><span class="toc-text">进程 &amp;&amp; 线程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Python%E5%A4%9A%E8%BF%9B%E7%A8%8B%EF%BC%88%E4%BD%BF%E7%94%A8multiprocessing%EF%BC%89"><span class="toc-text">Python多进程（使用multiprocessing）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Python%E5%A4%9A%E7%BA%BF%E7%A8%8B%EF%BC%88%E4%BD%BF%E7%94%A8threading%EF%BC%89"><span class="toc-text">Python多线程（使用threading）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E9%97%B4%E7%9A%84%E9%80%9A%E4%BF%A1"><span class="toc-text">线程间的通信</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B-%E7%BA%BF%E7%A8%8B"><span class="toc-text">进程 &amp;&amp; 线程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Python%E5%A4%9A%E8%BF%9B%E7%A8%8B%EF%BC%88%E4%BD%BF%E7%94%A8multiprocessing%EF%BC%89"><span class="toc-text">Python多进程（使用multiprocessing）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Python%E5%A4%9A%E7%BA%BF%E7%A8%8B%EF%BC%88%E4%BD%BF%E7%94%A8threading%EF%BC%89"><span class="toc-text">Python多线程（使用threading）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E9%97%B4%E7%9A%84%E9%80%9A%E4%BF%A1"><span class="toc-text">线程间的通信</span></a></li></ol></li></ol>
     </div>
   </section>
 

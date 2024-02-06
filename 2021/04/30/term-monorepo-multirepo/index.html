@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN,en,zh-TW,default">
     <head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/#5.7.6'>
-  <meta name="generator" content="Hexo 5.4.2">
+  <meta name="generator" content="Hexo 7.1.1">
   <meta name="Volantis" content="5.7.6">
   <meta charset="utf-8">
   <!-- SEO相关 -->
@@ -43,7 +43,7 @@
 <meta property="og:title" content="简单了解波 Mono-repo &amp; Multi-repo（Poly-repo）">
 <meta property="og:url" content="https://yeshan333.github.io/2021/04/30/term-monorepo-multirepo/index.html">
 <meta property="og:site_name" content="ShanSan">
-<meta property="og:description" content="Mono-repo 和 Multi-repo 是软件开发中代码管理的两个不同策略。Mono-repo &amp; Multi-repo 孰优孰劣是个老生常谈得话题了，这里就不 PK 了，“略微”看下两者区别。 当我们使用 Git 作为版本控制系统管理项目的代码时，那么 monorepo 与 multirepo 的定义表述如下：  monorepo，使用一个 Git 仓库管理项目相关的多个 模块&#x2F;包">
+<meta property="og:description" content="Mono-repo 和 Multi-repo 是软件开发中代码管理的两个不同策略。Mono-repo &amp; Multi-repo 孰优孰劣是个老生常谈得话题了，这里就不 PK 了，“略微”看下两者区别。 当我们使用 Git 作为版本控制系统管理项目的代码时，那么 monorepo 与 multirepo 的定义表述如下：  monorepo，使用一个 Git 仓库管理项目相关的多个 模块&amp;#">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
 <meta property="article:published_time" content="2021-04-30T23:30:00.000Z">
@@ -1911,7 +1911,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1707222514978),
+    lastupdate: new Date(1707225652253),
     sidebar: {
       for_page: ["blogger","webinfo","category","tagcloud","wonderful_link","qrcode","my_follow"],
       for_post: ["toc"],
@@ -2933,8 +2933,8 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <p>Mono-repo 和 Multi-repo 是软件开发中代码管理的两个不同策略。Mono-repo &amp; Multi-repo 孰优孰劣是个老生常谈得话题了，这里就不 <a target="_blank" rel="noopener" href="https://hackernoon.com/mono-repo-vs-multi-repo-vs-hybrid-whats-the-right-approach-dv1a3ugn">PK</a> 了，“略微”看下两者区别。</p>
 <p>当我们使用 Git 作为版本控制系统管理项目的代码时，那么 monorepo 与 multirepo 的定义表述如下：</p>
 <ul>
-<li>monorepo，使用一个 Git 仓库管理项目相关的多个 模块/包/功能/应用。</li>
-<li>multirepo（又称为 polyrepo），使用多个 Git 仓库分别管理项目的每一个 模块/包/功能/应用。</li>
+<li>monorepo，使用一个 Git 仓库管理项目相关的多个 模块&#x2F;包&#x2F;功能&#x2F;应用。</li>
+<li>multirepo（又称为 polyrepo），使用多个 Git 仓库分别管理项目的每一个 模块&#x2F;包&#x2F;功能&#x2F;应用。</li>
 </ul>
 <span id="more"></span>
 
@@ -2943,7 +2943,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
 <p>packages 目录下存放了很多个 Babel 相关的子项目。</p>
 <p><a target="_blank" rel="noopener" href="https://github.com/paul-hammant/googles-monorepo-demo">googles-monorepo-demo</a>给出了一个基于 Maven 构建工具的 Google 风格的 Monorepo 项目。</p>
-<p>还有大佬给出了有 CI/CD pipeline 基于 Java, Maven, GitHub Actions 的 Demo 👉 <a target="_blank" rel="noopener" href="https://github.com/kgunnerud/monorepo-maven-example">monorepo-maven-example</a>。</p>
+<p>还有大佬给出了有 CI&#x2F;CD pipeline 基于 Java, Maven, GitHub Actions 的 Demo 👉 <a target="_blank" rel="noopener" href="https://github.com/kgunnerud/monorepo-maven-example">monorepo-maven-example</a>。</p>
 <div galleryFlag itemscope itemtype="http://schema.org/ImageGallery" class="gallery " data-group='default'><div class='fancybox'><a class='fancybox' pjax-fancybox itemscope itemtype="http://schema.org/ImageObject" itemprop="url" target="_blank" rel="noopener" href='https://gcore.jsdelivr.net/gh/ssmath/mypic/20210501021345.png' data-fancybox='default' data-caption='monorepo-maven-example-with-github-actions'><img fancybox itemprop="contentUrl" src="https://gcore.jsdelivr.net/gh/ssmath/mypic/20210501021345.png" class="lazyload" data-srcset="https://gcore.jsdelivr.net/gh/ssmath/mypic/20210501021345.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="monorepo-maven-example-with-github-actions"></a><span class='image-caption'>monorepo-maven-example-with-github-actions</span></div></div>
 
 <h3 id="使用工具快速搭建-Monorepo-风格的项目"><a href="#使用工具快速搭建-Monorepo-风格的项目" class="headerlink" title="使用工具快速搭建 Monorepo 风格的项目"></a>使用工具快速搭建 Monorepo 风格的项目</h3><p>现今，有许多可以创建 Monorepo 风格项目的工具，在前端社区有 Lerna、Nx、Rush Stack、Yarn Workspaces 等，还有许多其它的构建工具可以用于创建 Monorepo 风格的项目，见项目 -&gt; <a target="_blank" rel="noopener" href="https://github.com/korfuri/awesome-monorepo#build-systems--dependency-management-tools">awesome-monorepo</a>。这里让我们看看通过 Nx 创建的 Monorepo 风格的项目是怎么样的：</p>
@@ -3077,8 +3077,8 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://yeshan333.github.io/2021/04/30/term-monorepo-multirepo/&title=简单了解波 Mono-repo & Multi-repo（Poly-repo） - ShanSan&summary=Mono-repo 和 Multi-repo 是软件开发中代码管理的两个不同策略。Mono-repo &amp; Multi-repo 孰优孰劣是个老生常谈得话题了，这里就不 PK 了，“略微”看下两者区别。
 当我们使用 Git 作为版本控制系统管理项目的代码时，那么 monorepo 与 multirepo 的定义表述如下：
 
-monorepo，使用一个 Git 仓库管理项目相关的多个 模块/包/功能/应用。
-multirepo（又称为 polyrepo），使用多个 Git 仓库分别管理项目的每一个 模块/包/功能/应用。
+monorepo，使用一个 Git 仓库管理项目相关的多个 模块&#x2F;包&#x2F;功能&#x2F;应用。
+multirepo（又称为 polyrepo），使用多个 Git 仓库分别管理项目的每一个 模块&#x2F;包&#x2F;功能&#x2F;应用。
 "
           
           >
@@ -3094,8 +3094,8 @@ multirepo（又称为 polyrepo），使用多个 Git 仓库分别管理项目的
           target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://yeshan333.github.io/2021/04/30/term-monorepo-multirepo/&title=简单了解波 Mono-repo & Multi-repo（Poly-repo） - ShanSan&summary=Mono-repo 和 Multi-repo 是软件开发中代码管理的两个不同策略。Mono-repo &amp; Multi-repo 孰优孰劣是个老生常谈得话题了，这里就不 PK 了，“略微”看下两者区别。
 当我们使用 Git 作为版本控制系统管理项目的代码时，那么 monorepo 与 multirepo 的定义表述如下：
 
-monorepo，使用一个 Git 仓库管理项目相关的多个 模块/包/功能/应用。
-multirepo（又称为 polyrepo），使用多个 Git 仓库分别管理项目的每一个 模块/包/功能/应用。
+monorepo，使用一个 Git 仓库管理项目相关的多个 模块&#x2F;包&#x2F;功能&#x2F;应用。
+multirepo（又称为 polyrepo），使用多个 Git 仓库分别管理项目的每一个 模块&#x2F;包&#x2F;功能&#x2F;应用。
 "
           
           >
@@ -3111,8 +3111,8 @@ multirepo（又称为 polyrepo），使用多个 Git 仓库分别管理项目的
           target="_blank" href="http://service.weibo.com/share/share.php?url=https://yeshan333.github.io/2021/04/30/term-monorepo-multirepo/&title=简单了解波 Mono-repo & Multi-repo（Poly-repo） - ShanSan&summary=Mono-repo 和 Multi-repo 是软件开发中代码管理的两个不同策略。Mono-repo &amp; Multi-repo 孰优孰劣是个老生常谈得话题了，这里就不 PK 了，“略微”看下两者区别。
 当我们使用 Git 作为版本控制系统管理项目的代码时，那么 monorepo 与 multirepo 的定义表述如下：
 
-monorepo，使用一个 Git 仓库管理项目相关的多个 模块/包/功能/应用。
-multirepo（又称为 polyrepo），使用多个 Git 仓库分别管理项目的每一个 模块/包/功能/应用。
+monorepo，使用一个 Git 仓库管理项目相关的多个 模块&#x2F;包&#x2F;功能&#x2F;应用。
+multirepo（又称为 polyrepo），使用多个 Git 仓库分别管理项目的每一个 模块&#x2F;包&#x2F;功能&#x2F;应用。
 "
           
           >
@@ -4466,7 +4466,7 @@ window.matchMedia('(prefers-color-scheme: light)').addListener(darkModelListener
 </script>
 
 
-  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"ShanSan","url":"https://yeshan333.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"ShanSan","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://yeshan333.github.io/","sameAs":["https://github.com/volantis-x"],"description":"ShanSan's Blog"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://yeshan333.github.io/","name":"ShanSan"}},{"@type":"ListItem","position":2,"item":{"@id":"https://yeshan333.github.io/categories/Architecture/","name":"Architecture"}},{"@type":"ListItem","position":3,"item":{"@id":"https://yeshan333.github.io/2021/04/30/term-monorepo-multirepo/","name":"简单了解波 Mono-repo & Multi-repo（Poly-repo）"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"ShanSan","url":"https://yeshan333.github.io/","keywords":["ShanSan","Cloudys","shan333","shansan"],"description":"ShanSan's Blog","author":{"@type":"Person","name":"ShanSan","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://yeshan333.github.io/","description":"ShanSan's Blog"},"publisher":{"@type":"Organization","name":"ShanSan","url":"https://yeshan333.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://yeshan333.github.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"简单了解波 Mono-repo & Multi-repo（Poly-repo）","description":"Mono-repo 和 Multi-repo 是软件开发中代码管理的两个不同策略。Mono-repo &amp; Multi-repo 孰优孰劣是个老生常谈得话题了，这里就不 PK 了，“略微”看下两者区别。\n当我们使用 Git 作为版本控制系统管理项目的代码时，那么 monorepo 与 multirepo 的定义表述如下：\n\nmonorepo，使用一个 Git 仓库管理项目相关的多个 模块/包/功能/应用。\nmultirepo（又称为 polyrepo），使用多个 Git 仓库分别管理项目的每一个 模块/包/功能/应用。\n","inLanguage":["zh-CN","en","zh-TW","default"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://yeshan333.github.io/2021/04/30/term-monorepo-multirepo/"},"author":{"@type":"Person","name":"ShanSan","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://yeshan333.github.io/"},"publisher":{"@type":"Organization","name":"ShanSan","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"https://yeshan333.github.io/2021/04/30/term-monorepo-multirepo/","wordCount":266,"datePublished":"2021-04-30T23:30:00.000Z","dateModified":"2021-04-30T23:30:00.000Z","articleSection":"Architecture","keywords":"项目管理,Monorepo","image":{"@type":"ImageObject","url":"https://gcore.jsdelivr.net/gh/ssmath/mypic/824280.png","width":1024,"height":768}}]</script>
+  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"ShanSan","url":"https://yeshan333.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"ShanSan","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://yeshan333.github.io/","sameAs":["https://github.com/volantis-x"],"description":"ShanSan's Blog"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://yeshan333.github.io/","name":"ShanSan"}},{"@type":"ListItem","position":2,"item":{"@id":"https://yeshan333.github.io/categories/Architecture/","name":"Architecture"}},{"@type":"ListItem","position":3,"item":{"@id":"https://yeshan333.github.io/2021/04/30/term-monorepo-multirepo/","name":"简单了解波 Mono-repo & Multi-repo（Poly-repo）"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"ShanSan","url":"https://yeshan333.github.io/","keywords":["ShanSan","Cloudys","shan333","shansan"],"description":"ShanSan's Blog","author":{"@type":"Person","name":"ShanSan","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://yeshan333.github.io/","description":"ShanSan's Blog"},"publisher":{"@type":"Organization","name":"ShanSan","url":"https://yeshan333.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://yeshan333.github.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"简单了解波 Mono-repo & Multi-repo（Poly-repo）","description":"Mono-repo 和 Multi-repo 是软件开发中代码管理的两个不同策略。Mono-repo &amp; Multi-repo 孰优孰劣是个老生常谈得话题了，这里就不 PK 了，“略微”看下两者区别。\n当我们使用 Git 作为版本控制系统管理项目的代码时，那么 monorepo 与 multirepo 的定义表述如下：\n\nmonorepo，使用一个 Git 仓库管理项目相关的多个 模块&#x2F;包&#x2F;功能&#x2F;应用。\nmultirepo（又称为 polyrepo），使用多个 Git 仓库分别管理项目的每一个 模块&#x2F;包&#x2F;功能&#x2F;应用。\n","inLanguage":["zh-CN","en","zh-TW","default"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://yeshan333.github.io/2021/04/30/term-monorepo-multirepo/"},"author":{"@type":"Person","name":"ShanSan","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://yeshan333.github.io/"},"publisher":{"@type":"Organization","name":"ShanSan","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"https://yeshan333.github.io/2021/04/30/term-monorepo-multirepo/","wordCount":296,"datePublished":"2021-04-30T23:30:00.000Z","dateModified":"2021-04-30T23:30:00.000Z","articleSection":"Architecture","keywords":"项目管理,Monorepo","image":{"@type":"ImageObject","url":"https://gcore.jsdelivr.net/gh/ssmath/mypic/824280.png","width":1024,"height":768}}]</script>
 
 
 

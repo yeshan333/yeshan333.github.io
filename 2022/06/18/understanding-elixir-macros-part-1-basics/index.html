@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN,en,zh-TW,default">
     <head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/#5.7.6'>
-  <meta name="generator" content="Hexo 5.4.2">
+  <meta name="generator" content="Hexo 7.1.1">
   <meta name="Volantis" content="5.7.6">
   <meta charset="utf-8">
   <!-- SEO相关 -->
@@ -1909,7 +1909,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1707222514978),
+    lastupdate: new Date(1707225652253),
     sidebar: {
       for_page: ["blogger","webinfo","category","tagcloud","wonderful_link","qrcode","my_follow"],
       for_post: ["toc"],
@@ -3021,7 +3021,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <p>在第三行, 我们使用 <code>Macro.to_string/1</code> 来求出我们所收到的 AST 片段的字符串表达形式. 这是你在运行时不能够对一个普通函数做的事之一. 虽然我们能在运行时调用 <code>Macro.to_string/1</code>, 但问题在于我们没办法再访问 AST 了, 因此不能够知道某些表达式的字符串形式了.</p>
 <p>一旦我们拥有了字符串形式, 我们就可以生成并返回结果 AST 了, 这一步是在 <code>quote do ... end</code> 结构中完成的. 它的结果是用来替代原始的 <code>Tracer.trace(...)</code> 调用的 quoted expression.</p>
 <p>让我们进一步观察这一部分:</p>
-<p>如果你明白 <code>unquote</code> 的作用, 那么这个就很简单了. 实际上, 我们是在把 <code>expression_ast</code>（quoted <code>1+2</code>）代入到我们生成的片段（fragment）中, 将表达式的结果放入 <code>result</code> 变量. 然后我们使用某种格式来打印它们（借助Macro.to_string/1）, 最后返回结果.</p>
+<p>如果你明白 <code>unquote</code> 的作用, 那么这个就很简单了. 实际上, 我们是在把 <code>expression_ast</code>（quoted <code>1+2</code>）代入到我们生成的片段（fragment）中, 将表达式的结果放入 <code>result</code> 变量. 然后我们使用某种格式来打印它们（借助Macro.to_string&#x2F;1）, 最后返回结果.</p>
 <h2 id="展开一个-AST"><a href="#展开一个-AST" class="headerlink" title="展开一个 AST"></a>展开一个 AST</h2><p>在 Shell 观察其是如何连接起来是很容易的. 启动 <code>iex</code> Shell, 复制粘贴上面定义的 Tracer 模块:</p>
 <figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">iex(<span class="number">1</span>)&gt; <span class="class"><span class="keyword">defmodule</span> <span class="title">Tracer</span></span> <span class="keyword">do</span></span><br><span class="line">          ...</span><br><span class="line">        <span class="keyword">end</span></span><br></pre></td></tr></table></figure>
 

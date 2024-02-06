@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN,en,zh-TW,default">
     <head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/#5.7.6'>
-  <meta name="generator" content="Hexo 5.4.2">
+  <meta name="generator" content="Hexo 7.1.1">
   <meta name="Volantis" content="5.7.6">
   <meta charset="utf-8">
   <!-- SEO相关 -->
@@ -1910,7 +1910,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1707222514978),
+    lastupdate: new Date(1707225652253),
     sidebar: {
       for_page: ["blogger","webinfo","category","tagcloud","wonderful_link","qrcode","my_follow"],
       for_post: ["toc"],
@@ -2987,16 +2987,16 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 </ul>
 <h2 id="上下文的激活"><a href="#上下文的激活" class="headerlink" title="上下文的激活"></a>上下文的激活</h2><p><strong>请求进入时，Flask会自动激活请求上下文，此时程序上下文也被自动激活。请求处理完毕后，请求上下文和程序上下文也会自动销毁。两者具有相同的生命周期。</strong></p>
 <ul>
-<li>Flask自动激活上下文的情况：<ul>
+<li><p>Flask自动激活上下文的情况：</p>
+<ul>
 <li>使用<code>flask run</code>命令启动程序时</li>
 <li>使用旧的<code>app.run()</code>方法启动程序时</li>
 <li>执行使用<code>@app.cli.command()</code>装饰器注册的flask命令时</li>
 <li>使用<code>flask shell</code>命令启动Python Shell时</li>
 </ul>
 </li>
-</ul>
+<li><p>手动激活的方法:</p>
 <ul>
-<li>手动激活的方法:<ul>
 <li>使用with语句，程序上下文对象可通过app.app_context()获取</li>
 <li>使用push（）方法激活程序上下文</li>
 <li>请求上下文可以通过test_request_context()方法临时创建</li>

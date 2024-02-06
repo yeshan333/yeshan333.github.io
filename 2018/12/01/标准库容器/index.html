@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN,en,zh-TW,default">
     <head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/#5.7.6'>
-  <meta name="generator" content="Hexo 5.4.2">
+  <meta name="generator" content="Hexo 7.1.1">
   <meta name="Volantis" content="5.7.6">
   <meta charset="utf-8">
   <!-- SEO相关 -->
@@ -1907,7 +1907,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1707222514978),
+    lastupdate: new Date(1707225652253),
     sidebar: {
       for_page: ["blogger","webinfo","category","tagcloud","wonderful_link","qrcode","my_follow"],
       for_post: ["toc"],
@@ -2989,7 +2989,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 </tr>
 </tbody></table>
 <p>** 通过类型别名，我们可以在不了解容器中元素类型的情况下使用它 **</p>
-<p>为了使用这些类型，我们必须显示的使用其类型名<br>    vector<int>::iterator iter;//iter是通过vector<int>定义的迭代器类型</p>
+<p>为了使用这些类型，我们必须显示的使用其类型名<br>    vector<int>::iterator iter;&#x2F;&#x2F;iter是通过vector<int>定义的迭代器类型</p>
 <blockquote>
 <p>容器的begin成员和end成员<br>begin成员生成一个指向容器中第一个元素位置的迭代器<br>end成员生成指向尾元素之后的位置的迭代器</p>
 </blockquote>
@@ -3011,11 +3011,11 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <td align="center">默认构造函数，如果C是一个array，则a中元素按默认方式初始化，否则a为空</td>
 </tr>
 <tr>
-<td align="center">C a(b)<br>C a=b</td>
+<td align="center">C a(b)<br>C a&#x3D;b</td>
 <td align="center">a初始化为b的拷贝。**a和b必须是相同的类型(它们必须是相同的容器类型，且保存的是相同的元素类型)**，对于array我们还要定义它的大小</td>
 </tr>
 <tr>
-<td align="center">C a{b,c,d,e,f,…}<br>C a={b,c,d,e,f,…}</td>
+<td align="center">C a{b,c,d,e,f,…}<br>C a&#x3D;{b,c,d,e,f,…}</td>
 <td align="center">a初始化为初始化列表中元素的拷贝。列表中的元素类型必须与a的元素类型相容。对于array来说，列表元素的数目必须小于或等于array的大小，任何遗漏的元素直接进行值初始化</td>
 </tr>
 <tr>
@@ -3117,7 +3117,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 </tr>
 <tr>
 <td align="center">c[n]</td>
-<td align="center">返回c中下标为n的元素的引用，n是一个无符号整数。若n&gt;=c.size()，则函数行为未定义</td>
+<td align="center">返回c中下标为n的元素的引用，n是一个无符号整数。若n&gt;&#x3D;c.size()，则函数行为未定义</td>
 </tr>
 <tr>
 <td align="center">c.at(n)</td>

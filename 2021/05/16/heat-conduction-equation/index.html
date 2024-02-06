@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN,en,zh-TW,default">
     <head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/#5.7.6'>
-  <meta name="generator" content="Hexo 5.4.2">
+  <meta name="generator" content="Hexo 7.1.1">
   <meta name="Volantis" content="5.7.6">
   <meta charset="utf-8">
   <!-- SEO相关 -->
@@ -1909,7 +1909,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1707222514978),
+    lastupdate: new Date(1707225652253),
     sidebar: {
       for_page: ["blogger","webinfo","category","tagcloud","wonderful_link","qrcode","my_follow"],
       for_post: ["toc"],
@@ -2925,8 +2925,8 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <blockquote>
 <p>该概念由现法国科学院院士 <a target="_blank" rel="noopener" href="https://doi.org/10.1063/1.3061337">J.Hadamard</a> 在耶鲁大学提出. 适定（well-posed）问题 &amp; 不适定（ill-posed）问题.</p>
 </blockquote>
-<p>$$ Ax=y, A: X \rightarrow Y 的线性紧算子 $$</p>
-<p>1、解的存在性：$ \forall y \in Y, \exist x \in X, $ 使得 $ Ax=y. $<br>2、解的唯一性：$ \forall y_1, y_2 \in Y, y_1 \neq y_2, $ 有 $ Ax_1=y_1, Ax_2=y_2, $ 使得 $ x_1 \neq x_2. $<br>3、解的稳定性（即解的连续性）：若有 $ Ax_1=y_1, Ax_2=y_2, $ 则当 $ y_1 \rightarrow y_2 $ 时, 使得 $ x_1 \rightarrow x_2. $</p>
+<p>$$ Ax&#x3D;y, A: X \rightarrow Y 的线性紧算子 $$</p>
+<p>1、解的存在性：$ \forall y \in Y, \exist x \in X, $ 使得 $ Ax&#x3D;y. $<br>2、解的唯一性：$ \forall y_1, y_2 \in Y, y_1 \neq y_2, $ 有 $ Ax_1&#x3D;y_1, Ax_2&#x3D;y_2, $ 使得 $ x_1 \neq x_2. $<br>3、解的稳定性（即解的连续性）：若有 $ Ax_1&#x3D;y_1, Ax_2&#x3D;y_2, $ 则当 $ y_1 \rightarrow y_2 $ 时, 使得 $ x_1 \rightarrow x_2. $</p>
 <div class="note info"><p>note info 当定解条件（初值条件，边界条件）以及方程中的系数有微小变动时，相应的解也只有微小变动. <strong>解的稳定性也称为解关于参数的连续依赖性</strong>.</p></div>
 
 <h2 id="微分方程"><a href="#微分方程" class="headerlink" title="微分方程"></a>微分方程</h2><blockquote>
@@ -2937,7 +2937,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <li>三类边界条件<ul>
 <li>第一类：狄利克雷边界条件（Dirichlet boundary condition）也被称为常微分方程或偏微分方程的“第一类边界条件”，指定微分方程的解在边界处的值. 求出这样的方程的解的问题被称为狄利克雷问题.</li>
 <li>第二类：诺伊曼边界条件（Neumann boundary condition) 也被称为常微分方程或偏微分方程的“第二类边界条件”. 诺伊曼边界条件指定了微分方程的解在边界处的微分.</li>
-<li>第三类：Robbin条件/混合边界条件，未知函数在边界上的函数值和外法向导数的线性组合.</li>
+<li>第三类：Robbin条件&#x2F;混合边界条件，未知函数在边界上的函数值和外法向导数的线性组合.</li>
 </ul>
 </li>
 <li>偏微分方程三大问题<ul>
@@ -2989,7 +2989,7 @@ $$ \begin{align*}
 <h2 id="热传导方程"><a href="#热传导方程" class="headerlink" title="热传导方程"></a>热传导方程</h2><blockquote>
 <p>Direct heat conduction problems (DHCPs) 直接热传导问题, Inverse heat conduction problem (IHCPs) 逆热传导问题</p>
 </blockquote>
-<h3 id="热传导正-反问题"><a href="#热传导正-反问题" class="headerlink" title="热传导正/反问题"></a>热传导正/反问题</h3><ul>
+<h3 id="热传导正-反问题"><a href="#热传导正-反问题" class="headerlink" title="热传导正&#x2F;反问题"></a>热传导正&#x2F;反问题</h3><ul>
 <li>热传导反问题：在热交换情形下，通过研究物体内部或边界的一点或多点温度分布信息来反演热源项、初始条件、边界条件、物理的几何条件等未知量.</li>
 <li>热传导方程非特征 Cauchy 问题的[4]：典型的热传导方程的非特征Cauchy问题是通过一部分边界上的或者内部的数据来判定另一部分边界的热流.</li>
 </ul>
@@ -3011,7 +3011,7 @@ $$
 <p><img src="https://gcore.jsdelivr.net/gh/ssmath/mypic/20210516203140.png" class="lazyload" data-srcset="https://gcore.jsdelivr.net/gh/ssmath/mypic/20210516203140.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="solution area"></p>
 <h2 id="处理热传导方程非特征-Cauchy-问题的相关方法"><a href="#处理热传导方程非特征-Cauchy-问题的相关方法" class="headerlink" title="处理热传导方程非特征 Cauchy 问题的相关方法"></a>处理热传导方程非特征 Cauchy 问题的相关方法</h2><h3 id="基本解方法"><a href="#基本解方法" class="headerlink" title="基本解方法"></a>基本解方法</h3><p>基本解方法（the method of fundamental solutions, MFS）使用微分算子的基本解去近似数值解.</p>
 <p>热传导方程非特征 Cauchy 问题使用基本解方求解时，数值近似解由以下基本解的线性组合得到[5]：</p>
-<p>$$<br>\begin{array}{c}<br>\tilde{u}(x) = \sum_{i = 1}^{N} a_{i} u^{*}\left(x-\mu_{i}\right)<br>\end{array}<br>$$</p>
+<p>$$<br>\begin{array}{c}<br>\tilde{u}(x) &#x3D; \sum_{i &#x3D; 1}^{N} a_{i} u^{*}\left(x-\mu_{i}\right)<br>\end{array}<br>$$</p>
 <p>待定系数 $ a_{i} $ 通过对求解区域边界和虚边界进行配置点配置得到. 基本解方法是一种无网格的径向基函数类方法.</p>
 <p>因 Cauchy 问题的不适定性，基本解方法所得到的线性系统是高度病态的，常规方法求解已没有意义. 需要使用正则化方法处理线性系统的病态性.</p>
 <h3 id="正则化方法"><a href="#正则化方法" class="headerlink" title="正则化方法"></a>正则化方法</h3><blockquote>

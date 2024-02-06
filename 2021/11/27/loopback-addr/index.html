@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN,en,zh-TW,default">
     <head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/#5.7.6'>
-  <meta name="generator" content="Hexo 5.4.2">
+  <meta name="generator" content="Hexo 7.1.1">
   <meta name="Volantis" content="5.7.6">
   <meta charset="utf-8">
   <!-- SEO相关 -->
@@ -1911,7 +1911,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1707222514978),
+    lastupdate: new Date(1707225652253),
     sidebar: {
       for_page: ["blogger","webinfo","category","tagcloud","wonderful_link","qrcode","my_follow"],
       for_post: ["toc"],
@@ -2920,10 +2920,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 </blockquote>
 <span id="more"></span>
 
-<p>作为划水选手，我们肯定会接触过这样一个东西 -&gt; Virtual loopback interface。当我们写的应用/服务想在同一台机器上进行通信的时候，基本都会使用到它。</p>
+<p>作为划水选手，我们肯定会接触过这样一个东西 -&gt; Virtual loopback interface。当我们写的应用&#x2F;服务想在同一台机器上进行通信的时候，基本都会使用到它。</p>
 <p>在类 Unix 系统中，虚拟回环接口（Virtual loopback interface）通常被命名为 <strong>lo</strong> 或者 <strong>lo0</strong>。我们可以使用 <code>ipconfig</code> 看一下：</p>
 <p><img src="https://gcore.jsdelivr.net/gh/yeshan333/blog_images@main/blogloopback.png" class="lazyload" data-srcset="https://gcore.jsdelivr.net/gh/yeshan333/blog_images@main/blogloopback.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="ipconfig loopback address"></p>
-<p>emmm，127.0.0.1，好家伙，没错，127.0.0.1 就是一个 IPv4 的回环地址。IETF 标准中（<a target="_blank" rel="noopener" href="https://www.rfcreader.com/#rfc1122_line1324">RFC1122</a>、<a target="_blank" rel="noopener" href="https://www.rfcreader.com/#rfc5735_line97">RFC5735</a>）将 IPv4 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation">CIDR</a> 地址块 127.0.0.0/8 划为回环地址（即 127.0.0.0 ~ 127.255.255.255）。IPv6 下回环地址为 <code>::1/128</code>。</p>
+<p>emmm，127.0.0.1，好家伙，没错，127.0.0.1 就是一个 IPv4 的回环地址。IETF 标准中（<a target="_blank" rel="noopener" href="https://www.rfcreader.com/#rfc1122_line1324">RFC1122</a>、<a target="_blank" rel="noopener" href="https://www.rfcreader.com/#rfc5735_line97">RFC5735</a>）将 IPv4 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation">CIDR</a> 地址块 127.0.0.0&#x2F;8 划为回环地址（即 127.0.0.0 ~ 127.255.255.255）。IPv6 下回环地址为 <code>::1/128</code>。</p>
 <p><img src="https://gcore.jsdelivr.net/gh/yeshan333/blog_images@main/cidr.png" class="lazyload" data-srcset="https://gcore.jsdelivr.net/gh/yeshan333/blog_images@main/cidr.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="CIDR 表示"></p>
 <blockquote>
 <p>IPv6 下 127.0.0.1 表示为 ::1</p>
@@ -2962,7 +2962,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <p><img src="https://gcore.jsdelivr.net/gh/yeshan333/blog_images@main/gogin.png" class="lazyload" data-srcset="https://gcore.jsdelivr.net/gh/yeshan333/blog_images@main/gogin.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="Go-Gin"></p>
 <p>2、打开 Wireshark，capture 回环地址的虚拟网卡：</p>
 <p><img src="https://gcore.jsdelivr.net/gh/yeshan333/blog_images@main/wireshark_loopback.png" class="lazyload" data-srcset="https://gcore.jsdelivr.net/gh/yeshan333/blog_images@main/wireshark_loopback.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="Wireshark capture loopback"></p>
-<p>3、过滤一下 TCP 端口，curl 一下 localhost:8080/ping：</p>
+<p>3、过滤一下 TCP 端口，curl 一下 localhost:8080&#x2F;ping：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl --location --request GET <span class="string">&#x27;localhost:8080/ping&#x27;</span></span><br></pre></td></tr></table></figure>
 
 <p><img src="https://gcore.jsdelivr.net/gh/yeshan333/blog_images@main/wireshark_port_filter.png" class="lazyload" data-srcset="https://gcore.jsdelivr.net/gh/yeshan333/blog_images@main/wireshark_port_filter.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="Wireshark TCP port filter"></p>
@@ -2988,10 +2988,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       <i class="fa-solid fa-bookmark fa-fw" aria-hidden="true"></i><span>相关文章</span>
     </section>
     <section class='body'>
-      <div class="vlts-rps"><a class="item" href="/2020/11/15/使用tcpdump和wireshark看下TCP握手/" title="使用tcpdump和Wireshark看下TCP握手" rel="bookmark "><img src="https://s3.ax1x.com/2020/11/15/DFPm6O.gif" class="lazyload" data-srcset="https://s3.ax1x.com/2020/11/15/DFPm6O.gif" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">使用tcpdump和Wireshark看下TCP握手</span><span class="excerpt">tcpdump 和 Wireshark 是最常用的网络抓包和分析工具，作为经常和网络打交道的划水选手，怎么能不了解下呢？补...</span></a><a class="item" href="/2020/05/19/了解一波经典的-IO-模型/" title="了解一波经典的 I/O 模型" rel="bookmark "><img src="https://mypic-1258313760.cos.ap-guangzhou.myqcloud.com/img/20200519164453.png" class="lazyload" data-srcset="https://mypic-1258313760.cos.ap-guangzhou.myqcloud.com/img/20200519164453.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">了解一波经典的 I/O 模型</span><span class="excerpt">最近读了波网络 I/O 相关的文章，做下总结、摘录。（未完）
-经典 I/O 模型
+      <div class="vlts-rps"><a class="item" href="/2020/11/15/使用tcpdump和wireshark看下TCP握手/" title="使用tcpdump和Wireshark看下TCP握手" rel="bookmark "><img src="https://s3.ax1x.com/2020/11/15/DFPm6O.gif" class="lazyload" data-srcset="https://s3.ax1x.com/2020/11/15/DFPm6O.gif" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">使用tcpdump和Wireshark看下TCP握手</span><span class="excerpt">tcpdump 和 Wireshark 是最常用的网络抓包和分析工具，作为经常和网络打交道的划水选手，怎么能不了解下呢？补...</span></a><a class="item" href="/2020/05/19/了解一波经典的-IO-模型/" title="了解一波经典的 I/O 模型" rel="bookmark "><img src="https://mypic-1258313760.cos.ap-guangzhou.myqcloud.com/img/20200519164453.png" class="lazyload" data-srcset="https://mypic-1258313760.cos.ap-guangzhou.myqcloud.com/img/20200519164453.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">了解一波经典的 I/O 模型</span><span class="excerpt">最近读了波网络 I&#x2F;O 相关的文章，做下总结、摘录。（未完）
+经典 I&#x2F;O 模型
 
-            阻塞式 I/O...</span></a></div></section></div>
+         ...</span></a></div></section></div>
       
       <!-- 版权声明组件 -->
       

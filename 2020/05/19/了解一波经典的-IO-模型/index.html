@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN,en,zh-TW,default">
     <head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/#5.7.6'>
-  <meta name="generator" content="Hexo 5.4.2">
+  <meta name="generator" content="Hexo 7.1.1">
   <meta name="Volantis" content="5.7.6">
   <meta charset="utf-8">
   <!-- SEO相关 -->
@@ -36,22 +36,19 @@
   <!-- 页面元数据 -->
   <title>了解一波经典的 I/O 模型 - ShanSan</title>
   <meta name="keywords" content="computer network, operating system, NIO, BIO,ShanSan,Cloudys,shan333,shansan">
-  <meta desc name="description" content="最近读了波网络 I/O 相关的文章，做下总结、摘录。（未完）
-经典 I/O 模型
+  <meta desc name="description" content="最近读了波网络 I&#x2F;O 相关的文章，做下总结、摘录。（未完）
+经典 I&#x2F;O 模型
 
-            阻塞式 I/O（blocking I/O）
+            阻塞式 I&#x2F;O（blocking I&#x2F;O）
             
 
-            非阻塞式 I/O（non-blocking I/O）
-            
-
-            I/... - ShanSan - ShanSan">
+            非阻塞式 I&#x2F;O（non-blocking I&#x2F;O... - ShanSan - ShanSan">
   
 <meta property="og:type" content="article">
 <meta property="og:title" content="了解一波经典的 I&#x2F;O 模型">
 <meta property="og:url" content="https://yeshan333.github.io/2020/05/19/%E4%BA%86%E8%A7%A3%E4%B8%80%E6%B3%A2%E7%BB%8F%E5%85%B8%E7%9A%84-IO-%E6%A8%A1%E5%9E%8B/index.html">
 <meta property="og:site_name" content="ShanSan">
-<meta property="og:description" content="最近读了波网络 I&#x2F;O 相关的文章，做下总结、摘录。（未完） 经典 I&#x2F;O 模型              阻塞式 I&#x2F;O（blocking I&#x2F;O）                           非阻塞式 I&#x2F;O（non-blocking I&#x2F;O）                           I&#x2F;O 多路复用（I&#x2F;O multiplexing）">
+<meta property="og:description" content="最近读了波网络 I&#x2F;O 相关的文章，做下总结、摘录。（未完） 经典 I&#x2F;O 模型              阻塞式 I&#x2F;O（blocking I&#x2F;O）                           非阻塞式 I&#x2F;O（non-blocking I&#x2F;O）                           I&#x2F;O 多路复用（I">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
 <meta property="article:published_time" content="2020-05-19T15:19:14.000Z">
@@ -1918,7 +1915,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1707222514978),
+    lastupdate: new Date(1707225652253),
     sidebar: {
       for_page: ["blogger","webinfo","category","tagcloud","wonderful_link","qrcode","my_follow"],
       for_post: ["toc"],
@@ -2927,58 +2924,58 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
   <div id="layoutHelper-page-plugins"></div>
   <div id="post-body" itemprop="articleBody">
-    <p>最近读了波网络 I/O 相关的文章，做下总结、摘录。（未完）</p>
-<h2 id="经典-I-O-模型"><a href="#经典-I-O-模型" class="headerlink" title="经典 I/O 模型"></a>经典 I/O 模型</h2><ul>
+    <p>最近读了波网络 I&#x2F;O 相关的文章，做下总结、摘录。（未完）</p>
+<h2 id="经典-I-O-模型"><a href="#经典-I-O-模型" class="headerlink" title="经典 I&#x2F;O 模型"></a>经典 I&#x2F;O 模型</h2><ul>
 <li><div class='checkbox red checked'><input type="checkbox" checked="checked"/>
-            <p>阻塞式 I/O（blocking I/O）</p>
+            <p>阻塞式 I&#x2F;O（blocking I&#x2F;O）</p>
             </div></li>
 <li><div class='checkbox red checked'><input type="checkbox" checked="checked"/>
-            <p>非阻塞式 I/O（non-blocking I/O）</p>
+            <p>非阻塞式 I&#x2F;O（non-blocking I&#x2F;O）</p>
             </div></li>
 <li><div class='checkbox red'><input type="checkbox" />
-            <p>I/O 多路复用（I/O multiplexing）</p>
+            <p>I&#x2F;O 多路复用（I&#x2F;O multiplexing）</p>
             </div></li>
 <li><div class='checkbox cyan'><input type="checkbox" />
-            <p>信号驱动式 I/O（signal driven I/O）</p>
+            <p>信号驱动式 I&#x2F;O（signal driven I&#x2F;O）</p>
             </div></li>
 <li><div class='checkbox cyan'><input type="checkbox" />
-            <p>异步 I/O（asynchronous I/O）</p>
+            <p>异步 I&#x2F;O（asynchronous I&#x2F;O）</p>
             </div></li>
 </ul>
-<h3 id="阻塞式-I-O-模型"><a href="#阻塞式-I-O-模型" class="headerlink" title="阻塞式 I/O 模型"></a>阻塞式 I/O 模型</h3><p>对于阻塞式 I/O，以套接字（Socket）的输入操作为例。</p>
+<h3 id="阻塞式-I-O-模型"><a href="#阻塞式-I-O-模型" class="headerlink" title="阻塞式 I&#x2F;O 模型"></a>阻塞式 I&#x2F;O 模型</h3><p>对于阻塞式 I&#x2F;O，以套接字（Socket）的输入操作为例。</p>
 <ul>
-<li>1、首先应用进程发起 I/O 系统调用后，应用进程阻塞，转到内核空间处理。</li>
-<li>2、之后，内核开始等待数据，等待数据到达之后，将内核中的数据拷贝到用户的缓冲区中，整个 I/O 处理完毕后返回进程。最后应用进程解除阻塞状态，处理数据。</li>
+<li>1、首先应用进程发起 I&#x2F;O 系统调用后，应用进程阻塞，转到内核空间处理。</li>
+<li>2、之后，内核开始等待数据，等待数据到达之后，将内核中的数据拷贝到用户的缓冲区中，整个 I&#x2F;O 处理完毕后返回进程。最后应用进程解除阻塞状态，处理数据。</li>
 </ul>
 <span id="more"></span>
 
 <p><img src="https://mypic-1258313760.cos.ap-guangzhou.myqcloud.com/img/20200519164453.png" class="lazyload" data-srcset="https://mypic-1258313760.cos.ap-guangzhou.myqcloud.com/img/20200519164453.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="阻塞式示例"></p>
 <p>上图以 UDP 的 Socket 调用为例，进程调用 recvfrom 后，系统调用直到数据报到达且被复制到用户空间中或发生错误才返回。进程从调用开始到它返回的整段时间内是被阻塞的。recvfrom 成功返回后，应用进程开始处理数据报。</p>
 <blockquote>
-<p>默认情形，Linux/Unix 的所有 Socket 是阻塞的。</p>
+<p>默认情形，Linux&#x2F;Unix 的所有 Socket 是阻塞的。</p>
 </blockquote>
 <p>附：基于 UDP 协议的 Socket 程序函数调用过程图</p>
 <p><img src="https://mypic-1258313760.cos.ap-guangzhou.myqcloud.com/img/20200519164642.png" class="lazyload" data-srcset="https://mypic-1258313760.cos.ap-guangzhou.myqcloud.com/img/20200519164642.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="基于 UDP 协议的 Socket 程序函数调用过程图"></p>
 <blockquote>
-<p>一般情况下，服务端需要管理多个客户端连接（处理并发连接），而 recvfrom 只能监视单个 Socket。上图的阻塞式 I/O 模型表示的是一对一沟通的情形，使用多线程/进程 + 阻塞式 I/O 我们可以管理多个 Socket ，实现一对多服务。</p>
+<p>一般情况下，服务端需要管理多个客户端连接（处理并发连接），而 recvfrom 只能监视单个 Socket。上图的阻塞式 I&#x2F;O 模型表示的是一对一沟通的情形，使用多线程&#x2F;进程 + 阻塞式 I&#x2F;O 我们可以管理多个 Socket ，实现一对多服务。</p>
 </blockquote>
-<h3 id="非阻塞式-I-O-模型"><a href="#非阻塞式-I-O-模型" class="headerlink" title="非阻塞式 I/O 模型"></a>非阻塞式 I/O 模型</h3><p>在类 Unix 系统下，可以把一个 Socket 设置成非阻塞的。这意味着内核在数据报没有准备好时不会阻塞应用进程（睡眠态），而是返回一个错误。</p>
+<h3 id="非阻塞式-I-O-模型"><a href="#非阻塞式-I-O-模型" class="headerlink" title="非阻塞式 I&#x2F;O 模型"></a>非阻塞式 I&#x2F;O 模型</h3><p>在类 Unix 系统下，可以把一个 Socket 设置成非阻塞的。这意味着内核在数据报没有准备好时不会阻塞应用进程（睡眠态），而是返回一个错误。</p>
 <p><img src="https://mypic-1258313760.cos.ap-guangzhou.myqcloud.com/img/20200519170609.png" class="lazyload" data-srcset="https://mypic-1258313760.cos.ap-guangzhou.myqcloud.com/img/20200519170609.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="非阻塞式 I/O 模型示例图"></p>
 <p>上图以 UDP 的 Socket 调用为例，进程反复调用 recvfrom（polling，轮询），无数据返回 EWOULDBLOCK 错误，直至数据报准备好。</p>
-<p>问题：<strong>单进程处理数据报，不同于阻塞I/O，由于需要反复 polling，非阻塞 I/O 会耗费大量的 CPU 资源，进程阻塞不耗费 CPU 资源</strong>。如果耍上了多进程，那耗费，是不可承受的。</p>
+<p>问题：<strong>单进程处理数据报，不同于阻塞I&#x2F;O，由于需要反复 polling，非阻塞 I&#x2F;O 会耗费大量的 CPU 资源，进程阻塞不耗费 CPU 资源</strong>。如果耍上了多进程，那耗费，是不可承受的。</p>
 <p>关于阻塞的原理，这篇文章有简单介绍<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/63179839">✔🔗</a>。</p>
-<h3 id="I-O-多路复用模型"><a href="#I-O-多路复用模型" class="headerlink" title="I/O 多路复用模型"></a>I/O 多路复用模型</h3><p>什么是多路复用？多路指的是多个通道，一般就是多个网络连接的 I/O；复用指的是多个通道复用在一个复用器上。</p>
-<p>引入多路复用机制的一个目的是为了处理多个网络连接 I/O。</p>
+<h3 id="I-O-多路复用模型"><a href="#I-O-多路复用模型" class="headerlink" title="I&#x2F;O 多路复用模型"></a>I&#x2F;O 多路复用模型</h3><p>什么是多路复用？多路指的是多个通道，一般就是多个网络连接的 I&#x2F;O；复用指的是多个通道复用在一个复用器上。</p>
+<p>引入多路复用机制的一个目的是为了处理多个网络连接 I&#x2F;O。</p>
 <blockquote>
-<p>I/O多路复用方法的演进历程：select 模型-&gt; poll 模型-&gt; epoll 模型</p>
+<p>I&#x2F;O多路复用方法的演进历程：select 模型-&gt; poll 模型-&gt; epoll 模型</p>
 </blockquote>
 <h4 id="select-模型"><a href="#select-模型" class="headerlink" title="select 模型"></a>select 模型</h4><p><img src="https://mypic-1258313760.cos.ap-guangzhou.myqcloud.com/img/20200519214552.png" class="lazyload" data-srcset="https://mypic-1258313760.cos.ap-guangzhou.myqcloud.com/img/20200519214552.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="select多路复用示例"></p>
 <p>上图所示的整个用户进程一般一直是被阻塞的（blocking），即被 select（复用器） 所阻塞，多个 Socket 被注册在 select 中。进程阻塞于 select 调用，等待数据报套接字变为可读，一但 select 返回套接字可读，系统调用 recvfrom 把所读数据报复制到应用进程缓冲区。</p>
-<div class="note blue"><p>问题来了？为了处理多个网络连接 I/O，我们也可以通过多线程/进程的方式实现，多路复用的优势何在？这里的多路复用模型似乎比阻塞式 I/O 模型更为复杂，但它最大的优势在于用户可以在一个进程/线程内同时处理多个 socket 的 IO 请求。用户可以注册多个 socket，然后不断地调用 select 读取被激活的 socket，即可达到在同一个线程内同时处理多个 IO 请求的目的。（select 可接受的 socket 描述符数会有一定限制）</p></div>
+<div class="note blue"><p>问题来了？为了处理多个网络连接 I&#x2F;O，我们也可以通过多线程&#x2F;进程的方式实现，多路复用的优势何在？这里的多路复用模型似乎比阻塞式 I&#x2F;O 模型更为复杂，但它最大的优势在于用户可以在一个进程&#x2F;线程内同时处理多个 socket 的 IO 请求。用户可以注册多个 socket，然后不断地调用 select 读取被激活的 socket，即可达到在同一个线程内同时处理多个 IO 请求的目的。（select 可接受的 socket 描述符数会有一定限制）</p></div>
 
-<div class="note red"><p>我们知道，操作系统多个进程/线程的开销维护还是蛮大的。对于高并发场景，如果一台机器要维护 1 万个连接（C10K问题），使用多线程/进程的方式处理，操作系统是无法承受的。如果维持 1 亿用户在线需要 10 万台服务器，成本那是相当的高。</p></div>
+<div class="note red"><p>我们知道，操作系统多个进程&#x2F;线程的开销维护还是蛮大的。对于高并发场景，如果一台机器要维护 1 万个连接（C10K问题），使用多线程&#x2F;进程的方式处理，操作系统是无法承受的。如果维持 1 亿用户在线需要 10 万台服务器，成本那是相当的高。</p></div>
 
-<div class="note yellow"><p>$ 服务端单机最大 TCP 连接数=客户端 IP 数×客户端端口数 $，对于 IPv4，客户端的 IP 数最多为 2 的 32 次方，客户端的端口数最多为 2 的 16 次方。这只是理论上限，每个 TCP 连接的建立会受制于操作系统内存等因素的影响。</p></div>
+<div class="note yellow"><p>$ 服务端单机最大 TCP 连接数&#x3D;客户端 IP 数×客户端端口数 $，对于 IPv4，客户端的 IP 数最多为 2 的 32 次方，客户端的端口数最多为 2 的 16 次方。这只是理论上限，每个 TCP 连接的建立会受制于操作系统内存等因素的影响。</p></div>
 
 <h4 id="epoll-模型"><a href="#epoll-模型" class="headerlink" title="epoll 模型"></a>epoll 模型</h4><p>新模型的出现肯定是为了解决旧模型的问题，那么 select 模型有什么问题？每次 Socket 所在的文件描述符集合中有 Socket 发生变化的时候，select 都需要通过轮询的方式去检查，而 epoll 引入了 CallBack（回调）机制，当某个文件描述符发送变化的时候，主动通知。随着监听的 Socket 数据增加的时候，效率相比于 select 的轮询快多了。</p>
 <p>了解 epoll 的本质 -&gt; <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/64138532">如果这篇文章说不清epoll的本质，那就过来掐死我吧！ （2）</a></p>
@@ -3067,28 +3064,28 @@ loopback 在维基百科上有一段这样的解释：Loo...</span></a></div></s
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://yeshan333.github.io/2020/05/19/%E4%BA%86%E8%A7%A3%E4%B8%80%E6%B3%A2%E7%BB%8F%E5%85%B8%E7%9A%84-IO-%E6%A8%A1%E5%9E%8B/&title=了解一波经典的 I/O 模型 - ShanSan&pics=https://mypic-1258313760.cos.ap-guangzhou.myqcloud.com/img/20200519233557.png&summary=最近读了波网络 I/O 相关的文章，做下总结、摘录。（未完）
-经典 I/O 模型
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://yeshan333.github.io/2020/05/19/%E4%BA%86%E8%A7%A3%E4%B8%80%E6%B3%A2%E7%BB%8F%E5%85%B8%E7%9A%84-IO-%E6%A8%A1%E5%9E%8B/&title=了解一波经典的 I/O 模型 - ShanSan&pics=https://mypic-1258313760.cos.ap-guangzhou.myqcloud.com/img/20200519233557.png&summary=最近读了波网络 I&#x2F;O 相关的文章，做下总结、摘录。（未完）
+经典 I&#x2F;O 模型
 
-            阻塞式 I/O（blocking I/O）
+            阻塞式 I&#x2F;O（blocking I&#x2F;O）
             
 
-            非阻塞式 I/O（non-blocking I/O）
+            非阻塞式 I&#x2F;O（non-blocking I&#x2F;O）
             
 
-            I/O 多路复用（I/O multiplexing）
+            I&#x2F;O 多路复用（I&#x2F;O multiplexing）
             
 
-            信号驱动式 I/O（signal driven I/O）
+            信号驱动式 I&#x2F;O（signal driven I&#x2F;O）
             
 
-            异步 I/O（asynchronous I/O）
+            异步 I&#x2F;O（asynchronous I&#x2F;O）
             
 
-阻塞式 I/O 模型对于阻塞式 I/O，以套接字（Socket）的输入操作为例。
+阻塞式 I&#x2F;O 模型对于阻塞式 I&#x2F;O，以套接字（Socket）的输入操作为例。
 
-1、首先应用进程发起 I/O 系统调用后，应用进程阻塞，转到内核空间处理。
-2、之后，内核开始等待数据，等待数据到达之后，将内核中的数据拷贝到用户的缓冲区中，整个 I/O 处理完毕后返回进程。最后应用进程解除阻塞状态，处理数据。
+1、首先应用进程发起 I&#x2F;O 系统调用后，应用进程阻塞，转到内核空间处理。
+2、之后，内核开始等待数据，等待数据到达之后，将内核中的数据拷贝到用户的缓冲区中，整个 I&#x2F;O 处理完毕后返回进程。最后应用进程解除阻塞状态，处理数据。
 "
           
           >
@@ -3101,28 +3098,28 @@ loopback 在维基百科上有一段这样的解释：Loo...</span></a></div></s
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://yeshan333.github.io/2020/05/19/%E4%BA%86%E8%A7%A3%E4%B8%80%E6%B3%A2%E7%BB%8F%E5%85%B8%E7%9A%84-IO-%E6%A8%A1%E5%9E%8B/&title=了解一波经典的 I/O 模型 - ShanSan&pics=https://mypic-1258313760.cos.ap-guangzhou.myqcloud.com/img/20200519233557.png&summary=最近读了波网络 I/O 相关的文章，做下总结、摘录。（未完）
-经典 I/O 模型
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://yeshan333.github.io/2020/05/19/%E4%BA%86%E8%A7%A3%E4%B8%80%E6%B3%A2%E7%BB%8F%E5%85%B8%E7%9A%84-IO-%E6%A8%A1%E5%9E%8B/&title=了解一波经典的 I/O 模型 - ShanSan&pics=https://mypic-1258313760.cos.ap-guangzhou.myqcloud.com/img/20200519233557.png&summary=最近读了波网络 I&#x2F;O 相关的文章，做下总结、摘录。（未完）
+经典 I&#x2F;O 模型
 
-            阻塞式 I/O（blocking I/O）
+            阻塞式 I&#x2F;O（blocking I&#x2F;O）
             
 
-            非阻塞式 I/O（non-blocking I/O）
+            非阻塞式 I&#x2F;O（non-blocking I&#x2F;O）
             
 
-            I/O 多路复用（I/O multiplexing）
+            I&#x2F;O 多路复用（I&#x2F;O multiplexing）
             
 
-            信号驱动式 I/O（signal driven I/O）
+            信号驱动式 I&#x2F;O（signal driven I&#x2F;O）
             
 
-            异步 I/O（asynchronous I/O）
+            异步 I&#x2F;O（asynchronous I&#x2F;O）
             
 
-阻塞式 I/O 模型对于阻塞式 I/O，以套接字（Socket）的输入操作为例。
+阻塞式 I&#x2F;O 模型对于阻塞式 I&#x2F;O，以套接字（Socket）的输入操作为例。
 
-1、首先应用进程发起 I/O 系统调用后，应用进程阻塞，转到内核空间处理。
-2、之后，内核开始等待数据，等待数据到达之后，将内核中的数据拷贝到用户的缓冲区中，整个 I/O 处理完毕后返回进程。最后应用进程解除阻塞状态，处理数据。
+1、首先应用进程发起 I&#x2F;O 系统调用后，应用进程阻塞，转到内核空间处理。
+2、之后，内核开始等待数据，等待数据到达之后，将内核中的数据拷贝到用户的缓冲区中，整个 I&#x2F;O 处理完毕后返回进程。最后应用进程解除阻塞状态，处理数据。
 "
           
           >
@@ -3135,28 +3132,28 @@ loopback 在维基百科上有一段这样的解释：Loo...</span></a></div></s
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://service.weibo.com/share/share.php?url=https://yeshan333.github.io/2020/05/19/%E4%BA%86%E8%A7%A3%E4%B8%80%E6%B3%A2%E7%BB%8F%E5%85%B8%E7%9A%84-IO-%E6%A8%A1%E5%9E%8B/&title=了解一波经典的 I/O 模型 - ShanSan&pics=https://mypic-1258313760.cos.ap-guangzhou.myqcloud.com/img/20200519233557.png&summary=最近读了波网络 I/O 相关的文章，做下总结、摘录。（未完）
-经典 I/O 模型
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://yeshan333.github.io/2020/05/19/%E4%BA%86%E8%A7%A3%E4%B8%80%E6%B3%A2%E7%BB%8F%E5%85%B8%E7%9A%84-IO-%E6%A8%A1%E5%9E%8B/&title=了解一波经典的 I/O 模型 - ShanSan&pics=https://mypic-1258313760.cos.ap-guangzhou.myqcloud.com/img/20200519233557.png&summary=最近读了波网络 I&#x2F;O 相关的文章，做下总结、摘录。（未完）
+经典 I&#x2F;O 模型
 
-            阻塞式 I/O（blocking I/O）
+            阻塞式 I&#x2F;O（blocking I&#x2F;O）
             
 
-            非阻塞式 I/O（non-blocking I/O）
+            非阻塞式 I&#x2F;O（non-blocking I&#x2F;O）
             
 
-            I/O 多路复用（I/O multiplexing）
+            I&#x2F;O 多路复用（I&#x2F;O multiplexing）
             
 
-            信号驱动式 I/O（signal driven I/O）
+            信号驱动式 I&#x2F;O（signal driven I&#x2F;O）
             
 
-            异步 I/O（asynchronous I/O）
+            异步 I&#x2F;O（asynchronous I&#x2F;O）
             
 
-阻塞式 I/O 模型对于阻塞式 I/O，以套接字（Socket）的输入操作为例。
+阻塞式 I&#x2F;O 模型对于阻塞式 I&#x2F;O，以套接字（Socket）的输入操作为例。
 
-1、首先应用进程发起 I/O 系统调用后，应用进程阻塞，转到内核空间处理。
-2、之后，内核开始等待数据，等待数据到达之后，将内核中的数据拷贝到用户的缓冲区中，整个 I/O 处理完毕后返回进程。最后应用进程解除阻塞状态，处理数据。
+1、首先应用进程发起 I&#x2F;O 系统调用后，应用进程阻塞，转到内核空间处理。
+2、之后，内核开始等待数据，等待数据到达之后，将内核中的数据拷贝到用户的缓冲区中，整个 I&#x2F;O 处理完毕后返回进程。最后应用进程解除阻塞状态，处理数据。
 "
           
           >
@@ -4504,7 +4501,7 @@ window.matchMedia('(prefers-color-scheme: light)').addListener(darkModelListener
 </script>
 
 
-  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"ShanSan","url":"https://yeshan333.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"ShanSan","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://yeshan333.github.io/","sameAs":["https://github.com/volantis-x"],"description":"ShanSan's Blog"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://yeshan333.github.io/","name":"ShanSan"}},{"@type":"ListItem","position":2,"item":{"@id":"https://yeshan333.github.io/categories/操作系统/","name":"操作系统"}},{"@type":"ListItem","position":2,"item":{"@id":"https://yeshan333.github.io/categories/计算机网络/","name":"计算机网络"}},{"@type":"ListItem","position":3,"item":{"@id":"https://yeshan333.github.io/2020/05/19/了解一波经典的-IO-模型/","name":"了解一波经典的 I/O 模型"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"ShanSan","url":"https://yeshan333.github.io/","keywords":["ShanSan","Cloudys","shan333","shansan"],"description":"ShanSan's Blog","author":{"@type":"Person","name":"ShanSan","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://yeshan333.github.io/","description":"ShanSan's Blog"},"publisher":{"@type":"Organization","name":"ShanSan","url":"https://yeshan333.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://yeshan333.github.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"了解一波经典的 I/O 模型","description":"最近读了波网络 I/O 相关的文章，做下总结、摘录。（未完）\n经典 I/O 模型\n\n            阻塞式 I/O（blocking I/O）\n            \n\n            非阻塞式 I/O（non-blocking I/O）\n            \n\n            I/O 多路复用（I/O multiplexing）\n            \n\n            信号驱动式 I/O（signal driven I/O）\n            \n\n            异步 I/O（asynchronous I/O）\n            \n\n阻塞式 I/O 模型对于阻塞式 I/O，以套接字（Socket）的输入操作为例。\n\n1、首先应用进程发起 I/O 系统调用后，应用进程阻塞，转到内核空间处理。\n2、之后，内核开始等待数据，等待数据到达之后，将内核中的数据拷贝到用户的缓冲区中，整个 I/O 处理完毕后返回进程。最后应用进程解除阻塞状态，处理数据。\n","inLanguage":["zh-CN","en","zh-TW","default"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://yeshan333.github.io/2020/05/19/%E4%BA%86%E8%A7%A3%E4%B8%80%E6%B3%A2%E7%BB%8F%E5%85%B8%E7%9A%84-IO-%E6%A8%A1%E5%9E%8B/"},"author":{"@type":"Person","name":"ShanSan","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://yeshan333.github.io/"},"publisher":{"@type":"Organization","name":"ShanSan","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"https://yeshan333.github.io/2020/05/19/%E4%BA%86%E8%A7%A3%E4%B8%80%E6%B3%A2%E7%BB%8F%E5%85%B8%E7%9A%84-IO-%E6%A8%A1%E5%9E%8B/","wordCount":459,"datePublished":"2020-05-19T15:19:14.000Z","dateModified":"2020-05-19T15:19:14.000Z","articleSection":"操作系统","keywords":"I/O模型","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
+  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"ShanSan","url":"https://yeshan333.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"ShanSan","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://yeshan333.github.io/","sameAs":["https://github.com/volantis-x"],"description":"ShanSan's Blog"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://yeshan333.github.io/","name":"ShanSan"}},{"@type":"ListItem","position":2,"item":{"@id":"https://yeshan333.github.io/categories/操作系统/","name":"操作系统"}},{"@type":"ListItem","position":2,"item":{"@id":"https://yeshan333.github.io/categories/计算机网络/","name":"计算机网络"}},{"@type":"ListItem","position":3,"item":{"@id":"https://yeshan333.github.io/2020/05/19/了解一波经典的-IO-模型/","name":"了解一波经典的 I/O 模型"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"ShanSan","url":"https://yeshan333.github.io/","keywords":["ShanSan","Cloudys","shan333","shansan"],"description":"ShanSan's Blog","author":{"@type":"Person","name":"ShanSan","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://yeshan333.github.io/","description":"ShanSan's Blog"},"publisher":{"@type":"Organization","name":"ShanSan","url":"https://yeshan333.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://yeshan333.github.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"了解一波经典的 I/O 模型","description":"最近读了波网络 I&#x2F;O 相关的文章，做下总结、摘录。（未完）\n经典 I&#x2F;O 模型\n\n            阻塞式 I&#x2F;O（blocking I&#x2F;O）\n            \n\n            非阻塞式 I&#x2F;O（non-blocking I&#x2F;O）\n            \n\n            I&#x2F;O 多路复用（I&#x2F;O multiplexing）\n            \n\n            信号驱动式 I&#x2F;O（signal driven I&#x2F;O）\n            \n\n            异步 I&#x2F;O（asynchronous I&#x2F;O）\n            \n\n阻塞式 I&#x2F;O 模型对于阻塞式 I&#x2F;O，以套接字（Socket）的输入操作为例。\n\n1、首先应用进程发起 I&#x2F;O 系统调用后，应用进程阻塞，转到内核空间处理。\n2、之后，内核开始等待数据，等待数据到达之后，将内核中的数据拷贝到用户的缓冲区中，整个 I&#x2F;O 处理完毕后返回进程。最后应用进程解除阻塞状态，处理数据。\n","inLanguage":["zh-CN","en","zh-TW","default"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://yeshan333.github.io/2020/05/19/%E4%BA%86%E8%A7%A3%E4%B8%80%E6%B3%A2%E7%BB%8F%E5%85%B8%E7%9A%84-IO-%E6%A8%A1%E5%9E%8B/"},"author":{"@type":"Person","name":"ShanSan","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://yeshan333.github.io/"},"publisher":{"@type":"Organization","name":"ShanSan","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"https://yeshan333.github.io/2020/05/19/%E4%BA%86%E8%A7%A3%E4%B8%80%E6%B3%A2%E7%BB%8F%E5%85%B8%E7%9A%84-IO-%E6%A8%A1%E5%9E%8B/","wordCount":539,"datePublished":"2020-05-19T15:19:14.000Z","dateModified":"2020-05-19T15:19:14.000Z","articleSection":"操作系统","keywords":"I/O模型","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
 
 
 

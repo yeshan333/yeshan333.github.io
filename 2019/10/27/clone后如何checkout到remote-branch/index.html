@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN,en,zh-TW,default">
     <head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/#5.7.6'>
-  <meta name="generator" content="Hexo 5.4.2">
+  <meta name="generator" content="Hexo 7.1.1">
   <meta name="Volantis" content="5.7.6">
   <meta charset="utf-8">
   <!-- SEO相关 -->
@@ -42,7 +42,7 @@
 <meta property="og:title" content="git clone后如何checkout到remote branch">
 <meta property="og:url" content="https://yeshan333.github.io/2019/10/27/clone%E5%90%8E%E5%A6%82%E4%BD%95checkout%E5%88%B0remote-branch/index.html">
 <meta property="og:site_name" content="ShanSan">
-<meta property="og:description" content="what&#x2F;why通常情况使用git clone github_repository_address下载下来的仓库使用git branch查看当前所有分支时只能看到master分支，但是想要切换到其他分支进行工作怎么办❓  其实使用git clone下载的repository没那么简单😥，clone得到的是仓库所有的数据，不仅仅是复制在Github repository所能看到的master分支下">
+<meta property="og:description" content="what&#x2F;why通常情况使用git clone github_repository_address下载下来的仓库使用git branch查看当前所有分支时只能看到master分支，但是想要切换到其他分支进行工作怎么办❓  其实使用git clone下载的repository没那么简单😥，clone得到的是仓库所有的数据，不仅仅是复制在Github repository所能看到的mast">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
 <meta property="article:published_time" content="2019-10-27T00:36:10.000Z">
@@ -1909,7 +1909,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1707222514978),
+    lastupdate: new Date(1707225652253),
     sidebar: {
       for_page: ["blogger","webinfo","category","tagcloud","wonderful_link","qrcode","my_follow"],
       for_post: ["toc"],
@@ -2926,7 +2926,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
   <div id="layoutHelper-page-plugins"></div>
   <div id="post-body" itemprop="articleBody">
-    <h2 id="what-why"><a href="#what-why" class="headerlink" title="what/why"></a>what/why</h2><p>通常情况使用<code>git clone github_repository_address</code>下载下来的仓库使用<code>git branch</code>查看当前所有分支时只能看到master分支，但是想要切换到其他分支进行工作怎么办❓</p>
+    <h2 id="what-why"><a href="#what-why" class="headerlink" title="what&#x2F;why"></a>what&#x2F;why</h2><p>通常情况使用<code>git clone github_repository_address</code>下载下来的仓库使用<code>git branch</code>查看当前所有分支时只能看到master分支，但是想要切换到其他分支进行工作怎么办❓</p>
 <p><img src="https://gcore.jsdelivr.net/gh/ssmath/mypic/img/20191027014941.png" class="lazyload" data-srcset="https://gcore.jsdelivr.net/gh/ssmath/mypic/img/20191027014941.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></p>
 <p>其实使用git clone下载的repository没那么简单😥，clone得到的是仓库所有的数据，不仅仅是复制在Github repository所能看到的master分支下的所有文件，<strong>clone下来的是仓库下的每一个文件和每一个文件的版本（也就是说所有的分支都被搞下来了咯）</strong>，那为啥看不到，其实remote branch被隐藏了，需要使用<code>git branch -a</code>才能看到。</p>
 <p><img src="https://gcore.jsdelivr.net/gh/ssmath/mypic/img/20191027015046.png" class="lazyload" data-srcset="https://gcore.jsdelivr.net/gh/ssmath/mypic/img/20191027015046.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></p>

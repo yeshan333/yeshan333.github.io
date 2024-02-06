@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN,en,zh-TW,default">
     <head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/#5.7.6'>
-  <meta name="generator" content="Hexo 5.4.2">
+  <meta name="generator" content="Hexo 7.1.1">
   <meta name="Volantis" content="5.7.6">
   <meta charset="utf-8">
   <!-- SEO相关 -->
@@ -1915,7 +1915,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1707222514978),
+    lastupdate: new Date(1707225652253),
     sidebar: {
       for_page: ["blogger","webinfo","category","tagcloud","wonderful_link","qrcode","my_follow"],
       for_post: ["toc"],
@@ -2926,27 +2926,27 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 </ul>
 <p>在开始之前，让我们先抛出几个问题，然后一一解决、回答它们</p>
 <ul>
-<li>.git版本库里的文件/目录是干什么的?</li>
+<li>.git版本库里的文件&#x2F;目录是干什么的?</li>
 <li>Git是如何存储文件信息的？</li>
 <li>当我们执行git add、git commit时，Git背后做了什么？</li>
 <li>Git分支的本质是什么?</li>
 </ul>
 <span id="more"></span>
 
-<h1 id="Git分区"><a href="#Git分区" class="headerlink" title="Git分区"></a>Git分区</h1><p>在真正开始之前，让我们先回顾下Git的三个分区（Workspace、Index / Stage、git repository）</p>
+<h1 id="Git分区"><a href="#Git分区" class="headerlink" title="Git分区"></a>Git分区</h1><p>在真正开始之前，让我们先回顾下Git的三个分区（Workspace、Index &#x2F; Stage、git repository）</p>
 <ul>
 <li>工作区（Workspace）：此处进行代码文件的编辑</li>
-<li>索引或称暂存区（Index / Stage）：存储文件状态信息，进行commit前会对此时的文件状态作快照（Snapshot）</li>
+<li>索引或称暂存区（Index &#x2F; Stage）：存储文件状态信息，进行commit前会对此时的文件状态作快照（Snapshot）</li>
 <li>Git版本库（git repository）：由Git Object持久记录每一次commit的快照和链式结构的commit变更历史</li>
 </ul>
 <p>先看下从《Got Git》和网络上搬来的Git分区工作原理图和待remote的工作流再次感性回顾下之前使用Git自己时怎么操作的</p>
 <p><img src="https://gcore.jsdelivr.net/gh/ssmath/mypic/img/20200202210748.png" class="lazyload" data-srcset="https://gcore.jsdelivr.net/gh/ssmath/mypic/img/20200202210748.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="工作区、版本库、暂存区工作原理图"></p>
 <p><img src="https://gcore.jsdelivr.net/gh/ssmath/mypic/img/20200202210624.png" class="lazyload" data-srcset="https://gcore.jsdelivr.net/gh/ssmath/mypic/img/20200202210624.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="带Remote的工作流"></p>
 <p>相信看了这些，会对Git有新的认知，让我们正式开始🎉！</p>
-<h1 id="git版本库里的文件-目录是干什么的"><a href="#git版本库里的文件-目录是干什么的" class="headerlink" title=".git版本库里的文件/目录是干什么的"></a>.git版本库里的文件/目录是干什么的</h1><p>让我们通过一个从GitHub clone下来的一个实际项目的版本库来看下这些文件/目录，<a target="_blank" rel="noopener" href="https://github.com/yeshan333/Explore-Git">clone下来的repository</a></p>
+<h1 id="git版本库里的文件-目录是干什么的"><a href="#git版本库里的文件-目录是干什么的" class="headerlink" title=".git版本库里的文件&#x2F;目录是干什么的"></a>.git版本库里的文件&#x2F;目录是干什么的</h1><p>让我们通过一个从GitHub clone下来的一个实际项目的版本库来看下这些文件&#x2F;目录，<a target="_blank" rel="noopener" href="https://github.com/yeshan333/Explore-Git">clone下来的repository</a></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://github.com/yeshan333/Explore-Git</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">ls</span> -F1</span><br><span class="line">config</span><br><span class="line">description</span><br><span class="line">HEAD</span><br><span class="line">hooks/</span><br><span class="line">index</span><br><span class="line">info/</span><br><span class="line">logs/</span><br><span class="line">objects/</span><br><span class="line">packed-refs</span><br><span class="line">refs/</span><br></pre></td></tr></table></figure>
 
-<p><strong>挑几个重要文件/目录的做下解释</strong></p>
+<p><strong>挑几个重要文件&#x2F;目录的做下解释</strong></p>
 <ul>
 <li>HEAD文件：用于存放当前所在分支的引用，这个引用是个符号引用（symbolic reference）</li>
 <li>index文件：二进制文件，它就是暂存区（Stage Area）。它是一个目录树，记录了文件的时间戳、文件长度、SHA-1等</li>
@@ -2958,7 +2958,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <ul>
 <li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Binary_large_object">blob</a>：用于存储文件内容，Git保存文件的时候不会保存文件名</li>
 <li>tree object：当前目录结构的一个快照（Snapshot），它存储了一条或多条树记录（tree entries），每条记录含有一个指向数据对象（blob）或子树对象（子树木对象可理解为子目录）的SHA-1指针以及相应的文件模式、类型、文件名，用于表示内容之间的目录层次关系</li>
-<li>commit object：存储<strong>顶层tree object</strong>的SHA-1值、作者/提交者信息+时间戳以及提交注释，如果有父commit object，还会保存有这个commit object对应的SHA-1值。对于merge commit可能会有多个父commit object</li>
+<li>commit object：存储<strong>顶层tree object</strong>的SHA-1值、作者&#x2F;提交者信息+时间戳以及提交注释，如果有父commit object，还会保存有这个commit object对应的SHA-1值。对于merge commit可能会有多个父commit object</li>
 <li>tag object：用于标记commit object。关于<a target="_blank" rel="noopener" href="https://git-scm.com/book/en/v2/Git-Internals-Git-References">tag object</a></li>
 </ul>
 <p>让我们通过一个实际的版本库了解下这些对象，使用<a target="_blank" rel="noopener" href="https://git-scm.com/docs/git-log#Documentation/git-log.txt---prettyltformatgt"><code>git log</code></a>查看这个版本库详尽的历史提交记录</p>
@@ -2976,10 +2976,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ git cat-file -p 6116</span><br><span class="line"><span class="comment"># Explore-Git</span></span><br><span class="line">$ git cat-file -t 6116</span><br><span class="line">blob</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p>Nice，很好的对应了之前对blob、tree object、commit object的描述。关于文件的大部分信息都存放在这些object中。</p>
-<h1 id="当我们执行git-add、git-commit时，Git背后做了什么"><a href="#当我们执行git-add、git-commit时，Git背后做了什么" class="headerlink" title="当我们执行git add、git commit时，Git背后做了什么"></a>当我们执行git add、git commit时，Git背后做了什么</h1><p>解答这个问题，我们需要通过实践去一步步感受Git背后的操作。我们创建一个简单的例子感受下，我们需要时刻关注.git/objects这个目录</p>
+<h1 id="当我们执行git-add、git-commit时，Git背后做了什么"><a href="#当我们执行git-add、git-commit时，Git背后做了什么" class="headerlink" title="当我们执行git add、git commit时，Git背后做了什么"></a>当我们执行git add、git commit时，Git背后做了什么</h1><p>解答这个问题，我们需要通过实践去一步步感受Git背后的操作。我们创建一个简单的例子感受下，我们需要时刻关注.git&#x2F;objects这个目录</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">mkdir</span> demo</span><br><span class="line">$ <span class="built_in">cd</span> demo</span><br><span class="line">$ git init <span class="comment"># 初始化Git仓库</span></span><br><span class="line">$ find .git/objects -<span class="built_in">type</span> f <span class="comment"># 没有文件</span></span><br><span class="line">$ <span class="built_in">echo</span> <span class="string">&quot;test&quot;</span> &gt; test.txt</span><br><span class="line">$ <span class="built_in">mkdir</span> hi</span><br><span class="line">$ <span class="built_in">cd</span> hi</span><br><span class="line">$ <span class="built_in">echo</span> <span class="string">&quot;Hello&quot;</span> &gt; hello.txt</span><br><span class="line">$ <span class="built_in">cd</span> ..</span><br><span class="line">$ find .git/objects -<span class="built_in">type</span> f</span><br><span class="line">$ <span class="comment"># 什么都没有</span></span><br></pre></td></tr></table></figure>
 
-<p>这里我们创建先了两个文件，test.txt、hello.txt，其中hello.txt文件放到了hi目录中，然后我们查看了.git/objects目录，没有文件。接下来就是重头戏了，我们要将当前目录的文件/目录（Linux一切皆文件）添加到暂存区（stage/index）。</p>
+<p>这里我们创建先了两个文件，test.txt、hello.txt，其中hello.txt文件放到了hi目录中，然后我们查看了.git&#x2F;objects目录，没有文件。接下来就是重头戏了，我们要将当前目录的文件&#x2F;目录（Linux一切皆文件）添加到暂存区（stage&#x2F;index）。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git add .</span><br><span class="line">$ find .git/objects -<span class="built_in">type</span> f</span><br><span class="line">.git/objects/9d/aeafb9864cf43055ae93beb0afd6c7d144bfa4</span><br><span class="line">.git/objects/e9/65047ad7c57865823c7d992b1d046ea66edf78</span><br></pre></td></tr></table></figure>
 
 <p>我们可以看到，执行了<code>git add</code>之后生成了两个文件，让我们通过<code>git cat-file</code>看看这两个文件</p>
@@ -3148,7 +3148,7 @@ Tip：在本地要安装好Git，官网：https://git-scm.com/
 
 在开始之前，让我们先抛出几个问题，然后一一解决、回答它们
 
-.git版本库里的文件/目录是干什么的?
+.git版本库里的文件&#x2F;目录是干什么的?
 Git是如何存储文件信息的？
 当我们执行git add、git commit时，Git背后做了什么？
 Git分支的本质是什么?
@@ -3174,7 +3174,7 @@ Git分支的本质是什么?
 
 在开始之前，让我们先抛出几个问题，然后一一解决、回答它们
 
-.git版本库里的文件/目录是干什么的?
+.git版本库里的文件&#x2F;目录是干什么的?
 Git是如何存储文件信息的？
 当我们执行git add、git commit时，Git背后做了什么？
 Git分支的本质是什么?
@@ -3200,7 +3200,7 @@ Git分支的本质是什么?
 
 在开始之前，让我们先抛出几个问题，然后一一解决、回答它们
 
-.git版本库里的文件/目录是干什么的?
+.git版本库里的文件&#x2F;目录是干什么的?
 Git是如何存储文件信息的？
 当我们执行git add、git commit时，Git背后做了什么？
 Git分支的本质是什么?
@@ -4559,7 +4559,7 @@ window.matchMedia('(prefers-color-scheme: light)').addListener(darkModelListener
 </script>
 
 
-  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"ShanSan","url":"https://yeshan333.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"ShanSan","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://yeshan333.github.io/","sameAs":["https://github.com/volantis-x"],"description":"ShanSan's Blog"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://yeshan333.github.io/","name":"ShanSan"}},{"@type":"ListItem","position":2,"item":{"@id":"https://yeshan333.github.io/categories/Git/","name":"Git"}},{"@type":"ListItem","position":3,"item":{"@id":"https://yeshan333.github.io/2020/02/03/Git内部原理探索/","name":"洞悉技术的本质-Git内部原理探索"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"ShanSan","url":"https://yeshan333.github.io/","keywords":["ShanSan","Cloudys","shan333","shansan"],"description":"ShanSan's Blog","author":{"@type":"Person","name":"ShanSan","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://yeshan333.github.io/","description":"ShanSan's Blog"},"publisher":{"@type":"Organization","name":"ShanSan","url":"https://yeshan333.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://yeshan333.github.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"洞悉技术的本质-Git内部原理探索","description":"前言洞悉技术的本质，可以让我们在层出不穷的框架面前仍能泰然处之。用了那么久的 Git，不懂点内部原理，那可不行！懂点原理可以让我们遇到问题的时候能够更好更快的理清解决问题的思路。\n要真正读懂本文可能需要以下基础：\n\n有 Git 使用经验\n对 Git 的三个分区有所了解\n熟悉常用的 Linux 命令\n对经典哈希算法有一定的了解，比如SHA-1、SHA-256、MD5等\n\n在开始之前，让我们先抛出几个问题，然后一一解决、回答它们\n\n.git版本库里的文件/目录是干什么的?\nGit是如何存储文件信息的？\n当我们执行git add、git commit时，Git背后做了什么？\nGit分支的本质是什么?\n","inLanguage":["zh-CN","en","zh-TW","default"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://yeshan333.github.io/2020/02/03/Git%E5%86%85%E9%83%A8%E5%8E%9F%E7%90%86%E6%8E%A2%E7%B4%A2/"},"author":{"@type":"Person","name":"ShanSan","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://yeshan333.github.io/"},"publisher":{"@type":"Organization","name":"ShanSan","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"https://yeshan333.github.io/2020/02/03/Git%E5%86%85%E9%83%A8%E5%8E%9F%E7%90%86%E6%8E%A2%E7%B4%A2/","wordCount":301,"datePublished":"2020-02-03T00:49:18.000Z","dateModified":"2020-02-03T00:49:18.000Z","articleSection":"Git","keywords":"Git","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
+  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"ShanSan","url":"https://yeshan333.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"ShanSan","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://yeshan333.github.io/","sameAs":["https://github.com/volantis-x"],"description":"ShanSan's Blog"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://yeshan333.github.io/","name":"ShanSan"}},{"@type":"ListItem","position":2,"item":{"@id":"https://yeshan333.github.io/categories/Git/","name":"Git"}},{"@type":"ListItem","position":3,"item":{"@id":"https://yeshan333.github.io/2020/02/03/Git内部原理探索/","name":"洞悉技术的本质-Git内部原理探索"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"ShanSan","url":"https://yeshan333.github.io/","keywords":["ShanSan","Cloudys","shan333","shansan"],"description":"ShanSan's Blog","author":{"@type":"Person","name":"ShanSan","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://yeshan333.github.io/","description":"ShanSan's Blog"},"publisher":{"@type":"Organization","name":"ShanSan","url":"https://yeshan333.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://yeshan333.github.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"洞悉技术的本质-Git内部原理探索","description":"前言洞悉技术的本质，可以让我们在层出不穷的框架面前仍能泰然处之。用了那么久的 Git，不懂点内部原理，那可不行！懂点原理可以让我们遇到问题的时候能够更好更快的理清解决问题的思路。\n要真正读懂本文可能需要以下基础：\n\n有 Git 使用经验\n对 Git 的三个分区有所了解\n熟悉常用的 Linux 命令\n对经典哈希算法有一定的了解，比如SHA-1、SHA-256、MD5等\n\n在开始之前，让我们先抛出几个问题，然后一一解决、回答它们\n\n.git版本库里的文件&#x2F;目录是干什么的?\nGit是如何存储文件信息的？\n当我们执行git add、git commit时，Git背后做了什么？\nGit分支的本质是什么?\n","inLanguage":["zh-CN","en","zh-TW","default"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://yeshan333.github.io/2020/02/03/Git%E5%86%85%E9%83%A8%E5%8E%9F%E7%90%86%E6%8E%A2%E7%B4%A2/"},"author":{"@type":"Person","name":"ShanSan","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://yeshan333.github.io/"},"publisher":{"@type":"Organization","name":"ShanSan","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"https://yeshan333.github.io/2020/02/03/Git%E5%86%85%E9%83%A8%E5%8E%9F%E7%90%86%E6%8E%A2%E7%B4%A2/","wordCount":306,"datePublished":"2020-02-03T00:49:18.000Z","dateModified":"2020-02-03T00:49:18.000Z","articleSection":"Git","keywords":"Git","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
 
 
 

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN,en,zh-TW,default">
     <head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/#5.7.6'>
-  <meta name="generator" content="Hexo 5.4.2">
+  <meta name="generator" content="Hexo 7.1.1">
   <meta name="Volantis" content="5.7.6">
   <meta charset="utf-8">
   <!-- SEO相关 -->
@@ -1915,7 +1915,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1707222514978),
+    lastupdate: new Date(1707225652253),
     sidebar: {
       for_page: ["blogger","webinfo","category","tagcloud","wonderful_link","qrcode","my_follow"],
       for_post: ["toc"],
@@ -3018,7 +3018,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 </ul>
 <h2 id="高阶精确匹配-经典实例"><a href="#高阶精确匹配-经典实例" class="headerlink" title="高阶精确匹配,经典实例"></a>高阶精确匹配,经典实例</h2><ul>
 <li>^[A-Za-z]+$   匹配由26个英文字母组成的字符串,如’abrg’、’abgsfsfga’</li>
-<li>[a-zA-Z\_][0-9a-zA-Z\_]* 可以匹配由字母或者下划线开头、后接任意一个由字母、数字或者下划线组成的字符串，也就是python的合法变量</li>
+<li>[a-zA-Z\<em>][0-9a-zA-Z\</em>]* 可以匹配由字母或者下划线开头、后接任意一个由字母、数字或者下划线组成的字符串，也就是python的合法变量</li>
 <li>^-?\d+$      匹配整数形式的字符串</li>
 <li>^[0-9]<em>[1-9][0-9]</em>$    匹配正整数形式的字符串</li>
 <li>[1-9]\d{5}   中国境内邮政编码,6位</li>
@@ -3129,7 +3129,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <li><p>编译正则表达式，如果正则表达式本身不合法，会报错</p>
 </li>
 <li><p>用编译后的正则表达式去匹配字符串</p>
-<p> regex = re.compile(pattern,flags=0)<br> 将正则表达式的字符串形式编译成正则表达式对象</p>
+<p> regex &#x3D; re.compile(pattern,flags&#x3D;0)<br> 将正则表达式的字符串形式编译成正则表达式对象</p>
 </li>
 </ol>
 <ul>
@@ -3243,9 +3243,8 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       <div class="vlts-rps"><a class="item" href="/2018/10/01/Requests库入门-2/" title="Requests库入门(2)" rel="bookmark "><img src="https://i.loli.net/2020/04/01/jEGhayRogB56b37.png" class="lazyload" data-srcset="https://i.loli.net/2020/04/01/jEGhayRogB56b37.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">Requests库入门(2)</span><span class="excerpt">requests库入门实操
 京东商品页面爬取
 亚马逊商品页面的爬取
-百度/360搜索关键字提交
-IP地址归属地查询
-网络图...</span></a><a class="item" href="/2018/10/12/信息标记/" title="信息标记" rel="bookmark "><img src="https://i.imgur.com/dwdhoVj.png" class="lazyload" data-srcset="https://i.imgur.com/dwdhoVj.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">信息标记</span><span class="excerpt">信息标记的三种形式
+百度&#x2F;360搜索关键字提交
+IP地址归属地查...</span></a><a class="item" href="/2018/10/12/信息标记/" title="信息标记" rel="bookmark "><img src="https://i.imgur.com/dwdhoVj.png" class="lazyload" data-srcset="https://i.imgur.com/dwdhoVj.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">信息标记</span><span class="excerpt">信息标记的三种形式
 
 
 XML(eXtensible Markup Language)

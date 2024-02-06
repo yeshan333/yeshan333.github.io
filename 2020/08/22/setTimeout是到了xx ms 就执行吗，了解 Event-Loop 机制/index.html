@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN,en,zh-TW,default">
     <head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/#5.7.6'>
-  <meta name="generator" content="Hexo 5.4.2">
+  <meta name="generator" content="Hexo 7.1.1">
   <meta name="Volantis" content="5.7.6">
   <meta charset="utf-8">
   <!-- SEO相关 -->
@@ -37,17 +37,17 @@
   <title>setTimeout 是到了xx ms 就执行吗，了解浏览器的 Event-Loop 机制 - ShanSan</title>
   <meta name="keywords" content="browser internal, eveny loop,ShanSan,Cloudys,shan333,shansan">
   <meta desc name="description" content="
-要想 JavaScript 玩得溜，还得了解波 JavaScript 执行机制/(ㄒoㄒ)/~~。
+要想 JavaScript 玩得溜，还得了解波 JavaScript 执行机制&#x2F;(ㄒoㄒ)&#x2F;~~。
 
 前言最近看了波 JavaScript 相关的文章，不得不说，JavaScript 我还真没玩明白（给我哭~。。。😅）。也挺久没写文了，实习（“摸🐟”）之余小记一波。
 
-回顾一句话：JavaScript 是一... - ShanSan - ShanSan">
+回顾一句话：Jav... - ShanSan - ShanSan">
   
 <meta property="og:type" content="article">
 <meta property="og:title" content="setTimeout 是到了xx ms 就执行吗，了解浏览器的 Event-Loop 机制">
 <meta property="og:url" content="https://yeshan333.github.io/2020/08/22/setTimeout%E6%98%AF%E5%88%B0%E4%BA%86xx%20ms%20%E5%B0%B1%E6%89%A7%E8%A1%8C%E5%90%97%EF%BC%8C%E4%BA%86%E8%A7%A3%20Event-Loop%20%E6%9C%BA%E5%88%B6/index.html">
 <meta property="og:site_name" content="ShanSan">
-<meta property="og:description" content="要想 JavaScript 玩得溜，还得了解波 JavaScript 执行机制&#x2F;(ㄒoㄒ)&#x2F;~~。  前言最近看了波 JavaScript 相关的文章，不得不说，JavaScript 我还真没玩明白（给我哭~。。。😅）。也挺久没写文了，实习（“摸🐟”）之余小记一波。  回顾一句话：JavaScript 是一门单线程、非阻塞、异步、解释性脚本语言。  本文的标题是：setTimeout 是到了">
+<meta property="og:description" content="要想 JavaScript 玩得溜，还得了解波 JavaScript 执行机制&#x2F;(ㄒoㄒ)&#x2F;~~。  前言最近看了波 JavaScript 相关的文章，不得不说，JavaScript 我还真没玩明白（给我哭~。。。😅）。也挺久没写文了，实习（“摸🐟”）之余小记一波。  回顾一句话：JavaScript 是一门单线程、非阻塞、异步、解释性脚本语言。  本文的标题是：setT">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
 <meta property="article:published_time" content="2020-08-22T13:42:41.000Z">
@@ -1915,7 +1915,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1707222514978),
+    lastupdate: new Date(1707225652253),
     sidebar: {
       for_page: ["blogger","webinfo","category","tagcloud","wonderful_link","qrcode","my_follow"],
       for_post: ["toc"],
@@ -2921,7 +2921,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <div id="layoutHelper-page-plugins"></div>
   <div id="post-body" itemprop="articleBody">
     <blockquote>
-<p>要想 JavaScript 玩得溜，还得了解波 JavaScript 执行机制/(ㄒoㄒ)/~~。</p>
+<p>要想 JavaScript 玩得溜，还得了解波 JavaScript 执行机制&#x2F;(ㄒoㄒ)&#x2F;~~。</p>
 </blockquote>
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近看了波 JavaScript 相关的文章，不得不说，JavaScript 我还真没玩明白（给我哭~。。。😅）。也挺久没写文了，实习（“摸🐟”）之余小记一波。</p>
 <blockquote>
@@ -3051,7 +3051,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
           target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://yeshan333.github.io/2020/08/22/setTimeout%E6%98%AF%E5%88%B0%E4%BA%86xx%20ms%20%E5%B0%B1%E6%89%A7%E8%A1%8C%E5%90%97%EF%BC%8C%E4%BA%86%E8%A7%A3%20Event-Loop%20%E6%9C%BA%E5%88%B6/&title=setTimeout 是到了xx ms 就执行吗，了解浏览器的 Event-Loop 机制 - ShanSan&pics=https://s1.ax1x.com/2020/08/22/ddnTQH.jpg&summary=
-要想 JavaScript 玩得溜，还得了解波 JavaScript 执行机制/(ㄒoㄒ)/~~。
+要想 JavaScript 玩得溜，还得了解波 JavaScript 执行机制&#x2F;(ㄒoㄒ)&#x2F;~~。
 
 前言最近看了波 JavaScript 相关的文章，不得不说，JavaScript 我还真没玩明白（给我哭~。。。😅）。也挺久没写文了，实习（“摸🐟”）之余小记一波。
 
@@ -3072,7 +3072,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
           target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://yeshan333.github.io/2020/08/22/setTimeout%E6%98%AF%E5%88%B0%E4%BA%86xx%20ms%20%E5%B0%B1%E6%89%A7%E8%A1%8C%E5%90%97%EF%BC%8C%E4%BA%86%E8%A7%A3%20Event-Loop%20%E6%9C%BA%E5%88%B6/&title=setTimeout 是到了xx ms 就执行吗，了解浏览器的 Event-Loop 机制 - ShanSan&pics=https://s1.ax1x.com/2020/08/22/ddnTQH.jpg&summary=
-要想 JavaScript 玩得溜，还得了解波 JavaScript 执行机制/(ㄒoㄒ)/~~。
+要想 JavaScript 玩得溜，还得了解波 JavaScript 执行机制&#x2F;(ㄒoㄒ)&#x2F;~~。
 
 前言最近看了波 JavaScript 相关的文章，不得不说，JavaScript 我还真没玩明白（给我哭~。。。😅）。也挺久没写文了，实习（“摸🐟”）之余小记一波。
 
@@ -3093,7 +3093,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
           target="_blank" href="http://service.weibo.com/share/share.php?url=https://yeshan333.github.io/2020/08/22/setTimeout%E6%98%AF%E5%88%B0%E4%BA%86xx%20ms%20%E5%B0%B1%E6%89%A7%E8%A1%8C%E5%90%97%EF%BC%8C%E4%BA%86%E8%A7%A3%20Event-Loop%20%E6%9C%BA%E5%88%B6/&title=setTimeout 是到了xx ms 就执行吗，了解浏览器的 Event-Loop 机制 - ShanSan&pics=https://s1.ax1x.com/2020/08/22/ddnTQH.jpg&summary=
-要想 JavaScript 玩得溜，还得了解波 JavaScript 执行机制/(ㄒoㄒ)/~~。
+要想 JavaScript 玩得溜，还得了解波 JavaScript 执行机制&#x2F;(ㄒoㄒ)&#x2F;~~。
 
 前言最近看了波 JavaScript 相关的文章，不得不说，JavaScript 我还真没玩明白（给我哭~。。。😅）。也挺久没写文了，实习（“摸🐟”）之余小记一波。
 
@@ -4462,7 +4462,7 @@ window.matchMedia('(prefers-color-scheme: light)').addListener(darkModelListener
 </script>
 
 
-  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"ShanSan","url":"https://yeshan333.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"ShanSan","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://yeshan333.github.io/","sameAs":["https://github.com/volantis-x"],"description":"ShanSan's Blog"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://yeshan333.github.io/","name":"ShanSan"}},{"@type":"ListItem","position":2,"item":{"@id":"https://yeshan333.github.io/categories/JavaScript/","name":"JavaScript"}},{"@type":"ListItem","position":3,"item":{"@id":"https://yeshan333.github.io/2020/08/22/setTimeout是到了xx ms 就执行吗，了解 Event-Loop 机制/","name":"setTimeout 是到了xx ms 就执行吗，了解浏览器的 Event-Loop 机制"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"ShanSan","url":"https://yeshan333.github.io/","keywords":["ShanSan","Cloudys","shan333","shansan"],"description":"ShanSan's Blog","author":{"@type":"Person","name":"ShanSan","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://yeshan333.github.io/","description":"ShanSan's Blog"},"publisher":{"@type":"Organization","name":"ShanSan","url":"https://yeshan333.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://yeshan333.github.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"setTimeout 是到了xx ms 就执行吗，了解浏览器的 Event-Loop 机制","description":"\n要想 JavaScript 玩得溜，还得了解波 JavaScript 执行机制/(ㄒoㄒ)/~~。\n\n前言最近看了波 JavaScript 相关的文章，不得不说，JavaScript 我还真没玩明白（给我哭~。。。😅）。也挺久没写文了，实习（“摸🐟”）之余小记一波。\n\n回顾一句话：JavaScript 是一门单线程、非阻塞、异步、解释性脚本语言。\n\n本文的标题是：setTimeout 是到了xx ms 就执行吗，了解 Event-Loop 机制。先回答波：不是。\n来看下网上的一段经典 js 代码在浏览器中「Microsoft Edge 84.0.522.63（64位）」的执行结果。\n12345678910console.log(&#x27;script start&#x27;);setTimeout(() =&gt; &#123;  console.log(&#x27;setTimeout&#x27;);&#125;,0);Promise.resolve().then(() =&gt; &#123;  console.log(&#x27;promise1&#x27;);&#125;).then(() =&gt;&#123;  console.log(&quot;promise2&quot;);&#125;);console.log(&#x27;script end&#x27;);","inLanguage":["zh-CN","en","zh-TW","default"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://yeshan333.github.io/2020/08/22/setTimeout%E6%98%AF%E5%88%B0%E4%BA%86xx%20ms%20%E5%B0%B1%E6%89%A7%E8%A1%8C%E5%90%97%EF%BC%8C%E4%BA%86%E8%A7%A3%20Event-Loop%20%E6%9C%BA%E5%88%B6/"},"author":{"@type":"Person","name":"ShanSan","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://yeshan333.github.io/"},"publisher":{"@type":"Organization","name":"ShanSan","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"https://yeshan333.github.io/2020/08/22/setTimeout%E6%98%AF%E5%88%B0%E4%BA%86xx%20ms%20%E5%B0%B1%E6%89%A7%E8%A1%8C%E5%90%97%EF%BC%8C%E4%BA%86%E8%A7%A3%20Event-Loop%20%E6%9C%BA%E5%88%B6/","wordCount":602,"datePublished":"2020-08-22T13:42:41.000Z","dateModified":"2020-08-22T13:42:41.000Z","articleSection":"JavaScript","keywords":"Event-Loop,JavaScript","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
+  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"ShanSan","url":"https://yeshan333.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"ShanSan","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://yeshan333.github.io/","sameAs":["https://github.com/volantis-x"],"description":"ShanSan's Blog"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://yeshan333.github.io/","name":"ShanSan"}},{"@type":"ListItem","position":2,"item":{"@id":"https://yeshan333.github.io/categories/JavaScript/","name":"JavaScript"}},{"@type":"ListItem","position":3,"item":{"@id":"https://yeshan333.github.io/2020/08/22/setTimeout是到了xx ms 就执行吗，了解 Event-Loop 机制/","name":"setTimeout 是到了xx ms 就执行吗，了解浏览器的 Event-Loop 机制"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"ShanSan","url":"https://yeshan333.github.io/","keywords":["ShanSan","Cloudys","shan333","shansan"],"description":"ShanSan's Blog","author":{"@type":"Person","name":"ShanSan","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://yeshan333.github.io/","description":"ShanSan's Blog"},"publisher":{"@type":"Organization","name":"ShanSan","url":"https://yeshan333.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://yeshan333.github.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"setTimeout 是到了xx ms 就执行吗，了解浏览器的 Event-Loop 机制","description":"\n要想 JavaScript 玩得溜，还得了解波 JavaScript 执行机制&#x2F;(ㄒoㄒ)&#x2F;~~。\n\n前言最近看了波 JavaScript 相关的文章，不得不说，JavaScript 我还真没玩明白（给我哭~。。。😅）。也挺久没写文了，实习（“摸🐟”）之余小记一波。\n\n回顾一句话：JavaScript 是一门单线程、非阻塞、异步、解释性脚本语言。\n\n本文的标题是：setTimeout 是到了xx ms 就执行吗，了解 Event-Loop 机制。先回答波：不是。\n来看下网上的一段经典 js 代码在浏览器中「Microsoft Edge 84.0.522.63（64位）」的执行结果。\n12345678910console.log(&#x27;script start&#x27;);setTimeout(() =&gt; &#123;  console.log(&#x27;setTimeout&#x27;);&#125;,0);Promise.resolve().then(() =&gt; &#123;  console.log(&#x27;promise1&#x27;);&#125;).then(() =&gt;&#123;  console.log(&quot;promise2&quot;);&#125;);console.log(&#x27;script end&#x27;);","inLanguage":["zh-CN","en","zh-TW","default"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://yeshan333.github.io/2020/08/22/setTimeout%E6%98%AF%E5%88%B0%E4%BA%86xx%20ms%20%E5%B0%B1%E6%89%A7%E8%A1%8C%E5%90%97%EF%BC%8C%E4%BA%86%E8%A7%A3%20Event-Loop%20%E6%9C%BA%E5%88%B6/"},"author":{"@type":"Person","name":"ShanSan","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://yeshan333.github.io/"},"publisher":{"@type":"Organization","name":"ShanSan","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"https://yeshan333.github.io/2020/08/22/setTimeout%E6%98%AF%E5%88%B0%E4%BA%86xx%20ms%20%E5%B0%B1%E6%89%A7%E8%A1%8C%E5%90%97%EF%BC%8C%E4%BA%86%E8%A7%A3%20Event-Loop%20%E6%9C%BA%E5%88%B6/","wordCount":612,"datePublished":"2020-08-22T13:42:41.000Z","dateModified":"2020-08-22T13:42:41.000Z","articleSection":"JavaScript","keywords":"Event-Loop,JavaScript","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
 
 
 

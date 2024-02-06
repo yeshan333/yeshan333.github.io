@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN,en,zh-TW,default">
     <head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/#5.7.6'>
-  <meta name="generator" content="Hexo 5.4.2">
+  <meta name="generator" content="Hexo 7.1.1">
   <meta name="Volantis" content="5.7.6">
   <meta charset="utf-8">
   <!-- SEO相关 -->
@@ -1916,7 +1916,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1707222514978),
+    lastupdate: new Date(1707225652253),
     sidebar: {
       for_page: ["blogger","webinfo","category","tagcloud","wonderful_link","qrcode","my_follow"],
       for_post: ["toc"],
@@ -2929,7 +2929,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <h2 id="Prometheus"><a href="#Prometheus" class="headerlink" title="Prometheus"></a>Prometheus</h2><p>先回顾一下 Prometheus 的各个生态组件，了解下它们各自承担的责任是是什么。基于下面一张来自 Prometheus 官方文档的架构 &amp; 生态组件图做下简介：</p>
 <p><img src="https://gcore.jsdelivr.net/gh/yeshan333/blog_images@main/images/prometheus_architecture.png" class="lazyload" data-srcset="https://gcore.jsdelivr.net/gh/yeshan333/blog_images@main/images/prometheus_architecture.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="Prometheus Architecture &amp;  Ecosystem Components"></p>
 <ul>
-<li>Prometheus targets（Jobs/exporters）：提供监控 Metrics 的数据源，Prometheus 是基于拉（Pull-Based）模型的监控系统；</li>
+<li>Prometheus targets（Jobs&#x2F;exporters）：提供监控 Metrics 的数据源，Prometheus 是基于拉（Pull-Based）模型的监控系统；</li>
 <li>Pushgateway：Metrics 推送网关，Prometheus 拉取 Metrics 是有时间间隔的，有时候一些短时任务（Short-lived jobs）没有等到 Prometheus 过来拉取其 Metrics 就没了，所以提供了一个这样的组件让 Jobs 主动推送 Metrics 到作为中介的 Pushgateway 组件；</li>
 <li>Prometheus Server：核心组件<ul>
 <li>Retrieval：Prometheus 的通过 yaml 配置文件进行配置的，可以配置 Prometheus 拉取 Metrics 的时间间隔，告警规则计算配置，爬取数据源配置等能力；</li>
@@ -2964,7 +2964,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
             </details>
 
 <p>dingtalk 通知的配置参考了这篇文章：<a target="_blank" rel="noopener" href="https://theo.im/blog/2017/10/16/release-prometheus-alertmanager-webhook-for-dingtalk/">将钉钉接入 Prometheus AlertManager WebHook</a>。</p>
-<p>已经相关的配置文件和容器编排文件上传到了 GitHub，更多的配置细节可以到 GitHub 的项目仓库 <a target="_blank" rel="noopener" href="https://github.com/yeshan333/prometheus-federation-minimal-demo">yeshan333/prometheus-federation-minimal-demo</a> 查看，也可将该项目 clone 到本地，跑一下看看：</p>
+<p>已经相关的配置文件和容器编排文件上传到了 GitHub，更多的配置细节可以到 GitHub 的项目仓库 <a target="_blank" rel="noopener" href="https://github.com/yeshan333/prometheus-federation-minimal-demo">yeshan333&#x2F;prometheus-federation-minimal-demo</a> 查看，也可将该项目 clone 到本地，跑一下看看：</p>
 <ul>
 <li>1、git clone；</li>
 </ul>

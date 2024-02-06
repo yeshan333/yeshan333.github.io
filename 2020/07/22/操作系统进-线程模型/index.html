@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN,en,zh-TW,default">
     <head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/#5.7.6'>
-  <meta name="generator" content="Hexo 5.4.2">
+  <meta name="generator" content="Hexo 7.1.1">
   <meta name="Volantis" content="5.7.6">
   <meta charset="utf-8">
   <!-- SEO相关 -->
@@ -1915,7 +1915,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1707222514978),
+    lastupdate: new Date(1707225652253),
     sidebar: {
       for_page: ["blogger","webinfo","category","tagcloud","wonderful_link","qrcode","my_follow"],
       for_post: ["toc"],
@@ -3020,7 +3020,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <h3 id="线程模型"><a href="#线程模型" class="headerlink" title="线程模型"></a>线程模型</h3><p>混合模型，即内核线程与用户线程间多路复用。</p>
 <h3 id="一个进程对应一个内核线程"><a href="#一个进程对应一个内核线程" class="headerlink" title="一个进程对应一个内核线程"></a>一个进程对应一个内核线程</h3><div galleryFlag itemscope itemtype="http://schema.org/ImageGallery" class="gallery " data-group='default'><div class='fancybox'><a class='fancybox' pjax-fancybox itemscope itemtype="http://schema.org/ImageObject" itemprop="url" target="_blank" rel="noopener" href='https://gcore.jsdelivr.net/gh/ssmath/picgo-pic/img/20200723170434.png' data-fancybox='default' data-caption='一个进程对应一个内核线程'><img fancybox itemprop="contentUrl" src="https://gcore.jsdelivr.net/gh/ssmath/picgo-pic/img/20200723170434.png" class="lazyload" data-srcset="https://gcore.jsdelivr.net/gh/ssmath/picgo-pic/img/20200723170434.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="一个进程对应一个内核线程"></a><span class='image-caption'>一个进程对应一个内核线程</span></div></div>
 
-<p>此模型下（用户级线程模型），线程的创建、切换和同步等工作较为轻量与高效，依赖于编程语言实现。但同进程内的多线程无法很好的利用多核 CPU 优势，只能通过分时复用方式轮换执行。当进程内的任意线程阻塞，比如线程 A 请求 I/O 操作被阻塞，很可能导致整个进程范围内的阻塞，这是因为进程对应的内核线程因进程内的线程被阻塞而被剥夺 CPU 执行时间，导致整个进程丢失在 CPU 执行指令的机会。</p>
+<p>此模型下（用户级线程模型），线程的创建、切换和同步等工作较为轻量与高效，依赖于编程语言实现。但同进程内的多线程无法很好的利用多核 CPU 优势，只能通过分时复用方式轮换执行。当进程内的任意线程阻塞，比如线程 A 请求 I&#x2F;O 操作被阻塞，很可能导致整个进程范围内的阻塞，这是因为进程对应的内核线程因进程内的线程被阻塞而被剥夺 CPU 执行时间，导致整个进程丢失在 CPU 执行指令的机会。</p>
 <h3 id="进程中的每个线程都对应一个内核线程"><a href="#进程中的每个线程都对应一个内核线程" class="headerlink" title="进程中的每个线程都对应一个内核线程"></a>进程中的每个线程都对应一个内核线程</h3><div galleryFlag itemscope itemtype="http://schema.org/ImageGallery" class="gallery " data-group='default'><div class='fancybox'><a class='fancybox' pjax-fancybox itemscope itemtype="http://schema.org/ImageObject" itemprop="url" target="_blank" rel="noopener" href='https://gcore.jsdelivr.net/gh/ssmath/picgo-pic/img/20200723171449.png' data-fancybox='default' data-caption='进程中的每个线程都对应一个内核线程'><img fancybox itemprop="contentUrl" src="https://gcore.jsdelivr.net/gh/ssmath/picgo-pic/img/20200723171449.png" class="lazyload" data-srcset="https://gcore.jsdelivr.net/gh/ssmath/picgo-pic/img/20200723171449.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="进程中的每个线程都对应一个内核线程"></a><span class='image-caption'>进程中的每个线程都对应一个内核线程</span></div></div>
 
 <p>此模型下（内核级线程模型），线程的调度和管理由操作系统内核负责，每次上下文切换都会从用户态切换到内核态，会产生不小的资源消耗，用户空间创建的线程数量受限于操作系统内核可创建内核线程的数量。但此模型下，多线程可充分利用多核 CPU 的并行计算能力，因为每个线程可以独立地被操作系统调度分配到 CPU 上执行指令，某个线程的阻塞不会影响到进程内其他线程工作的执行。</p>

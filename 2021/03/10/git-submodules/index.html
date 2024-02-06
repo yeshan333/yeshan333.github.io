@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN,en,zh-TW,default">
     <head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/#5.7.6'>
-  <meta name="generator" content="Hexo 5.4.2">
+  <meta name="generator" content="Hexo 7.1.1">
   <meta name="Volantis" content="5.7.6">
   <meta charset="utf-8">
   <!-- SEO相关 -->
@@ -1909,7 +1909,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1707222514978),
+    lastupdate: new Date(1707225652253),
     sidebar: {
       for_page: ["blogger","webinfo","category","tagcloud","wonderful_link","qrcode","my_follow"],
       for_post: ["toc"],
@@ -2926,7 +2926,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <p>然后使用 <code>git status</code> 查看，虽然 <code>git add</code> 成功了，但是并没有成功 <code>add</code> 到 hexo-theme-volantis 里面的内容。提示也说了（will not contain the contents of the embedded repository），提交到 GitHub 后，显示结果如下， folder 戳也戳不开。</p>
 <div galleryFlag itemscope itemtype="http://schema.org/ImageGallery" class="gallery " data-group='default'><div class='fancybox'><a class='fancybox' pjax-fancybox itemscope itemtype="http://schema.org/ImageObject" itemprop="url" target="_blank" rel="noopener" href='https://gcore.jsdelivr.net/gh/ssmath/picgo-pic/img/20210310182904.png' data-fancybox='default' data-caption='push to GitHub'><img fancybox itemprop="contentUrl" src="https://gcore.jsdelivr.net/gh/ssmath/picgo-pic/img/20210310182904.png" class="lazyload" data-srcset="https://gcore.jsdelivr.net/gh/ssmath/picgo-pic/img/20210310182904.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="push to GitHub"></a><span class='image-caption'>push to GitHub</span></div></div>
 
-<p>可以明显的看到，并不能保证 子目录/文件 的完整性。就我之前如果想在一个 Git 项目保留另一个 Git 项目，那么我只能将一个项目的 Git 版本库去掉，从后续的使用感受来看，此后我追踪另一个项目的更新会有点麻烦。从 yeshan333/actions-for-hexo-blog 项目的对 volantis 项目追踪的历史commit@3ce9316 可以看得出来 <img src="https://github.com/yeshan333/actions-for-hexo-blog/tree/3ce93169ec7bfd49d91e8dc38415cc08886e052a" class="lazyload" data-srcset="https://github.com/yeshan333/actions-for-hexo-blog/tree/3ce93169ec7bfd49d91e8dc38415cc08886e052a" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="actions-for-hexo-blog@3ce9316"></p>
+<p>可以明显的看到，并不能保证 子目录&#x2F;文件 的完整性。就我之前如果想在一个 Git 项目保留另一个 Git 项目，那么我只能将一个项目的 Git 版本库去掉，从后续的使用感受来看，此后我追踪另一个项目的更新会有点麻烦。从 yeshan333&#x2F;actions-for-hexo-blog 项目的对 volantis 项目追踪的历史commit@3ce9316 可以看得出来 <img src="https://github.com/yeshan333/actions-for-hexo-blog/tree/3ce93169ec7bfd49d91e8dc38415cc08886e052a" class="lazyload" data-srcset="https://github.com/yeshan333/actions-for-hexo-blog/tree/3ce93169ec7bfd49d91e8dc38415cc08886e052a" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="actions-for-hexo-blog@3ce9316"></p>
 <h2 id="Git-Submodules-的作用"><a href="#Git-Submodules-的作用" class="headerlink" title="Git Submodules 的作用"></a>Git Submodules 的作用</h2><p>是时候该见识 submodule 的作用了，从官方文档可以看到，它可以解决之前上面提到的一些问题。略微概括下就是：</p>
 <ul>
 <li>Git的 submodule 可以将一个 Git 版本库<strong>作为一个子目录</strong>保存在另一个 Git 版本库中，并可以保留两个版本库之间 commit 的分离，保持父项目和子项目相互独立，实现更为精确的版本控制。</li>

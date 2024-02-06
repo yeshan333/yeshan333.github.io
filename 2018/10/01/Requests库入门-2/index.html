@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN,en,zh-TW,default">
     <head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/#5.7.6'>
-  <meta name="generator" content="Hexo 5.4.2">
+  <meta name="generator" content="Hexo 7.1.1">
   <meta name="Volantis" content="5.7.6">
   <meta charset="utf-8">
   <!-- SEO相关 -->
@@ -39,7 +39,7 @@
   <meta desc name="description" content="requests库入门实操
 京东商品页面爬取
 亚马逊商品页面的爬取
-百度/360搜索关键字提交
+百度&#x2F;360搜索关键字提交
 IP地址归属地查询
 网络图片的爬取和储存
  - ShanSan - ShanSan">
@@ -1916,7 +1916,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1707222514978),
+    lastupdate: new Date(1707225652253),
     sidebar: {
       for_page: ["blogger","webinfo","category","tagcloud","wonderful_link","qrcode","my_follow"],
       for_post: ["toc"],
@@ -2920,7 +2920,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <h1 id="requests库入门实操"><a href="#requests库入门实操" class="headerlink" title="requests库入门实操"></a>requests库入门实操</h1><ul>
 <li>京东商品页面爬取</li>
 <li>亚马逊商品页面的爬取</li>
-<li>百度/360搜索关键字提交</li>
+<li>百度&#x2F;360搜索关键字提交</li>
 <li>IP地址归属地查询</li>
 <li>网络图片的爬取和储存</li>
 </ul>
@@ -2939,7 +2939,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/sishuinianhua/p/5501883.html">参考</a></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#如网站对Headers的User-Agent进行检测，可定制请求头伪装成浏览器</span></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">GetHTMLText</span>(<span class="params">url</span>):</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="comment">#定制请求头</span></span><br><span class="line">        headers = &#123;<span class="string">&quot;user-agent&quot;</span>:<span class="string">&quot;Mozilla/5.0&quot;</span>&#125;</span><br><span class="line"></span><br><span class="line">        r = requests.get(url,headers = headers)</span><br><span class="line">        r.raise_for_status()</span><br><span class="line">        r.encoding = r.apparent_encoding</span><br><span class="line">        <span class="keyword">return</span> r.text[:<span class="number">1000</span>]</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;爬取失败&quot;</span>)</span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    url = <span class="string">&quot;https://www.amazon.cn/gp/product/B01M8L5Z3Y&quot;</span></span><br><span class="line">    <span class="built_in">print</span>(GetHTMLText(url))</span><br></pre></td></tr></table></figure>
 
-<h2 id="3-百度-360搜索关键字提交"><a href="#3-百度-360搜索关键字提交" class="headerlink" title="3.百度/360搜索关键字提交"></a>3.百度/360搜索关键字提交</h2><p>使用params参数,利用接口keyword</p>
+<h2 id="3-百度-360搜索关键字提交"><a href="#3-百度-360搜索关键字提交" class="headerlink" title="3.百度&#x2F;360搜索关键字提交"></a>3.百度&#x2F;360搜索关键字提交</h2><p>使用params参数,利用接口keyword</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#百度搜索引擎关键词提交接口: http://www.baidu.com/s?wd=keyword</span></span><br><span class="line"><span class="comment">#360搜索引擎关键词提交接口: http://www.so.com/s?q=keyword</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">Get</span>(<span class="params">url</span>):</span><br><span class="line">    headers = &#123;<span class="string">&#x27;user-agent&#x27;</span>:<span class="string">&#x27;Mozilla/5.0&#x27;</span>&#125;</span><br><span class="line">    key_word = &#123;<span class="string">&#x27;wd&#x27;</span>:<span class="string">&#x27;python&#x27;</span>&#125;</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        r=requests.get(url,headers=headers,params=key_word)</span><br><span class="line">        r.raise_for_status()</span><br><span class="line">        r.encoding = r.apparent_encoding</span><br><span class="line">        <span class="built_in">print</span>(r.request.url)</span><br><span class="line">        <span class="comment">#return r.request.url</span></span><br><span class="line">        <span class="keyword">return</span> r.text</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;爬取失败&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    url = <span class="string">&quot;http://www.baidu.com/s&quot;</span></span><br><span class="line">    <span class="comment">#print(Get(url))</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">len</span>(Get(url)))</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://i.loli.net/2020/04/01/HqX9RTdiLbB6Uok.png" class="lazyload" data-srcset="https://i.loli.net/2020/04/01/HqX9RTdiLbB6Uok.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="输出"></p>
@@ -3040,7 +3040,7 @@ YAML(YAML Ain’t M...</span></a><a class="item" href="/2018/10/15/定向爬虫-
           target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://yeshan333.github.io/2018/10/01/Requests%E5%BA%93%E5%85%A5%E9%97%A8-2/&title=Requests库入门(2) - ShanSan&summary=requests库入门实操
 京东商品页面爬取
 亚马逊商品页面的爬取
-百度/360搜索关键字提交
+百度&#x2F;360搜索关键字提交
 IP地址归属地查询
 网络图片的爬取和储存
 "
@@ -3058,7 +3058,7 @@ IP地址归属地查询
           target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://yeshan333.github.io/2018/10/01/Requests%E5%BA%93%E5%85%A5%E9%97%A8-2/&title=Requests库入门(2) - ShanSan&summary=requests库入门实操
 京东商品页面爬取
 亚马逊商品页面的爬取
-百度/360搜索关键字提交
+百度&#x2F;360搜索关键字提交
 IP地址归属地查询
 网络图片的爬取和储存
 "
@@ -3076,7 +3076,7 @@ IP地址归属地查询
           target="_blank" href="http://service.weibo.com/share/share.php?url=https://yeshan333.github.io/2018/10/01/Requests%E5%BA%93%E5%85%A5%E9%97%A8-2/&title=Requests库入门(2) - ShanSan&summary=requests库入门实操
 京东商品页面爬取
 亚马逊商品页面的爬取
-百度/360搜索关键字提交
+百度&#x2F;360搜索关键字提交
 IP地址归属地查询
 网络图片的爬取和储存
 "
@@ -4462,7 +4462,7 @@ window.matchMedia('(prefers-color-scheme: light)').addListener(darkModelListener
 </script>
 
 
-  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"ShanSan","url":"https://yeshan333.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"ShanSan","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://yeshan333.github.io/","sameAs":["https://github.com/volantis-x"],"description":"ShanSan's Blog"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://yeshan333.github.io/","name":"ShanSan"}},{"@type":"ListItem","position":2,"item":{"@id":"https://yeshan333.github.io/categories/Python/","name":"Python"}},{"@type":"ListItem","position":3,"item":{"@id":"https://yeshan333.github.io/2018/10/01/Requests库入门-2/","name":"Requests库入门(2)"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"ShanSan","url":"https://yeshan333.github.io/","keywords":["ShanSan","Cloudys","shan333","shansan"],"description":"ShanSan's Blog","author":{"@type":"Person","name":"ShanSan","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://yeshan333.github.io/","description":"ShanSan's Blog"},"publisher":{"@type":"Organization","name":"ShanSan","url":"https://yeshan333.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://yeshan333.github.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"Requests库入门(2)","description":"requests库入门实操\n京东商品页面爬取\n亚马逊商品页面的爬取\n百度/360搜索关键字提交\nIP地址归属地查询\n网络图片的爬取和储存\n","inLanguage":["zh-CN","en","zh-TW","default"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://yeshan333.github.io/2018/10/01/Requests%E5%BA%93%E5%85%A5%E9%97%A8-2/"},"author":{"@type":"Person","name":"ShanSan","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://yeshan333.github.io/"},"publisher":{"@type":"Organization","name":"ShanSan","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"https://yeshan333.github.io/2018/10/01/Requests%E5%BA%93%E5%85%A5%E9%97%A8-2/","wordCount":69,"datePublished":"2018-10-01T18:58:54.000Z","dateModified":"2018-10-01T18:58:54.000Z","articleSection":"Python","keywords":"Requests,爬虫","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
+  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"ShanSan","url":"https://yeshan333.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"ShanSan","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://yeshan333.github.io/","sameAs":["https://github.com/volantis-x"],"description":"ShanSan's Blog"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://yeshan333.github.io/","name":"ShanSan"}},{"@type":"ListItem","position":2,"item":{"@id":"https://yeshan333.github.io/categories/Python/","name":"Python"}},{"@type":"ListItem","position":3,"item":{"@id":"https://yeshan333.github.io/2018/10/01/Requests库入门-2/","name":"Requests库入门(2)"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"ShanSan","url":"https://yeshan333.github.io/","keywords":["ShanSan","Cloudys","shan333","shansan"],"description":"ShanSan's Blog","author":{"@type":"Person","name":"ShanSan","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://yeshan333.github.io/","description":"ShanSan's Blog"},"publisher":{"@type":"Organization","name":"ShanSan","url":"https://yeshan333.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://yeshan333.github.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"Requests库入门(2)","description":"requests库入门实操\n京东商品页面爬取\n亚马逊商品页面的爬取\n百度&#x2F;360搜索关键字提交\nIP地址归属地查询\n网络图片的爬取和储存\n","inLanguage":["zh-CN","en","zh-TW","default"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://yeshan333.github.io/2018/10/01/Requests%E5%BA%93%E5%85%A5%E9%97%A8-2/"},"author":{"@type":"Person","name":"ShanSan","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://yeshan333.github.io/"},"publisher":{"@type":"Organization","name":"ShanSan","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"https://yeshan333.github.io/2018/10/01/Requests%E5%BA%93%E5%85%A5%E9%97%A8-2/","wordCount":74,"datePublished":"2018-10-01T18:58:54.000Z","dateModified":"2018-10-01T18:58:54.000Z","articleSection":"Python","keywords":"Requests,爬虫","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
 
 
 

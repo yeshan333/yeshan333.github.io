@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN,en,zh-TW,default">
     <head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/#5.7.6'>
-  <meta name="generator" content="Hexo 5.4.2">
+  <meta name="generator" content="Hexo 7.1.1">
   <meta name="Volantis" content="5.7.6">
   <meta charset="utf-8">
   <!-- SEO相关 -->
@@ -1912,7 +1912,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1707222514978),
+    lastupdate: new Date(1707225652253),
     sidebar: {
       for_page: ["blogger","webinfo","category","tagcloud","wonderful_link","qrcode","my_follow"],
       for_post: ["toc"],
@@ -2913,7 +2913,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
   <div id="layoutHelper-page-plugins"></div>
   <div id="post-body" itemprop="articleBody">
-    <h1 id="类-amp-对象"><a href="#类-amp-对象" class="headerlink" title="类 &amp; 对象"></a>类 &amp; 对象</h1><blockquote>
+    <h1 id="类-对象"><a href="#类-对象" class="headerlink" title="类 &amp; 对象"></a>类 &amp; 对象</h1><blockquote>
 <p><font color="red">类是对象的抽象和概括，而对象是类的具体和实例</font></p>
 </blockquote>
 <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=100% height=86 src="//music.163.com/outchain/player?type=2&id=1308818967&auto=1&height=66"></iframe>
@@ -2941,15 +2941,12 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <p>类就是包含函数的结构体，是一种自定义数据类型，用它定义出来变量，就是对象，这就是所谓的“对象是类的具体和实例”，定义了一个这个类的对象，也可以说实例化了一个对象，就是这个意思！</p>
 </blockquote>
 <ol>
-<li>声明类的对象，就像声明基本的变量类型一样</li>
-<li>访问公共数据成员可以使用直接成员访问运算符<code>.</code>来访问</li>
+<li><p>声明类的对象，就像声明基本的变量类型一样</p>
+</li>
+<li><p>访问公共数据成员可以使用直接成员访问运算符<code>.</code>来访问</p>
+<p> Student A;    &#x2F;&#x2F;声明A，类型为Student<br> A.num&#x3D;1700710135;<br> strcpy(name,”ye shan”);<br> A.score&#x3D;100;<br> A.print();</p>
+</li>
 </ol>
-<pre><code>Student A;    //声明A，类型为Student
-A.num=1700710135;
-strcpy(name,&quot;ye shan&quot;);
-A.score=100;
-A.print();
-</code></pre>
 <h3 id="类的访问修饰符"><a href="#类的访问修饰符" class="headerlink" title="类的访问修饰符"></a>类的访问修饰符</h3><ul>
 <li>private</li>
 <li>protected</li>
@@ -3246,7 +3243,7 @@ double
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%B1%BB-amp-%E5%AF%B9%E8%B1%A1"><span class="toc-text">类 &amp; 对象</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B1%BB%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-text">类的定义</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%99%E6%B3%951"><span class="toc-text">写法1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%99%E6%B3%952"><span class="toc-text">写法2</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%BB%BA%E7%AB%8B%E5%92%8C%E4%BD%BF%E7%94%A8"><span class="toc-text">对象的建立和使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B1%BB%E7%9A%84%E8%AE%BF%E9%97%AE%E4%BF%AE%E9%A5%B0%E7%AC%A6"><span class="toc-text">类的访问修饰符</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B1%BB%E7%9A%84%E9%9D%99%E6%80%81%E6%88%90%E5%91%98"><span class="toc-text">类的静态成员</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9D%99%E6%80%81%E6%88%90%E5%91%98%E6%95%B0%E6%8D%AE"><span class="toc-text">静态成员数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9D%99%E6%80%81%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0"><span class="toc-text">静态成员函数</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%B1%BB-%E5%AF%B9%E8%B1%A1"><span class="toc-text">类 &amp; 对象</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B1%BB%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-text">类的定义</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%99%E6%B3%951"><span class="toc-text">写法1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%99%E6%B3%952"><span class="toc-text">写法2</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%BB%BA%E7%AB%8B%E5%92%8C%E4%BD%BF%E7%94%A8"><span class="toc-text">对象的建立和使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B1%BB%E7%9A%84%E8%AE%BF%E9%97%AE%E4%BF%AE%E9%A5%B0%E7%AC%A6"><span class="toc-text">类的访问修饰符</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B1%BB%E7%9A%84%E9%9D%99%E6%80%81%E6%88%90%E5%91%98"><span class="toc-text">类的静态成员</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9D%99%E6%80%81%E6%88%90%E5%91%98%E6%95%B0%E6%8D%AE"><span class="toc-text">静态成员数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9D%99%E6%80%81%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0"><span class="toc-text">静态成员函数</span></a></li></ol></li></ol>
     </div>
   </section>
 

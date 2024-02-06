@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN,en,zh-TW,default">
     <head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/#5.7.6'>
-  <meta name="generator" content="Hexo 5.4.2">
+  <meta name="generator" content="Hexo 7.1.1">
   <meta name="Volantis" content="5.7.6">
   <meta charset="utf-8">
   <!-- SEO相关 -->
@@ -1910,7 +1910,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1707222514978),
+    lastupdate: new Date(1707225652253),
     sidebar: {
       for_page: ["blogger","webinfo","category","tagcloud","wonderful_link","qrcode","my_follow"],
       for_post: ["toc"],
@@ -2944,7 +2944,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <li>行内公式可用<code>\(...\)</code>或<code>$...$</code></li>
 </ol>
 <ul>
-<li>例如<code>$ f(x)=x^2 $</code>,显示为$ f(x)=x^2 $</li>
+<li>例如<code>$ f(x)=x^2 $</code>,显示为$ f(x)&#x3D;x^2 $</li>
 </ul>
 <ol start="2">
 <li>独立公式（单独另起一行,公式会居中），使用<code>$$...$$</code>或<code>\[...\]</code></li>
@@ -3027,7 +3027,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <p>$$ \lim_{v \rightarrow a} f(x) $$</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">limit(f,v,a) <span class="comment">% 使用limit(f,v,a,&#x27;left&#x27;)可求左极限</span></span><br></pre></td></tr></table></figure>
 
-<p><strong>3. 导数</strong><br>使用<code>diff(f,v,n)</code>对$ f(v)=v^{t-1} $求 $ n $ 阶导 $ \frac{d^nf}{d^nv} $，n缺省时，默认为1，diff(f)默认求一阶导数。</p>
+<p><strong>3. 导数</strong><br>使用<code>diff(f,v,n)</code>对$ f(v)&#x3D;v^{t-1} $求 $ n $ 阶导 $ \frac{d^nf}{d^nv} $，n缺省时，默认为1，diff(f)默认求一阶导数。</p>
 <p><strong>4. 定积分和不定积分</strong><br>使用<code>int(f,v)</code>求f对变量v的不定积分，使用<code>int(f,v,a,b)</code>求f对变量v的定积分,a、b为积分上下标。$ \int{f(v)dv} $、$ \int^{a}_{b}{f(v)dv} $。</p>
     
   </div>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN,en,zh-TW,default">
     <head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/#5.7.6'>
-  <meta name="generator" content="Hexo 5.4.2">
+  <meta name="generator" content="Hexo 7.1.1">
   <meta name="Volantis" content="5.7.6">
   <meta charset="utf-8">
   <!-- SEO相关 -->
@@ -1910,7 +1910,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1707222514978),
+    lastupdate: new Date(1707225652253),
     sidebar: {
       for_page: ["blogger","webinfo","category","tagcloud","wonderful_link","qrcode","my_follow"],
       for_post: ["toc"],
@@ -2953,7 +2953,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 </thead>
 <tbody><tr>
 <td align="center">Tag</td>
-<td align="center">标签，最基本的信息组织单元，分别用&lt;&gt;&lt;/&gt;标明开头和结尾</td>
+<td align="center">标签，最基本的信息组织单元，分别用&lt;&gt;&lt;&#x2F;&gt;标明开头和结尾</td>
 </tr>
 <tr>
 <td align="center">Name</td>
@@ -2965,7 +2965,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 </tr>
 <tr>
 <td align="center">NavigableString</td>
-<td align="center">标签内非属性字符串,&lt;&gt;…&lt;/&gt;中字符串，格式:<code>&lt;tag&gt;.string</code></td>
+<td align="center">标签内非属性字符串,&lt;&gt;…&lt;&#x2F;&gt;中字符串，格式:<code>&lt;tag&gt;.string</code></td>
 </tr>
 <tr>
 <td align="center">Comment</td>
@@ -2983,7 +2983,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Tag的Comment元素</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"></span><br><span class="line">soup = BeautifulSoup(<span class="string">&quot;&lt;b&gt;&lt;!--This is a comment--&gt;&lt;/b&gt;&lt;p&gt;This is not a comment&lt;/p&gt;&quot;</span>,<span class="string">&quot;html.parser&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(soup.b.string)</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(soup.b.string))</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(soup.p.string)</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(soup.p.string))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p><img src="https://i.imgur.com/77Ka7Qb.png" class="lazyload" data-srcset="https://i.imgur.com/77Ka7Qb.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></p>
 <ul>
-<li>BeautifulSoup对应一个HTML/XML文档的全部内容</li>
+<li>BeautifulSoup对应一个HTML&#x2F;XML文档的全部内容</li>
 <li>任何存在于HTMl语法中的标签都可以用<code>soup.&lt;tag&gt;</code>访问获得，当HTML文档中存在多个相同<code>&lt;tag&gt;</code>对应内容时，<code>soup.&lt;tag&gt;</code>返回第一个</li>
 <li>每个<code>&lt;tag&gt;</code>都有自己的名字，通过<code>&lt;tag&gt;.name</code>获取，字符串类型</li>
 <li>一个<code>&lt;tag&gt;</code>可以有0或多个属性，字典类型</li>
@@ -3092,9 +3092,8 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       <div class="vlts-rps"><a class="item" href="/2018/10/01/Requests库入门-2/" title="Requests库入门(2)" rel="bookmark "><img src="https://i.loli.net/2020/04/01/jEGhayRogB56b37.png" class="lazyload" data-srcset="https://i.loli.net/2020/04/01/jEGhayRogB56b37.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">Requests库入门(2)</span><span class="excerpt">requests库入门实操
 京东商品页面爬取
 亚马逊商品页面的爬取
-百度/360搜索关键字提交
-IP地址归属地查询
-网络图...</span></a><a class="item" href="/2018/10/18/丘一丘正则表达式/" title="丘一丘正则表达式" rel="bookmark "><img src="https://i.imgur.com/lVBuhYo.png" class="lazyload" data-srcset="https://i.imgur.com/lVBuhYo.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">丘一丘正则表达式</span><span class="excerpt">正则表达式(regular expression,regex,RE)
+百度&#x2F;360搜索关键字提交
+IP地址归属地查...</span></a><a class="item" href="/2018/10/18/丘一丘正则表达式/" title="丘一丘正则表达式" rel="bookmark "><img src="https://i.imgur.com/lVBuhYo.png" class="lazyload" data-srcset="https://i.imgur.com/lVBuhYo.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">丘一丘正则表达式</span><span class="excerpt">正则表达式(regular expression,regex,RE)
 正则表达式是一种用来简洁表达一组字符串的表达式
 正则...</span></a><a class="item" href="/2018/10/12/信息标记/" title="信息标记" rel="bookmark "><img src="https://i.imgur.com/dwdhoVj.png" class="lazyload" data-srcset="https://i.imgur.com/dwdhoVj.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">信息标记</span><span class="excerpt">信息标记的三种形式
 

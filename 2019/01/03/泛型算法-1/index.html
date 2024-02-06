@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN,en,zh-TW,default">
     <head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/#5.7.6'>
-  <meta name="generator" content="Hexo 5.4.2">
+  <meta name="generator" content="Hexo 7.1.1">
   <meta name="Volantis" content="5.7.6">
   <meta charset="utf-8">
   <!-- SEO相关 -->
@@ -1913,7 +1913,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1707222514978),
+    lastupdate: new Date(1707225652253),
     sidebar: {
       for_page: ["blogger","webinfo","category","tagcloud","wonderful_link","qrcode","my_follow"],
       for_post: ["toc"],
@@ -2963,10 +2963,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <blockquote>
 <p>我们可以从一个函数返回lambda，函数可以直接返回一个可调用对象，或者返回一个类对象，该类含有可调用对象的数据成员。如果函数返回一个lambda，则与函数不能返回一个局部变量类似，此lambda也不能包含引用捕获</p>
 </blockquote>
-<h4 id="使用-amp-、-进行隐式捕获"><a href="#使用-amp-、-进行隐式捕获" class="headerlink" title="使用***&amp;、=***进行隐式捕获"></a>使用***&amp;<em><strong>、</strong></em>=***进行隐式捕获</h4><p>我们可以让编译器根据lambda体中的代码来推断我们要使用哪些变量</p>
+<h4 id="使用-、-进行隐式捕获"><a href="#使用-、-进行隐式捕获" class="headerlink" title="使用***&amp;、&#x3D;***进行隐式捕获"></a>使用***&amp;<em><strong>、</strong></em>&#x3D;***进行隐式捕获</h4><p>我们可以让编译器根据lambda体中的代码来推断我们要使用哪些变量</p>
 <ul>
 <li>**&amp;**告诉编译器采用引用捕获方式</li>
-<li>**=**告诉编译器采用值捕获方式</li>
+<li>**&#x3D;**告诉编译器采用值捕获方式</li>
 </ul>
 <p><font color="blue">混合使用显式捕获和隐式捕获时,显示捕获必须使用与隐式捕获不同的方式</font></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">biggies</span><span class="params">(vector&lt;string&gt; &amp;words, ostream &amp;os=cout, <span class="type">char</span> c=<span class="string">&#x27; &#x27;</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//os隐式捕获，c显式捕获</span></span><br><span class="line">    for_each(words.<span class="built_in">begin</span>(), words.<span class="built_in">end</span>(), [&amp;, c](<span class="type">const</span> string &amp;s)&#123; os&lt;&lt;s&lt;&lt;c;&#125; );</span><br><span class="line"></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">//c隐式捕获，os显示捕获</span></span><br><span class="line">	for_each(words.<span class="built_in">begin</span>(), words.<span class="built_in">end</span>(), [=, &amp;os](<span class="type">const</span> string &amp;s)&#123; os&lt;&lt;s&lt;&lt;c;&#125; );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    vector&lt;string&gt; str;</span><br><span class="line">	string temp;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span>(cin&gt;&gt;temp)</span><br><span class="line">	    str.<span class="built_in">push_back</span>(temp);</span><br><span class="line"></span><br><span class="line">	<span class="built_in">biggies</span>(str);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -3001,7 +3001,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <td align="left">隐式捕获列表，采用隐式捕获方式</td>
 </tr>
 <tr>
-<td align="center">[=]</td>
+<td align="center">[&#x3D;]</td>
 <td align="left">隐式捕获列表，采用值捕获方式</td>
 </tr>
 <tr>
@@ -3009,7 +3009,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <td align="left">identifier_list是一个逗号分隔的列表，包含0个或多个来自所在函数的变量，这些变量采用值捕获方式。任何隐式捕获的变量都采用引用方式捕获</td>
 </tr>
 <tr>
-<td align="center">[=, identifier_list]</td>
+<td align="center">[&#x3D;, identifier_list]</td>
 <td align="left">identifier_list是一个逗号分隔的列表，包含0个或多个来自所在函数的变量，这些变量采用引用捕获方式，且变量名字前必须使用&amp;。任何隐式捕获的变量都采用值方式捕获</td>
 </tr>
 </tbody></table>
@@ -3267,7 +3267,7 @@ python装饰器就是用于拓展原来函数功能的一种函数，目的是�
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B3%9B%E5%9E%8B%E7%AE%97%E6%B3%95-1"><span class="toc-text">泛型算法-1</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%91%E7%AE%97%E6%B3%95%E4%BC%A0%E9%80%92%E5%87%BD%E6%95%B0"><span class="toc-text">向算法传递函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E8%B0%93%E8%AF%8D"><span class="toc-text">算法谓词</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F%EF%BC%88%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0%EF%BC%89"><span class="toc-text">lambda表达式（匿名函数）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8D%95%E8%8E%B7%E5%88%97%E8%A1%A8%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-text">捕获列表的使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#lambada%E6%8D%95%E8%8E%B7%E5%92%8C%E8%BF%94%E5%9B%9E"><span class="toc-text">lambada捕获和返回</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-amp-%E3%80%81-%E8%BF%9B%E8%A1%8C%E9%9A%90%E5%BC%8F%E6%8D%95%E8%8E%B7"><span class="toc-text">使用***&amp;、&#x3D;***进行隐式捕获</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8C%87%E5%AE%9Alambda%E7%9A%84%E8%BF%94%E5%9B%9E%E7%B1%BB%E5%9E%8B"><span class="toc-text">指定lambda的返回类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%AF%E5%8F%98lambada"><span class="toc-text">可变lambada</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#lambda%E6%8D%95%E8%8E%B7%E5%88%97%E8%A1%A8"><span class="toc-text">lambda捕获列表</span></a></li></ol></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B3%9B%E5%9E%8B%E7%AE%97%E6%B3%95-1"><span class="toc-text">泛型算法-1</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%91%E7%AE%97%E6%B3%95%E4%BC%A0%E9%80%92%E5%87%BD%E6%95%B0"><span class="toc-text">向算法传递函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E8%B0%93%E8%AF%8D"><span class="toc-text">算法谓词</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F%EF%BC%88%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0%EF%BC%89"><span class="toc-text">lambda表达式（匿名函数）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8D%95%E8%8E%B7%E5%88%97%E8%A1%A8%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-text">捕获列表的使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#lambada%E6%8D%95%E8%8E%B7%E5%92%8C%E8%BF%94%E5%9B%9E"><span class="toc-text">lambada捕获和返回</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-%E3%80%81-%E8%BF%9B%E8%A1%8C%E9%9A%90%E5%BC%8F%E6%8D%95%E8%8E%B7"><span class="toc-text">使用***&amp;、&#x3D;***进行隐式捕获</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8C%87%E5%AE%9Alambda%E7%9A%84%E8%BF%94%E5%9B%9E%E7%B1%BB%E5%9E%8B"><span class="toc-text">指定lambda的返回类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%AF%E5%8F%98lambada"><span class="toc-text">可变lambada</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#lambda%E6%8D%95%E8%8E%B7%E5%88%97%E8%A1%A8"><span class="toc-text">lambda捕获列表</span></a></li></ol></li></ol></li></ol></li></ol>
     </div>
   </section>
 

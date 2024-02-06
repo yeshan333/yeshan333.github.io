@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN,en,zh-TW,default">
     <head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/#5.7.6'>
-  <meta name="generator" content="Hexo 5.4.2">
+  <meta name="generator" content="Hexo 7.1.1">
   <meta name="Volantis" content="5.7.6">
   <meta charset="utf-8">
   <!-- SEO相关 -->
@@ -1910,7 +1910,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1707222514978),
+    lastupdate: new Date(1707225652253),
     sidebar: {
       for_page: ["blogger","webinfo","category","tagcloud","wonderful_link","qrcode","my_follow"],
       for_post: ["toc"],
@@ -2962,7 +2962,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <li>kubelet: 在群集中的所有计算机上运行的组件, 并用来执行如启动 Pods 和 Containers 等操作。</li>
 <li>kubectl: 用于操作运行中的集群的命令行工具。</li>
 </ul>
-<h2 id="初始化集群"><a href="#初始化集群" class="headerlink" title="初始化集群"></a>初始化集群</h2><p>为了能够让集群初始化更快，我们可以先预拉取集群初始化依赖的镜像，emmm，官方文档给出的又是 Google 的网址，这里我们基于 GitHub -&gt; <a target="_blank" rel="noopener" href="https://github.com/AliyunContainerService/k8s-for-docker-desktop">AliyunContainerService/k8s-for-docker-desktop</a> 项目做镜像的快速拉取。确保相关镜像版本与 kubelet 保持一致（这里是 v1.22.2）, <code>kubeadm config images list --kubernetes-version v1.22.2</code> 可查看需要哪些镜像。</p>
+<h2 id="初始化集群"><a href="#初始化集群" class="headerlink" title="初始化集群"></a>初始化集群</h2><p>为了能够让集群初始化更快，我们可以先预拉取集群初始化依赖的镜像，emmm，官方文档给出的又是 Google 的网址，这里我们基于 GitHub -&gt; <a target="_blank" rel="noopener" href="https://github.com/AliyunContainerService/k8s-for-docker-desktop">AliyunContainerService&#x2F;k8s-for-docker-desktop</a> 项目做镜像的快速拉取。确保相关镜像版本与 kubelet 保持一致（这里是 v1.22.2）, <code>kubeadm config images list --kubernetes-version v1.22.2</code> 可查看需要哪些镜像。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/AliyunContainerService/k8s-for-docker-desktop.git &amp;&amp; cd k8s-for-docker-desktop</span><br><span class="line"></span><br><span class="line">rm -f images.properties</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">调整镜像版本</span></span><br><span class="line"><span class="meta prompt_">cat&gt;</span><span class="language-bash">&gt;images.properties&lt;&lt;<span class="string">EOF</span></span></span><br><span class="line">k8s.gcr.io/pause:3.5=registry.cn-hangzhou.aliyuncs.com/google_containers/pause:3.5</span><br><span class="line">k8s.gcr.io/kube-controller-manager:v1.22.2=registry.cn-hangzhou.aliyuncs.com/google_containers/kube-controller-manager:v1.22.2</span><br><span class="line">k8s.gcr.io/kube-scheduler:v1.22.2=registry.cn-hangzhou.aliyuncs.com/google_containers/kube-scheduler:v1.22.2</span><br><span class="line">k8s.gcr.io/kube-proxy:v1.22.2=registry.cn-hangzhou.aliyuncs.com/google_containers/kube-proxy:v1.22.2</span><br><span class="line">k8s.gcr.io/kube-apiserver:v1.22.2=registry.cn-hangzhou.aliyuncs.com/google_containers/kube-apiserver:v1.22.2</span><br><span class="line">k8s.gcr.io/etcd:3.5.0-0=registry.cn-hangzhou.aliyuncs.com/google_containers/etcd:3.5.0-0</span><br><span class="line">k8s.gcr.io/coredns/coredns:v1.8.4=registry.cn-hangzhou.aliyuncs.com/google_containers/coredns:1.8.4</span><br><span class="line">quay.io/kubernetes-ingress-controller/nginx-ingress-controller:0.26.1=registry.cn-hangzhou.aliyuncs.com/google_containers/nginx-ingress-controller:0.26.1</span><br><span class="line">EOF</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">拉取镜像</span></span></span><br><span class="line">./load_images.sh</span><br></pre></td></tr></table></figure>
 
 <h3 id="初始化控制平面节点（Control-Plane-Node-s-）"><a href="#初始化控制平面节点（Control-Plane-Node-s-）" class="headerlink" title="初始化控制平面节点（Control Plane Node(s)）"></a>初始化控制平面节点（Control Plane Node(s)）</h3><p>控制（Control）节点 {阿里云轻量级应用服务器} 的镜像预拉取完毕后，可执行如下命令进行初始化操作：</p>

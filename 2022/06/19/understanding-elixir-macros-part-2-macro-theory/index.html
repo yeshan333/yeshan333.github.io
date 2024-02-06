@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN,en,zh-TW,default">
     <head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/#5.7.6'>
-  <meta name="generator" content="Hexo 5.4.2">
+  <meta name="generator" content="Hexo 7.1.1">
   <meta name="Volantis" content="5.7.6">
   <meta charset="utf-8">
   <!-- SEO相关 -->
@@ -1909,7 +1909,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1707222514978),
+    lastupdate: new Date(1707225652253),
     sidebar: {
       for_page: ["blogger","webinfo","category","tagcloud","wonderful_link","qrcode","my_follow"],
       for_post: ["toc"],
@@ -2927,7 +2927,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <p>例如, 宏 <code>trace</code> 的典型用法是这样的:</p>
 <figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">defmodule</span> <span class="title">MyModule</span></span> <span class="keyword">do</span></span><br><span class="line">  <span class="keyword">require</span> <span class="title class_">Tracer</span></span><br><span class="line">  ...</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">some_fun</span></span>(...) <span class="keyword">do</span></span><br><span class="line">    <span class="title class_">Tracer</span>.trace(...)</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
 
-<p>像之前所提到的那样, 编译器从一个类似于这段代码的 AST 开始. 这个 AST 之后会被扩展, 然后生成最后的代码. 因此, 在这段代码的展开阶段, Tracer.trace/1会被调用.</p>
+<p>像之前所提到的那样, 编译器从一个类似于这段代码的 AST 开始. 这个 AST 之后会被扩展, 然后生成最后的代码. 因此, 在这段代码的展开阶段, Tracer.trace&#x2F;1会被调用.</p>
 <p>我们的宏接受了输入的 AST, 然后必须生成输出的 AST. 之后编译器会简单地用输出的 AST 替换掉对宏的调用. 这个过程是渐进的 — 一个宏可以返回调用其他宏(甚至它本身)的 AST. 编译器会再次扩展, 直到不可以扩展为止.</p>
 <p>调用宏使得我们有机会修改代码的含义. 一个典型的宏会获取输入的 AST 并修改它, 在它周围添加一些代码.</p>
 <p>那就是我们使用宏 trace 所做的事情. 我们得到了一个 quoted expression（例如 <code>1+2</code>）, 然后返回了这个:</p>
