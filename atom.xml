@@ -6,7 +6,7 @@
   <link href="https://yeshan333.github.io/atom.xml" rel="self"/>
   
   <link href="https://yeshan333.github.io/"/>
-  <updated>2023-08-12T16:15:40.000Z</updated>
+  <updated>2024-02-07T18:40:24.000Z</updated>
   <id>https://yeshan333.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>乐理通识</title>
+    <link href="https://yeshan333.github.io/2024/02/07/become-a-romantic-muscian/"/>
+    <id>https://yeshan333.github.io/2024/02/07/become-a-romantic-muscian/</id>
+    <published>2024-02-07T18:40:24.000Z</published>
+    <updated>2024-02-07T18:40:24.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; class=&quot;aplayer-secondary-script-marker&quot;&gt;&lt;/script&gt;&lt;script class=&quot;meting-secondary-script-marker&quot; src=&quot;/assets/js/Meting.min.js&quot;&gt;&lt;/script&gt;&lt;p&gt;2023 年搞了台雅马哈 61 键的电子琴，顺手看了下啊 B 的上的课程 &lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="music" scheme="https://yeshan333.github.io/categories/music/"/>
+    
+    
+    <category term="music" scheme="https://yeshan333.github.io/tags/music/"/>
+    
+  </entry>
   
   <entry>
     <title>Elixir 依赖 (deps) 调试的小技巧</title>
@@ -66,21 +91,6 @@
     <category term="Websocket" scheme="https://yeshan333.github.io/tags/Websocket/"/>
     
     <category term="SSE" scheme="https://yeshan333.github.io/tags/SSE/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>??????</title>
-    <link href="https://yeshan333.github.io/2023/03/09/become-a-romantic-muscian/"/>
-    <id>https://yeshan333.github.io/2023/03/09/become-a-romantic-muscian/</id>
-    <published>2023-03-09T22:40:24.000Z</published>
-    <updated>2023-03-09T22:40:24.000Z</updated>
-    
-    
-    <summary type="html">即将开启！</summary>
-    
-    
-    
     
   </entry>
   
@@ -531,13 +541,13 @@
 &lt;!-- 我们都一样 --&gt;
 
 
-    &lt;div id=&quot;aplayer-bwRiVhgI&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+    &lt;div id=&quot;aplayer-MxULPzcF&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
          data-id=&quot;1340001174&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;true&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
     &gt;&lt;/div&gt;
 
 
 
-    &lt;div id=&quot;aplayer-rGaYxuCy&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+    &lt;div id=&quot;aplayer-sdbJCudc&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
          data-id=&quot;191252&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;false&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
     &gt;&lt;/div&gt;</summary>
     

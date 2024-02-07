@@ -15,8 +15,35 @@
     <atom:link href="https://yeshan333.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>ShanSan&#39;s Blog</description>
-    <pubDate>Sat, 12 Aug 2023 16:15:40 GMT</pubDate>
+    <pubDate>Wed, 07 Feb 2024 18:40:24 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>乐理通识</title>
+      <link>https://yeshan333.github.io/2024/02/07/become-a-romantic-muscian/</link>
+      <guid>https://yeshan333.github.io/2024/02/07/become-a-romantic-muscian/</guid>
+      <pubDate>Wed, 07 Feb 2024 18:40:24 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; class=&quot;aplayer-secondary-script-marker&quot;&gt;&lt;/script&gt;&lt;script class=&quot;meting-secondary-script-marker&quot; src=&quot;/assets/js/Meting.min.js&quot;&gt;&lt;/script&gt;&lt;p&gt;2023 年搞了台雅马哈 61 键的电子琴，顺手看了下啊 B 的上的课程 &lt;a</description>
+          
+        
+      
+      
+      
+      
+      <category domain="https://yeshan333.github.io/categories/music/">music</category>
+      
+      
+      <category domain="https://yeshan333.github.io/tags/music/">music</category>
+      
+      
+      <comments>https://yeshan333.github.io/2024/02/07/become-a-romantic-muscian/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>Elixir 依赖 (deps) 调试的小技巧</title>
@@ -72,23 +99,6 @@
       
       
       <comments>https://yeshan333.github.io/2023/03/11/sse-websocket/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>??????</title>
-      <link>https://yeshan333.github.io/2023/03/09/become-a-romantic-muscian/</link>
-      <guid>https://yeshan333.github.io/2023/03/09/become-a-romantic-muscian/</guid>
-      <pubDate>Thu, 09 Mar 2023 22:40:24 GMT</pubDate>
-      
-      <description>即将开启！</description>
-      
-      
-      
-      
-      
-      
-      <comments>https://yeshan333.github.io/2023/03/09/become-a-romantic-muscian/#disqus_thread</comments>
       
     </item>
     
@@ -569,13 +579,13 @@
 &lt;!-- 我们都一样 --&gt;
 
 
-    &lt;div id=&quot;aplayer-bwRiVhgI&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+    &lt;div id=&quot;aplayer-MxULPzcF&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
          data-id=&quot;1340001174&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;true&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
     &gt;&lt;/div&gt;
 
 
 
-    &lt;div id=&quot;aplayer-rGaYxuCy&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+    &lt;div id=&quot;aplayer-sdbJCudc&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
          data-id=&quot;191252&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;false&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
     &gt;&lt;/div&gt;</description>
       
