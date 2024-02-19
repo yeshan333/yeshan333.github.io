@@ -6,7 +6,7 @@
   <link href="https://yeshan333.github.io/atom.xml" rel="self"/>
   
   <link href="https://yeshan333.github.io/"/>
-  <updated>2024-02-07T18:40:24.000Z</updated>
+  <updated>2024-02-19T19:29:08.000Z</updated>
   <id>https://yeshan333.github.io/</id>
   
   <author>
@@ -15,6 +15,25 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>使用 GitHub Codespaces 加速 Elixir 开发环境工作速度</title>
+    <link href="https://yeshan333.github.io/2024/02/19/elixir-github-codespace-dev/"/>
+    <id>https://yeshan333.github.io/2024/02/19/elixir-github-codespace-dev/</id>
+    <published>2024-02-19T16:29:08.000Z</published>
+    <updated>2024-02-19T19:29:08.000Z</updated>
+    
+    
+    <summary type="html">create elixir dev env with github codespaces</summary>
+    
+    
+    
+    <category term="Github Codespaces" scheme="https://yeshan333.github.io/categories/Github-Codespaces/"/>
+    
+    
+    <category term="Elixir, Github Codespaces" scheme="https://yeshan333.github.io/tags/Elixir-Github-Codespaces/"/>
+    
+  </entry>
   
   <entry>
     <title>乐理通识</title>
@@ -541,13 +560,13 @@
 &lt;!-- 我们都一样 --&gt;
 
 
-    &lt;div id=&quot;aplayer-MxULPzcF&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+    &lt;div id=&quot;aplayer-dOeZwvuM&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
          data-id=&quot;1340001174&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;true&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
     &gt;&lt;/div&gt;
 
 
 
-    &lt;div id=&quot;aplayer-sdbJCudc&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+    &lt;div id=&quot;aplayer-nOdkqltV&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
          data-id=&quot;191252&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;false&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
     &gt;&lt;/div&gt;</summary>
     
@@ -843,35 +862,6 @@
     
     
     <category term="Git" scheme="https://yeshan333.github.io/tags/Git/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>使用 rsync-deploy-action 同步 Hexo 博客到个人服务器</title>
-    <link href="https://yeshan333.github.io/2021/01/19/hexo-blog-synchronization-with-rsync/"/>
-    <id>https://yeshan333.github.io/2021/01/19/hexo-blog-synchronization-with-rsync/</id>
-    <published>2021-01-19T20:02:51.000Z</published>
-    <updated>2021-01-19T20:02:51.000Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;前几天写了个基于 rsync 进行文件同步的 Action -&amp;gt; &lt;a href=&quot;https://github.com/yeshan333/rsync-deploy-action&quot;&gt;rsync-deploy-action&lt;/a&gt;。目的有三个：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;1、深入了解波 &lt;a href=&quot;https://docs.github.com/en/actions/creating-actions&quot;&gt;GitHub Actions&lt;/a&gt;，感受下 GitHub 的文档；&lt;/li&gt;
-&lt;li&gt;2、个人博客在我的腾讯云 CVM 服务器上是部署有一份的「域名：&lt;a href=&quot;https://shan333.cn/&quot;&gt;shan333.cn&lt;/a&gt;」，之前的博客同步方式是通过 Linux 的定时任务，觉得不太行，当前博客的更新并没有那么频繁，没必要每隔几个小时就 &lt;code&gt;git pull&lt;/code&gt; 一下，且服务器还挂着其他东西，性能还是有点损耗的，换成通过 rsync 进行主动推送的方式好点；&lt;/li&gt;
-&lt;li&gt;3、熟悉波 SSH 协议和 rsync 协议。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;今天撸一篇文章简单记录下这次折腾。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="DevOps" scheme="https://yeshan333.github.io/categories/DevOps/"/>
-    
-    
-    <category term="Github Actions" scheme="https://yeshan333.github.io/tags/Github-Actions/"/>
-    
-    <category term="DevOps" scheme="https://yeshan333.github.io/tags/DevOps/"/>
-    
-    <category term="Nginx" scheme="https://yeshan333.github.io/tags/Nginx/"/>
     
   </entry>
   
