@@ -15,8 +15,37 @@
     <atom:link href="https://yeshan333.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>ShanSan&#39;s Blog</description>
-    <pubDate>Mon, 19 Feb 2024 19:29:08 GMT</pubDate>
+    <pubDate>Thu, 29 Feb 2024 14:16:51 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>使用 go-ycsb 对 etcd 进行基准 (benchmark) 性能测试</title>
+      <link>https://yeshan333.github.io/2024/02/29/using-ycsb-benchmark-etcd/</link>
+      <guid>https://yeshan333.github.io/2024/02/29/using-ycsb-benchmark-etcd/</guid>
+      <pubDate>Thu, 29 Feb 2024 14:16:51 GMT</pubDate>
+      
+      <description>using go-ycsb to benchmark etcd.</description>
+      
+      
+      
+      
+      <category domain="https://yeshan333.github.io/categories/go-ycsb/">go-ycsb</category>
+      
+      
+      <category domain="https://yeshan333.github.io/tags/Go/">Go</category>
+      
+      <category domain="https://yeshan333.github.io/tags/etcd/">etcd</category>
+      
+      <category domain="https://yeshan333.github.io/tags/YCSB/">YCSB</category>
+      
+      <category domain="https://yeshan333.github.io/tags/go-ycsb/">go-ycsb</category>
+      
+      <category domain="https://yeshan333.github.io/tags/benchmark/">benchmark</category>
+      
+      
+      <comments>https://yeshan333.github.io/2024/02/29/using-ycsb-benchmark-etcd/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>使用 GitHub Codespaces 加速 Elixir 开发环境工作速度</title>
@@ -600,13 +629,13 @@
 &lt;!-- 我们都一样 --&gt;
 
 
-    &lt;div id=&quot;aplayer-AFisnjZr&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+    &lt;div id=&quot;aplayer-AEsYgudT&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
          data-id=&quot;1340001174&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;true&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
     &gt;&lt;/div&gt;
 
 
 
-    &lt;div id=&quot;aplayer-gMrNGssU&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+    &lt;div id=&quot;aplayer-MPStfBjC&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
          data-id=&quot;191252&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;false&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
     &gt;&lt;/div&gt;</description>
       
@@ -909,27 +938,6 @@
       
       
       <comments>https://yeshan333.github.io/2021/04/25/enjoy-wslg/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>初探 Git Submodules</title>
-      <link>https://yeshan333.github.io/2021/03/10/git-submodules/</link>
-      <guid>https://yeshan333.github.io/2021/03/10/git-submodules/</guid>
-      <pubDate>Wed, 10 Mar 2021 15:51:15 GMT</pubDate>
-      
-      <description>&lt;p&gt;之前一直想将一个 Git 仓库放到另一个 Git 仓库，有 Maven 多模块项目（Maven Multimodule Project）和 Gradle 多项目构建（Gradle Multiproject Build）那味儿。Git 这么骚，肯定也可以。“扫”了多个开源仓库，Get 到了 Git &lt;code&gt;submodule&lt;/code&gt; 可以做这种操作，水篇文章记录波。&lt;/p&gt;</description>
-      
-      
-      
-      
-      <category domain="https://yeshan333.github.io/categories/Git/">Git</category>
-      
-      
-      <category domain="https://yeshan333.github.io/tags/Git/">Git</category>
-      
-      
-      <comments>https://yeshan333.github.io/2021/03/10/git-submodules/#disqus_thread</comments>
       
     </item>
     
