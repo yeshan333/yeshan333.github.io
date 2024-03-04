@@ -6,7 +6,7 @@
   <link href="https://yeshan333.github.io/atom.xml" rel="self"/>
   
   <link href="https://yeshan333.github.io/"/>
-  <updated>2024-02-29T14:16:51.000Z</updated>
+  <updated>2024-03-04T11:14:47.000Z</updated>
   <id>https://yeshan333.github.io/</id>
   
   <author>
@@ -15,6 +15,25 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Awesome Technology Weekly Zh-Hans - 中文技术月/周/日刊一览</title>
+    <link href="https://yeshan333.github.io/2024/03/04/awesome-tech-weekly-zh/"/>
+    <id>https://yeshan333.github.io/2024/03/04/awesome-tech-weekly-zh/</id>
+    <published>2024-03-04T11:14:47.000Z</published>
+    <updated>2024-03-04T11:14:47.000Z</updated>
+    
+    
+    <summary type="html">Awesome Technology Weekly Zh-Hans - 中文技术月/周/日刊一览, 文章每三小时刷新</summary>
+    
+    
+    
+    <category term="Tech-Weekly" scheme="https://yeshan333.github.io/categories/Tech-Weekly/"/>
+    
+    
+    <category term="Tech-Weekly" scheme="https://yeshan333.github.io/tags/Tech-Weekly/"/>
+    
+  </entry>
   
   <entry>
     <title>使用 go-ycsb 对 etcd 进行基准 (benchmark) 性能测试</title>
@@ -587,13 +606,13 @@
 &lt;!-- 我们都一样 --&gt;
 
 
-    &lt;div id=&quot;aplayer-AEsYgudT&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+    &lt;div id=&quot;aplayer-JwwDbjAa&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
          data-id=&quot;1340001174&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;true&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
     &gt;&lt;/div&gt;
 
 
 
-    &lt;div id=&quot;aplayer-MPStfBjC&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+    &lt;div id=&quot;aplayer-EucjGfIo&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
          data-id=&quot;191252&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;false&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
     &gt;&lt;/div&gt;</summary>
     
@@ -844,32 +863,6 @@
     <category term="项目管理" scheme="https://yeshan333.github.io/tags/%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86/"/>
     
     <category term="Monorepo" scheme="https://yeshan333.github.io/tags/Monorepo/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Windows Insiders WSLg Linux GUI App 支持尝鲜</title>
-    <link href="https://yeshan333.github.io/2021/04/25/enjoy-wslg/"/>
-    <id>https://yeshan333.github.io/2021/04/25/enjoy-wslg/</id>
-    <published>2021-04-25T18:59:48.000Z</published>
-    <updated>2021-04-25T18:59:48.000Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;2021 年 4 月 21 日，微软在 Developer Blogs 发布了 Windows 预览版 WSL（Windows Linux 子系统） 对 Linux GUI App 的支持的&lt;a href=&quot;https://devblogs.microsoft.com/commandline/the-initial-preview-of-gui-app-support-is-now-available-for-the-windows-subsystem-for-linux-2&quot;&gt;公告🔗&lt;/a&gt;，碰巧😀我最近重装了波电脑，系统换成了 Windows Insiders（Dev），正好可以感受波 Linux GUI App 的支持。btw，预览版的文件管理器支持访问 WSL 的文件了，6~ 的。&lt;/p&gt;
-&lt;div galleryFlag itemscope itemtype=&quot;http://schema.org/ImageGallery&quot; class=&quot;gallery &quot; data-group=&#39;default&#39;&gt;&lt;div class=&#39;fancybox&#39;&gt;&lt;a class=&#39;fancybox&#39; pjax-fancybox itemscope itemtype=&quot;http://schema.org/ImageObject&quot; itemprop=&quot;url&quot; href=&#39;https://z3.ax1x.com/2021/04/25/czJUAO.png&#39; data-fancybox=&#39;default&#39; data-caption=&#39;Windows new icons&#39;&gt;&lt;img fancybox itemprop=&quot;contentUrl&quot; src=&quot;https://z3.ax1x.com/2021/04/25/czJUAO.png&quot; alt=&quot;Windows new icons&quot;&gt;&lt;/a&gt;&lt;span class=&#39;image-caption&#39;&gt;Windows new icons&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;WSL 现在居然支持跑 Linux 图形应用了，真香（😎，虽然上一年 WSL 的 &lt;a href=&quot;https://devblogs.microsoft.com/commandline/the-windows-subsystem-for-linux-build-2020-summary/#wsl-gui&quot;&gt;Roadmap&lt;/a&gt; 中有说过要支持，但我没关注，老二手知识党了）。Quickstart -&amp;gt;&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="WSL" scheme="https://yeshan333.github.io/categories/WSL/"/>
-    
-    
-    <category term="Linux" scheme="https://yeshan333.github.io/tags/Linux/"/>
-    
-    <category term="WSL" scheme="https://yeshan333.github.io/tags/WSL/"/>
-    
-    <category term="GUI" scheme="https://yeshan333.github.io/tags/GUI/"/>
     
   </entry>
   

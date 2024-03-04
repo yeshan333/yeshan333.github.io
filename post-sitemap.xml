@@ -9,6 +9,14 @@
 
 
     <url>
+        <loc>https://yeshan333.github.io/2024/03/04/awesome-tech-weekly-zh/</loc>
+        <lastmod>2024-03-04T11:14:47.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>https://yeshan333.github.io/2024/02/29/using-ycsb-benchmark-etcd/</loc>
         <lastmod>2024-02-29T14:16:51.000Z</lastmod>
         <changefreq>weekly</changefreq>

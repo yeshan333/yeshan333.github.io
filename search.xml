@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>Awesome Technology Weekly Zh-Hans - 中文技术月/周/日刊一览</title>
+      <link href="/2024/03/04/awesome-tech-weekly-zh/"/>
+      <url>/2024/03/04/awesome-tech-weekly-zh/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><p>作为开发者，我们每天都需要吸收大量的信息补充我们的知识体系.</p><p><a href="https://github.com/yeshan333/awesome-tech-weekly-zh">Awesome Technology Weekly Zh-Hans</a> 项目收集了中文技术社区各个领域的高质量的中文技术月&#x2F;周&#x2F;日刊，定时刷新获取最新一期中文技术月&#x2F;周&#x2F;日刊进行展示.</p><p>访问网站开始关注吧~：<a href="https://shansan.top/awesome-tech-weekly-zh">https://shansan.top/awesome-tech-weekly-zh</a>.</p><p>Github 项目地址 -&gt; <a href="https://github.com/yeshan333/awesome-tech-weekly-zh">https://github.com/yeshan333/awesome-tech-weekly-zh</a>.</p><iframe src="https://shansan.top/awesome-tech-weekly-zh" width="100%" height="300" frameborder="0" loading="lazy" allowfullscreen></iframe>]]></content>
+      
+      
+      <categories>
+          
+          <category> Tech-Weekly </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Tech-Weekly </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>使用 go-ycsb 对 etcd 进行基准 (benchmark) 性能测试</title>
       <link href="/2024/02/29/using-ycsb-benchmark-etcd/"/>
       <url>/2024/02/29/using-ycsb-benchmark-etcd/</url>
@@ -571,7 +596,7 @@
       <link href="/2021/12/04/deserve/"/>
       <url>/2021/12/04/deserve/</url>
       
-        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><p>今天凌晨五点就醒了，积累了好多好多的情绪啊！</p><!-- 年轻的战场 --><!-- 我们都一样 -->    <div id="aplayer-AEsYgudT" class="aplayer aplayer-tag-marker meting-tag-marker"         data-id="1340001174" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"    ></div>    <div id="aplayer-MPStfBjC" class="aplayer aplayer-tag-marker meting-tag-marker"         data-id="191252" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"    ></div><span id="more"></span>]]></content>
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><p>今天凌晨五点就醒了，积累了好多好多的情绪啊！</p><!-- 年轻的战场 --><!-- 我们都一样 -->    <div id="aplayer-JwwDbjAa" class="aplayer aplayer-tag-marker meting-tag-marker"         data-id="1340001174" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"    ></div>    <div id="aplayer-EucjGfIo" class="aplayer aplayer-tag-marker meting-tag-marker"         data-id="191252" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"    ></div><span id="more"></span>]]></content>
       
       
       <categories>
