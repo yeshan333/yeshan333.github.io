@@ -1909,7 +1909,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1709524919191),
+    lastupdate: new Date(1710271575938),
     sidebar: {
       for_page: ["blogger","webinfo","category","tagcloud","wonderful_link","qrcode","my_follow"],
       for_post: ["toc"],
@@ -2929,7 +2929,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 </blockquote>
 <p>使用 GitHub Codespaces 甚至也能直接提交代码到 GitHub 仓库之中. 通过 vscode 插件 <a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/remote/codespaces">GitHub Codespaces</a>，能通过本地 IDE 连接云端的环境进行开发. GitHub 提供了免费使用的额度，足够白嫖了🐏. 如果有将 vscode 的配置同步到 GitHub，也可以在一定程度复用本地 IDE 的配置.</p>
 <p>通过 <a target="_blank" rel="noopener" href="https://github.com/codespaces/new">https://github.com/codespaces/new</a> 我们能配置 GitHub 使用的环境规格和部署地区:</p>
-<p><img src="https://telegraph.shansan.top/file/9be59c0db63ef57e9e9b4.png" class="lazyload" data-srcset="https://telegraph.shansan.top/file/9be59c0db63ef57e9e9b4.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="select machine &amp; zone"></p>
+<p><img src="https://telegraph.shansan.top/file/bed2d8c2553369084c079.jpg" class="lazyload" data-srcset="https://telegraph.shansan.top/file/bed2d8c2553369084c079.jpg" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="select machine &amp; zone"></p>
 <h2 id="加速-Elixir-开发环境"><a href="#加速-Elixir-开发环境" class="headerlink" title="加速 Elixir 开发环境"></a>加速 Elixir 开发环境</h2><p>Elixir 应用构建拉依赖经常需要走外网，但 GitHub 默认创建的 Codespaces 环境默认一般都是 js 的开发环境 <a target="_blank" rel="noopener" href="https://github.com/devcontainers/images/blob/main/src/universal/.devcontainer/Dockerfile">Dockerfile</a>，并没有 Elixir 环境，需要我们自己单独配置一手，好在提供了 <a target="_blank" rel="noopener" href="https://containers.dev/">devcontainer</a> 的形式供我们自定义自己的基础开发环境，我们只需要提供配置文件就好， 我们需要做的如下:</p>
 <ul>
 <li>1、GitHub 仓库创建 <code>.devcontainer</code> 目录;</li>

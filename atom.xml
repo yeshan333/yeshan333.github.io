@@ -6,7 +6,7 @@
   <link href="https://yeshan333.github.io/atom.xml" rel="self"/>
   
   <link href="https://yeshan333.github.io/"/>
-  <updated>2024-03-04T11:14:47.000Z</updated>
+  <updated>2024-03-13T03:23:55.000Z</updated>
   <id>https://yeshan333.github.io/</id>
   
   <author>
@@ -15,6 +15,25 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Windows PowerToys：屏幕标尺，测量屏幕上任何内容的像素</title>
+    <link href="https://yeshan333.github.io/2024/03/13/markup-screen/"/>
+    <id>https://yeshan333.github.io/2024/03/13/markup-screen/</id>
+    <published>2024-03-13T03:23:55.000Z</published>
+    <updated>2024-03-13T03:23:55.000Z</updated>
+    
+    
+    <summary type="html">屏幕标尺，测量屏幕上任何内容的像素</summary>
+    
+    
+    
+    <category term="设计工具" scheme="https://yeshan333.github.io/categories/%E8%AE%BE%E8%AE%A1%E5%B7%A5%E5%85%B7/"/>
+    
+    
+    <category term="设计工具" scheme="https://yeshan333.github.io/tags/%E8%AE%BE%E8%AE%A1%E5%B7%A5%E5%85%B7/"/>
+    
+  </entry>
   
   <entry>
     <title>Awesome Technology Weekly Zh-Hans - 中文技术月/周/日刊一览</title>
@@ -606,13 +625,13 @@
 &lt;!-- 我们都一样 --&gt;
 
 
-    &lt;div id=&quot;aplayer-JwwDbjAa&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+    &lt;div id=&quot;aplayer-OKKzMshS&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
          data-id=&quot;1340001174&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;true&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
     &gt;&lt;/div&gt;
 
 
 
-    &lt;div id=&quot;aplayer-EucjGfIo&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+    &lt;div id=&quot;aplayer-vbzBiRUC&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
          data-id=&quot;191252&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;false&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
     &gt;&lt;/div&gt;</summary>
     
@@ -837,32 +856,6 @@
     
     
     <category term="math" scheme="https://yeshan333.github.io/tags/math/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>简单了解波 Mono-repo &amp; Multi-repo（Poly-repo）</title>
-    <link href="https://yeshan333.github.io/2021/04/30/term-monorepo-multirepo/"/>
-    <id>https://yeshan333.github.io/2021/04/30/term-monorepo-multirepo/</id>
-    <published>2021-04-30T23:30:00.000Z</published>
-    <updated>2021-04-30T23:30:00.000Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;Mono-repo 和 Multi-repo 是软件开发中代码管理的两个不同策略。Mono-repo &amp;amp; Multi-repo 孰优孰劣是个老生常谈得话题了，这里就不 &lt;a href=&quot;https://hackernoon.com/mono-repo-vs-multi-repo-vs-hybrid-whats-the-right-approach-dv1a3ugn&quot;&gt;PK&lt;/a&gt; 了，“略微”看下两者区别。&lt;/p&gt;
-&lt;p&gt;当我们使用 Git 作为版本控制系统管理项目的代码时，那么 monorepo 与 multirepo 的定义表述如下：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;monorepo，使用一个 Git 仓库管理项目相关的多个 模块&amp;#x2F;包&amp;#x2F;功能&amp;#x2F;应用。&lt;/li&gt;
-&lt;li&gt;multirepo（又称为 polyrepo），使用多个 Git 仓库分别管理项目的每一个 模块&amp;#x2F;包&amp;#x2F;功能&amp;#x2F;应用。&lt;/li&gt;
-&lt;/ul&gt;</summary>
-    
-    
-    
-    <category term="Architecture" scheme="https://yeshan333.github.io/categories/Architecture/"/>
-    
-    
-    <category term="项目管理" scheme="https://yeshan333.github.io/tags/%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86/"/>
-    
-    <category term="Monorepo" scheme="https://yeshan333.github.io/tags/Monorepo/"/>
     
   </entry>
   
