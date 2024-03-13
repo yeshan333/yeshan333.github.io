@@ -1910,7 +1910,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1710346207499),
+    lastupdate: new Date(1710352516800),
     sidebar: {
       for_page: ["blogger","webinfo","category","tagcloud","wonderful_link","qrcode","my_follow"],
       for_post: ["toc"],
@@ -2809,6 +2809,13 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
               
               active-action="action-https:wwwtravellingscngohtml">
               <img src='https://www.travellings.cn/assets/travelling-dark.png'><p>开往</p>
+            </a>
+          
+            <a target="_blank" rel="noopener" href="https://www.foreverblog.cn/go.html"
+              
+              
+              active-action="action-https:wwwforeverblogcngohtml">
+              <img src='https://img.foreverblog.cn/wormhole_1.gif'><p>十年之约虫洞</p>
             </a>
           
         
@@ -4264,8 +4271,8 @@ window.matchMedia('(prefers-color-scheme: light)').addListener(darkModelListener
   volantis.layoutHelper("comments",`<div id="artalk_container"><i class="fa-solid fa-cog fa-spin fa-fw fa-2x"></i></div>`);
   function load_artalk() {
     if(!document.querySelectorAll("#artalk_container")[0])return;
-    volantis.css("https://cdn.bootcdn.net/ajax/libs/artalk/2.4.3/Artalk.css");
-    volantis.js("https://cdn.bootcdn.net/ajax/libs/artalk/2.4.3/Artalk.js").then(pjax_artalk);
+    volantis.css("https://cdn.bootcdn.net/ajax/libs/artalk/2.8.3/Artalk.css");
+    volantis.js("https://cdn.bootcdn.net/ajax/libs/artalk/2.8.3/Artalk.js").then(pjax_artalk);
   }
 
   function pjax_artalk() {
@@ -4279,18 +4286,20 @@ window.matchMedia('(prefers-color-scheme: light)').addListener(darkModelListener
       path = path.replaceAll('/index.html', '/').replaceAll('.html', '')
     }
 
-    volantis.artalk = new Artalk(Object.assign({"js":"https://cdn.bootcdn.net/ajax/libs/artalk/2.4.3/Artalk.js","css":"https://cdn.bootcdn.net/ajax/libs/artalk/2.4.3/Artalk.css","server":"https://artalk.shan333.cn/api","path":null,"placeholder":null,"imageUploader":{"api":null,"token":null,"resp":null}}, {
+    volantis.artalk = Artalk.init({
       el: '#artalk_container',
       pageKey: path,
       pageTitle: document.title,
       placeholder: placeholder,
       useBackendConf: true,
+      server: 'https://artalk.shan333.cn',
       site: 'ShanSan',
       darkMode: volantis.dark.mode === "dark",
       pvEl: '#artalk_visitors',
 
       
-    }));
+
+    });
 
     Artalk.use(ctx => {
       ctx.on('list-loaded', () => {
