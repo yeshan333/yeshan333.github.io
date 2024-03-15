@@ -15,8 +15,31 @@
     <atom:link href="https://yeshan333.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>ShanSan&#39;s Blog</description>
-    <pubDate>Wed, 13 Mar 2024 03:23:55 GMT</pubDate>
+    <pubDate>Fri, 15 Mar 2024 07:47:53 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>使用 WXT 开发浏览器插件（上手使用篇）</title>
+      <link>https://yeshan333.github.io/2024/03/15/develop-web-extension-with-wxt/</link>
+      <guid>https://yeshan333.github.io/2024/03/15/develop-web-extension-with-wxt/</guid>
+      <pubDate>Fri, 15 Mar 2024 07:47:53 GMT</pubDate>
+      
+      <description>WXT 开发浏览器插件</description>
+      
+      
+      
+      
+      <category domain="https://yeshan333.github.io/categories/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91/">浏览器插件开发</category>
+      
+      
+      <category domain="https://yeshan333.github.io/tags/extension/">extension</category>
+      
+      <category domain="https://yeshan333.github.io/tags/WXT/">WXT</category>
+      
+      
+      <comments>https://yeshan333.github.io/2024/03/15/develop-web-extension-with-wxt/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>Windows PowerToys：屏幕标尺，测量屏幕上任何内容的像素</title>
@@ -671,13 +694,13 @@
 &lt;!-- 我们都一样 --&gt;
 
 
-    &lt;div id=&quot;aplayer-Qvgpuzds&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+    &lt;div id=&quot;aplayer-doaGfhcS&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
          data-id=&quot;1340001174&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;true&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
     &gt;&lt;/div&gt;
 
 
 
-    &lt;div id=&quot;aplayer-VCBRKdyF&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+    &lt;div id=&quot;aplayer-jVbshUuK&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
          data-id=&quot;191252&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;false&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
     &gt;&lt;/div&gt;</description>
       
@@ -903,27 +926,6 @@
       
       
       <comments>https://yeshan333.github.io/2021/06/29/osmosfeed-rss-reader/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>热传导方程非特征 Cauchy 问题的一些笔记</title>
-      <link>https://yeshan333.github.io/2021/05/16/heat-conduction-equation/</link>
-      <guid>https://yeshan333.github.io/2021/05/16/heat-conduction-equation/</guid>
-      <pubDate>Sun, 16 May 2021 15:14:31 GMT</pubDate>
-      
-      <description>&lt;p&gt;毕设工作即将结束之际，附上一份笔记到博客-数学物理方程-热传导方程.&lt;/p&gt;</description>
-      
-      
-      
-      
-      <category domain="https://yeshan333.github.io/categories/math/">math</category>
-      
-      
-      <category domain="https://yeshan333.github.io/tags/math/">math</category>
-      
-      
-      <comments>https://yeshan333.github.io/2021/05/16/heat-conduction-equation/#disqus_thread</comments>
       
     </item>
     

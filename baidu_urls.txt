@@ -1,3 +1,4 @@
+https://yeshan333.github.io/2024/03/15/develop-web-extension-with-wxt/
 https://yeshan333.github.io/2024/03/13/markup-screen/
 https://yeshan333.github.io/2024/03/04/awesome-tech-weekly-zh/
 https://yeshan333.github.io/2024/02/29/using-ycsb-benchmark-etcd/
@@ -7,4 +8,3 @@ https://yeshan333.github.io/2023/08/12/elixir-deps-debug-skills/
 https://yeshan333.github.io/2023/03/11/sse-websocket/
 https://yeshan333.github.io/2023/02/26/2022-annual-reviewed/
 https://yeshan333.github.io/2022/11/26/Elixir-Tip-Case-vs-With/
-https://yeshan333.github.io/2022/08/31/the-solution-of-elixir-continuous-runtime-system-code-coverage-collection/

@@ -6,7 +6,7 @@
   <link href="https://yeshan333.github.io/atom.xml" rel="self"/>
   
   <link href="https://yeshan333.github.io/"/>
-  <updated>2024-03-13T03:23:55.000Z</updated>
+  <updated>2024-03-15T07:47:53.000Z</updated>
   <id>https://yeshan333.github.io/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>使用 WXT 开发浏览器插件（上手使用篇）</title>
+    <link href="https://yeshan333.github.io/2024/03/15/develop-web-extension-with-wxt/"/>
+    <id>https://yeshan333.github.io/2024/03/15/develop-web-extension-with-wxt/</id>
+    <published>2024-03-15T07:47:53.000Z</published>
+    <updated>2024-03-15T07:47:53.000Z</updated>
+    
+    
+    <summary type="html">WXT 开发浏览器插件</summary>
+    
+    
+    
+    <category term="浏览器插件开发" scheme="https://yeshan333.github.io/categories/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91/"/>
+    
+    
+    <category term="extension" scheme="https://yeshan333.github.io/tags/extension/"/>
+    
+    <category term="WXT" scheme="https://yeshan333.github.io/tags/WXT/"/>
+    
+  </entry>
   
   <entry>
     <title>Windows PowerToys：屏幕标尺，测量屏幕上任何内容的像素</title>
@@ -625,13 +646,13 @@
 &lt;!-- 我们都一样 --&gt;
 
 
-    &lt;div id=&quot;aplayer-Qvgpuzds&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+    &lt;div id=&quot;aplayer-doaGfhcS&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
          data-id=&quot;1340001174&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;true&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
     &gt;&lt;/div&gt;
 
 
 
-    &lt;div id=&quot;aplayer-VCBRKdyF&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+    &lt;div id=&quot;aplayer-jVbshUuK&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
          data-id=&quot;191252&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;false&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
     &gt;&lt;/div&gt;</summary>
     
@@ -837,25 +858,6 @@
     
     
     <category term="RSS Reader" scheme="https://yeshan333.github.io/tags/RSS-Reader/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>热传导方程非特征 Cauchy 问题的一些笔记</title>
-    <link href="https://yeshan333.github.io/2021/05/16/heat-conduction-equation/"/>
-    <id>https://yeshan333.github.io/2021/05/16/heat-conduction-equation/</id>
-    <published>2021-05-16T15:14:31.000Z</published>
-    <updated>2021-05-16T15:14:31.000Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;毕设工作即将结束之际，附上一份笔记到博客-数学物理方程-热传导方程.&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="math" scheme="https://yeshan333.github.io/categories/math/"/>
-    
-    
-    <category term="math" scheme="https://yeshan333.github.io/tags/math/"/>
     
   </entry>
   

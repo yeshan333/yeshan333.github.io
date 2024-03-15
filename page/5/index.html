@@ -1910,7 +1910,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1710397324448),
+    lastupdate: new Date(1710463745768),
     sidebar: {
       for_page: ["blogger","webinfo","category","tagcloud","wonderful_link","qrcode","my_follow"],
       for_post: ["toc"],
@@ -2842,6 +2842,89 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         
           <div class='post-wrapper'>
             <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
+  <link itemprop="mainEntityOfPage" href="https://yeshan333.github.io/2020/12/13/耍一下Kafka/">
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="ShanSan">
+  </span>
+  <span hidden itemprop="post" itemscope itemtype="http://schema.org/Post">
+    <meta itemprop="name" content="ShanSan">
+    <meta itemprop="description" content="ShanSan's Blog">
+  </span>
+  
+  
+  
+    <span hidden>
+      <meta itemprop="image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
+    </span>
+  
+  
+    
+    <h2 class="article-title"  itemprop="name headline">
+      <a href="/2020/12/13/%E8%80%8D%E4%B8%80%E4%B8%8BKafka/"  itemprop="url">
+        简单耍一下-Kafka
+      </a>
+    </h2>
+  
+  <div class='md article-desc' itemprop="articleBody">
+    
+      <blockquote>
+<p>趁着毕设初期，还能摸会儿🐟，了解波 Kafka。</p>
+</blockquote>
+<h2 id="Kafka-术语一览"><a href="#Kafka-术语一览" class="headerlink" title="Kafka 术语一览"></a>Kafka 术语一览</h2><blockquote>
+<p>Kafka，分布式消息引擎系统，主要功能是提供一套完备的消息发布与订阅解决方案。Kafka 也是一个分布式的、分区的、多副本的多订阅者，基于 Zookeeper 协调的分布式日志系统，可用于处理 Web 日志和消息服务。</p>
+</blockquote>
+<ul>
+<li>Topic：主题，承载消息（Record）的逻辑容器，每条发布到 Kafka 集群的消息都归属于某一个 Topic，实际应用中，不同的 topic 对应着不同的业务；</li>
+<li>Broker：Kafka 服务进程，一个 Kafka 集群由多个 Broker 服务进程组成，虽然多个 Broker 可在同一服务器上进行部署，但为了高可用，会将不同的 Broker 部署在不同的机器上；</li>
+<li>Partition：分区，一组有序的消息序列，一个 Topic 可以有多个分区，同一 Topic 下的 Partition 可以分布在不同的 Broker 中。Producer 生产的每一条消息都会被放到一个 Partition 中，每条消息在 Partition 中的位置信息由一个 Offset（偏移量）数据表征。Kafka 通过偏移量（Offset）来保证消息在分区内的顺序性；</li>
+</ul>
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+          
+          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
+          <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+            <meta itemprop="image" content="https://z3.ax1x.com/2021/11/07/I1qTFx.png">
+            <meta itemprop="name" content="yeshan333">
+            <meta itemprop="url" content="https://github.com/yeshan333">
+          </span>
+        
+        <time itemprop="dateCreated datePublished" datetime="2020-12-13T20:30:14+00:00">2020-12-13</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/">中间件</a><span class="sep"></span><a class="category-link" href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/Kafka/">Kafka</a>
+          
+            <span hidden itemprop="about" itemscope itemtype="http://schema.org/Thing">
+              <a href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/" itemprop="url"><span itemprop="name">中间件</span></a>
+            </span>
+          
+            <span hidden itemprop="about" itemscope itemtype="http://schema.org/Thing">
+              <a href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/Kafka/" itemprop="url"><span itemprop="name">Kafka</span></a>
+            </span>
+          
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2020/12/13/%E8%80%8D%E4%B8%80%E4%B8%8BKafka/' itemprop="url">
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
   <link itemprop="mainEntityOfPage" href="https://yeshan333.github.io/2020/11/15/使用tcpdump和wireshark看下TCP握手/">
   <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
     <meta itemprop="name" content="ShanSan">
@@ -3517,75 +3600,6 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           </div>
         
       
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
-  <link itemprop="mainEntityOfPage" href="https://yeshan333.github.io/2020/06/21/将Web应用丢给守护进程/">
-  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="ShanSan">
-  </span>
-  <span hidden itemprop="post" itemscope itemtype="http://schema.org/Post">
-    <meta itemprop="name" content="ShanSan">
-    <meta itemprop="description" content="ShanSan's Blog">
-  </span>
-  
-  
-  
-    <span hidden>
-      <meta itemprop="image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
-    </span>
-  
-  
-    
-    <h2 class="article-title"  itemprop="name headline">
-      <a href="/2020/06/21/%E5%B0%86Web%E5%BA%94%E7%94%A8%E4%B8%A2%E7%BB%99%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B/"  itemprop="url">
-        将 Web 应用丢给守护进程
-      </a>
-    </h2>
-  
-  <div class='md article-desc' itemprop="articleBody">
-    
-      <p>最近老是要把 Web App&#x2F;Service 部署在个人的服务器上进行测试，发现自己不怎么熟悉「前提：不上 docker ，逃~」，特写此文章来纪念下🤔👀（之前部署的  Web App&#x2F;Service 都是丢给 <a target="_blank" rel="noopener" href="https://www.heroku.com/">Heroku</a>、<a target="_blank" rel="noopener" href="https://www.netlify.com/">Netlify</a>、GitHub 这样的 PaaS 平台运行，写个配置文件「action、yaml、toml」就完事了。自己整的玩意儿丢在自己服务器上跑的并不算多，今天费点劲，了解点基础设施。根据冰山模型，了解下 FaaS 能更好的了解 <a target="_blank" rel="noopener" href="https://shansan.top/knowledge-base/#/backend?id=iaas%e3%80%81paas%e3%80%81saas">PaaS</a>）。</p>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-          
-          <a class='avatar' target="_blank" rel="noopener" href='https://github.com/yeshan333'><img src='https://z3.ax1x.com/2021/11/07/I1qTFx.png'></a>
-          <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-            <meta itemprop="image" content="https://z3.ax1x.com/2021/11/07/I1qTFx.png">
-            <meta itemprop="name" content="yeshan333">
-            <meta itemprop="url" content="https://github.com/yeshan333">
-          </span>
-        
-        <time itemprop="dateCreated datePublished" datetime="2020-06-21T14:26:36+00:00">2020-06-21</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Linux/">Linux</a>
-          
-            <span hidden itemprop="about" itemscope itemtype="http://schema.org/Thing">
-              <a href="/categories/Linux/" itemprop="url"><span itemprop="name">Linux</span></a>
-            </span>
-          
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2020/06/21/%E5%B0%86Web%E5%BA%94%E7%94%A8%E4%B8%A2%E7%BB%99%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B/' itemprop="url">
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
     
   </section>
   
@@ -3715,7 +3729,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <div class="webinfo-item">
           <div>文章数目：</div>
-          <div>149 篇</div>
+          <div>150 篇</div>
         </div>
       
 
@@ -3750,7 +3764,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <div class="webinfo-item">
           <div>最后活动时间：</div>
-          <div id="last-update-show">2024-03-14 日</div>
+          <div id="last-update-show">2024-03-15 日</div>
         </div>
       
     </div>
@@ -3993,6 +4007,11 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
             ><div class='name'>数据结构</div><div class='badge'>(2)</div></a></li>
         
           <li><a class="flat-box"
+            title="/categories/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91/" href="/categories/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91/"
+            active-action="action-categoriesE6B58FE8A788E599A8E68F92E4BBB6E5BC80E58F91"
+            ><div class='name'>浏览器插件开发</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box"
             title="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"
             active-action="action-categoriesE8AEA1E7AE97E69CBAE7BD91E7BB9C"
             ><div class='name'>计算机网络</div><div class='badge'>(4)</div></a></li>
@@ -4035,7 +4054,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
 
     <div class='content'>
-      <a href="/tags/Algorithm/" style="font-size: 16px; color: #8b8b8b">Algorithm</a> <a href="/tags/Astronomy/" style="font-size: 15px; color: #929292">Astronomy</a> <a href="/tags/BeautifulSoup/" style="font-size: 14px; color: #999">BeautifulSoup</a> <a href="/tags/C/" style="font-size: 16px; color: #8b8b8b">C</a> <a href="/tags/CPP/" style="font-size: 24px; color: #555">CPP</a> <a href="/tags/CPU-Bound/" style="font-size: 14px; color: #999">CPU Bound</a> <a href="/tags/CSS/" style="font-size: 14px; color: #999">CSS</a> <a href="/tags/Compiler/" style="font-size: 14px; color: #999">Compiler</a> <a href="/tags/Deps/" style="font-size: 14px; color: #999">Deps</a> <a href="/tags/DevOps/" style="font-size: 15px; color: #929292">DevOps</a> <a href="/tags/Docker/" style="font-size: 14px; color: #999">Docker</a> <a href="/tags/Elixir/" style="font-size: 18px; color: #7e7e7e">Elixir</a> <a href="/tags/Elixir-Github-Codespaces/" style="font-size: 14px; color: #999">Elixir, Github Codespaces</a> <a href="/tags/Elixir-Macros/" style="font-size: 19px; color: #777">Elixir-Macros</a> <a href="/tags/Event-Loop/" style="font-size: 14px; color: #999">Event-Loop</a> <a href="/tags/FSM/" style="font-size: 14px; color: #999">FSM</a> <a href="/tags/Federation/" style="font-size: 14px; color: #999">Federation</a> <a href="/tags/Flame-Graphs/" style="font-size: 14px; color: #999">Flame Graphs</a> <a href="/tags/Flask/" style="font-size: 17px; color: #858585">Flask</a> <a href="/tags/GDB/" style="font-size: 14px; color: #999">GDB</a> <a href="/tags/GPG/" style="font-size: 15px; color: #929292">GPG</a> <a href="/tags/GUI/" style="font-size: 14px; color: #999">GUI</a> <a href="/tags/Git/" style="font-size: 20px; color: #707070">Git</a> <a href="/tags/Github-Actions/" style="font-size: 14px; color: #999">Github Actions</a> <a href="/tags/Go/" style="font-size: 15px; color: #929292">Go</a> <a href="/tags/Grafana/" style="font-size: 14px; color: #999">Grafana</a> <a href="/tags/HTML/" style="font-size: 15px; color: #929292">HTML</a> <a href="/tags/I-O%E6%A8%A1%E5%9E%8B/" style="font-size: 14px; color: #999">I/O模型</a> <a href="/tags/IO-Bound/" style="font-size: 14px; color: #999">IO Bound</a> <a href="/tags/JavaScript/" style="font-size: 14px; color: #999">JavaScript</a> <a href="/tags/Json/" style="font-size: 14px; color: #999">Json</a> <a href="/tags/Jupyter/" style="font-size: 14px; color: #999">Jupyter</a> <a href="/tags/Kafka/" style="font-size: 14px; color: #999">Kafka</a> <a href="/tags/Kubeadm/" style="font-size: 14px; color: #999">Kubeadm</a> <a href="/tags/Kubernetes/" style="font-size: 14px; color: #999">Kubernetes</a> <a href="/tags/Latex/" style="font-size: 14px; color: #999">Latex</a> <a href="/tags/Lexer/" style="font-size: 14px; color: #999">Lexer</a> <a href="/tags/Linux/" style="font-size: 17px; color: #858585">Linux</a> <a href="/tags/Load-Balance/" style="font-size: 14px; color: #999">Load Balance</a> <a href="/tags/MATLAB/" style="font-size: 14px; color: #999">MATLAB</a> <a href="/tags/MD5/" style="font-size: 14px; color: #999">MD5</a> <a href="/tags/Marshal/" style="font-size: 14px; color: #999">Marshal</a> <a href="/tags/Memory/" style="font-size: 14px; color: #999">Memory</a> <a href="/tags/Mix/" style="font-size: 14px; color: #999">Mix</a> <a href="/tags/Monitoring/" style="font-size: 14px; color: #999">Monitoring</a> <a href="/tags/Monorepo/" style="font-size: 14px; color: #999">Monorepo</a> <a href="/tags/Nginx/" style="font-size: 14px; color: #999">Nginx</a> <a href="/tags/Profiling/" style="font-size: 14px; color: #999">Profiling</a> <a href="/tags/Prometheus/" style="font-size: 15px; color: #929292">Prometheus</a> <a href="/tags/Python/" style="font-size: 23px; color: #5c5c5c">Python</a> <a href="/tags/RSS-Reader/" style="font-size: 14px; color: #999">RSS Reader</a> <a href="/tags/React/" style="font-size: 16px; color: #8b8b8b">React</a> <a href="/tags/Requests/" style="font-size: 15px; color: #929292">Requests</a> <a href="/tags/SSE/" style="font-size: 14px; color: #999">SSE</a> <a href="/tags/Scrapy/" style="font-size: 14px; color: #999">Scrapy</a> <a href="/tags/TCP/" style="font-size: 14px; color: #999">TCP</a> <a href="/tags/Tech-Weekly/" style="font-size: 14px; color: #999">Tech-Weekly</a> <a href="/tags/Test-Coverage/" style="font-size: 15px; color: #929292">Test Coverage</a> <a href="/tags/UnMarshal/" style="font-size: 14px; color: #999">UnMarshal</a> <a href="/tags/WSL/" style="font-size: 14px; color: #999">WSL</a> <a href="/tags/Websocket/" style="font-size: 14px; color: #999">Websocket</a> <a href="/tags/Wireshark/" style="font-size: 15px; color: #929292">Wireshark</a> <a href="/tags/YCSB/" style="font-size: 14px; color: #999">YCSB</a> <a href="/tags/benchmark/" style="font-size: 14px; color: #999">benchmark</a> <a href="/tags/blog/" style="font-size: 22px; color: #636363">blog</a> <a href="/tags/debug/" style="font-size: 14px; color: #999">debug</a> <a href="/tags/docker/" style="font-size: 15px; color: #929292">docker</a> <a href="/tags/etcd/" style="font-size: 14px; color: #999">etcd</a> <a href="/tags/go-ycsb/" style="font-size: 14px; color: #999">go-ycsb</a> <a href="/tags/hexo/" style="font-size: 17px; color: #858585">hexo</a> <a href="/tags/json/" style="font-size: 14px; color: #999">json</a> <a href="/tags/markdown/" style="font-size: 17px; color: #858585">markdown</a> <a href="/tags/math/" style="font-size: 14px; color: #999">math</a> <a href="/tags/memory/" style="font-size: 14px; color: #999">memory</a> <a href="/tags/music/" style="font-size: 14px; color: #999">music</a> <a href="/tags/tcpdump/" style="font-size: 14px; color: #999">tcpdump</a> <a href="/tags/%E4%B8%8A%E4%B8%8B%E6%96%87/" style="font-size: 14px; color: #999">上下文</a> <a href="/tags/%E4%BF%A1%E6%81%AF%E6%A0%87%E8%AE%B0/" style="font-size: 14px; color: #999">信息标记</a> <a href="/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/" style="font-size: 14px; color: #999">函数式编程</a> <a href="/tags/%E5%8A%A0%E5%AF%86/" style="font-size: 14px; color: #999">加密</a> <a href="/tags/%E5%8D%8F%E7%A8%8B/" style="font-size: 14px; color: #999">协程</a> <a href="/tags/%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95/" style="font-size: 14px; color: #999">压力测试</a> <a href="/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/" style="font-size: 14px; color: #999">工程化</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 15px; color: #929292">数据结构</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" style="font-size: 14px; color: #999">服务器进程管理</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E7%BC%96%E6%8E%92/" style="font-size: 14px; color: #999">服务编排</a> <a href="/tags/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/" style="font-size: 14px; color: #999">架构设计</a> <a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 14px; color: #999">正则表达式</a> <a href="/tags/%E6%B5%81%E5%A4%84%E7%90%86%E5%B9%B3%E5%8F%B0/" style="font-size: 14px; color: #999">流处理平台</a> <a href="/tags/%E6%B6%88%E6%81%AF%E5%BC%95%E6%93%8E%E7%B3%BB%E7%BB%9F/" style="font-size: 14px; color: #999">消息引擎系统</a> <a href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" style="font-size: 14px; color: #999">消息队列</a> <a href="/tags/%E6%B7%B1%E6%8B%B7%E8%B4%9D%E4%B8%8E%E6%B5%85%E6%8B%B7%E8%B4%9D/" style="font-size: 14px; color: #999">深拷贝与浅拷贝</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 19px; color: #777">爬虫</a> <a href="/tags/%E7%8E%AF%E5%A2%83%E7%AE%A1%E7%90%86/" style="font-size: 14px; color: #999">环境管理</a> <a href="/tags/%E7%BA%BF%E7%A8%8B/" style="font-size: 14px; color: #999">线程</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E8%B7%AF/" style="font-size: 14px; color: #999">计算机网路</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E5%B7%A5%E5%85%B7/" style="font-size: 14px; color: #999">设计工具</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 14px; color: #999">设计模式</a> <a href="/tags/%E8%AF%91%E6%96%87/" style="font-size: 14px; color: #999">译文</a> <a href="/tags/%E8%BF%9B%E7%A8%8B/" style="font-size: 14px; color: #999">进程</a> <a href="/tags/%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1/" style="font-size: 14px; color: #999">进程通信</a> <a href="/tags/%E9%9A%8F%E7%AC%94/" style="font-size: 21px; color: #696969">随笔</a> <a href="/tags/%E9%9A%90%E7%A7%81/" style="font-size: 14px; color: #999">隐私</a> <a href="/tags/%E9%9D%99%E6%80%81%E7%B1%BB%E5%9E%8B%E6%A3%80%E6%9F%A5/" style="font-size: 14px; color: #999">静态类型检查</a> <a href="/tags/%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86/" style="font-size: 14px; color: #999">项目管理</a>
+      <a href="/tags/Algorithm/" style="font-size: 16px; color: #8b8b8b">Algorithm</a> <a href="/tags/Astronomy/" style="font-size: 15px; color: #929292">Astronomy</a> <a href="/tags/BeautifulSoup/" style="font-size: 14px; color: #999">BeautifulSoup</a> <a href="/tags/C/" style="font-size: 16px; color: #8b8b8b">C</a> <a href="/tags/CPP/" style="font-size: 24px; color: #555">CPP</a> <a href="/tags/CPU-Bound/" style="font-size: 14px; color: #999">CPU Bound</a> <a href="/tags/CSS/" style="font-size: 14px; color: #999">CSS</a> <a href="/tags/Compiler/" style="font-size: 14px; color: #999">Compiler</a> <a href="/tags/Deps/" style="font-size: 14px; color: #999">Deps</a> <a href="/tags/DevOps/" style="font-size: 15px; color: #929292">DevOps</a> <a href="/tags/Docker/" style="font-size: 14px; color: #999">Docker</a> <a href="/tags/Elixir/" style="font-size: 18px; color: #7e7e7e">Elixir</a> <a href="/tags/Elixir-Github-Codespaces/" style="font-size: 14px; color: #999">Elixir, Github Codespaces</a> <a href="/tags/Elixir-Macros/" style="font-size: 19px; color: #777">Elixir-Macros</a> <a href="/tags/Event-Loop/" style="font-size: 14px; color: #999">Event-Loop</a> <a href="/tags/FSM/" style="font-size: 14px; color: #999">FSM</a> <a href="/tags/Federation/" style="font-size: 14px; color: #999">Federation</a> <a href="/tags/Flame-Graphs/" style="font-size: 14px; color: #999">Flame Graphs</a> <a href="/tags/Flask/" style="font-size: 17px; color: #858585">Flask</a> <a href="/tags/GDB/" style="font-size: 14px; color: #999">GDB</a> <a href="/tags/GPG/" style="font-size: 15px; color: #929292">GPG</a> <a href="/tags/GUI/" style="font-size: 14px; color: #999">GUI</a> <a href="/tags/Git/" style="font-size: 20px; color: #707070">Git</a> <a href="/tags/Github-Actions/" style="font-size: 14px; color: #999">Github Actions</a> <a href="/tags/Go/" style="font-size: 15px; color: #929292">Go</a> <a href="/tags/Grafana/" style="font-size: 14px; color: #999">Grafana</a> <a href="/tags/HTML/" style="font-size: 15px; color: #929292">HTML</a> <a href="/tags/I-O%E6%A8%A1%E5%9E%8B/" style="font-size: 14px; color: #999">I/O模型</a> <a href="/tags/IO-Bound/" style="font-size: 14px; color: #999">IO Bound</a> <a href="/tags/JavaScript/" style="font-size: 14px; color: #999">JavaScript</a> <a href="/tags/Json/" style="font-size: 14px; color: #999">Json</a> <a href="/tags/Jupyter/" style="font-size: 14px; color: #999">Jupyter</a> <a href="/tags/Kafka/" style="font-size: 14px; color: #999">Kafka</a> <a href="/tags/Kubeadm/" style="font-size: 14px; color: #999">Kubeadm</a> <a href="/tags/Kubernetes/" style="font-size: 14px; color: #999">Kubernetes</a> <a href="/tags/Latex/" style="font-size: 14px; color: #999">Latex</a> <a href="/tags/Lexer/" style="font-size: 14px; color: #999">Lexer</a> <a href="/tags/Linux/" style="font-size: 17px; color: #858585">Linux</a> <a href="/tags/Load-Balance/" style="font-size: 14px; color: #999">Load Balance</a> <a href="/tags/MATLAB/" style="font-size: 14px; color: #999">MATLAB</a> <a href="/tags/MD5/" style="font-size: 14px; color: #999">MD5</a> <a href="/tags/Marshal/" style="font-size: 14px; color: #999">Marshal</a> <a href="/tags/Memory/" style="font-size: 14px; color: #999">Memory</a> <a href="/tags/Mix/" style="font-size: 14px; color: #999">Mix</a> <a href="/tags/Monitoring/" style="font-size: 14px; color: #999">Monitoring</a> <a href="/tags/Monorepo/" style="font-size: 14px; color: #999">Monorepo</a> <a href="/tags/Nginx/" style="font-size: 14px; color: #999">Nginx</a> <a href="/tags/Profiling/" style="font-size: 14px; color: #999">Profiling</a> <a href="/tags/Prometheus/" style="font-size: 15px; color: #929292">Prometheus</a> <a href="/tags/Python/" style="font-size: 23px; color: #5c5c5c">Python</a> <a href="/tags/RSS-Reader/" style="font-size: 14px; color: #999">RSS Reader</a> <a href="/tags/React/" style="font-size: 16px; color: #8b8b8b">React</a> <a href="/tags/Requests/" style="font-size: 15px; color: #929292">Requests</a> <a href="/tags/SSE/" style="font-size: 14px; color: #999">SSE</a> <a href="/tags/Scrapy/" style="font-size: 14px; color: #999">Scrapy</a> <a href="/tags/TCP/" style="font-size: 14px; color: #999">TCP</a> <a href="/tags/Tech-Weekly/" style="font-size: 14px; color: #999">Tech-Weekly</a> <a href="/tags/Test-Coverage/" style="font-size: 15px; color: #929292">Test Coverage</a> <a href="/tags/UnMarshal/" style="font-size: 14px; color: #999">UnMarshal</a> <a href="/tags/WSL/" style="font-size: 14px; color: #999">WSL</a> <a href="/tags/WXT/" style="font-size: 14px; color: #999">WXT</a> <a href="/tags/Websocket/" style="font-size: 14px; color: #999">Websocket</a> <a href="/tags/Wireshark/" style="font-size: 15px; color: #929292">Wireshark</a> <a href="/tags/YCSB/" style="font-size: 14px; color: #999">YCSB</a> <a href="/tags/benchmark/" style="font-size: 14px; color: #999">benchmark</a> <a href="/tags/blog/" style="font-size: 22px; color: #636363">blog</a> <a href="/tags/debug/" style="font-size: 14px; color: #999">debug</a> <a href="/tags/docker/" style="font-size: 15px; color: #929292">docker</a> <a href="/tags/etcd/" style="font-size: 14px; color: #999">etcd</a> <a href="/tags/extension/" style="font-size: 14px; color: #999">extension</a> <a href="/tags/go-ycsb/" style="font-size: 14px; color: #999">go-ycsb</a> <a href="/tags/hexo/" style="font-size: 17px; color: #858585">hexo</a> <a href="/tags/json/" style="font-size: 14px; color: #999">json</a> <a href="/tags/markdown/" style="font-size: 17px; color: #858585">markdown</a> <a href="/tags/math/" style="font-size: 14px; color: #999">math</a> <a href="/tags/memory/" style="font-size: 14px; color: #999">memory</a> <a href="/tags/music/" style="font-size: 14px; color: #999">music</a> <a href="/tags/tcpdump/" style="font-size: 14px; color: #999">tcpdump</a> <a href="/tags/%E4%B8%8A%E4%B8%8B%E6%96%87/" style="font-size: 14px; color: #999">上下文</a> <a href="/tags/%E4%BF%A1%E6%81%AF%E6%A0%87%E8%AE%B0/" style="font-size: 14px; color: #999">信息标记</a> <a href="/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/" style="font-size: 14px; color: #999">函数式编程</a> <a href="/tags/%E5%8A%A0%E5%AF%86/" style="font-size: 14px; color: #999">加密</a> <a href="/tags/%E5%8D%8F%E7%A8%8B/" style="font-size: 14px; color: #999">协程</a> <a href="/tags/%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95/" style="font-size: 14px; color: #999">压力测试</a> <a href="/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/" style="font-size: 14px; color: #999">工程化</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 15px; color: #929292">数据结构</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" style="font-size: 14px; color: #999">服务器进程管理</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E7%BC%96%E6%8E%92/" style="font-size: 14px; color: #999">服务编排</a> <a href="/tags/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/" style="font-size: 14px; color: #999">架构设计</a> <a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 14px; color: #999">正则表达式</a> <a href="/tags/%E6%B5%81%E5%A4%84%E7%90%86%E5%B9%B3%E5%8F%B0/" style="font-size: 14px; color: #999">流处理平台</a> <a href="/tags/%E6%B6%88%E6%81%AF%E5%BC%95%E6%93%8E%E7%B3%BB%E7%BB%9F/" style="font-size: 14px; color: #999">消息引擎系统</a> <a href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" style="font-size: 14px; color: #999">消息队列</a> <a href="/tags/%E6%B7%B1%E6%8B%B7%E8%B4%9D%E4%B8%8E%E6%B5%85%E6%8B%B7%E8%B4%9D/" style="font-size: 14px; color: #999">深拷贝与浅拷贝</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 19px; color: #777">爬虫</a> <a href="/tags/%E7%8E%AF%E5%A2%83%E7%AE%A1%E7%90%86/" style="font-size: 14px; color: #999">环境管理</a> <a href="/tags/%E7%BA%BF%E7%A8%8B/" style="font-size: 14px; color: #999">线程</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E8%B7%AF/" style="font-size: 14px; color: #999">计算机网路</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E5%B7%A5%E5%85%B7/" style="font-size: 14px; color: #999">设计工具</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 14px; color: #999">设计模式</a> <a href="/tags/%E8%AF%91%E6%96%87/" style="font-size: 14px; color: #999">译文</a> <a href="/tags/%E8%BF%9B%E7%A8%8B/" style="font-size: 14px; color: #999">进程</a> <a href="/tags/%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1/" style="font-size: 14px; color: #999">进程通信</a> <a href="/tags/%E9%9A%8F%E7%AC%94/" style="font-size: 21px; color: #696969">随笔</a> <a href="/tags/%E9%9A%90%E7%A7%81/" style="font-size: 14px; color: #999">隐私</a> <a href="/tags/%E9%9D%99%E6%80%81%E7%B1%BB%E5%9E%8B%E6%A3%80%E6%9F%A5/" style="font-size: 14px; color: #999">静态类型检查</a> <a href="/tags/%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86/" style="font-size: 14px; color: #999">项目管理</a>
     </div>
   </section>
 

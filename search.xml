@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>使用 WXT 开发浏览器插件（上手使用篇）</title>
+      <link href="/2024/03/15/develop-web-extension-with-wxt/"/>
+      <url>/2024/03/15/develop-web-extension-with-wxt/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><p>WXT (<a href="https://wxt.dev/">https://wxt.dev/</a>), Next-gen Web Extension Framework. 号称下一代浏览器开发框架. 可一套代码 (code base) 开发支持多个浏览器的插件.</p><h2 id="上路"><a href="#上路" class="headerlink" title="上路~"></a>上路~</h2><p>WXT 提供了脚手架可以方便我们快速进行开发，但是我们得先安装好环境依赖，这里我们使用 npm, 所以需要安装下 node，可以参考 <a href="https://nodejs.org/en">https://nodejs.org/en</a>.</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">直接基于脚手架创建项目</span></span><br><span class="line">npx wxt@latest init yeshan-bowser-extensoin</span><br><span class="line"></span><br><span class="line">cd yeshan-bowser-extensoin</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">安装依赖</span></span><br><span class="line">npm install --registry=https://registry.npmmirror.com</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">开始调试插件</span></span><br><span class="line">npm run dev</span><br></pre></td></tr></table></figure><p><img src="https://telegraph.shansan.top/file/a989ed6d1aee8952789c0.png" class="lazyload" data-srcset="https://telegraph.shansan.top/file/a989ed6d1aee8952789c0.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="https://telegraph.shansan.top/file/a989ed6d1aee8952789c0.png"></p><h2 id="QAQ-WSL2-下开发遇到的问题"><a href="#QAQ-WSL2-下开发遇到的问题" class="headerlink" title="QAQ - WSL2 下开发遇到的问题"></a>QAQ - WSL2 下开发遇到的问题</h2><p>使用 WSL2 进行开发的时候，<code>npm run dev</code> 在 wsl 是没办法自动打开浏览器的，会吐出如下问题：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">WARN  Cannot open browser when using WSL. Load &quot;.output/chrome-mv3&quot; as an unpacked extension manually</span><br></pre></td></tr></table></figure><p>大概看了下 wxt 的实现，它是通过 <a href="https://github.com/mozilla/web-ext">web-ext</a> 跟进指定的浏览器的 bin 文件（默认为 chromium）启动浏览器装载开发好的插件. 曾经通过文章 <a href="https://saisuman.org/blog/chromium-in-wsl2">chromium-in-wsl2</a> 提到的办法直接在 wsl2 安装了 chromium，还是没能解决此问题😂😣. 翻了下官方仓库的 issue，有关联问题 <a href="https://github.com/wxt-dev/wxt/issues/55">https://github.com/wxt-dev/wxt/issues/55</a>, 本质上是 web-ext 的 BUG <a href="https://github.com/mozilla/web-ext/issues/2108#issuecomment-1837565780">issuecomment-1837565780</a>，截至 2024&#x2F;3&#x2F;15 还未修复.</p><h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><p>没办法了，如果还想继续用 wsl 做开发，只能手动加载插件了，在 windows 上打开 chrome 后，地址栏输入 <code>chrome://extensions/</code> 转到插件管理页 (记得开启开发者模式) -&gt; 加载已解压的扩展程序:</p><p><img src="https://telegraph.shansan.top/file/6b2718aa149d6feabb5e5.png" class="lazyload" data-srcset="https://telegraph.shansan.top/file/6b2718aa149d6feabb5e5.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="https://telegraph.shansan.top/file/6b2718aa149d6feabb5e5.png"></p><p>我们要加载的插件目录是在 wsl 中的（即: <code>.output/chrome-mv3/</code>），好在 Window 和 wsl2 的文件文件系统是打通的，可以相互访问，我们可以使用 <a href="https://github.com/wslutilities/wslu">wslutils</a> 提供的工具获取在 Windows 下可以访问的路径</p><p><img src="https://telegraph.shansan.top/file/b5543ca9568f1fae401b3.png" class="lazyload" data-srcset="https://telegraph.shansan.top/file/b5543ca9568f1fae401b3.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="https://telegraph.shansan.top/file/b5543ca9568f1fae401b3.png"></p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">获取 windows 文件管理器可以访问的地址</span></span><br><span class="line">❯ wslpath -w .output/chrome-mv3/</span><br><span class="line">\\wsl.localhost\Ubuntu-20.04\home\yeshan333\workspace\github\yeshan-bowser-extensoin\.output\chrome-mv3</span><br></pre></td></tr></table></figure><p><img src="https://telegraph.shansan.top/file/67564121734cef6527d83.png" class="lazyload" data-srcset="https://telegraph.shansan.top/file/67564121734cef6527d83.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="https://telegraph.shansan.top/file/67564121734cef6527d83.png"></p><p>Done <del>, 搞定咯，可以愉快码代码了</del></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 浏览器插件开发 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> extension </tag>
+            
+            <tag> WXT </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Windows PowerToys：屏幕标尺，测量屏幕上任何内容的像素</title>
       <link href="/2024/03/13/markup-screen/"/>
       <url>/2024/03/13/markup-screen/</url>
@@ -621,7 +648,7 @@
       <link href="/2021/12/04/deserve/"/>
       <url>/2021/12/04/deserve/</url>
       
-        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><p>今天凌晨五点就醒了，积累了好多好多的情绪啊！</p><!-- 年轻的战场 --><!-- 我们都一样 -->    <div id="aplayer-Qvgpuzds" class="aplayer aplayer-tag-marker meting-tag-marker"         data-id="1340001174" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"    ></div>    <div id="aplayer-VCBRKdyF" class="aplayer aplayer-tag-marker meting-tag-marker"         data-id="191252" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"    ></div><span id="more"></span>]]></content>
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><p>今天凌晨五点就醒了，积累了好多好多的情绪啊！</p><!-- 年轻的战场 --><!-- 我们都一样 -->    <div id="aplayer-doaGfhcS" class="aplayer aplayer-tag-marker meting-tag-marker"         data-id="1340001174" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"    ></div>    <div id="aplayer-jVbshUuK" class="aplayer aplayer-tag-marker meting-tag-marker"         data-id="191252" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"    ></div><span id="more"></span>]]></content>
       
       
       <categories>
