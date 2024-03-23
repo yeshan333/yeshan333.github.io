@@ -15,8 +15,31 @@
     <atom:link href="https://yeshan333.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>ShanSan&#39;s Blog</description>
-    <pubDate>Fri, 15 Mar 2024 07:47:53 GMT</pubDate>
+    <pubDate>Sat, 23 Mar 2024 16:11:23 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>使用 chezmoi &amp; vscode, 管理你的 dotfiles</title>
+      <link>https://yeshan333.github.io/2024/03/23/using-chezmoi-to-manage-dotfiles/</link>
+      <guid>https://yeshan333.github.io/2024/03/23/using-chezmoi-to-manage-dotfiles/</guid>
+      <pubDate>Sat, 23 Mar 2024 16:11:23 GMT</pubDate>
+      
+      <description>使用 chezmoi &amp; vscode, 管理你的 dotfiles</description>
+      
+      
+      
+      
+      <category domain="https://yeshan333.github.io/categories/dotfiles/">dotfiles</category>
+      
+      
+      <category domain="https://yeshan333.github.io/tags/chezmoi/">chezmoi</category>
+      
+      <category domain="https://yeshan333.github.io/tags/dotfiles/">dotfiles</category>
+      
+      
+      <comments>https://yeshan333.github.io/2024/03/23/using-chezmoi-to-manage-dotfiles/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>使用 WXT 开发浏览器插件（上手使用篇）</title>
@@ -694,13 +717,13 @@
 &lt;!-- 我们都一样 --&gt;
 
 
-    &lt;div id=&quot;aplayer-oKCChWVs&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+    &lt;div id=&quot;aplayer-rwqvkhWv&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
          data-id=&quot;1340001174&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;true&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
     &gt;&lt;/div&gt;
 
 
 
-    &lt;div id=&quot;aplayer-yLIEluON&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+    &lt;div id=&quot;aplayer-NGlSCwlL&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
          data-id=&quot;191252&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;false&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
     &gt;&lt;/div&gt;</description>
       
@@ -903,29 +926,6 @@
       
       
       <comments>https://yeshan333.github.io/2021/07/10/checksum-gpg-tools/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>使用 osmosfeed 创建自己的 Web RSS 阅读器</title>
-      <link>https://yeshan333.github.io/2021/06/29/osmosfeed-rss-reader/</link>
-      <guid>https://yeshan333.github.io/2021/06/29/osmosfeed-rss-reader/</guid>
-      <pubDate>Tue, 29 Jun 2021 15:34:20 GMT</pubDate>
-      
-      <description>&lt;p&gt;之前一直用 App Store 上的一个 RSS 阅读器 RSS Reader Prime 订阅技术周刊和 dalao 的技术博客，不得不说挺好用的，奈何全线下架了，现在就平板上保留着这个 App，手机上没有（国区好用的 RSS 阅读器基本无了）。有时候又想着用手机读读技术文章（板子太大，不好拿），于是乎翻了下 GitHub &lt;a href=&quot;https://github.com/topics/rss-reader&quot;&gt;rss-reader topic&lt;/a&gt; 下的相关阅读器项目，挑了手基于 Web 和 GitHub Pages 的 RSS 阅读器（Web 才是真的“跨端”，2333~），水篇文章微微记录下。&lt;/p&gt;</description>
-      
-      
-      
-      
-      <category domain="https://yeshan333.github.io/categories/blog/">blog</category>
-      
-      <category domain="https://yeshan333.github.io/categories/RSS/">RSS</category>
-      
-      
-      <category domain="https://yeshan333.github.io/tags/RSS-Reader/">RSS Reader</category>
-      
-      
-      <comments>https://yeshan333.github.io/2021/06/29/osmosfeed-rss-reader/#disqus_thread</comments>
       
     </item>
     
