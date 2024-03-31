@@ -445,8 +445,8 @@
     
     <item>
       <title>(译) Understanding Elixir Macros, Part 3 - Getting into the AST</title>
-      <link>https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-3-gettingto-the-ast/</link>
-      <guid>https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-3-gettingto-the-ast/</guid>
+      <link>https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-3-getting-into-the-ast/</link>
+      <guid>https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-3-getting-into-the-ast/</guid>
       <pubDate>Sun, 19 Jun 2022 10:53:07 GMT</pubDate>
       
         
@@ -469,7 +469,7 @@
       <category domain="https://yeshan333.github.io/tags/Elixir-Macros/">Elixir-Macros</category>
       
       
-      <comments>https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-3-gettingto-the-ast/#disqus_thread</comments>
+      <comments>https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-3-getting-into-the-ast/#disqus_thread</comments>
       
     </item>
     
@@ -717,13 +717,13 @@
 &lt;!-- 我们都一样 --&gt;
 
 
-    &lt;div id=&quot;aplayer-EXCCazBy&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+    &lt;div id=&quot;aplayer-FYTFyNJL&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
          data-id=&quot;1340001174&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;true&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
     &gt;&lt;/div&gt;
 
 
 
-    &lt;div id=&quot;aplayer-gkVthwhG&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+    &lt;div id=&quot;aplayer-UzsRygWk&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
          data-id=&quot;191252&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;false&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
     &gt;&lt;/div&gt;</description>
       
