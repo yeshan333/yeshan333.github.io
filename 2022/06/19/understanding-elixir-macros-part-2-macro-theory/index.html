@@ -34,15 +34,15 @@
         <link rel="alternate" href="/atom.xml" title="ShanSan" type="application/atom+xml">
         <link rel="alternate" href="/rss2.xml" title="ShanSan" type="application/rss+xml">
   <!-- 页面元数据 -->
-  <title>(译) Understanding Elixir Macros, Part 2 - Micro Theory - ShanSan</title>
+  <title>(译) Understanding Elixir Macros, Part 2 - Macro Theory - ShanSan</title>
   <meta name="keywords" content="Elixir Macros,ShanSan,Cloudys,shan333,shansan">
   <meta desc name="description" content="ShanSan's Blog - ShanSan - ShanSan">
   
 <meta property="og:type" content="article">
-<meta property="og:title" content="(译) Understanding Elixir Macros, Part 2 - Micro Theory">
+<meta property="og:title" content="(译) Understanding Elixir Macros, Part 2 - Macro Theory">
 <meta property="og:url" content="https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-2-macro-theory/index.html">
 <meta property="og:site_name" content="ShanSan">
-<meta property="og:description" content="Elixir Macros 系列文章译文  [1] (译) Understanding Elixir Macros, Part 1 Basics [2] (译) Understanding Elixir Macros, Part 2 - Micro Theory [3] (译) Understanding Elixir Macros, Part 3 - Getting into the AST">
+<meta property="og:description" content="Elixir Macros 系列文章译文  [1] (译) Understanding Elixir Macros, Part 1 Basics [2] (译) Understanding Elixir Macros, Part 2 - Macro Theory [3] (译) Understanding Elixir Macros, Part 3 - Getting into the AST">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
 <meta property="article:published_time" content="2022-06-19T00:36:03.000Z">
@@ -1909,7 +1909,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1711942117263),
+    lastupdate: new Date(1711942628008),
     sidebar: {
       for_page: ["blogger","webinfo","my_follow","category","tagcloud","wonderful_link","qrcode"],
       for_post: ["toc"],
@@ -2862,7 +2862,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     
     
       <h1 class="title" itemprop="name headline">
-        (译) Understanding Elixir Macros, Part 2 - Micro Theory
+        (译) Understanding Elixir Macros, Part 2 - Macro Theory
       </h1>
       <div class='new-meta-box'>
         
@@ -2935,7 +2935,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <p>Elixir Macros 系列文章译文</p>
 <ul>
 <li>[1] <a target="_blank" rel="noopener" href="https://shan333.cn/2022/06/18/understanding-elixir-macros-part-1-basics/">(译) Understanding Elixir Macros, Part 1 Basics</a></li>
-<li>[2] <a target="_blank" rel="noopener" href="https://shan333.cn/2022/06/19/understanding-elixir-macros-part-2-macro-theory/">(译) Understanding Elixir Macros, Part 2 - Micro Theory</a></li>
+<li>[2] <a target="_blank" rel="noopener" href="https://shan333.cn/2022/06/19/understanding-elixir-macros-part-2-macro-theory/">(译) Understanding Elixir Macros, Part 2 - Macro Theory</a></li>
 <li>[3] <a target="_blank" rel="noopener" href="https://shan333.cn/2022/06/19/understanding-elixir-macros-part-3-getting-into-the-ast/">(译) Understanding Elixir Macros, Part 3 - Getting into the AST</a></li>
 <li>[4] <a target="_blank" rel="noopener" href="https://shan333.cn/2022/06/19/understanding-elixir-macros-part-4-diving-deeper/">(译) Understanding Elixir Macros, Part 4 - Diving Deeper</a></li>
 <li>[5] <a target="_blank" rel="noopener" href="https://shan333.cn/2022/06/19/understanding-elixir-macros-part-5-reshaping-the-ast/">(译) Understanding Elixir Macros, Part 5 - Reshaping the AST</a></li>
@@ -3183,7 +3183,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-2-macro-theory/&title=(译) Understanding Elixir Macros, Part 2 - Micro Theory - ShanSan&summary="
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-2-macro-theory/&title=(译) Understanding Elixir Macros, Part 2 - Macro Theory - ShanSan&summary="
           
           >
           
@@ -3195,7 +3195,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-2-macro-theory/&title=(译) Understanding Elixir Macros, Part 2 - Micro Theory - ShanSan&summary="
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-2-macro-theory/&title=(译) Understanding Elixir Macros, Part 2 - Macro Theory - ShanSan&summary="
           
           >
           
@@ -3207,7 +3207,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://service.weibo.com/share/share.php?url=https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-2-macro-theory/&title=(译) Understanding Elixir Macros, Part 2 - Micro Theory - ShanSan&summary="
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-2-macro-theory/&title=(译) Understanding Elixir Macros, Part 2 - Macro Theory - ShanSan&summary="
           
           >
           
@@ -3229,7 +3229,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-telegram" title="" rel="external nofollow noopener noreferrer noopener"
           
-            target="_blank" href="https://t.me/share/url?url=https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-2-macro-theory/&text=(译) Understanding Elixir Macros, Part 2 - Micro Theory - ShanSan"
+            target="_blank" href="https://t.me/share/url?url=https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-2-macro-theory/&text=(译) Understanding Elixir Macros, Part 2 - Macro Theory - ShanSan"
           
           >
           
@@ -4575,7 +4575,7 @@ window.matchMedia('(prefers-color-scheme: light)').addListener(darkModelListener
 </script>
 
 
-  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"ShanSan","url":"https://yeshan333.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"ShanSan","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://yeshan333.github.io/","sameAs":["https://github.com/volantis-x"],"description":"ShanSan's Blog"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://yeshan333.github.io/","name":"ShanSan"}},{"@type":"ListItem","position":2,"item":{"@id":"https://yeshan333.github.io/categories/Elixir/","name":"Elixir"}},{"@type":"ListItem","position":3,"item":{"@id":"https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-2-macro-theory/","name":"(译) Understanding Elixir Macros, Part 2 - Micro Theory"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"ShanSan","url":"https://yeshan333.github.io/","keywords":["ShanSan","Cloudys","shan333","shansan"],"description":"ShanSan's Blog","author":{"@type":"Person","name":"ShanSan","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://yeshan333.github.io/","description":"ShanSan's Blog"},"publisher":{"@type":"Organization","name":"ShanSan","url":"https://yeshan333.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://yeshan333.github.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"(译) Understanding Elixir Macros, Part 2 - Micro Theory","description":"ShanSan's Blog","inLanguage":["zh-CN","en","zh-TW","default"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-2-macro-theory/"},"author":{"@type":"Person","name":"ShanSan","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://yeshan333.github.io/"},"publisher":{"@type":"Organization","name":"ShanSan","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-2-macro-theory/","wordCount":0,"datePublished":"2022-06-19T00:36:03.000Z","dateModified":"2022-06-19T00:36:03.000Z","articleSection":"Elixir","keywords":"Elixir-Macros","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
+  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"ShanSan","url":"https://yeshan333.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"ShanSan","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://yeshan333.github.io/","sameAs":["https://github.com/volantis-x"],"description":"ShanSan's Blog"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://yeshan333.github.io/","name":"ShanSan"}},{"@type":"ListItem","position":2,"item":{"@id":"https://yeshan333.github.io/categories/Elixir/","name":"Elixir"}},{"@type":"ListItem","position":3,"item":{"@id":"https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-2-macro-theory/","name":"(译) Understanding Elixir Macros, Part 2 - Macro Theory"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"ShanSan","url":"https://yeshan333.github.io/","keywords":["ShanSan","Cloudys","shan333","shansan"],"description":"ShanSan's Blog","author":{"@type":"Person","name":"ShanSan","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://yeshan333.github.io/","description":"ShanSan's Blog"},"publisher":{"@type":"Organization","name":"ShanSan","url":"https://yeshan333.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://yeshan333.github.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"(译) Understanding Elixir Macros, Part 2 - Macro Theory","description":"ShanSan's Blog","inLanguage":["zh-CN","en","zh-TW","default"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-2-macro-theory/"},"author":{"@type":"Person","name":"ShanSan","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://yeshan333.github.io/"},"publisher":{"@type":"Organization","name":"ShanSan","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-2-macro-theory/","wordCount":0,"datePublished":"2022-06-19T00:36:03.000Z","dateModified":"2022-06-19T00:36:03.000Z","articleSection":"Elixir","keywords":"Elixir-Macros","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
 
 
 

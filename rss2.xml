@@ -474,7 +474,7 @@
     </item>
     
     <item>
-      <title>(译) Understanding Elixir Macros, Part 2 - Micro Theory</title>
+      <title>(译) Understanding Elixir Macros, Part 2 - Macro Theory</title>
       <link>https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-2-macro-theory/</link>
       <guid>https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-2-macro-theory/</guid>
       <pubDate>Sun, 19 Jun 2022 00:36:03 GMT</pubDate>
@@ -717,13 +717,13 @@
 &lt;!-- 我们都一样 --&gt;
 
 
-    &lt;div id=&quot;aplayer-HbheREie&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+    &lt;div id=&quot;aplayer-CFoPmOoP&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
          data-id=&quot;1340001174&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;true&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
     &gt;&lt;/div&gt;
 
 
 
-    &lt;div id=&quot;aplayer-ZrCxGsqk&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+    &lt;div id=&quot;aplayer-XspqspCY&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
          data-id=&quot;191252&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;false&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
     &gt;&lt;/div&gt;</description>
       
