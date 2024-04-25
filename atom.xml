@@ -6,7 +6,7 @@
   <link href="https://yeshan333.github.io/atom.xml" rel="self"/>
   
   <link href="https://yeshan333.github.io/"/>
-  <updated>2024-03-23T16:11:23.000Z</updated>
+  <updated>2024-04-25T23:15:01.000Z</updated>
   <id>https://yeshan333.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>使用 vfox-erlang 安装管理多个 Erlang/OTP 版本</title>
+    <link href="https://yeshan333.github.io/2024/04/25/using-vfox-erlang-to-manage-erlang-version/"/>
+    <id>https://yeshan333.github.io/2024/04/25/using-vfox-erlang-to-manage-erlang-version/</id>
+    <published>2024-04-25T23:15:01.000Z</published>
+    <updated>2024-04-25T23:15:01.000Z</updated>
+    
+    
+    <summary type="html">使用 vfox-erlang 安装管理多个 Erlang/OTP 版本</summary>
+    
+    
+    
+    <category term="vfox" scheme="https://yeshan333.github.io/categories/vfox/"/>
+    
+    
+    <category term="Erlang/OTP" scheme="https://yeshan333.github.io/tags/Erlang-OTP/"/>
+    
+    <category term="vfox" scheme="https://yeshan333.github.io/tags/vfox/"/>
+    
+    <category term="vfox-plugin" scheme="https://yeshan333.github.io/tags/vfox-plugin/"/>
+    
+    <category term="vfox-erlang" scheme="https://yeshan333.github.io/tags/vfox-erlang/"/>
+    
+  </entry>
   
   <entry>
     <title>使用 chezmoi &amp; vscode, 管理你的 dotfiles</title>
@@ -667,13 +692,13 @@
 &lt;!-- 我们都一样 --&gt;
 
 
-    &lt;div id=&quot;aplayer-CFoPmOoP&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+    &lt;div id=&quot;aplayer-pjETPAOJ&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
          data-id=&quot;1340001174&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;true&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
     &gt;&lt;/div&gt;
 
 
 
-    &lt;div id=&quot;aplayer-XspqspCY&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+    &lt;div id=&quot;aplayer-TtvAWrVe&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
          data-id=&quot;191252&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;false&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
     &gt;&lt;/div&gt;</summary>
     
@@ -835,29 +860,6 @@
     <category term="Docker" scheme="https://yeshan333.github.io/tags/Docker/"/>
     
     <category term="Monitoring" scheme="https://yeshan333.github.io/tags/Monitoring/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>对下载软件/文件进行校验的工具（Checksum and GPG）</title>
-    <link href="https://yeshan333.github.io/2021/07/10/checksum-gpg-tools/"/>
-    <id>https://yeshan333.github.io/2021/07/10/checksum-gpg-tools/</id>
-    <published>2021-07-10T18:23:57.000Z</published>
-    <updated>2021-07-10T18:23:57.000Z</updated>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;之前装软件一直都没有验证安装文件的习惯，信息安全意识不高，碰巧最近没啥事，微微写篇文章记录下校验工具（互联网http、https、ftp 服务并没有那么安全，是可以被劫持篡改。老装软件选手了，是该养成个校验文件的习惯了）。&lt;/p&gt;
-&lt;p&gt;在互联网下载软件&amp;#x2F;文件的时候经常会看到官方提供了一段⌈校验和（checksum）⌋或包含校验和的文件供校验。常见的校验和有 md5、SHA 家族等。还有部分软件&amp;#x2F;文件会提供 GPG 校验文件（signature file, SIG）给下载者进行校验。&lt;/p&gt;
-&lt;p&gt;来看看这两种校验方式相关的工具。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Cryptography" scheme="https://yeshan333.github.io/categories/Cryptography/"/>
-    
-    
-    <category term="MD5" scheme="https://yeshan333.github.io/tags/MD5/"/>
-    
-    <category term="GPG" scheme="https://yeshan333.github.io/tags/GPG/"/>
     
   </entry>
   
