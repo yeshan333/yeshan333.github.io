@@ -1912,7 +1912,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1714064769574),
+    lastupdate: new Date(1714149215264),
     sidebar: {
       for_page: ["blogger","webinfo","my_follow","category","tagcloud","wonderful_link","qrcode"],
       for_post: ["toc"],
@@ -2936,9 +2936,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
   <div id="layoutHelper-page-plugins"></div>
   <div id="post-body" itemprop="articleBody">
-    <p>vfox (version fox) 是一款跨平台、可拓展的通用版本管理器. 支持原生 Windows 以及 Unix-like 系统! 通过它, 可以快速安装和切换开发环境的软件版本. 最近给 vfox 水了几个插件, 其中就有管理多个 Erlang&#x2F;OTP 版本的, 很喜欢他的插件管理机制. 之前也有使用过类似的 asdf 插件, 不过 asdf 之前的使用体验不怎么好, vfox 现在支持的插件已经非常之多了, 已经可以管理大多数语言的版本. </p>
+    <p>vfox (version fox) 是一款跨平台、可拓展的通用版本管理器. 支持原生 Windows 以及 Unix-like 系统! 通过它, 可以快速安装和切换开发环境的软件版本. 最近给 vfox 水了几个插件, 其中就有管理多个 Erlang&#x2F;OTP 版本的, 很喜欢他的插件管理机制. 之前也有使用过类似的工具 <a target="_blank" rel="noopener" href="https://github.com/asdf-vm/asdf">asdf</a>, 不过 asdf 之前的使用体验不怎么好 (木有拉踩的意思~, asdf 的生态是非常强大的), vfox 现在支持的插件已经非常之多了, 已经可以管理大多数常见主流语言的版本. </p>
 <p>vfox 的版本管理工作流大体上是和 asdf 类似的, 不过性能要好一点 (5 倍左右), 毕竟 asdf 核心是 shell 写的. 官方文档也给出了一份基准测试, 参见 <a target="_blank" rel="noopener" href="https://vfox.lhan.me/misc/vs-asdf.html">《Comparison with asdf-vm》</a>：</p>
 <p><img src="https://vfox.lhan.me/performence.png" class="lazyload" data-srcset="https://vfox.lhan.me/performence.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="https://vfox.lhan.me/performence.png"></p>
+<p>vfox 和 asdf 一样, 可以通过 <code>.tool-version</code> 配置文件设置全局和项目级使用到的版本, 这意味着如果你从 asdf 切换到 vfox, 相当的方便.</p>
 <h2 id="vfox-erlang-的使用"><a href="#vfox-erlang-的使用" class="headerlink" title="vfox-erlang 的使用"></a>vfox-erlang 的使用</h2><p>本篇文章主要介绍怎么使用 <a target="_blank" rel="noopener" href="https://github.com/version-fox/vfox-erlang">vfox-erlang</a> 插件, 在同一台机器上管理多个 Erlang&#x2F;OTP 的版本. 一般在开发环境拥有多个版本的 Erlang&#x2F;OTP 供测试比对也是常见的需求. </p>
 <p>目前插件的实现上实际的安装过程是通过从源码进行编译安装 Erlang&#x2F;OTP 的, 所以暂时只支持在 Unix-like 系统 (比如 ubuntu、macos darwin 等) 上安装管理 Erlang&#x2F;OTP 的版本 (官方其实提供了 exe 安装器在 windows, 还没时间去研究加上去 2333~, 不过在 windows 使用 <a target="_blank" rel="noopener" href="https://www.erlang.org/">Erlang</a> 的场景一般也比较少)。</p>
 <blockquote>
