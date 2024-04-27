@@ -15,8 +15,33 @@
     <atom:link href="https://yeshan333.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>ShanSan&#39;s Blog</description>
-    <pubDate>Thu, 25 Apr 2024 23:15:01 GMT</pubDate>
+    <pubDate>Sat, 27 Apr 2024 15:36:31 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>通过 vfox 安装管理多版本 Erlang 和 Elixir</title>
+      <link>https://yeshan333.github.io/2024/04/27/install-erlang-and-elixir-via-vfox/</link>
+      <guid>https://yeshan333.github.io/2024/04/27/install-erlang-and-elixir-via-vfox/</guid>
+      <pubDate>Sat, 27 Apr 2024 15:36:31 GMT</pubDate>
+      
+      <description>通过 vfox 安装管理多版本 Erlang 和 Elixir</description>
+      
+      
+      
+      
+      <category domain="https://yeshan333.github.io/categories/vfox/">vfox</category>
+      
+      
+      <category domain="https://yeshan333.github.io/tags/Elixir/">Elixir</category>
+      
+      <category domain="https://yeshan333.github.io/tags/Erlang/">Erlang</category>
+      
+      <category domain="https://yeshan333.github.io/tags/vfox/">vfox</category>
+      
+      
+      <comments>https://yeshan333.github.io/2024/04/27/install-erlang-and-elixir-via-vfox/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>使用 vfox-erlang 安装管理多个 Erlang/OTP 版本</title>
@@ -32,9 +57,9 @@
       <category domain="https://yeshan333.github.io/categories/vfox/">vfox</category>
       
       
-      <category domain="https://yeshan333.github.io/tags/Erlang-OTP/">Erlang/OTP</category>
-      
       <category domain="https://yeshan333.github.io/tags/vfox/">vfox</category>
+      
+      <category domain="https://yeshan333.github.io/tags/Erlang-OTP/">Erlang/OTP</category>
       
       <category domain="https://yeshan333.github.io/tags/vfox-plugin/">vfox-plugin</category>
       
@@ -744,13 +769,13 @@
 &lt;!-- 我们都一样 --&gt;
 
 
-    &lt;div id=&quot;aplayer-dxBpLPQv&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+    &lt;div id=&quot;aplayer-oKdAUHFn&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
          data-id=&quot;1340001174&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;true&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
     &gt;&lt;/div&gt;
 
 
 
-    &lt;div id=&quot;aplayer-CmtEXJVO&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+    &lt;div id=&quot;aplayer-qBuDMxZS&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
          data-id=&quot;191252&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;false&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
     &gt;&lt;/div&gt;</description>
       
@@ -895,39 +920,6 @@
       
       
       <comments>https://yeshan333.github.io/2021/09/25/common-use-linux-network-command/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>基于 Docker 搭建一个最小化的 Prometheus Federation「联邦」集群</title>
-      <link>https://yeshan333.github.io/2021/08/28/prometheus-federation/</link>
-      <guid>https://yeshan333.github.io/2021/08/28/prometheus-federation/</guid>
-      <pubDate>Sat, 28 Aug 2021 17:25:18 GMT</pubDate>
-      
-      <description>&lt;blockquote&gt;
-&lt;p&gt;一不小心就八月末了，我敲，最近大部分的时间都在了解 Prometheus，一直想“搂”篇文章出来，奈何一直在墨迹，是时候了，不然就九月了，完不成博客的 Flag 了，233333。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;本篇文章主要介绍了 Promethues Federation 集群化机制 &amp;amp; 基于 Docker 搭建一个最小化的 Prometheus Federation 集群娱乐环境的相关操作。不是 Step By Step 的。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/yeshan333/blog_images@main/images/%E4%B9%B1%E6%9D%80.gif&quot; alt=&quot;乱杀&quot;&gt;&lt;/p&gt;</description>
-      
-      
-      
-      
-      <category domain="https://yeshan333.github.io/categories/Monitoring/">Monitoring</category>
-      
-      
-      <category domain="https://yeshan333.github.io/tags/Prometheus/">Prometheus</category>
-      
-      <category domain="https://yeshan333.github.io/tags/Grafana/">Grafana</category>
-      
-      <category domain="https://yeshan333.github.io/tags/Federation/">Federation</category>
-      
-      <category domain="https://yeshan333.github.io/tags/Docker/">Docker</category>
-      
-      <category domain="https://yeshan333.github.io/tags/Monitoring/">Monitoring</category>
-      
-      
-      <comments>https://yeshan333.github.io/2021/08/28/prometheus-federation/#disqus_thread</comments>
       
     </item>
     
