@@ -6,7 +6,7 @@
   <link href="https://yeshan333.github.io/atom.xml" rel="self"/>
   
   <link href="https://yeshan333.github.io/"/>
-  <updated>2024-04-27T15:36:31.000Z</updated>
+  <updated>2024-05-18T15:02:09.000Z</updated>
   <id>https://yeshan333.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>etcd 和 MongoDB 的混沌（故障）测试方法</title>
+    <link href="https://yeshan333.github.io/2024/05/18/etcd-and-mongodb-chaos-testing/"/>
+    <id>https://yeshan333.github.io/2024/05/18/etcd-and-mongodb-chaos-testing/</id>
+    <published>2024-05-18T15:02:09.000Z</published>
+    <updated>2024-05-18T15:02:09.000Z</updated>
+    
+    
+    <summary type="html">etcd 和 MongoDB 的混沌（故障）测试方法</summary>
+    
+    
+    
+    <category term="Chaos" scheme="https://yeshan333.github.io/categories/Chaos/"/>
+    
+    
+    <category term="Chaos Testing" scheme="https://yeshan333.github.io/tags/Chaos-Testing/"/>
+    
+    <category term="etcd" scheme="https://yeshan333.github.io/tags/etcd/"/>
+    
+    <category term="MongoDB" scheme="https://yeshan333.github.io/tags/MongoDB/"/>
+    
+  </entry>
   
   <entry>
     <title>通过 vfox 安装管理多版本 Erlang 和 Elixir</title>
@@ -159,9 +182,9 @@
     <category term="go-ycsb" scheme="https://yeshan333.github.io/categories/go-ycsb/"/>
     
     
-    <category term="Go" scheme="https://yeshan333.github.io/tags/Go/"/>
-    
     <category term="etcd" scheme="https://yeshan333.github.io/tags/etcd/"/>
+    
+    <category term="Go" scheme="https://yeshan333.github.io/tags/Go/"/>
     
     <category term="YCSB" scheme="https://yeshan333.github.io/tags/YCSB/"/>
     
@@ -715,13 +738,13 @@
 &lt;!-- 我们都一样 --&gt;
 
 
-    &lt;div id=&quot;aplayer-NamfkgWq&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+    &lt;div id=&quot;aplayer-OUVtdavu&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
          data-id=&quot;1340001174&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;true&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
     &gt;&lt;/div&gt;
 
 
 
-    &lt;div id=&quot;aplayer-QrhgFhyW&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+    &lt;div id=&quot;aplayer-IhNYkBZn&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
          data-id=&quot;191252&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;false&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
     &gt;&lt;/div&gt;</summary>
     
@@ -833,25 +856,6 @@
     <category term="CPU Bound" scheme="https://yeshan333.github.io/tags/CPU-Bound/"/>
     
     <category term="IO Bound" scheme="https://yeshan333.github.io/tags/IO-Bound/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>常用的 Linux 网络相关的命令</title>
-    <link href="https://yeshan333.github.io/2021/09/25/common-use-linux-network-command/"/>
-    <id>https://yeshan333.github.io/2021/09/25/common-use-linux-network-command/</id>
-    <published>2021-09-25T16:34:52.000Z</published>
-    <updated>2021-09-25T16:34:52.000Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;水文警告⚠😂，最近这些玩意用得多，微微记录一下，目前写的比较水，后面应该会补点实践经验🚩。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Linux" scheme="https://yeshan333.github.io/categories/Linux/"/>
-    
-    
-    <category term="Linux" scheme="https://yeshan333.github.io/tags/Linux/"/>
     
   </entry>
   

@@ -1,3 +1,4 @@
+https://yeshan333.github.io/2024/05/18/etcd-and-mongodb-chaos-testing/
 https://yeshan333.github.io/2024/04/27/install-erlang-and-elixir-via-vfox/
 https://yeshan333.github.io/2024/04/25/using-vfox-erlang-to-manage-erlang-version/
 https://yeshan333.github.io/2024/03/23/using-chezmoi-to-manage-dotfiles/
@@ -7,4 +8,3 @@ https://yeshan333.github.io/2024/03/04/awesome-tech-weekly-zh/
 https://yeshan333.github.io/2024/02/29/using-ycsb-benchmark-etcd/
 https://yeshan333.github.io/2024/02/19/elixir-github-codespace-dev/
 https://yeshan333.github.io/2024/02/07/become-a-romantic-muscian/
-https://yeshan333.github.io/2023/08/12/elixir-deps-debug-skills/

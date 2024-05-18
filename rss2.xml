@@ -15,8 +15,33 @@
     <atom:link href="https://yeshan333.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>ShanSan&#39;s Blog</description>
-    <pubDate>Sat, 27 Apr 2024 15:36:31 GMT</pubDate>
+    <pubDate>Sat, 18 May 2024 15:02:09 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>etcd 和 MongoDB 的混沌（故障）测试方法</title>
+      <link>https://yeshan333.github.io/2024/05/18/etcd-and-mongodb-chaos-testing/</link>
+      <guid>https://yeshan333.github.io/2024/05/18/etcd-and-mongodb-chaos-testing/</guid>
+      <pubDate>Sat, 18 May 2024 15:02:09 GMT</pubDate>
+      
+      <description>etcd 和 MongoDB 的混沌（故障）测试方法</description>
+      
+      
+      
+      
+      <category domain="https://yeshan333.github.io/categories/Chaos/">Chaos</category>
+      
+      
+      <category domain="https://yeshan333.github.io/tags/Chaos-Testing/">Chaos Testing</category>
+      
+      <category domain="https://yeshan333.github.io/tags/etcd/">etcd</category>
+      
+      <category domain="https://yeshan333.github.io/tags/MongoDB/">MongoDB</category>
+      
+      
+      <comments>https://yeshan333.github.io/2024/05/18/etcd-and-mongodb-chaos-testing/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>通过 vfox 安装管理多版本 Erlang 和 Elixir</title>
@@ -172,9 +197,9 @@
       <category domain="https://yeshan333.github.io/categories/go-ycsb/">go-ycsb</category>
       
       
-      <category domain="https://yeshan333.github.io/tags/Go/">Go</category>
-      
       <category domain="https://yeshan333.github.io/tags/etcd/">etcd</category>
+      
+      <category domain="https://yeshan333.github.io/tags/Go/">Go</category>
       
       <category domain="https://yeshan333.github.io/tags/YCSB/">YCSB</category>
       
@@ -769,13 +794,13 @@
 &lt;!-- 我们都一样 --&gt;
 
 
-    &lt;div id=&quot;aplayer-NamfkgWq&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+    &lt;div id=&quot;aplayer-OUVtdavu&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
          data-id=&quot;1340001174&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;true&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
     &gt;&lt;/div&gt;
 
 
 
-    &lt;div id=&quot;aplayer-QrhgFhyW&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+    &lt;div id=&quot;aplayer-IhNYkBZn&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
          data-id=&quot;191252&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;false&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
     &gt;&lt;/div&gt;</description>
       
@@ -899,27 +924,6 @@
       
       
       <comments>https://yeshan333.github.io/2021/10/07/io-bound-cpu-bound-with-average-load/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>常用的 Linux 网络相关的命令</title>
-      <link>https://yeshan333.github.io/2021/09/25/common-use-linux-network-command/</link>
-      <guid>https://yeshan333.github.io/2021/09/25/common-use-linux-network-command/</guid>
-      <pubDate>Sat, 25 Sep 2021 16:34:52 GMT</pubDate>
-      
-      <description>&lt;p&gt;水文警告⚠😂，最近这些玩意用得多，微微记录一下，目前写的比较水，后面应该会补点实践经验🚩。&lt;/p&gt;</description>
-      
-      
-      
-      
-      <category domain="https://yeshan333.github.io/categories/Linux/">Linux</category>
-      
-      
-      <category domain="https://yeshan333.github.io/tags/Linux/">Linux</category>
-      
-      
-      <comments>https://yeshan333.github.io/2021/09/25/common-use-linux-network-command/#disqus_thread</comments>
       
     </item>
     
