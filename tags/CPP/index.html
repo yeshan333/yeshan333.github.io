@@ -1910,9 +1910,9 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1716648081069),
+    lastupdate: new Date(1716732457489),
     sidebar: {
-      for_page: ["blogger","webinfo","my_follow","category","tagcloud","wonderful_link","qrcode"],
+      for_page: ["blogger","webinfo","my_follow","category","tagcloud","wonderful_link"],
       for_post: ["toc"],
       webinfo: {
         lastupd: {
@@ -3823,7 +3823,7 @@ int main(int argc,char *argv[])
       
         <div class="webinfo-item">
           <div>最后活动时间：</div>
-          <div id="last-update-show">2024-05-25 日</div>
+          <div id="last-update-show">2024-05-26 日</div>
         </div>
       
     </div>
@@ -4435,27 +4435,6 @@ int main(int argc,char *argv[])
     
   
 
-  
-    
-    
-      
-<section class="widget qrcode desktop mobile pjax">
-  
-
-  <div class='content article-entry'>
-    
-      <img src='https://ospy.shan333.cn/blog/qq_qrcode.jpg'
-      />
-    
-      <img src='https://ospy.shan333.cn/blog/wechat_qrcode.png'
-      />
-    
-  </div>
-</section>
-
-    
-  
-
 
 <div class="widget-sticky pjax">
 
@@ -4463,6 +4442,10 @@ int main(int argc,char *argv[])
 
 
 <!-- 没有 pjax 占位会报错 万恶的 pjax -->
+
+  <div class="pjax">
+    <!-- pjax占位 -->
+  </div>
 
   <div class="pjax">
     <!-- pjax占位 -->
@@ -5446,41 +5429,6 @@ window.matchMedia('(prefers-color-scheme: light)').addListener(darkModelListener
   volantis.requestAnimationFrame(pjax_highlightjs_copyCode)
   volantis.pjax.push(pjax_highlightjs_copyCode)
 
-</script>
-
-
-
-
-
-
-  
-
-
-
-
-<script>
-  const genUuid = () => {
-    let s = [];
-    let hexDigits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    for (let i = 0; i < 36; i++) {
-      s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1)
-    }
-    s[14] = "4"
-    s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1)
-    s[8] = s[13] = s[18] = s[23] = "-"
-    let uuid = s.join("")
-    return uuid;
-  }
-  setTimeout(() => {
-    let uin = localStorage.getItem('Aegis_UIN');
-    if(!uin) {
-      uin = genUuid();
-      localStorage.setItem('Aegis_UIN', uin);
-    }
-    volantis.js("https://cdn-go.cn/aegis/aegis-sdk/latest/aegis.min.js").then(()=>{
-      const aegis=new Aegis({id:"YrvKLIbY6p854Lqnb4",reportApiSpeed:true,reportAssetSpeed:true,spa:true,uin:uin});
-    })
-  }, 1000)
 </script>
 
 
