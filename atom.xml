@@ -6,7 +6,7 @@
   <link href="https://yeshan333.github.io/atom.xml" rel="self"/>
   
   <link href="https://yeshan333.github.io/"/>
-  <updated>2024-05-25T17:05:12.000Z</updated>
+  <updated>2024-05-29T00:29:49.000Z</updated>
   <id>https://yeshan333.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>手把手教你如何在 Sider (ChatGPT Sidebar) 中免费使用通义千问</title>
+    <link href="https://yeshan333.github.io/2024/05/29/free-to-use-sider-with-qwen/"/>
+    <id>https://yeshan333.github.io/2024/05/29/free-to-use-sider-with-qwen/</id>
+    <published>2024-05-29T00:29:49.000Z</published>
+    <updated>2024-05-29T00:29:49.000Z</updated>
+    
+    
+    <summary type="html">手把手教你如何在 Sider (ChatGPT Sidebar) 中免费使用通义千问</summary>
+    
+    
+    
+    <category term="大模型" scheme="https://yeshan333.github.io/categories/%E5%A4%A7%E6%A8%A1%E5%9E%8B/"/>
+    
+    <category term="LLMs" scheme="https://yeshan333.github.io/categories/LLMs/"/>
+    
+    <category term="Sider" scheme="https://yeshan333.github.io/categories/Sider/"/>
+    
+    
+    <category term="Sider" scheme="https://yeshan333.github.io/tags/Sider/"/>
+    
+    <category term="通义千问" scheme="https://yeshan333.github.io/tags/%E9%80%9A%E4%B9%89%E5%8D%83%E9%97%AE/"/>
+    
+  </entry>
   
   <entry>
     <title>使用 vscode 插件 vscode-jenkins-pipeline-linter-connector 和 LLMs 大模型校验你的 Jenkinsfile</title>
@@ -765,13 +790,13 @@
 &lt;!-- 我们都一样 --&gt;
 
 
-    &lt;div id=&quot;aplayer-dgWFchEA&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+    &lt;div id=&quot;aplayer-BeuEGPom&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
          data-id=&quot;1340001174&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;true&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
     &gt;&lt;/div&gt;
 
 
 
-    &lt;div id=&quot;aplayer-iCrcFcpU&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+    &lt;div id=&quot;aplayer-imTKRxUH&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
          data-id=&quot;191252&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;false&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
     &gt;&lt;/div&gt;</summary>
     
@@ -828,28 +853,6 @@
     
     
     <category term="blog" scheme="https://yeshan333.github.io/tags/blog/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>使用 Kubeadm 搭建个公网 k8s 集群（单控制平面集群）</title>
-    <link href="https://yeshan333.github.io/2021/10/24/create-k8s-cluster/"/>
-    <id>https://yeshan333.github.io/2021/10/24/create-k8s-cluster/</id>
-    <published>2021-10-24T13:51:19.000Z</published>
-    <updated>2021-10-24T13:51:19.000Z</updated>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;YY：国庆的时候趁着阿里云和腾讯云的轻量级服务器做促销一不小心剁了个手😎😢，2 Cores，4G RAM 还是阔以的，既然买了，那不能不用呀🚩，之前一直想着搭建个 k8s 集群玩玩，本地开发机虽然起了个 k8s（拿 Docker Desktop 起的，不 dei 劲），但就一个 Node，不爽，对 k8s 的体验不到位😒，1024，是时候用起来了，折腾一下，顺便让最近浮躁的心冷静一下。&lt;/p&gt;
-&lt;p&gt;这次拿官方的 Kubeadm 耍一下，以阿里云的轻量级应用服务器为 Control 节点，腾讯云的轻量级应用服务器为 Worker 节点，说干就干。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Kubernetes" scheme="https://yeshan333.github.io/categories/Kubernetes/"/>
-    
-    
-    <category term="Kubernetes" scheme="https://yeshan333.github.io/tags/Kubernetes/"/>
-    
-    <category term="Kubeadm" scheme="https://yeshan333.github.io/tags/Kubeadm/"/>
     
   </entry>
   
