@@ -6,7 +6,7 @@
   <link href="https://yeshan333.github.io/atom.xml" rel="self"/>
   
   <link href="https://yeshan333.github.io/"/>
-  <updated>2024-05-29T00:29:49.000Z</updated>
+  <updated>2024-06-18T22:58:39.000Z</updated>
   <id>https://yeshan333.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>(Amazing!) 通过 vfox 安装在 Windows 上管理多个 Erlang/OTP 和 Elixir 的版本</title>
+    <link href="https://yeshan333.github.io/2024/06/18/install-erlang-and-elixir-via-vfox-on-windows/"/>
+    <id>https://yeshan333.github.io/2024/06/18/install-erlang-and-elixir-via-vfox-on-windows/</id>
+    <published>2024-06-18T22:58:39.000Z</published>
+    <updated>2024-06-18T22:58:39.000Z</updated>
+    
+    
+    <summary type="html">通过 vfox 安装在 Windows 上管理多个 Erlang/OTP 和 Elixir 的版本</summary>
+    
+    
+    
+    <category term="vfox" scheme="https://yeshan333.github.io/categories/vfox/"/>
+    
+    
+    <category term="Elixir" scheme="https://yeshan333.github.io/tags/Elixir/"/>
+    
+    <category term="Erlang" scheme="https://yeshan333.github.io/tags/Erlang/"/>
+    
+    <category term="vfox" scheme="https://yeshan333.github.io/tags/vfox/"/>
+    
+    <category term="Windows" scheme="https://yeshan333.github.io/tags/Windows/"/>
+    
+  </entry>
   
   <entry>
     <title>手把手教你如何在 Sider (ChatGPT Sidebar) 中免费使用通义千问</title>
@@ -790,13 +815,13 @@
 &lt;!-- 我们都一样 --&gt;
 
 
-    &lt;div id=&quot;aplayer-yULaxNlS&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+    &lt;div id=&quot;aplayer-MpmIKHIo&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
          data-id=&quot;1340001174&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;true&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
     &gt;&lt;/div&gt;
 
 
 
-    &lt;div id=&quot;aplayer-HYSIWtzu&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+    &lt;div id=&quot;aplayer-aWWWsblK&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
          data-id=&quot;191252&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;false&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
     &gt;&lt;/div&gt;</summary>
     
@@ -828,31 +853,6 @@
     
     
     <category term="Wireshark" scheme="https://yeshan333.github.io/tags/Wireshark/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>回到十月-生活中的一点儿小确幸</title>
-    <link href="https://yeshan333.github.io/2021/11/14/back-to-october/"/>
-    <id>https://yeshan333.github.io/2021/11/14/back-to-october/</id>
-    <published>2021-11-14T10:21:37.000Z</published>
-    <updated>2021-11-14T10:21:37.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; class=&quot;aplayer-secondary-script-marker&quot;&gt;&lt;/script&gt;&lt;script class=&quot;meting-secondary-script-marker&quot; src=&quot;/assets/js/Meting.min.js&quot;&gt;&lt;/script&gt;&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="blog" scheme="https://yeshan333.github.io/categories/blog/"/>
-    
-    
-    <category term="blog" scheme="https://yeshan333.github.io/tags/blog/"/>
     
   </entry>
   

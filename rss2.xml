@@ -15,8 +15,35 @@
     <atom:link href="https://yeshan333.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>ShanSan&#39;s Blog</description>
-    <pubDate>Wed, 29 May 2024 00:29:49 GMT</pubDate>
+    <pubDate>Tue, 18 Jun 2024 22:58:39 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>(Amazing!) 通过 vfox 安装在 Windows 上管理多个 Erlang/OTP 和 Elixir 的版本</title>
+      <link>https://yeshan333.github.io/2024/06/18/install-erlang-and-elixir-via-vfox-on-windows/</link>
+      <guid>https://yeshan333.github.io/2024/06/18/install-erlang-and-elixir-via-vfox-on-windows/</guid>
+      <pubDate>Tue, 18 Jun 2024 22:58:39 GMT</pubDate>
+      
+      <description>通过 vfox 安装在 Windows 上管理多个 Erlang/OTP 和 Elixir 的版本</description>
+      
+      
+      
+      
+      <category domain="https://yeshan333.github.io/categories/vfox/">vfox</category>
+      
+      
+      <category domain="https://yeshan333.github.io/tags/Elixir/">Elixir</category>
+      
+      <category domain="https://yeshan333.github.io/tags/Erlang/">Erlang</category>
+      
+      <category domain="https://yeshan333.github.io/tags/vfox/">vfox</category>
+      
+      <category domain="https://yeshan333.github.io/tags/Windows/">Windows</category>
+      
+      
+      <comments>https://yeshan333.github.io/2024/06/18/install-erlang-and-elixir-via-vfox-on-windows/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>手把手教你如何在 Sider (ChatGPT Sidebar) 中免费使用通义千问</title>
@@ -850,13 +877,13 @@
 &lt;!-- 我们都一样 --&gt;
 
 
-    &lt;div id=&quot;aplayer-yULaxNlS&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+    &lt;div id=&quot;aplayer-MpmIKHIo&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
          data-id=&quot;1340001174&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;true&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
     &gt;&lt;/div&gt;
 
 
 
-    &lt;div id=&quot;aplayer-HYSIWtzu&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+    &lt;div id=&quot;aplayer-aWWWsblK&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
          data-id=&quot;191252&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;false&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
     &gt;&lt;/div&gt;</description>
       
@@ -894,33 +921,6 @@
       
       
       <comments>https://yeshan333.github.io/2021/11/27/loopback-addr/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>回到十月-生活中的一点儿小确幸</title>
-      <link>https://yeshan333.github.io/2021/11/14/back-to-october/</link>
-      <guid>https://yeshan333.github.io/2021/11/14/back-to-october/</guid>
-      <pubDate>Sun, 14 Nov 2021 10:21:37 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; class=&quot;aplayer-secondary-script-marker&quot;&gt;&lt;/script&gt;&lt;script class=&quot;meting-secondary-script-marker&quot; src=&quot;/assets/js/Meting.min.js&quot;&gt;&lt;/script&gt;&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot;</description>
-          
-        
-      
-      
-      
-      
-      <category domain="https://yeshan333.github.io/categories/blog/">blog</category>
-      
-      
-      <category domain="https://yeshan333.github.io/tags/blog/">blog</category>
-      
-      
-      <comments>https://yeshan333.github.io/2021/11/14/back-to-october/#disqus_thread</comments>
       
     </item>
     
