@@ -15,14 +15,14 @@
     <atom:link href="https://yeshan333.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>ShanSan&#39;s Blog</description>
-    <pubDate>Tue, 18 Jun 2024 14:58:39 GMT</pubDate>
+    <pubDate>Tue, 18 Jun 2024 22:58:39 GMT</pubDate>
     <generator>http://hexo.io/</generator>
     
     <item>
       <title>(Amazing!) 通过 vfox 在 Windows 上安装管理多个 Erlang/OTP 和 Elixir 的版本</title>
       <link>https://yeshan333.github.io/2024/06/18/install-erlang-and-elixir-via-vfox-on-windows/</link>
       <guid>https://yeshan333.github.io/2024/06/18/install-erlang-and-elixir-via-vfox-on-windows/</guid>
-      <pubDate>Tue, 18 Jun 2024 14:58:39 GMT</pubDate>
+      <pubDate>Tue, 18 Jun 2024 22:58:39 GMT</pubDate>
       
       <description>通过 vfox 安装在 Windows 上管理多个 Erlang/OTP 和 Elixir 的版本</description>
       
@@ -49,7 +49,7 @@
       <title>手把手教你如何在 Sider (ChatGPT Sidebar) 中免费使用通义千问</title>
       <link>https://yeshan333.github.io/2024/05/29/free-to-use-sider-with-qwen/</link>
       <guid>https://yeshan333.github.io/2024/05/29/free-to-use-sider-with-qwen/</guid>
-      <pubDate>Tue, 28 May 2024 16:29:49 GMT</pubDate>
+      <pubDate>Wed, 29 May 2024 00:29:49 GMT</pubDate>
       
       <description>手把手教你如何在 Sider (ChatGPT Sidebar) 中免费使用通义千问</description>
       
@@ -76,7 +76,7 @@
       <title>使用 vscode 插件 vscode-jenkins-pipeline-linter-connector 和 LLMs 大模型校验你的 Jenkinsfile</title>
       <link>https://yeshan333.github.io/2024/05/25/validate-jenkinsfile/</link>
       <guid>https://yeshan333.github.io/2024/05/25/validate-jenkinsfile/</guid>
-      <pubDate>Sat, 25 May 2024 09:05:12 GMT</pubDate>
+      <pubDate>Sat, 25 May 2024 17:05:12 GMT</pubDate>
       
       <description>使用 vscode 插件 vscode-jenkins-pipeline-linter-connector 和 LLMs 校验你的 Jenkinsfile</description>
       
@@ -105,7 +105,7 @@
       <title>etcd 和 MongoDB 的混沌（故障）测试方法</title>
       <link>https://yeshan333.github.io/2024/05/18/etcd-and-mongodb-chaos-testing/</link>
       <guid>https://yeshan333.github.io/2024/05/18/etcd-and-mongodb-chaos-testing/</guid>
-      <pubDate>Sat, 18 May 2024 07:02:09 GMT</pubDate>
+      <pubDate>Sat, 18 May 2024 15:02:09 GMT</pubDate>
       
       <description>etcd 和 MongoDB 的混沌（故障）测试方法</description>
       
@@ -130,7 +130,7 @@
       <title>通过 vfox 安装管理多版本 Erlang 和 Elixir</title>
       <link>https://yeshan333.github.io/2024/04/27/install-erlang-and-elixir-via-vfox/</link>
       <guid>https://yeshan333.github.io/2024/04/27/install-erlang-and-elixir-via-vfox/</guid>
-      <pubDate>Sat, 27 Apr 2024 07:36:31 GMT</pubDate>
+      <pubDate>Sat, 27 Apr 2024 15:36:31 GMT</pubDate>
       
       <description>通过 vfox 安装管理多版本 Erlang 和 Elixir</description>
       
@@ -155,7 +155,7 @@
       <title>使用 vfox-erlang 安装管理多个 Erlang/OTP 版本</title>
       <link>https://yeshan333.github.io/2024/04/25/using-vfox-erlang-to-manage-erlang-version/</link>
       <guid>https://yeshan333.github.io/2024/04/25/using-vfox-erlang-to-manage-erlang-version/</guid>
-      <pubDate>Thu, 25 Apr 2024 15:15:01 GMT</pubDate>
+      <pubDate>Thu, 25 Apr 2024 23:15:01 GMT</pubDate>
       
       <description>使用 vfox-erlang 安装管理多个 Erlang/OTP 版本</description>
       
@@ -182,7 +182,7 @@
       <title>使用 chezmoi &amp; vscode, 管理你的 dotfiles</title>
       <link>https://yeshan333.github.io/2024/03/23/using-chezmoi-to-manage-dotfiles/</link>
       <guid>https://yeshan333.github.io/2024/03/23/using-chezmoi-to-manage-dotfiles/</guid>
-      <pubDate>Sat, 23 Mar 2024 08:11:23 GMT</pubDate>
+      <pubDate>Sat, 23 Mar 2024 16:11:23 GMT</pubDate>
       
       <description>使用 chezmoi &amp; vscode, 管理你的 dotfiles</description>
       
@@ -205,7 +205,7 @@
       <title>使用 WXT 开发浏览器插件（上手使用篇）</title>
       <link>https://yeshan333.github.io/2024/03/15/develop-web-extension-with-wxt/</link>
       <guid>https://yeshan333.github.io/2024/03/15/develop-web-extension-with-wxt/</guid>
-      <pubDate>Thu, 14 Mar 2024 23:47:53 GMT</pubDate>
+      <pubDate>Fri, 15 Mar 2024 07:47:53 GMT</pubDate>
       
       <description>WXT 开发浏览器插件</description>
       
@@ -228,7 +228,7 @@
       <title>Windows PowerToys：屏幕标尺，测量屏幕上任何内容的像素</title>
       <link>https://yeshan333.github.io/2024/03/13/markup-screen/</link>
       <guid>https://yeshan333.github.io/2024/03/13/markup-screen/</guid>
-      <pubDate>Tue, 12 Mar 2024 19:23:55 GMT</pubDate>
+      <pubDate>Wed, 13 Mar 2024 03:23:55 GMT</pubDate>
       
       <description>屏幕标尺，测量屏幕上任何内容的像素</description>
       
@@ -249,7 +249,7 @@
       <title>Awesome Technology Weekly Zh-Hans - 中文技术月/周/日刊一览</title>
       <link>https://yeshan333.github.io/2024/03/04/awesome-tech-weekly-zh/</link>
       <guid>https://yeshan333.github.io/2024/03/04/awesome-tech-weekly-zh/</guid>
-      <pubDate>Mon, 04 Mar 2024 03:14:47 GMT</pubDate>
+      <pubDate>Mon, 04 Mar 2024 11:14:47 GMT</pubDate>
       
       <description>Awesome Technology Weekly Zh-Hans - 中文技术月/周/日刊一览, 文章每三小时刷新</description>
       
@@ -270,7 +270,7 @@
       <title>使用 go-ycsb 对 etcd 进行基准 (benchmark) 性能测试</title>
       <link>https://yeshan333.github.io/2024/02/29/using-ycsb-benchmark-etcd/</link>
       <guid>https://yeshan333.github.io/2024/02/29/using-ycsb-benchmark-etcd/</guid>
-      <pubDate>Thu, 29 Feb 2024 06:16:51 GMT</pubDate>
+      <pubDate>Thu, 29 Feb 2024 14:16:51 GMT</pubDate>
       
       <description>using go-ycsb to benchmark etcd.</description>
       
@@ -299,7 +299,7 @@
       <title>使用 GitHub Codespaces 加速 Elixir 开发环境工作速度</title>
       <link>https://yeshan333.github.io/2024/02/19/elixir-github-codespace-dev/</link>
       <guid>https://yeshan333.github.io/2024/02/19/elixir-github-codespace-dev/</guid>
-      <pubDate>Mon, 19 Feb 2024 08:29:08 GMT</pubDate>
+      <pubDate>Mon, 19 Feb 2024 16:29:08 GMT</pubDate>
       
       <description>create elixir dev env with github codespaces</description>
       
@@ -320,7 +320,7 @@
       <title>乐理通识</title>
       <link>https://yeshan333.github.io/2024/02/07/become-a-romantic-muscian/</link>
       <guid>https://yeshan333.github.io/2024/02/07/become-a-romantic-muscian/</guid>
-      <pubDate>Wed, 07 Feb 2024 10:40:24 GMT</pubDate>
+      <pubDate>Wed, 07 Feb 2024 18:40:24 GMT</pubDate>
       
         
         
@@ -347,7 +347,7 @@
       <title>Elixir 依赖 (deps) 调试的小技巧</title>
       <link>https://yeshan333.github.io/2023/08/12/elixir-deps-debug-skills/</link>
       <guid>https://yeshan333.github.io/2023/08/12/elixir-deps-debug-skills/</guid>
-      <pubDate>Sat, 12 Aug 2023 08:15:40 GMT</pubDate>
+      <pubDate>Sat, 12 Aug 2023 16:15:40 GMT</pubDate>
       
       <description>Elixir 依赖 (deps) 调试的小技巧</description>
       
@@ -372,7 +372,7 @@
       <title>(译) Server-Sent Events: the alternative to WebSockets you should be using</title>
       <link>https://yeshan333.github.io/2023/03/11/sse-websocket/</link>
       <guid>https://yeshan333.github.io/2023/03/11/sse-websocket/</guid>
-      <pubDate>Sat, 11 Mar 2023 06:26:29 GMT</pubDate>
+      <pubDate>Sat, 11 Mar 2023 14:26:29 GMT</pubDate>
       
         
         
@@ -404,7 +404,7 @@
       <title>2022 | Summary</title>
       <link>https://yeshan333.github.io/2023/02/26/2022-annual-reviewed/</link>
       <guid>https://yeshan333.github.io/2023/02/26/2022-annual-reviewed/</guid>
-      <pubDate>Sun, 26 Feb 2023 07:59:12 GMT</pubDate>
+      <pubDate>Sun, 26 Feb 2023 15:59:12 GMT</pubDate>
       
         
         
@@ -431,7 +431,7 @@
       <title>（译）Elixir Tip: Case vs. With</title>
       <link>https://yeshan333.github.io/2022/11/26/Elixir-Tip-Case-vs-With/</link>
       <guid>https://yeshan333.github.io/2022/11/26/Elixir-Tip-Case-vs-With/</guid>
-      <pubDate>Sat, 26 Nov 2022 15:10:46 GMT</pubDate>
+      <pubDate>Sat, 26 Nov 2022 23:10:46 GMT</pubDate>
       
         
         
@@ -458,7 +458,7 @@
       <title>the-solution-of-elixir-continuous-runtime-system-code-coverage-collection</title>
       <link>https://yeshan333.github.io/2022/08/31/the-solution-of-elixir-continuous-runtime-system-code-coverage-collection/</link>
       <guid>https://yeshan333.github.io/2022/08/31/the-solution-of-elixir-continuous-runtime-system-code-coverage-collection/</guid>
-      <pubDate>Wed, 31 Aug 2022 14:43:10 GMT</pubDate>
+      <pubDate>Wed, 31 Aug 2022 22:43:10 GMT</pubDate>
       
         
         
@@ -488,7 +488,7 @@
       <title>Elixir 连续运行时代码覆盖率采集方案</title>
       <link>https://yeshan333.github.io/2022/06/29/elixir-run-time-code-line-level-coverage-collection/</link>
       <guid>https://yeshan333.github.io/2022/06/29/elixir-run-time-code-line-level-coverage-collection/</guid>
-      <pubDate>Wed, 29 Jun 2022 15:14:26 GMT</pubDate>
+      <pubDate>Wed, 29 Jun 2022 23:14:26 GMT</pubDate>
       
         
         
@@ -517,7 +517,7 @@
       <title>(译) Understanding Elixir Macros, Part 6 - In-place Code Generation</title>
       <link>https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-6-in-place-code-generation/</link>
       <guid>https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-6-in-place-code-generation/</guid>
-      <pubDate>Sun, 19 Jun 2022 09:47:21 GMT</pubDate>
+      <pubDate>Sun, 19 Jun 2022 17:47:21 GMT</pubDate>
       
         
         
@@ -547,7 +547,7 @@
       <title>(译) Understanding Elixir Macros, Part 5 - Reshaping the AST</title>
       <link>https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-5-reshaping-the-ast/</link>
       <guid>https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-5-reshaping-the-ast/</guid>
-      <pubDate>Sun, 19 Jun 2022 08:56:29 GMT</pubDate>
+      <pubDate>Sun, 19 Jun 2022 16:56:29 GMT</pubDate>
       
         
         
@@ -577,7 +577,7 @@
       <title>(译) Understanding Elixir Macros, Part 4 - Diving Deeper</title>
       <link>https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-4-diving-deeper/</link>
       <guid>https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-4-diving-deeper/</guid>
-      <pubDate>Sun, 19 Jun 2022 04:02:19 GMT</pubDate>
+      <pubDate>Sun, 19 Jun 2022 12:02:19 GMT</pubDate>
       
         
         
@@ -607,7 +607,7 @@
       <title>(译) Understanding Elixir Macros, Part 3 - Getting into the AST</title>
       <link>https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-3-getting-into-the-ast/</link>
       <guid>https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-3-getting-into-the-ast/</guid>
-      <pubDate>Sun, 19 Jun 2022 02:53:07 GMT</pubDate>
+      <pubDate>Sun, 19 Jun 2022 10:53:07 GMT</pubDate>
       
         
         
@@ -637,7 +637,7 @@
       <title>(译) Understanding Elixir Macros, Part 2 - Macro Theory</title>
       <link>https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-2-macro-theory/</link>
       <guid>https://yeshan333.github.io/2022/06/19/understanding-elixir-macros-part-2-macro-theory/</guid>
-      <pubDate>Sat, 18 Jun 2022 16:36:03 GMT</pubDate>
+      <pubDate>Sun, 19 Jun 2022 00:36:03 GMT</pubDate>
       
         
         
@@ -667,7 +667,7 @@
       <title>(译) Understanding Elixir Macros, Part 1 Basics</title>
       <link>https://yeshan333.github.io/2022/06/18/understanding-elixir-macros-part-1-basics/</link>
       <guid>https://yeshan333.github.io/2022/06/18/understanding-elixir-macros-part-1-basics/</guid>
-      <pubDate>Sat, 18 Jun 2022 06:13:45 GMT</pubDate>
+      <pubDate>Sat, 18 Jun 2022 14:13:45 GMT</pubDate>
       
         
         
@@ -697,7 +697,7 @@
       <title>(译) 理解 Prometheus 的范围向量 (Range Vector)</title>
       <link>https://yeshan333.github.io/2022/04/23/understanding-prometheus-range-vectors/</link>
       <guid>https://yeshan333.github.io/2022/04/23/understanding-prometheus-range-vectors/</guid>
-      <pubDate>Sat, 23 Apr 2022 07:38:37 GMT</pubDate>
+      <pubDate>Sat, 23 Apr 2022 15:38:37 GMT</pubDate>
       
         
         
@@ -724,7 +724,7 @@
       <title>Go json Marshal &amp; UnMarshal 的一点小 trick</title>
       <link>https://yeshan333.github.io/2022/03/30/Go-json-Marshal-UnMarshal-%E7%9A%84%E4%B8%80%E7%82%B9%E5%B0%8F-trick/</link>
       <guid>https://yeshan333.github.io/2022/03/30/Go-json-Marshal-UnMarshal-%E7%9A%84%E4%B8%80%E7%82%B9%E5%B0%8F-trick/</guid>
-      <pubDate>Wed, 30 Mar 2022 15:58:46 GMT</pubDate>
+      <pubDate>Wed, 30 Mar 2022 23:58:46 GMT</pubDate>
       
         
         
@@ -755,7 +755,7 @@
       <title>profiling &amp; Flame Graphs</title>
       <link>https://yeshan333.github.io/2022/02/26/profiling-flame-graph/</link>
       <guid>https://yeshan333.github.io/2022/02/26/profiling-flame-graph/</guid>
-      <pubDate>Sat, 26 Feb 2022 14:54:38 GMT</pubDate>
+      <pubDate>Sat, 26 Feb 2022 22:54:38 GMT</pubDate>
       
         
         
@@ -792,7 +792,7 @@
       <title>状态机的一点儿事（fsm-smr-dfsm）</title>
       <link>https://yeshan333.github.io/2022/01/31/fsm-smr-dfsm/</link>
       <guid>https://yeshan333.github.io/2022/01/31/fsm-smr-dfsm/</guid>
-      <pubDate>Mon, 31 Jan 2022 09:32:51 GMT</pubDate>
+      <pubDate>Mon, 31 Jan 2022 17:32:51 GMT</pubDate>
       
         
         
@@ -823,7 +823,7 @@
       <title>2021 | 肆意随心</title>
       <link>https://yeshan333.github.io/2022/01/01/2021-annual-reviewed/</link>
       <guid>https://yeshan333.github.io/2022/01/01/2021-annual-reviewed/</guid>
-      <pubDate>Sat, 01 Jan 2022 04:55:00 GMT</pubDate>
+      <pubDate>Sat, 01 Jan 2022 12:55:00 GMT</pubDate>
       
       <description>&lt;h2 id=&quot;Yeah&quot;&gt;&lt;a href=&quot;#Yeah&quot; class=&quot;headerlink&quot; title=&quot;Yeah&quot;&gt;&lt;/a&gt;Yeah&lt;/h2&gt;&lt;p&gt;“兜兜转转”又一年了，又到了该水年度 Review 的时候啦✅❇️。&lt;/p&gt;
 &lt;p&gt;算下来，博客三年了，准备开启新的三年了。这篇总结也算是第三篇总结了，3 - 可以说是我很喜欢的数字，挺多网名（ShanSan、yeshan333），还有博客域名（shansan.top、shan333.cn、…）是和“三”有关的（and so on），也算是“谐音梗”啦😎？&lt;/p&gt;
@@ -846,7 +846,7 @@
       <title>Git 仓库瘦身与 LFS 大文件存储</title>
       <link>https://yeshan333.github.io/2021/12/26/git-lfs-and-thin-repo/</link>
       <guid>https://yeshan333.github.io/2021/12/26/git-lfs-and-thin-repo/</guid>
-      <pubDate>Sun, 26 Dec 2021 08:26:23 GMT</pubDate>
+      <pubDate>Sun, 26 Dec 2021 16:26:23 GMT</pubDate>
       
       <description>&lt;p&gt;熟悉 Git 的小伙伴应该都知道随着 Git 仓库维护的时间越来越久，追踪的文件越来越多，git 存储的 &lt;a href=&quot;https://git-scm.com/book/en/v2/Git-Internals-Git-Objects&quot;&gt;objects&lt;/a&gt; 数量会极其庞大，每次从远程仓库 git clone 的时候都会墨迹很久。如果我们不小心 &lt;code&gt;git add&lt;/code&gt; 了一个体积很大的文件，且 &lt;code&gt;git push&lt;/code&gt; 到了远程仓库，那么我们 &lt;code&gt;git clone&lt;/code&gt; 的时候也会很慢。&lt;/p&gt;
 &lt;p&gt;看一下 GitHub 上的 &lt;a href=&quot;https://github.com/microsoft/vscode&quot;&gt;microsoft&amp;#x2F;vscode&lt;/a&gt; 仓库，都有 九万多个 commit 了，可想而知 objects 的数量应该很恐怖，尝试 clone 一下（一百多万个 objects）：&lt;/p&gt;
@@ -869,7 +869,7 @@
       <title>Deserve</title>
       <link>https://yeshan333.github.io/2021/12/04/deserve/</link>
       <guid>https://yeshan333.github.io/2021/12/04/deserve/</guid>
-      <pubDate>Fri, 03 Dec 2021 22:49:35 GMT</pubDate>
+      <pubDate>Sat, 04 Dec 2021 06:49:35 GMT</pubDate>
       
       <description>&lt;p&gt;今天凌晨五点就醒了，积累了好多好多的情绪啊！&lt;/p&gt;
 &lt;!-- 年轻的战场 --&gt;
@@ -877,13 +877,13 @@
 &lt;!-- 我们都一样 --&gt;
 
 
-    &lt;div id=&quot;aplayer-wPpdAGjA&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+    &lt;div id=&quot;aplayer-wSEyvaTk&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
          data-id=&quot;1340001174&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;true&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
     &gt;&lt;/div&gt;
 
 
 
-    &lt;div id=&quot;aplayer-FYacLMbY&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+    &lt;div id=&quot;aplayer-LbYiJYGn&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
          data-id=&quot;191252&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;false&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
     &gt;&lt;/div&gt;</description>
       
@@ -904,7 +904,7 @@
       <title>回环地址的一点儿破事</title>
       <link>https://yeshan333.github.io/2021/11/27/loopback-addr/</link>
       <guid>https://yeshan333.github.io/2021/11/27/loopback-addr/</guid>
-      <pubDate>Sat, 27 Nov 2021 03:41:50 GMT</pubDate>
+      <pubDate>Sat, 27 Nov 2021 11:41:50 GMT</pubDate>
       
       <description>&lt;p&gt;心血来潮，小水一篇！&lt;/p&gt;
 &lt;h2 id=&quot;回环地址（loopback-address）&quot;&gt;&lt;a href=&quot;#回环地址（loopback-address）&quot; class=&quot;headerlink&quot; title=&quot;回环地址（loopback address）&quot;&gt;&lt;/a&gt;回环地址（loopback address）&lt;/h2&gt;&lt;blockquote&gt;
