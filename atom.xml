@@ -6,7 +6,7 @@
   <link href="https://yeshan333.github.io/atom.xml" rel="self"/>
   
   <link href="https://yeshan333.github.io/"/>
-  <updated>2024-06-18T22:58:39.000Z</updated>
+  <updated>2025-01-08T00:30:39.000Z</updated>
   <id>https://yeshan333.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>在 Visual Studio Code 与微信开发者工具中调试 emscripten 生成的 WASM 代码</title>
+    <link href="https://yeshan333.github.io/2025/01/08/debug-emscripten-wasm-in-vscode/"/>
+    <id>https://yeshan333.github.io/2025/01/08/debug-emscripten-wasm-in-vscode/</id>
+    <published>2025-01-08T00:30:39.000Z</published>
+    <updated>2025-01-08T00:30:39.000Z</updated>
+    
+    
+    <summary type="html">在 Visual Studio Code 与微信开发者工具中调试 emscripten 生成的 WASM 代码</summary>
+    
+    
+    
+    <category term="WebAssembly" scheme="https://yeshan333.github.io/categories/WebAssembly/"/>
+    
+    
+    <category term="WebAssembly" scheme="https://yeshan333.github.io/tags/WebAssembly/"/>
+    
+    <category term="WeChat" scheme="https://yeshan333.github.io/tags/WeChat/"/>
+    
+    <category term="emscripten" scheme="https://yeshan333.github.io/tags/emscripten/"/>
+    
+    <category term="vscode" scheme="https://yeshan333.github.io/tags/vscode/"/>
+    
+  </entry>
   
   <entry>
     <title>(Amazing!) 通过 vfox 在 Windows 上安装管理多个 Erlang/OTP 和 Elixir 的版本</title>
@@ -815,13 +840,13 @@
 &lt;!-- 我们都一样 --&gt;
 
 
-    &lt;div id=&quot;aplayer-wSEyvaTk&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+    &lt;div id=&quot;aplayer-LwZUcngr&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
          data-id=&quot;1340001174&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;true&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
     &gt;&lt;/div&gt;
 
 
 
-    &lt;div id=&quot;aplayer-LbYiJYGn&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+    &lt;div id=&quot;aplayer-SrBVwKfY&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
          data-id=&quot;191252&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;false&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
     &gt;&lt;/div&gt;</summary>
     
@@ -831,28 +856,6 @@
     
     
     <category term="blog" scheme="https://yeshan333.github.io/tags/blog/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>回环地址的一点儿破事</title>
-    <link href="https://yeshan333.github.io/2021/11/27/loopback-addr/"/>
-    <id>https://yeshan333.github.io/2021/11/27/loopback-addr/</id>
-    <published>2021-11-27T11:41:50.000Z</published>
-    <updated>2021-11-27T11:41:50.000Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;心血来潮，小水一篇！&lt;/p&gt;
-&lt;h2 id=&quot;回环地址（loopback-address）&quot;&gt;&lt;a href=&quot;#回环地址（loopback-address）&quot; class=&quot;headerlink&quot; title=&quot;回环地址（loopback address）&quot;&gt;&lt;/a&gt;回环地址（loopback address）&lt;/h2&gt;&lt;blockquote&gt;
-&lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Loopback&quot;&gt;loopback&lt;/a&gt; 在维基百科上有一段这样的解释：Loopback (also written loop-back) is the routing of electronic signals or digital data streams back to their source without intentional processing or modification. It is primarily a means of testing the communications infrastructure.&lt;br&gt;通熟的说就是将由“源”发送出去的数据路由回“源”。&lt;/p&gt;
-&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="计算机网络" scheme="https://yeshan333.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
-    
-    
-    <category term="Wireshark" scheme="https://yeshan333.github.io/tags/Wireshark/"/>
     
   </entry>
   

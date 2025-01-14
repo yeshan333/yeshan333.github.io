@@ -1,3 +1,4 @@
+https://yeshan333.github.io/2025/01/08/debug-emscripten-wasm-in-vscode/
 https://yeshan333.github.io/2024/06/18/install-erlang-and-elixir-via-vfox-on-windows/
 https://yeshan333.github.io/2024/05/29/free-to-use-sider-with-qwen/
 https://yeshan333.github.io/2024/05/25/validate-jenkinsfile/
@@ -7,4 +8,3 @@ https://yeshan333.github.io/2024/04/25/using-vfox-erlang-to-manage-erlang-versio
 https://yeshan333.github.io/2024/03/23/using-chezmoi-to-manage-dotfiles/
 https://yeshan333.github.io/2024/03/15/develop-web-extension-with-wxt/
 https://yeshan333.github.io/2024/03/13/markup-screen/
-https://yeshan333.github.io/2024/03/04/awesome-tech-weekly-zh/

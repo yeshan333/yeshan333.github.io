@@ -9,6 +9,14 @@
 
 
     <url>
+        <loc>https://yeshan333.github.io/2025/01/08/debug-emscripten-wasm-in-vscode/</loc>
+        <lastmod>2025-01-08T00:30:39.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>https://yeshan333.github.io/2024/06/18/install-erlang-and-elixir-via-vfox-on-windows/</loc>
         <lastmod>2024-06-18T22:58:39.000Z</lastmod>
         <changefreq>weekly</changefreq>
