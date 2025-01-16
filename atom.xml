@@ -17,7 +17,7 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>在 Visual Studio Code 与微信开发者工具中调试 emscripten 生成的 WASM 代码</title>
+    <title>在 Visual Studio Code 与微信开发者工具中调试使用 emscripten 基于 C 生成的 WASM 代码</title>
     <link href="https://yeshan333.github.io/2025/01/08/debug-emscripten-wasm-in-vscode/"/>
     <id>https://yeshan333.github.io/2025/01/08/debug-emscripten-wasm-in-vscode/</id>
     <published>2025-01-08T00:30:39.000Z</published>
@@ -840,13 +840,13 @@
 &lt;!-- 我们都一样 --&gt;
 
 
-    &lt;div id=&quot;aplayer-CSPKnplZ&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+    &lt;div id=&quot;aplayer-UndoLRgb&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
          data-id=&quot;1340001174&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;true&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
     &gt;&lt;/div&gt;
 
 
 
-    &lt;div id=&quot;aplayer-AZJTBUzj&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+    &lt;div id=&quot;aplayer-hNuuQOsa&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
          data-id=&quot;191252&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;false&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
     &gt;&lt;/div&gt;</summary>
     
