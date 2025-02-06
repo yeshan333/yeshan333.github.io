@@ -15,8 +15,35 @@
     <atom:link href="https://yeshan333.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>ShanSan&#39;s Blog</description>
-    <pubDate>Wed, 08 Jan 2025 00:30:39 GMT</pubDate>
+    <pubDate>Thu, 06 Feb 2025 15:40:38 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>使用 mkcert 本地部署启动了 TLS/SSL 加密通讯的 MongoDB 副本集和分片集群</title>
+      <link>https://yeshan333.github.io/2025/02/06/mongodb-deployment-with-tls-and-mkcert/</link>
+      <guid>https://yeshan333.github.io/2025/02/06/mongodb-deployment-with-tls-and-mkcert/</guid>
+      <pubDate>Thu, 06 Feb 2025 15:40:38 GMT</pubDate>
+      
+      <description>使用 mkcert 本地部署启动了 TLS/SSL 加密通讯的 MongoDB 副本集和分片集群</description>
+      
+      
+      
+      
+      <category domain="https://yeshan333.github.io/categories/MongoDB/">MongoDB</category>
+      
+      <category domain="https://yeshan333.github.io/categories/TLS-SSL/">TLS/SSL</category>
+      
+      
+      <category domain="https://yeshan333.github.io/tags/MongoDB-ReplicaSet/">MongoDB-ReplicaSet</category>
+      
+      <category domain="https://yeshan333.github.io/tags/MongoDB-Sharding-Cluster/">MongoDB-Sharding-Cluster</category>
+      
+      <category domain="https://yeshan333.github.io/tags/TLS-SSL/">TLS/SSL</category>
+      
+      
+      <comments>https://yeshan333.github.io/2025/02/06/mongodb-deployment-with-tls-and-mkcert/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>在 Visual Studio Code 与微信开发者工具中调试使用 emscripten 基于 C 生成的 WASM 代码</title>
@@ -889,41 +916,6 @@
       
       
       <comments>https://yeshan333.github.io/2021/12/26/git-lfs-and-thin-repo/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>Deserve</title>
-      <link>https://yeshan333.github.io/2021/12/04/deserve/</link>
-      <guid>https://yeshan333.github.io/2021/12/04/deserve/</guid>
-      <pubDate>Sat, 04 Dec 2021 06:49:35 GMT</pubDate>
-      
-      <description>&lt;p&gt;今天凌晨五点就醒了，积累了好多好多的情绪啊！&lt;/p&gt;
-&lt;!-- 年轻的战场 --&gt;
-
-&lt;!-- 我们都一样 --&gt;
-
-
-    &lt;div id=&quot;aplayer-BIcWPrcq&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
-         data-id=&quot;1340001174&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;true&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
-    &gt;&lt;/div&gt;
-
-
-
-    &lt;div id=&quot;aplayer-pMnvXyfD&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
-         data-id=&quot;191252&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;false&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
-    &gt;&lt;/div&gt;</description>
-      
-      
-      
-      
-      <category domain="https://yeshan333.github.io/categories/blog/">blog</category>
-      
-      
-      <category domain="https://yeshan333.github.io/tags/blog/">blog</category>
-      
-      
-      <comments>https://yeshan333.github.io/2021/12/04/deserve/#disqus_thread</comments>
       
     </item>
     

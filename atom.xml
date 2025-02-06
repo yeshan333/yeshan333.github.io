@@ -6,7 +6,7 @@
   <link href="https://yeshan333.github.io/atom.xml" rel="self"/>
   
   <link href="https://yeshan333.github.io/"/>
-  <updated>2025-01-08T00:30:39.000Z</updated>
+  <updated>2025-02-06T15:40:38.000Z</updated>
   <id>https://yeshan333.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>使用 mkcert 本地部署启动了 TLS/SSL 加密通讯的 MongoDB 副本集和分片集群</title>
+    <link href="https://yeshan333.github.io/2025/02/06/mongodb-deployment-with-tls-and-mkcert/"/>
+    <id>https://yeshan333.github.io/2025/02/06/mongodb-deployment-with-tls-and-mkcert/</id>
+    <published>2025-02-06T15:40:38.000Z</published>
+    <updated>2025-02-06T15:40:38.000Z</updated>
+    
+    
+    <summary type="html">使用 mkcert 本地部署启动了 TLS/SSL 加密通讯的 MongoDB 副本集和分片集群</summary>
+    
+    
+    
+    <category term="MongoDB" scheme="https://yeshan333.github.io/categories/MongoDB/"/>
+    
+    <category term="TLS/SSL" scheme="https://yeshan333.github.io/categories/TLS-SSL/"/>
+    
+    
+    <category term="MongoDB-ReplicaSet" scheme="https://yeshan333.github.io/tags/MongoDB-ReplicaSet/"/>
+    
+    <category term="MongoDB-Sharding-Cluster" scheme="https://yeshan333.github.io/tags/MongoDB-Sharding-Cluster/"/>
+    
+    <category term="TLS/SSL" scheme="https://yeshan333.github.io/tags/TLS-SSL/"/>
+    
+  </entry>
   
   <entry>
     <title>在 Visual Studio Code 与微信开发者工具中调试使用 emscripten 基于 C 生成的 WASM 代码</title>
@@ -823,39 +848,6 @@
     
     
     <category term="Git" scheme="https://yeshan333.github.io/tags/Git/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Deserve</title>
-    <link href="https://yeshan333.github.io/2021/12/04/deserve/"/>
-    <id>https://yeshan333.github.io/2021/12/04/deserve/</id>
-    <published>2021-12-04T06:49:35.000Z</published>
-    <updated>2021-12-04T06:49:35.000Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;今天凌晨五点就醒了，积累了好多好多的情绪啊！&lt;/p&gt;
-&lt;!-- 年轻的战场 --&gt;
-
-&lt;!-- 我们都一样 --&gt;
-
-
-    &lt;div id=&quot;aplayer-BIcWPrcq&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
-         data-id=&quot;1340001174&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;true&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
-    &gt;&lt;/div&gt;
-
-
-
-    &lt;div id=&quot;aplayer-pMnvXyfD&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
-         data-id=&quot;191252&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;false&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
-    &gt;&lt;/div&gt;</summary>
-    
-    
-    
-    <category term="blog" scheme="https://yeshan333.github.io/categories/blog/"/>
-    
-    
-    <category term="blog" scheme="https://yeshan333.github.io/tags/blog/"/>
     
   </entry>
   
