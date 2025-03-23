@@ -44,23 +44,6 @@
     </item>
     
     <item>
-      <title>在 vscode 中体验 cline（通义千问 &amp; vscode）</title>
-      <link>https://yeshan333.github.io/2025/03/07/try-cline-with-qwen/</link>
-      <guid>https://yeshan333.github.io/2025/03/07/try-cline-with-qwen/</guid>
-      <pubDate>Fri, 07 Mar 2025 00:14:01 GMT</pubDate>
-      
-      <description>RSS 描述</description>
-      
-      
-      
-      
-      
-      
-      <comments>https://yeshan333.github.io/2025/03/07/try-cline-with-qwen/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
       <title>使用 mkcert 本地部署启动了 TLS/SSL 加密通讯的 MongoDB 副本集和分片集群</title>
       <link>https://yeshan333.github.io/2025/02/06/mongodb-deployment-with-tls-and-mkcert/</link>
       <guid>https://yeshan333.github.io/2025/02/06/mongodb-deployment-with-tls-and-mkcert/</guid>
@@ -912,6 +895,29 @@
       
       
       <comments>https://yeshan333.github.io/2022/01/31/fsm-smr-dfsm/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>2021 | 肆意随心</title>
+      <link>https://yeshan333.github.io/2022/01/01/2021-annual-reviewed/</link>
+      <guid>https://yeshan333.github.io/2022/01/01/2021-annual-reviewed/</guid>
+      <pubDate>Sat, 01 Jan 2022 12:55:00 GMT</pubDate>
+      
+      <description>&lt;h2 id=&quot;Yeah&quot;&gt;&lt;a href=&quot;#Yeah&quot; class=&quot;headerlink&quot; title=&quot;Yeah&quot;&gt;&lt;/a&gt;Yeah&lt;/h2&gt;&lt;p&gt;“兜兜转转”又一年了，又到了该水年度 Review 的时候啦✅❇️。&lt;/p&gt;
+&lt;p&gt;算下来，博客三年了，准备开启新的三年了。这篇总结也算是第三篇总结了，3 - 可以说是我很喜欢的数字，挺多网名（ShanSan、yeshan333），还有博客域名（shansan.top、shan333.cn、…）是和“三”有关的（and so on），也算是“谐音梗”啦😎？&lt;/p&gt;
+&lt;p&gt;回头看看之前写的几篇总结，还挺有意思的。21 年似乎并没有太多那么刻意去做的事，想到了就去试试了。这一次，不需要那么的有条理性，随手一记。&lt;/p&gt;</description>
+      
+      
+      
+      
+      <category domain="https://yeshan333.github.io/categories/blog/">blog</category>
+      
+      
+      <category domain="https://yeshan333.github.io/tags/blog/">blog</category>
+      
+      
+      <comments>https://yeshan333.github.io/2022/01/01/2021-annual-reviewed/#disqus_thread</comments>
       
     </item>
     
