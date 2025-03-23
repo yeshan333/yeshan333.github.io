@@ -15,8 +15,50 @@
     <atom:link href="https://yeshan333.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>ShanSan&#39;s Blog</description>
-    <pubDate>Thu, 06 Feb 2025 15:40:38 GMT</pubDate>
+    <pubDate>Sun, 23 Mar 2025 17:49:46 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>使用 mcp-agent 框架和百炼通义千问大模型构建基于 MCP 协议的网页总结智能代理 (agent)</title>
+      <link>https://yeshan333.github.io/2025/03/23/build-agent-with-mcp-agent-and-qwen/</link>
+      <guid>https://yeshan333.github.io/2025/03/23/build-agent-with-mcp-agent-and-qwen/</guid>
+      <pubDate>Sun, 23 Mar 2025 17:49:46 GMT</pubDate>
+      
+      <description>使用 mcp-agent 框架和百炼大模型构建基于 MCP 协议的网页总结智能代理 (agent)</description>
+      
+      
+      
+      
+      <category domain="https://yeshan333.github.io/categories/LLM/">LLM</category>
+      
+      <category domain="https://yeshan333.github.io/categories/MCP/">MCP</category>
+      
+      
+      <category domain="https://yeshan333.github.io/tags/MCP/">MCP</category>
+      
+      <category domain="https://yeshan333.github.io/tags/mcp-agent/">mcp-agent</category>
+      
+      
+      <comments>https://yeshan333.github.io/2025/03/23/build-agent-with-mcp-agent-and-qwen/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>在 vscode 中体验 cline（通义千问 &amp; vscode）</title>
+      <link>https://yeshan333.github.io/2025/03/07/try-cline-with-qwen/</link>
+      <guid>https://yeshan333.github.io/2025/03/07/try-cline-with-qwen/</guid>
+      <pubDate>Fri, 07 Mar 2025 00:14:01 GMT</pubDate>
+      
+      <description>RSS 描述</description>
+      
+      
+      
+      
+      
+      
+      <comments>https://yeshan333.github.io/2025/03/07/try-cline-with-qwen/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>使用 mkcert 本地部署启动了 TLS/SSL 加密通讯的 MongoDB 副本集和分片集群</title>
@@ -870,52 +912,6 @@
       
       
       <comments>https://yeshan333.github.io/2022/01/31/fsm-smr-dfsm/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>2021 | 肆意随心</title>
-      <link>https://yeshan333.github.io/2022/01/01/2021-annual-reviewed/</link>
-      <guid>https://yeshan333.github.io/2022/01/01/2021-annual-reviewed/</guid>
-      <pubDate>Sat, 01 Jan 2022 12:55:00 GMT</pubDate>
-      
-      <description>&lt;h2 id=&quot;Yeah&quot;&gt;&lt;a href=&quot;#Yeah&quot; class=&quot;headerlink&quot; title=&quot;Yeah&quot;&gt;&lt;/a&gt;Yeah&lt;/h2&gt;&lt;p&gt;“兜兜转转”又一年了，又到了该水年度 Review 的时候啦✅❇️。&lt;/p&gt;
-&lt;p&gt;算下来，博客三年了，准备开启新的三年了。这篇总结也算是第三篇总结了，3 - 可以说是我很喜欢的数字，挺多网名（ShanSan、yeshan333），还有博客域名（shansan.top、shan333.cn、…）是和“三”有关的（and so on），也算是“谐音梗”啦😎？&lt;/p&gt;
-&lt;p&gt;回头看看之前写的几篇总结，还挺有意思的。21 年似乎并没有太多那么刻意去做的事，想到了就去试试了。这一次，不需要那么的有条理性，随手一记。&lt;/p&gt;</description>
-      
-      
-      
-      
-      <category domain="https://yeshan333.github.io/categories/blog/">blog</category>
-      
-      
-      <category domain="https://yeshan333.github.io/tags/blog/">blog</category>
-      
-      
-      <comments>https://yeshan333.github.io/2022/01/01/2021-annual-reviewed/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>Git 仓库瘦身与 LFS 大文件存储</title>
-      <link>https://yeshan333.github.io/2021/12/26/git-lfs-and-thin-repo/</link>
-      <guid>https://yeshan333.github.io/2021/12/26/git-lfs-and-thin-repo/</guid>
-      <pubDate>Sun, 26 Dec 2021 16:26:23 GMT</pubDate>
-      
-      <description>&lt;p&gt;熟悉 Git 的小伙伴应该都知道随着 Git 仓库维护的时间越来越久，追踪的文件越来越多，git 存储的 &lt;a href=&quot;https://git-scm.com/book/en/v2/Git-Internals-Git-Objects&quot;&gt;objects&lt;/a&gt; 数量会极其庞大，每次从远程仓库 git clone 的时候都会墨迹很久。如果我们不小心 &lt;code&gt;git add&lt;/code&gt; 了一个体积很大的文件，且 &lt;code&gt;git push&lt;/code&gt; 到了远程仓库，那么我们 &lt;code&gt;git clone&lt;/code&gt; 的时候也会很慢。&lt;/p&gt;
-&lt;p&gt;看一下 GitHub 上的 &lt;a href=&quot;https://github.com/microsoft/vscode&quot;&gt;microsoft&amp;#x2F;vscode&lt;/a&gt; 仓库，都有 九万多个 commit 了，可想而知 objects 的数量应该很恐怖，尝试 clone 一下（一百多万个 objects）：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/yeshan333/blog_images@main/github_vscode.png&quot; alt=&quot;github vscode repo&quot;&gt;&lt;/p&gt;</description>
-      
-      
-      
-      
-      <category domain="https://yeshan333.github.io/categories/Git/">Git</category>
-      
-      
-      <category domain="https://yeshan333.github.io/tags/Git/">Git</category>
-      
-      
-      <comments>https://yeshan333.github.io/2021/12/26/git-lfs-and-thin-repo/#disqus_thread</comments>
       
     </item>
     

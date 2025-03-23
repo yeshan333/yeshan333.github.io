@@ -9,6 +9,22 @@
 
 
     <url>
+        <loc>https://yeshan333.github.io/2025/03/23/build-agent-with-mcp-agent-and-qwen/</loc>
+        <lastmod>2025-03-23T17:49:46.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://yeshan333.github.io/2025/03/07/try-cline-with-qwen/</loc>
+        <lastmod>2025-03-07T00:14:01.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>https://yeshan333.github.io/2025/02/06/mongodb-deployment-with-tls-and-mkcert/</loc>
         <lastmod>2025-02-06T15:40:38.000Z</lastmod>
         <changefreq>weekly</changefreq>
