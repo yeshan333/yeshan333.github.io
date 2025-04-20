@@ -15,8 +15,35 @@
     <atom:link href="https://yeshan333.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>ShanSan&#39;s Blog</description>
-    <pubDate>Sun, 23 Mar 2025 17:49:46 GMT</pubDate>
+    <pubDate>Sun, 20 Apr 2025 18:54:12 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>【体验】使用 GitHub Copilot Agent 创建新的 RSSHub 路由</title>
+      <link>https://yeshan333.github.io/2025/04/20/use-github-copilot-to-create-rsshub-route/</link>
+      <guid>https://yeshan333.github.io/2025/04/20/use-github-copilot-to-create-rsshub-route/</guid>
+      <pubDate>Sun, 20 Apr 2025 18:54:12 GMT</pubDate>
+      
+      <description>使用 GitHub Copilot Agent 创建新的 RSSHub 路由</description>
+      
+      
+      
+      
+      <category domain="https://yeshan333.github.io/categories/Colipot-Agent/">Colipot Agent</category>
+      
+      
+      <category domain="https://yeshan333.github.io/tags/LLM/">LLM</category>
+      
+      <category domain="https://yeshan333.github.io/tags/Copilot/">Copilot</category>
+      
+      <category domain="https://yeshan333.github.io/tags/RSSHub/">RSSHub</category>
+      
+      <category domain="https://yeshan333.github.io/tags/Code-Agent/">Code Agent</category>
+      
+      
+      <comments>https://yeshan333.github.io/2025/04/20/use-github-copilot-to-create-rsshub-route/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>使用 mcp-agent 框架和百炼通义千问大模型构建基于 MCP 协议的网页总结智能代理 (agent)</title>
@@ -895,29 +922,6 @@
       
       
       <comments>https://yeshan333.github.io/2022/01/31/fsm-smr-dfsm/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>2021 | 肆意随心</title>
-      <link>https://yeshan333.github.io/2022/01/01/2021-annual-reviewed/</link>
-      <guid>https://yeshan333.github.io/2022/01/01/2021-annual-reviewed/</guid>
-      <pubDate>Sat, 01 Jan 2022 12:55:00 GMT</pubDate>
-      
-      <description>&lt;h2 id=&quot;Yeah&quot;&gt;&lt;a href=&quot;#Yeah&quot; class=&quot;headerlink&quot; title=&quot;Yeah&quot;&gt;&lt;/a&gt;Yeah&lt;/h2&gt;&lt;p&gt;“兜兜转转”又一年了，又到了该水年度 Review 的时候啦✅❇️。&lt;/p&gt;
-&lt;p&gt;算下来，博客三年了，准备开启新的三年了。这篇总结也算是第三篇总结了，3 - 可以说是我很喜欢的数字，挺多网名（ShanSan、yeshan333），还有博客域名（shansan.top、shan333.cn、…）是和“三”有关的（and so on），也算是“谐音梗”啦😎？&lt;/p&gt;
-&lt;p&gt;回头看看之前写的几篇总结，还挺有意思的。21 年似乎并没有太多那么刻意去做的事，想到了就去试试了。这一次，不需要那么的有条理性，随手一记。&lt;/p&gt;</description>
-      
-      
-      
-      
-      <category domain="https://yeshan333.github.io/categories/blog/">blog</category>
-      
-      
-      <category domain="https://yeshan333.github.io/tags/blog/">blog</category>
-      
-      
-      <comments>https://yeshan333.github.io/2022/01/01/2021-annual-reviewed/#disqus_thread</comments>
       
     </item>
     
