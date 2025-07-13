@@ -6,7 +6,7 @@
   <link href="https://yeshan333.github.io/atom.xml" rel="self"/>
   
   <link href="https://yeshan333.github.io/"/>
-  <updated>2025-04-20T18:54:12.000Z</updated>
+  <updated>2025-07-13T15:52:37.000Z</updated>
   <id>https://yeshan333.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>使用 n8n 和飞书多维表打造自己的 RSS Feed 订阅管理 &amp; AI 大模型阅读提炼工作流</title>
+    <link href="https://yeshan333.github.io/2025/07/12/rss-summary-workflow-with-n8n/"/>
+    <id>https://yeshan333.github.io/2025/07/12/rss-summary-workflow-with-n8n/</id>
+    <published>2025-07-12T23:52:37.000Z</published>
+    <updated>2025-07-13T15:52:37.000Z</updated>
+    
+    
+    <summary type="html">使用 n8n 和飞书多维表打造自己的 RSS Feed 订阅管理 &amp; AI 大模型阅读提炼工作流</summary>
+    
+    
+    
+    <category term="AI" scheme="https://yeshan333.github.io/categories/AI/"/>
+    
+    
+    <category term="AI" scheme="https://yeshan333.github.io/tags/AI/"/>
+    
+    <category term="n8n" scheme="https://yeshan333.github.io/tags/n8n/"/>
+    
+    <category term="飞书多维表" scheme="https://yeshan333.github.io/tags/%E9%A3%9E%E4%B9%A6%E5%A4%9A%E7%BB%B4%E8%A1%A8/"/>
+    
+  </entry>
   
   <entry>
     <title>【体验】使用 GitHub Copilot Agent 创建新的 RSSHub 路由</title>
@@ -825,35 +848,6 @@
     <category term="Profiling" scheme="https://yeshan333.github.io/tags/Profiling/"/>
     
     <category term="Flame Graphs" scheme="https://yeshan333.github.io/tags/Flame-Graphs/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>状态机的一点儿事（fsm-smr-dfsm）</title>
-    <link href="https://yeshan333.github.io/2022/01/31/fsm-smr-dfsm/"/>
-    <id>https://yeshan333.github.io/2022/01/31/fsm-smr-dfsm/</id>
-    <published>2022-01-31T17:32:51.000Z</published>
-    <updated>2022-01-31T17:32:51.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; class=&quot;aplayer-secondary-script-marker&quot;&gt;&lt;/script&gt;&lt;script class=&quot;meting-secondary-script-marker&quot; src=&quot;/assets/js/Meting.min.js&quot;&gt;&lt;/script&gt;&lt;h2 id=&quot;有限状态机（Finite-State-Machine）&quot;&gt;&lt;a</summary>
-        
-      
-    
-    
-    
-    <category term="Compile" scheme="https://yeshan333.github.io/categories/Compile/"/>
-    
-    
-    <category term="FSM" scheme="https://yeshan333.github.io/tags/FSM/"/>
-    
-    <category term="Compiler" scheme="https://yeshan333.github.io/tags/Compiler/"/>
-    
-    <category term="Lexer" scheme="https://yeshan333.github.io/tags/Lexer/"/>
     
   </entry>
   

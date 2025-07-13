@@ -9,6 +9,14 @@
 
 
     <url>
+        <loc>https://yeshan333.github.io/2025/07/12/rss-summary-workflow-with-n8n/</loc>
+        <lastmod>2025-07-13T15:52:37.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>https://yeshan333.github.io/2025/04/20/use-github-copilot-to-create-rsshub-route/</loc>
         <lastmod>2025-04-20T18:54:12.000Z</lastmod>
         <changefreq>weekly</changefreq>
