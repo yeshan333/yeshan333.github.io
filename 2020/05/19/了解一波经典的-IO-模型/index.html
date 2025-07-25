@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN,en,zh-TW,default">
     <head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/#5.7.6'>
-  <meta name="generator" content="Hexo 7.1.1">
+  <meta name="generator" content="Hexo 7.3.0">
   <meta name="Volantis" content="5.7.6">
   <meta charset="utf-8">
   <!-- SEO相关 -->
@@ -1917,7 +1917,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1752686957901),
+    lastupdate: new Date(1753467069641),
     sidebar: {
       for_page: ["blogger","webinfo","my_follow","category","tagcloud","wonderful_link"],
       for_post: ["toc"],
@@ -2983,7 +2983,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <p>一般情况下，服务端需要管理多个客户端连接（处理并发连接），而 recvfrom 只能监视单个 Socket。上图的阻塞式 I&#x2F;O 模型表示的是一对一沟通的情形，使用多线程&#x2F;进程 + 阻塞式 I&#x2F;O 我们可以管理多个 Socket ，实现一对多服务。</p>
 </blockquote>
 <h3 id="非阻塞式-I-O-模型"><a href="#非阻塞式-I-O-模型" class="headerlink" title="非阻塞式 I&#x2F;O 模型"></a>非阻塞式 I&#x2F;O 模型</h3><p>在类 Unix 系统下，可以把一个 Socket 设置成非阻塞的。这意味着内核在数据报没有准备好时不会阻塞应用进程（睡眠态），而是返回一个错误。</p>
-<p><img src="https://mypic-1258313760.cos.ap-guangzhou.myqcloud.com/img/20200519170609.png" class="lazyload" data-srcset="https://mypic-1258313760.cos.ap-guangzhou.myqcloud.com/img/20200519170609.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="非阻塞式 I/O 模型示例图"></p>
+<p><img src="https://mypic-1258313760.cos.ap-guangzhou.myqcloud.com/img/20200519170609.png" class="lazyload" data-srcset="https://mypic-1258313760.cos.ap-guangzhou.myqcloud.com/img/20200519170609.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="非阻塞式 I&#x2F;O 模型示例图"></p>
 <p>上图以 UDP 的 Socket 调用为例，进程反复调用 recvfrom（polling，轮询），无数据返回 EWOULDBLOCK 错误，直至数据报准备好。</p>
 <p>问题：<strong>单进程处理数据报，不同于阻塞I&#x2F;O，由于需要反复 polling，非阻塞 I&#x2F;O 会耗费大量的 CPU 资源，进程阻塞不耗费 CPU 资源</strong>。如果耍上了多进程，那耗费，是不可承受的。</p>
 <p>关于阻塞的原理，这篇文章有简单介绍<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/63179839">✔🔗</a>。</p>

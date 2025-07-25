@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN,en,zh-TW,default">
     <head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/#5.7.6'>
-  <meta name="generator" content="Hexo 7.1.1">
+  <meta name="generator" content="Hexo 7.3.0">
   <meta name="Volantis" content="5.7.6">
   <meta charset="utf-8">
   <!-- SEO相关 -->
@@ -1918,7 +1918,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1752686957901),
+    lastupdate: new Date(1753467069641),
     sidebar: {
       for_page: ["blogger","webinfo","my_follow","category","tagcloud","wonderful_link"],
       for_post: ["toc"],
@@ -2964,7 +2964,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <p><img src="https://i.imgur.com/sRNNe85.png" class="lazyload" data-srcset="https://i.imgur.com/sRNNe85.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></p>
 <h4 id="部署云引擎-参考"><a href="#部署云引擎-参考" class="headerlink" title="部署云引擎 参考"></a>部署云引擎 <a target="_blank" rel="noopener" href="https://panjunwen.com/valine-admin-document/">参考</a></h4><p>设置好环境变量</p>
 <h3 id="yilia主题修改"><a href="#yilia主题修改" class="headerlink" title="yilia主题修改"></a>yilia主题修改</h3><h4 id="1、修改themes-yilia-config-yml"><a href="#1、修改themes-yilia-config-yml" class="headerlink" title="1、修改themes\yilia\_config.yml"></a>1、修改<code>themes\yilia\_config.yml</code></h4><p><a target="_blank" rel="noopener" href="https://github.com/litten/hexo-theme-yilia/pull/646">https://github.com/litten/hexo-theme-yilia/pull/646</a></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#6、Valine https://valine.js.org</span></span><br><span class="line">valine:</span><br><span class="line">  <span class="built_in">enable</span>: <span class="literal">true</span></span><br><span class="line">  appid:    <span class="comment">#LeanCloud的appId</span></span><br><span class="line">  appkey:   <span class="comment">#Leancloud的appKey</span></span><br><span class="line">  verify: <span class="literal">false</span> <span class="comment">#验证码</span></span><br><span class="line">  notifi: <span class="literal">false</span> <span class="comment">#评论回复提醒</span></span><br><span class="line">  avatar: <span class="string">&#x27; &#x27;</span><span class="comment">#评论列表头像样式</span></span><br><span class="line">  placeholder: Just go go <span class="comment">#评论占位框</span></span><br><span class="line">  pageSize: 15    <span class="comment">#评论分页</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#6、Valine https://valine.js.org</span></span><br><span class="line">valine:</span><br><span class="line">  <span class="built_in">enable</span>: <span class="literal">true</span></span><br><span class="line">  appid:    <span class="comment">#LeanCloud的appId</span></span><br><span class="line">  appkey:   <span class="comment">#Leancloud的appKey</span></span><br><span class="line">  verify: <span class="literal">false</span> <span class="comment">#验证码</span></span><br><span class="line">  notifi: <span class="literal">false</span> <span class="comment">#评论回复提醒</span></span><br><span class="line">  avatar: <span class="string">&#x27; &#x27;</span>#评论列表头像样式</span><br><span class="line">  placeholder: Just go go <span class="comment">#评论占位框</span></span><br><span class="line">  pageSize: 15    <span class="comment">#评论分页</span></span><br></pre></td></tr></table></figure>
 
 <h4 id="2、修改themes-yilia-layout-partial-article-ejs"><a href="#2、修改themes-yilia-layout-partial-article-ejs" class="headerlink" title="2、修改themes\yilia\layout\_partial\article.ejs"></a>2、修改<code>themes\yilia\layout\_partial\article.ejs</code></h4><p>我是在尾部位添加的<br><img src="http://pflr7ix8q.bkt.clouddn.com/18-9-27/40764127.jpg" class="lazyload" data-srcset="http://pflr7ix8q.bkt.clouddn.com/18-9-27/40764127.jpg" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;% <span class="keyword">if</span> (theme.valine &amp;&amp; theme.valine.appid &amp;&amp; theme.valine.appkey)&#123; %&gt;</span><br><span class="line">    &lt;section <span class="built_in">id</span>=<span class="string">&quot;comments&quot;</span> style=<span class="string">&quot;margin:10px;padding:10px;background:#fff;&quot;</span>&gt;</span><br><span class="line">      &lt;%- partial(<span class="string">&#x27;post/valine&#x27;</span>, &#123;</span><br><span class="line">        key: post.slug,</span><br><span class="line">        title: post.title,</span><br><span class="line">        url: config.url+url_for(post.path)</span><br><span class="line">        &#125;) %&gt;</span><br><span class="line">    &lt;/section&gt;</span><br><span class="line">  &lt;% &#125; %&gt;</span><br></pre></td></tr></table></figure>
@@ -2976,7 +2976,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 hexo s
 </code></pre>
 <p><a target="_blank" rel="noopener" href="http://localhost:4000/">预览</a></p>
-<p>没问题就部署到github吧<br>    hexo d -g</p>
+<p>没问题就部署到github吧<br>	hexo d -g</p>
 <h1 id="定时器添加"><a href="#定时器添加" class="headerlink" title="定时器添加"></a>定时器添加</h1><p><a target="_blank" rel="noopener" href="https://github.com/zhaojun1998/Valine-Admin/issues/1">https://github.com/zhaojun1998/Valine-Admin/issues/1</a></p>
 
   </div>
@@ -3223,7 +3223,9 @@ https://panjunwen.com/diy-a-comment-system/
  写代码
  睡觉
 
-二、列表12345...</p>
+
+
+二、列表123...</p>
         </a>
       
       

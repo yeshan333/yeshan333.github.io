@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN,en,zh-TW,default">
     <head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/#5.7.6'>
-  <meta name="generator" content="Hexo 7.1.1">
+  <meta name="generator" content="Hexo 7.3.0">
   <meta name="Volantis" content="5.7.6">
   <meta charset="utf-8">
   <!-- SEO相关 -->
@@ -1929,7 +1929,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1752686957901),
+    lastupdate: new Date(1753467069641),
     sidebar: {
       for_page: ["blogger","webinfo","my_follow","category","tagcloud","wonderful_link"],
       for_post: ["toc"],
@@ -3015,7 +3015,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 outfile.open(&quot;file.data&quot;,ios::out|ios::trunc)
 //outfile.open(&quot;file.data&quot;,ios::out|ios::in)
 </code></pre>
-<h2 id="关闭文件"><a href="#关闭文件" class="headerlink" title="关闭文件"></a>关闭文件</h2><p>C++程序终止时，它会自动关闭刷新所有流，释放所有分配的内存，并关闭所有打开的文件。<br>听说优秀的程序员会在程序终止前关闭打开的文件<br>    使用close()函数</p>
+<h2 id="关闭文件"><a href="#关闭文件" class="headerlink" title="关闭文件"></a>关闭文件</h2><p>C++程序终止时，它会自动关闭刷新所有流，释放所有分配的内存，并关闭所有打开的文件。<br>听说优秀的程序员会在程序终止前关闭打开的文件<br>	使用close()函数</p>
 <h2 id="写入文件-读取文件"><a href="#写入文件-读取文件" class="headerlink" title="写入文件 &amp;&amp; 读取文件"></a>写入文件 &amp;&amp; 读取文件</h2><ul>
 <li>使用流插入运算符（&lt;&lt;）向文件写入信息，就像使用该运算符输出信息到屏幕上一样，但用的不是cout对象，而是ofstream或者fstream对象</li>
 </ul>
@@ -3044,7 +3044,8 @@ outfile.open(&quot;file.data&quot;,ios::out|ios::trunc)
 
 Problem Descript...</span></a><a class="item" href="/2018/11/05/C++-11特性-1/" title="C++11特性-1" rel="bookmark "><img src="https://i.imgur.com/424Ebkh.png" class="lazyload" data-srcset="https://i.imgur.com/424Ebkh.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">C++11特性-1</span><span class="excerpt">c++11特性列表初始化
 使用花括号来初始化对象
-使用列表初始化内置类型的变量，可能会存在丢失信息的风险</span></a><a class="item" href="/2018/10/03/C++-入坑记-2/" title="C++入坑记(2)" rel="bookmark "><img src="https://i.imgur.com/vz6wOh3.png" class="lazyload" data-srcset="https://i.imgur.com/vz6wOh3.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">C++入坑记(2)</span><span class="excerpt">函数，默认参数的使用在C++中，允许在自定义函数的形参列表中，给形参一个默认的值，这样在调用的时候如果有实参，那么按照实参...</span></a><a class="item" href="/2018/10/04/C++-入坑记-3/" title="C++入坑记(3)" rel="bookmark "><img src="https://i.imgur.com/kKvsKof.png" class="lazyload" data-srcset="https://i.imgur.com/kKvsKof.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">C++入坑记(3)</span><span class="excerpt">变量初始化问题当局部变量被定义时，系统不会自动对其初始化；当全局变量被定义时，系统会初始化为下列值:
+使用列表初始化内置类型的变量，可能会存在丢失信息的风险
+</span></a><a class="item" href="/2018/10/03/C++-入坑记-2/" title="C++入坑记(2)" rel="bookmark "><img src="https://i.imgur.com/vz6wOh3.png" class="lazyload" data-srcset="https://i.imgur.com/vz6wOh3.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">C++入坑记(2)</span><span class="excerpt">函数，默认参数的使用在C++中，允许在自定义函数的形参列表中，给形参一个默认的值，这样在调用的时候如果有实参，那么按照实参...</span></a><a class="item" href="/2018/10/04/C++-入坑记-3/" title="C++入坑记(3)" rel="bookmark "><img src="https://i.imgur.com/kKvsKof.png" class="lazyload" data-srcset="https://i.imgur.com/kKvsKof.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">C++入坑记(3)</span><span class="excerpt">变量初始化问题当局部变量被定义时，系统不会自动对其初始化；当全局变量被定义时，系统会初始化为下列值:
 
 
 
@@ -3318,12 +3319,12 @@ fstream
           <p class='content'>C++自定义命名空间使用关键字namespace
 namespace namespace_name
 &#123;
-    //代码声明
+	//代码声明
 &#125;
 
 
 
-1234567891011121314...</p>
+1234567891011121314151...</p>
         </a>
       
     </div>

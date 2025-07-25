@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN,en,zh-TW,default">
     <head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/#5.7.6'>
-  <meta name="generator" content="Hexo 7.1.1">
+  <meta name="generator" content="Hexo 7.3.0">
   <meta name="Volantis" content="5.7.6">
   <meta charset="utf-8">
   <!-- SEO相关 -->
@@ -1913,7 +1913,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1752686957901),
+    lastupdate: new Date(1753467069641),
     sidebar: {
       for_page: ["blogger","webinfo","my_follow","category","tagcloud","wonderful_link"],
       for_post: ["toc"],
@@ -2940,7 +2940,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <p><a target="_blank" rel="noopener" href="https://vfox.lhan.me/">vfox</a> (version-fox) 是最近比较热门的一个通用版本管理工具，使用 Go 语言进行编写，插件机制使用了 Lua 去实现扩展性. 目前 vfox 已经支持管理大多数主流编程语言的版本，生态还算强大。在这里你可以看到目前 vfox 所支持管理的编程语言版本和工具 -&gt; <a target="_blank" rel="noopener" href="https://vfox.lhan.me/plugins/available.html">vfox-Available Plugins</a></p>
 <p>Elixir 和 Erlang 社区一直以来都比较流行通过 <a target="_blank" rel="noopener" href="https://asdf-vm.com/">asdf</a> 去安装和管理多版本环境。asdf 也是一个通用的版本管理工具，生态非常的丰富。</p>
 <p>vfox 的版本管理上和 asdf 很像，均通过 <code>.tool-versions</code> 文件去管理项目级和全局的版本信息。这意味着如果你之前使用了 asdf，那么切换到 vfox，不会很困难。因为 vfox 和 asdf 的核心实现有有点不一样，vfox 的执行速度比 asdf 快了将近 5 倍~，官方文档也给出了基准测试结果：<a target="_blank" rel="noopener" href="https://vfox.lhan.me/misc/vs-asdf.html">version-fox Comparison with asdf-vm</a></p>
-<p><img src="https://vfox.lhan.me/performence.png" class="lazyload" data-srcset="https://vfox.lhan.me/performence.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="https://vfox.lhan.me/performence.png"></p>
+<p><img src="https://vfox.lhan.me/performence.png" class="lazyload" data-srcset="https://vfox.lhan.me/performence.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="https:&#x2F;&#x2F;vfox.lhan.me&#x2F;performence.png"></p>
 <p>如果你之前使用 asdf 去管理维护多个 <a target="_blank" rel="noopener" href="https://www.erlang.org/">Erlang</a> 和 <a target="_blank" rel="noopener" href="https://elixir-lang.org/">Elixir</a> 的版本，那么 vfox 也是一个不错的选择，值的一试。</p>
 <p>本篇文章将会介绍如果通过 vfox 去安装和管理多个 Erlang 和 Elixir 的版本。</p>
 <h2 id="安装-vfox"><a href="#安装-vfox" class="headerlink" title="安装 vfox"></a>安装 vfox</h2><p><a target="_blank" rel="noopener" href="https://vfox.lhan.me/">vfox</a> (version-fox) 的跨操作系统支持上很友好，这意味可以 Windows 和 Unix-like 系统上使用它。本篇文章的核心是通过 vfox 去安装和管理多个 Erlang 和 Elixir 语言的版本。因为目前 vfox 的两个管理 Erlang 和 Elixir 版本的插件实现上还没有去支持在 Windows 操作系统下的管理，所以本篇文章的示例环境主要是 Ubuntu 20.04 Linux 环境。让我们开始吧~</p>
@@ -2970,7 +2970,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <h3 id="安装-Elixir"><a href="#安装-Elixir" class="headerlink" title="安装 Elixir"></a>安装 Elixir</h3><p>因为安装 Elixir 也是从对应版本的源码进行编译安装的，Elixir 的编译需要依赖到 Erlang，我们先让当前使用的 shell 能找到刚才安装好的 Erlang。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">切换 Erlang 版本</span></span><br><span class="line">❯ vfox use erlang@26.2.2</span><br><span class="line">Now using erlang@26.2.2.</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">安装 Elixir，将会使用对应的 erlc 编译器</span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">vfox install elixir@1.15.2</span></span><br><span class="line">.........</span><br><span class="line">.........</span><br><span class="line">Generated ex_unit app</span><br><span class="line">==&gt; logger (compile)</span><br><span class="line">Generated logger app</span><br><span class="line">Generated eex app</span><br><span class="line">==&gt; iex (compile)</span><br><span class="line">Generated iex app</span><br><span class="line">Install elixir@1.15.2 success! </span><br><span class="line">Please use vfox use elixir@1.15.2 to use it.</span><br></pre></td></tr></table></figure>
 
-<p>当你看到 Install <a href="mailto:&#101;&#x6c;&#x69;&#120;&#105;&#x72;&#64;&#49;&#x2e;&#49;&#x35;&#x2e;&#x32;">&#101;&#x6c;&#x69;&#120;&#105;&#x72;&#64;&#49;&#x2e;&#49;&#x35;&#x2e;&#x32;</a> success!，也就意味着安装成功了。可以通过 iex 确认下安装彻底成功:</p>
+<p>当你看到 Install <a href="mailto:&#x65;&#108;&#x69;&#120;&#105;&#x72;&#x40;&#49;&#46;&#49;&#x35;&#46;&#x32;">elixir@1.15.2</a> success!，也就意味着安装成功了。可以通过 iex 确认下安装彻底成功:</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">❯ vfox use elixir@1.15.2</span><br><span class="line">Now using elixir@1.15.2.</span><br><span class="line">❯ iex</span><br><span class="line">Erlang/OTP 26 [erts-14.2.2] [source] [64-bit] [smp:16:16] [ds:16:16:10] [async-threads:1] [jit:ns]</span><br><span class="line"></span><br><span class="line">Interactive Elixir (1.15.2) - press Ctrl+C to exit (type h() ENTER for help)</span><br><span class="line"><span class="meta prompt_">iex(1)&gt; </span></span><br></pre></td></tr></table></figure>
 
 

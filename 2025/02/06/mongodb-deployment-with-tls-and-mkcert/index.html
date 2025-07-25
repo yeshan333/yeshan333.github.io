@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN,en,zh-TW,default">
     <head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/#5.7.6'>
-  <meta name="generator" content="Hexo 7.1.1">
+  <meta name="generator" content="Hexo 7.3.0">
   <meta name="Volantis" content="5.7.6">
   <meta charset="utf-8">
   <!-- SEO相关 -->
@@ -1913,7 +1913,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1752686957901),
+    lastupdate: new Date(1753467069641),
     sidebar: {
       for_page: ["blogger","webinfo","my_follow","category","tagcloud","wonderful_link"],
       for_post: ["toc"],
@@ -2948,7 +2948,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">需要安装有 Go</span></span><br><span class="line">go install filippo.io/mkcert@latest</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p>你也可以参考 mkcert 文章中描述的安装方法进行安装: <a target="_blank" rel="noopener" href="https://github.com/FiloSottile/mkcert#installation">mkcert installation</a>.</p>
-<p>接下来我们安装 MongoDB Server 和 MongoDB Shell 命令行工具. 你可以在 <a target="_blank" rel="noopener" href="https://www.mongodb.com/try/download/community">https://www.mongodb.com/try/download/community</a> 下载到对应的二进制 (mongod、mongos) 文件压缩包. 后续我们将会以 <a href="mailto:&#77;&#111;&#x6e;&#103;&#111;&#68;&#66;&#64;&#x32;&#x2e;&#48;&#46;&#x32;&#x36;">&#77;&#111;&#x6e;&#103;&#111;&#68;&#66;&#64;&#x32;&#x2e;&#48;&#46;&#x32;&#x36;</a> 版本为例:</p>
+<p>接下来我们安装 MongoDB Server 和 MongoDB Shell 命令行工具. 你可以在 <a target="_blank" rel="noopener" href="https://www.mongodb.com/try/download/community">https://www.mongodb.com/try/download/community</a> 下载到对应的二进制 (mongod、mongos) 文件压缩包. 后续我们将会以 <a href="mailto:&#x4d;&#x6f;&#110;&#x67;&#x6f;&#68;&#66;&#x40;&#x32;&#46;&#48;&#x2e;&#x32;&#54;">MongoDB@2.0.26</a> 版本为例:</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">❯ mongod --version</span><br><span class="line">db version v5.0.26</span><br><span class="line">Build Info: &#123;</span><br><span class="line">    &quot;version&quot;: &quot;5.0.26&quot;,</span><br><span class="line">    &quot;gitVersion&quot;: &quot;0b4f1ea980b5380a66425a90b414106a191365f4&quot;,</span><br><span class="line">    &quot;openSSLVersion&quot;: &quot;OpenSSL 1.1.1f  31 Mar 2020&quot;,</span><br><span class="line">    &quot;modules&quot;: [],</span><br><span class="line">    &quot;allocator&quot;: &quot;tcmalloc&quot;,</span><br><span class="line">    &quot;environment&quot;: &#123;</span><br><span class="line">        &quot;distmod&quot;: &quot;ubuntu2004&quot;,</span><br><span class="line">        &quot;distarch&quot;: &quot;x86_64&quot;,</span><br><span class="line">        &quot;target_arch&quot;: &quot;x86_64&quot;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <blockquote>
@@ -2986,7 +2986,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
 <p>可以看到我们能正常连接到副本集. 通过 tcpdump 能网络抓包工具, 我们可以看到通信流量是被加密过的. 接下来我们看看如何在 MongoDB 分片集群 (Sharding Cluster) 中启用 TLS&#x2F;SSL.</p>
 <h2 id="MongoDB-分片集群中启用-TLS-SSL"><a href="#MongoDB-分片集群中启用-TLS-SSL" class="headerlink" title="MongoDB 分片集群中启用 TLS&#x2F;SSL"></a>MongoDB 分片集群中启用 TLS&#x2F;SSL</h2><p>接下来我们将本地部署的 MongoDB 分片集群拓扑大致如下, 其中两个 mongos、一个 config shard、一个数据分片 mongo shard a:</p>
-<p><img src="https://www.mongodb.com/docs/manual/static/1112d075b61fb59a49076c865c6e8f60/bde8a/sharded-cluster-production-architecture.webp" class="lazyload" data-srcset="https://www.mongodb.com/docs/manual/static/1112d075b61fb59a49076c865c6e8f60/bde8a/sharded-cluster-production-architecture.webp" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="[https://www.mongodb.com/docs/manual/static/1112d075b61fb59a49076c865c6e8f60/bde8a/sharded-cluster-production-architecture.webp](https://www.mongodb.com/docs/manual/static/1112d075b61fb59a49076c865c6e8f60/bde8a/sharded-cluster-production-architecture.webp)"></p>
+<p><img src="https://www.mongodb.com/docs/manual/static/1112d075b61fb59a49076c865c6e8f60/bde8a/sharded-cluster-production-architecture.webp" class="lazyload" data-srcset="https://www.mongodb.com/docs/manual/static/1112d075b61fb59a49076c865c6e8f60/bde8a/sharded-cluster-production-architecture.webp" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="[https:&#x2F;&#x2F;www.mongodb.com&#x2F;docs&#x2F;manual&#x2F;static&#x2F;1112d075b61fb59a49076c865c6e8f60&#x2F;bde8a&#x2F;sharded-cluster-production-architecture.webp](https:&#x2F;&#x2F;www.mongodb.com&#x2F;docs&#x2F;manual&#x2F;static&#x2F;1112d075b61fb59a49076c865c6e8f60&#x2F;bde8a&#x2F;sharded-cluster-production-architecture.webp)"></p>
 <ol>
 <li>同样, 我们也需要生成 mongod、mongos、mongo 客户端使用的证书:</li>
 </ol>

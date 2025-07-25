@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN,en,zh-TW,default">
     <head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/#5.7.6'>
-  <meta name="generator" content="Hexo 7.1.1">
+  <meta name="generator" content="Hexo 7.3.0">
   <meta name="Volantis" content="5.7.6">
   <meta charset="utf-8">
   <!-- SEO相关 -->
@@ -1919,7 +1919,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1752686957901),
+    lastupdate: new Date(1753467069641),
     sidebar: {
       for_page: ["blogger","webinfo","my_follow","category","tagcloud","wonderful_link"],
       for_post: ["toc"],
@@ -2957,7 +2957,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
 <h2 id="2-部署到GitHub-repo"><a href="#2-部署到GitHub-repo" class="headerlink" title="2.部署到GitHub repo"></a>2.部署到GitHub repo</h2><h3 id="生成ssh-keys"><a href="#生成ssh-keys" class="headerlink" title="生成ssh keys"></a>生成ssh keys</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">&quot;邮件地址@youremail.com&quot;</span> <span class="comment">#生成新的key文件，邮箱地址填注册Github时用的</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="https://img.vim-cn.com/37/ecb8a0a1f900c804d06651139773f0979a6270.png" class="lazyload" data-srcset="https://img.vim-cn.com/37/ecb8a0a1f900c804d06651139773f0979a6270.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="https://img.vim-cn.com/37/ecb8a0a1f900c804d06651139773f0979a6270.png"></p>
+<p><img src="https://img.vim-cn.com/37/ecb8a0a1f900c804d06651139773f0979a6270.png" class="lazyload" data-srcset="https://img.vim-cn.com/37/ecb8a0a1f900c804d06651139773f0979a6270.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="https:&#x2F;&#x2F;img.vim-cn.com&#x2F;37&#x2F;ecb8a0a1f900c804d06651139773f0979a6270.png"></p>
 <h3 id="将生成的ssh-keys添加到Github的deploy-keys中"><a href="#将生成的ssh-keys添加到Github的deploy-keys中" class="headerlink" title="将生成的ssh keys添加到Github的deploy keys中"></a>将生成的ssh keys添加到Github的deploy keys中</h3><ul>
 <li><ol>
 <li>复制key</li>
@@ -2965,7 +2965,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 </li>
 </ul>
 <p>** 这里用到.ssh目录下，id_rsa.pub文件中的那串key**</p>
-<p><img src="https://img.vim-cn.com/5b/a4d58b99d58d1c22ffec0e5fc6301c45b20b58.png" class="lazyload" data-srcset="https://img.vim-cn.com/5b/a4d58b99d58d1c22ffec0e5fc6301c45b20b58.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="https://img.vim-cn.com/5b/a4d58b99d58d1c22ffec0e5fc6301c45b20b58.png"></p>
+<p><img src="https://img.vim-cn.com/5b/a4d58b99d58d1c22ffec0e5fc6301c45b20b58.png" class="lazyload" data-srcset="https://img.vim-cn.com/5b/a4d58b99d58d1c22ffec0e5fc6301c45b20b58.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="https:&#x2F;&#x2F;img.vim-cn.com&#x2F;5b&#x2F;a4d58b99d58d1c22ffec0e5fc6301c45b20b58.png"></p>
 <ul>
 <li><ol start="2">
 <li><a target="_blank" rel="noopener" href="https://github.com/">到GitHub</a>的yourname.hithub.io仓库添加那串key到deploy keys中</li>

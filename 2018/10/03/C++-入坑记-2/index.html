@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN,en,zh-TW,default">
     <head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/#5.7.6'>
-  <meta name="generator" content="Hexo 7.1.1">
+  <meta name="generator" content="Hexo 7.3.0">
   <meta name="Volantis" content="5.7.6">
   <meta charset="utf-8">
   <!-- SEO相关 -->
@@ -1911,7 +1911,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1752686957901),
+    lastupdate: new Date(1753467069641),
     sidebar: {
       for_page: ["blogger","webinfo","my_follow","category","tagcloud","wonderful_link"],
       for_post: ["toc"],
@@ -2947,7 +2947,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <pre><code>template&lt;class 类型名1,class 类型名2&gt;
 返回值 函数名(形参列表)
 &#123;
-    函数体
+	函数体
 &#125;
 </code></pre>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T1,<span class="keyword">class</span> T2&gt;</span></span><br><span class="line"><span class="function">T1 <span class="title">sum</span><span class="params">(T1 a,T2 b)</span></span></span><br><span class="line"><span class="function"><span class="comment">//模板函数中的T1和T2类型将根据实际传入的类型变成具体类型。这个化成就叫做模板的实例化。</span></span></span><br><span class="line"><span class="function"><span class="comment">//T1、T2是函数所使用的数据类型的占位符名称。这个名称可以在函数定义中使用。</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	cout&lt;&lt;<span class="built_in">sizeof</span>(T1)&lt;&lt;<span class="string">&quot;,&quot;</span>&lt;&lt;<span class="built_in">sizeof</span>(T2)&lt;&lt;<span class="string">&quot;\t&quot;</span>;</span><br><span class="line">	<span class="keyword">return</span> a+b;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	cout&lt;&lt;<span class="built_in">sum</span>(<span class="number">1</span>,<span class="number">2</span>)&lt;&lt;endl;</span><br><span class="line">	cout&lt;&lt;<span class="built_in">sum</span>(<span class="number">3.14</span>,<span class="number">1.414</span>)&lt;&lt;endl;</span><br><span class="line">	cout&lt;&lt;<span class="built_in">sum</span>(<span class="string">&#x27;A&#x27;</span>,<span class="number">2</span>)&lt;&lt;endl;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -2983,7 +2983,8 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
 Problem Descript...</span></a><a class="item" href="/2018/11/05/C++-11特性-1/" title="C++11特性-1" rel="bookmark "><img src="https://i.imgur.com/424Ebkh.png" class="lazyload" data-srcset="https://i.imgur.com/424Ebkh.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">C++11特性-1</span><span class="excerpt">c++11特性列表初始化
 使用花括号来初始化对象
-使用列表初始化内置类型的变量，可能会存在丢失信息的风险</span></a><a class="item" href="/2018/10/04/C++-入坑记-3/" title="C++入坑记(3)" rel="bookmark "><img src="https://i.imgur.com/kKvsKof.png" class="lazyload" data-srcset="https://i.imgur.com/kKvsKof.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">C++入坑记(3)</span><span class="excerpt">变量初始化问题当局部变量被定义时，系统不会自动对其初始化；当全局变量被定义时，系统会初始化为下列值:
+使用列表初始化内置类型的变量，可能会存在丢失信息的风险
+</span></a><a class="item" href="/2018/10/04/C++-入坑记-3/" title="C++入坑记(3)" rel="bookmark "><img src="https://i.imgur.com/kKvsKof.png" class="lazyload" data-srcset="https://i.imgur.com/kKvsKof.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">C++入坑记(3)</span><span class="excerpt">变量初始化问题当局部变量被定义时，系统不会自动对其初始化；当全局变量被定义时，系统会初始化为下列值:
 
 
 

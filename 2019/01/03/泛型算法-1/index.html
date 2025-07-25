@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN,en,zh-TW,default">
     <head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/#5.7.6'>
-  <meta name="generator" content="Hexo 7.1.1">
+  <meta name="generator" content="Hexo 7.3.0">
   <meta name="Volantis" content="5.7.6">
   <meta charset="utf-8">
   <!-- SEO相关 -->
@@ -1915,7 +1915,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1752686957901),
+    lastupdate: new Date(1753467069641),
     sidebar: {
       for_page: ["blogger","webinfo","my_follow","category","tagcloud","wonderful_link"],
       for_post: ["toc"],
@@ -2953,7 +2953,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <blockquote>
 <p>标准库算法所使用的谓词分为两类：<br>1.一元谓词：它们只接受一个参数<br>2.二元谓词：它们接受两个参数</p>
 </blockquote>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定制操作，按照长度重新排vector</span></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">isShorter</span><span class="params">(<span class="type">const</span> string &amp;s1,<span class="type">const</span> string &amp;s2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> s1.<span class="built_in">size</span>() &gt; s2.<span class="built_in">size</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//按长度进行排序</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">length_sort</span><span class="params">(vector&lt;string&gt; &amp;words)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">sort</span>(words.<span class="built_in">begin</span>(),words.<span class="built_in">end</span>(),isShorter);</span><br><span class="line">	<span class="built_in">print</span>(words);</span><br><span class="line"></span><br><span class="line">	<span class="comment">//使用算法stable_sort来保持等长元素间的字典序</span></span><br><span class="line">    <span class="built_in">stable_sort</span>(v.<span class="built_in">begin</span>(),v.<span class="built_in">end</span>(),isShorter);</span><br><span class="line">	<span class="built_in">print</span>(v);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定制操作，按照长度重新排vector</span></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">isShorter</span><span class="params">(<span class="type">const</span> string &amp;s1,<span class="type">const</span> string &amp;s2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> s<span class="number">1.</span><span class="built_in">size</span>() &gt; s<span class="number">2.</span><span class="built_in">size</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//按长度进行排序</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">length_sort</span><span class="params">(vector&lt;string&gt; &amp;words)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">sort</span>(words.<span class="built_in">begin</span>(),words.<span class="built_in">end</span>(),isShorter);</span><br><span class="line">	<span class="built_in">print</span>(words);</span><br><span class="line"></span><br><span class="line">	<span class="comment">//使用算法stable_sort来保持等长元素间的字典序</span></span><br><span class="line">    <span class="built_in">stable_sort</span>(v.<span class="built_in">begin</span>(),v.<span class="built_in">end</span>(),isShorter);</span><br><span class="line">	<span class="built_in">print</span>(v);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>这里向算法stable_sort传递的第三个参数就是一个谓词</p>
 <h2 id="lambda表达式（匿名函数）"><a href="#lambda表达式（匿名函数）" class="headerlink" title="lambda表达式（匿名函数）"></a>lambda表达式（匿名函数）</h2><blockquote>
@@ -2999,7 +2999,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <li>要为一个lambda定义返回类型时，必须使用尾置返回类型</li>
 <li>尾置返回类型跟在形参列表后面，并以一个<code>-&gt;</code>符号开头</li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> f = [](<span class="type">int</span> i)-&gt;<span class="type">int</span>&#123; <span class="keyword">return</span> i+<span class="number">1</span>;&#125;;</span><br><span class="line">cout&lt;&lt;<span class="built_in">f</span>(<span class="number">3</span>)&lt;&lt;endl;<span class="comment">//输出结果为：4</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> f = [](<span class="type">int</span> i)-&gt;<span class="type">int</span>&#123; <span class="keyword">return</span> i<span class="number">+1</span>;&#125;;</span><br><span class="line">cout&lt;&lt;<span class="built_in">f</span>(<span class="number">3</span>)&lt;&lt;endl;<span class="comment">//输出结果为：4</span></span><br></pre></td></tr></table></figure>
 
 <h4 id="可变lambada"><a href="#可变lambada" class="headerlink" title="可变lambada"></a>可变lambada</h4><p>使用关键字<code>mutable</code>改变一个被捕获变量的值</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> i=<span class="number">1</span>;</span><br><span class="line"><span class="keyword">auto</span> f = [i]()<span class="keyword">mutable</span>&#123; <span class="keyword">return</span> ++i;&#125;;</span><br><span class="line">i=<span class="number">0</span>;</span><br><span class="line">cout&lt;&lt;<span class="built_in">f</span>();<span class="comment">//输出结果为2</span></span><br></pre></td></tr></table></figure>
@@ -3057,7 +3057,8 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
 Problem Descript...</span></a><a class="item" href="/2018/11/05/C++-11特性-1/" title="C++11特性-1" rel="bookmark "><img src="https://i.imgur.com/424Ebkh.png" class="lazyload" data-srcset="https://i.imgur.com/424Ebkh.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">C++11特性-1</span><span class="excerpt">c++11特性列表初始化
 使用花括号来初始化对象
-使用列表初始化内置类型的变量，可能会存在丢失信息的风险</span></a><a class="item" href="/2018/10/03/C++-入坑记-2/" title="C++入坑记(2)" rel="bookmark "><img src="https://i.imgur.com/vz6wOh3.png" class="lazyload" data-srcset="https://i.imgur.com/vz6wOh3.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">C++入坑记(2)</span><span class="excerpt">函数，默认参数的使用在C++中，允许在自定义函数的形参列表中，给形参一个默认的值，这样在调用的时候如果有实参，那么按照实参...</span></a><a class="item" href="/2018/10/04/C++-入坑记-3/" title="C++入坑记(3)" rel="bookmark "><img src="https://i.imgur.com/kKvsKof.png" class="lazyload" data-srcset="https://i.imgur.com/kKvsKof.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">C++入坑记(3)</span><span class="excerpt">变量初始化问题当局部变量被定义时，系统不会自动对其初始化；当全局变量被定义时，系统会初始化为下列值:
+使用列表初始化内置类型的变量，可能会存在丢失信息的风险
+</span></a><a class="item" href="/2018/10/03/C++-入坑记-2/" title="C++入坑记(2)" rel="bookmark "><img src="https://i.imgur.com/vz6wOh3.png" class="lazyload" data-srcset="https://i.imgur.com/vz6wOh3.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">C++入坑记(2)</span><span class="excerpt">函数，默认参数的使用在C++中，允许在自定义函数的形参列表中，给形参一个默认的值，这样在调用的时候如果有实参，那么按照实参...</span></a><a class="item" href="/2018/10/04/C++-入坑记-3/" title="C++入坑记(3)" rel="bookmark "><img src="https://i.imgur.com/kKvsKof.png" class="lazyload" data-srcset="https://i.imgur.com/kKvsKof.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">C++入坑记(3)</span><span class="excerpt">变量初始化问题当局部变量被定义时，系统不会自动对其初始化；当全局变量被定义时，系统会初始化为下列值:
 
 
 
@@ -3266,13 +3267,17 @@ Problem Descript...</span></a><a class="item" href="/2018/11/05/C++-11特性-1/"
 Jinja2模板中文文档
 
 三种常见界定符
-表达式{{ ... }}
+表达式
+
+{{ ... }}
 
 用于装载字符串、变量、函数调用等
 
-语句{% ... %}
+语句
 
-用于装载控制语句，比如if判断、f...</p>
+{% ... %}
+
+用于装载控制语句，比如if...</p>
         </a>
       
       
