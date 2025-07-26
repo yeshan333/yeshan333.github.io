@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1" theme-name="Stellar" theme-version="1.33.1">
-  <link rel="canonical" href="https://shansan.top/2018/10/03/C++-%E5%85%A5%E5%9D%91%E8%AE%B0-2/">
+  
   
   <meta name="generator" content="Hexo 7.3.0">
   <meta http-equiv='x-dns-prefetch-control' content='on' />
@@ -55,7 +55,7 @@
 
   
 
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"ShanSan","sameAs":[]},"dateCreated":"2018-10-03T11:47:26+00:00","dateModified":"2018-10-03T11:47:26+00:00","datePublished":"2018-10-03T11:47:26+00:00","description":" 函数，默认参数的使用\n在C++中，允许在自定义函数的形参列表中，给形参一个默认的值，这样在调用的时候如果有实参，那么按照实参传递给形参的方法使用；若调用的时候没有指定对应的实参，则形参将使用默认值。\n由于参数的传递顺序是从右至左入栈，所以有默认值的参数必须在放在形参列表的最右边！","headline":"C++入坑记(2)","mainEntityOfPage":{"@type":"WebPage","@id":"https://yeshan333.github.io/2018/10/03/C++-%E5%85%A5%E5%9D%91%E8%AE%B0-2/"},"publisher":{"@type":"Organization","name":"ShanSan","sameAs":[]},"url":"https://yeshan333.github.io/2018/10/03/C++-%E5%85%A5%E5%9D%91%E8%AE%B0-2/","keywords":"CPP","image":[]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"ShanSan","sameAs":[]},"dateCreated":"2018-10-03T11:47:26+00:00","dateModified":"2018-10-03T11:47:26+00:00","datePublished":"2018-10-03T11:47:26+00:00","description":"函数，默认参数的使用\n在C++中，允许在自定义函数的形参列表中，给形参一个默认的值，这样在调用的时候如果有实参，那么按照实参传递给形参的方法使用；若调用的时候没有指定对应的实参，则形参将使用默认值。\n由于参数的传递顺序是从右至左入栈，所以有默认值的参数必须在放在形参列表的最右边！","headline":"C++入坑记(2)","mainEntityOfPage":{"@type":"WebPage","@id":"https://yeshan333.github.io/2018/10/03/C++-%E5%85%A5%E5%9D%91%E8%AE%B0-2/"},"publisher":{"@type":"Organization","name":"ShanSan","sameAs":[]},"url":"https://yeshan333.github.io/2018/10/03/C++-%E5%85%A5%E5%9D%91%E8%AE%B0-2/","keywords":"CPP","image":[]}</script>
   
 </head>
 <body>
@@ -98,19 +98,19 @@
     </div>
     
   </div>
-  </div><article class="md-text content"><h1 id="函数默认参数的使用"><a class="markdownIt-Anchor" href="#函数默认参数的使用"></a> 函数，默认参数的使用</h1>
-<p>在C++中，允许在自定义函数的形参列表中，给形参一个默认的值，这样在调用的时候如果有实参，那么按照实参传递给形参的方法使用；若调用的时候没有指定对应的实参，则形参将使用默认值。<br />
+  </div><article class="md-text content"><h1 id="%E5%87%BD%E6%95%B0%EF%BC%8C%E9%BB%98%E8%AE%A4%E5%8F%82%E6%95%B0%E7%9A%84%E4%BD%BF%E7%94%A8" tabindex="-1">函数，默认参数的使用</h1>
+<p>在C++中，允许在自定义函数的形参列表中，给形参一个默认的值，这样在调用的时候如果有实参，那么按照实参传递给形参的方法使用；若调用的时候没有指定对应的实参，则形参将使用默认值。<br>
 由于参数的传递顺序是从右至左入栈，所以有默认值的参数必须在放在形参列表的最右边！</p>
 <span id="more"></span>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">Sum</span><span class="params">(<span class="type">int</span> a=<span class="number">4</span>,<span class="type">int</span> b=<span class="number">5</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> a+b;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	cout&lt;&lt;<span class="built_in">Sum</span>(<span class="number">5</span>,<span class="number">7</span>)&lt;&lt;endl;</span><br><span class="line">	cout&lt;&lt;<span class="built_in">Sum</span>()&lt;&lt;endl;</span><br><span class="line">	cout&lt;&lt;<span class="built_in">Sum</span>(<span class="number">9</span>)&lt;&lt;endl;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="https://i.imgur.com/vz6wOh3.png" alt="运行结果" /></p>
-<h1 id="函数重载"><a class="markdownIt-Anchor" href="#函数重载"></a> 函数重载</h1>
+<p><img src="https://i.imgur.com/vz6wOh3.png" alt="运行结果"></p>
+<h1 id="%E5%87%BD%E6%95%B0%E9%87%8D%E8%BD%BD" tabindex="-1">函数重载</h1>
 <p>函数重载即两个或以上的函数，函数名相同，但形参类型或个数不同，编译器根据调用方传入的参数的类型和个数，自动选择最适合的一个函数来进行绑定调用，自动实现选择。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">sum</span><span class="params">(<span class="type">int</span> a,<span class="type">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> a+b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">double</span> <span class="title">sum</span><span class="params">(<span class="type">double</span> a,<span class="type">double</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> a+b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">double</span> <span class="title">sum</span><span class="params">(<span class="type">double</span> a,<span class="type">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> a+b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">double</span> <span class="title">sum</span><span class="params">(<span class="type">int</span> a,<span class="type">double</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> a+b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	cout&lt;&lt;<span class="built_in">sum</span>(<span class="number">1</span>,<span class="number">2</span>)&lt;&lt;endl;</span><br><span class="line">	cout&lt;&lt;<span class="built_in">sum</span>(<span class="number">1.414</span>,<span class="number">2.526</span>)&lt;&lt;endl;</span><br><span class="line">	cout&lt;&lt;<span class="built_in">sum</span>(<span class="number">3.14</span>,<span class="number">6</span>)&lt;&lt;endl;</span><br><span class="line">	cout&lt;&lt;<span class="built_in">sum</span>(<span class="number">8</span>,<span class="number">9.9</span>)&lt;&lt;endl;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="https://i.imgur.com/xP82hjI.png" alt="运行结果" /></p>
-<h1 id="函数模板template"><a class="markdownIt-Anchor" href="#函数模板template"></a> 函数模板（template）</h1>
-<p>模板是创建泛型类或函数的蓝图或公式。是泛型编程的基础。<br />
-函数模板，是可以创建一个通用的函数，可以支持多种形参。用关键字<code>template</code>来定义<br />
+<p><img src="https://i.imgur.com/xP82hjI.png" alt="运行结果"></p>
+<h1 id="%E5%87%BD%E6%95%B0%E6%A8%A1%E6%9D%BF%EF%BC%88template%EF%BC%89" tabindex="-1">函数模板（template）</h1>
+<p>模板是创建泛型类或函数的蓝图或公式。是泛型编程的基础。<br>
+函数模板，是可以创建一个通用的函数，可以支持多种形参。用关键字<code>template</code>来定义<br>
 <strong>模板函数定义的一般形式</strong></p>
 <pre><code>template&lt;class 类型名1,class 类型名2&gt;
 返回值 函数名(形参列表)
@@ -119,8 +119,8 @@
 &#125;
 </code></pre>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T1,<span class="keyword">class</span> T2&gt;</span></span><br><span class="line"><span class="function">T1 <span class="title">sum</span><span class="params">(T1 a,T2 b)</span></span></span><br><span class="line"><span class="function"><span class="comment">//模板函数中的T1和T2类型将根据实际传入的类型变成具体类型。这个化成就叫做模板的实例化。</span></span></span><br><span class="line"><span class="function"><span class="comment">//T1、T2是函数所使用的数据类型的占位符名称。这个名称可以在函数定义中使用。</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	cout&lt;&lt;<span class="built_in">sizeof</span>(T1)&lt;&lt;<span class="string">&quot;,&quot;</span>&lt;&lt;<span class="built_in">sizeof</span>(T2)&lt;&lt;<span class="string">&quot;\t&quot;</span>;</span><br><span class="line">	<span class="keyword">return</span> a+b;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	cout&lt;&lt;<span class="built_in">sum</span>(<span class="number">1</span>,<span class="number">2</span>)&lt;&lt;endl;</span><br><span class="line">	cout&lt;&lt;<span class="built_in">sum</span>(<span class="number">3.14</span>,<span class="number">1.414</span>)&lt;&lt;endl;</span><br><span class="line">	cout&lt;&lt;<span class="built_in">sum</span>(<span class="string">&#x27;A&#x27;</span>,<span class="number">2</span>)&lt;&lt;endl;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="https://i.imgur.com/qmwhban.png" alt="运行结果" /></p>
-<h2 id="inline内联函数"><a class="markdownIt-Anchor" href="#inline内联函数"></a> inline内联函数</h2>
+<p><img src="https://i.imgur.com/qmwhban.png" alt="运行结果"></p>
+<h2 id="inline%E5%86%85%E8%81%94%E5%87%BD%E6%95%B0" tabindex="-1">inline内联函数</h2>
 <ul>
 <li>内联函数的基本思想在于将每个函数调用都以它的代码体来替换</li>
 <li>内联函数减少了不必要的函数<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%A0%88%E5%B8%A7/5662951?fr=aladdin">栈帧</a>的开销,节约内存</li>
@@ -128,7 +128,9 @@
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">int</span> <span class="title">Max</span><span class="params">(<span class="type">int</span> a,<span class="type">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a&gt;b?a:b;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cout&lt;&lt;<span class="built_in">Max</span>(<span class="number">3</span>,<span class="number">5</span>)&lt;&lt;endl;</span><br><span class="line">    cout&lt;&lt;<span class="built_in">Max</span>(<span class="number">7</span>,<span class="number">9</span>)&lt;&lt;endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><em><strong>内联函数的定义要在调用之前出现</strong></em></p>
-<hr />
+<hr>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">
 </article>
 <div class="article-footer">
     <section id="license">
@@ -143,9 +145,9 @@
       <div class="header"><span>分享文章</span></div>
       <div class="body">
         <div class="link"><input class="copy-area" readonly="true" id="copy-link" value="https://yeshan333.github.io/2018/10/03/C++-%E5%85%A5%E5%9D%91%E8%AE%B0-2/" /></div>
-        <div class="social-wrap dis-select"><a class="social share-item wechat" onclick="util.toggle(&quot;qrcode-wechat&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/b32ef3da1162a.svg" /></a><a class="social share-item weibo" target="_blank" rel="external nofollow noopener noreferrer" href="https://service.weibo.com/share/share.php?url=https://yeshan333.github.io/2018/10/03/C++-%E5%85%A5%E5%9D%91%E8%AE%B0-2/&title=C++入坑记(2) - ShanSan&summary= 函数，默认参数的使用
+        <div class="social-wrap dis-select"><a class="social share-item wechat" onclick="util.toggle(&quot;qrcode-wechat&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/b32ef3da1162a.svg" /></a><a class="social share-item weibo" target="_blank" rel="external nofollow noopener noreferrer" href="https://service.weibo.com/share/share.php?url=https://yeshan333.github.io/2018/10/03/C++-%E5%85%A5%E5%9D%91%E8%AE%B0-2/&title=C++入坑记(2) - ShanSan&summary=函数，默认参数的使用
 在C++中，允许在自定义函数的形参列表中，给形参一个默认的值，这样在调用的时候如果有实参，那么按照实参传递给形参的方法使用；若调用的时候没有指定对应的实参，则形参将使用默认值。
-由于参数的传递顺序是从右至左入栈..."><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/80c07e4dbb303.svg" /></a><a class="social share-item email" href="mailto:?subject=C++入坑记(2) - ShanSan&amp;body=https://yeshan333.github.io/2018/10/03/C++-%E5%85%A5%E5%9D%91%E8%AE%B0-2/"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/a1b00e20f425d.svg" /></a><a class="social share-item link" onclick="util.copy(&quot;copy-link&quot;, &quot;复制成功&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/8411ed322ced6.svg" /></a></div>
+由于参数的传递顺序是从右至左入栈，..."><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/80c07e4dbb303.svg" /></a><a class="social share-item email" href="mailto:?subject=C++入坑记(2) - ShanSan&amp;body=https://yeshan333.github.io/2018/10/03/C++-%E5%85%A5%E5%9D%91%E8%AE%B0-2/"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/a1b00e20f425d.svg" /></a><a class="social share-item link" onclick="util.copy(&quot;copy-link&quot;, &quot;复制成功&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/8411ed322ced6.svg" /></a></div>
         
         <div class="qrcode" id="qrcode-wechat" style="opacity:0;height:0">
           <img src="https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=https://yeshan333.github.io/2018/10/03/C++-%E5%85%A5%E5%9D%91%E8%AE%B0-2/"/>
@@ -162,8 +164,8 @@
       <div class='title cap theme'>您可能感兴趣的文章</div>
     </section>
     <section class='body'>
-    <div class="related-posts"><a class="item" href="/2018/10/02/ACM入门/" title="ACM入门（占个位）"><span class="title">ACM入门（占个位）</span><span class="excerpt"> A+B for Input-Output Practice(using C++)
- 1.
+    <div class="related-posts"><a class="item" href="/2018/10/02/ACM入门/" title="ACM入门（占个位）"><span class="title">ACM入门（占个位）</span><span class="excerpt">A+B for Input-Output Practice(using C++)
+1.
 
 
 
@@ -172,12 +174,12 @@ Problem Description
 
 
 
-Your task is to Calculate a + b. Too easy?! ...</span></a><a class="item" href="/2018/11/05/C++-11特性-1/" title="C++11特性-1"><span class="title">C++11特性-1</span><span class="excerpt"> c++11特性
- 列表初始化
+Your task is to Calculate a + b. Too easy?! Of...</span></a><a class="item" href="/2018/11/05/C++-11特性-1/" title="C++11特性-1"><span class="title">C++11特性-1</span><span class="excerpt">c++11特性
+列表初始化
 
 使用花括号来初始化对象
 使用列表初始化内置类型的变量，可能会存在丢失信息的风险
-</span></a><a class="item" href="/2018/10/04/C++-入坑记-3/" title="C++入坑记(3)"><span class="title">C++入坑记(3)</span><span class="excerpt"> 变量初始化问题
+</span></a><a class="item" href="/2018/10/04/C++-入坑记-3/" title="C++入坑记(3)"><span class="title">C++入坑记(3)</span><span class="excerpt">变量初始化问题
 当局部变量被定义时，系统不会自动对其初始化；
 当全局变量被定义时，系统会初始化为下列值:
 
@@ -205,17 +207,7 @@ char
 ‘\0’
 
 
-poi...</span></a><a class="item" href="/2018/11/05/C++-标准库类型/" title="C++标准库类型"><span class="title">C++标准库类型</span><span class="excerpt"> 标准库类型string
-
-标准库类型string表示可变长的字符序列
-使用string类型必须包含string头文件，string定义在命名空间std中
-
- 定义和初始化string对象
-初始化string对象的方式
-
-
-
-初始化方...</span></a><a class="item" href="/2018/10/02/C++-入坑记/" title="C++入坑记"><span class="title">C++入坑记</span><span class="excerpt"> C++关键字
+poin...</span></a><a class="item" href="/2018/10/02/C++-入坑记/" title="C++入坑记"><span class="title">C++入坑记</span><span class="excerpt">C++关键字
 https://www.runoob.com/w3cnote/cpp-keyword-intro.html
 
 
@@ -234,7 +226,18 @@ operator
 throw
 
 
-boo...</span></a></div></section></div>
+bool...</span></a><a class="item" href="/2018/11/05/C++-标准库类型/" title="C++标准库类型"><span class="title">C++标准库类型</span><span class="excerpt">标准库类型string
+
+标准库类型string表示可变长的字符序列
+使用string类型必须包含string头文件，string定义在命名空间std中
+
+定义和初始化string对象
+初始化string对象的方式
+
+
+
+初始化方式
+...</span></a></div></section></div>
 
 
   <div class="related-wrap md-text" id="comments">
@@ -251,9 +254,9 @@ boo...</span></a></div></section></div>
 
 
 
-<footer class="page-footer footnote"><hr><div class="text"><p><a target="_blank" rel="noopener" href="https://shansan.top">Copyright © 2018-2025 ShanSan</a><br><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">桂ICP备19000444号</a><br />
-本站由 <a href="/">ShanSan</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br />
-本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。<br />
+<footer class="page-footer footnote"><hr><div class="text"><p><a target="_blank" rel="noopener" href="https://shansan.top">Copyright © 2018-2025 ShanSan</a><br><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">桂ICP备19000444号</a><br>
+本站由 <a href="/">ShanSan</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br>
+本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。<br>
 <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span></p>
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 </div></footer>
@@ -262,7 +265,7 @@ boo...</span></a></div></section></div>
 <widget class="widget-wrapper user-card ghuser"><div class="widget-body data-service ds-ghinfo" data-api="https://api.github.com/users/yeshan333"><div class="avatar" ><img no-lazy type="img" id="avatar_url" src="undefined" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></div><p class="username" type="text" id="name">&nbsp;</p><p class="bio" type="text" id="bio">&nbsp;</p><div class="buttons"><a class="btn" target="_blank" rel="noopener" href="https://github.com/yeshan333?tab=followers"><span class="title" type="text" id="followers">0</span><span class="desc">followers</span></a><a class="btn" target="_blank" rel="noopener" href="https://github.com/yeshan333?tab=following"><span class="title" type="text" id="following">0</span><span class="desc">following</span></a><a class="btn" target="_blank" rel="noopener" href="https://github.com/yeshan333?tab=repositories"><span class="title" type="text" id="public_repos">0</span><span class="desc">repos</span></a></div><a class="follow" target="_blank" rel="noopener" href="https://github.com/yeshan333"><svg aria-hidden="true" role="img" class="color-icon-primary" viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor" style="display:inline-block;user-select:none;vertical-align:text-bottom;overflow:visible"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>Follow</a></div></widget>
 
 
-<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E9%BB%98%E8%AE%A4%E5%8F%82%E6%95%B0%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-text"> 函数，默认参数的使用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E9%87%8D%E8%BD%BD"><span class="toc-text"> 函数重载</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E6%A8%A1%E6%9D%BFtemplate"><span class="toc-text"> 函数模板（template）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#inline%E5%86%85%E8%81%94%E5%87%BD%E6%95%B0"><span class="toc-text"> inline内联函数</span></a></li></ol></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a><a class="buttom" onclick="util.scrollComment()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M8 10.5h8M8 14h5.5M17 3.338A9.95 9.95 0 0 0 12 2C6.477 2 2 6.477 2 12c0 1.6.376 3.112 1.043 4.453c.178.356.237.763.134 1.148l-.595 2.226a1.3 1.3 0 0 0 1.591 1.592l2.226-.596a1.63 1.63 0 0 1 1.149.133A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10c0-1.821-.487-3.53-1.338-5"/></svg><span>参与讨论</span></a></div></widget>
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%EF%BC%8C%E9%BB%98%E8%AE%A4%E5%8F%82%E6%95%B0%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-text">函数，默认参数的使用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E9%87%8D%E8%BD%BD"><span class="toc-text">函数重载</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E6%A8%A1%E6%9D%BF%EF%BC%88template%EF%BC%89"><span class="toc-text">函数模板（template）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#inline%E5%86%85%E8%81%94%E5%87%BD%E6%95%B0"><span class="toc-text">inline内联函数</span></a></li></ol></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a><a class="buttom" onclick="util.scrollComment()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M8 10.5h8M8 14h5.5M17 3.338A9.95 9.95 0 0 0 12 2C6.477 2 2 6.477 2 12c0 1.6.376 3.112 1.043 4.453c.178.356.237.763.134 1.148l-.595 2.226a1.3 1.3 0 0 0 1.591 1.592l2.226-.596a1.63 1.63 0 0 1 1.149.133A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10c0-1.821-.487-3.53-1.338-5"/></svg><span>参与讨论</span></a></div></widget>
 </div></aside><div class='float-panel'>
   <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
@@ -275,7 +278,7 @@ boo...</span></a></div></section></div>
 
 
 <script type="text/javascript">
-  window.canonical = {"originalHost":"shansan.top","officialHosts":["localhost","shansan.top","shansan.cn","yeshan333.github.io"],"encoded":"c2hhbnNhbi50b3A="};
+  window.canonical = {"originalHost":"","officialHosts":["localhost","shansan.top","shansan.cn","yeshan333.github.io"],"encoded":""};
   const ctx = {
     date_suffix: {
       just: `刚刚`,

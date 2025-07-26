@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1" theme-name="Stellar" theme-version="1.33.1">
-  <link rel="canonical" href="https://shansan.top/2021/11/27/loopback-addr/">
+  
   
   <meta name="generator" content="Hexo 7.3.0">
   <meta http-equiv='x-dns-prefetch-control' content='on' />
@@ -20,12 +20,12 @@
   <title>回环地址的一点儿破事 - ShanSan</title>
 
   
-    <meta name="description" content="心血来潮，小水一篇！  回环地址（loopback address）  loopback 在维基百科上有一段这样的解释：Loopback (also written loop-back) is the routing of electronic signals or digital data streams back to their source without intentional proc">
+    <meta name="description" content="心血来潮，小水一篇！ 回环地址（loopback address）  loopback 在维基百科上有一段这样的解释：Loopback (also written loop-back) is the routing of electronic signals or digital data streams back to their source without intentional proce">
 <meta property="og:type" content="article">
 <meta property="og:title" content="回环地址的一点儿破事">
 <meta property="og:url" content="https://yeshan333.github.io/2021/11/27/loopback-addr/">
 <meta property="og:site_name" content="ShanSan">
-<meta property="og:description" content="心血来潮，小水一篇！  回环地址（loopback address）  loopback 在维基百科上有一段这样的解释：Loopback (also written loop-back) is the routing of electronic signals or digital data streams back to their source without intentional proc">
+<meta property="og:description" content="心血来潮，小水一篇！ 回环地址（loopback address）  loopback 在维基百科上有一段这样的解释：Loopback (also written loop-back) is the routing of electronic signals or digital data streams back to their source without intentional proce">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/yeshan333/blog_images@main/blogloopback.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/yeshan333/blog_images@main/cidr.png">
@@ -58,7 +58,7 @@
 
   
 
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"ShanSan","sameAs":[]},"dateCreated":"2021-11-27T11:41:50+00:00","dateModified":"2021-11-27T11:41:50+00:00","datePublished":"2021-11-27T11:41:50+00:00","description":"心血来潮，小水一篇！\n 回环地址（loopback address）\n\nloopback 在维基百科上有一段这样的解释：Loopback (also written loop-back) is the routing of electronic signals or digital data streams back to their source without intentional processing or modification. It is primarily a means of testing the communications infrastructure.\n通熟的说就是将由“源”发送出去的数据路由回“源”。\n","headline":"回环地址的一点儿破事","mainEntityOfPage":{"@type":"WebPage","@id":"https://yeshan333.github.io/2021/11/27/loopback-addr/"},"publisher":{"@type":"Organization","name":"ShanSan","sameAs":[]},"url":"https://yeshan333.github.io/2021/11/27/loopback-addr/","keywords":"Wireshark","thumbnailUrl":"https://cdn.jsdelivr.net/gh/yeshan333/blog_images@main/loopback_banner.png","image":1}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"ShanSan","sameAs":[]},"dateCreated":"2021-11-27T11:41:50+00:00","dateModified":"2021-11-27T11:41:50+00:00","datePublished":"2021-11-27T11:41:50+00:00","description":"心血来潮，小水一篇！\n回环地址（loopback address）\n\nloopback 在维基百科上有一段这样的解释：Loopback (also written loop-back) is the routing of electronic signals or digital data streams back to their source without intentional processing or modification. It is primarily a means of testing the communications infrastructure.\n通熟的说就是将由“源”发送出去的数据路由回“源”。\n","headline":"回环地址的一点儿破事","mainEntityOfPage":{"@type":"WebPage","@id":"https://yeshan333.github.io/2021/11/27/loopback-addr/"},"publisher":{"@type":"Organization","name":"ShanSan","sameAs":[]},"url":"https://yeshan333.github.io/2021/11/27/loopback-addr/","keywords":"Wireshark","thumbnailUrl":"https://cdn.jsdelivr.net/gh/yeshan333/blog_images@main/loopback_banner.png","image":1}</script>
   
 </head>
 <body>
@@ -102,21 +102,21 @@
     
   </div>
   </div><article class="md-text content"><p>心血来潮，小水一篇！</p>
-<h2 id="回环地址loopback-address"><a class="markdownIt-Anchor" href="#回环地址loopback-address"></a> 回环地址（loopback address）</h2>
+<h2 id="%E5%9B%9E%E7%8E%AF%E5%9C%B0%E5%9D%80%EF%BC%88loopback-address%EF%BC%89" tabindex="-1">回环地址（loopback address）</h2>
 <blockquote>
-<p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Loopback">loopback</a> 在维基百科上有一段这样的解释：Loopback (also written loop-back) is the routing of electronic signals or digital data streams back to their source without intentional processing or modification. It is primarily a means of testing the communications infrastructure.<br />
+<p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Loopback">loopback</a> 在维基百科上有一段这样的解释：Loopback (also written loop-back) is the routing of electronic signals or digital data streams back to their source without intentional processing or modification. It is primarily a means of testing the communications infrastructure.<br>
 通熟的说就是将由“源”发送出去的数据路由回“源”。</p>
 </blockquote>
 <span id="more"></span>
 <p>作为划水选手，我们肯定会接触过这样一个东西 -&gt; Virtual loopback interface。当我们写的应用/服务想在同一台机器上进行通信的时候，基本都会使用到它。</p>
 <p>在类 Unix 系统中，虚拟回环接口（Virtual loopback interface）通常被命名为 <strong>lo</strong> 或者 <strong>lo0</strong>。我们可以使用 <code>ipconfig</code> 看一下：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/yeshan333/blog_images@main/blogloopback.png" alt="ipconfig loopback address" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/yeshan333/blog_images@main/blogloopback.png" alt="ipconfig loopback address"></p>
 <p>emmm，127.0.0.1，好家伙，没错，127.0.0.1 就是一个 IPv4 的回环地址。IETF 标准中（<a target="_blank" rel="noopener" href="https://www.rfcreader.com/#rfc1122_line1324">RFC1122</a>、<a target="_blank" rel="noopener" href="https://www.rfcreader.com/#rfc5735_line97">RFC5735</a>）将 IPv4 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation">CIDR</a> 地址块 127.0.0.0/8 划为回环地址（即 127.0.0.0 ~ 127.255.255.255）。IPv6 下回环地址为 <code>::1/128</code>。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/yeshan333/blog_images@main/cidr.png" alt="CIDR 表示" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/yeshan333/blog_images@main/cidr.png" alt="CIDR 表示"></p>
 <blockquote>
 <p>IPv6 下 127.0.0.1 表示为 ::1</p>
 </blockquote>
-<h2 id="几个常见的小家伙"><a class="markdownIt-Anchor" href="#几个常见的小家伙"></a> 几个常见的小家伙</h2>
+<h2 id="%E5%87%A0%E4%B8%AA%E5%B8%B8%E8%A7%81%E7%9A%84%E5%B0%8F%E5%AE%B6%E4%BC%99" tabindex="-1">几个常见的小家伙</h2>
 <p>OK, 回环地址简介完了，接下来让我们看下以下几个常用的“小家伙”：</p>
 <ul>
 <li>localhost</li>
@@ -139,27 +139,29 @@
 <li>开发完后的 Web Service，我们一般会 listen 0.0.0.0，这有什么用？</li>
 </ul>
 <p><code>listen 0.0.0.0</code> 会监听本机上的所有IPV4地址。让服务访问方就可以通过本机的多个 IP 地址（包括回环地址，只要服务访问方与本机处于同一个网络下）访问本机的 Web 服务。<a target="_blank" rel="noopener" href="https://datatracker.ietf.org/doc/html/rfc5735#section-3">RFC 5735</a> 对特殊的 0.0.0.0 地址做了介绍。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/yeshan333/blog_images@main/ping0000.png" alt="ping 0.0.0.0" /></p>
-<h2 id="wireshark-回环地址抓包"><a class="markdownIt-Anchor" href="#wireshark-回环地址抓包"></a> Wireshark 回环地址抓包</h2>
+<p><img src="https://cdn.jsdelivr.net/gh/yeshan333/blog_images@main/ping0000.png" alt="ping 0.0.0.0"></p>
+<h2 id="wireshark-%E5%9B%9E%E7%8E%AF%E5%9C%B0%E5%9D%80%E6%8A%93%E5%8C%85" tabindex="-1">Wireshark 回环地址抓包</h2>
 <p>在这里介绍下使用 <a target="_blank" rel="noopener" href="https://www.wireshark.org/#download">Wireshark</a> 抓取回环地址的数据包，</p>
 <blockquote>
 <p>Wireshark 如果想要抓取回环地址的包（(loopback packets)），需要安装 <a target="_blank" rel="noopener" href="https://nmap.org/npcap/">Npcap</a>。</p>
 </blockquote>
 <p>1、我们本地使用 Go 的 Gin 起个粗糙版 Web 服务：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;github.com/gin-gonic/gin&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	r := gin.Default()</span><br><span class="line">	r.GET(<span class="string">&quot;/ping&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(c *gin.Context)</span></span> &#123;</span><br><span class="line">		c.JSON(<span class="number">200</span>, gin.H&#123;</span><br><span class="line">			<span class="string">&quot;message&quot;</span>: <span class="string">&quot;pong&quot;</span>,</span><br><span class="line">		&#125;)</span><br><span class="line">	&#125;)</span><br><span class="line">	r.Run() <span class="comment">// listen and serve on 0.0.0.0:8080 (for windows &quot;localhost:8080&quot;)</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="https://cdn.jsdelivr.net/gh/yeshan333/blog_images@main/gogin.png" alt="Go-Gin" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/yeshan333/blog_images@main/gogin.png" alt="Go-Gin"></p>
 <p>2、打开 Wireshark，capture 回环地址的虚拟网卡：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/yeshan333/blog_images@main/wireshark_loopback.png" alt="Wireshark capture loopback" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/yeshan333/blog_images@main/wireshark_loopback.png" alt="Wireshark capture loopback"></p>
 <p>3、过滤一下 TCP 端口，curl 一下 localhost:8080/ping：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl --location --request GET <span class="string">&#x27;localhost:8080/ping&#x27;</span></span><br></pre></td></tr></table></figure>
-<p><img src="https://cdn.jsdelivr.net/gh/yeshan333/blog_images@main/wireshark_port_filter.png" alt="Wireshark TCP port filter" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/yeshan333/blog_images@main/wireshark_port_filter.png" alt="Wireshark TCP port filter"></p>
 <p>水完，收工！😊</p>
-<h2 id="参考"><a class="markdownIt-Anchor" href="#参考"></a> 参考</h2>
+<h2 id="%E5%8F%82%E8%80%83" tabindex="-1">参考</h2>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Loopback">LoopBack (Virtual loopback interface) - wikipedia</a></li>
 <li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Localhost">Localhost - wikipedia</a></li>
 <li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/381408859">断网了，还能ping通 127.0.0.1 吗？为什么？</a></li>
 </ul>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">
 </article>
 <div class="article-footer">
     <section id="license">
@@ -175,9 +177,9 @@
       <div class="body">
         <div class="link"><input class="copy-area" readonly="true" id="copy-link" value="https://yeshan333.github.io/2021/11/27/loopback-addr/" /></div>
         <div class="social-wrap dis-select"><a class="social share-item wechat" onclick="util.toggle(&quot;qrcode-wechat&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/b32ef3da1162a.svg" /></a><a class="social share-item weibo" target="_blank" rel="external nofollow noopener noreferrer" href="https://service.weibo.com/share/share.php?url=https://yeshan333.github.io/2021/11/27/loopback-addr/&title=回环地址的一点儿破事 - ShanSan&pics=https://cdn.jsdelivr.net/gh/yeshan333/blog_images@main/loopback_banner.png&summary=心血来潮，小水一篇！
- 回环地址（loopback address）
+回环地址（loopback address）
 
-loopback 在维基百科上有一段这样的解释：Loopback (also written loop-back) is the routing of elect..."><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/80c07e4dbb303.svg" /></a><a class="social share-item email" href="mailto:?subject=回环地址的一点儿破事 - ShanSan&amp;body=https://yeshan333.github.io/2021/11/27/loopback-addr/"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/a1b00e20f425d.svg" /></a><a class="social share-item link" onclick="util.copy(&quot;copy-link&quot;, &quot;复制成功&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/8411ed322ced6.svg" /></a></div>
+loopback 在维基百科上有一段这样的解释：Loopback (also written loop-back) is the routing of electr..."><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/80c07e4dbb303.svg" /></a><a class="social share-item email" href="mailto:?subject=回环地址的一点儿破事 - ShanSan&amp;body=https://yeshan333.github.io/2021/11/27/loopback-addr/"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/a1b00e20f425d.svg" /></a><a class="social share-item link" onclick="util.copy(&quot;copy-link&quot;, &quot;复制成功&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/8411ed322ced6.svg" /></a></div>
         
         <div class="qrcode" id="qrcode-wechat" style="opacity:0;height:0">
           <img src="https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=https://yeshan333.github.io/2021/11/27/loopback-addr/"/>
@@ -195,13 +197,13 @@ loopback 在维基百科上有一段这样的解释：Loopback (also written loo
     </section>
     <section class='body'>
     <div class="related-posts"><a class="item" href="/2020/11/15/使用tcpdump和wireshark看下TCP握手/" title="使用tcpdump和Wireshark看下TCP握手"><span class="title">使用tcpdump和Wireshark看下TCP握手</span><span class="excerpt">tcpdump 和 Wireshark 是最常用的网络抓包和分析工具，作为经常和网络打交道的划水选手，怎么能不了解下呢？补篇博文回顾下相关操作。这里以 example.com 的一次 GET 请求为例，先使用 tcpdump 抓个包，...</span></a><a class="item" href="/2020/05/19/了解一波经典的-IO-模型/" title="了解一波经典的 I/O 模型"><span class="title">了解一波经典的 I/O 模型</span><span class="excerpt">最近读了波网络 I/O 相关的文章，做下总结、摘录。（未完）
- 经典 I/O 模型
+经典 I/O 模型
 
 
 red checked, 阻塞式 I/O（blocking I/O）
 
 
-red checked, 非阻塞式 I/O（non-blocking I...</span></a></div></section></div>
+red checked, 非阻塞式 I/O（non-blocking I/...</span></a></div></section></div>
 
 
   <div class="related-wrap md-text" id="comments">
@@ -218,9 +220,9 @@ red checked, 非阻塞式 I/O（non-blocking I...</span></a></div></section></di
 
 
 
-<footer class="page-footer footnote"><hr><div class="text"><p><a target="_blank" rel="noopener" href="https://shansan.top">Copyright © 2018-2025 ShanSan</a><br><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">桂ICP备19000444号</a><br />
-本站由 <a href="/">ShanSan</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br />
-本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。<br />
+<footer class="page-footer footnote"><hr><div class="text"><p><a target="_blank" rel="noopener" href="https://shansan.top">Copyright © 2018-2025 ShanSan</a><br><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">桂ICP备19000444号</a><br>
+本站由 <a href="/">ShanSan</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br>
+本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。<br>
 <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span></p>
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 </div></footer>
@@ -229,7 +231,7 @@ red checked, 非阻塞式 I/O（non-blocking I...</span></a></div></section></di
 <widget class="widget-wrapper user-card ghuser"><div class="widget-body data-service ds-ghinfo" data-api="https://api.github.com/users/yeshan333"><div class="avatar" ><img no-lazy type="img" id="avatar_url" src="undefined" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></div><p class="username" type="text" id="name">&nbsp;</p><p class="bio" type="text" id="bio">&nbsp;</p><div class="buttons"><a class="btn" target="_blank" rel="noopener" href="https://github.com/yeshan333?tab=followers"><span class="title" type="text" id="followers">0</span><span class="desc">followers</span></a><a class="btn" target="_blank" rel="noopener" href="https://github.com/yeshan333?tab=following"><span class="title" type="text" id="following">0</span><span class="desc">following</span></a><a class="btn" target="_blank" rel="noopener" href="https://github.com/yeshan333?tab=repositories"><span class="title" type="text" id="public_repos">0</span><span class="desc">repos</span></a></div><a class="follow" target="_blank" rel="noopener" href="https://github.com/yeshan333"><svg aria-hidden="true" role="img" class="color-icon-primary" viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor" style="display:inline-block;user-select:none;vertical-align:text-bottom;overflow:visible"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>Follow</a></div></widget>
 
 
-<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9E%E7%8E%AF%E5%9C%B0%E5%9D%80loopback-address"><span class="toc-text"> 回环地址（loopback address）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%A0%E4%B8%AA%E5%B8%B8%E8%A7%81%E7%9A%84%E5%B0%8F%E5%AE%B6%E4%BC%99"><span class="toc-text"> 几个常见的小家伙</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#wireshark-%E5%9B%9E%E7%8E%AF%E5%9C%B0%E5%9D%80%E6%8A%93%E5%8C%85"><span class="toc-text"> Wireshark 回环地址抓包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text"> 参考</span></a></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a><a class="buttom" onclick="util.scrollComment()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M8 10.5h8M8 14h5.5M17 3.338A9.95 9.95 0 0 0 12 2C6.477 2 2 6.477 2 12c0 1.6.376 3.112 1.043 4.453c.178.356.237.763.134 1.148l-.595 2.226a1.3 1.3 0 0 0 1.591 1.592l2.226-.596a1.63 1.63 0 0 1 1.149.133A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10c0-1.821-.487-3.53-1.338-5"/></svg><span>参与讨论</span></a></div></widget>
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9E%E7%8E%AF%E5%9C%B0%E5%9D%80%EF%BC%88loopback-address%EF%BC%89"><span class="toc-text">回环地址（loopback address）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%A0%E4%B8%AA%E5%B8%B8%E8%A7%81%E7%9A%84%E5%B0%8F%E5%AE%B6%E4%BC%99"><span class="toc-text">几个常见的小家伙</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#wireshark-%E5%9B%9E%E7%8E%AF%E5%9C%B0%E5%9D%80%E6%8A%93%E5%8C%85"><span class="toc-text">Wireshark 回环地址抓包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a><a class="buttom" onclick="util.scrollComment()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M8 10.5h8M8 14h5.5M17 3.338A9.95 9.95 0 0 0 12 2C6.477 2 2 6.477 2 12c0 1.6.376 3.112 1.043 4.453c.178.356.237.763.134 1.148l-.595 2.226a1.3 1.3 0 0 0 1.591 1.592l2.226-.596a1.63 1.63 0 0 1 1.149.133A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10c0-1.821-.487-3.53-1.338-5"/></svg><span>参与讨论</span></a></div></widget>
 </div></aside><div class='float-panel'>
   <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
@@ -242,7 +244,7 @@ red checked, 非阻塞式 I/O（non-blocking I...</span></a></div></section></di
 
 
 <script type="text/javascript">
-  window.canonical = {"originalHost":"shansan.top","officialHosts":["localhost","shansan.top","shansan.cn","yeshan333.github.io"],"encoded":"c2hhbnNhbi50b3A="};
+  window.canonical = {"originalHost":"","officialHosts":["localhost","shansan.top","shansan.cn","yeshan333.github.io"],"encoded":""};
   const ctx = {
     date_suffix: {
       just: `刚刚`,

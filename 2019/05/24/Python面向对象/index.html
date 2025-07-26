@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1" theme-name="Stellar" theme-version="1.33.1">
-  <link rel="canonical" href="https://shansan.top/2019/05/24/Python%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">
+  
   
   <meta name="generator" content="Hexo 7.3.0">
   <meta http-equiv='x-dns-prefetch-control' content='on' />
@@ -20,12 +20,12 @@
   <title>Python面向对象 - ShanSan</title>
 
   
-    <meta name="description" content="对象：一个自包含的实体，用一组可识别的特性和行为来标识 类：具有相同的属性和功能的对象的抽象的集合 实例：一个真实的对象，实例化就是创建对象的过程 多态：可对不同类型的对象执行相同的操作，而这些操作就像“被施了魔法”一样能够正常运行 封装：对外部隐藏有关对象工作原理的细节 继承：可基于通用类创建专用类   多态  多态可以让我们在不知道变量指向哪种对象时，也能够对其执行操作，且操作的行为将随对象">
+    <meta name="description" content="对象：一个自包含的实体，用一组可识别的特性和行为来标识 类：具有相同的属性和功能的对象的抽象的集合 实例：一个真实的对象，实例化就是创建对象的过程 多态：可对不同类型的对象执行相同的操作，而这些操作就像“被施了魔法”一样能够正常运行 封装：对外部隐藏有关对象工作原理的细节 继承：可基于通用类创建专用类  多态  多态可以让我们在不知道变量指向哪种对象时，也能够对其执行操作，且操作的行为将随对象所">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Python面向对象">
 <meta property="og:url" content="https://yeshan333.github.io/2019/05/24/Python%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">
 <meta property="og:site_name" content="ShanSan">
-<meta property="og:description" content="对象：一个自包含的实体，用一组可识别的特性和行为来标识 类：具有相同的属性和功能的对象的抽象的集合 实例：一个真实的对象，实例化就是创建对象的过程 多态：可对不同类型的对象执行相同的操作，而这些操作就像“被施了魔法”一样能够正常运行 封装：对外部隐藏有关对象工作原理的细节 继承：可基于通用类创建专用类   多态  多态可以让我们在不知道变量指向哪种对象时，也能够对其执行操作，且操作的行为将随对象">
+<meta property="og:description" content="对象：一个自包含的实体，用一组可识别的特性和行为来标识 类：具有相同的属性和功能的对象的抽象的集合 实例：一个真实的对象，实例化就是创建对象的过程 多态：可对不同类型的对象执行相同的操作，而这些操作就像“被施了魔法”一样能够正常运行 封装：对外部隐藏有关对象工作原理的细节 继承：可基于通用类创建专用类  多态  多态可以让我们在不知道变量指向哪种对象时，也能够对其执行操作，且操作的行为将随对象所">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.ax1x.com/2019/05/23/VPgYDA.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/05/31/V1PM1x.png">
@@ -59,7 +59,7 @@
 
   
 
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"ShanSan","sameAs":[]},"dateCreated":"2019-05-24T12:54:40+00:00","dateModified":"2019-05-31T12:54:40+00:00","datePublished":"2019-05-24T12:54:40+00:00","description":"\n对象：一个自包含的实体，用一组可识别的特性和行为来标识\n类：具有相同的属性和功能的对象的抽象的集合\n实例：一个真实的对象，实例化就是创建对象的过程\n多态：可对不同类型的对象执行相同的操作，而这些操作就像“被施了魔法”一样能够正常运行\n封装：对外部隐藏有关对象工作原理的细节\n继承：可基于通用类创建专用类\n\n 多态\n\n多态可以让我们在不知道变量指向哪种对象时，也能够对其执行操作，且操作的行为将随对象所属的类型（类）而异。每当不知道对象是什么样就能对其执行操作，都是多态在起作用\n多态以 继承 和 重写 父类方法 为前提\n多态是调用方法的技巧，不会影响到类的内部设计\n多态性即向不同的对象发送同一个消息，不同的对象在接收时会产生不同的行为（即方法）\n听说Python天然就多态\n\n12345678910111213141516171819202122232425class Person(object):    def __init__(self,name,sex):        self.name = name        self.sex = sex    def print_title(self):        if self.sex == &quot;male&quot;:            print(&quot;man&quot;)        elif self.sex == &quot;female&quot;:            print(&quot;woman&quot;)class Child(Person):                # Child 继承 Person    def print_title(self):        if self.sex == &quot;male&quot;:            print(&quot;boy&quot;)        elif self.sex == &quot;female&quot;:            print(&quot;girl&quot;)May = Child(&quot;May&quot;,&quot;female&quot;)Peter = Person(&quot;Peter&quot;,&quot;male&quot;)print(May.name,May.sex,Peter.name,Peter.sex)# 同一消息May.print_title()Peter.print_title()","headline":"Python面向对象","mainEntityOfPage":{"@type":"WebPage","@id":"https://yeshan333.github.io/2019/05/24/Python%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/"},"publisher":{"@type":"Organization","name":"ShanSan","sameAs":[]},"url":"https://yeshan333.github.io/2019/05/24/Python%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/","keywords":"Python","image":[]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"ShanSan","sameAs":[]},"dateCreated":"2019-05-24T12:54:40+00:00","dateModified":"2019-05-31T12:54:40+00:00","datePublished":"2019-05-24T12:54:40+00:00","description":"\n对象：一个自包含的实体，用一组可识别的特性和行为来标识\n类：具有相同的属性和功能的对象的抽象的集合\n实例：一个真实的对象，实例化就是创建对象的过程\n多态：可对不同类型的对象执行相同的操作，而这些操作就像“被施了魔法”一样能够正常运行\n封装：对外部隐藏有关对象工作原理的细节\n继承：可基于通用类创建专用类\n\n多态\n\n多态可以让我们在不知道变量指向哪种对象时，也能够对其执行操作，且操作的行为将随对象所属的类型（类）而异。每当不知道对象是什么样就能对其执行操作，都是多态在起作用\n多态以 继承 和 重写 父类方法 为前提\n多态是调用方法的技巧，不会影响到类的内部设计\n多态性即向不同的对象发送同一个消息，不同的对象在接收时会产生不同的行为（即方法）\n听说Python天然就多态\n\n12345678910111213141516171819202122232425class Person(object):    def __init__(self,name,sex):        self.name = name        self.sex = sex    def print_title(self):        if self.sex == &quot;male&quot;:            print(&quot;man&quot;)        elif self.sex == &quot;female&quot;:            print(&quot;woman&quot;)class Child(Person):                # Child 继承 Person    def print_title(self):        if self.sex == &quot;male&quot;:            print(&quot;boy&quot;)        elif self.sex == &quot;female&quot;:            print(&quot;girl&quot;)May = Child(&quot;May&quot;,&quot;female&quot;)Peter = Person(&quot;Peter&quot;,&quot;male&quot;)print(May.name,May.sex,Peter.name,Peter.sex)# 同一消息May.print_title()Peter.print_title()","headline":"Python面向对象","mainEntityOfPage":{"@type":"WebPage","@id":"https://yeshan333.github.io/2019/05/24/Python%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/"},"publisher":{"@type":"Organization","name":"ShanSan","sameAs":[]},"url":"https://yeshan333.github.io/2019/05/24/Python%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/","keywords":"Python","image":[]}</script>
   
 </head>
 <body>
@@ -110,7 +110,7 @@
 <li>封装：对外部隐藏有关对象工作原理的细节</li>
 <li>继承：可基于通用类创建专用类</li>
 </ul>
-<h1 id="多态"><a class="markdownIt-Anchor" href="#多态"></a> 多态</h1>
+<h1 id="%E5%A4%9A%E6%80%81" tabindex="-1">多态</h1>
 <ul>
 <li>多态可以让我们在不知道变量指向哪种对象时，也能够对其执行操作，且操作的行为将随对象所属的类型（类）而异。每当不知道对象是什么样就能对其执行操作，都是多态在起作用</li>
 <li>多态以 继承 和 重写 父类方法 为前提</li>
@@ -120,7 +120,7 @@
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span>(<span class="title class_ inherited__">object</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,name,sex</span>):</span><br><span class="line">        <span class="variable language_">self</span>.name = name</span><br><span class="line">        <span class="variable language_">self</span>.sex = sex</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">print_title</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">if</span> <span class="variable language_">self</span>.sex == <span class="string">&quot;male&quot;</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;man&quot;</span>)</span><br><span class="line">        <span class="keyword">elif</span> <span class="variable language_">self</span>.sex == <span class="string">&quot;female&quot;</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;woman&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Child</span>(<span class="title class_ inherited__">Person</span>):                <span class="comment"># Child 继承 Person</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">print_title</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">if</span> <span class="variable language_">self</span>.sex == <span class="string">&quot;male&quot;</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;boy&quot;</span>)</span><br><span class="line">        <span class="keyword">elif</span> <span class="variable language_">self</span>.sex == <span class="string">&quot;female&quot;</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;girl&quot;</span>)</span><br><span class="line"></span><br><span class="line">May = Child(<span class="string">&quot;May&quot;</span>,<span class="string">&quot;female&quot;</span>)</span><br><span class="line">Peter = Person(<span class="string">&quot;Peter&quot;</span>,<span class="string">&quot;male&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(May.name,May.sex,Peter.name,Peter.sex)</span><br><span class="line"><span class="comment"># 同一消息</span></span><br><span class="line">May.print_title()</span><br><span class="line">Peter.print_title()</span><br></pre></td></tr></table></figure>
 <span id="more"></span>
-<h1 id="封装"><a class="markdownIt-Anchor" href="#封装"></a> 封装</h1>
+<h1 id="%E5%B0%81%E8%A3%85" tabindex="-1">封装</h1>
 <ul>
 <li>
 <p>封装指的是向外部隐藏不必要的细节。与多态有点像，他们都是抽象的原则。<strong>多态让你无需知道对象所属的类（对象的类型）就能调用其方法。封装让你无需知道对象的构造就能够使用它。</strong></p>
@@ -132,22 +132,22 @@
 <p>默认情况下，Python中的属性和方法都是公开的，可以在对象外部访问</p>
 </li>
 </ul>
-<h2 id="私有变量"><a class="markdownIt-Anchor" href="#私有变量"></a> 私有变量</h2>
+<h2 id="%E7%A7%81%E6%9C%89%E5%8F%98%E9%87%8F" tabindex="-1">私有变量</h2>
 <ul>
 <li>Python并没有真正的私有化支持，但可用下划线得到伪私有。</li>
 <li>在Python定义私有变量只需在变量名或函数名前加上两个下划线<code>__</code>,例如<code>__name</code>。那种仅限在一个对象内部访问的“私有”变量在Python中并不存在</li>
 <li>使用双下划线将方法或属性变为私有时，在内部，Python将以双下划线开头的名字都进行转换，即在开头加上一个下划线和类名。但这样的私有变量或方法还是可以访问的，访问形式如：实例名._类名__变量名、实例名._类名__方法名()</li>
 <li>以单下划线开头的时保护成员变量，只有本类和子类成员实例能访问这些变量</li>
 </ul>
-<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/VPgYDA"><img src="https://s2.ax1x.com/2019/05/23/VPgYDA.png" alt="VPgYDA.png" /></a></p>
-<h2 id="property装饰器-__slots__魔法"><a class="markdownIt-Anchor" href="#property装饰器-__slots__魔法"></a> property装饰器、__slots__魔法</h2>
+<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/VPgYDA"><img src="https://s2.ax1x.com/2019/05/23/VPgYDA.png" alt="VPgYDA.png"></a></p>
+<h2 id="property%E8%A3%85%E9%A5%B0%E5%99%A8%E3%80%81__slots__%E9%AD%94%E6%B3%95" tabindex="-1">property装饰器、__slots__魔法</h2>
 <ul>
 <li>我们可以使用property装饰器对属性进行封装、通过getter和setter方法进行属性的访问和修改</li>
 <li>Python是一门动态语言，可以在程序运行时给对象绑定属性和方法，也可以对已经绑定的属性和方法进行解绑定，我们可以使用__slots__魔法限定对象可以绑定的属性</li>
 </ul>
-<p><img src="https://s2.ax1x.com/2019/05/31/V1PM1x.png" alt="V1PM1x.png" /></p>
-<p><img src="https://s2.ax1x.com/2019/05/31/V1PK91.png" alt="V1PK91.png" /></p>
-<h1 id="继承派生"><a class="markdownIt-Anchor" href="#继承派生"></a> 继承&amp;&amp;派生</h1>
+<p><img src="https://s2.ax1x.com/2019/05/31/V1PM1x.png" alt="V1PM1x.png"></p>
+<p><img src="https://s2.ax1x.com/2019/05/31/V1PK91.png" alt="V1PK91.png"></p>
+<h1 id="%E7%BB%A7%E6%89%BF%26%26%E6%B4%BE%E7%94%9F" tabindex="-1">继承&amp;&amp;派生</h1>
 <ul>
 <li>
 <p>一个新类从已有类那里获得其已有特性，这种现象称为继承。从一个已有类（父类，Python叫超类）产生一个新的子类，称为类的派生。要指顶定超类，可在class语句中的类名后加上超类名，并将其用原括括起来</p>
@@ -166,8 +166,8 @@
 </li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,name</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;我叫&#123;&#125;&quot;</span>.<span class="built_in">format</span>(name))</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Student</span>(<span class="title class_ inherited__">Person</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,name</span>):</span><br><span class="line">        <span class="comment"># 使用super函数调用父类构造函数</span></span><br><span class="line">        <span class="built_in">super</span>().__init__(name) <span class="comment"># 也可以写成这样：Person.__init__(self,name)</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;我是一个学生！&quot;</span>)</span><br></pre></td></tr></table></figure>
-<p><img src="https://s2.ax1x.com/2019/05/23/VPB0O0.png" alt="VPB0O0.png" /></p>
-<h1 id="抽象基类"><a class="markdownIt-Anchor" href="#抽象基类"></a> 抽象基类</h1>
+<p><img src="https://s2.ax1x.com/2019/05/23/VPB0O0.png" alt="VPB0O0.png"></p>
+<h1 id="%E6%8A%BD%E8%B1%A1%E5%9F%BA%E7%B1%BB" tabindex="-1">抽象基类</h1>
 <ul>
 <li>抽象基类是不能（至少是不应该）实例化的类，其职责是定义子类应该实现的一组抽象方法。Python可通过引入ABC模块实现抽象基类，使用<code>@abstractmethod</code>装饰器将方法标记为抽象的。例如：</li>
 </ul>
@@ -176,25 +176,27 @@
 <ul>
 <li>抽象类（即包含抽象方法的类）最重要的特征是不能实例化。如果派生出的类没有重写talk方法，那么派生出的类也是抽象的，不能实例化。</li>
 </ul>
-<h1 id="鸭子类型"><a class="markdownIt-Anchor" href="#鸭子类型"></a> <a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E9%B8%AD%E5%AD%90%E7%B1%BB%E5%9E%8B/10845665?fr=aladdin">鸭子类型</a></h1>
+<h1 id="%E9%B8%AD%E5%AD%90%E7%B1%BB%E5%9E%8B" tabindex="-1"><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E9%B8%AD%E5%AD%90%E7%B1%BB%E5%9E%8B/10845665?fr=aladdin">鸭子类型</a></h1>
 <blockquote>
-<p>“鸭子类型”的语言是这么推断的：一只鸟走起来像鸭子、游起泳来像鸭子、叫起来也像鸭子，那它就可以被当做鸭子。也就是说，它不关注对象的类型，而是关注对象具有的行为(方法)。<br />
+<p>“鸭子类型”的语言是这么推断的：一只鸟走起来像鸭子、游起泳来像鸭子、叫起来也像鸭子，那它就可以被当做鸭子。也就是说，它不关注对象的类型，而是关注对象具有的行为(方法)。<br>
 例如，在不使用鸭子类型的语言中，我们可以编写一个函数，它接受一个类型为鸭的对象，并调用它的走和叫方法。在使用鸭子类型的语言中，这样的一个函数可以接受一个任意类型的对象，并调用它的走和叫方法。如果这些需要被调用的方法不存在，那么将引发一个运行时错误。任何拥有这样的正确的走和叫方法的对象都可被函数接受的这种行为引出了以上表述，这种决定类型的方式因此得名</p>
 </blockquote>
 <p><strong>鸭子类型的关注点在对象的行为，而不在对象的类型</strong></p>
-<p><img src="https://s2.ax1x.com/2019/05/24/VF9D3V.png" alt="VF9D3V.png" /></p>
+<p><img src="https://s2.ax1x.com/2019/05/24/VF9D3V.png" alt="VF9D3V.png"></p>
 <p>参考：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/59299729">https://zhuanlan.zhihu.com/p/59299729</a></p>
-<h1 id="类方法-静态方法"><a class="markdownIt-Anchor" href="#类方法-静态方法"></a> 类方法、静态方法</h1>
+<h1 id="%E7%B1%BB%E6%96%B9%E6%B3%95%E3%80%81%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95" tabindex="-1">类方法、静态方法</h1>
 <ul>
 <li>类方法：使用@classmethod装饰器定义。<code>类方法将类本身作为对象进行操作</code>,类方法的第一个参数必须是当前类对象（一般命名为<code>cls</code>,用于传递类的属性和方法），实例对象和类对象都可以调用类方法。</li>
 <li>静态方法：使用@staticmethod装饰器定义。没有self和cls参数。在方法中不能使用类或实例任何属性和方法。实例和对象都可以调用静态方法。</li>
 </ul>
-<p><img src="https://s2.ax1x.com/2019/05/31/V1PQc6.png" alt="V1PQc6.png" /></p>
-<p><img src="https://s2.ax1x.com/2019/05/31/V1PmN9.png" alt="V1PmN9.png" /></p>
+<p><img src="https://s2.ax1x.com/2019/05/31/V1PQc6.png" alt="V1PQc6.png"></p>
+<p><img src="https://s2.ax1x.com/2019/05/31/V1PmN9.png" alt="V1PmN9.png"></p>
 <p>参考：</p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://github.com/jackfrued/Python-100-Days/blob/master/Day01-15/Day09/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%BF%9B%E9%98%B6.md">https://github.com/jackfrued/Python-100-Days/blob/master/Day01-15/Day09/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%BF%9B%E9%98%B6.md</a></li>
 </ul>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">
 </article>
 <div class="article-footer">
     <section id="license">
@@ -230,27 +232,27 @@
       <div class='title cap theme'>您可能感兴趣的文章</div>
     </section>
     <section class='body'>
-    <div class="related-posts"><a class="item" href="/2019/05/22/Jupyter-Notebooks的简单了解/" title="Jupyter Notebooks的简单了解"><span class="title">Jupyter Notebooks的简单了解</span><span class="excerpt">撸一手Jupyter</span></a><a class="item" href="/2019/07/19/Python协程（Coroutine）/" title="Python协程-asyncio、async/await"><span class="title">Python协程-asyncio、async/await</span><span class="excerpt">
-看到吐血 (´ཀ`」 ∠)
-
-
-协程(Coroutine)本质上是一个函数，特点是在代码块中可以将执行权交给其他协程
-众所周知，子程序（函数）都是层级调用的，如果在A中调用了B，那么B执行完毕返回后A才能执行完毕。协程与子程序有点类...</span></a><a class="item" href="/2019/07/26/Python-自定义上下文管理器/" title="Python-自定义上下文管理器"><span class="title">Python-自定义上下文管理器</span><span class="excerpt"> 上下文管理器
+    <div class="related-posts"><a class="item" href="/2019/05/22/Jupyter-Notebooks的简单了解/" title="Jupyter Notebooks的简单了解"><span class="title">Jupyter Notebooks的简单了解</span><span class="excerpt">撸一手Jupyter</span></a><a class="item" href="/2019/07/26/Python-自定义上下文管理器/" title="Python-自定义上下文管理器"><span class="title">Python-自定义上下文管理器</span><span class="excerpt">上下文管理器
 
 上下文管理器可以帮助我们自动分配和释放资源
 上下文管理器需要配合with语句使用
 
-比如进行文件操作的时候我们可能会忘记操作后关闭文件（file close），使用with open(filename, mode) ...</span></a><a class="item" href="/2019/05/11/Python多进程-多线程/" title="Python多进程&&多线程（初步）"><span class="title">Python多进程&&多线程（初步）</span><span class="excerpt"> 进程 &amp;&amp; 线程
-
-进程：进程是操作系统中执行的一个程序，操作系统以进程为单位分配存储空间，每个进程都有自己的地址空间、数据栈以及其他用于跟踪进程执行的辅助数据，操作系统管理所有进程的执行，为它们合理的分配资源。进程...</span></a><a class="item" href="/2019/09/02/Python环境管理/" title="Python 环境管理与项目依赖管理"><span class="title">Python 环境管理与项目依赖管理</span><span class="excerpt">
+比如进行文件操作的时候我们可能会忘记操作后关闭文件（file close），使用with open(filename, mode) a...</span></a><a class="item" href="/2019/09/02/Python环境管理/" title="Python 环境管理与项目依赖管理"><span class="title">Python 环境管理与项目依赖管理</span><span class="excerpt">
 个人简单记录下
 
- virtualenv + pip
+virtualenv + pip
 
 virtualenv是一个用于创建&quot;隔离的ython运行环境&quot;的工具，Docs
 pip是Python的包管理工具，Docs
 
-123456789101112...</span></a></div></section></div>
+1234567891011121...</span></a><a class="item" href="/2019/07/19/Python协程（Coroutine）/" title="Python协程-asyncio、async/await"><span class="title">Python协程-asyncio、async/await</span><span class="excerpt">
+看到吐血 (´ཀ`」 ∠)
+
+
+协程(Coroutine)本质上是一个函数，特点是在代码块中可以将执行权交给其他协程
+众所周知，子程序（函数）都是层级调用的，如果在A中调用了B，那么B执行完毕返回后A才能执行完毕。协程与子程序有点类...</span></a><a class="item" href="/2019/05/11/Python多进程-多线程/" title="Python多进程&&多线程（初步）"><span class="title">Python多进程&&多线程（初步）</span><span class="excerpt">进程 &amp;&amp; 线程
+
+进程：进程是操作系统中执行的一个程序，操作系统以进程为单位分配存储空间，每个进程都有自己的地址空间、数据栈以及其他用于跟踪进程执行的辅助数据，操作系统管理所有进程的执行，为它们合理的分配资源。进程可...</span></a></div></section></div>
 
 
   <div class="related-wrap md-text" id="comments">
@@ -267,9 +269,9 @@ pip是Python的包管理工具，Docs
 
 
 
-<footer class="page-footer footnote"><hr><div class="text"><p><a target="_blank" rel="noopener" href="https://shansan.top">Copyright © 2018-2025 ShanSan</a><br><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">桂ICP备19000444号</a><br />
-本站由 <a href="/">ShanSan</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br />
-本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。<br />
+<footer class="page-footer footnote"><hr><div class="text"><p><a target="_blank" rel="noopener" href="https://shansan.top">Copyright © 2018-2025 ShanSan</a><br><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">桂ICP备19000444号</a><br>
+本站由 <a href="/">ShanSan</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br>
+本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。<br>
 <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span></p>
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 </div></footer>
@@ -278,7 +280,7 @@ pip是Python的包管理工具，Docs
 <widget class="widget-wrapper user-card ghuser"><div class="widget-body data-service ds-ghinfo" data-api="https://api.github.com/users/yeshan333"><div class="avatar" ><img no-lazy type="img" id="avatar_url" src="undefined" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></div><p class="username" type="text" id="name">&nbsp;</p><p class="bio" type="text" id="bio">&nbsp;</p><div class="buttons"><a class="btn" target="_blank" rel="noopener" href="https://github.com/yeshan333?tab=followers"><span class="title" type="text" id="followers">0</span><span class="desc">followers</span></a><a class="btn" target="_blank" rel="noopener" href="https://github.com/yeshan333?tab=following"><span class="title" type="text" id="following">0</span><span class="desc">following</span></a><a class="btn" target="_blank" rel="noopener" href="https://github.com/yeshan333?tab=repositories"><span class="title" type="text" id="public_repos">0</span><span class="desc">repos</span></a></div><a class="follow" target="_blank" rel="noopener" href="https://github.com/yeshan333"><svg aria-hidden="true" role="img" class="color-icon-primary" viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor" style="display:inline-block;user-select:none;vertical-align:text-bottom;overflow:visible"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>Follow</a></div></widget>
 
 
-<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A4%9A%E6%80%81"><span class="toc-text"> 多态</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B0%81%E8%A3%85"><span class="toc-text"> 封装</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A7%81%E6%9C%89%E5%8F%98%E9%87%8F"><span class="toc-text"> 私有变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#property%E8%A3%85%E9%A5%B0%E5%99%A8-__slots__%E9%AD%94%E6%B3%95"><span class="toc-text"> property装饰器、__slots__魔法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BB%A7%E6%89%BF%E6%B4%BE%E7%94%9F"><span class="toc-text"> 继承&amp;&amp;派生</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8A%BD%E8%B1%A1%E5%9F%BA%E7%B1%BB"><span class="toc-text"> 抽象基类</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%B8%AD%E5%AD%90%E7%B1%BB%E5%9E%8B"><span class="toc-text"> 鸭子类型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%B1%BB%E6%96%B9%E6%B3%95-%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95"><span class="toc-text"> 类方法、静态方法</span></a></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a><a class="buttom" onclick="util.scrollComment()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M8 10.5h8M8 14h5.5M17 3.338A9.95 9.95 0 0 0 12 2C6.477 2 2 6.477 2 12c0 1.6.376 3.112 1.043 4.453c.178.356.237.763.134 1.148l-.595 2.226a1.3 1.3 0 0 0 1.591 1.592l2.226-.596a1.63 1.63 0 0 1 1.149.133A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10c0-1.821-.487-3.53-1.338-5"/></svg><span>参与讨论</span></a></div></widget>
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A4%9A%E6%80%81"><span class="toc-text">多态</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B0%81%E8%A3%85"><span class="toc-text">封装</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A7%81%E6%9C%89%E5%8F%98%E9%87%8F"><span class="toc-text">私有变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#property%E8%A3%85%E9%A5%B0%E5%99%A8%E3%80%81__slots__%E9%AD%94%E6%B3%95"><span class="toc-text">property装饰器、__slots__魔法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BB%A7%E6%89%BF&&%E6%B4%BE%E7%94%9F"><span class="toc-text">继承&amp;&amp;派生</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8A%BD%E8%B1%A1%E5%9F%BA%E7%B1%BB"><span class="toc-text">抽象基类</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%B8%AD%E5%AD%90%E7%B1%BB%E5%9E%8B"><span class="toc-text">鸭子类型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%B1%BB%E6%96%B9%E6%B3%95%E3%80%81%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95"><span class="toc-text">类方法、静态方法</span></a></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a><a class="buttom" onclick="util.scrollComment()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M8 10.5h8M8 14h5.5M17 3.338A9.95 9.95 0 0 0 12 2C6.477 2 2 6.477 2 12c0 1.6.376 3.112 1.043 4.453c.178.356.237.763.134 1.148l-.595 2.226a1.3 1.3 0 0 0 1.591 1.592l2.226-.596a1.63 1.63 0 0 1 1.149.133A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10c0-1.821-.487-3.53-1.338-5"/></svg><span>参与讨论</span></a></div></widget>
 </div></aside><div class='float-panel'>
   <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
@@ -291,7 +293,7 @@ pip是Python的包管理工具，Docs
 
 
 <script type="text/javascript">
-  window.canonical = {"originalHost":"shansan.top","officialHosts":["localhost","shansan.top","shansan.cn","yeshan333.github.io"],"encoded":"c2hhbnNhbi50b3A="};
+  window.canonical = {"originalHost":"","officialHosts":["localhost","shansan.top","shansan.cn","yeshan333.github.io"],"encoded":""};
   const ctx = {
     date_suffix: {
       just: `刚刚`,

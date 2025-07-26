@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1" theme-name="Stellar" theme-version="1.33.1">
-  <link rel="canonical" href="https://shansan.top/2018/11/22/%E5%86%8D%E6%8E%A2%E5%87%BD%E6%95%B0/">
+  
   
   <meta name="generator" content="Hexo 7.3.0">
   <meta http-equiv='x-dns-prefetch-control' content='on' />
@@ -57,7 +57,7 @@
 
   
 
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"ShanSan","sameAs":[]},"dateCreated":"2018-11-22T00:16:21+00:00","dateModified":"2018-11-22T00:16:21+00:00","datePublished":"2018-11-22T00:16:21+00:00","description":" main:处理命令行\n//main函数的两种定义形式\nint main(int argc,char **argv[])\nint main(int argc,char *argv[])\n\n\nargc:指的是命令行中输入参数的个数\nargv:一个数组，它存储了所有的命令行参数\n","headline":"再探函数","mainEntityOfPage":{"@type":"WebPage","@id":"https://yeshan333.github.io/2018/11/22/%E5%86%8D%E6%8E%A2%E5%87%BD%E6%95%B0/"},"publisher":{"@type":"Organization","name":"ShanSan","sameAs":[]},"url":"https://yeshan333.github.io/2018/11/22/%E5%86%8D%E6%8E%A2%E5%87%BD%E6%95%B0/","keywords":"CPP","image":[]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"ShanSan","sameAs":[]},"dateCreated":"2018-11-22T00:16:21+00:00","dateModified":"2018-11-22T00:16:21+00:00","datePublished":"2018-11-22T00:16:21+00:00","description":"main:处理命令行\n//main函数的两种定义形式\nint main(int argc,char **argv[])\nint main(int argc,char *argv[])\n\n\nargc:指的是命令行中输入参数的个数\nargv:一个数组，它存储了所有的命令行参数\n","headline":"再探函数","mainEntityOfPage":{"@type":"WebPage","@id":"https://yeshan333.github.io/2018/11/22/%E5%86%8D%E6%8E%A2%E5%87%BD%E6%95%B0/"},"publisher":{"@type":"Organization","name":"ShanSan","sameAs":[]},"url":"https://yeshan333.github.io/2018/11/22/%E5%86%8D%E6%8E%A2%E5%87%BD%E6%95%B0/","keywords":"CPP","image":[]}</script>
   
 </head>
 <body>
@@ -100,7 +100,7 @@
     </div>
     
   </div>
-  </div><article class="md-text content"><h1 id="main处理命令行"><a class="markdownIt-Anchor" href="#main处理命令行"></a> main:处理命令行</h1>
+  </div><article class="md-text content"><h1 id="main%3A%E5%A4%84%E7%90%86%E5%91%BD%E4%BB%A4%E8%A1%8C" tabindex="-1">main:处理命令行</h1>
 <pre><code>//main函数的两种定义形式
 int main(int argc,char **argv[])
 int main(int argc,char *argv[])
@@ -110,12 +110,12 @@ int main(int argc,char *argv[])
 <li>argv:一个数组，它存储了所有的命令行参数</li>
 </ul>
 <span id="more"></span>
-<p><img src="https://raw.githubusercontent.com/yeshan333/git_images/master/text.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/yeshan333/git_images/master/text.png" alt=""></p>
 <p>参数使用示例子:</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//file_name:test.cpp</span></span><br><span class="line"><span class="comment">//author:shansan</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line">using namespace <span class="built_in">std</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc,<span class="type">char</span> **argv)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">int</span> i;</span><br><span class="line">	<span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;argc;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;argv[%d]=%s\n&quot;</span>,i,argv[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="https://i.imgur.com/nCsaA2L.gif" alt="" /></p>
-<h1 id="含有可变形参的函数"><a class="markdownIt-Anchor" href="#含有可变形参的函数"></a> 含有可变形参的函数</h1>
-<h2 id="initializer_list形参"><a class="markdownIt-Anchor" href="#initializer_list形参"></a> initializer_list形参</h2>
+<p><img src="https://i.imgur.com/nCsaA2L.gif" alt=""></p>
+<h1 id="%E5%90%AB%E6%9C%89%E5%8F%AF%E5%8F%98%E5%BD%A2%E5%8F%82%E7%9A%84%E5%87%BD%E6%95%B0" tabindex="-1">含有可变形参的函数</h1>
+<h2 id="initializer_list%E5%BD%A2%E5%8F%82" tabindex="-1">initializer_list形参</h2>
 <ul>
 <li>initializer_list是一种标准库类型，用于表示某种特定类型的值的数组</li>
 <li>initializer_list也是一种模板类型</li>
@@ -123,16 +123,16 @@ int main(int argc,char *argv[])
 <li>向initializer_list形参中传递一个值的序列，则必须把序列放在花括号中</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">print_1</span><span class="params">(initializer_list&lt;string&gt; str)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//遍历实参表列,使用initializer_list对象的成员begin和end进行遍历</span></span><br><span class="line">	cout&lt;&lt;<span class="string">&quot;parameter nums: &quot;</span>&lt;&lt;str.<span class="built_in">size</span>()&lt;&lt;endl;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">auto</span> temp = str.<span class="built_in">begin</span>();temp != str.<span class="built_in">end</span>(); ++temp)</span><br><span class="line">	&#123;</span><br><span class="line">	    cout&lt;&lt;*temp&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    cout&lt;&lt;endl;</span><br><span class="line">    <span class="comment">//用范围for语句遍历表列</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">auto</span> beg : str)</span><br><span class="line">	&#123;</span><br><span class="line">		cout&lt;&lt;beg&lt;&lt;endl;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="type">const</span> string a = <span class="string">&quot;shansan&quot;</span>;</span><br><span class="line">	string b = <span class="string">&quot;yeshan333&quot;</span>;</span><br><span class="line">	string c = <span class="string">&quot;wocao&quot;</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//向initializer_list形参中传递一个值的序列需放在花括号内部</span></span><br><span class="line">    <span class="built_in">print_1</span>(&#123;a,b,c&#125;);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="https://i.imgur.com/RdxXrcD.png" alt="" /></p>
-<h1 id="函数返回值-列表初始化返回值"><a class="markdownIt-Anchor" href="#函数返回值-列表初始化返回值"></a> 函数返回值-----列表初始化返回值</h1>
+<p><img src="https://i.imgur.com/RdxXrcD.png" alt=""></p>
+<h1 id="%E5%87%BD%E6%95%B0%E8%BF%94%E5%9B%9E%E5%80%BC-----%E5%88%97%E8%A1%A8%E5%88%9D%E5%A7%8B%E5%8C%96%E8%BF%94%E5%9B%9E%E5%80%BC" tabindex="-1">函数返回值-----列表初始化返回值</h1>
 <ul>
 <li>函数可以返回花括号包围的值的列表</li>
 <li>如果函数返回的是内置类型，则花括号包围的列表最多包含一个值，而且该值所占空间不应该大于目标类型的空间</li>
 <li>如果函数返回的是类类型，由类本身定义初始值如何使用</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function">vector&lt;string&gt; <span class="title">process</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> &#123;<span class="string">&quot;shansan&quot;</span>,<span class="string">&quot;yeshan333&quot;</span>&#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	vector&lt;string&gt; v;</span><br><span class="line">	v = <span class="built_in">process</span>();</span><br><span class="line">	<span class="comment">//遍历vector对象</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">auto</span> temp : v)</span><br><span class="line">	&#123;</span><br><span class="line">	    cout&lt;&lt;temp&lt;&lt;endl;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="https://i.imgur.com/1cZJ4Uu.png" alt="" /></p>
-<h1 id="调试帮助预定义跟踪调试"><a class="markdownIt-Anchor" href="#调试帮助预定义跟踪调试"></a> 调试帮助，预定义跟踪调试</h1>
+<p><img src="https://i.imgur.com/1cZJ4Uu.png" alt=""></p>
+<h1 id="%E8%B0%83%E8%AF%95%E5%B8%AE%E5%8A%A9%EF%BC%8C%E9%A2%84%E5%AE%9A%E4%B9%89%E8%B7%9F%E8%B8%AA%E8%B0%83%E8%AF%95" tabindex="-1">调试帮助，预定义跟踪调试</h1>
 <p>编译器为我们定义的</p>
 <ul>
 <li><strong>func</strong>:存放当前调试函数的名字</li>
@@ -141,8 +141,10 @@ int main(int argc,char *argv[])
 <li><strong>TIME</strong>:存放文件编译时间的字符串字面值常量</li>
 <li><strong>DATE</strong>:存放文件编译日期的字符串字面值常量</li>
 </ul>
-<p><img src="https://i.imgur.com/zYffeTU.png" alt="" /></p>
-<hr />
+<p><img src="https://i.imgur.com/zYffeTU.png" alt=""></p>
+<hr>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">
 </article>
 <div class="article-footer">
     <section id="license">
@@ -157,14 +159,14 @@ int main(int argc,char *argv[])
       <div class="header"><span>分享文章</span></div>
       <div class="body">
         <div class="link"><input class="copy-area" readonly="true" id="copy-link" value="https://yeshan333.github.io/2018/11/22/%E5%86%8D%E6%8E%A2%E5%87%BD%E6%95%B0/" /></div>
-        <div class="social-wrap dis-select"><a class="social share-item wechat" onclick="util.toggle(&quot;qrcode-wechat&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/b32ef3da1162a.svg" /></a><a class="social share-item weibo" target="_blank" rel="external nofollow noopener noreferrer" href="https://service.weibo.com/share/share.php?url=https://yeshan333.github.io/2018/11/22/%E5%86%8D%E6%8E%A2%E5%87%BD%E6%95%B0/&title=再探函数 - ShanSan&summary= main:处理命令行
+        <div class="social-wrap dis-select"><a class="social share-item wechat" onclick="util.toggle(&quot;qrcode-wechat&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/b32ef3da1162a.svg" /></a><a class="social share-item weibo" target="_blank" rel="external nofollow noopener noreferrer" href="https://service.weibo.com/share/share.php?url=https://yeshan333.github.io/2018/11/22/%E5%86%8D%E6%8E%A2%E5%87%BD%E6%95%B0/&title=再探函数 - ShanSan&summary=main:处理命令行
 //main函数的两种定义形式
 int main(int argc,char **argv[])
 int main(int argc,char *argv[])
 
 
 argc:指的是命令行中输入参数的个数
-ar..."><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/80c07e4dbb303.svg" /></a><a class="social share-item email" href="mailto:?subject=再探函数 - ShanSan&amp;body=https://yeshan333.github.io/2018/11/22/%E5%86%8D%E6%8E%A2%E5%87%BD%E6%95%B0/"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/a1b00e20f425d.svg" /></a><a class="social share-item link" onclick="util.copy(&quot;copy-link&quot;, &quot;复制成功&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/8411ed322ced6.svg" /></a></div>
+arg..."><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/80c07e4dbb303.svg" /></a><a class="social share-item email" href="mailto:?subject=再探函数 - ShanSan&amp;body=https://yeshan333.github.io/2018/11/22/%E5%86%8D%E6%8E%A2%E5%87%BD%E6%95%B0/"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/a1b00e20f425d.svg" /></a><a class="social share-item link" onclick="util.copy(&quot;copy-link&quot;, &quot;复制成功&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/8411ed322ced6.svg" /></a></div>
         
         <div class="qrcode" id="qrcode-wechat" style="opacity:0;height:0">
           <img src="https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=https://yeshan333.github.io/2018/11/22/%E5%86%8D%E6%8E%A2%E5%87%BD%E6%95%B0/"/>
@@ -181,8 +183,8 @@ ar..."><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/
       <div class='title cap theme'>您可能感兴趣的文章</div>
     </section>
     <section class='body'>
-    <div class="related-posts"><a class="item" href="/2018/10/02/ACM入门/" title="ACM入门（占个位）"><span class="title">ACM入门（占个位）</span><span class="excerpt"> A+B for Input-Output Practice(using C++)
- 1.
+    <div class="related-posts"><a class="item" href="/2018/10/02/ACM入门/" title="ACM入门（占个位）"><span class="title">ACM入门（占个位）</span><span class="excerpt">A+B for Input-Output Practice(using C++)
+1.
 
 
 
@@ -191,14 +193,14 @@ Problem Description
 
 
 
-Your task is to Calculate a + b. Too easy?! ...</span></a><a class="item" href="/2018/11/05/C++-11特性-1/" title="C++11特性-1"><span class="title">C++11特性-1</span><span class="excerpt"> c++11特性
- 列表初始化
+Your task is to Calculate a + b. Too easy?! Of...</span></a><a class="item" href="/2018/11/05/C++-11特性-1/" title="C++11特性-1"><span class="title">C++11特性-1</span><span class="excerpt">c++11特性
+列表初始化
 
 使用花括号来初始化对象
 使用列表初始化内置类型的变量，可能会存在丢失信息的风险
-</span></a><a class="item" href="/2018/10/03/C++-入坑记-2/" title="C++入坑记(2)"><span class="title">C++入坑记(2)</span><span class="excerpt"> 函数，默认参数的使用
+</span></a><a class="item" href="/2018/10/03/C++-入坑记-2/" title="C++入坑记(2)"><span class="title">C++入坑记(2)</span><span class="excerpt">函数，默认参数的使用
 在C++中，允许在自定义函数的形参列表中，给形参一个默认的值，这样在调用的时候如果有实参，那么按照实参传递给形参的方法使用；若调用的时候没有指定对应的实参，则形参将使用默认值。
-由于参数的传递顺序是从右至左入栈...</span></a><a class="item" href="/2018/10/04/C++-入坑记-3/" title="C++入坑记(3)"><span class="title">C++入坑记(3)</span><span class="excerpt"> 变量初始化问题
+由于参数的传递顺序是从右至左入栈，...</span></a><a class="item" href="/2018/10/04/C++-入坑记-3/" title="C++入坑记(3)"><span class="title">C++入坑记(3)</span><span class="excerpt">变量初始化问题
 当局部变量被定义时，系统不会自动对其初始化；
 当全局变量被定义时，系统会初始化为下列值:
 
@@ -226,17 +228,26 @@ char
 ‘\0’
 
 
-poi...</span></a><a class="item" href="/2018/11/05/C++-标准库类型/" title="C++标准库类型"><span class="title">C++标准库类型</span><span class="excerpt"> 标准库类型string
-
-标准库类型string表示可变长的字符序列
-使用string类型必须包含string头文件，string定义在命名空间std中
-
- 定义和初始化string对象
-初始化string对象的方式
+poin...</span></a><a class="item" href="/2018/10/02/C++-入坑记/" title="C++入坑记"><span class="title">C++入坑记</span><span class="excerpt">C++关键字
+https://www.runoob.com/w3cnote/cpp-keyword-intro.html
 
 
 
-初始化方...</span></a></div></section></div>
+asm
+else
+new
+this
+
+
+
+
+auto
+enum
+operator
+throw
+
+
+bool...</span></a></div></section></div>
 
 
   <div class="related-wrap md-text" id="comments">
@@ -253,9 +264,9 @@ poi...</span></a><a class="item" href="/2018/11/05/C++-标准库类型/" title="
 
 
 
-<footer class="page-footer footnote"><hr><div class="text"><p><a target="_blank" rel="noopener" href="https://shansan.top">Copyright © 2018-2025 ShanSan</a><br><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">桂ICP备19000444号</a><br />
-本站由 <a href="/">ShanSan</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br />
-本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。<br />
+<footer class="page-footer footnote"><hr><div class="text"><p><a target="_blank" rel="noopener" href="https://shansan.top">Copyright © 2018-2025 ShanSan</a><br><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">桂ICP备19000444号</a><br>
+本站由 <a href="/">ShanSan</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br>
+本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。<br>
 <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span></p>
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 </div></footer>
@@ -264,7 +275,7 @@ poi...</span></a><a class="item" href="/2018/11/05/C++-标准库类型/" title="
 <widget class="widget-wrapper user-card ghuser"><div class="widget-body data-service ds-ghinfo" data-api="https://api.github.com/users/yeshan333"><div class="avatar" ><img no-lazy type="img" id="avatar_url" src="undefined" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></div><p class="username" type="text" id="name">&nbsp;</p><p class="bio" type="text" id="bio">&nbsp;</p><div class="buttons"><a class="btn" target="_blank" rel="noopener" href="https://github.com/yeshan333?tab=followers"><span class="title" type="text" id="followers">0</span><span class="desc">followers</span></a><a class="btn" target="_blank" rel="noopener" href="https://github.com/yeshan333?tab=following"><span class="title" type="text" id="following">0</span><span class="desc">following</span></a><a class="btn" target="_blank" rel="noopener" href="https://github.com/yeshan333?tab=repositories"><span class="title" type="text" id="public_repos">0</span><span class="desc">repos</span></a></div><a class="follow" target="_blank" rel="noopener" href="https://github.com/yeshan333"><svg aria-hidden="true" role="img" class="color-icon-primary" viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor" style="display:inline-block;user-select:none;vertical-align:text-bottom;overflow:visible"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>Follow</a></div></widget>
 
 
-<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#main%E5%A4%84%E7%90%86%E5%91%BD%E4%BB%A4%E8%A1%8C"><span class="toc-text"> main:处理命令行</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%90%AB%E6%9C%89%E5%8F%AF%E5%8F%98%E5%BD%A2%E5%8F%82%E7%9A%84%E5%87%BD%E6%95%B0"><span class="toc-text"> 含有可变形参的函数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#initializer_list%E5%BD%A2%E5%8F%82"><span class="toc-text"> initializer_list形参</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E8%BF%94%E5%9B%9E%E5%80%BC-%E5%88%97%E8%A1%A8%E5%88%9D%E5%A7%8B%E5%8C%96%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="toc-text"> 函数返回值-----列表初始化返回值</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B0%83%E8%AF%95%E5%B8%AE%E5%8A%A9%E9%A2%84%E5%AE%9A%E4%B9%89%E8%B7%9F%E8%B8%AA%E8%B0%83%E8%AF%95"><span class="toc-text"> 调试帮助，预定义跟踪调试</span></a></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a><a class="buttom" onclick="util.scrollComment()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M8 10.5h8M8 14h5.5M17 3.338A9.95 9.95 0 0 0 12 2C6.477 2 2 6.477 2 12c0 1.6.376 3.112 1.043 4.453c.178.356.237.763.134 1.148l-.595 2.226a1.3 1.3 0 0 0 1.591 1.592l2.226-.596a1.63 1.63 0 0 1 1.149.133A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10c0-1.821-.487-3.53-1.338-5"/></svg><span>参与讨论</span></a></div></widget>
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#main:%E5%A4%84%E7%90%86%E5%91%BD%E4%BB%A4%E8%A1%8C"><span class="toc-text">main:处理命令行</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%90%AB%E6%9C%89%E5%8F%AF%E5%8F%98%E5%BD%A2%E5%8F%82%E7%9A%84%E5%87%BD%E6%95%B0"><span class="toc-text">含有可变形参的函数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#initializer_list%E5%BD%A2%E5%8F%82"><span class="toc-text">initializer_list形参</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E8%BF%94%E5%9B%9E%E5%80%BC-----%E5%88%97%E8%A1%A8%E5%88%9D%E5%A7%8B%E5%8C%96%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="toc-text">函数返回值-----列表初始化返回值</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B0%83%E8%AF%95%E5%B8%AE%E5%8A%A9%EF%BC%8C%E9%A2%84%E5%AE%9A%E4%B9%89%E8%B7%9F%E8%B8%AA%E8%B0%83%E8%AF%95"><span class="toc-text">调试帮助，预定义跟踪调试</span></a></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a><a class="buttom" onclick="util.scrollComment()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M8 10.5h8M8 14h5.5M17 3.338A9.95 9.95 0 0 0 12 2C6.477 2 2 6.477 2 12c0 1.6.376 3.112 1.043 4.453c.178.356.237.763.134 1.148l-.595 2.226a1.3 1.3 0 0 0 1.591 1.592l2.226-.596a1.63 1.63 0 0 1 1.149.133A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10c0-1.821-.487-3.53-1.338-5"/></svg><span>参与讨论</span></a></div></widget>
 </div></aside><div class='float-panel'>
   <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
@@ -277,7 +288,7 @@ poi...</span></a><a class="item" href="/2018/11/05/C++-标准库类型/" title="
 
 
 <script type="text/javascript">
-  window.canonical = {"originalHost":"shansan.top","officialHosts":["localhost","shansan.top","shansan.cn","yeshan333.github.io"],"encoded":"c2hhbnNhbi50b3A="};
+  window.canonical = {"originalHost":"","officialHosts":["localhost","shansan.top","shansan.cn","yeshan333.github.io"],"encoded":""};
   const ctx = {
     date_suffix: {
       just: `刚刚`,

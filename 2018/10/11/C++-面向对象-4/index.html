@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1" theme-name="Stellar" theme-version="1.33.1">
-  <link rel="canonical" href="https://shansan.top/2018/10/11/C++-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-4/">
+  
   
   <meta name="generator" content="Hexo 7.3.0">
   <meta http-equiv='x-dns-prefetch-control' content='on' />
@@ -20,12 +20,12 @@
   <title>C++面向对象-4 - ShanSan</title>
 
   
-    <meta name="description" content="继承和派生  新类拥有原有类的全部属性为继承！原有类产生新类的过程为派生。  原有类称为基类，产生的新类称为派生类。 http:&#x2F;&#x2F;www.dotcpp.com&#x2F;course&#x2F;cpp&#x2F;200027.html  继承方式（派生权限）  公有继承 私有继承 保护继承">
+    <meta name="description" content="继承和派生  新类拥有原有类的全部属性为继承！原有类产生新类的过程为派生。  原有类称为基类，产生的新类称为派生类。 http:&#x2F;&#x2F;www.dotcpp.com&#x2F;course&#x2F;cpp&#x2F;200027.html 继承方式（派生权限）  公有继承 私有继承 保护继承">
 <meta property="og:type" content="article">
 <meta property="og:title" content="C++面向对象-4">
 <meta property="og:url" content="https://yeshan333.github.io/2018/10/11/C++-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-4/">
 <meta property="og:site_name" content="ShanSan">
-<meta property="og:description" content="继承和派生  新类拥有原有类的全部属性为继承！原有类产生新类的过程为派生。  原有类称为基类，产生的新类称为派生类。 http:&#x2F;&#x2F;www.dotcpp.com&#x2F;course&#x2F;cpp&#x2F;200027.html  继承方式（派生权限）  公有继承 私有继承 保护继承">
+<meta property="og:description" content="继承和派生  新类拥有原有类的全部属性为继承！原有类产生新类的过程为派生。  原有类称为基类，产生的新类称为派生类。 http:&#x2F;&#x2F;www.dotcpp.com&#x2F;course&#x2F;cpp&#x2F;200027.html 继承方式（派生权限）  公有继承 私有继承 保护继承">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://i.imgur.com/jpF5xiJ.png">
 <meta property="og:image" content="https://i.imgur.com/QwAzhpK.png">
@@ -54,7 +54,7 @@
 
   
 
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"ShanSan","sameAs":[]},"dateCreated":"2018-10-11T00:40:05+00:00","dateModified":"2018-10-11T00:40:05+00:00","datePublished":"2018-10-11T00:40:05+00:00","description":"\n 继承和派生\n\n新类拥有原有类的全部属性为继承！原有类产生新类的过程为派生。\n\n原有类称为基类，产生的新类称为派生类。\nhttp://www.dotcpp.com/course/cpp/200027.html\n 继承方式（派生权限）\n\n公有继承\n私有继承\n保护继承\n","headline":"C++面向对象-4","mainEntityOfPage":{"@type":"WebPage","@id":"https://yeshan333.github.io/2018/10/11/C++-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-4/"},"publisher":{"@type":"Organization","name":"ShanSan","sameAs":[]},"url":"https://yeshan333.github.io/2018/10/11/C++-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-4/","keywords":"CPP","image":[]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"ShanSan","sameAs":[]},"dateCreated":"2018-10-11T00:40:05+00:00","dateModified":"2018-10-11T00:40:05+00:00","datePublished":"2018-10-11T00:40:05+00:00","description":"\n继承和派生\n\n新类拥有原有类的全部属性为继承！原有类产生新类的过程为派生。\n\n原有类称为基类，产生的新类称为派生类。\nhttp://www.dotcpp.com/course/cpp/200027.html\n继承方式（派生权限）\n\n公有继承\n私有继承\n保护继承\n","headline":"C++面向对象-4","mainEntityOfPage":{"@type":"WebPage","@id":"https://yeshan333.github.io/2018/10/11/C++-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-4/"},"publisher":{"@type":"Organization","name":"ShanSan","sameAs":[]},"url":"https://yeshan333.github.io/2018/10/11/C++-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-4/","keywords":"CPP","image":[]}</script>
   
 </head>
 <body>
@@ -98,43 +98,45 @@
     
   </div>
   </div><article class="md-text content"><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=461748517&auto=1&height=66"></iframe>
-<h1 id="继承和派生"><a class="markdownIt-Anchor" href="#继承和派生"></a> 继承和派生</h1>
+<h1 id="%E7%BB%A7%E6%89%BF%E5%92%8C%E6%B4%BE%E7%94%9F" tabindex="-1">继承和派生</h1>
 <blockquote>
 <p>新类拥有原有类的全部属性为继承！原有类产生新类的过程为派生。</p>
 </blockquote>
-<p>原有类称为基类，产生的新类称为派生类。<br />
+<p>原有类称为基类，产生的新类称为派生类。<br>
 <a target="_blank" rel="noopener" href="http://www.dotcpp.com/course/cpp/200027.html">http://www.dotcpp.com/course/cpp/200027.html</a></p>
-<h2 id="继承方式派生权限"><a class="markdownIt-Anchor" href="#继承方式派生权限"></a> 继承方式（派生权限）</h2>
+<h2 id="%E7%BB%A7%E6%89%BF%E6%96%B9%E5%BC%8F%EF%BC%88%E6%B4%BE%E7%94%9F%E6%9D%83%E9%99%90%EF%BC%89" tabindex="-1">继承方式（派生权限）</h2>
 <ul>
 <li>公有继承</li>
 <li>私有继承</li>
 <li>保护继承</li>
 </ul>
 <span id="more"></span>
-<h3 id="公有继承"><a class="markdownIt-Anchor" href="#公有继承"></a> 公有继承</h3>
+<h3 id="%E5%85%AC%E6%9C%89%E7%BB%A7%E6%89%BF" tabindex="-1">公有继承</h3>
 <ul>
 <li>基类中的公有成员，在派生类中仍然为公有成员。无论派生类的成员函数还是成员对象都可以访问。</li>
 <li>基类中的私有成员，无论在派生类的成员还是派生类对象都不可以访问。</li>
 <li>基类中的保护成员，在派生类中仍然是保护类型，可以通过派生类的成员函数访问，但派生类对象不可以访问！</li>
 </ul>
-<h3 id="私有继承"><a class="markdownIt-Anchor" href="#私有继承"></a> 私有继承</h3>
+<h3 id="%E7%A7%81%E6%9C%89%E7%BB%A7%E6%89%BF" tabindex="-1">私有继承</h3>
 <ul>
 <li>基类中的公有和受保护类型，被派生类私有吸收后，都变为派生类的私有类型，即在类的成员函数里可以访问，不能在类外访问。</li>
 <li>基类的私有成员，在派生类类内和类外都不可以访问。</li>
 </ul>
-<h3 id="保护继承"><a class="markdownIt-Anchor" href="#保护继承"></a> 保护继承</h3>
+<h3 id="%E4%BF%9D%E6%8A%A4%E7%BB%A7%E6%89%BF" tabindex="-1">保护继承</h3>
 <ul>
 <li>基类的公共成员和保护类型成员在派生类中为保护成员。</li>
 <li>基类的私有成员在派生类中不能被直接访问。</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Student</span>                   <span class="comment">//基类</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">private</span>:</span><br><span class="line">	    <span class="type">int</span> number;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function"><span class="type">int</span> <span class="title">Set</span><span class="params">(<span class="type">int</span> number)</span></span></span><br><span class="line"><span class="function">		</span>&#123;</span><br><span class="line">			<span class="keyword">this</span>-&gt;number=number;</span><br><span class="line">			<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="function"><span class="type">int</span> <span class="title">Show</span><span class="params">()</span></span></span><br><span class="line"><span class="function">		</span>&#123;</span><br><span class="line">			cout&lt;&lt;<span class="string">&quot;he or she number:&quot;</span>&lt;&lt;number&lt;&lt;endl;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Score</span>:<span class="keyword">public</span> Student      <span class="comment">//公有继承，派生类</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">private</span>:</span><br><span class="line">	    <span class="type">int</span> score;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function"><span class="type">int</span> <span class="title">set_score</span><span class="params">(<span class="type">int</span> score)</span></span></span><br><span class="line"><span class="function">		</span>&#123;</span><br><span class="line">			<span class="keyword">this</span>-&gt;score=score;</span><br><span class="line">			<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="function"><span class="type">int</span> <span class="title">show_score</span><span class="params">()</span></span></span><br><span class="line"><span class="function">		</span>&#123;</span><br><span class="line">			cout&lt;&lt;<span class="string">&quot;the score is :&quot;</span>&lt;&lt;score&lt;&lt;endl;</span><br><span class="line">			<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Score A;</span><br><span class="line">	A.<span class="built_in">Set</span>(<span class="number">17007101</span>);</span><br><span class="line">	A.<span class="built_in">Show</span>();</span><br><span class="line">	A.<span class="built_in">set_score</span>(<span class="number">99</span>);</span><br><span class="line">	A.<span class="built_in">show_score</span>();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="https://i.imgur.com/jpF5xiJ.png" alt="运行结果" /></p>
-<h2 id="多继承"><a class="markdownIt-Anchor" href="#多继承"></a> 多继承</h2>
-<p>一个子类可以有多个父类，继承多个父类的特性<br />
-class &lt;派生类名&gt;:&lt;继承方式&gt;&lt;基类名1&gt;,&lt;继承方式&gt;&lt;基类名2&gt;,…{派生类类体}</p>
+<p><img src="https://i.imgur.com/jpF5xiJ.png" alt="运行结果"></p>
+<h2 id="%E5%A4%9A%E7%BB%A7%E6%89%BF" tabindex="-1">多继承</h2>
+<p 派生类类体="">一个子类可以有多个父类，继承多个父类的特性<br>
+class &lt;派生类名&gt;:&lt;继承方式&gt;&lt;基类名1&gt;,&lt;继承方式&gt;&lt;基类名2&gt;,…</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span>  <span class="title class_">Shape</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function"><span class="type">void</span> <span class="title">setWidth</span><span class="params">(<span class="type">int</span> w)</span></span></span><br><span class="line"><span class="function">		</span>&#123;</span><br><span class="line">			width = w;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="function"><span class="type">void</span> <span class="title">setHight</span><span class="params">(<span class="type">int</span> h)</span></span></span><br><span class="line"><span class="function">		</span>&#123;</span><br><span class="line">			height = h;</span><br><span class="line">		&#125;</span><br><span class="line">	<span class="keyword">protected</span>:</span><br><span class="line">		<span class="type">int</span> width;</span><br><span class="line">		<span class="type">int</span> height;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">PaintCost</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">	    <span class="function"><span class="type">int</span> <span class="title">GetCost</span><span class="params">(<span class="type">int</span> area)</span></span></span><br><span class="line"><span class="function">		</span>&#123;</span><br><span class="line">			<span class="keyword">return</span> area*<span class="number">70</span>;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Rectangle</span>: <span class="keyword">public</span> Shape,<span class="keyword">public</span> PaintCost   <span class="comment">//派生类</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function"><span class="type">int</span> <span class="title">getArea</span><span class="params">()</span></span></span><br><span class="line"><span class="function">		</span>&#123;</span><br><span class="line">			<span class="keyword">return</span> (width*height);</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Rectangle Rect;</span><br><span class="line">	<span class="type">int</span> area;</span><br><span class="line"></span><br><span class="line">	Rect.<span class="built_in">setWidth</span>(<span class="number">10</span>);</span><br><span class="line">	Rect.<span class="built_in">setHight</span>(<span class="number">3</span>);</span><br><span class="line"></span><br><span class="line">	area = Rect.<span class="built_in">getArea</span>();</span><br><span class="line"></span><br><span class="line">	<span class="comment">//输出对象面积</span></span><br><span class="line">	cout&lt;&lt;<span class="string">&quot;Total area: &quot;</span>&lt;&lt;Rect.<span class="built_in">getArea</span>()&lt;&lt;endl;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//输出总花费</span></span><br><span class="line">	cout&lt;&lt;<span class="string">&quot;Total paint cost: &quot;</span>&lt;&lt;Rect.<span class="built_in">GetCost</span>(area)&lt;&lt;endl;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="https://i.imgur.com/QwAzhpK.png" alt="运行结果" /></p>
-<hr />
+<p><img src="https://i.imgur.com/QwAzhpK.png" alt="运行结果"></p>
+<hr>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">
 </article>
 <div class="article-footer">
     <section id="license">
@@ -150,13 +152,15 @@ class &lt;派生类名&gt;:&lt;继承方式&gt;&lt;基类名1&gt;,&lt;继承方�
       <div class="body">
         <div class="link"><input class="copy-area" readonly="true" id="copy-link" value="https://yeshan333.github.io/2018/10/11/C++-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-4/" /></div>
         <div class="social-wrap dis-select"><a class="social share-item wechat" onclick="util.toggle(&quot;qrcode-wechat&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/b32ef3da1162a.svg" /></a><a class="social share-item weibo" target="_blank" rel="external nofollow noopener noreferrer" href="https://service.weibo.com/share/share.php?url=https://yeshan333.github.io/2018/10/11/C++-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-4/&title=C++面向对象-4 - ShanSan&summary=
- 继承和派生
+继承和派生
 
 新类拥有原有类的全部属性为继承！原有类产生新类的过程为派生。
 
 原有类称为基类，产生的新类称为派生类。
 http://www.dotcpp.com/course/cpp/200027.html
- 继承方式（派生权限）..."><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/80c07e4dbb303.svg" /></a><a class="social share-item email" href="mailto:?subject=C++面向对象-4 - ShanSan&amp;body=https://yeshan333.github.io/2018/10/11/C++-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-4/"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/a1b00e20f425d.svg" /></a><a class="social share-item link" onclick="util.copy(&quot;copy-link&quot;, &quot;复制成功&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/8411ed322ced6.svg" /></a></div>
+继承方式（派生权限）
+
+..."><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/80c07e4dbb303.svg" /></a><a class="social share-item email" href="mailto:?subject=C++面向对象-4 - ShanSan&amp;body=https://yeshan333.github.io/2018/10/11/C++-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-4/"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/a1b00e20f425d.svg" /></a><a class="social share-item link" onclick="util.copy(&quot;copy-link&quot;, &quot;复制成功&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/8411ed322ced6.svg" /></a></div>
         
         <div class="qrcode" id="qrcode-wechat" style="opacity:0;height:0">
           <img src="https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=https://yeshan333.github.io/2018/10/11/C++-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-4/"/>
@@ -173,8 +177,8 @@ http://www.dotcpp.com/course/cpp/200027.html
       <div class='title cap theme'>您可能感兴趣的文章</div>
     </section>
     <section class='body'>
-    <div class="related-posts"><a class="item" href="/2018/10/02/ACM入门/" title="ACM入门（占个位）"><span class="title">ACM入门（占个位）</span><span class="excerpt"> A+B for Input-Output Practice(using C++)
- 1.
+    <div class="related-posts"><a class="item" href="/2018/10/02/ACM入门/" title="ACM入门（占个位）"><span class="title">ACM入门（占个位）</span><span class="excerpt">A+B for Input-Output Practice(using C++)
+1.
 
 
 
@@ -183,14 +187,14 @@ Problem Description
 
 
 
-Your task is to Calculate a + b. Too easy?! ...</span></a><a class="item" href="/2018/11/05/C++-11特性-1/" title="C++11特性-1"><span class="title">C++11特性-1</span><span class="excerpt"> c++11特性
- 列表初始化
+Your task is to Calculate a + b. Too easy?! Of...</span></a><a class="item" href="/2018/11/05/C++-11特性-1/" title="C++11特性-1"><span class="title">C++11特性-1</span><span class="excerpt">c++11特性
+列表初始化
 
 使用花括号来初始化对象
 使用列表初始化内置类型的变量，可能会存在丢失信息的风险
-</span></a><a class="item" href="/2018/10/03/C++-入坑记-2/" title="C++入坑记(2)"><span class="title">C++入坑记(2)</span><span class="excerpt"> 函数，默认参数的使用
+</span></a><a class="item" href="/2018/10/03/C++-入坑记-2/" title="C++入坑记(2)"><span class="title">C++入坑记(2)</span><span class="excerpt">函数，默认参数的使用
 在C++中，允许在自定义函数的形参列表中，给形参一个默认的值，这样在调用的时候如果有实参，那么按照实参传递给形参的方法使用；若调用的时候没有指定对应的实参，则形参将使用默认值。
-由于参数的传递顺序是从右至左入栈...</span></a><a class="item" href="/2018/10/04/C++-入坑记-3/" title="C++入坑记(3)"><span class="title">C++入坑记(3)</span><span class="excerpt"> 变量初始化问题
+由于参数的传递顺序是从右至左入栈，...</span></a><a class="item" href="/2018/10/04/C++-入坑记-3/" title="C++入坑记(3)"><span class="title">C++入坑记(3)</span><span class="excerpt">变量初始化问题
 当局部变量被定义时，系统不会自动对其初始化；
 当全局变量被定义时，系统会初始化为下列值:
 
@@ -218,17 +222,26 @@ char
 ‘\0’
 
 
-poi...</span></a><a class="item" href="/2018/11/05/C++-标准库类型/" title="C++标准库类型"><span class="title">C++标准库类型</span><span class="excerpt"> 标准库类型string
-
-标准库类型string表示可变长的字符序列
-使用string类型必须包含string头文件，string定义在命名空间std中
-
- 定义和初始化string对象
-初始化string对象的方式
+poin...</span></a><a class="item" href="/2018/10/02/C++-入坑记/" title="C++入坑记"><span class="title">C++入坑记</span><span class="excerpt">C++关键字
+https://www.runoob.com/w3cnote/cpp-keyword-intro.html
 
 
 
-初始化方...</span></a></div></section></div>
+asm
+else
+new
+this
+
+
+
+
+auto
+enum
+operator
+throw
+
+
+bool...</span></a></div></section></div>
 
 
   <div class="related-wrap md-text" id="comments">
@@ -245,9 +258,9 @@ poi...</span></a><a class="item" href="/2018/11/05/C++-标准库类型/" title="
 
 
 
-<footer class="page-footer footnote"><hr><div class="text"><p><a target="_blank" rel="noopener" href="https://shansan.top">Copyright © 2018-2025 ShanSan</a><br><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">桂ICP备19000444号</a><br />
-本站由 <a href="/">ShanSan</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br />
-本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。<br />
+<footer class="page-footer footnote"><hr><div class="text"><p><a target="_blank" rel="noopener" href="https://shansan.top">Copyright © 2018-2025 ShanSan</a><br><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">桂ICP备19000444号</a><br>
+本站由 <a href="/">ShanSan</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br>
+本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。<br>
 <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span></p>
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 </div></footer>
@@ -256,7 +269,7 @@ poi...</span></a><a class="item" href="/2018/11/05/C++-标准库类型/" title="
 <widget class="widget-wrapper user-card ghuser"><div class="widget-body data-service ds-ghinfo" data-api="https://api.github.com/users/yeshan333"><div class="avatar" ><img no-lazy type="img" id="avatar_url" src="undefined" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></div><p class="username" type="text" id="name">&nbsp;</p><p class="bio" type="text" id="bio">&nbsp;</p><div class="buttons"><a class="btn" target="_blank" rel="noopener" href="https://github.com/yeshan333?tab=followers"><span class="title" type="text" id="followers">0</span><span class="desc">followers</span></a><a class="btn" target="_blank" rel="noopener" href="https://github.com/yeshan333?tab=following"><span class="title" type="text" id="following">0</span><span class="desc">following</span></a><a class="btn" target="_blank" rel="noopener" href="https://github.com/yeshan333?tab=repositories"><span class="title" type="text" id="public_repos">0</span><span class="desc">repos</span></a></div><a class="follow" target="_blank" rel="noopener" href="https://github.com/yeshan333"><svg aria-hidden="true" role="img" class="color-icon-primary" viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor" style="display:inline-block;user-select:none;vertical-align:text-bottom;overflow:visible"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>Follow</a></div></widget>
 
 
-<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BB%A7%E6%89%BF%E5%92%8C%E6%B4%BE%E7%94%9F"><span class="toc-text"> 继承和派生</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%A7%E6%89%BF%E6%96%B9%E5%BC%8F%E6%B4%BE%E7%94%9F%E6%9D%83%E9%99%90"><span class="toc-text"> 继承方式（派生权限）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%AC%E6%9C%89%E7%BB%A7%E6%89%BF"><span class="toc-text"> 公有继承</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A7%81%E6%9C%89%E7%BB%A7%E6%89%BF"><span class="toc-text"> 私有继承</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%9D%E6%8A%A4%E7%BB%A7%E6%89%BF"><span class="toc-text"> 保护继承</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E7%BB%A7%E6%89%BF"><span class="toc-text"> 多继承</span></a></li></ol></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a><a class="buttom" onclick="util.scrollComment()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M8 10.5h8M8 14h5.5M17 3.338A9.95 9.95 0 0 0 12 2C6.477 2 2 6.477 2 12c0 1.6.376 3.112 1.043 4.453c.178.356.237.763.134 1.148l-.595 2.226a1.3 1.3 0 0 0 1.591 1.592l2.226-.596a1.63 1.63 0 0 1 1.149.133A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10c0-1.821-.487-3.53-1.338-5"/></svg><span>参与讨论</span></a></div></widget>
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BB%A7%E6%89%BF%E5%92%8C%E6%B4%BE%E7%94%9F"><span class="toc-text">继承和派生</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%A7%E6%89%BF%E6%96%B9%E5%BC%8F%EF%BC%88%E6%B4%BE%E7%94%9F%E6%9D%83%E9%99%90%EF%BC%89"><span class="toc-text">继承方式（派生权限）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%AC%E6%9C%89%E7%BB%A7%E6%89%BF"><span class="toc-text">公有继承</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A7%81%E6%9C%89%E7%BB%A7%E6%89%BF"><span class="toc-text">私有继承</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%9D%E6%8A%A4%E7%BB%A7%E6%89%BF"><span class="toc-text">保护继承</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E7%BB%A7%E6%89%BF"><span class="toc-text">多继承</span></a></li></ol></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a><a class="buttom" onclick="util.scrollComment()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M8 10.5h8M8 14h5.5M17 3.338A9.95 9.95 0 0 0 12 2C6.477 2 2 6.477 2 12c0 1.6.376 3.112 1.043 4.453c.178.356.237.763.134 1.148l-.595 2.226a1.3 1.3 0 0 0 1.591 1.592l2.226-.596a1.63 1.63 0 0 1 1.149.133A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10c0-1.821-.487-3.53-1.338-5"/></svg><span>参与讨论</span></a></div></widget>
 </div></aside><div class='float-panel'>
   <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
@@ -269,7 +282,7 @@ poi...</span></a><a class="item" href="/2018/11/05/C++-标准库类型/" title="
 
 
 <script type="text/javascript">
-  window.canonical = {"originalHost":"shansan.top","officialHosts":["localhost","shansan.top","shansan.cn","yeshan333.github.io"],"encoded":"c2hhbnNhbi50b3A="};
+  window.canonical = {"originalHost":"","officialHosts":["localhost","shansan.top","shansan.cn","yeshan333.github.io"],"encoded":""};
   const ctx = {
     date_suffix: {
       just: `刚刚`,

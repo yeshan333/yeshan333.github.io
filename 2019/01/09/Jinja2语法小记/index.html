@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1" theme-name="Stellar" theme-version="1.33.1">
-  <link rel="canonical" href="https://shansan.top/2019/01/09/Jinja2%E8%AF%AD%E6%B3%95%E5%B0%8F%E8%AE%B0/">
+  
   
   <meta name="generator" content="Hexo 7.3.0">
   <meta http-equiv='x-dns-prefetch-control' content='on' />
@@ -20,12 +20,12 @@
   <title>Jinja2语法小记 - ShanSan</title>
 
   
-    <meta name="description" content="jinja2模板语法小记  Jinja2模板中文文档   三种常见界定符  表达式  {{ ... }} 用于装载字符串、变量、函数调用等  语句  {% ... %} 用于装载控制语句，比如if判断、for循环等  注释  {# ... #} 用于装载一个注释，模板渲染的时候会被忽略掉">
+    <meta name="description" content="jinja2模板语法小记  Jinja2模板中文文档  三种常见界定符  表达式  {{ ... }} 用于装载字符串、变量、函数调用等  语句  {% ... %} 用于装载控制语句，比如if判断、for循环等  注释  {# ... #} 用于装载一个注释，模板渲染的时候会被忽略掉">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Jinja2语法小记">
 <meta property="og:url" content="https://yeshan333.github.io/2019/01/09/Jinja2%E8%AF%AD%E6%B3%95%E5%B0%8F%E8%AE%B0/">
 <meta property="og:site_name" content="ShanSan">
-<meta property="og:description" content="jinja2模板语法小记  Jinja2模板中文文档   三种常见界定符  表达式  {{ ... }} 用于装载字符串、变量、函数调用等  语句  {% ... %} 用于装载控制语句，比如if判断、for循环等  注释  {# ... #} 用于装载一个注释，模板渲染的时候会被忽略掉">
+<meta property="og:description" content="jinja2模板语法小记  Jinja2模板中文文档  三种常见界定符  表达式  {{ ... }} 用于装载字符串、变量、函数调用等  语句  {% ... %} 用于装载控制语句，比如if判断、for循环等  注释  {# ... #} 用于装载一个注释，模板渲染的时候会被忽略掉">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2019-01-09T23:26:59.000Z">
 <meta property="article:modified_time" content="2019-01-09T23:26:59.000Z">
@@ -51,7 +51,7 @@
 
   
 
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"ShanSan","sameAs":[]},"dateCreated":"2019-01-09T23:26:59+00:00","dateModified":"2019-01-09T23:26:59+00:00","datePublished":"2019-01-09T23:26:59+00:00","description":" jinja2模板语法小记\n\nJinja2模板中文文档\n\n 三种常见界定符\n\n表达式\n\n{{ ... }}\n用于装载字符串、变量、函数调用等\n\n语句\n\n{% ... %}\n用于装载控制语句，比如if判断、for循环等\n\n注释\n\n{# ... #}\n用于装载一个注释，模板渲染的时候会被忽略掉","headline":"Jinja2语法小记","mainEntityOfPage":{"@type":"WebPage","@id":"https://yeshan333.github.io/2019/01/09/Jinja2%E8%AF%AD%E6%B3%95%E5%B0%8F%E8%AE%B0/"},"publisher":{"@type":"Organization","name":"ShanSan","sameAs":[]},"url":"https://yeshan333.github.io/2019/01/09/Jinja2%E8%AF%AD%E6%B3%95%E5%B0%8F%E8%AE%B0/","keywords":"Flask","image":[]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"ShanSan","sameAs":[]},"dateCreated":"2019-01-09T23:26:59+00:00","dateModified":"2019-01-09T23:26:59+00:00","datePublished":"2019-01-09T23:26:59+00:00","description":"jinja2模板语法小记\n\nJinja2模板中文文档\n\n三种常见界定符\n\n表达式\n\n{{ ... }}\n用于装载字符串、变量、函数调用等\n\n语句\n\n{% ... %}\n用于装载控制语句，比如if判断、for循环等\n\n注释\n\n{# ... #}\n用于装载一个注释，模板渲染的时候会被忽略掉","headline":"Jinja2语法小记","mainEntityOfPage":{"@type":"WebPage","@id":"https://yeshan333.github.io/2019/01/09/Jinja2%E8%AF%AD%E6%B3%95%E5%B0%8F%E8%AE%B0/"},"publisher":{"@type":"Organization","name":"ShanSan","sameAs":[]},"url":"https://yeshan333.github.io/2019/01/09/Jinja2%E8%AF%AD%E6%B3%95%E5%B0%8F%E8%AE%B0/","keywords":"Flask","image":[]}</script>
   
 </head>
 <body>
@@ -94,11 +94,11 @@
     </div>
     
   </div>
-  </div><article class="md-text content"><h1 id="jinja2模板语法小记"><a class="markdownIt-Anchor" href="#jinja2模板语法小记"></a> jinja2模板语法小记</h1>
+  </div><article class="md-text content"><h1 id="jinja2%E6%A8%A1%E6%9D%BF%E8%AF%AD%E6%B3%95%E5%B0%8F%E8%AE%B0" tabindex="-1">jinja2模板语法小记</h1>
 <blockquote>
 <p><a target="_blank" rel="noopener" href="http://docs.jinkan.org/docs/jinja2/templates.html">Jinja2模板中文文档</a></p>
 </blockquote>
-<h2 id="三种常见界定符"><a class="markdownIt-Anchor" href="#三种常见界定符"></a> 三种常见界定符</h2>
+<h2 id="%E4%B8%89%E7%A7%8D%E5%B8%B8%E8%A7%81%E7%95%8C%E5%AE%9A%E7%AC%A6" tabindex="-1">三种常见界定符</h2>
 <ol>
 <li>表达式<br></li>
 </ol>
@@ -115,22 +115,22 @@
 {# ... #}
 <p>用于装载一个注释，模板渲染的时候会被忽略掉</p>
 <span id="more"></span>
-<h2 id="变量"><a class="markdownIt-Anchor" href="#变量"></a> 变量</h2>
+<h2 id="%E5%8F%98%E9%87%8F" tabindex="-1">变量</h2>
 <ol>
 <li>在模板中，我们可以使用“<strong>.</strong>”获取变量的属性</li>
 </ol>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">user = &#123;</span><br><span class="line">	<span class="string">&#x27;username&#x27;</span> : <span class="string">&#x27;shansan&#x27;</span>,</span><br><span class="line">	<span class="string">&#x27;bio&#x27;</span>: <span class="string">&#x27;我佛了&#x27;</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>如果user为传入模板中的字典变量，则我们可通过&quot;<strong>.</strong>&quot;获取它的键值。<br />
-eg：<em><strong>user.username</strong></em><br />
+<p>如果user为传入模板中的字典变量，则我们可通过&quot;<strong>.</strong>&quot;获取它的键值。<br>
+eg：<em><strong>user.username</strong></em><br>
 user.username等价于user[‘username’]</p>
 <ol start="2">
 <li>我们可以用<strong>set</strong>标签在模板中定义变量</li>
 </ol>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% set navigation = [(&#x27;/&#x27;,&#x27;Home&#x27;),(&#x27;/about&#x27;,&#x27;关于我&#x27;)] %&#125;</span><br></pre></td></tr></table></figure>
 <p>使用<strong>endset</strong>声明结束</p>
-<h1 id="过滤器filter"><a class="markdownIt-Anchor" href="#过滤器filter"></a> 过滤器(filter)</h1>
+<h1 id="%E8%BF%87%E6%BB%A4%E5%99%A8(filter)" tabindex="-1">过滤器(filter)</h1>
 <blockquote>
-<p>过滤器(filter)是一些可以用来修改和过滤特殊变量值的函数。<br />
+<p>过滤器(filter)是一些可以用来修改和过滤特殊变量值的函数。<br>
 过滤器和变量用一个竖线“<strong>|</strong>”（管道符号）隔开，需要参数的过滤器可以像函数一样使用括号传递</p>
 </blockquote>
 <p>eg: 对一个movies列表使用length过滤器获取其长度</p>
@@ -177,9 +177,9 @@ user.username等价于user[‘username’]</p>
 </tbody>
 </table>
 <p>过滤器函数的第一个参数表示被过滤的变量值(value)或字符串(s)，<strong>即竖线符号左侧的值</strong>其他参数可以使用括号传入</p>
-<h1 id="测试器test"><a class="markdownIt-Anchor" href="#测试器test"></a> 测试器(Test)</h1>
+<h1 id="%E6%B5%8B%E8%AF%95%E5%99%A8(test)" tabindex="-1">测试器(Test)</h1>
 <blockquote>
-<p>测试器主要用来判断一个值是否满足某种变量类型,返回布尔值（True or False）的特殊函数<br />
+<p>测试器主要用来判断一个值是否满足某种变量类型,返回布尔值（True or False）的特殊函数<br>
 语法为：<strong>if…is…</strong></p>
 </blockquote>
 <ul>
@@ -237,9 +237,9 @@ user.username等价于user[‘username’]</p>
 </table>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;% if foo is smeas(bar) %&#125;</span><br><span class="line">&#123;# 等价于 #&#125;</span><br><span class="line">&#123;% if foo is smeas bar %&#125;</span><br></pre></td></tr></table></figure>
 <p>判断foo和bar所以指向的内存地址是否相同</p>
-<h1 id="语句"><a class="markdownIt-Anchor" href="#语句"></a> 语句</h1>
+<h1 id="%E8%AF%AD%E5%8F%A5" tabindex="-1">语句</h1>
 <blockquote>
-<p>在Jinja2中，语句使用**{% ... %}**标识<br />
+<p>在Jinja2中，语句使用**{% ... %}**标识<br>
 在语句结束的地方，必须添加结束标签</p>
 </blockquote>
 <ul>
@@ -249,15 +249,15 @@ user.username等价于user[‘username’]</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;% if user.name == &#x27;shansan&#x27; %&#125;</span><br><span class="line">    &lt;h1&gt;you are right!&lt;/h1&gt;</span><br><span class="line">&#123;% else %&#125;</span><br><span class="line">    &lt;h1&gt;you are wrong!&lt;/h1&gt;</span><br><span class="line">&#123;% endif %&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;% for g in ga %&#125;</span><br><span class="line">    &lt;li&gt;&#123;&#123; g.name &#125;&#125; - &#123;&#123; g.year &#125;&#125;&lt;/li&gt;</span><br><span class="line">&#123;% endfor %&#125;</span><br></pre></td></tr></table></figure>
 <p><em><strong>不可使用break和continue控制循环的执行</strong></em></p>
-<h1 id="模板"><a class="markdownIt-Anchor" href="#模板"></a> 模板</h1>
-<h2 id="局部模板"><a class="markdownIt-Anchor" href="#局部模板"></a> 局部模板</h2>
+<h1 id="%E6%A8%A1%E6%9D%BF" tabindex="-1">模板</h1>
+<h2 id="%E5%B1%80%E9%83%A8%E6%A8%A1%E6%9D%BF" tabindex="-1">局部模板</h2>
 <ul>
 <li>当多个独立模板中使用到同一块HTML代码时，可以把这部分代码抽离出来，放到局部模板中</li>
 <li>局部模板的命名一般以一个下划线开始</li>
 <li>使用<strong>include</strong>标签插入一个局部模板</li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% include &#x27;_banner.html&#x27; %&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="宏"><a class="markdownIt-Anchor" href="#宏"></a> 宏</h2>
+<h2 id="%E5%AE%8F" tabindex="-1">宏</h2>
 <ul>
 <li>宏，类似于Python中的函数。使用宏可以封装一部分模板代码</li>
 <li>一般把宏寄存在即存在名为macros.html或_macros.html文件中</li>
@@ -268,7 +268,7 @@ user.username等价于user[‘username’]</p>
 <p>就像从Python模块中导入函数一样，我们可以使用import导入宏</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% from &#x27;macros.html&#x27; import qux %&#125;</span><br></pre></td></tr></table></figure>
 <p>PS:<font color="red">默认情况下，使用include导入一个局部模板会传递上下文到局部模板中，但使用import却不会</font></p>
-<h2 id="模板继承"><a class="markdownIt-Anchor" href="#模板继承"></a> 模板继承</h2>
+<h2 id="%E6%A8%A1%E6%9D%BF%E7%BB%A7%E6%89%BF" tabindex="-1">模板继承</h2>
 <blockquote>
 <p>模板继承允许我们构建一个包含站点共同元素的基本模板&quot;骨架&quot;，并定义子模版可以覆盖的块</p>
 </blockquote>
@@ -276,7 +276,7 @@ user.username等价于user[‘username’]</p>
 <li>基模板 base.html</li>
 </ol>
 <p>** 在基模板中定义的块（block），可以让子模版通过定义同名的块来执行继承操作 **</p>
-<p><u>块的开始和结束分别使用block和endblock标签,不同的块允许嵌套</u><br />
+<p><u>块的开始和结束分别使用block和endblock标签,不同的块允许嵌套</u><br>
 <u>以下示例代码中使用head、title、styles、content、footer和scripts划分了不同的标签块</u></p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">	&#123;% block head %&#125;</span><br><span class="line">        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span></span><br><span class="line">	    <span class="tag">&lt;<span class="name">title</span>&gt;</span>&#123;% block title %&#125;Template - HelloFlask&#123;% endblock %&#125;<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">	    &#123;% block styles %&#125;&#123;% endblock styles %&#125;</span><br><span class="line">	&#123;% endblock head %&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span>&gt;</span><span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;&#123;&#123; url_for(&#x27;index&#x27;) &#125;&#125;&quot;</span>&gt;</span>Home<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">main</span>&gt;</span></span><br><span class="line">    	&#123;% block content %&#125;&#123;% endblock content %&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">main</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">footer</span>&gt;</span></span><br><span class="line">    	&#123;% block footer %&#125;</span><br><span class="line">        &#123;% endblock footer %&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">footer</span>&gt;</span></span><br><span class="line">    &#123;% block scripts %&#125;&#123;% endblock scripts %&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <ol start="2">
@@ -291,7 +291,7 @@ user.username等价于user[‘username’]</p>
 <p>*** 如需要向基模板中追加内容，可以使用Jinja2的super()函数 ***</p>
 <p>如向基模板的styles块追加一行样式</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;% block styles %&#125;</span><br><span class="line">&#123;&#123; super() &#125;&#125;</span><br><span class="line">&lt;style&gt;</span><br><span class="line">    html&#123;</span><br><span class="line">        color: red;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line">&#123;% endblock %&#125;</span><br></pre></td></tr></table></figure>
-<hr />
+<hr>
 <p>参考：</p>
 <ul>
 <li>
@@ -304,6 +304,8 @@ user.username等价于user[‘username’]</p>
 <p><a target="_blank" rel="noopener" href="http://docs.jinkan.org/docs/jinja2/templates.html#id21">http://docs.jinkan.org/docs/jinja2/templates.html#id21</a></p>
 </li>
 </ul>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">
 </article>
 <div class="article-footer">
     <section id="license">
@@ -318,11 +320,11 @@ user.username等价于user[‘username’]</p>
       <div class="header"><span>分享文章</span></div>
       <div class="body">
         <div class="link"><input class="copy-area" readonly="true" id="copy-link" value="https://yeshan333.github.io/2019/01/09/Jinja2%E8%AF%AD%E6%B3%95%E5%B0%8F%E8%AE%B0/" /></div>
-        <div class="social-wrap dis-select"><a class="social share-item wechat" onclick="util.toggle(&quot;qrcode-wechat&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/b32ef3da1162a.svg" /></a><a class="social share-item weibo" target="_blank" rel="external nofollow noopener noreferrer" href="https://service.weibo.com/share/share.php?url=https://yeshan333.github.io/2019/01/09/Jinja2%E8%AF%AD%E6%B3%95%E5%B0%8F%E8%AE%B0/&title=Jinja2语法小记 - ShanSan&summary= jinja2模板语法小记
+        <div class="social-wrap dis-select"><a class="social share-item wechat" onclick="util.toggle(&quot;qrcode-wechat&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/b32ef3da1162a.svg" /></a><a class="social share-item weibo" target="_blank" rel="external nofollow noopener noreferrer" href="https://service.weibo.com/share/share.php?url=https://yeshan333.github.io/2019/01/09/Jinja2%E8%AF%AD%E6%B3%95%E5%B0%8F%E8%AE%B0/&title=Jinja2语法小记 - ShanSan&summary=jinja2模板语法小记
 
 Jinja2模板中文文档
 
- 三种常见界定符
+三种常见界定符
 
 表达式
 
@@ -336,7 +338,7 @@ Jinja2模板中文文档
 
 注释
 
-{# ..."><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/80c07e4dbb303.svg" /></a><a class="social share-item email" href="mailto:?subject=Jinja2语法小记 - ShanSan&amp;body=https://yeshan333.github.io/2019/01/09/Jinja2%E8%AF%AD%E6%B3%95%E5%B0%8F%E8%AE%B0/"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/a1b00e20f425d.svg" /></a><a class="social share-item link" onclick="util.copy(&quot;copy-link&quot;, &quot;复制成功&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/8411ed322ced6.svg" /></a></div>
+{# ....."><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/80c07e4dbb303.svg" /></a><a class="social share-item email" href="mailto:?subject=Jinja2语法小记 - ShanSan&amp;body=https://yeshan333.github.io/2019/01/09/Jinja2%E8%AF%AD%E6%B3%95%E5%B0%8F%E8%AE%B0/"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/a1b00e20f425d.svg" /></a><a class="social share-item link" onclick="util.copy(&quot;copy-link&quot;, &quot;复制成功&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/8411ed322ced6.svg" /></a></div>
         
         <div class="qrcode" id="qrcode-wechat" style="opacity:0;height:0">
           <img src="https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=https://yeshan333.github.io/2019/01/09/Jinja2%E8%AF%AD%E6%B3%95%E5%B0%8F%E8%AE%B0/"/>
@@ -353,24 +355,24 @@ Jinja2模板中文文档
       <div class='title cap theme'>您可能感兴趣的文章</div>
     </section>
     <section class='body'>
-    <div class="related-posts"><a class="item" href="/2019/03/16/Flask的请求钩子与上下文简记/" title="Flask的请求钩子与上下文简记"><span class="title">Flask的请求钩子与上下文简记</span><span class="excerpt"> 请求钩子(Hook)
+    <div class="related-posts"><a class="item" href="/2019/03/16/Flask的请求钩子与上下文简记/" title="Flask的请求钩子与上下文简记"><span class="title">Flask的请求钩子与上下文简记</span><span class="excerpt">请求钩子(Hook)
 
-在客户端和服务器交互的过程中，有些准备工作或扫尾工作需要处理，比如：在请求开始时，建立数据库连接；在请求结束时，指定数据的交互格式。为了让&gt;每个视图函数避免编写重复功能的代码，Flask提供了通用设施的...</span></a><a class="item" href="/2020/01/13/React-Flask打造前后端分离项目开发环境/" title="React+Flask打造前后端分离项目开发环境"><span class="title">React+Flask打造前后端分离项目开发环境</span><span class="excerpt"> 前言
+在客户端和服务器交互的过程中，有些准备工作或扫尾工作需要处理，比如：在请求开始时，建立数据库连接；在请求结束时，指定数据的交互格式。为了让&gt;每个视图函数避免编写重复功能的代码，Flask提供了通用设施的功...</span></a><a class="item" href="/2020/01/13/React-Flask打造前后端分离项目开发环境/" title="React+Flask打造前后端分离项目开发环境"><span class="title">React+Flask打造前后端分离项目开发环境</span><span class="excerpt">前言
 
 新的一年，开始水第一篇技术文。碰巧最近React玩得多，撸一篇文章纪念一下开发环境的搭建。🤔
 
 
 开篇两问：
 
-什么是React？：React，用于构建用户界面的 JavaScript 库（官网复制粘贴，真香，不用怎么写t...</span></a><a class="item" href="/2019/03/20/SQLAlchemy建立数据库模型之间的关系/" title="SQLAlchemy建立数据库模型之间的关系"><span class="title">SQLAlchemy建立数据库模型之间的关系</span><span class="excerpt"> 常见关系：
+什么是React？：React，用于构建用户界面的 JavaScript 库（官网复制粘贴，真香，不用怎么写te...</span></a><a class="item" href="/2019/03/20/SQLAlchemy建立数据库模型之间的关系/" title="SQLAlchemy建立数据库模型之间的关系"><span class="title">SQLAlchemy建立数据库模型之间的关系</span><span class="excerpt">常见关系：
 
 一对多关系
 多对一关系
 多对多关系
 一对一关系
 
- 一对多关系（一个作者，多篇文章）
-123456789101112131415161718192021222324252627282930## 一对多关系，单作者-多文...</span></a></div></section></div>
+一对多关系（一个作者，多篇文章）
+123456789101112131415161718192021222324252627282930## 一对多关系，单作者-多文章，...</span></a></div></section></div>
 
 
   <div class="related-wrap md-text" id="comments">
@@ -387,9 +389,9 @@ Jinja2模板中文文档
 
 
 
-<footer class="page-footer footnote"><hr><div class="text"><p><a target="_blank" rel="noopener" href="https://shansan.top">Copyright © 2018-2025 ShanSan</a><br><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">桂ICP备19000444号</a><br />
-本站由 <a href="/">ShanSan</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br />
-本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。<br />
+<footer class="page-footer footnote"><hr><div class="text"><p><a target="_blank" rel="noopener" href="https://shansan.top">Copyright © 2018-2025 ShanSan</a><br><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">桂ICP备19000444号</a><br>
+本站由 <a href="/">ShanSan</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br>
+本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。<br>
 <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span></p>
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 </div></footer>
@@ -398,7 +400,7 @@ Jinja2模板中文文档
 <widget class="widget-wrapper user-card ghuser"><div class="widget-body data-service ds-ghinfo" data-api="https://api.github.com/users/yeshan333"><div class="avatar" ><img no-lazy type="img" id="avatar_url" src="undefined" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></div><p class="username" type="text" id="name">&nbsp;</p><p class="bio" type="text" id="bio">&nbsp;</p><div class="buttons"><a class="btn" target="_blank" rel="noopener" href="https://github.com/yeshan333?tab=followers"><span class="title" type="text" id="followers">0</span><span class="desc">followers</span></a><a class="btn" target="_blank" rel="noopener" href="https://github.com/yeshan333?tab=following"><span class="title" type="text" id="following">0</span><span class="desc">following</span></a><a class="btn" target="_blank" rel="noopener" href="https://github.com/yeshan333?tab=repositories"><span class="title" type="text" id="public_repos">0</span><span class="desc">repos</span></a></div><a class="follow" target="_blank" rel="noopener" href="https://github.com/yeshan333"><svg aria-hidden="true" role="img" class="color-icon-primary" viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor" style="display:inline-block;user-select:none;vertical-align:text-bottom;overflow:visible"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>Follow</a></div></widget>
 
 
-<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#jinja2%E6%A8%A1%E6%9D%BF%E8%AF%AD%E6%B3%95%E5%B0%8F%E8%AE%B0"><span class="toc-text"> jinja2模板语法小记</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E7%A7%8D%E5%B8%B8%E8%A7%81%E7%95%8C%E5%AE%9A%E7%AC%A6"><span class="toc-text"> 三种常见界定符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%98%E9%87%8F"><span class="toc-text"> 变量</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%87%E6%BB%A4%E5%99%A8filter"><span class="toc-text"> 过滤器(filter)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E5%99%A8test"><span class="toc-text"> 测试器(Test)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AF%AD%E5%8F%A5"><span class="toc-text"> 语句</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A8%A1%E6%9D%BF"><span class="toc-text"> 模板</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B1%80%E9%83%A8%E6%A8%A1%E6%9D%BF"><span class="toc-text"> 局部模板</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%8F"><span class="toc-text"> 宏</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E6%9D%BF%E7%BB%A7%E6%89%BF"><span class="toc-text"> 模板继承</span></a></li></ol></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a><a class="buttom" onclick="util.scrollComment()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M8 10.5h8M8 14h5.5M17 3.338A9.95 9.95 0 0 0 12 2C6.477 2 2 6.477 2 12c0 1.6.376 3.112 1.043 4.453c.178.356.237.763.134 1.148l-.595 2.226a1.3 1.3 0 0 0 1.591 1.592l2.226-.596a1.63 1.63 0 0 1 1.149.133A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10c0-1.821-.487-3.53-1.338-5"/></svg><span>参与讨论</span></a></div></widget>
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#jinja2%E6%A8%A1%E6%9D%BF%E8%AF%AD%E6%B3%95%E5%B0%8F%E8%AE%B0"><span class="toc-text">jinja2模板语法小记</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E7%A7%8D%E5%B8%B8%E8%A7%81%E7%95%8C%E5%AE%9A%E7%AC%A6"><span class="toc-text">三种常见界定符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%98%E9%87%8F"><span class="toc-text">变量</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%87%E6%BB%A4%E5%99%A8(filter)"><span class="toc-text">过滤器(filter)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E5%99%A8(test)"><span class="toc-text">测试器(Test)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AF%AD%E5%8F%A5"><span class="toc-text">语句</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A8%A1%E6%9D%BF"><span class="toc-text">模板</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B1%80%E9%83%A8%E6%A8%A1%E6%9D%BF"><span class="toc-text">局部模板</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%8F"><span class="toc-text">宏</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E6%9D%BF%E7%BB%A7%E6%89%BF"><span class="toc-text">模板继承</span></a></li></ol></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a><a class="buttom" onclick="util.scrollComment()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M8 10.5h8M8 14h5.5M17 3.338A9.95 9.95 0 0 0 12 2C6.477 2 2 6.477 2 12c0 1.6.376 3.112 1.043 4.453c.178.356.237.763.134 1.148l-.595 2.226a1.3 1.3 0 0 0 1.591 1.592l2.226-.596a1.63 1.63 0 0 1 1.149.133A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10c0-1.821-.487-3.53-1.338-5"/></svg><span>参与讨论</span></a></div></widget>
 </div></aside><div class='float-panel'>
   <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
@@ -411,7 +413,7 @@ Jinja2模板中文文档
 
 
 <script type="text/javascript">
-  window.canonical = {"originalHost":"shansan.top","officialHosts":["localhost","shansan.top","shansan.cn","yeshan333.github.io"],"encoded":"c2hhbnNhbi50b3A="};
+  window.canonical = {"originalHost":"","officialHosts":["localhost","shansan.top","shansan.cn","yeshan333.github.io"],"encoded":""};
   const ctx = {
     date_suffix: {
       just: `刚刚`,

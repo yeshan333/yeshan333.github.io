@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1" theme-name="Stellar" theme-version="1.33.1">
-  <link rel="canonical" href="https://shansan.top/2018/10/31/Scrapy%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6/">
+  
   
   <meta name="generator" content="Hexo 7.3.0">
   <meta http-equiv='x-dns-prefetch-control' content='on' />
@@ -20,12 +20,12 @@
   <title>Scrapy爬虫框架 - ShanSan</title>
 
   
-    <meta name="description" content="网络爬虫框架scrapy （配置型爬虫） 什么是爬虫框架？  爬虫框架是实现爬虫功能的一个软件结构和功能组件集合 爬虫框架是个半成品，帮助用户实现专业网络爬虫   scrapy框架结构(&quot;5+2&quot;结构)   spider:   解析downloader返回的响应（Response） 产生爬取项（scraped item） 产生额外的爬去请求（Request） 需要用户编写配置">
+    <meta name="description" content="网络爬虫框架scrapy （配置型爬虫） 什么是爬虫框架？  爬虫框架是实现爬虫功能的一个软件结构和功能组件集合 爬虫框架是个半成品，帮助用户实现专业网络爬虫  scrapy框架结构(&quot;5+2&quot;结构)   spider:   解析downloader返回的响应（Response） 产生爬取项（scraped item） 产生额外的爬去请求（Request） 需要用户编写配置代码">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Scrapy爬虫框架">
 <meta property="og:url" content="https://yeshan333.github.io/2018/10/31/Scrapy%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6/">
 <meta property="og:site_name" content="ShanSan">
-<meta property="og:description" content="网络爬虫框架scrapy （配置型爬虫） 什么是爬虫框架？  爬虫框架是实现爬虫功能的一个软件结构和功能组件集合 爬虫框架是个半成品，帮助用户实现专业网络爬虫   scrapy框架结构(&quot;5+2&quot;结构)   spider:   解析downloader返回的响应（Response） 产生爬取项（scraped item） 产生额外的爬去请求（Request） 需要用户编写配置">
+<meta property="og:description" content="网络爬虫框架scrapy （配置型爬虫） 什么是爬虫框架？  爬虫框架是实现爬虫功能的一个软件结构和功能组件集合 爬虫框架是个半成品，帮助用户实现专业网络爬虫  scrapy框架结构(&quot;5+2&quot;结构)   spider:   解析downloader返回的响应（Response） 产生爬取项（scraped item） 产生额外的爬去请求（Request） 需要用户编写配置代码">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://i.imgur.com/Wlai3fH.png">
 <meta property="og:image" content="https://i.imgur.com/MDlRnll.png">
@@ -104,22 +104,22 @@
     </div>
     
   </div>
-  </div><article class="md-text content"><h1 id="网络爬虫框架scrapy"><a class="markdownIt-Anchor" href="#网络爬虫框架scrapy"></a> 网络爬虫框架<a target="_blank" rel="noopener" href="https://scrapy.org/">scrapy</a></h1>
+  </div><article class="md-text content"><h1 id="%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6scrapy" tabindex="-1">网络爬虫框架<a target="_blank" rel="noopener" href="https://scrapy.org/">scrapy</a></h1>
 <p>（配置型爬虫）</p>
 <p>什么是爬虫框架？</p>
 <ul>
 <li>爬虫框架是实现爬虫功能的一个软件结构和功能组件集合</li>
 <li>爬虫框架是个半成品，帮助用户实现专业网络爬虫</li>
 </ul>
-<h1 id="scrapy框架结构52结构"><a class="markdownIt-Anchor" href="#scrapy框架结构52结构"></a> scrapy框架结构(&quot;5+2&quot;结构)</h1>
-<p><img src="https://i.imgur.com/Wlai3fH.png" alt="" /></p>
+<h1 id="scrapy%E6%A1%86%E6%9E%B6%E7%BB%93%E6%9E%84(%225%2B2%22%E7%BB%93%E6%9E%84)" tabindex="-1">scrapy框架结构(&quot;5+2&quot;结构)</h1>
+<p><img src="https://i.imgur.com/Wlai3fH.png" alt=""></p>
 <ol>
 <li>spider:</li>
 </ol>
 <ul>
 <li>解析downloader返回的响应（Response）</li>
 <li>产生爬取项（scraped item）</li>
-<li>产生额外的爬去请求（Request）<br />
+<li>产生额外的爬去请求（Request）<br>
 需要用户编写配置代码</li>
 </ul>
 <ol start="2">
@@ -127,21 +127,21 @@
 </ol>
 <ul>
 <li>控制所有模块之间的数据流</li>
-<li>根据条件触发事件<br />
+<li>根据条件触发事件<br>
 不需要用户修改</li>
 </ul>
 <ol start="3">
 <li>scheduler(调度器):</li>
 </ol>
 <ul>
-<li>对所有爬取请求进行调度处理<br />
+<li>对所有爬取请求进行调度处理<br>
 不需要用户修改</li>
 </ul>
 <ol start="4">
 <li>downloader(下载器):</li>
 </ol>
 <ul>
-<li>根据请求下载网页<br />
+<li>根据请求下载网页<br>
 不需要用户修改</li>
 </ul>
 <ol start="5">
@@ -150,7 +150,7 @@
 <ul>
 <li>以流水线处理spider产生的爬取项</li>
 <li>由一组操作顺序组成，类似流水线，每个操作是一个Item Pipeline类型</li>
-<li>可能操作包括：清理、检验和查重爬取项中的HTML数据，将数据存储到数据库中<br />
+<li>可能操作包括：清理、检验和查重爬取项中的HTML数据，将数据存储到数据库中<br>
 需要用户编写配置代码</li>
 </ul>
 <ol start="6">
@@ -158,7 +158,7 @@
 </ol>
 <ul>
 <li>目的：实施engine、scheduler和downloader之间进行用户可配置的控制</li>
-<li>功能：修改、丢弃、新增请求或响应<br />
+<li>功能：修改、丢弃、新增请求或响应<br>
 用户可以编写配置代码</li>
 </ul>
 <ol start="7">
@@ -166,11 +166,11 @@
 </ol>
 <ul>
 <li>目的：对请求和爬去项的再处理</li>
-<li>功能：修改、丢弃、新增请求或爬取项<br />
+<li>功能：修改、丢弃、新增请求或爬取项<br>
 用户可以编写配置代码</li>
 </ul>
-<h1 id="数据流"><a class="markdownIt-Anchor" href="#数据流"></a> 数据流</h1>
-<p><img src="https://i.imgur.com/MDlRnll.png" alt="" /></p>
+<h1 id="%E6%95%B0%E6%8D%AE%E6%B5%81" tabindex="-1">数据流</h1>
+<p><img src="https://i.imgur.com/MDlRnll.png" alt=""></p>
 <ul>
 <li>1.Engine从Spider处获得爬取请求(Request)</li>
 <li>2.Engine将爬取请求转发给Scheduler,用于调度</li>
@@ -182,17 +182,17 @@
 <li>8.Engine将爬取项发送给Item Pipeline(框架出口)</li>
 <li>9.Engine将爬取请求发送给Scheduler</li>
 </ul>
-<p><img src="https://i.imgur.com/MX9Xf0k.png" alt="" /></p>
+<p><img src="https://i.imgur.com/MX9Xf0k.png" alt=""></p>
 <ul>
 <li>Engine控制各模块数据流，不间断从Scheduler处获得爬取请求，直到请求为空</li>
 <li>框架入口：Spider的初始爬取请求</li>
 <li>框架出口：Item Pipeline</li>
 </ul>
-<h1 id="scrapy命令行"><a class="markdownIt-Anchor" href="#scrapy命令行"></a> scrapy命令行</h1>
+<h1 id="scrapy%E5%91%BD%E4%BB%A4%E8%A1%8C" tabindex="-1">scrapy命令行</h1>
 <p>格式</p>
 <pre><code>scrapy &lt;command&gt; [options] [args]
 </code></pre>
-<p><img src="https://i.imgur.com/x3YVAxJ.png" alt="" /></p>
+<p><img src="https://i.imgur.com/x3YVAxJ.png" alt=""></p>
 <p>** 常用命令 **</p>
 <table>
 <thead>
@@ -235,35 +235,35 @@
 </tr>
 </tbody>
 </table>
-<h1 id="demohttpspython123iowsdemohtml"><a class="markdownIt-Anchor" href="#demohttpspython123iowsdemohtml"></a> demo<a target="_blank" rel="noopener" href="https://python123.io/ws/demo.html">https://python123.io/ws/demo.html</a></h1>
-<h2 id="创建工程"><a class="markdownIt-Anchor" href="#创建工程"></a> 创建工程</h2>
+<h1 id="demohttps%3A%2F%2Fpython123.io%2Fws%2Fdemo.html" tabindex="-1">demo<a target="_blank" rel="noopener" href="https://python123.io/ws/demo.html">https://python123.io/ws/demo.html</a></h1>
+<h2 id="%E5%88%9B%E5%BB%BA%E5%B7%A5%E7%A8%8B" tabindex="-1">创建工程</h2>
 <pre><code>scrapy startproject python123demo
 </code></pre>
-<p><img src="https://i.imgur.com/P71Hcws.png" alt="" /><br />
-<img src="https://i.imgur.com/WnOOhZS.png" alt="" /></p>
-<h2 id="创建爬虫"><a class="markdownIt-Anchor" href="#创建爬虫"></a> 创建爬虫</h2>
+<p><img src="https://i.imgur.com/P71Hcws.png" alt=""><br>
+<img src="https://i.imgur.com/WnOOhZS.png" alt=""></p>
+<h2 id="%E5%88%9B%E5%BB%BA%E7%88%AC%E8%99%AB" tabindex="-1">创建爬虫</h2>
 <pre><code>scrapy genspider demo python123.io
 //生成了一个名为demo的spider
 //在spider目录下增加代码文件demo.py（该文件也可以手工生成）
 </code></pre>
-<p><img src="https://i.imgur.com/d0pJFsx.gif" alt="" /></p>
+<p><img src="https://i.imgur.com/d0pJFsx.gif" alt=""></p>
 <p>** demo.py文件 **</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> scrapy</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">DemoSpider</span>(scrapy.Spider):</span><br><span class="line">    name = <span class="string">&#x27;demo&#x27;</span></span><br><span class="line">    allowed_domains = [<span class="string">&#x27;python123.io&#x27;</span>]</span><br><span class="line">    start_urls = [<span class="string">&#x27;http://python123.io/&#x27;</span>]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">parse</span>(<span class="params">self, response</span>):</span><br><span class="line">        <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
-<p><img src="https://i.imgur.com/z8KTfb6.png" alt="" /></p>
-<h2 id="配置产生的spider爬虫"><a class="markdownIt-Anchor" href="#配置产生的spider爬虫"></a> 配置产生的spider爬虫</h2>
+<p><img src="https://i.imgur.com/z8KTfb6.png" alt=""></p>
+<h2 id="%E9%85%8D%E7%BD%AE%E4%BA%A7%E7%94%9F%E7%9A%84spider%E7%88%AC%E8%99%AB" tabindex="-1">配置产生的spider爬虫</h2>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> scrapy</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">DemoSpider</span>(scrapy.Spider):</span><br><span class="line">    name = <span class="string">&#x27;demo&#x27;</span></span><br><span class="line">    <span class="comment">#allowed_domains = [&#x27;python123.io&#x27;]</span></span><br><span class="line">    start_urls = [<span class="string">&#x27;http://python123.io/ws/demo.html&#x27;</span>]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">parse</span>(<span class="params">self, response</span>):</span><br><span class="line">        <span class="comment">#存储文件名demo.html</span></span><br><span class="line">        file_name = response.url.split(<span class="string">&#x27;/&#x27;</span>)[-<span class="number">1</span>]</span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(file_name,<span class="string">&quot;wb&quot;</span>) <span class="keyword">as</span> f:</span><br><span class="line">            f.write(response.body)</span><br><span class="line">            <span class="variable language_">self</span>.log(<span class="string">&#x27;Saved file %s&#x27;</span> % file_name)<span class="comment">#日志</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p>*** 另一个版本 **</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> scrapy</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">DemoSpider</span>(scrapy.Spider):</span><br><span class="line">    name = <span class="string">&#x27;demo&#x27;</span></span><br><span class="line">    <span class="comment">#allowed_domains = [&#x27;python123.io&#x27;]</span></span><br><span class="line">    <span class="comment">#start_urls = [&#x27;http://python123.io/ws/demo.html&#x27;]</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">start_requests</span>(<span class="params">self</span>):</span><br><span class="line">        urls = [</span><br><span class="line">                   <span class="string">&#x27;http://python123.io/ws/demo.html&#x27;</span></span><br><span class="line">               ]</span><br><span class="line">        <span class="keyword">for</span> url <span class="keyword">in</span> urls:</span><br><span class="line">            <span class="keyword">yield</span> scrapy.Request(url=url, callback=<span class="variable language_">self</span>.parse)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">parse</span>(<span class="params">self, response</span>):</span><br><span class="line">        <span class="comment">#存储文件名demo.html</span></span><br><span class="line">        file_name = response.url.split(<span class="string">&#x27;/&#x27;</span>)[-<span class="number">1</span>]</span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(file_name,<span class="string">&quot;wb&quot;</span>) <span class="keyword">as</span> f:</span><br><span class="line">            f.write(response.body)</span><br><span class="line">            <span class="variable language_">self</span>.log(<span class="string">&#x27;Saved file %s&#x27;</span> % file_name)<span class="comment">#日志</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h2 id="运行爬虫"><a class="markdownIt-Anchor" href="#运行爬虫"></a> 运行爬虫</h2>
+<h2 id="%E8%BF%90%E8%A1%8C%E7%88%AC%E8%99%AB" tabindex="-1">运行爬虫</h2>
 <pre><code>scrapy crawl demo
 </code></pre>
-<h1 id="scrapy爬虫数据类型"><a class="markdownIt-Anchor" href="#scrapy爬虫数据类型"></a> Scrapy爬虫数据类型</h1>
+<h1 id="scrapy%E7%88%AC%E8%99%AB%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B" tabindex="-1">Scrapy爬虫数据类型</h1>
 <ul>
 <li>Request类</li>
 <li>Response类</li>
 <li>Item类</li>
 </ul>
-<h2 id="request类"><a class="markdownIt-Anchor" href="#request类"></a> Request类</h2>
+<h2 id="request%E7%B1%BB" tabindex="-1">Request类</h2>
 <pre><code>class scrapy.http.Request()
 </code></pre>
 <ul>
@@ -304,7 +304,7 @@
 </tr>
 </tbody>
 </table>
-<h2 id="response类"><a class="markdownIt-Anchor" href="#response类"></a> Response类</h2>
+<h2 id="response%E7%B1%BB" tabindex="-1">Response类</h2>
 <pre><code>class scrapy.http.Response()
 </code></pre>
 <ul>
@@ -349,7 +349,7 @@
 </tr>
 </tbody>
 </table>
-<h2 id="item类"><a class="markdownIt-Anchor" href="#item类"></a> Item类</h2>
+<h2 id="item%E7%B1%BB" tabindex="-1">Item类</h2>
 <pre><code>class scrapy.item.Item()
 </code></pre>
 <ul>
@@ -357,14 +357,14 @@
 <li>由Spider生成，由Item Pipeline处理</li>
 <li>Item类似字典类型，可以按照字典类型操作</li>
 </ul>
-<h1 id="scrapy爬虫的使用步骤"><a class="markdownIt-Anchor" href="#scrapy爬虫的使用步骤"></a> Scrapy爬虫的使用步骤</h1>
+<h1 id="scrapy%E7%88%AC%E8%99%AB%E7%9A%84%E4%BD%BF%E7%94%A8%E6%AD%A5%E9%AA%A4" tabindex="-1">Scrapy爬虫的使用步骤</h1>
 <ol>
 <li>创建一个工程和Spider模板</li>
 <li>编写Spider</li>
 <li>编写Item Pipeline</li>
 <li>优化配置策略</li>
 </ol>
-<h1 id="scrapy爬虫信息提取方法"><a class="markdownIt-Anchor" href="#scrapy爬虫信息提取方法"></a> scrapy爬虫信息提取方法</h1>
+<h1 id="scrapy%E7%88%AC%E8%99%AB%E4%BF%A1%E6%81%AF%E6%8F%90%E5%8F%96%E6%96%B9%E6%B3%95" tabindex="-1">scrapy爬虫信息提取方法</h1>
 <ul>
 <li>Beautifui Soup</li>
 <li>lxml</li>
@@ -372,7 +372,9 @@
 <li>XPath Selector</li>
 <li>CSS Selector</li>
 </ul>
-<hr />
+<hr>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">
 </article>
 <div class="article-footer">
     <section id="license">
@@ -387,17 +389,17 @@
       <div class="header"><span>分享文章</span></div>
       <div class="body">
         <div class="link"><input class="copy-area" readonly="true" id="copy-link" value="https://yeshan333.github.io/2018/10/31/Scrapy%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6/" /></div>
-        <div class="social-wrap dis-select"><a class="social share-item wechat" onclick="util.toggle(&quot;qrcode-wechat&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/b32ef3da1162a.svg" /></a><a class="social share-item weibo" target="_blank" rel="external nofollow noopener noreferrer" href="https://service.weibo.com/share/share.php?url=https://yeshan333.github.io/2018/10/31/Scrapy%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6/&title=Scrapy爬虫框架 - ShanSan&summary= 网络爬虫框架scrapy
+        <div class="social-wrap dis-select"><a class="social share-item wechat" onclick="util.toggle(&quot;qrcode-wechat&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/b32ef3da1162a.svg" /></a><a class="social share-item weibo" target="_blank" rel="external nofollow noopener noreferrer" href="https://service.weibo.com/share/share.php?url=https://yeshan333.github.io/2018/10/31/Scrapy%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6/&title=Scrapy爬虫框架 - ShanSan&summary=网络爬虫框架scrapy
 （配置型爬虫）
 什么是爬虫框架？
 
 爬虫框架是实现爬虫功能的一个软件结构和功能组件集合
 爬虫框架是个半成品，帮助用户实现专业网络爬虫
 
- scrapy框架结构(&quot;5+2&quot;结构)
+scrapy框架结构(&quot;5+2&quot;结构)
 
 
-sp..."><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/80c07e4dbb303.svg" /></a><a class="social share-item email" href="mailto:?subject=Scrapy爬虫框架 - ShanSan&amp;body=https://yeshan333.github.io/2018/10/31/Scrapy%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6/"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/a1b00e20f425d.svg" /></a><a class="social share-item link" onclick="util.copy(&quot;copy-link&quot;, &quot;复制成功&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/8411ed322ced6.svg" /></a></div>
+spid..."><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/80c07e4dbb303.svg" /></a><a class="social share-item email" href="mailto:?subject=Scrapy爬虫框架 - ShanSan&amp;body=https://yeshan333.github.io/2018/10/31/Scrapy%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6/"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/a1b00e20f425d.svg" /></a><a class="social share-item link" onclick="util.copy(&quot;copy-link&quot;, &quot;复制成功&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/8411ed322ced6.svg" /></a></div>
         
         <div class="qrcode" id="qrcode-wechat" style="opacity:0;height:0">
           <img src="https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=https://yeshan333.github.io/2018/10/31/Scrapy%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6/"/>
@@ -414,19 +416,25 @@ sp..."><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/
       <div class='title cap theme'>您可能感兴趣的文章</div>
     </section>
     <section class='body'>
-    <div class="related-posts"><a class="item" href="/2019/05/22/Jupyter-Notebooks的简单了解/" title="Jupyter Notebooks的简单了解"><span class="title">Jupyter Notebooks的简单了解</span><span class="excerpt">撸一手Jupyter</span></a><a class="item" href="/2019/07/19/Python协程（Coroutine）/" title="Python协程-asyncio、async/await"><span class="title">Python协程-asyncio、async/await</span><span class="excerpt">
-看到吐血 (´ཀ`」 ∠)
-
-
-协程(Coroutine)本质上是一个函数，特点是在代码块中可以将执行权交给其他协程
-众所周知，子程序（函数）都是层级调用的，如果在A中调用了B，那么B执行完毕返回后A才能执行完毕。协程与子程序有点类...</span></a><a class="item" href="/2019/07/26/Python-自定义上下文管理器/" title="Python-自定义上下文管理器"><span class="title">Python-自定义上下文管理器</span><span class="excerpt"> 上下文管理器
+    <div class="related-posts"><a class="item" href="/2019/05/22/Jupyter-Notebooks的简单了解/" title="Jupyter Notebooks的简单了解"><span class="title">Jupyter Notebooks的简单了解</span><span class="excerpt">撸一手Jupyter</span></a><a class="item" href="/2019/07/26/Python-自定义上下文管理器/" title="Python-自定义上下文管理器"><span class="title">Python-自定义上下文管理器</span><span class="excerpt">上下文管理器
 
 上下文管理器可以帮助我们自动分配和释放资源
 上下文管理器需要配合with语句使用
 
-比如进行文件操作的时候我们可能会忘记操作后关闭文件（file close），使用with open(filename, mode) ...</span></a><a class="item" href="/2019/05/11/Python多进程-多线程/" title="Python多进程&&多线程（初步）"><span class="title">Python多进程&&多线程（初步）</span><span class="excerpt"> 进程 &amp;&amp; 线程
+比如进行文件操作的时候我们可能会忘记操作后关闭文件（file close），使用with open(filename, mode) a...</span></a><a class="item" href="/2019/09/02/Python环境管理/" title="Python 环境管理与项目依赖管理"><span class="title">Python 环境管理与项目依赖管理</span><span class="excerpt">
+个人简单记录下
 
-进程：进程是操作系统中执行的一个程序，操作系统以进程为单位分配存储空间，每个进程都有自己的地址空间、数据栈以及其他用于跟踪进程执行的辅助数据，操作系统管理所有进程的执行，为它们合理的分配资源。进程...</span></a></div></section></div>
+virtualenv + pip
+
+virtualenv是一个用于创建&quot;隔离的ython运行环境&quot;的工具，Docs
+pip是Python的包管理工具，Docs
+
+1234567891011121...</span></a><a class="item" href="/2019/07/19/Python协程（Coroutine）/" title="Python协程-asyncio、async/await"><span class="title">Python协程-asyncio、async/await</span><span class="excerpt">
+看到吐血 (´ཀ`」 ∠)
+
+
+协程(Coroutine)本质上是一个函数，特点是在代码块中可以将执行权交给其他协程
+众所周知，子程序（函数）都是层级调用的，如果在A中调用了B，那么B执行完毕返回后A才能执行完毕。协程与子程序有点类...</span></a></div></section></div>
 
 
   <div class="related-wrap md-text" id="comments">
@@ -443,9 +451,9 @@ sp..."><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/
 
 
 
-<footer class="page-footer footnote"><hr><div class="text"><p><a target="_blank" rel="noopener" href="https://shansan.top">Copyright © 2018-2025 ShanSan</a><br><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">桂ICP备19000444号</a><br />
-本站由 <a href="/">ShanSan</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br />
-本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。<br />
+<footer class="page-footer footnote"><hr><div class="text"><p><a target="_blank" rel="noopener" href="https://shansan.top">Copyright © 2018-2025 ShanSan</a><br><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">桂ICP备19000444号</a><br>
+本站由 <a href="/">ShanSan</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br>
+本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。<br>
 <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span></p>
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 </div></footer>
@@ -454,7 +462,7 @@ sp..."><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/
 <widget class="widget-wrapper user-card ghuser"><div class="widget-body data-service ds-ghinfo" data-api="https://api.github.com/users/yeshan333"><div class="avatar" ><img no-lazy type="img" id="avatar_url" src="undefined" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></div><p class="username" type="text" id="name">&nbsp;</p><p class="bio" type="text" id="bio">&nbsp;</p><div class="buttons"><a class="btn" target="_blank" rel="noopener" href="https://github.com/yeshan333?tab=followers"><span class="title" type="text" id="followers">0</span><span class="desc">followers</span></a><a class="btn" target="_blank" rel="noopener" href="https://github.com/yeshan333?tab=following"><span class="title" type="text" id="following">0</span><span class="desc">following</span></a><a class="btn" target="_blank" rel="noopener" href="https://github.com/yeshan333?tab=repositories"><span class="title" type="text" id="public_repos">0</span><span class="desc">repos</span></a></div><a class="follow" target="_blank" rel="noopener" href="https://github.com/yeshan333"><svg aria-hidden="true" role="img" class="color-icon-primary" viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor" style="display:inline-block;user-select:none;vertical-align:text-bottom;overflow:visible"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>Follow</a></div></widget>
 
 
-<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6scrapy"><span class="toc-text"> 网络爬虫框架scrapy</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#scrapy%E6%A1%86%E6%9E%B6%E7%BB%93%E6%9E%8452%E7%BB%93%E6%9E%84"><span class="toc-text"> scrapy框架结构(&quot;5+2&quot;结构)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E6%B5%81"><span class="toc-text"> 数据流</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#scrapy%E5%91%BD%E4%BB%A4%E8%A1%8C"><span class="toc-text"> scrapy命令行</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#demohttpspython123iowsdemohtml"><span class="toc-text"> demohttps:&#x2F;&#x2F;python123.io&#x2F;ws&#x2F;demo.html</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%B7%A5%E7%A8%8B"><span class="toc-text"> 创建工程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%88%AC%E8%99%AB"><span class="toc-text"> 创建爬虫</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E4%BA%A7%E7%94%9F%E7%9A%84spider%E7%88%AC%E8%99%AB"><span class="toc-text"> 配置产生的spider爬虫</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E7%88%AC%E8%99%AB"><span class="toc-text"> 运行爬虫</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#scrapy%E7%88%AC%E8%99%AB%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-text"> Scrapy爬虫数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#request%E7%B1%BB"><span class="toc-text"> Request类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#response%E7%B1%BB"><span class="toc-text"> Response类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#item%E7%B1%BB"><span class="toc-text"> Item类</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#scrapy%E7%88%AC%E8%99%AB%E7%9A%84%E4%BD%BF%E7%94%A8%E6%AD%A5%E9%AA%A4"><span class="toc-text"> Scrapy爬虫的使用步骤</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#scrapy%E7%88%AC%E8%99%AB%E4%BF%A1%E6%81%AF%E6%8F%90%E5%8F%96%E6%96%B9%E6%B3%95"><span class="toc-text"> scrapy爬虫信息提取方法</span></a></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a><a class="buttom" onclick="util.scrollComment()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M8 10.5h8M8 14h5.5M17 3.338A9.95 9.95 0 0 0 12 2C6.477 2 2 6.477 2 12c0 1.6.376 3.112 1.043 4.453c.178.356.237.763.134 1.148l-.595 2.226a1.3 1.3 0 0 0 1.591 1.592l2.226-.596a1.63 1.63 0 0 1 1.149.133A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10c0-1.821-.487-3.53-1.338-5"/></svg><span>参与讨论</span></a></div></widget>
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6scrapy"><span class="toc-text">网络爬虫框架scrapy</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#scrapy%E6%A1%86%E6%9E%B6%E7%BB%93%E6%9E%84(%225+2%22%E7%BB%93%E6%9E%84)"><span class="toc-text">scrapy框架结构(&quot;5+2&quot;结构)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E6%B5%81"><span class="toc-text">数据流</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#scrapy%E5%91%BD%E4%BB%A4%E8%A1%8C"><span class="toc-text">scrapy命令行</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#demohttps://python123.io/ws/demo.html"><span class="toc-text">demohttps:&#x2F;&#x2F;python123.io&#x2F;ws&#x2F;demo.html</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%B7%A5%E7%A8%8B"><span class="toc-text">创建工程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%88%AC%E8%99%AB"><span class="toc-text">创建爬虫</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E4%BA%A7%E7%94%9F%E7%9A%84spider%E7%88%AC%E8%99%AB"><span class="toc-text">配置产生的spider爬虫</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E7%88%AC%E8%99%AB"><span class="toc-text">运行爬虫</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#scrapy%E7%88%AC%E8%99%AB%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-text">Scrapy爬虫数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#request%E7%B1%BB"><span class="toc-text">Request类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#response%E7%B1%BB"><span class="toc-text">Response类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#item%E7%B1%BB"><span class="toc-text">Item类</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#scrapy%E7%88%AC%E8%99%AB%E7%9A%84%E4%BD%BF%E7%94%A8%E6%AD%A5%E9%AA%A4"><span class="toc-text">Scrapy爬虫的使用步骤</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#scrapy%E7%88%AC%E8%99%AB%E4%BF%A1%E6%81%AF%E6%8F%90%E5%8F%96%E6%96%B9%E6%B3%95"><span class="toc-text">scrapy爬虫信息提取方法</span></a></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a><a class="buttom" onclick="util.scrollComment()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M8 10.5h8M8 14h5.5M17 3.338A9.95 9.95 0 0 0 12 2C6.477 2 2 6.477 2 12c0 1.6.376 3.112 1.043 4.453c.178.356.237.763.134 1.148l-.595 2.226a1.3 1.3 0 0 0 1.591 1.592l2.226-.596a1.63 1.63 0 0 1 1.149.133A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10c0-1.821-.487-3.53-1.338-5"/></svg><span>参与讨论</span></a></div></widget>
 </div></aside><div class='float-panel'>
   <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
@@ -467,7 +475,7 @@ sp..."><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/
 
 
 <script type="text/javascript">
-  window.canonical = {"originalHost":"shansan.top","officialHosts":["localhost","shansan.top","shansan.cn","yeshan333.github.io"],"encoded":"c2hhbnNhbi50b3A="};
+  window.canonical = {"originalHost":"","officialHosts":["localhost","shansan.top","shansan.cn","yeshan333.github.io"],"encoded":""};
   const ctx = {
     date_suffix: {
       just: `刚刚`,

@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1" theme-name="Stellar" theme-version="1.33.1">
-  <link rel="canonical" href="https://shansan.top/2022/04/23/understanding-prometheus-range-vectors/">
+  
   
   <meta name="generator" content="Hexo 7.3.0">
   <meta http-equiv='x-dns-prefetch-control' content='on' />
@@ -20,12 +20,12 @@
   <title>(译) 理解 Prometheus 的范围向量 (Range Vector) - ShanSan</title>
 
   
-    <meta name="description" content="Prometheus 中 Range Vector 的概念是有一点不直观的，除非你彻底阅读并理解了官方提供的文档。谁会这样做呢，去读官方文档？大多的人应该会花些错误的时间去做了一些错误的事情，然后随机去寻找一篇像本文一样的文章去理解这个概念，不是吗？  什么是 Vector 由于 Prometheus 是一个时序型的数据库，所以所有的数据都在基于时间戳的上下文中被定义。由时间戳到记录数据的映射（m">
+    <meta name="description" content="Prometheus 中 Range Vector 的概念是有一点不直观的，除非你彻底阅读并理解了官方提供的文档。谁会这样做呢，去读官方文档？大多的人应该会花些错误的时间去做了一些错误的事情，然后随机去寻找一篇像本文一样的文章去理解这个概念，不是吗？ 什么是 Vector 由于 Prometheus 是一个时序型的数据库，所以所有的数据都在基于时间戳的上下文中被定义。由时间戳到记录数据的映射（ma">
 <meta property="og:type" content="article">
 <meta property="og:title" content="(译) 理解 Prometheus 的范围向量 (Range Vector)">
 <meta property="og:url" content="https://yeshan333.github.io/2022/04/23/understanding-prometheus-range-vectors/">
 <meta property="og:site_name" content="ShanSan">
-<meta property="og:description" content="Prometheus 中 Range Vector 的概念是有一点不直观的，除非你彻底阅读并理解了官方提供的文档。谁会这样做呢，去读官方文档？大多的人应该会花些错误的时间去做了一些错误的事情，然后随机去寻找一篇像本文一样的文章去理解这个概念，不是吗？  什么是 Vector 由于 Prometheus 是一个时序型的数据库，所以所有的数据都在基于时间戳的上下文中被定义。由时间戳到记录数据的映射（m">
+<meta property="og:description" content="Prometheus 中 Range Vector 的概念是有一点不直观的，除非你彻底阅读并理解了官方提供的文档。谁会这样做呢，去读官方文档？大多的人应该会花些错误的时间去做了一些错误的事情，然后随机去寻找一篇像本文一样的文章去理解这个概念，不是吗？ 什么是 Vector 由于 Prometheus 是一个时序型的数据库，所以所有的数据都在基于时间戳的上下文中被定义。由时间戳到记录数据的映射（ma">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s1.ax1x.com/2022/04/23/LfAKyD.png">
 <meta property="og:image" content="https://s1.ax1x.com/2022/04/23/LfEf8P.png">
@@ -98,23 +98,23 @@
     
   </div>
   </div><article class="md-text content"><p>Prometheus 中 Range Vector 的概念是有一点不直观的，除非你彻底阅读并理解了官方提供的文档。谁会这样做呢，去读官方文档？大多的人应该会花些错误的时间去做了一些错误的事情，然后随机去寻找一篇像本文一样的文章去理解这个概念，不是吗？</p>
-<h2 id="什么是-vector"><a class="markdownIt-Anchor" href="#什么是-vector"></a> 什么是 Vector</h2>
+<h2 id="%E4%BB%80%E4%B9%88%E6%98%AF-vector" tabindex="-1">什么是 Vector</h2>
 <p>由于 Prometheus 是一个时序型的数据库，所以所有的数据都在基于时间戳的上下文中被定义。由时间戳到记录数据的映射（map）序列（series）被称之为时间序列（timeseries）。在 Prometheus 的术语中，关于时间序列的集合（即一组时序数据）被称之为 vector。让我们用一个示例去更好的说明这一点。</p>
 <p>假设 <code>http_requests_total</code> 是一个表示服务受到的 http 请求总量的 vector。Vectors 允许我们更进一步的使用被称为 “labels” 的东西多维度去表示数据。 例:</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// the set of timeseries representing the number of requests with a `200` HTTP response code.</span><br><span class="line">// HTTP 状态码为 200 的请求数的一组时间序列</span><br><span class="line">http_requests_total&#123;code=&quot;200&quot;&#125;</span><br><span class="line"></span><br><span class="line">// the set of timeseries representing the number of requests served by the `/api/v1/query` handler.</span><br><span class="line">// 表示&#x27; /api/v1/query &#x27;处理程序处理的请求数的一组时间序列</span><br><span class="line">http_requests_total&#123;handler=&quot;/api/v1/query&quot;&#125;</span><br></pre></td></tr></table></figure>
 <p>这样，我们就拥有了所有与所服务的 HTTP 请求数量相关的细粒度的信息，同时还可以在需要时选择聚合这些信息。从语法上讲，<code>http_requests_total</code> 指的是命名为它的整个时间序列集。通过添加 <code>&#123;code=&quot;200&quot;&#125;</code> 或 <code>&#123;handler=&quot;/api/v1/query&quot;&#125;</code>，我们选择了一个子集。</p>
-<h2 id="vectors-的类型"><a class="markdownIt-Anchor" href="#vectors-的类型"></a> Vectors 的类型</h2>
+<h2 id="vectors-%E7%9A%84%E7%B1%BB%E5%9E%8B" tabindex="-1">Vectors 的类型</h2>
 <p>Prometheus 进一步定义了两种类型的 vector，取决于时间戳（timestamps）被映射为什么：</p>
 <ul>
 <li><strong>Instant vector</strong>-一组时间序列，其中每个时间戳都映射到“瞬间（instant）”的单个数据点。在下面的响应中，我们可以看到在时间戳 <code>1608481001</code> 处记录的单个值。</li>
 </ul>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">curl &#x27;http://localhost:9090/api/v1/query&#x27; \</span><br><span class="line">  --data &#x27;query=http_requests_total&#123;code=&quot;200&quot;&#125;&#x27; \</span><br><span class="line">  --data time=1608481001</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  &quot;metric&quot;: &#123;&quot;__name__&quot;: &quot;http_requests_total&quot;, &quot;code&quot;: &quot;200&quot;&#125;,</span><br><span class="line">  &quot;value&quot;: [1608481001, &quot;881&quot;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="https://s1.ax1x.com/2022/04/23/LfAKyD.png" alt="Instant vector" /></p>
+<p><img src="https://s1.ax1x.com/2022/04/23/LfAKyD.png" alt="Instant vector"></p>
 <ul>
 <li><strong>Range vector</strong>-一组时间序列，其中每个时间戳映射到一个数据点的“范围（range）”，记录到过去的一段持续时间。如果没有称为 “range” 的指定持续时间，则这些值不能存在，该持续时间用于构建每个时间戳的值列表。 在下面的示例中，请注意带有时间戳的值列表，从 <code>1608481001</code> 到过去最多 <code>30s</code>。</li>
 </ul>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">curl &#x27;http://localhost:9090/api/v1/query&#x27; \</span><br><span class="line">  --data &#x27;query=http_requests_total&#123;code=&quot;200&quot;&#125;[30s]&#x27; \</span><br><span class="line">  --data time=1608481001</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  &quot;metric&quot;: &#123;&quot;__name__&quot;: &quot;http_requests_total&quot;, &quot;code&quot;: &quot;200&quot;&#125;,</span><br><span class="line">  &quot;values&quot;: [</span><br><span class="line">    [1608480978, &quot;863&quot;],</span><br><span class="line">    [1608480986, &quot;874&quot;],</span><br><span class="line">    [1608480094, &quot;881&quot;]</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="https://s1.ax1x.com/2022/04/23/LfEf8P.png" alt="Range vector" /></p>
+<p><img src="https://s1.ax1x.com/2022/04/23/LfEf8P.png" alt="Range vector"></p>
 <p>基于此，我们可以建立关于这两个 vector 类型的两个概念（ideas）：</p>
 <ol>
 <li>
@@ -124,7 +124,7 @@
 <p>Instant vectors 可以进行比较和运算; Range vectors 不能。这也是由于比较运算符和算术运算符的定义方式。对于每个时间戳，如果我们有多个值，我们不知道如何添加[1]或将它们与另一个性质类似的时间序列进行比较。</p>
 </li>
 </ol>
-<h2 id="为什么我们还需要-range-vectors"><a class="markdownIt-Anchor" href="#为什么我们还需要-range-vectors"></a> 为什么我们还需要 Range Vectors</h2>
+<h2 id="%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E4%BB%AC%E8%BF%98%E9%9C%80%E8%A6%81-range-vectors" tabindex="-1">为什么我们还需要 Range Vectors</h2>
 <p>我们现在知道，Range Vectors 不能直接用于图表或聚合。因此，很自然地要问它们为什么会存在? 答案很简单: <strong>counter</strong>。 counter 是监控系统的基本类型之一，除了 gauges 和 timings。我们将继续前面的示例，去试图理解 counters 和 range vectors 是如何相互作用的。</p>
 <p>假设我们想知道我们的服务现在正在处理多少请求。我们的度量指标 <code>http_requests_total&#123;code=&quot;200&quot;，handler=&quot;/api/v1/query&quot;&#125;</code> 是一个 instant vector，其值代表一个单调递增的 counter [2]。这个 counter 用于度量我们的服务接收到的请求总数。我们知道 Prometheus 在过去的不同时间里 “爬取（scraped）” 了这个 counter，所以我们可以简单地从请求 counter 的值开始:</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">curl &#x27;http://localhost:9090/api/v1/query&#x27; \</span><br><span class="line">  --data &#x27;query=http_requests_total&#123;code=&quot;200&quot;,handler=&quot;/api/v1/query&quot;&#125;&#x27;</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  &quot;metric&quot;: &#123;&quot;__name__&quot;: &quot;http_requests_total&quot;, &quot;code&quot;: &quot;200&quot;, &quot;handler&quot;:&quot;/api/v1/query&quot;&#125;,</span><br><span class="line">  &quot;value&quot;: [1608437313, &quot;881&quot;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -132,7 +132,7 @@
 <p>更好的方法是用 counter 的当前值减去 15 分钟前看到的 counter 值。这样我们就可以得到实例在这段时间内接收到的确切请求数。为了在 PromQL 中表示这一点，我们给 instant vector 附加持续时间 <code>[15m]</code>。这部分叫做 range selector，它把 instant vector 转换成 range vector。然后，我们使用像<code>increase</code> 这样的函数，它有效地[3]从 range 开始处的数据点减去 range 结束处的数据点。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">curl &#x27;http://localhost:9090/api/v1/query&#x27; \</span><br><span class="line">  --data &#x27;query=increase(http_requests_total&#123;code=&quot;200&quot;,handler=&quot;/api/v1/query&quot;&#125;[15m])&#x27;</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  &quot;metric&quot;: &#123;&quot;__name__&quot;: &quot;http_requests_total&quot;, &quot;code&quot;: &quot;200&quot;, &quot;handler&quot;:&quot;/api/v1/query&quot;&#125;,</span><br><span class="line">  &quot;values&quot;: [</span><br><span class="line">    [1608437313, &quot;18.4&quot;]</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>上面查询语句的解释：它表示过去 15 分钟内请求总数的增长量。上面的响应包含了我们想要拿到的期望之内的答案。结果以 instant vector 的形式出现，现在可以用于进一步绘制图表或汇总（aggregated）。</p>
-<h2 id="用于-range-vector-的函数"><a class="markdownIt-Anchor" href="#用于-range-vector-的函数"></a> 用于 Range Vector 的函数</h2>
+<h2 id="%E7%94%A8%E4%BA%8E-range-vector-%E7%9A%84%E5%87%BD%E6%95%B0" tabindex="-1">用于 Range Vector 的函数</h2>
 <p>类似于 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/querying/functions/#increase">increase(range-vector)</a>，下面的 PromQL 函数只可用于 range vectors:</p>
 <ul>
 <li>changes(range-vector)</li>
@@ -156,14 +156,16 @@
 </ul>
 <p>上述的函数的计算结果返回都为 instant vector。因此，我们可以得出这样的结论： range vector 作为这些以 “range vector” 为输入值的函数是有用的。</p>
 <p>除了上面的函数和 curls[^1]，还有更多关于 range vectors 的内容，我们将在<a target="_blank" rel="noopener" href="https://satyanash.net/software/2021/06/09/charting-range-vectors-prometheus.html">另一篇博文</a>中介绍。</p>
-<h2 id="脚注"><a class="markdownIt-Anchor" href="#脚注"></a> 脚注</h2>
+<h2 id="%E8%84%9A%E6%B3%A8" tabindex="-1">脚注</h2>
 <p>[1] 未定义的行为并不意味着不可能定义一种使这些操作可以工作的方式。这意味着实现选择避免支持这一点。这样做可以简化实现，或者因为可能没有一种方法使它在各种情况 （cases）之间一致地工作。</p>
 <p>[2] 单调递增 counter 的值永不减少；它要么增加要么保持不变。Prometheus 只允许一种 counter 减少的情况，即在目标重启期间。如果 counter 值低于之前记录的值，则 <code>rate</code> 和 <code>increase</code> 等 range vector 函数将假定目标重新启动并将整个值添加到它所知道的现有值。这也是为什么我们应该总是先 rate 后 sum，而不是先 sun 后 rate。<a target="_blank" rel="noopener" href="https://www.robustperception.io/rate-then-sum-never-sum-then-rate">Rate then sum, never sum then rate</a></p>
 <p>[3] “有效（effectively）”是这里的关键词。<code>increase</code> 实际上也可以进行外推，因为所请求的持续时间可能没有在范围（range）的“开始”和“结束”处精确对齐的数据点。</p>
 <blockquote>
-<p>原文：<a target="_blank" rel="noopener" href="https://satyanash.net/software/2021/01/04/understanding-prometheus-range-vectors.html">https://satyanash.net/software/2021/01/04/understanding-prometheus-range-vectors.html</a><br />
+<p>原文：<a target="_blank" rel="noopener" href="https://satyanash.net/software/2021/01/04/understanding-prometheus-range-vectors.html">https://satyanash.net/software/2021/01/04/understanding-prometheus-range-vectors.html</a><br>
 作者：<a href="satyanash">Satyajeet Kanetkar</a></p>
 </blockquote>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">
 </article>
 <div class="article-footer">
     <section id="license">
@@ -198,8 +200,8 @@
     <div class="related-posts"><a class="item" href="/2021/08/28/prometheus-federation/" title="基于 Docker 搭建一个最小化的 Prometheus Federation「联邦」集群"><span class="title">基于 Docker 搭建一个最小化的 Prometheus Federation「联邦」集群</span><span class="excerpt">
 一不小心就八月末了，我敲，最近大部分的时间都在了解 Prometheus，一直想“搂”篇文章出来，奈何一直在墨迹，是时候了，不然就九月了，完不成博客的 Flag 了，233333。
 
- 前言
-本篇文章主要介绍了 Promethues...</span></a></div></section></div>
+前言
+本篇文章主要介绍了 Promethues ...</span></a></div></section></div>
 
 
   <div class="related-wrap md-text" id="comments">
@@ -216,9 +218,9 @@
 
 
 
-<footer class="page-footer footnote"><hr><div class="text"><p><a target="_blank" rel="noopener" href="https://shansan.top">Copyright © 2018-2025 ShanSan</a><br><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">桂ICP备19000444号</a><br />
-本站由 <a href="/">ShanSan</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br />
-本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。<br />
+<footer class="page-footer footnote"><hr><div class="text"><p><a target="_blank" rel="noopener" href="https://shansan.top">Copyright © 2018-2025 ShanSan</a><br><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">桂ICP备19000444号</a><br>
+本站由 <a href="/">ShanSan</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br>
+本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。<br>
 <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span></p>
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 </div></footer>
@@ -227,7 +229,7 @@
 <widget class="widget-wrapper user-card ghuser"><div class="widget-body data-service ds-ghinfo" data-api="https://api.github.com/users/yeshan333"><div class="avatar" ><img no-lazy type="img" id="avatar_url" src="undefined" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></div><p class="username" type="text" id="name">&nbsp;</p><p class="bio" type="text" id="bio">&nbsp;</p><div class="buttons"><a class="btn" target="_blank" rel="noopener" href="https://github.com/yeshan333?tab=followers"><span class="title" type="text" id="followers">0</span><span class="desc">followers</span></a><a class="btn" target="_blank" rel="noopener" href="https://github.com/yeshan333?tab=following"><span class="title" type="text" id="following">0</span><span class="desc">following</span></a><a class="btn" target="_blank" rel="noopener" href="https://github.com/yeshan333?tab=repositories"><span class="title" type="text" id="public_repos">0</span><span class="desc">repos</span></a></div><a class="follow" target="_blank" rel="noopener" href="https://github.com/yeshan333"><svg aria-hidden="true" role="img" class="color-icon-primary" viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor" style="display:inline-block;user-select:none;vertical-align:text-bottom;overflow:visible"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>Follow</a></div></widget>
 
 
-<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-vector"><span class="toc-text"> 什么是 Vector</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vectors-%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="toc-text"> Vectors 的类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E4%BB%AC%E8%BF%98%E9%9C%80%E8%A6%81-range-vectors"><span class="toc-text"> 为什么我们还需要 Range Vectors</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%A8%E4%BA%8E-range-vector-%E7%9A%84%E5%87%BD%E6%95%B0"><span class="toc-text"> 用于 Range Vector 的函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%84%9A%E6%B3%A8"><span class="toc-text"> 脚注</span></a></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a><a class="buttom" onclick="util.scrollComment()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M8 10.5h8M8 14h5.5M17 3.338A9.95 9.95 0 0 0 12 2C6.477 2 2 6.477 2 12c0 1.6.376 3.112 1.043 4.453c.178.356.237.763.134 1.148l-.595 2.226a1.3 1.3 0 0 0 1.591 1.592l2.226-.596a1.63 1.63 0 0 1 1.149.133A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10c0-1.821-.487-3.53-1.338-5"/></svg><span>参与讨论</span></a></div></widget>
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-vector"><span class="toc-text">什么是 Vector</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vectors-%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="toc-text">Vectors 的类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E4%BB%AC%E8%BF%98%E9%9C%80%E8%A6%81-range-vectors"><span class="toc-text">为什么我们还需要 Range Vectors</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%A8%E4%BA%8E-range-vector-%E7%9A%84%E5%87%BD%E6%95%B0"><span class="toc-text">用于 Range Vector 的函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%84%9A%E6%B3%A8"><span class="toc-text">脚注</span></a></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a><a class="buttom" onclick="util.scrollComment()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M8 10.5h8M8 14h5.5M17 3.338A9.95 9.95 0 0 0 12 2C6.477 2 2 6.477 2 12c0 1.6.376 3.112 1.043 4.453c.178.356.237.763.134 1.148l-.595 2.226a1.3 1.3 0 0 0 1.591 1.592l2.226-.596a1.63 1.63 0 0 1 1.149.133A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10c0-1.821-.487-3.53-1.338-5"/></svg><span>参与讨论</span></a></div></widget>
 </div></aside><div class='float-panel'>
   <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
@@ -240,7 +242,7 @@
 
 
 <script type="text/javascript">
-  window.canonical = {"originalHost":"shansan.top","officialHosts":["localhost","shansan.top","shansan.cn","yeshan333.github.io"],"encoded":"c2hhbnNhbi50b3A="};
+  window.canonical = {"originalHost":"","officialHosts":["localhost","shansan.top","shansan.cn","yeshan333.github.io"],"encoded":""};
   const ctx = {
     date_suffix: {
       just: `刚刚`,

@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1" theme-name="Stellar" theme-version="1.33.1">
-  <link rel="canonical" href="https://shansan.top/2020/02/03/Git%E5%86%85%E9%83%A8%E5%8E%9F%E7%90%86%E6%8E%A2%E7%B4%A2/">
+  
   
   <meta name="generator" content="Hexo 7.3.0">
   <meta http-equiv='x-dns-prefetch-control' content='on' />
@@ -20,12 +20,12 @@
   <title>洞悉技术的本质-Git内部原理探索 - ShanSan</title>
 
   
-    <meta name="description" content="前言 洞悉技术的本质，可以让我们在层出不穷的框架面前仍能泰然处之。用了那么久的 Git，不懂点内部原理，那可不行！懂点原理可以让我们遇到问题的时候能够更好更快的理清解决问题的思路。 要真正读懂本文可能需要以下基础：  有 Git 使用经验 对 Git 的三个分区有所了解 熟悉常用的 Linux 命令 对经典哈希算法有一定的了解，比如SHA-1、SHA-256、MD5等  在开始之前，让我们先抛出">
+    <meta name="description" content="前言 洞悉技术的本质，可以让我们在层出不穷的框架面前仍能泰然处之。用了那么久的 Git，不懂点内部原理，那可不行！懂点原理可以让我们遇到问题的时候能够更好更快的理清解决问题的思路。 要真正读懂本文可能需要以下基础：  有 Git 使用经验 对 Git 的三个分区有所了解 熟悉常用的 Linux 命令 对经典哈希算法有一定的了解，比如SHA-1、SHA-256、MD5等  在开始之前，让我们先抛出几">
 <meta property="og:type" content="article">
 <meta property="og:title" content="洞悉技术的本质-Git内部原理探索">
 <meta property="og:url" content="https://yeshan333.github.io/2020/02/03/Git%E5%86%85%E9%83%A8%E5%8E%9F%E7%90%86%E6%8E%A2%E7%B4%A2/">
 <meta property="og:site_name" content="ShanSan">
-<meta property="og:description" content="前言 洞悉技术的本质，可以让我们在层出不穷的框架面前仍能泰然处之。用了那么久的 Git，不懂点内部原理，那可不行！懂点原理可以让我们遇到问题的时候能够更好更快的理清解决问题的思路。 要真正读懂本文可能需要以下基础：  有 Git 使用经验 对 Git 的三个分区有所了解 熟悉常用的 Linux 命令 对经典哈希算法有一定的了解，比如SHA-1、SHA-256、MD5等  在开始之前，让我们先抛出">
+<meta property="og:description" content="前言 洞悉技术的本质，可以让我们在层出不穷的框架面前仍能泰然处之。用了那么久的 Git，不懂点内部原理，那可不行！懂点原理可以让我们遇到问题的时候能够更好更快的理清解决问题的思路。 要真正读懂本文可能需要以下基础：  有 Git 使用经验 对 Git 的三个分区有所了解 熟悉常用的 Linux 命令 对经典哈希算法有一定的了解，比如SHA-1、SHA-256、MD5等  在开始之前，让我们先抛出几">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/ssmath/mypic/img/20200202210748.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/ssmath/mypic/img/20200202210624.png">
@@ -54,7 +54,7 @@
 
   
 
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"ShanSan","sameAs":[]},"dateCreated":"2020-02-03T00:49:18+00:00","dateModified":"2020-02-03T00:49:18+00:00","datePublished":"2020-02-03T00:49:18+00:00","description":" 前言\n洞悉技术的本质，可以让我们在层出不穷的框架面前仍能泰然处之。用了那么久的 Git，不懂点内部原理，那可不行！懂点原理可以让我们遇到问题的时候能够更好更快的理清解决问题的思路。\n要真正读懂本文可能需要以下基础：\n\n有 Git 使用经验\n对 Git 的三个分区有所了解\n熟悉常用的 Linux 命令\n对经典哈希算法有一定的了解，比如SHA-1、SHA-256、MD5等\n\n在开始之前，让我们先抛出几个问题，然后一一解决、回答它们\n\n.git版本库里的文件/目录是干什么的?\nGit是如何存储文件信息的？\n当我们执行git add、git commit时，Git背后做了什么？\nGit分支的本质是什么?\n","headline":"洞悉技术的本质-Git内部原理探索","mainEntityOfPage":{"@type":"WebPage","@id":"https://yeshan333.github.io/2020/02/03/Git%E5%86%85%E9%83%A8%E5%8E%9F%E7%90%86%E6%8E%A2%E7%B4%A2/"},"publisher":{"@type":"Organization","name":"ShanSan","sameAs":[]},"url":"https://yeshan333.github.io/2020/02/03/Git%E5%86%85%E9%83%A8%E5%8E%9F%E7%90%86%E6%8E%A2%E7%B4%A2/","keywords":"Git","image":[]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"ShanSan","sameAs":[]},"dateCreated":"2020-02-03T00:49:18+00:00","dateModified":"2020-02-03T00:49:18+00:00","datePublished":"2020-02-03T00:49:18+00:00","description":"前言\n洞悉技术的本质，可以让我们在层出不穷的框架面前仍能泰然处之。用了那么久的 Git，不懂点内部原理，那可不行！懂点原理可以让我们遇到问题的时候能够更好更快的理清解决问题的思路。\n要真正读懂本文可能需要以下基础：\n\n有 Git 使用经验\n对 Git 的三个分区有所了解\n熟悉常用的 Linux 命令\n对经典哈希算法有一定的了解，比如SHA-1、SHA-256、MD5等\n\n在开始之前，让我们先抛出几个问题，然后一一解决、回答它们\n\n.git版本库里的文件/目录是干什么的?\nGit是如何存储文件信息的？\n当我们执行git add、git commit时，Git背后做了什么？\nGit分支的本质是什么?\n","headline":"洞悉技术的本质-Git内部原理探索","mainEntityOfPage":{"@type":"WebPage","@id":"https://yeshan333.github.io/2020/02/03/Git%E5%86%85%E9%83%A8%E5%8E%9F%E7%90%86%E6%8E%A2%E7%B4%A2/"},"publisher":{"@type":"Organization","name":"ShanSan","sameAs":[]},"url":"https://yeshan333.github.io/2020/02/03/Git%E5%86%85%E9%83%A8%E5%8E%9F%E7%90%86%E6%8E%A2%E7%B4%A2/","keywords":"Git","image":[]}</script>
   
 </head>
 <body>
@@ -97,7 +97,7 @@
     </div>
     
   </div>
-  </div><article class="md-text content"><h1 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h1>
+  </div><article class="md-text content"><h1 id="%E5%89%8D%E8%A8%80" tabindex="-1">前言</h1>
 <p>洞悉技术的本质，可以让我们在层出不穷的框架面前仍能泰然处之。用了那么久的 Git，不懂点内部原理，那可不行！懂点原理可以让我们遇到问题的时候能够更好更快的理清解决问题的思路。</p>
 <p>要真正读懂本文可能需要以下基础：</p>
 <ul>
@@ -114,7 +114,7 @@
 <li>Git分支的本质是什么?</li>
 </ul>
 <span id="more"></span>
-<h1 id="git分区"><a class="markdownIt-Anchor" href="#git分区"></a> Git分区</h1>
+<h1 id="git%E5%88%86%E5%8C%BA" tabindex="-1">Git分区</h1>
 <p>在真正开始之前，让我们先回顾下Git的三个分区（Workspace、Index / Stage、git repository）</p>
 <ul>
 <li>工作区（Workspace）：此处进行代码文件的编辑</li>
@@ -122,10 +122,10 @@
 <li>Git版本库（git repository）：由Git Object持久记录每一次commit的快照和链式结构的commit变更历史</li>
 </ul>
 <p>先看下从《Got Git》和网络上搬来的Git分区工作原理图和待remote的工作流再次感性回顾下之前使用Git自己时怎么操作的</p>
-<p><img src="https://cdn.jsdelivr.net/gh/ssmath/mypic/img/20200202210748.png" alt="工作区、版本库、暂存区工作原理图" /></p>
-<p><img src="https://cdn.jsdelivr.net/gh/ssmath/mypic/img/20200202210624.png" alt="带Remote的工作流" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/ssmath/mypic/img/20200202210748.png" alt="工作区、版本库、暂存区工作原理图"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/ssmath/mypic/img/20200202210624.png" alt="带Remote的工作流"></p>
 <p>相信看了这些，会对Git有新的认知，让我们正式开始🎉！</p>
-<h1 id="git版本库里的文件目录是干什么的"><a class="markdownIt-Anchor" href="#git版本库里的文件目录是干什么的"></a> .git版本库里的文件/目录是干什么的</h1>
+<h1 id=".git%E7%89%88%E6%9C%AC%E5%BA%93%E9%87%8C%E7%9A%84%E6%96%87%E4%BB%B6%2F%E7%9B%AE%E5%BD%95%E6%98%AF%E5%B9%B2%E4%BB%80%E4%B9%88%E7%9A%84" tabindex="-1">.git版本库里的文件/目录是干什么的</h1>
 <p>让我们通过一个从GitHub clone下来的一个实际项目的版本库来看下这些文件/目录，<a target="_blank" rel="noopener" href="https://github.com/yeshan333/Explore-Git">clone下来的repository</a></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://github.com/yeshan333/Explore-Git</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">ls</span> -F1</span><br><span class="line">config</span><br><span class="line">description</span><br><span class="line">HEAD</span><br><span class="line">hooks/</span><br><span class="line">index</span><br><span class="line">info/</span><br><span class="line">logs/</span><br><span class="line">objects/</span><br><span class="line">packed-refs</span><br><span class="line">refs/</span><br></pre></td></tr></table></figure>
 <p><strong>挑几个重要文件/目录的做下解释</strong></p>
@@ -136,7 +136,7 @@
 <li>objects目录：用于存放数据的所有 Git Object均存放在这个目录下，每个 Git Object 对应一个目录，object对应的SHA-1值的前 2 位为目录名，后 38 位为文件名</li>
 </ul>
 <p>抱着一些初步的认知，我们继续解决后面几个问题，加深对.git版本库内文件的理解</p>
-<h1 id="git是如何存储文件信息的"><a class="markdownIt-Anchor" href="#git是如何存储文件信息的"></a> Git是如何存储文件信息的</h1>
+<h1 id="git%E6%98%AF%E5%A6%82%E4%BD%95%E5%AD%98%E5%82%A8%E6%96%87%E4%BB%B6%E4%BF%A1%E6%81%AF%E7%9A%84" tabindex="-1">Git是如何存储文件信息的</h1>
 <p>要知道Git如何存储信息，我们需要了解一下常见的Git对象，Git就是通过这些对象存储文件信息的。Git Object是Git存储文件信息的最小单元，如下为几种常见的Git Object以及它们的作用，它们一般是不可变的（immutable），这些对象使用40位的SHA-1值进行标识。</p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Binary_large_object">blob</a>：用于存储文件内容，Git保存文件的时候不会保存文件名</li>
@@ -155,7 +155,7 @@
 <p>让我们再看下tree object（fb12）存储的SHA-1指针（6116）对应的blob（6116）存放的内容</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ git cat-file -p 6116</span><br><span class="line"><span class="comment"># Explore-Git</span></span><br><span class="line">$ git cat-file -t 6116</span><br><span class="line">blob</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p>Nice，很好的对应了之前对blob、tree object、commit object的描述。关于文件的大部分信息都存放在这些object中。</p>
-<h1 id="当我们执行git-add-git-commit时git背后做了什么"><a class="markdownIt-Anchor" href="#当我们执行git-add-git-commit时git背后做了什么"></a> 当我们执行git add、git commit时，Git背后做了什么</h1>
+<h1 id="%E5%BD%93%E6%88%91%E4%BB%AC%E6%89%A7%E8%A1%8Cgit-add%E3%80%81git-commit%E6%97%B6%EF%BC%8Cgit%E8%83%8C%E5%90%8E%E5%81%9A%E4%BA%86%E4%BB%80%E4%B9%88" tabindex="-1">当我们执行git add、git commit时，Git背后做了什么</h1>
 <p>解答这个问题，我们需要通过实践去一步步感受Git背后的操作。我们创建一个简单的例子感受下，我们需要时刻关注.git/objects这个目录</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">mkdir</span> demo</span><br><span class="line">$ <span class="built_in">cd</span> demo</span><br><span class="line">$ git init <span class="comment"># 初始化Git仓库</span></span><br><span class="line">$ find .git/objects -<span class="built_in">type</span> f <span class="comment"># 没有文件</span></span><br><span class="line">$ <span class="built_in">echo</span> <span class="string">&quot;test&quot;</span> &gt; test.txt</span><br><span class="line">$ <span class="built_in">mkdir</span> hi</span><br><span class="line">$ <span class="built_in">cd</span> hi</span><br><span class="line">$ <span class="built_in">echo</span> <span class="string">&quot;Hello&quot;</span> &gt; hello.txt</span><br><span class="line">$ <span class="built_in">cd</span> ..</span><br><span class="line">$ find .git/objects -<span class="built_in">type</span> f</span><br><span class="line">$ <span class="comment"># 什么都没有</span></span><br></pre></td></tr></table></figure>
 <p>这里我们创建先了两个文件，test.txt、hello.txt，其中hello.txt文件放到了hi目录中，然后我们查看了.git/objects目录，没有文件。接下来就是重头戏了，我们要将当前目录的文件/目录（Linux一切皆文件）添加到暂存区（stage/index）。</p>
@@ -193,16 +193,16 @@
 <p>8、查看commit log，没多大毛病，收工🎉</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">log</span> --pretty=raw 2616</span><br><span class="line">commit 2616a5b40ead79df23736f61b346080423f438fe</span><br><span class="line">tree 2e8ebea76975c98806e73c0b7aea6c40c58d427c</span><br><span class="line">author root &lt;root@DESKTOP-CQ9JEC7.localdomain&gt; 1580660050 +0800</span><br><span class="line">committer root &lt;root@DESKTOP-CQ9JEC7.localdomain&gt; 1580660050 +0800</span><br><span class="line"></span><br><span class="line">    Hello Git</span><br><span class="line"></span><br><span class="line">$ git cat-file -p 2616</span><br><span class="line">tree 2e8ebea76975c98806e73c0b7aea6c40c58d427c</span><br><span class="line">author root &lt;root@DESKTOP-CQ9JEC7.localdomain&gt; 1580660050 +0800</span><br><span class="line">committer root &lt;root@DESKTOP-CQ9JEC7.localdomain&gt; 1580660050 +0800</span><br><span class="line"></span><br><span class="line">Hello Git</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p>相信到了这里，已经对Git在我们<code>git add</code>、<code>git commit</code>时做了什么有了一定的了解。如果想了解Git Object对应的SHA-1值如何生成和如何复现并串联多个commit object形成一个提交历史链，可查看《Pro Git》的第十章第二小节或参看后面的参考资料。</p>
-<h1 id="git分支的本质是什么"><a class="markdownIt-Anchor" href="#git分支的本质是什么"></a> Git分支的本质是什么</h1>
+<h1 id="git%E5%88%86%E6%94%AF%E7%9A%84%E6%9C%AC%E8%B4%A8%E6%98%AF%E4%BB%80%E4%B9%88" tabindex="-1">Git分支的本质是什么</h1>
 <p>**Git分支的本质是指向某一系列提交之首的指针或引用。**Git使用引用的一个好处就是我们不需要花心思去记那些Git Object长长的SHA-1值。引用是存放SHA-1值的文件，它们位于<code>.git/refs</code>目录中。Git提供了一个API让我们更新引用-<code>update-ref</code>，示例如下</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">$ git update-ref refs/heads/master 2616 <span class="comment"># 2616为之前浮现commit log创建的commit object的SHA-1值</span></span><br><span class="line">$ git <span class="built_in">log</span></span><br><span class="line">commit 2616a5b40ead79df23736f61b346080423f438fe (HEAD -&gt; master)</span><br><span class="line">Author: root &lt;root@DESKTOP-CQ9JEC7.localdomain&gt;</span><br><span class="line">Date:   Mon Feb 3 00:14:10 2020 +0800</span><br><span class="line"></span><br><span class="line">    Hello Git</span><br><span class="line">$ git <span class="built_in">log</span> master</span><br><span class="line">commit 2616a5b40ead79df23736f61b346080423f438fe (HEAD -&gt; master)</span><br><span class="line">Author: root &lt;root@DESKTOP-CQ9JEC7.localdomain&gt;</span><br><span class="line">Date:   Mon Feb 3 00:14:10 2020 +0800</span><br><span class="line"></span><br><span class="line">    Hello Git</span><br><span class="line">$ <span class="built_in">cat</span> .git/refs/heads/master</span><br><span class="line">2616a5b40ead79df23736f61b346080423f438fe</span><br></pre></td></tr></table></figure>
-<h2 id="head引用"><a class="markdownIt-Anchor" href="#head引用"></a> HEAD引用</h2>
+<h2 id="head%E5%BC%95%E7%94%A8" tabindex="-1">HEAD引用</h2>
 <p>在介绍HEAD文件的时候我们说过它存放的是当前所在分支的引用，而且这个引用是个<strong>符号引用</strong>（symbolic reference）。那么什么是符号引用？<strong>它是一个指向其它引用的指针</strong>。我们可以查看之前clone下来的<a target="_blank" rel="noopener" href="https://github.com/yeshan333/Explore-Git">Explore-Git</a>的HEAD文件</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cat</span> .git/HEAD</span><br><span class="line">ref: refs/heads/master</span><br></pre></td></tr></table></figure>
 <p>当我们checkout到某个分支时，HEAD文件内容如下</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ git branch yeshan</span><br><span class="line">$ git checkout yeshan</span><br><span class="line">Switched to branch <span class="string">&#x27;yeshan&#x27;</span></span><br><span class="line"></span><br><span class="line">$ <span class="built_in">cat</span> .git/HEAD</span><br><span class="line">ref: refs/heads/yeshan</span><br></pre></td></tr></table></figure>
 <p>至此，抛出的问题已解答完毕。</p>
-<h1 id="参考"><a class="markdownIt-Anchor" href="#参考"></a> 参考</h1>
+<h1 id="%E5%8F%82%E8%80%83" tabindex="-1">参考</h1>
 <ul>
 <li>
 <p><a target="_blank" rel="noopener" href="https://developer.aliyun.com/article/720615?spm=a2c6h.12873639.0.0.176712eeP7J5d0&amp;tdsourcetag=s_pctim_aiomsg">Go Git：面向未来的代码平台</a>，了解版本控制系统的发展和Git现存的问题，版本控制系统未来的走向</p>
@@ -235,6 +235,8 @@
 <p><a target="_blank" rel="noopener" href="https://www.ruanyifeng.com/blog/2015/12/git-cheat-sheet.html">常用Git命令清单</a></p>
 </li>
 </ul>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">
 </article>
 <div class="article-footer">
     <section id="license">
@@ -249,11 +251,11 @@
       <div class="header"><span>分享文章</span></div>
       <div class="body">
         <div class="link"><input class="copy-area" readonly="true" id="copy-link" value="https://yeshan333.github.io/2020/02/03/Git%E5%86%85%E9%83%A8%E5%8E%9F%E7%90%86%E6%8E%A2%E7%B4%A2/" /></div>
-        <div class="social-wrap dis-select"><a class="social share-item wechat" onclick="util.toggle(&quot;qrcode-wechat&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/b32ef3da1162a.svg" /></a><a class="social share-item weibo" target="_blank" rel="external nofollow noopener noreferrer" href="https://service.weibo.com/share/share.php?url=https://yeshan333.github.io/2020/02/03/Git%E5%86%85%E9%83%A8%E5%8E%9F%E7%90%86%E6%8E%A2%E7%B4%A2/&title=洞悉技术的本质-Git内部原理探索 - ShanSan&summary= 前言
+        <div class="social-wrap dis-select"><a class="social share-item wechat" onclick="util.toggle(&quot;qrcode-wechat&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/b32ef3da1162a.svg" /></a><a class="social share-item weibo" target="_blank" rel="external nofollow noopener noreferrer" href="https://service.weibo.com/share/share.php?url=https://yeshan333.github.io/2020/02/03/Git%E5%86%85%E9%83%A8%E5%8E%9F%E7%90%86%E6%8E%A2%E7%B4%A2/&title=洞悉技术的本质-Git内部原理探索 - ShanSan&summary=前言
 洞悉技术的本质，可以让我们在层出不穷的框架面前仍能泰然处之。用了那么久的 Git，不懂点内部原理，那可不行！懂点原理可以让我们遇到问题的时候能够更好更快的理清解决问题的思路。
 要真正读懂本文可能需要以下基础：
 
-有 Git 使..."><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/80c07e4dbb303.svg" /></a><a class="social share-item email" href="mailto:?subject=洞悉技术的本质-Git内部原理探索 - ShanSan&amp;body=https://yeshan333.github.io/2020/02/03/Git%E5%86%85%E9%83%A8%E5%8E%9F%E7%90%86%E6%8E%A2%E7%B4%A2/"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/a1b00e20f425d.svg" /></a><a class="social share-item link" onclick="util.copy(&quot;copy-link&quot;, &quot;复制成功&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/8411ed322ced6.svg" /></a></div>
+有 Git 使用..."><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/80c07e4dbb303.svg" /></a><a class="social share-item email" href="mailto:?subject=洞悉技术的本质-Git内部原理探索 - ShanSan&amp;body=https://yeshan333.github.io/2020/02/03/Git%E5%86%85%E9%83%A8%E5%8E%9F%E7%90%86%E6%8E%A2%E7%B4%A2/"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/a1b00e20f425d.svg" /></a><a class="social share-item link" onclick="util.copy(&quot;copy-link&quot;, &quot;复制成功&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/8411ed322ced6.svg" /></a></div>
         
         <div class="qrcode" id="qrcode-wechat" style="opacity:0;height:0">
           <img src="https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=https://yeshan333.github.io/2020/02/03/Git%E5%86%85%E9%83%A8%E5%8E%9F%E7%90%86%E6%8E%A2%E7%B4%A2/"/>
@@ -270,7 +272,7 @@
       <div class='title cap theme'>您可能感兴趣的文章</div>
     </section>
     <section class='body'>
-    <div class="related-posts"><a class="item" href="/2019/04/08/Git-Branch-Practice/" title="Git Branch Practice"><span class="title">Git Branch Practice</span><span class="excerpt">Git Branch Practice</span></a><a class="item" href="/2019/10/27/clone后如何checkout到remote-branch/" title="git clone后如何checkout到remote branch"><span class="title">git clone后如何checkout到remote branch</span></a><a class="item" href="/2021/12/26/git-lfs-and-thin-repo/" title="Git 仓库瘦身与 LFS 大文件存储"><span class="title">Git 仓库瘦身与 LFS 大文件存储</span><span class="excerpt">熟悉 Git 的小伙伴应该都知道随着 Git 仓库维护的时间越来越久，追踪的文件越来越多，git 存储的 objects 数量会极其庞大，每次从远程仓库 git clone 的时候都会墨迹很久。如果我们不小心 git add 了一个体...</span></a><a class="item" href="/2021/03/10/git-submodules/" title="初探 Git Submodules"><span class="title">初探 Git Submodules</span><span class="excerpt">之前一直想将一个 Git 仓库放到另一个 Git 仓库，有 Maven 多模块项目（Maven Multimodule Project）和 Gradle 多项目构建（Gradle Multiproject Build）那味儿。Git ...</span></a><a class="item" href="/2019/03/08/将本地项目推送到GitHub远程仓库/" title="将本地项目推送到GitHub远程仓库"><span class="title">将本地项目推送到GitHub远程仓库</span><span class="excerpt"> 如何将本地项目推送到Github
+    <div class="related-posts"><a class="item" href="/2019/04/08/Git-Branch-Practice/" title="Git Branch Practice"><span class="title">Git Branch Practice</span><span class="excerpt">Git Branch Practice</span></a><a class="item" href="/2019/10/27/clone后如何checkout到remote-branch/" title="git clone后如何checkout到remote branch"><span class="title">git clone后如何checkout到remote branch</span></a><a class="item" href="/2021/12/26/git-lfs-and-thin-repo/" title="Git 仓库瘦身与 LFS 大文件存储"><span class="title">Git 仓库瘦身与 LFS 大文件存储</span><span class="excerpt">熟悉 Git 的小伙伴应该都知道随着 Git 仓库维护的时间越来越久，追踪的文件越来越多，git 存储的 objects 数量会极其庞大，每次从远程仓库 git clone 的时候都会墨迹很久。如果我们不小心 git add 了一个体...</span></a><a class="item" href="/2021/03/10/git-submodules/" title="初探 Git Submodules"><span class="title">初探 Git Submodules</span><span class="excerpt">之前一直想将一个 Git 仓库放到另一个 Git 仓库，有 Maven 多模块项目（Maven Multimodule Project）和 Gradle 多项目构建（Gradle Multiproject Build）那味儿。Git ...</span></a><a class="item" href="/2019/03/08/将本地项目推送到GitHub远程仓库/" title="将本地项目推送到GitHub远程仓库"><span class="title">将本地项目推送到GitHub远程仓库</span><span class="excerpt">如何将本地项目推送到Github
 
 Tip：在本地要安装好Git，官网：https://git-scm.com/
 
@@ -279,7 +281,7 @@ Tip：在本地要安装好Git，官网：https://git-scm.com/
 一个学习Git的好地方：https://try.github.io/
 
 
-在线闯关实战，边练边学的好地方：htt...</span></a></div></section></div>
+在线闯关实战，边练边学的好地方：http...</span></a></div></section></div>
 
 
   <div class="related-wrap md-text" id="comments">
@@ -296,9 +298,9 @@ Tip：在本地要安装好Git，官网：https://git-scm.com/
 
 
 
-<footer class="page-footer footnote"><hr><div class="text"><p><a target="_blank" rel="noopener" href="https://shansan.top">Copyright © 2018-2025 ShanSan</a><br><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">桂ICP备19000444号</a><br />
-本站由 <a href="/">ShanSan</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br />
-本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。<br />
+<footer class="page-footer footnote"><hr><div class="text"><p><a target="_blank" rel="noopener" href="https://shansan.top">Copyright © 2018-2025 ShanSan</a><br><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">桂ICP备19000444号</a><br>
+本站由 <a href="/">ShanSan</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br>
+本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。<br>
 <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span></p>
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 </div></footer>
@@ -307,7 +309,7 @@ Tip：在本地要安装好Git，官网：https://git-scm.com/
 <widget class="widget-wrapper user-card ghuser"><div class="widget-body data-service ds-ghinfo" data-api="https://api.github.com/users/yeshan333"><div class="avatar" ><img no-lazy type="img" id="avatar_url" src="undefined" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></div><p class="username" type="text" id="name">&nbsp;</p><p class="bio" type="text" id="bio">&nbsp;</p><div class="buttons"><a class="btn" target="_blank" rel="noopener" href="https://github.com/yeshan333?tab=followers"><span class="title" type="text" id="followers">0</span><span class="desc">followers</span></a><a class="btn" target="_blank" rel="noopener" href="https://github.com/yeshan333?tab=following"><span class="title" type="text" id="following">0</span><span class="desc">following</span></a><a class="btn" target="_blank" rel="noopener" href="https://github.com/yeshan333?tab=repositories"><span class="title" type="text" id="public_repos">0</span><span class="desc">repos</span></a></div><a class="follow" target="_blank" rel="noopener" href="https://github.com/yeshan333"><svg aria-hidden="true" role="img" class="color-icon-primary" viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor" style="display:inline-block;user-select:none;vertical-align:text-bottom;overflow:visible"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>Follow</a></div></widget>
 
 
-<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text"> 前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#git%E5%88%86%E5%8C%BA"><span class="toc-text"> Git分区</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#git%E7%89%88%E6%9C%AC%E5%BA%93%E9%87%8C%E7%9A%84%E6%96%87%E4%BB%B6%E7%9B%AE%E5%BD%95%E6%98%AF%E5%B9%B2%E4%BB%80%E4%B9%88%E7%9A%84"><span class="toc-text"> .git版本库里的文件&#x2F;目录是干什么的</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#git%E6%98%AF%E5%A6%82%E4%BD%95%E5%AD%98%E5%82%A8%E6%96%87%E4%BB%B6%E4%BF%A1%E6%81%AF%E7%9A%84"><span class="toc-text"> Git是如何存储文件信息的</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BD%93%E6%88%91%E4%BB%AC%E6%89%A7%E8%A1%8Cgit-add-git-commit%E6%97%B6git%E8%83%8C%E5%90%8E%E5%81%9A%E4%BA%86%E4%BB%80%E4%B9%88"><span class="toc-text"> 当我们执行git add、git commit时，Git背后做了什么</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#git%E5%88%86%E6%94%AF%E7%9A%84%E6%9C%AC%E8%B4%A8%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-text"> Git分支的本质是什么</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#head%E5%BC%95%E7%94%A8"><span class="toc-text"> HEAD引用</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text"> 参考</span></a></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a><a class="buttom" onclick="util.scrollComment()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M8 10.5h8M8 14h5.5M17 3.338A9.95 9.95 0 0 0 12 2C6.477 2 2 6.477 2 12c0 1.6.376 3.112 1.043 4.453c.178.356.237.763.134 1.148l-.595 2.226a1.3 1.3 0 0 0 1.591 1.592l2.226-.596a1.63 1.63 0 0 1 1.149.133A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10c0-1.821-.487-3.53-1.338-5"/></svg><span>参与讨论</span></a></div></widget>
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#git%E5%88%86%E5%8C%BA"><span class="toc-text">Git分区</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#.git%E7%89%88%E6%9C%AC%E5%BA%93%E9%87%8C%E7%9A%84%E6%96%87%E4%BB%B6/%E7%9B%AE%E5%BD%95%E6%98%AF%E5%B9%B2%E4%BB%80%E4%B9%88%E7%9A%84"><span class="toc-text">.git版本库里的文件&#x2F;目录是干什么的</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#git%E6%98%AF%E5%A6%82%E4%BD%95%E5%AD%98%E5%82%A8%E6%96%87%E4%BB%B6%E4%BF%A1%E6%81%AF%E7%9A%84"><span class="toc-text">Git是如何存储文件信息的</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BD%93%E6%88%91%E4%BB%AC%E6%89%A7%E8%A1%8Cgit-add%E3%80%81git-commit%E6%97%B6%EF%BC%8Cgit%E8%83%8C%E5%90%8E%E5%81%9A%E4%BA%86%E4%BB%80%E4%B9%88"><span class="toc-text">当我们执行git add、git commit时，Git背后做了什么</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#git%E5%88%86%E6%94%AF%E7%9A%84%E6%9C%AC%E8%B4%A8%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-text">Git分支的本质是什么</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#head%E5%BC%95%E7%94%A8"><span class="toc-text">HEAD引用</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a><a class="buttom" onclick="util.scrollComment()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M8 10.5h8M8 14h5.5M17 3.338A9.95 9.95 0 0 0 12 2C6.477 2 2 6.477 2 12c0 1.6.376 3.112 1.043 4.453c.178.356.237.763.134 1.148l-.595 2.226a1.3 1.3 0 0 0 1.591 1.592l2.226-.596a1.63 1.63 0 0 1 1.149.133A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10c0-1.821-.487-3.53-1.338-5"/></svg><span>参与讨论</span></a></div></widget>
 </div></aside><div class='float-panel'>
   <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
@@ -320,7 +322,7 @@ Tip：在本地要安装好Git，官网：https://git-scm.com/
 
 
 <script type="text/javascript">
-  window.canonical = {"originalHost":"shansan.top","officialHosts":["localhost","shansan.top","shansan.cn","yeshan333.github.io"],"encoded":"c2hhbnNhbi50b3A="};
+  window.canonical = {"originalHost":"","officialHosts":["localhost","shansan.top","shansan.cn","yeshan333.github.io"],"encoded":""};
   const ctx = {
     date_suffix: {
       just: `刚刚`,

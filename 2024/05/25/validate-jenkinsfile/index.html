@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1" theme-name="Stellar" theme-version="1.33.1">
-  <link rel="canonical" href="https://shansan.top/2024/05/25/validate-jenkinsfile/">
+  
   
   <meta name="generator" content="Hexo 7.3.0">
   <meta http-equiv='x-dns-prefetch-control' content='on' />
@@ -131,28 +131,30 @@
 <li>Open VSX Registry: <a target="_blank" rel="noopener" href="https://marketplace.visualstudio.com/items?itemName=yeshan333.jenkins-pipeline-linter-connector-fork">https://marketplace.visualstudio.com/items?itemName=yeshan333.jenkins-pipeline-linter-connector-fork</a></li>
 </ul>
 <p>现在你应该能在插件搜索里搜索到它, 使用 <code>yeshan333.jenkins-pipeline-linter-connector-fork</code> 去搜索安装即可:</p>
-<p><img src="https://telegraph.shansan.top/file/ca35ab00c512683aff15a.png" alt="search extendsion" /></p>
-<h2 id="配置插件"><a class="markdownIt-Anchor" href="#配置插件"></a> 配置插件</h2>
+<p><img src="https://telegraph.shansan.top/file/ca35ab00c512683aff15a.png" alt="search extendsion"></p>
+<h2 id="%E9%85%8D%E7%BD%AE%E6%8F%92%E4%BB%B6" tabindex="-1">配置插件</h2>
 <p>插件的文档里已经给出了几个示例配置, 将配置填入你的 vscode 用户配置 json 文件中即可:</p>
-<p><img src="https://telegraph.shansan.top/file/09b95699e28b2bafe3149.png" alt="settings" /></p>
+<p><img src="https://telegraph.shansan.top/file/09b95699e28b2bafe3149.png" alt="settings"></p>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;jenkins.pipeline.linter.connector.url&quot;</span><span class="punctuation">:</span> <span class="string">&quot;https://jenkins.shan333.cn/pipeline-model-converter/validate&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;jenkins.pipeline.linter.connector.user&quot;</span><span class="punctuation">:</span> <span class="string">&quot;jenkins_username&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;jenkins.pipeline.linter.connector.pass&quot;</span><span class="punctuation">:</span> <span class="string">&quot;jenkins_password&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
 <p>将 url、用户密码替换成你自己的 Jenkins 即可. 当然你也可以在插件配置处直接进行配置:</p>
-<p><img src="https://telegraph.shansan.top/file/0ddecbae6772b5d22432b.png" alt="settings" /></p>
+<p><img src="https://telegraph.shansan.top/file/0ddecbae6772b5d22432b.png" alt="settings"></p>
 <p>配置完成之后直接通过命令面板 (Command Pallette) 使用 <code>Validate Jenkins</code> 即可开启 Jenkinsfile 校验:</p>
-<p><img src="https://github.com/yeshan333/vscode-jenkins-pipeline-linter-connector/raw/master/images/example_with_syntax_error.gif" alt="https://github.com/yeshan333/vscode-jenkins-pipeline-linter-connector/raw/master/images/example_with_syntax_error.gif" /></p>
+<p><img src="https://github.com/yeshan333/vscode-jenkins-pipeline-linter-connector/raw/master/images/example_with_syntax_error.gif" alt="https://github.com/yeshan333/vscode-jenkins-pipeline-linter-connector/raw/master/images/example_with_syntax_error.gif"></p>
 <p>接下来介绍如何使用 LLM 去帮你评审 Jenkinsfile.</p>
-<h3 id="使用-llm-大模型评审你的-jenkinsfile"><a class="markdownIt-Anchor" href="#使用-llm-大模型评审你的-jenkinsfile"></a> 使用 LLM 大模型评审你的 Jenkinsfile</h3>
+<h3 id="%E4%BD%BF%E7%94%A8-llm-%E5%A4%A7%E6%A8%A1%E5%9E%8B%E8%AF%84%E5%AE%A1%E4%BD%A0%E7%9A%84-jenkinsfile" tabindex="-1">使用 LLM 大模型评审你的 Jenkinsfile</h3>
 <p>这一功能默认是关闭的, 需要通过配置 <code>jenkins.pipeline.linter.connector.llm.enable</code> 去开启,</p>
 <p>功能开启之后我们还需要几个填写几个关键配置, 如下:</p>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;jenkins.pipeline.linter.connector.llm.enable&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;jenkins.pipeline.linter.connector.llm.baseUrl&quot;</span><span class="punctuation">:</span> <span class="string">&quot;https://api.cloudflare.com/client/v4/accounts/&lt;CF_ACCOUNT_ID&gt;/ai/v1&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;jenkins.pipeline.linter.connector.llm.modelName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;@cf/meta/llama-2-7b-chat-fp16&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;jenkins.pipeline.linter.connector.llm.apiKey&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&lt;CF_API_TOKEN&gt;&quot;</span><span class="punctuation">,</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
 <p>其中 <code>baseUrl</code> 和 <code>apiKey</code> 需要我们到 Cloudflare 用户管理后台申请.</p>
 <p>插件默认会使用 Cloudflare Workers AI REST API 提供的文本生成模型去评审 review 我们的 Jenkinsfile, 目前它提供免费额度基本够日常使用.</p>
 <p><strong>Step 1</strong>: 你需要先按照 Cloudflare 提供的文档去获取 API 访问的密钥 -&gt; <a target="_blank" rel="noopener" href="https://developers.cloudflare.com/workers-ai/get-started/rest-api/">Get started with the Workers AI REST API</a>, 将获取到的 API Token 填入配置 <code>&quot;jenkins.pipeline.linter.connector.llm.apiKey&quot;</code> 中.</p>
-<p><img src="https://telegraph.shansan.top/file/3856642f14eb9c17411bc.png" alt="GET API Token and ACCOUND_ID" /></p>
+<p><img src="https://telegraph.shansan.top/file/3856642f14eb9c17411bc.png" alt="GET API Token and ACCOUND_ID"></p>
 <p><strong>Step 2</strong>: 在上一步, 你在申请的时候也会拿到一个 Account ID, 这个 ACCOUNT ID 用于组装配置 <code>&quot;jenkins.pipeline.linter.connector.llm.baseUrl&quot;</code>, 将 <code>&quot;https://api.cloudflare.com/client/v4/accounts/&lt;CF_ACCOUNT_ID&gt;/ai/v1&quot;</code> 的 <code>&lt;CF_ACCOUNT_ID&gt;</code> 替换为你的 Account ID 即可</p>
 <p>配置 <code>jenkins.pipeline.linter.connector.llm.modelName</code> 是可选地, 你可以选用 <a target="_blank" rel="noopener" href="https://developers.cloudflare.com/workers-ai/models/#text-generation">https://developers.cloudflare.com/workers-ai/models/#text-generation</a> 提到的任意一个文本生成模型去做评审.</p>
 <p>将上述配置配置完成之后, 通过 vscode 命令面板 (Command Pallette) 使用 <code>Validate Jenkins</code> 开启 Jenkinsfile 校验的同时也会同时向大模型询问评审意见, 大致效果如下:</p>
-<p><img src="https://telegraph.shansan.top/file/9052330caafc891b5e282.png" alt="review with LLMs" /></p>
+<p><img src="https://telegraph.shansan.top/file/9052330caafc891b5e282.png" alt="review with LLMs"></p>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">
 </article>
 <div class="article-footer">
     <section id="license">
@@ -196,9 +198,9 @@
 
 
 
-<footer class="page-footer footnote"><hr><div class="text"><p><a target="_blank" rel="noopener" href="https://shansan.top">Copyright © 2018-2025 ShanSan</a><br><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">桂ICP备19000444号</a><br />
-本站由 <a href="/">ShanSan</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br />
-本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。<br />
+<footer class="page-footer footnote"><hr><div class="text"><p><a target="_blank" rel="noopener" href="https://shansan.top">Copyright © 2018-2025 ShanSan</a><br><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">桂ICP备19000444号</a><br>
+本站由 <a href="/">ShanSan</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br>
+本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。<br>
 <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span></p>
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 </div></footer>
@@ -207,7 +209,7 @@
 <widget class="widget-wrapper user-card ghuser"><div class="widget-body data-service ds-ghinfo" data-api="https://api.github.com/users/yeshan333"><div class="avatar" ><img no-lazy type="img" id="avatar_url" src="undefined" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></div><p class="username" type="text" id="name">&nbsp;</p><p class="bio" type="text" id="bio">&nbsp;</p><div class="buttons"><a class="btn" target="_blank" rel="noopener" href="https://github.com/yeshan333?tab=followers"><span class="title" type="text" id="followers">0</span><span class="desc">followers</span></a><a class="btn" target="_blank" rel="noopener" href="https://github.com/yeshan333?tab=following"><span class="title" type="text" id="following">0</span><span class="desc">following</span></a><a class="btn" target="_blank" rel="noopener" href="https://github.com/yeshan333?tab=repositories"><span class="title" type="text" id="public_repos">0</span><span class="desc">repos</span></a></div><a class="follow" target="_blank" rel="noopener" href="https://github.com/yeshan333"><svg aria-hidden="true" role="img" class="color-icon-primary" viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor" style="display:inline-block;user-select:none;vertical-align:text-bottom;overflow:visible"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>Follow</a></div></widget>
 
 
-<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%8F%92%E4%BB%B6"><span class="toc-text"> 配置插件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-llm-%E5%A4%A7%E6%A8%A1%E5%9E%8B%E8%AF%84%E5%AE%A1%E4%BD%A0%E7%9A%84-jenkinsfile"><span class="toc-text"> 使用 LLM 大模型评审你的 Jenkinsfile</span></a></li></ol></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a><a class="buttom" onclick="util.scrollComment()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M8 10.5h8M8 14h5.5M17 3.338A9.95 9.95 0 0 0 12 2C6.477 2 2 6.477 2 12c0 1.6.376 3.112 1.043 4.453c.178.356.237.763.134 1.148l-.595 2.226a1.3 1.3 0 0 0 1.591 1.592l2.226-.596a1.63 1.63 0 0 1 1.149.133A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10c0-1.821-.487-3.53-1.338-5"/></svg><span>参与讨论</span></a></div></widget>
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%8F%92%E4%BB%B6"><span class="toc-text">配置插件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-llm-%E5%A4%A7%E6%A8%A1%E5%9E%8B%E8%AF%84%E5%AE%A1%E4%BD%A0%E7%9A%84-jenkinsfile"><span class="toc-text">使用 LLM 大模型评审你的 Jenkinsfile</span></a></li></ol></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a><a class="buttom" onclick="util.scrollComment()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M8 10.5h8M8 14h5.5M17 3.338A9.95 9.95 0 0 0 12 2C6.477 2 2 6.477 2 12c0 1.6.376 3.112 1.043 4.453c.178.356.237.763.134 1.148l-.595 2.226a1.3 1.3 0 0 0 1.591 1.592l2.226-.596a1.63 1.63 0 0 1 1.149.133A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10c0-1.821-.487-3.53-1.338-5"/></svg><span>参与讨论</span></a></div></widget>
 </div></aside><div class='float-panel'>
   <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
@@ -220,7 +222,7 @@
 
 
 <script type="text/javascript">
-  window.canonical = {"originalHost":"shansan.top","officialHosts":["localhost","shansan.top","shansan.cn","yeshan333.github.io"],"encoded":"c2hhbnNhbi50b3A="};
+  window.canonical = {"originalHost":"","officialHosts":["localhost","shansan.top","shansan.cn","yeshan333.github.io"],"encoded":""};
   const ctx = {
     date_suffix: {
       just: `刚刚`,

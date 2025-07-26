@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1" theme-name="Stellar" theme-version="1.33.1">
-  <link rel="canonical" href="https://shansan.top/2019/08/08/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+  
   
   <meta name="generator" content="Hexo 7.3.0">
   <meta http-equiv='x-dns-prefetch-control' content='on' />
@@ -20,12 +20,12 @@
   <title>docker学习笔记 - ShanSan</title>
 
   
-    <meta name="description" content="Play With Docker一个免费使用的基于web界面的Docker环境   常用docker命令 可使用docker COMMAND --help查看命令的用法  Docker镜像相关  1、docker image pull：用于下载镜像，镜像从远程镜像仓库服务的仓库中下载，默认从Docker Hub的仓库中拉取  1234# 格式：docker pull [OPTIONS] NAME">
+    <meta name="description" content="Play With Docker一个免费使用的基于web界面的Docker环境  常用docker命令 可使用docker COMMAND --help查看命令的用法 Docker镜像相关  1、docker image pull：用于下载镜像，镜像从远程镜像仓库服务的仓库中下载，默认从Docker Hub的仓库中拉取  1234# 格式：docker pull [OPTIONS] NAME[:">
 <meta property="og:type" content="article">
 <meta property="og:title" content="docker学习笔记">
 <meta property="og:url" content="https://yeshan333.github.io/2019/08/08/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
 <meta property="og:site_name" content="ShanSan">
-<meta property="og:description" content="Play With Docker一个免费使用的基于web界面的Docker环境   常用docker命令 可使用docker COMMAND --help查看命令的用法  Docker镜像相关  1、docker image pull：用于下载镜像，镜像从远程镜像仓库服务的仓库中下载，默认从Docker Hub的仓库中拉取  1234# 格式：docker pull [OPTIONS] NAME">
+<meta property="og:description" content="Play With Docker一个免费使用的基于web界面的Docker环境  常用docker命令 可使用docker COMMAND --help查看命令的用法 Docker镜像相关  1、docker image pull：用于下载镜像，镜像从远程镜像仓库服务的仓库中下载，默认从Docker Hub的仓库中拉取  1234# 格式：docker pull [OPTIONS] NAME[:">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/ssmath/mypic/img/20190808213453.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/ssmath/mypic/img/20190808232118.png">
@@ -54,7 +54,7 @@
 
   
 
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"ShanSan","sameAs":[]},"dateCreated":"2019-08-08T17:29:19+00:00","dateModified":"2019-08-08T17:29:19+00:00","datePublished":"2019-08-08T17:29:19+00:00","description":"\nPlay With Docker一个免费使用的基于web界面的Docker环境\n\n 常用docker命令\n可使用docker COMMAND --help查看命令的用法\n Docker镜像相关\n\n1、docker image pull：用于下载镜像，镜像从远程镜像仓库服务的仓库中下载，默认从Docker Hub的仓库中拉取\n\n1234# 格式：docker pull [OPTIONS] NAME[:TAG|@DIGEST]# 说明：如果给出tag，一般拉取latest，name一般为username/repository,digest为镜像摘要可不给出docker image pull ubuntu:latest# 这个拉取标签为latest的ubuntu官方镜像，latest: Pulling from library/ubuntu，latest不一定是最新镜像","headline":"docker学习笔记","mainEntityOfPage":{"@type":"WebPage","@id":"https://yeshan333.github.io/2019/08/08/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"},"publisher":{"@type":"Organization","name":"ShanSan","sameAs":[]},"url":"https://yeshan333.github.io/2019/08/08/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/","keywords":"docker","image":[]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"ShanSan","sameAs":[]},"dateCreated":"2019-08-08T17:29:19+00:00","dateModified":"2019-08-08T17:29:19+00:00","datePublished":"2019-08-08T17:29:19+00:00","description":"\nPlay With Docker一个免费使用的基于web界面的Docker环境\n\n常用docker命令\n可使用docker COMMAND --help查看命令的用法\nDocker镜像相关\n\n1、docker image pull：用于下载镜像，镜像从远程镜像仓库服务的仓库中下载，默认从Docker Hub的仓库中拉取\n\n1234# 格式：docker pull [OPTIONS] NAME[:TAG|@DIGEST]# 说明：如果给出tag，一般拉取latest，name一般为username/repository,digest为镜像摘要可不给出docker image pull ubuntu:latest# 这个拉取标签为latest的ubuntu官方镜像，latest: Pulling from library/ubuntu，latest不一定是最新镜像","headline":"docker学习笔记","mainEntityOfPage":{"@type":"WebPage","@id":"https://yeshan333.github.io/2019/08/08/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"},"publisher":{"@type":"Organization","name":"ShanSan","sameAs":[]},"url":"https://yeshan333.github.io/2019/08/08/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/","keywords":"docker","image":[]}</script>
   
 </head>
 <body>
@@ -100,9 +100,9 @@
   </div><article class="md-text content"><blockquote>
 <p><a target="_blank" rel="noopener" href="https://labs.play-with-docker.com/">Play With Docker一个免费使用的基于web界面的Docker环境</a></p>
 </blockquote>
-<h1 id="常用docker命令"><a class="markdownIt-Anchor" href="#常用docker命令"></a> 常用docker命令</h1>
+<h1 id="%E5%B8%B8%E7%94%A8docker%E5%91%BD%E4%BB%A4" tabindex="-1">常用docker命令</h1>
 <p><strong>可使用<code>docker COMMAND --help</code>查看命令的用法</strong></p>
-<h2 id="docker镜像相关"><a class="markdownIt-Anchor" href="#docker镜像相关"></a> Docker镜像相关</h2>
+<h2 id="docker%E9%95%9C%E5%83%8F%E7%9B%B8%E5%85%B3" tabindex="-1">Docker镜像相关</h2>
 <ul>
 <li>1、<code>docker image pull</code>：用于下载镜像，镜像从远程镜像仓库服务的仓库中下载，默认从Docker Hub的仓库中拉取</li>
 </ul>
@@ -132,7 +132,7 @@
 <ul>
 <li>7、<code>docker image history</code>：用于查看镜像构建的相关信息</li>
 </ul>
-<h2 id="docker容器相关"><a class="markdownIt-Anchor" href="#docker容器相关"></a> Docker容器相关</h2>
+<h2 id="docker%E5%AE%B9%E5%99%A8%E7%9B%B8%E5%85%B3" tabindex="-1">Docker容器相关</h2>
 <ul>
 <li>1、<code>docker container run</code>：用于启动新容器</li>
 </ul>
@@ -163,11 +163,11 @@
 <p>8、快捷键<code>Ctrl+PQ</code>用于断开docker主机的shell终端与容器终端的连接，并在退出后保证容器在后台运行</p>
 </li>
 </ul>
-<h1 id="应用容器化"><a class="markdownIt-Anchor" href="#应用容器化"></a> 应用容器化</h1>
+<h1 id="%E5%BA%94%E7%94%A8%E5%AE%B9%E5%99%A8%E5%8C%96" tabindex="-1">应用容器化</h1>
 <blockquote>
 <p>(Containerizing|Dockerizing)即将应用整合到容器中并且运行的过程</p>
 </blockquote>
-<h2 id="应用容器化的一般步骤"><a class="markdownIt-Anchor" href="#应用容器化的一般步骤"></a> 应用容器化的一般步骤</h2>
+<h2 id="%E5%BA%94%E7%94%A8%E5%AE%B9%E5%99%A8%E5%8C%96%E7%9A%84%E4%B8%80%E8%88%AC%E6%AD%A5%E9%AA%A4" tabindex="-1">应用容器化的一般步骤</h2>
 <ul>
 <li>1、编写应用代码</li>
 <li>2、创建Dockerfile，其中包括当前应用的描述、依赖以及如何运行这个应用</li>
@@ -177,14 +177,14 @@
 <blockquote>
 <p>Once your app is containerized (made into a Docker image), you’re ready to ship it and run it as a container.《Docker Deep Dive》</p>
 </blockquote>
-<p><img src="https://cdn.jsdelivr.net/gh/ssmath/mypic/img/20190808213453.png" alt="docker deep dive" /></p>
-<h2 id="使用dockerfile定制镜像"><a class="markdownIt-Anchor" href="#使用dockerfile定制镜像"></a> 使用Dockerfile定制镜像</h2>
+<p><img src="https://cdn.jsdelivr.net/gh/ssmath/mypic/img/20190808213453.png" alt="docker deep dive"></p>
+<h2 id="%E4%BD%BF%E7%94%A8dockerfile%E5%AE%9A%E5%88%B6%E9%95%9C%E5%83%8F" tabindex="-1">使用Dockerfile定制镜像</h2>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://docs.docker.com/develop/develop-images/dockerfile_best-practices/">Dockerfile最佳实践</a></li>
 <li><a target="_blank" rel="noopener" href="https://docker_practice.gitee.io/image/build.html">使用Dockerfile定制镜像</a></li>
 </ul>
 <blockquote>
-<p>Dockerfile中以#开头的都是注释行，除注释之外，每一行都是一条指令<br />
+<p>Dockerfile中以#开头的都是注释行，除注释之外，每一行都是一条指令<br>
 指令的的一般格式：INSTRUCTION argument，INSTRUCTION一般都为大写</p>
 </blockquote>
 <p>示例Dockerfile：<a target="_blank" rel="noopener" href="https://github.com/yeshan333/psweb">https://github.com/yeshan333/psweb</a></p>
@@ -203,11 +203,11 @@
 </ul>
 </li>
 </ul>
-<h3 id="构建镜像"><a class="markdownIt-Anchor" href="#构建镜像"></a> 构建镜像</h3>
+<h3 id="%E6%9E%84%E5%BB%BA%E9%95%9C%E5%83%8F" tabindex="-1">构建镜像</h3>
 <p>使用docker image build根据Dockerfile制作镜像，示例：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># -t用于指定制作好的镜像的名字及标签，通常 name:tag 或者 name</span><br><span class="line"># 最后的 . 表示使用当前目录作为构建上下文</span><br><span class="line">docker image build -t web:latest .</span><br></pre></td></tr></table></figure>
 <p><strong>使用<code>docker image history web:latest</code>可以查看构建镜像过程中执行了哪些指令</strong></p>
-<h3 id="推送镜像到docker-hub"><a class="markdownIt-Anchor" href="#推送镜像到docker-hub"></a> 推送镜像到Docker Hub</h3>
+<h3 id="%E6%8E%A8%E9%80%81%E9%95%9C%E5%83%8F%E5%88%B0docker-hub" tabindex="-1">推送镜像到Docker Hub</h3>
 <ul>
 <li>推送镜像前建议使用以下命令给镜像打新标签</li>
 </ul>
@@ -215,7 +215,7 @@
 <ul>
 <li>使用<code>docker image push &lt;tag-name&gt;</code>推送镜像，推送前需要<code>docker login</code>,<strong>记得测试打包好的应用再推送！！！</strong></li>
 </ul>
-<h3 id="dockerfile常用指令"><a class="markdownIt-Anchor" href="#dockerfile常用指令"></a> Dockerfile常用指令</h3>
+<h3 id="dockerfile%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4" tabindex="-1">Dockerfile常用指令</h3>
 <table>
 <thead>
 <tr>
@@ -266,7 +266,10 @@
 <p align="middle">
 <a src="https://labs.play-with-docker.com/">
 <img src="https://cdn.jsdelivr.net/gh/ssmath/mypic/img/20190808232118.png"></a>
-</p></article>
+</p>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">
+</article>
 <div class="article-footer">
     <section id="license">
       <div class="header"><span>许可协议</span></div>
@@ -283,11 +286,11 @@
         <div class="social-wrap dis-select"><a class="social share-item wechat" onclick="util.toggle(&quot;qrcode-wechat&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/b32ef3da1162a.svg" /></a><a class="social share-item weibo" target="_blank" rel="external nofollow noopener noreferrer" href="https://service.weibo.com/share/share.php?url=https://yeshan333.github.io/2019/08/08/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&title=docker学习笔记 - ShanSan&summary=
 Play With Docker一个免费使用的基于web界面的Docker环境
 
- 常用docker命令
+常用docker命令
 可使用docker COMMAND --help查看命令的用法
- Docker镜像相关
+Docker镜像相关
 
-1、docker image pul..."><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/80c07e4dbb303.svg" /></a><a class="social share-item email" href="mailto:?subject=docker学习笔记 - ShanSan&amp;body=https://yeshan333.github.io/2019/08/08/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/a1b00e20f425d.svg" /></a><a class="social share-item link" onclick="util.copy(&quot;copy-link&quot;, &quot;复制成功&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/8411ed322ced6.svg" /></a></div>
+1、docker image pull：..."><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/80c07e4dbb303.svg" /></a><a class="social share-item email" href="mailto:?subject=docker学习笔记 - ShanSan&amp;body=https://yeshan333.github.io/2019/08/08/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/a1b00e20f425d.svg" /></a><a class="social share-item link" onclick="util.copy(&quot;copy-link&quot;, &quot;复制成功&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/8411ed322ced6.svg" /></a></div>
         
         <div class="qrcode" id="qrcode-wechat" style="opacity:0;height:0">
           <img src="https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=https://yeshan333.github.io/2019/08/08/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
@@ -323,9 +326,9 @@ Play With Docker一个免费使用的基于web界面的Docker环境
 
 
 
-<footer class="page-footer footnote"><hr><div class="text"><p><a target="_blank" rel="noopener" href="https://shansan.top">Copyright © 2018-2025 ShanSan</a><br><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">桂ICP备19000444号</a><br />
-本站由 <a href="/">ShanSan</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br />
-本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。<br />
+<footer class="page-footer footnote"><hr><div class="text"><p><a target="_blank" rel="noopener" href="https://shansan.top">Copyright © 2018-2025 ShanSan</a><br><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">桂ICP备19000444号</a><br>
+本站由 <a href="/">ShanSan</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br>
+本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。<br>
 <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span></p>
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 </div></footer>
@@ -334,7 +337,7 @@ Play With Docker一个免费使用的基于web界面的Docker环境
 <widget class="widget-wrapper user-card ghuser"><div class="widget-body data-service ds-ghinfo" data-api="https://api.github.com/users/yeshan333"><div class="avatar" ><img no-lazy type="img" id="avatar_url" src="undefined" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></div><p class="username" type="text" id="name">&nbsp;</p><p class="bio" type="text" id="bio">&nbsp;</p><div class="buttons"><a class="btn" target="_blank" rel="noopener" href="https://github.com/yeshan333?tab=followers"><span class="title" type="text" id="followers">0</span><span class="desc">followers</span></a><a class="btn" target="_blank" rel="noopener" href="https://github.com/yeshan333?tab=following"><span class="title" type="text" id="following">0</span><span class="desc">following</span></a><a class="btn" target="_blank" rel="noopener" href="https://github.com/yeshan333?tab=repositories"><span class="title" type="text" id="public_repos">0</span><span class="desc">repos</span></a></div><a class="follow" target="_blank" rel="noopener" href="https://github.com/yeshan333"><svg aria-hidden="true" role="img" class="color-icon-primary" viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor" style="display:inline-block;user-select:none;vertical-align:text-bottom;overflow:visible"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>Follow</a></div></widget>
 
 
-<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8docker%E5%91%BD%E4%BB%A4"><span class="toc-text"> 常用docker命令</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#docker%E9%95%9C%E5%83%8F%E7%9B%B8%E5%85%B3"><span class="toc-text"> Docker镜像相关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#docker%E5%AE%B9%E5%99%A8%E7%9B%B8%E5%85%B3"><span class="toc-text"> Docker容器相关</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BA%94%E7%94%A8%E5%AE%B9%E5%99%A8%E5%8C%96"><span class="toc-text"> 应用容器化</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BA%94%E7%94%A8%E5%AE%B9%E5%99%A8%E5%8C%96%E7%9A%84%E4%B8%80%E8%88%AC%E6%AD%A5%E9%AA%A4"><span class="toc-text"> 应用容器化的一般步骤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8dockerfile%E5%AE%9A%E5%88%B6%E9%95%9C%E5%83%8F"><span class="toc-text"> 使用Dockerfile定制镜像</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%84%E5%BB%BA%E9%95%9C%E5%83%8F"><span class="toc-text"> 构建镜像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A8%E9%80%81%E9%95%9C%E5%83%8F%E5%88%B0docker-hub"><span class="toc-text"> 推送镜像到Docker Hub</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#dockerfile%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4"><span class="toc-text"> Dockerfile常用指令</span></a></li></ol></li></ol></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a><a class="buttom" onclick="util.scrollComment()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M8 10.5h8M8 14h5.5M17 3.338A9.95 9.95 0 0 0 12 2C6.477 2 2 6.477 2 12c0 1.6.376 3.112 1.043 4.453c.178.356.237.763.134 1.148l-.595 2.226a1.3 1.3 0 0 0 1.591 1.592l2.226-.596a1.63 1.63 0 0 1 1.149.133A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10c0-1.821-.487-3.53-1.338-5"/></svg><span>参与讨论</span></a></div></widget>
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8docker%E5%91%BD%E4%BB%A4"><span class="toc-text">常用docker命令</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#docker%E9%95%9C%E5%83%8F%E7%9B%B8%E5%85%B3"><span class="toc-text">Docker镜像相关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#docker%E5%AE%B9%E5%99%A8%E7%9B%B8%E5%85%B3"><span class="toc-text">Docker容器相关</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BA%94%E7%94%A8%E5%AE%B9%E5%99%A8%E5%8C%96"><span class="toc-text">应用容器化</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BA%94%E7%94%A8%E5%AE%B9%E5%99%A8%E5%8C%96%E7%9A%84%E4%B8%80%E8%88%AC%E6%AD%A5%E9%AA%A4"><span class="toc-text">应用容器化的一般步骤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8dockerfile%E5%AE%9A%E5%88%B6%E9%95%9C%E5%83%8F"><span class="toc-text">使用Dockerfile定制镜像</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%84%E5%BB%BA%E9%95%9C%E5%83%8F"><span class="toc-text">构建镜像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A8%E9%80%81%E9%95%9C%E5%83%8F%E5%88%B0docker-hub"><span class="toc-text">推送镜像到Docker Hub</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#dockerfile%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4"><span class="toc-text">Dockerfile常用指令</span></a></li></ol></li></ol></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a><a class="buttom" onclick="util.scrollComment()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M8 10.5h8M8 14h5.5M17 3.338A9.95 9.95 0 0 0 12 2C6.477 2 2 6.477 2 12c0 1.6.376 3.112 1.043 4.453c.178.356.237.763.134 1.148l-.595 2.226a1.3 1.3 0 0 0 1.591 1.592l2.226-.596a1.63 1.63 0 0 1 1.149.133A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10c0-1.821-.487-3.53-1.338-5"/></svg><span>参与讨论</span></a></div></widget>
 </div></aside><div class='float-panel'>
   <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
@@ -347,7 +350,7 @@ Play With Docker一个免费使用的基于web界面的Docker环境
 
 
 <script type="text/javascript">
-  window.canonical = {"originalHost":"shansan.top","officialHosts":["localhost","shansan.top","shansan.cn","yeshan333.github.io"],"encoded":"c2hhbnNhbi50b3A="};
+  window.canonical = {"originalHost":"","officialHosts":["localhost","shansan.top","shansan.cn","yeshan333.github.io"],"encoded":""};
   const ctx = {
     date_suffix: {
       just: `刚刚`,

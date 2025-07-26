@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1" theme-name="Stellar" theme-version="1.33.1">
-  <link rel="canonical" href="https://shansan.top/2019/01/03/%E8%A3%85%E9%A5%B0%E5%99%A8-python/">
+  
   
   <meta name="generator" content="Hexo 7.3.0">
   <meta http-equiv='x-dns-prefetch-control' content='on' />
@@ -20,12 +20,12 @@
   <title>装饰器--python - ShanSan</title>
 
   
-    <meta name="description" content="python装饰器回顾  返回函数">
+    <meta name="description" content="python装饰器回顾 返回函数">
 <meta property="og:type" content="article">
 <meta property="og:title" content="装饰器--python">
 <meta property="og:url" content="https://yeshan333.github.io/2019/01/03/%E8%A3%85%E9%A5%B0%E5%99%A8-python/">
 <meta property="og:site_name" content="ShanSan">
-<meta property="og:description" content="python装饰器回顾  返回函数">
+<meta property="og:description" content="python装饰器回顾 返回函数">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://i.loli.net/2020/03/18/8MoeVXiUTxZzBEc.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/01/02/FIyq7F.png">
@@ -56,7 +56,7 @@
 
   
 
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"ShanSan","sameAs":[]},"dateCreated":"2019-01-03T18:39:32+00:00","dateModified":"2019-01-03T18:39:32+00:00","datePublished":"2019-01-03T18:39:32+00:00","description":" python装饰器回顾\n 返回函数\n","headline":"装饰器--python","mainEntityOfPage":{"@type":"WebPage","@id":"https://yeshan333.github.io/2019/01/03/%E8%A3%85%E9%A5%B0%E5%99%A8-python/"},"publisher":{"@type":"Organization","name":"ShanSan","sameAs":[]},"url":"https://yeshan333.github.io/2019/01/03/%E8%A3%85%E9%A5%B0%E5%99%A8-python/","keywords":"Python","image":[]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"ShanSan","sameAs":[]},"dateCreated":"2019-01-03T18:39:32+00:00","dateModified":"2019-01-03T18:39:32+00:00","datePublished":"2019-01-03T18:39:32+00:00","description":"python装饰器回顾\n返回函数\n","headline":"装饰器--python","mainEntityOfPage":{"@type":"WebPage","@id":"https://yeshan333.github.io/2019/01/03/%E8%A3%85%E9%A5%B0%E5%99%A8-python/"},"publisher":{"@type":"Organization","name":"ShanSan","sameAs":[]},"url":"https://yeshan333.github.io/2019/01/03/%E8%A3%85%E9%A5%B0%E5%99%A8-python/","keywords":"Python","image":[]}</script>
   
 </head>
 <body>
@@ -99,40 +99,40 @@
     </div>
     
   </div>
-  </div><article class="md-text content"><h1 id="python装饰器回顾"><a class="markdownIt-Anchor" href="#python装饰器回顾"></a> python装饰器回顾</h1>
-<h2 id="返回函数"><a class="markdownIt-Anchor" href="#返回函数"></a> 返回函数</h2>
-<p><img src="https://i.loli.net/2020/03/18/8MoeVXiUTxZzBEc.png" alt="返回函数" /></p>
+  </div><article class="md-text content"><h1 id="python%E8%A3%85%E9%A5%B0%E5%99%A8%E5%9B%9E%E9%A1%BE" tabindex="-1">python装饰器回顾</h1>
+<h2 id="%E8%BF%94%E5%9B%9E%E5%87%BD%E6%95%B0" tabindex="-1">返回函数</h2>
+<p><img src="https://i.loli.net/2020/03/18/8MoeVXiUTxZzBEc.png" alt="返回函数"></p>
 <span id="more"></span>
-<h2 id="什么是装饰器"><a class="markdownIt-Anchor" href="#什么是装饰器"></a> 什么是装饰器</h2>
+<h2 id="%E4%BB%80%E4%B9%88%E6%98%AF%E8%A3%85%E9%A5%B0%E5%99%A8" tabindex="-1">什么是装饰器</h2>
 <blockquote>
-<p>python装饰器就是用于拓展原来函数功能的一种函数，目的是在不改变原函数定义的情况下，给函数增加新的功能。<br />
+<p>python装饰器就是用于拓展原来函数功能的一种函数，目的是在不改变原函数定义的情况下，给函数增加新的功能。<br>
 这个函数的特殊之处在于它的返回值也是一个函数，这个函数是内嵌“原”函数的函数</p>
 </blockquote>
-<p>在代码运行期间动态的增加功能<br />
+<p>在代码运行期间动态的增加功能<br>
 装饰器(decorator)是修改其它函数功能的函数,是返回函数的高阶函数</p>
-<h2 id="demo"><a class="markdownIt-Anchor" href="#demo"></a> demo</h2>
+<h2 id="demo" tabindex="-1">demo</h2>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">- 这是一个decorator</span></span><br><span class="line"><span class="string">- 使用一个函数作为参数</span></span><br><span class="line"><span class="string">- 它返回一个函数</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">a_new_decorator</span>(<span class="params">a_func</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">wrapTheFunction</span>():</span><br><span class="line">	    <span class="built_in">print</span>(<span class="string">&quot;I am doing some boring work before executing a_func()&quot;</span>)</span><br><span class="line">	    a_func()</span><br><span class="line">	    <span class="built_in">print</span>(<span class="string">&quot;I am doing some boring work after executing a_func()&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span> wrapTheFunction</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;</span></span><br><span class="line">- 使用a_new_decorator装饰a_function_requiring_decoration</span><br><span class="line">- @a_new_decorator 等价于 a_function_requiring_decoration = a_new_decorator(a_function_requiring_decoration)</span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="meta">@a_new_decorator</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">a_function_requiring_decoration</span>():</span><br><span class="line"></span><br><span class="line">	<span class="built_in">print</span>(<span class="string">&quot;I am the function which needs some decoration remove my foul smell&quot;</span>)</span><br><span class="line"></span><br><span class="line">a_function_requiring_decoration()</span><br></pre></td></tr></table></figure>
-<p>运行结果<br />
-<img src="https://s2.ax1x.com/2019/01/02/FIyq7F.png" alt="运行结果" /></p>
+<p>运行结果<br>
+<img src="https://s2.ax1x.com/2019/01/02/FIyq7F.png" alt="运行结果"></p>
 <p><font color="red">@a_new_decorator 等价于 a_function_requiring_decoration = a_new_decorator(a_function_requiring_decoration)</font></p>
 <p><strong>下面这段程序和上面那段等价</strong></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">a_new_decorator</span>(<span class="params">a_func</span>):</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">wrapTheFunction</span>():</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;I am doing some boring work before executing a_func()&quot;</span>)</span><br><span class="line"></span><br><span class="line">        a_func()</span><br><span class="line"></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;I am doing some boring work after executing a_func()&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> wrapTheFunction</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">a_function_requiring_decoration</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;I am the function which needs some decoration to remove my foul smell&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#a_function_requiring_decoration()</span></span><br><span class="line"><span class="comment">#outputs: &quot;I am the function which needs some decoration to remove my foul smell&quot;</span></span><br><span class="line"></span><br><span class="line">a_function_requiring_decoration = a_new_decorator(a_function_requiring_decoration)</span><br><span class="line"><span class="comment">#now a_function_requiring_decoration is wrapped by wrapTheFunction()</span></span><br><span class="line"></span><br><span class="line">a_function_requiring_decoration()</span><br><span class="line"><span class="comment">#outputs:I am doing some boring work before executing a_func()</span></span><br><span class="line"><span class="comment">#        I am the function which needs some decoration to remove my foul smell</span></span><br><span class="line"><span class="comment">#        I am doing some boring work after executing a_func()</span></span><br></pre></td></tr></table></figure>
-<h3 id="应用日志打印"><a class="markdownIt-Anchor" href="#应用日志打印"></a> 应用：日志打印</h3>
-<p><img src="https://i.loli.net/2020/03/18/3glkurdZaIXUVWS.png" alt="日志打印" /></p>
+<h3 id="%E5%BA%94%E7%94%A8%EF%BC%9A%E6%97%A5%E5%BF%97%E6%89%93%E5%8D%B0" tabindex="-1">应用：日志打印</h3>
+<p><img src="https://i.loli.net/2020/03/18/3glkurdZaIXUVWS.png" alt="日志打印"></p>
 <p>在wrap函数内，首先打印日志，再调用原始函数*args表示任何多个无名参数，它是一个tuple；**kwargs表示关键字参数，它是一个dict</p>
-<h2 id="ps"><a class="markdownIt-Anchor" href="#ps"></a> PS</h2>
+<h2 id="ps" tabindex="-1">PS</h2>
 <p>对于上面的demo</p>
 <pre><code>&gt;&gt;&gt;print(a_function_requiring_decoration.__name__)
 #输出结果为
 wrapTheFunction
 </code></pre>
-<p>明显不是我们想要的，我们函数的名字和注释文档被重写了<br />
-预期应该为<br />
+<p>明显不是我们想要的，我们函数的名字和注释文档被重写了<br>
+预期应该为<br>
 a_function_requiring_decoration</p>
 <p>使用functools.warps可以解决这个问题</p>
 <p>上面的demo应该这样写</p>
-<p><img src="https://i.loli.net/2020/03/18/GjVxNM2FoZn17DH.png" alt="demo改写" /></p>
-<h2 id="参考"><a class="markdownIt-Anchor" href="#参考"></a> 参考</h2>
+<p><img src="https://i.loli.net/2020/03/18/GjVxNM2FoZn17DH.png" alt="demo改写"></p>
+<h2 id="%E5%8F%82%E8%80%83" tabindex="-1">参考</h2>
 <ul>
 <li>
 <p><a target="_blank" rel="noopener" href="http://www.runoob.com/w3cnote/python-func-decorators.html">http://www.runoob.com/w3cnote/python-func-decorators.html</a></p>
@@ -147,6 +147,8 @@ a_function_requiring_decoration</p>
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/yuzhanhong/p/9180212.html">https://www.cnblogs.com/yuzhanhong/p/9180212.html</a></p>
 </li>
 </ul>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">
 </article>
 <div class="article-footer">
     <section id="license">
@@ -161,8 +163,8 @@ a_function_requiring_decoration</p>
       <div class="header"><span>分享文章</span></div>
       <div class="body">
         <div class="link"><input class="copy-area" readonly="true" id="copy-link" value="https://yeshan333.github.io/2019/01/03/%E8%A3%85%E9%A5%B0%E5%99%A8-python/" /></div>
-        <div class="social-wrap dis-select"><a class="social share-item wechat" onclick="util.toggle(&quot;qrcode-wechat&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/b32ef3da1162a.svg" /></a><a class="social share-item weibo" target="_blank" rel="external nofollow noopener noreferrer" href="https://service.weibo.com/share/share.php?url=https://yeshan333.github.io/2019/01/03/%E8%A3%85%E9%A5%B0%E5%99%A8-python/&title=装饰器--python - ShanSan&summary= python装饰器回顾
- 返回函数
+        <div class="social-wrap dis-select"><a class="social share-item wechat" onclick="util.toggle(&quot;qrcode-wechat&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/b32ef3da1162a.svg" /></a><a class="social share-item weibo" target="_blank" rel="external nofollow noopener noreferrer" href="https://service.weibo.com/share/share.php?url=https://yeshan333.github.io/2019/01/03/%E8%A3%85%E9%A5%B0%E5%99%A8-python/&title=装饰器--python - ShanSan&summary=python装饰器回顾
+返回函数
 "><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/80c07e4dbb303.svg" /></a><a class="social share-item email" href="mailto:?subject=装饰器--python - ShanSan&amp;body=https://yeshan333.github.io/2019/01/03/%E8%A3%85%E9%A5%B0%E5%99%A8-python/"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/a1b00e20f425d.svg" /></a><a class="social share-item link" onclick="util.copy(&quot;copy-link&quot;, &quot;复制成功&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/8411ed322ced6.svg" /></a></div>
         
         <div class="qrcode" id="qrcode-wechat" style="opacity:0;height:0">
@@ -180,27 +182,27 @@ a_function_requiring_decoration</p>
       <div class='title cap theme'>您可能感兴趣的文章</div>
     </section>
     <section class='body'>
-    <div class="related-posts"><a class="item" href="/2019/05/22/Jupyter-Notebooks的简单了解/" title="Jupyter Notebooks的简单了解"><span class="title">Jupyter Notebooks的简单了解</span><span class="excerpt">撸一手Jupyter</span></a><a class="item" href="/2019/07/19/Python协程（Coroutine）/" title="Python协程-asyncio、async/await"><span class="title">Python协程-asyncio、async/await</span><span class="excerpt">
-看到吐血 (´ཀ`」 ∠)
-
-
-协程(Coroutine)本质上是一个函数，特点是在代码块中可以将执行权交给其他协程
-众所周知，子程序（函数）都是层级调用的，如果在A中调用了B，那么B执行完毕返回后A才能执行完毕。协程与子程序有点类...</span></a><a class="item" href="/2019/07/26/Python-自定义上下文管理器/" title="Python-自定义上下文管理器"><span class="title">Python-自定义上下文管理器</span><span class="excerpt"> 上下文管理器
+    <div class="related-posts"><a class="item" href="/2019/05/22/Jupyter-Notebooks的简单了解/" title="Jupyter Notebooks的简单了解"><span class="title">Jupyter Notebooks的简单了解</span><span class="excerpt">撸一手Jupyter</span></a><a class="item" href="/2019/07/26/Python-自定义上下文管理器/" title="Python-自定义上下文管理器"><span class="title">Python-自定义上下文管理器</span><span class="excerpt">上下文管理器
 
 上下文管理器可以帮助我们自动分配和释放资源
 上下文管理器需要配合with语句使用
 
-比如进行文件操作的时候我们可能会忘记操作后关闭文件（file close），使用with open(filename, mode) ...</span></a><a class="item" href="/2019/05/11/Python多进程-多线程/" title="Python多进程&&多线程（初步）"><span class="title">Python多进程&&多线程（初步）</span><span class="excerpt"> 进程 &amp;&amp; 线程
-
-进程：进程是操作系统中执行的一个程序，操作系统以进程为单位分配存储空间，每个进程都有自己的地址空间、数据栈以及其他用于跟踪进程执行的辅助数据，操作系统管理所有进程的执行，为它们合理的分配资源。进程...</span></a><a class="item" href="/2019/09/02/Python环境管理/" title="Python 环境管理与项目依赖管理"><span class="title">Python 环境管理与项目依赖管理</span><span class="excerpt">
+比如进行文件操作的时候我们可能会忘记操作后关闭文件（file close），使用with open(filename, mode) a...</span></a><a class="item" href="/2019/09/02/Python环境管理/" title="Python 环境管理与项目依赖管理"><span class="title">Python 环境管理与项目依赖管理</span><span class="excerpt">
 个人简单记录下
 
- virtualenv + pip
+virtualenv + pip
 
 virtualenv是一个用于创建&quot;隔离的ython运行环境&quot;的工具，Docs
 pip是Python的包管理工具，Docs
 
-123456789101112...</span></a></div></section></div>
+1234567891011121...</span></a><a class="item" href="/2019/07/19/Python协程（Coroutine）/" title="Python协程-asyncio、async/await"><span class="title">Python协程-asyncio、async/await</span><span class="excerpt">
+看到吐血 (´ཀ`」 ∠)
+
+
+协程(Coroutine)本质上是一个函数，特点是在代码块中可以将执行权交给其他协程
+众所周知，子程序（函数）都是层级调用的，如果在A中调用了B，那么B执行完毕返回后A才能执行完毕。协程与子程序有点类...</span></a><a class="item" href="/2019/05/11/Python多进程-多线程/" title="Python多进程&&多线程（初步）"><span class="title">Python多进程&&多线程（初步）</span><span class="excerpt">进程 &amp;&amp; 线程
+
+进程：进程是操作系统中执行的一个程序，操作系统以进程为单位分配存储空间，每个进程都有自己的地址空间、数据栈以及其他用于跟踪进程执行的辅助数据，操作系统管理所有进程的执行，为它们合理的分配资源。进程可...</span></a></div></section></div>
 
 
   <div class="related-wrap md-text" id="comments">
@@ -217,9 +219,9 @@ pip是Python的包管理工具，Docs
 
 
 
-<footer class="page-footer footnote"><hr><div class="text"><p><a target="_blank" rel="noopener" href="https://shansan.top">Copyright © 2018-2025 ShanSan</a><br><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">桂ICP备19000444号</a><br />
-本站由 <a href="/">ShanSan</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br />
-本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。<br />
+<footer class="page-footer footnote"><hr><div class="text"><p><a target="_blank" rel="noopener" href="https://shansan.top">Copyright © 2018-2025 ShanSan</a><br><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">桂ICP备19000444号</a><br>
+本站由 <a href="/">ShanSan</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br>
+本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。<br>
 <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span></p>
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 </div></footer>
@@ -228,7 +230,7 @@ pip是Python的包管理工具，Docs
 <widget class="widget-wrapper user-card ghuser"><div class="widget-body data-service ds-ghinfo" data-api="https://api.github.com/users/yeshan333"><div class="avatar" ><img no-lazy type="img" id="avatar_url" src="undefined" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></div><p class="username" type="text" id="name">&nbsp;</p><p class="bio" type="text" id="bio">&nbsp;</p><div class="buttons"><a class="btn" target="_blank" rel="noopener" href="https://github.com/yeshan333?tab=followers"><span class="title" type="text" id="followers">0</span><span class="desc">followers</span></a><a class="btn" target="_blank" rel="noopener" href="https://github.com/yeshan333?tab=following"><span class="title" type="text" id="following">0</span><span class="desc">following</span></a><a class="btn" target="_blank" rel="noopener" href="https://github.com/yeshan333?tab=repositories"><span class="title" type="text" id="public_repos">0</span><span class="desc">repos</span></a></div><a class="follow" target="_blank" rel="noopener" href="https://github.com/yeshan333"><svg aria-hidden="true" role="img" class="color-icon-primary" viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor" style="display:inline-block;user-select:none;vertical-align:text-bottom;overflow:visible"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>Follow</a></div></widget>
 
 
-<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#python%E8%A3%85%E9%A5%B0%E5%99%A8%E5%9B%9E%E9%A1%BE"><span class="toc-text"> python装饰器回顾</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%94%E5%9B%9E%E5%87%BD%E6%95%B0"><span class="toc-text"> 返回函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E8%A3%85%E9%A5%B0%E5%99%A8"><span class="toc-text"> 什么是装饰器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#demo"><span class="toc-text"> demo</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%94%E7%94%A8%E6%97%A5%E5%BF%97%E6%89%93%E5%8D%B0"><span class="toc-text"> 应用：日志打印</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ps"><span class="toc-text"> PS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text"> 参考</span></a></li></ol></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a><a class="buttom" onclick="util.scrollComment()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M8 10.5h8M8 14h5.5M17 3.338A9.95 9.95 0 0 0 12 2C6.477 2 2 6.477 2 12c0 1.6.376 3.112 1.043 4.453c.178.356.237.763.134 1.148l-.595 2.226a1.3 1.3 0 0 0 1.591 1.592l2.226-.596a1.63 1.63 0 0 1 1.149.133A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10c0-1.821-.487-3.53-1.338-5"/></svg><span>参与讨论</span></a></div></widget>
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#python%E8%A3%85%E9%A5%B0%E5%99%A8%E5%9B%9E%E9%A1%BE"><span class="toc-text">python装饰器回顾</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%94%E5%9B%9E%E5%87%BD%E6%95%B0"><span class="toc-text">返回函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E8%A3%85%E9%A5%B0%E5%99%A8"><span class="toc-text">什么是装饰器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#demo"><span class="toc-text">demo</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%94%E7%94%A8%EF%BC%9A%E6%97%A5%E5%BF%97%E6%89%93%E5%8D%B0"><span class="toc-text">应用：日志打印</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ps"><span class="toc-text">PS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a><a class="buttom" onclick="util.scrollComment()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M8 10.5h8M8 14h5.5M17 3.338A9.95 9.95 0 0 0 12 2C6.477 2 2 6.477 2 12c0 1.6.376 3.112 1.043 4.453c.178.356.237.763.134 1.148l-.595 2.226a1.3 1.3 0 0 0 1.591 1.592l2.226-.596a1.63 1.63 0 0 1 1.149.133A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10c0-1.821-.487-3.53-1.338-5"/></svg><span>参与讨论</span></a></div></widget>
 </div></aside><div class='float-panel'>
   <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
@@ -241,7 +243,7 @@ pip是Python的包管理工具，Docs
 
 
 <script type="text/javascript">
-  window.canonical = {"originalHost":"shansan.top","officialHosts":["localhost","shansan.top","shansan.cn","yeshan333.github.io"],"encoded":"c2hhbnNhbi50b3A="};
+  window.canonical = {"originalHost":"","officialHosts":["localhost","shansan.top","shansan.cn","yeshan333.github.io"],"encoded":""};
   const ctx = {
     date_suffix: {
       just: `刚刚`,

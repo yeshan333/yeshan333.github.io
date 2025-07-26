@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1" theme-name="Stellar" theme-version="1.33.1">
-  <link rel="canonical" href="https://shansan.top/2018/11/06/%E7%B2%BE%E5%BA%A6-precision-%E6%8E%A7%E5%88%B6/">
+  
   
   <meta name="generator" content="Hexo 7.3.0">
   <meta http-equiv='x-dns-prefetch-control' content='on' />
@@ -20,12 +20,12 @@
   <title>精度(precision)控制 - ShanSan</title>
 
   
-    <meta name="description" content="C++输出精度（precision）控制,格式化输出  使用cout对象的成员  setprecision() setf() width() fill() flags(ios::fixed)">
+    <meta name="description" content="C++输出精度（precision）控制,格式化输出 使用cout对象的成员  setprecision() setf() width() fill() flags(ios::fixed)">
 <meta property="og:type" content="article">
 <meta property="og:title" content="精度(precision)控制">
 <meta property="og:url" content="https://yeshan333.github.io/2018/11/06/%E7%B2%BE%E5%BA%A6-precision-%E6%8E%A7%E5%88%B6/">
 <meta property="og:site_name" content="ShanSan">
-<meta property="og:description" content="C++输出精度（precision）控制,格式化输出  使用cout对象的成员  setprecision() setf() width() fill() flags(ios::fixed)">
+<meta property="og:description" content="C++输出精度（precision）控制,格式化输出 使用cout对象的成员  setprecision() setf() width() fill() flags(ios::fixed)">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://i.imgur.com/PHoahko.png">
 <meta property="og:image" content="https://i.imgur.com/5IDLZTl.png">
@@ -54,7 +54,7 @@
 
   
 
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"ShanSan","sameAs":[]},"dateCreated":"2018-11-06T23:50:56+00:00","dateModified":"2018-11-06T23:50:56+00:00","datePublished":"2018-11-06T23:50:56+00:00","description":" C++输出精度（precision）控制,格式化输出\n 使用cout对象的成员\n\nsetprecision()\nsetf()\nwidth()\nfill()\nflags(ios::fixed)\n","headline":"精度(precision)控制","mainEntityOfPage":{"@type":"WebPage","@id":"https://yeshan333.github.io/2018/11/06/%E7%B2%BE%E5%BA%A6-precision-%E6%8E%A7%E5%88%B6/"},"publisher":{"@type":"Organization","name":"ShanSan","sameAs":[]},"url":"https://yeshan333.github.io/2018/11/06/%E7%B2%BE%E5%BA%A6-precision-%E6%8E%A7%E5%88%B6/","keywords":"CPP","image":[]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"ShanSan","sameAs":[]},"dateCreated":"2018-11-06T23:50:56+00:00","dateModified":"2018-11-06T23:50:56+00:00","datePublished":"2018-11-06T23:50:56+00:00","description":"C++输出精度（precision）控制,格式化输出\n使用cout对象的成员\n\nsetprecision()\nsetf()\nwidth()\nfill()\nflags(ios::fixed)\n","headline":"精度(precision)控制","mainEntityOfPage":{"@type":"WebPage","@id":"https://yeshan333.github.io/2018/11/06/%E7%B2%BE%E5%BA%A6-precision-%E6%8E%A7%E5%88%B6/"},"publisher":{"@type":"Organization","name":"ShanSan","sameAs":[]},"url":"https://yeshan333.github.io/2018/11/06/%E7%B2%BE%E5%BA%A6-precision-%E6%8E%A7%E5%88%B6/","keywords":"CPP","image":[]}</script>
   
 </head>
 <body>
@@ -97,8 +97,8 @@
     </div>
     
   </div>
-  </div><article class="md-text content"><h1 id="c输出精度precision控制格式化输出"><a class="markdownIt-Anchor" href="#c输出精度precision控制格式化输出"></a> C++输出精度（precision）控制,格式化输出</h1>
-<h2 id="使用cout对象的成员"><a class="markdownIt-Anchor" href="#使用cout对象的成员"></a> 使用cout对象的成员</h2>
+  </div><article class="md-text content"><h1 id="c%2B%2B%E8%BE%93%E5%87%BA%E7%B2%BE%E5%BA%A6%EF%BC%88precision%EF%BC%89%E6%8E%A7%E5%88%B6%2C%E6%A0%BC%E5%BC%8F%E5%8C%96%E8%BE%93%E5%87%BA" tabindex="-1">C++输出精度（precision）控制,格式化输出</h1>
+<h2 id="%E4%BD%BF%E7%94%A8cout%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%88%90%E5%91%98" tabindex="-1">使用cout对象的成员</h2>
 <ul>
 <li>setprecision()</li>
 <li>setf()</li>
@@ -108,13 +108,15 @@
 </ul>
 <span id="more"></span>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="type">double</span> a=<span class="number">3.1415926</span>;</span><br><span class="line">	<span class="type">double</span> c=<span class="number">66.666666</span>;</span><br><span class="line"></span><br><span class="line">	cout.<span class="built_in">precision</span>(<span class="number">3</span>);        <span class="comment">//控制输出流显示的有效数字个数</span></span><br><span class="line">	cout&lt;&lt;a&lt;&lt;endl;</span><br><span class="line">	cout&lt;&lt;c&lt;&lt;endl;</span><br><span class="line"></span><br><span class="line">	cout&lt;&lt;endl;</span><br><span class="line"></span><br><span class="line">	cout.<span class="built_in">width</span>(<span class="number">8</span>);           <span class="comment">//控制输出宽度</span></span><br><span class="line">	cout.<span class="built_in">setf</span>(ios::right);   <span class="comment">//设置对齐方式</span></span><br><span class="line">	cout&lt;&lt;a&lt;&lt;endl;</span><br><span class="line"></span><br><span class="line">	cout&lt;&lt;endl;</span><br><span class="line"></span><br><span class="line">	cout.<span class="built_in">setf</span>(ios::right);</span><br><span class="line">	cout.<span class="built_in">fill</span>(<span class="string">&#x27;#&#x27;</span>);          <span class="comment">//设置填充字符</span></span><br><span class="line">	cout.<span class="built_in">width</span>(<span class="number">8</span>);</span><br><span class="line">	cout&lt;&lt;a&lt;&lt;endl;</span><br><span class="line"></span><br><span class="line">	cout&lt;&lt;endl;</span><br><span class="line"></span><br><span class="line">	cout.<span class="built_in">flags</span>(ios::fixed); <span class="comment">//flags(ios::fixed)和precision()配合使用控制精度</span></span><br><span class="line">	cout.<span class="built_in">precision</span>(<span class="number">4</span>);</span><br><span class="line">	cout&lt;&lt;a&lt;&lt;endl;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="https://i.imgur.com/PHoahko.png" alt="" /></p>
-<h2 id="使用头文件iomanip中的setprecision和setiosflagsiosfixed进行精度控制"><a class="markdownIt-Anchor" href="#使用头文件iomanip中的setprecision和setiosflagsiosfixed进行精度控制"></a> 使用头文件iomanip中的setprecision()和setiosflags(ios::fixed)进行精度控制</h2>
+<p><img src="https://i.imgur.com/PHoahko.png" alt=""></p>
+<h2 id="%E4%BD%BF%E7%94%A8%E5%A4%B4%E6%96%87%E4%BB%B6iomanip%E4%B8%AD%E7%9A%84setprecision()%E5%92%8Csetiosflags(ios%3A%3Afixed)%E8%BF%9B%E8%A1%8C%E7%B2%BE%E5%BA%A6%E6%8E%A7%E5%88%B6" tabindex="-1">使用头文件iomanip中的setprecision()和setiosflags(ios::fixed)进行精度控制</h2>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iomanip&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="type">double</span> e = <span class="number">2.7182818</span>;</span><br><span class="line"></span><br><span class="line">	cout&lt;&lt;<span class="built_in">setprecision</span>(<span class="number">3</span>)&lt;&lt;e&lt;&lt;endl;</span><br><span class="line"></span><br><span class="line">	cout&lt;&lt;<span class="built_in">setiosflags</span>(ios::fixed)&lt;&lt;endl;</span><br><span class="line">    cout&lt;&lt;<span class="built_in">setprecision</span>(<span class="number">3</span>)&lt;&lt;e&lt;&lt;endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="https://i.imgur.com/5IDLZTl.png" alt="" /></p>
-<p>参考自：<br />
+<p><img src="https://i.imgur.com/5IDLZTl.png" alt=""></p>
+<p>参考自：<br>
 <a target="_blank" rel="noopener" href="https://blog.csdn.net/yanglingwell/article/details/49507463">https://blog.csdn.net/yanglingwell/article/details/49507463</a></p>
-<hr />
+<hr>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">
 </article>
 <div class="article-footer">
     <section id="license">
@@ -129,8 +131,8 @@
       <div class="header"><span>分享文章</span></div>
       <div class="body">
         <div class="link"><input class="copy-area" readonly="true" id="copy-link" value="https://yeshan333.github.io/2018/11/06/%E7%B2%BE%E5%BA%A6-precision-%E6%8E%A7%E5%88%B6/" /></div>
-        <div class="social-wrap dis-select"><a class="social share-item wechat" onclick="util.toggle(&quot;qrcode-wechat&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/b32ef3da1162a.svg" /></a><a class="social share-item weibo" target="_blank" rel="external nofollow noopener noreferrer" href="https://service.weibo.com/share/share.php?url=https://yeshan333.github.io/2018/11/06/%E7%B2%BE%E5%BA%A6-precision-%E6%8E%A7%E5%88%B6/&title=精度(precision)控制 - ShanSan&summary= C++输出精度（precision）控制,格式化输出
- 使用cout对象的成员
+        <div class="social-wrap dis-select"><a class="social share-item wechat" onclick="util.toggle(&quot;qrcode-wechat&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/b32ef3da1162a.svg" /></a><a class="social share-item weibo" target="_blank" rel="external nofollow noopener noreferrer" href="https://service.weibo.com/share/share.php?url=https://yeshan333.github.io/2018/11/06/%E7%B2%BE%E5%BA%A6-precision-%E6%8E%A7%E5%88%B6/&title=精度(precision)控制 - ShanSan&summary=C++输出精度（precision）控制,格式化输出
+使用cout对象的成员
 
 setprecision()
 setf()
@@ -154,8 +156,8 @@ flags(ios::fixed)
       <div class='title cap theme'>您可能感兴趣的文章</div>
     </section>
     <section class='body'>
-    <div class="related-posts"><a class="item" href="/2018/10/02/ACM入门/" title="ACM入门（占个位）"><span class="title">ACM入门（占个位）</span><span class="excerpt"> A+B for Input-Output Practice(using C++)
- 1.
+    <div class="related-posts"><a class="item" href="/2018/10/02/ACM入门/" title="ACM入门（占个位）"><span class="title">ACM入门（占个位）</span><span class="excerpt">A+B for Input-Output Practice(using C++)
+1.
 
 
 
@@ -164,14 +166,14 @@ Problem Description
 
 
 
-Your task is to Calculate a + b. Too easy?! ...</span></a><a class="item" href="/2018/11/05/C++-11特性-1/" title="C++11特性-1"><span class="title">C++11特性-1</span><span class="excerpt"> c++11特性
- 列表初始化
+Your task is to Calculate a + b. Too easy?! Of...</span></a><a class="item" href="/2018/11/05/C++-11特性-1/" title="C++11特性-1"><span class="title">C++11特性-1</span><span class="excerpt">c++11特性
+列表初始化
 
 使用花括号来初始化对象
 使用列表初始化内置类型的变量，可能会存在丢失信息的风险
-</span></a><a class="item" href="/2018/10/03/C++-入坑记-2/" title="C++入坑记(2)"><span class="title">C++入坑记(2)</span><span class="excerpt"> 函数，默认参数的使用
+</span></a><a class="item" href="/2018/10/03/C++-入坑记-2/" title="C++入坑记(2)"><span class="title">C++入坑记(2)</span><span class="excerpt">函数，默认参数的使用
 在C++中，允许在自定义函数的形参列表中，给形参一个默认的值，这样在调用的时候如果有实参，那么按照实参传递给形参的方法使用；若调用的时候没有指定对应的实参，则形参将使用默认值。
-由于参数的传递顺序是从右至左入栈...</span></a><a class="item" href="/2018/10/04/C++-入坑记-3/" title="C++入坑记(3)"><span class="title">C++入坑记(3)</span><span class="excerpt"> 变量初始化问题
+由于参数的传递顺序是从右至左入栈，...</span></a><a class="item" href="/2018/10/04/C++-入坑记-3/" title="C++入坑记(3)"><span class="title">C++入坑记(3)</span><span class="excerpt">变量初始化问题
 当局部变量被定义时，系统不会自动对其初始化；
 当全局变量被定义时，系统会初始化为下列值:
 
@@ -199,17 +201,26 @@ char
 ‘\0’
 
 
-poi...</span></a><a class="item" href="/2018/11/05/C++-标准库类型/" title="C++标准库类型"><span class="title">C++标准库类型</span><span class="excerpt"> 标准库类型string
-
-标准库类型string表示可变长的字符序列
-使用string类型必须包含string头文件，string定义在命名空间std中
-
- 定义和初始化string对象
-初始化string对象的方式
+poin...</span></a><a class="item" href="/2018/10/02/C++-入坑记/" title="C++入坑记"><span class="title">C++入坑记</span><span class="excerpt">C++关键字
+https://www.runoob.com/w3cnote/cpp-keyword-intro.html
 
 
 
-初始化方...</span></a></div></section></div>
+asm
+else
+new
+this
+
+
+
+
+auto
+enum
+operator
+throw
+
+
+bool...</span></a></div></section></div>
 
 
   <div class="related-wrap md-text" id="comments">
@@ -226,9 +237,9 @@ poi...</span></a><a class="item" href="/2018/11/05/C++-标准库类型/" title="
 
 
 
-<footer class="page-footer footnote"><hr><div class="text"><p><a target="_blank" rel="noopener" href="https://shansan.top">Copyright © 2018-2025 ShanSan</a><br><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">桂ICP备19000444号</a><br />
-本站由 <a href="/">ShanSan</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br />
-本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。<br />
+<footer class="page-footer footnote"><hr><div class="text"><p><a target="_blank" rel="noopener" href="https://shansan.top">Copyright © 2018-2025 ShanSan</a><br><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">桂ICP备19000444号</a><br>
+本站由 <a href="/">ShanSan</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br>
+本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。<br>
 <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span></p>
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 </div></footer>
@@ -237,7 +248,7 @@ poi...</span></a><a class="item" href="/2018/11/05/C++-标准库类型/" title="
 <widget class="widget-wrapper user-card ghuser"><div class="widget-body data-service ds-ghinfo" data-api="https://api.github.com/users/yeshan333"><div class="avatar" ><img no-lazy type="img" id="avatar_url" src="undefined" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></div><p class="username" type="text" id="name">&nbsp;</p><p class="bio" type="text" id="bio">&nbsp;</p><div class="buttons"><a class="btn" target="_blank" rel="noopener" href="https://github.com/yeshan333?tab=followers"><span class="title" type="text" id="followers">0</span><span class="desc">followers</span></a><a class="btn" target="_blank" rel="noopener" href="https://github.com/yeshan333?tab=following"><span class="title" type="text" id="following">0</span><span class="desc">following</span></a><a class="btn" target="_blank" rel="noopener" href="https://github.com/yeshan333?tab=repositories"><span class="title" type="text" id="public_repos">0</span><span class="desc">repos</span></a></div><a class="follow" target="_blank" rel="noopener" href="https://github.com/yeshan333"><svg aria-hidden="true" role="img" class="color-icon-primary" viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor" style="display:inline-block;user-select:none;vertical-align:text-bottom;overflow:visible"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>Follow</a></div></widget>
 
 
-<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#c%E8%BE%93%E5%87%BA%E7%B2%BE%E5%BA%A6precision%E6%8E%A7%E5%88%B6%E6%A0%BC%E5%BC%8F%E5%8C%96%E8%BE%93%E5%87%BA"><span class="toc-text"> C++输出精度（precision）控制,格式化输出</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8cout%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%88%90%E5%91%98"><span class="toc-text"> 使用cout对象的成员</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E5%A4%B4%E6%96%87%E4%BB%B6iomanip%E4%B8%AD%E7%9A%84setprecision%E5%92%8Csetiosflagsiosfixed%E8%BF%9B%E8%A1%8C%E7%B2%BE%E5%BA%A6%E6%8E%A7%E5%88%B6"><span class="toc-text"> 使用头文件iomanip中的setprecision()和setiosflags(ios::fixed)进行精度控制</span></a></li></ol></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a><a class="buttom" onclick="util.scrollComment()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M8 10.5h8M8 14h5.5M17 3.338A9.95 9.95 0 0 0 12 2C6.477 2 2 6.477 2 12c0 1.6.376 3.112 1.043 4.453c.178.356.237.763.134 1.148l-.595 2.226a1.3 1.3 0 0 0 1.591 1.592l2.226-.596a1.63 1.63 0 0 1 1.149.133A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10c0-1.821-.487-3.53-1.338-5"/></svg><span>参与讨论</span></a></div></widget>
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#c++%E8%BE%93%E5%87%BA%E7%B2%BE%E5%BA%A6%EF%BC%88precision%EF%BC%89%E6%8E%A7%E5%88%B6,%E6%A0%BC%E5%BC%8F%E5%8C%96%E8%BE%93%E5%87%BA"><span class="toc-text">C++输出精度（precision）控制,格式化输出</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8cout%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%88%90%E5%91%98"><span class="toc-text">使用cout对象的成员</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E5%A4%B4%E6%96%87%E4%BB%B6iomanip%E4%B8%AD%E7%9A%84setprecision()%E5%92%8Csetiosflags(ios::fixed)%E8%BF%9B%E8%A1%8C%E7%B2%BE%E5%BA%A6%E6%8E%A7%E5%88%B6"><span class="toc-text">使用头文件iomanip中的setprecision()和setiosflags(ios::fixed)进行精度控制</span></a></li></ol></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a><a class="buttom" onclick="util.scrollComment()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M8 10.5h8M8 14h5.5M17 3.338A9.95 9.95 0 0 0 12 2C6.477 2 2 6.477 2 12c0 1.6.376 3.112 1.043 4.453c.178.356.237.763.134 1.148l-.595 2.226a1.3 1.3 0 0 0 1.591 1.592l2.226-.596a1.63 1.63 0 0 1 1.149.133A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10c0-1.821-.487-3.53-1.338-5"/></svg><span>参与讨论</span></a></div></widget>
 </div></aside><div class='float-panel'>
   <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
@@ -250,7 +261,7 @@ poi...</span></a><a class="item" href="/2018/11/05/C++-标准库类型/" title="
 
 
 <script type="text/javascript">
-  window.canonical = {"originalHost":"shansan.top","officialHosts":["localhost","shansan.top","shansan.cn","yeshan333.github.io"],"encoded":"c2hhbnNhbi50b3A="};
+  window.canonical = {"originalHost":"","officialHosts":["localhost","shansan.top","shansan.cn","yeshan333.github.io"],"encoded":""};
   const ctx = {
     date_suffix: {
       just: `刚刚`,

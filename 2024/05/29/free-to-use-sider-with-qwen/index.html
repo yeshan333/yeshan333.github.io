@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1" theme-name="Stellar" theme-version="1.33.1">
-  <link rel="canonical" href="https://shansan.top/2024/05/29/free-to-use-sider-with-qwen/">
+  
   
   <meta name="generator" content="Hexo 7.3.0">
   <meta http-equiv='x-dns-prefetch-control' content='on' />
@@ -100,7 +100,7 @@
   </div>
   </div><article class="md-text content"><p>最近国产大模型正在疯狂降价，推出了众多的免费策略，是时候该“白嫖”一手了。用过 Sider 的小伙伴应该很少有说不“妙”啊，用户体验也做得很棒。奈何它要开通使用全部的功能价格有可能不太能承受，且有些功能不一定用得上。但是免费，又有一定的额度和次数限制。Sider 其实是支持用户使用自己的 OpenAI 密钥的，但 OpenAI 的价格也不太低呐。</p>
 <p>接下来本文将会介绍如何在 Sider 中“免费”使用通义千问。足够大部分场景的使用了。</p>
-<h2 id="什么是-sider-chatgpt-sidebar"><a class="markdownIt-Anchor" href="#什么是-sider-chatgpt-sidebar"></a> 什么是 Sider (ChatGPT Sidebar)</h2>
+<h2 id="%E4%BB%80%E4%B9%88%E6%98%AF-sider-(chatgpt-sidebar)" tabindex="-1">什么是 Sider (ChatGPT Sidebar)</h2>
 <blockquote>
 <p>Sider 是一款智能工具,可以添加到您的浏览器中,帮助您轻松完成各种在线任务。它使用 ChatGPT、GPT-4、Gemini 和 Claude 3 等 API,可以帮助您进行写作、阅读、聊天以及内容摘要等。以下是 Sider 的主要功能:</p>
 </blockquote>
@@ -117,20 +117,22 @@
 <p>等等</p>
 </blockquote>
 <p>访问产品官网即可在浏览器快速安装 Sider 插件: <a target="_blank" rel="noopener" href="https://sider.ai/zh-CN/">https://sider.ai/zh-CN/</a></p>
-<h2 id="在-sider-浏览器插件中使用通义千问"><a class="markdownIt-Anchor" href="#在-sider-浏览器插件中使用通义千问"></a> 在 Sider 浏览器插件中使用通义千问</h2>
+<h2 id="%E5%9C%A8-sider-%E6%B5%8F%E8%A7%88%E5%99%A8%E6%8F%92%E4%BB%B6%E4%B8%AD%E4%BD%BF%E7%94%A8%E9%80%9A%E4%B9%89%E5%8D%83%E9%97%AE" tabindex="-1">在 Sider 浏览器插件中使用通义千问</h2>
 <blockquote>
 <p>&quot;通义千问&quot;是阿里云开发的一款大型语言模型.</p>
 </blockquote>
 <p>如果你用过 Sider，应该知道能在通用配置处配置自己的 OpenAI 密钥的。要想在 Sider 中使用通义千问大模型，我们也需要用到这个配置。</p>
 <p>最近阿里云的灵积模型服务开放 API 出了 OpenAI 的兼容模式接口 -&gt; <a target="_blank" rel="noopener" href="https://help.aliyun.com/zh/dashscope/developer-reference/compatibility-of-openai-with-dashscope/?spm=a2c4g.11186623.0.0.5ded5b78He8YAy">OpenAI接口兼容</a>, 这意味着我们使用这个兼容接口作为 Sider 插件的配置即可使用通义千问。如下图，我们有三个配置需要填写：</p>
-<p><img src="https://telegraph.shansan.top/file/347edb0faac6d22aec6b4.png" alt="settings" /></p>
+<p><img src="https://telegraph.shansan.top/file/347edb0faac6d22aec6b4.png" alt="settings"></p>
 <ul>
 <li>1、API Key 从阿里云的模型服务灵积控制台获取 -&gt; <a target="_blank" rel="noopener" href="https://help.aliyun.com/zh/dashscope/opening-service?spm=a2c4g.11186623.0.0.4262fa70VPao9L">获取 API Key</a></li>
 <li>2、url 填写：<a target="_blank" rel="noopener" href="https://dashscope.aliyuncs.com/compatible-mode">https://dashscope.aliyuncs.com/compatible-mode</a></li>
 <li>3、使用自定义模型名称，Model Name 填写你想使用的大模型名字，比如 qwen-turbo, 模型可以从这里找到: <a target="_blank" rel="noopener" href="https://help.aliyun.com/zh/dashscope/developer-reference/model-introduction?spm=a2c4g.11186623.0.0.2167140baXMR9G">通义前文-模型概览</a></li>
 </ul>
 <p>配置完成之后，就可以直接使用它啦~</p>
-<p><img src="https://telegraph.shansan.top/file/d5e6ebefdc52698262021.png" alt="demo" /></p>
+<p><img src="https://telegraph.shansan.top/file/d5e6ebefdc52698262021.png" alt="demo"></p>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">
 </article>
 <div class="article-footer">
     <section id="license">
@@ -174,9 +176,9 @@
 
 
 
-<footer class="page-footer footnote"><hr><div class="text"><p><a target="_blank" rel="noopener" href="https://shansan.top">Copyright © 2018-2025 ShanSan</a><br><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">桂ICP备19000444号</a><br />
-本站由 <a href="/">ShanSan</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br />
-本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。<br />
+<footer class="page-footer footnote"><hr><div class="text"><p><a target="_blank" rel="noopener" href="https://shansan.top">Copyright © 2018-2025 ShanSan</a><br><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">桂ICP备19000444号</a><br>
+本站由 <a href="/">ShanSan</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br>
+本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。<br>
 <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span></p>
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 </div></footer>
@@ -185,7 +187,7 @@
 <widget class="widget-wrapper user-card ghuser"><div class="widget-body data-service ds-ghinfo" data-api="https://api.github.com/users/yeshan333"><div class="avatar" ><img no-lazy type="img" id="avatar_url" src="undefined" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></div><p class="username" type="text" id="name">&nbsp;</p><p class="bio" type="text" id="bio">&nbsp;</p><div class="buttons"><a class="btn" target="_blank" rel="noopener" href="https://github.com/yeshan333?tab=followers"><span class="title" type="text" id="followers">0</span><span class="desc">followers</span></a><a class="btn" target="_blank" rel="noopener" href="https://github.com/yeshan333?tab=following"><span class="title" type="text" id="following">0</span><span class="desc">following</span></a><a class="btn" target="_blank" rel="noopener" href="https://github.com/yeshan333?tab=repositories"><span class="title" type="text" id="public_repos">0</span><span class="desc">repos</span></a></div><a class="follow" target="_blank" rel="noopener" href="https://github.com/yeshan333"><svg aria-hidden="true" role="img" class="color-icon-primary" viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor" style="display:inline-block;user-select:none;vertical-align:text-bottom;overflow:visible"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>Follow</a></div></widget>
 
 
-<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-sider-chatgpt-sidebar"><span class="toc-text"> 什么是 Sider (ChatGPT Sidebar)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%A8-sider-%E6%B5%8F%E8%A7%88%E5%99%A8%E6%8F%92%E4%BB%B6%E4%B8%AD%E4%BD%BF%E7%94%A8%E9%80%9A%E4%B9%89%E5%8D%83%E9%97%AE"><span class="toc-text"> 在 Sider 浏览器插件中使用通义千问</span></a></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a><a class="buttom" onclick="util.scrollComment()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M8 10.5h8M8 14h5.5M17 3.338A9.95 9.95 0 0 0 12 2C6.477 2 2 6.477 2 12c0 1.6.376 3.112 1.043 4.453c.178.356.237.763.134 1.148l-.595 2.226a1.3 1.3 0 0 0 1.591 1.592l2.226-.596a1.63 1.63 0 0 1 1.149.133A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10c0-1.821-.487-3.53-1.338-5"/></svg><span>参与讨论</span></a></div></widget>
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-sider-(chatgpt-sidebar)"><span class="toc-text">什么是 Sider (ChatGPT Sidebar)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%A8-sider-%E6%B5%8F%E8%A7%88%E5%99%A8%E6%8F%92%E4%BB%B6%E4%B8%AD%E4%BD%BF%E7%94%A8%E9%80%9A%E4%B9%89%E5%8D%83%E9%97%AE"><span class="toc-text">在 Sider 浏览器插件中使用通义千问</span></a></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a><a class="buttom" onclick="util.scrollComment()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M8 10.5h8M8 14h5.5M17 3.338A9.95 9.95 0 0 0 12 2C6.477 2 2 6.477 2 12c0 1.6.376 3.112 1.043 4.453c.178.356.237.763.134 1.148l-.595 2.226a1.3 1.3 0 0 0 1.591 1.592l2.226-.596a1.63 1.63 0 0 1 1.149.133A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10c0-1.821-.487-3.53-1.338-5"/></svg><span>参与讨论</span></a></div></widget>
 </div></aside><div class='float-panel'>
   <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
@@ -198,7 +200,7 @@
 
 
 <script type="text/javascript">
-  window.canonical = {"originalHost":"shansan.top","officialHosts":["localhost","shansan.top","shansan.cn","yeshan333.github.io"],"encoded":"c2hhbnNhbi50b3A="};
+  window.canonical = {"originalHost":"","officialHosts":["localhost","shansan.top","shansan.cn","yeshan333.github.io"],"encoded":""};
   const ctx = {
     date_suffix: {
       just: `刚刚`,

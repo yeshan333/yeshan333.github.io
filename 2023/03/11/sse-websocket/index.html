@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1" theme-name="Stellar" theme-version="1.33.1">
-  <link rel="canonical" href="https://shansan.top/2023/03/11/sse-websocket/">
+  
   
   <meta name="generator" content="Hexo 7.3.0">
   <meta http-equiv='x-dns-prefetch-control' content='on' />
@@ -20,12 +20,12 @@
   <title>(译) Server-Sent Events: the alternative to WebSockets you should be using - ShanSan</title>
 
   
-    <meta name="description" content="原文地址: https:&#x2F;&#x2F;germano.dev&#x2F;sse-websockets&#x2F; 作者: Germano Gabbianelli  当开发实时 web 应用时，WebSockets 可能是我们首先想到的。然而，Server Sent Events (SSE) 是通常会是一种更简单的替代方案。  1. 序言 最近我对实现实时 Web 应用程序的一些最佳方式很感兴趣。也就是一个应用程序包含一个或多">
+    <meta name="description" content="原文地址: https:&#x2F;&#x2F;germano.dev&#x2F;sse-websockets&#x2F; 作者: Germano Gabbianelli  当开发实时 web 应用时，WebSockets 可能是我们首先想到的。然而，Server Sent Events (SSE) 是通常会是一种更简单的替代方案。 1. 序言 最近我对实现实时 Web 应用程序的一些最佳方式很感兴趣。也就是一个应用程序包含一个或多个">
 <meta property="og:type" content="article">
 <meta property="og:title" content="(译) Server-Sent Events: the alternative to WebSockets you should be using">
 <meta property="og:url" content="https://yeshan333.github.io/2023/03/11/sse-websocket/">
 <meta property="og:site_name" content="ShanSan">
-<meta property="og:description" content="原文地址: https:&#x2F;&#x2F;germano.dev&#x2F;sse-websockets&#x2F; 作者: Germano Gabbianelli  当开发实时 web 应用时，WebSockets 可能是我们首先想到的。然而，Server Sent Events (SSE) 是通常会是一种更简单的替代方案。  1. 序言 最近我对实现实时 Web 应用程序的一些最佳方式很感兴趣。也就是一个应用程序包含一个或多">
+<meta property="og:description" content="原文地址: https:&#x2F;&#x2F;germano.dev&#x2F;sse-websockets&#x2F; 作者: Germano Gabbianelli  当开发实时 web 应用时，WebSockets 可能是我们首先想到的。然而，Server Sent Events (SSE) 是通常会是一种更简单的替代方案。 1. 序言 最近我对实现实时 Web 应用程序的一些最佳方式很感兴趣。也就是一个应用程序包含一个或多个">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s1.ax1x.com/2023/03/11/ppK8x3T.png">
 <meta property="og:image" content="https://s1.ax1x.com/2023/03/11/ppKGFER.png">
@@ -101,20 +101,20 @@
     
   </div>
   </div><article class="md-text content"><blockquote>
-<p>原文地址: <a target="_blank" rel="noopener" href="https://germano.dev/sse-websockets/">https://germano.dev/sse-websockets/</a><br />
+<p>原文地址: <a target="_blank" rel="noopener" href="https://germano.dev/sse-websockets/">https://germano.dev/sse-websockets/</a><br>
 作者: <a target="_blank" rel="noopener" href="https://github.com/tyrion">Germano Gabbianelli</a></p>
 </blockquote>
 <p>当开发实时 web 应用时，WebSockets 可能是我们首先想到的。然而，Server Sent Events (SSE) 是通常会是一种更简单的替代方案。</p>
-<h2 id="1-序言"><a class="markdownIt-Anchor" href="#1-序言"></a> 1. 序言</h2>
+<h2 id="1.-%E5%BA%8F%E8%A8%80" tabindex="-1">1. 序言</h2>
 <p>最近我对实现实时 Web 应用程序的一些最佳方式很感兴趣。也就是一个应用程序包含一个或多个组件，这些组件会根据某些外部事件自动实时更新。这种应用程序的最常见例子是消息服务，我们希望每条消息都能立即广播到所有已经连接的人，而不需要进行任何的用户交互。</p>
 <p>经过一些研究，我偶然发现了 Martin Chaov 的一个<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=n9mRjkQg3VE">精彩分享</a>，其比较了 Server Sent Events、WebSockets 和 Long Polling 几个技术的优劣。这个演讲也有篇对应的博客文章来辅助阅读 <a target="_blank" rel="noopener" href="https://www.smashingmagazine.com/2018/02/sse-websockets-data-flow-http2/#comments-sse-websockets-data-flow-http2">Using SSE Instead Of WebSockets For Unidirectional Data Flow Over HTTP/2</a>，内容有趣而且非常有启发性。我真的很推荐大家去看一下。然而，它是 2018 年的内容，一些细节可能已经发生了改变，因此我决定写下这篇文章。</p>
-<h2 id="2-websockets"><a class="markdownIt-Anchor" href="#2-websockets"></a> 2. WebSockets?</h2>
+<h2 id="2.-websockets%3F" tabindex="-1">2. WebSockets?</h2>
 <p><a target="_blank" rel="noopener" href="https://tools.ietf.org/html/rfc6455">WebSockets</a> 可以在浏览器和服务器之间创建 <strong>双向低延迟</strong> 的通信通道。</p>
 <p>这使得它在某些场景中非常适用：比如<strong>双向</strong>通信的多人游戏，即浏览器和服务器都会一直在通道上发送消息，需要将这些消息以较<strong>低延迟</strong>进行传递。</p>
 <p>在一款第一人称射击游戏中，浏览器可以持续地传输玩家的位置，同时从服务器接收所有其他玩家位置的更新。此外，我们肯定希望这些消息能够以尽可能花费少的开销进行传递，以避免游戏迟缓感，提升用户体验。</p>
 <p>这与传统的 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/HTTP">HTTP</a> <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Request%E2%80%93response">请求-响应模型</a>正好相反，其中浏览器始终是发起通信的一方，每个消息都具有显著的开销，因为要建立 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Transmission_Control_Protocol">TCP 连接</a>和传输 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers">HTTP 头部</a>信息。</p>
 <p>然而，许多应用程序的实现不需要这么严格的要求。即使在实时应用程序中，<strong>数据流也通常是不对称的</strong>：服务器发送了大部分的消息，而客户端大多只是负责监听，并且只是偶尔发送一些更新。例如，在实时的聊天应用程序中，用户可能会连接到许多聊天房间，每个房间都有几十个或几百个参与者。因此，接收到的消息数量远远超过发送的消息数量。</p>
-<h2 id="3-websockets-的问题在于哪里"><a class="markdownIt-Anchor" href="#3-websockets-的问题在于哪里"></a> 3. WebSockets 的问题在于哪里</h2>
+<h2 id="3.-websockets-%E7%9A%84%E9%97%AE%E9%A2%98%E5%9C%A8%E4%BA%8E%E5%93%AA%E9%87%8C" tabindex="-1">3. WebSockets 的问题在于哪里</h2>
 <p>双向的通信通道和低延迟是非常好的功能特性。那么，我们为什么还要继续寻找其他解决方案呢？</p>
 <p>WebSockets 有一个主要缺点：<strong>它们不完全基于 HTTP 工作</strong>。它们需要自己的 TCP 连接。它们只需要使用 HTTP 建立连接，然后将其升级为一个独立的 TCP 连接，在其上可以使用 WebSocket 协议。</p>
 <p>这可能看起来不是很重要，但这意味着 WebSockets 不能从任何已有的 HTTP 特性中受益。即：</p>
@@ -126,7 +126,7 @@
 </ul>
 <p>至少，在 WebSocket 协议首次发布时是这种情况。现在，有一些补充标准试图改善这种情况。让我们更详细地了解当前的情况。</p>
 <p>注意：如果您不关心细节，请随意跳过本节其余部分，直接转到 Server-Sent Events 或 demo 部分。</p>
-<h3 id="31-压缩-compression"><a class="markdownIt-Anchor" href="#31-压缩-compression"></a> 3.1 压缩 (Compression)</h3>
+<h3 id="3.1-%E5%8E%8B%E7%BC%A9-(compression)" tabindex="-1">3.1 压缩 (Compression)</h3>
 <p>在标准的连接上，每个浏览器都支持 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/HTTP_compression">HTTP 压缩技术</a>，在服务器端启用也非常容易，只需在所选择的反向代理中开启切换一下开关。但是，对于使用 WebSockets 的情况这更加复杂，因为没有请求和响应，需要压缩各个独立的 WebSocket 帧 (frames)。</p>
 <p><a target="_blank" rel="noopener" href="https://tools.ietf.org/html/rfc7692">RFC 7692</a>，于 2015 年 12 月发布，试图通过定义 “WebSocket 压缩扩展” 来改善这种情况。然而，据我所知，没有任何流行的反向代理服务（如 nginx、caddy）实现了这一功能，因此无法透明地启用压缩。</p>
 <p>这意味着，如果要使用压缩，则必须在后端直接实现。幸运的是，我找到了一些支持 RFC 7692 的库。例如，Python 的 <a target="_blank" rel="noopener" href="https://websockets.readthedocs.io/en/stable/extensions.html">websockets</a> 和 <a target="_blank" rel="noopener" href="https://github.com/python-hyper/wsproto/">wsproto</a> 库，以及 nodejs 的 <a target="_blank" rel="noopener" href="https://github.com/websockets/ws">ws</a> 库。</p>
@@ -137,21 +137,21 @@
 </blockquote>
 <p>在浏览器方面，Firefox 从<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Mozilla/Firefox/Releases/37#networking"> 37 版本</a>开始支持 WebSocket 的压缩。<a target="_blank" rel="noopener" href="https://chromestatus.com/feature/6555138000945152">Chrome 也支持</a>。然而，显然 Safari 和 Edge 不支持。</p>
 <p>我没有验证移动设备上的支持情况如何。</p>
-<h3 id="32-多路复用-multiplexing"><a class="markdownIt-Anchor" href="#32-多路复用-multiplexing"></a> 3.2 多路复用 (Multiplexing)</h3>
+<h3 id="3.2-%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8-(multiplexing)" tabindex="-1">3.2 多路复用 (Multiplexing)</h3>
 <p><a target="_blank" rel="noopener" href="https://tools.ietf.org/html/rfc7540">HTTP/2</a> 引入了对多路复用的支持，意味着向同一主机发送的多个请求/响应对不再需要单独的 TCP 连接。相反，它们可以共享同一个 TCP 连接，每个请求在其自己独立的 <a target="_blank" rel="noopener" href="https://tools.ietf.org/html/rfc7540#section-5">HTTP/2 流</a>上运行。</p>
 <p>这也得到了<a target="_blank" rel="noopener" href="https://caniuse.com/http2">每个浏览器的支持</a>，而且在大多数反向代理上启用它也非常容易。</p>
 <p>相比之下，WebSocket 协议默认不支持多路复用。向同一主机发送多个 WebSocket 将各自打开自己的独立的 TCP 连接。如果要使两个独立的 WebSocket 终端共享它们的基础连接，您必须自己在应用程序代码中添加多路复用能力支持。</p>
 <p><a target="_blank" rel="noopener" href="https://tools.ietf.org/html/rfc8441">RFC 8441</a> 于 2018 年 9 月发布，尝试通过添加“使用 HTTP/2 引导 WebSocket”的支持来解决这个问题。它已在 <a target="_blank" rel="noopener" href="https://bugzilla.mozilla.org/show_bug.cgi?id=1434137">Firefox</a> 和 <a target="_blank" rel="noopener" href="https://chromestatus.com/feature/6251293127475200">Chrome</a> 中实现。然而，据我所知，没有主要的反向代理服务实现了它。不幸的是，我也找不到 Python 或 Javascript 的任何实现。</p>
-<h3 id="33-代理问题-issues-with-proxies"><a class="markdownIt-Anchor" href="#33-代理问题-issues-with-proxies"></a> 3.3 代理问题 (Issues with proxies)</h3>
+<h3 id="3.3-%E4%BB%A3%E7%90%86%E9%97%AE%E9%A2%98-(issues-with-proxies)" tabindex="-1">3.3 代理问题 (Issues with proxies)</h3>
 <p>没有显式支持 WebSockets 的 HTTP 代理可能会阻止未加密的 WebSocket 连接正常工作。这是因为代理无法解析 WebSocket 帧 (frames) 并关闭连接。</p>
 <p>但是，通过 HTTPS 发起的 WebSocket 连接应该不受此问题的影响，因为帧将被加密，代理应该只是转发所有内容而不会关闭连接。</p>
 <p>要了解更多信息，请参见 Peter Lubbers 的“<a target="_blank" rel="noopener" href="https://www.infoq.com/articles/Web-Sockets-Proxy-Servers/">HTML5 Web Sockets 如何与代理服务器交互</a>”。</p>
-<h3 id="34-跨站-websocket-劫持"><a class="markdownIt-Anchor" href="#34-跨站-websocket-劫持"></a> 3.4 跨站 WebSocket 劫持</h3>
+<h3 id="3.4-%E8%B7%A8%E7%AB%99-websocket-%E5%8A%AB%E6%8C%81" tabindex="-1">3.4 跨站 WebSocket 劫持</h3>
 <p>WebSocket 连接没有受到同源策略的保护，这使它们容易受到跨站 WebSocket 劫持攻击。</p>
 <p>因此，<strong>如果 WebSocket 后端没有使用任何客户端缓存的身份验证方式（例如 cookie或 HTTP 身份验证），它们必须检查 Origin 头的正确性</strong>。</p>
 <p>我在这里不会详细讨论，但是请考虑这个简短的例子。假设一个比特币交易所使用 WebSockets 提供其交易服务。当您登录时，交易所可能设置一个 cookie 来保持您的会话在一定时间内活动。现在，攻击者要偷取你珍贵的比特币所要做的就是让你访问她控制的站点，然后简单地打开一个 WebSocket 连接到交易所。恶意连接将被自动验证，除非交易所检查 <strong>Origin</strong> 头并阻止来自未授权域的连接。</p>
 <p>我建议您阅读 Christian Schneider 关于<a target="_blank" rel="noopener" href="https://christian-schneider.net/CrossSiteWebSocketHijacking.html#main">跨站 WebSocket 劫持</a>的精彩文章以了解更多信息。</p>
-<h2 id="4-server-sent-events"><a class="markdownIt-Anchor" href="#4-server-sent-events"></a> 4. Server-Sent Events</h2>
+<h2 id="4.-server-sent-events" tabindex="-1">4. Server-Sent Events</h2>
 <p>现在我们对 WebSockets 有了更多的了解，包括它们的优点和缺点，让我们学习一下 Server-Sent Events 并了解它们是否是一个有效的替代方案。</p>
 <p><a target="_blank" rel="noopener" href="https://html.spec.whatwg.org/#server-sent-events">Server-Sent Events</a> 使服务器能够随时向客户端发送低延迟的推送事件。它们使用非常简单的协议，并且是 <a target="_blank" rel="noopener" href="https://html.spec.whatwg.org/#server-sent-events">HTML 标准</a>的一部分，受到<a target="_blank" rel="noopener" href="https://html.spec.whatwg.org/#server-sent-events">每个浏览器的支持</a>。</p>
 <p>与 WebSockets 不同，<strong>Server-Sent Events 仅支持向客户端单向信息流动</strong>。这使得它们不适合一些需要处理特定场景的应用程序，即那些需要既是双向又是低延迟的通信通道，比如实时游戏。然而，这些权衡取舍也是它们相对于 WebSockets 的主要优势，因为单向流动使得 <strong>Server-Sent Events 可以在 HTTP 之上无缝的工作，而无需自定义协议</strong>。这使它们自动获得了所有 HTTP 的功能，例如压缩或 HTTP/2 多路复用能力，使它们成为大多数实时应用程序的非常方便的选择，其中大部分数据都来自服务器，并且由于 HTTP 头部的一些开销而导致一些请求的开销是可以接受的。</p>
@@ -164,12 +164,12 @@
 <p><code>retry</code> 字段用于指定在尝试重新连接之前等待的最短时间（以秒为单位）。当服务器连接了太多客户端时，它也可以在立即关闭客户端连接之前发送该字段以减轻其负载。</p>
 <p><code>id</code> 字段将标识符与当前事件相关联。在重新连接时，客户端将使用 <code>Last-Event-ID</code> HTTP 请求头将上次看到的 id 传输给服务器。这使得我们可以从正确的失效点恢复通讯流。</p>
 <p>最后，服务器可以通过返回 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/204">HTTP 204 No Content</a> 响应来完全停止自动重连机制。</p>
-<h2 id="5-来点实际代码-demo"><a class="markdownIt-Anchor" href="#5-来点实际代码-demo"></a> 5. 来点实际代码 Demo</h2>
+<h2 id="5.-%E6%9D%A5%E7%82%B9%E5%AE%9E%E9%99%85%E4%BB%A3%E7%A0%81-demo" tabindex="-1">5. 来点实际代码 Demo</h2>
 <p>现在，让我们将所学的内容付诸实践。在本节中，我们将使用 Server-Sent Events 和 WebSockets 实现一个简单的服务。这将使我们能够实际比较这两种技术。我们将了解到使用每种技术开始的难易程度，并手动验证前面讨论的功能。</p>
 <p>我们将使用 Python 作为后端，Caddy 作为反向代理，当然还需要一些 JavaScript 代码用于前端。</p>
 <p>为了让我们的示例尽可能简单，我们的后端将只包含两个端点 (endpoints)，每个端点都会流式传输唯一的随机数字序列。从 /sse1 和 /sse2 进行 Server-Sent Events 访问，从 /ws1 和 /ws2 进行 WebSockets 的访问。我们的前端将仅由一个 index.html 文件组成，其中包含一些 JavaScript 代码，可以让我们启动和停止 WebSockets 和 Server-Sent Events 连接。</p>
 <p><a target="_blank" rel="noopener" href="https://github.com/tyrion/sse-websockets-demo">示例代码 - GitHub</a></p>
-<h3 id="51-反向代理"><a class="markdownIt-Anchor" href="#51-反向代理"></a> 5.1 反向代理</h3>
+<h3 id="5.1-%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86" tabindex="-1">5.1 反向代理</h3>
 <p>使用反向代理，例如 Caddy 或 nginx，对于这种小例子中非常有用。它让我们很容易地开启很多我们所选择的后端可能缺少的功能。</p>
 <p>更具体地说，它允许我们轻松地提供静态文件并自动压缩 HTTP 响应；提供 HTTP/2 支持，即使我们的后端仅支持 HTTP/1，也可以让我们受益于多路复用；最后还可以进行负载均衡。</p>
 <p>我选择了Caddy，因为它可以自动为我们管理HTTPS证书，让我们跳过一个非常乏味的任务，尤其是对于一个快速实验 Demo。</p>
@@ -182,7 +182,7 @@
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">@websockets &#123;</span><br><span class="line">    header Connection *Upgrade*</span><br><span class="line">    header Upgrade    websocket</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">handle /ws1 &#123;</span><br><span class="line">    reverse_proxy @websockets 127.0.1.1:6001</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">handle /ws2 &#123;</span><br><span class="line">    reverse_proxy @websockets 127.0.1.1:6002</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>最后使用如下命令启动 Caddy:</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo caddy start</span><br></pre></td></tr></table></figure>
-<h3 id="52-前端"><a class="markdownIt-Anchor" href="#52-前端"></a> 5.2 前端</h3>
+<h3 id="5.2-%E5%89%8D%E7%AB%AF" tabindex="-1">5.2 前端</h3>
 <p>让我们从前端开始，比较 WebSockets 和 Server-Sent Events 的 JavaScript API。</p>
 <p>WebSocket 的JavaScript API非常易于使用。首先，我们需要创建一个新的 WebSocket 对象，传递服务器的 URL。这里，<code>wss</code> 表示连接将在 HTTPS 上进行。如上所述，强烈建议使用 HTTPS 以避免代理问题。</p>
 <p>然后，我们应该监听一些可能的事件（即打开 <code>open</code>、消息 <code>message</code>、关闭 <code>close</code>、错误 <code>error</code>），通过设置 <code>on$event</code> 属性或使用 <code>addEventListener()</code>。</p>
@@ -198,7 +198,7 @@
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> wss = [];</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">startWS</span>(<span class="params">i</span>) &#123;</span><br><span class="line">  <span class="keyword">if</span> (wss[i] !== <span class="literal">undefined</span>) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> ws = wss[i] = <span class="keyword">new</span> <span class="title class_">WebSocket</span>(<span class="string">&quot;wss://localhost/ws&quot;</span>+i);</span><br><span class="line">  ws.<span class="property">onopen</span> = <span class="function"><span class="params">e</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;WS open&quot;</span>);</span><br><span class="line">  ws.<span class="property">onmessage</span> = <span class="function"><span class="params">e</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(e.<span class="property">data</span>);</span><br><span class="line">  ws.<span class="property">onclose</span> = <span class="function"><span class="params">e</span> =&gt;</span> <span class="title function_">closeWS</span>(i);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">closeWS</span>(<span class="params">i</span>) &#123;</span><br><span class="line">  <span class="keyword">if</span> (wss[i] !== <span class="literal">undefined</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Closing websocket&quot;</span>);</span><br><span class="line">    websockets[i].<span class="title function_">close</span>();</span><br><span class="line">    <span class="keyword">delete</span> websockets[i];</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>Server-Sent Events 的前端代码几乎相同。唯一的区别是 <code>onerror</code> 事件处理程序，它之所以存在，是因为一旦发生错误，浏览器就会记录一条消息，并尝试进行重连。</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> ess = [];</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">startES</span>(<span class="params">i</span>) &#123;</span><br><span class="line">  <span class="keyword">if</span> (ess[i] !== <span class="literal">undefined</span>) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> es = ess[i] = <span class="keyword">new</span> <span class="title class_">EventSource</span>(<span class="string">&quot;https://localhost/sse&quot;</span>+i);</span><br><span class="line">  es.<span class="property">onopen</span> = <span class="function"><span class="params">e</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;ES open&quot;</span>);</span><br><span class="line">  es.<span class="property">onerror</span> = <span class="function"><span class="params">e</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;ES error&quot;</span>, e);</span><br><span class="line">  es.<span class="property">onmessage</span> = <span class="function"><span class="params">e</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(e.<span class="property">data</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">closeES</span>(<span class="params">i</span>) &#123;</span><br><span class="line">  <span class="keyword">if</span> (ess[i] !== <span class="literal">undefined</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Closing EventSource&quot;</span>);</span><br><span class="line">    ess[i].<span class="title function_">close</span>()</span><br><span class="line">    <span class="keyword">delete</span> ess[i]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="53-后端"><a class="markdownIt-Anchor" href="#53-后端"></a> 5.3 后端</h3>
+<h3 id="5.3-%E5%90%8E%E7%AB%AF" tabindex="-1">5.3 后端</h3>
 <p>现在我们来编写后端代码。我们将使用 Python 的异步 Web 框架 <a target="_blank" rel="noopener" href="https://www.starlette.io/">Starlette</a>，使用 <a target="_blank" rel="noopener" href="https://www.uvicorn.org/">Uvicorn</a> 作为服务器。为了使事情模块化，我们将分离数据生成过程和端点 (endpoints) 的实现。</p>
 <p>我们希望两个端点中的每一个都生成一系列唯一的随机数。为了实现这一点，我们将使用流 ID（即1或2）作为<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Random_seed">随机种子 (random seed)</a>的一部分。</p>
 <p>理想情况下，我们也希望我们的流是可恢复的。也就是说，如果连接中断，客户端应该能够从它收到的最后一条消息恢复流，而不是重新读取整个序列。为了实现这一点，我们将为每个消息/事件分配一个 ID，并在生成每个消息之前使用它来初始化随机种子，以及流 ID。在我们的例子中，ID 将只是从 0 开始的计数器 (Counter)。</p>
@@ -220,29 +220,31 @@
 <p>我们完成了!</p>
 <p>最后，假设我们将所有代码放在名为 <code>server.py</code> 的文件中，我们可以使用 Uvicorn 启动我们的后端 endpoints，如下所示:</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">uvicorn --host 127.0.1.1 --port 6001 server:app &amp;</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">uvicorn --host 127.0.1.1 --port 6002 server:app &amp;</span></span><br></pre></td></tr></table></figure>
-<h2 id="6-彩蛋-sse-很棒的特性"><a class="markdownIt-Anchor" href="#6-彩蛋-sse-很棒的特性"></a> 6. 彩蛋: SSE 很棒的特性</h2>
+<h2 id="6.-%E5%BD%A9%E8%9B%8B%3A-sse-%E5%BE%88%E6%A3%92%E7%9A%84%E7%89%B9%E6%80%A7" tabindex="-1">6. 彩蛋: SSE 很棒的特性</h2>
 <p>好了，现在让我们来总结一下，实现我们之前吹嘘的那些漂亮的功能是多么容易。</p>
 <p>可以通过修改端点中的几行代码来启用压缩:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@@ -<span class="number">32</span>,<span class="number">10</span> +<span class="number">33</span>,<span class="number">12</span> @@ async def websocket_endpoint(<span class="params">ws</span>):</span></span><br><span class="line"> </span><br><span class="line"> <span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">sse_generator</span>(<span class="params">req</span>):</span><br><span class="line">     <span class="built_in">id</span> = req.path_params[<span class="string">&quot;id&quot;</span>]</span><br><span class="line">+    stream = zlib.compressobj()</span><br><span class="line">     <span class="keyword">for</span> i <span class="keyword">in</span> itertools.count():</span><br><span class="line">         data = get_data(<span class="built_in">id</span>, i)</span><br><span class="line">         data = <span class="string">b&quot;id: %d\ndata: %d\n\n&quot;</span> % (i, data)</span><br><span class="line">-        <span class="keyword">yield</span> data</span><br><span class="line">+        <span class="keyword">yield</span> stream.compress(data)</span><br><span class="line">+        <span class="keyword">yield</span> stream.flush(zlib.Z_SYNC_FLUSH)</span><br><span class="line">         <span class="keyword">await</span> asyncio.sleep(<span class="number">1</span>)</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="meta">@@ -<span class="number">47</span>,<span class="number">5</span> +<span class="number">50</span>,<span class="number">6</span> @@ async def sse_endpoint(<span class="params">req</span>):</span></span><br><span class="line">             <span class="string">&quot;Content-type&quot;</span>: <span class="string">&quot;text/event-stream&quot;</span>,</span><br><span class="line">             <span class="string">&quot;Cache-Control&quot;</span>: <span class="string">&quot;no-cache&quot;</span>,</span><br><span class="line">             <span class="string">&quot;Connection&quot;</span>: <span class="string">&quot;keep-alive&quot;</span>,</span><br><span class="line">+            <span class="string">&quot;Content-Encoding&quot;</span>: <span class="string">&quot;deflate&quot;</span>,</span><br><span class="line">         &#125;,</span><br><span class="line">     )</span><br></pre></td></tr></table></figure>
 <p>然后，我们可以检查开发者工具 (DevTools) 来验证一切是否按预期工作:</p>
-<p><img src="https://s1.ax1x.com/2023/03/11/ppK8x3T.png" alt="Compression" /></p>
+<p><img src="https://s1.ax1x.com/2023/03/11/ppK8x3T.png" alt="Compression"></p>
 <p>因为 Cadd y支持 HTTP/2，所以多路复用是默认启用的。我们可以再次使用开发者工具来确认所有 SSE 请求都使用同一个连接:</p>
-<p><img src="https://s1.ax1x.com/2023/03/11/ppKGFER.png" alt="Multiplexing" /></p>
+<p><img src="https://s1.ax1x.com/2023/03/11/ppKGFER.png" alt="Multiplexing"></p>
 <p><strong>自动重连</strong>: 在发生意外连接错误时自动重新连接很简单，只需在后端代码中读取 <code>[Last-Event-ID](https://html.spec.whatwg.org/multipage/server-sent-events.html#last-event-id)</code> 头信息:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;     <span class="keyword">for</span> i <span class="keyword">in</span> itertools.count():</span><br><span class="line">---</span><br><span class="line">&gt;     start = <span class="built_in">int</span>(req.headers.get(<span class="string">&quot;last-event-id&quot;</span>, <span class="number">0</span>))</span><br><span class="line">&gt;     <span class="keyword">for</span> i <span class="keyword">in</span> itertools.count(start):</span><br></pre></td></tr></table></figure>
 <p>前端代码不需要任何改动。</p>
 <p>我们可以通过启动到 SSE 端点的连接，然后关闭 uvicorn 来测试它是否正常工作。连接会断开，但浏览器会自动尝试重新连接。因此，如果重新启动服务器，我们会看到流从中断的地方恢复!</p>
 <p>请注意流是如何从消息 <code>243</code> 恢复的。感觉就像魔法🔥</p>
-<p><img src="https://germano.dev/assets/static/sse-auto-reconnect.7900e78.b190f19887f331ddb680b6ba6bc4921e.gif" alt="Automatic reconnection" /></p>
-<h2 id="7-总结"><a class="markdownIt-Anchor" href="#7-总结"></a> 7. 总结</h2>
+<p><img src="https://germano.dev/assets/static/sse-auto-reconnect.7900e78.b190f19887f331ddb680b6ba6bc4921e.gif" alt="Automatic reconnection"></p>
+<h2 id="7.-%E6%80%BB%E7%BB%93" tabindex="-1">7. 总结</h2>
 <p>WebSockets 是建立在 HTTP 和 TCP 之上的大型机制，提供了一套极其特定的功能，即双向低延迟通信。</p>
 <p>为了实现这一点，它们引入了许多复杂性，最终使得客户端和服务器实现比完全基于 HTTP 的解决方案更加复杂。</p>
 <p>这些复杂性和限制已经在新的规范（<a target="_blank" rel="noopener" href="https://tools.ietf.org/html/rfc7692">RFC 7692</a>，<a target="_blank" rel="noopener" href="https://tools.ietf.org/html/rfc8441">RFC 8441</a>）中得到了解决，并将逐渐在客户端和服务器库中实现。</p>
 <p>然而，即使在没有技术缺陷的情况下，WebSockets 仍然是一项相当复杂的技术，涉及大量额外的客户端和服务器代码。因此，您应仔细考虑是否值得增加复杂性，或者是否可以通过更简单的解决方案（如 Server-Sent Events）去解决问题。</p>
-<hr />
+<hr>
 <p>就这些内容了，朋友们！希望你们觉得这篇文章有趣，也能从中学到一些新东西。</p>
 <p>如果你想尝试一下 Server-Sent Events 和 WebSockets，可以自由地在 GitHub 上查看<a target="_blank" rel="noopener" href="https://github.com/tyrion/sse-websockets-demo">演示 Demo 代码</a>。</p>
 <p>我也鼓励你们阅读下 <a target="_blank" rel="noopener" href="https://html.spec.whatwg.org/#server-sent-events">SSE 的规范</a>，因为它解释得非常清晰，包含了很多示例。</p>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">
 </article>
 <div class="article-footer">
     <section id="license">
@@ -278,19 +280,25 @@
       <div class='title cap theme'>您可能感兴趣的文章</div>
     </section>
     <section class='body'>
-    <div class="related-posts"><a class="item" href="/2019/05/22/Jupyter-Notebooks的简单了解/" title="Jupyter Notebooks的简单了解"><span class="title">Jupyter Notebooks的简单了解</span><span class="excerpt">撸一手Jupyter</span></a><a class="item" href="/2019/07/19/Python协程（Coroutine）/" title="Python协程-asyncio、async/await"><span class="title">Python协程-asyncio、async/await</span><span class="excerpt">
-看到吐血 (´ཀ`」 ∠)
-
-
-协程(Coroutine)本质上是一个函数，特点是在代码块中可以将执行权交给其他协程
-众所周知，子程序（函数）都是层级调用的，如果在A中调用了B，那么B执行完毕返回后A才能执行完毕。协程与子程序有点类...</span></a><a class="item" href="/2019/07/26/Python-自定义上下文管理器/" title="Python-自定义上下文管理器"><span class="title">Python-自定义上下文管理器</span><span class="excerpt"> 上下文管理器
+    <div class="related-posts"><a class="item" href="/2019/05/22/Jupyter-Notebooks的简单了解/" title="Jupyter Notebooks的简单了解"><span class="title">Jupyter Notebooks的简单了解</span><span class="excerpt">撸一手Jupyter</span></a><a class="item" href="/2019/07/26/Python-自定义上下文管理器/" title="Python-自定义上下文管理器"><span class="title">Python-自定义上下文管理器</span><span class="excerpt">上下文管理器
 
 上下文管理器可以帮助我们自动分配和释放资源
 上下文管理器需要配合with语句使用
 
-比如进行文件操作的时候我们可能会忘记操作后关闭文件（file close），使用with open(filename, mode) ...</span></a><a class="item" href="/2019/05/11/Python多进程-多线程/" title="Python多进程&&多线程（初步）"><span class="title">Python多进程&&多线程（初步）</span><span class="excerpt"> 进程 &amp;&amp; 线程
+比如进行文件操作的时候我们可能会忘记操作后关闭文件（file close），使用with open(filename, mode) a...</span></a><a class="item" href="/2019/09/02/Python环境管理/" title="Python 环境管理与项目依赖管理"><span class="title">Python 环境管理与项目依赖管理</span><span class="excerpt">
+个人简单记录下
 
-进程：进程是操作系统中执行的一个程序，操作系统以进程为单位分配存储空间，每个进程都有自己的地址空间、数据栈以及其他用于跟踪进程执行的辅助数据，操作系统管理所有进程的执行，为它们合理的分配资源。进程...</span></a></div></section></div>
+virtualenv + pip
+
+virtualenv是一个用于创建&quot;隔离的ython运行环境&quot;的工具，Docs
+pip是Python的包管理工具，Docs
+
+1234567891011121...</span></a><a class="item" href="/2019/07/19/Python协程（Coroutine）/" title="Python协程-asyncio、async/await"><span class="title">Python协程-asyncio、async/await</span><span class="excerpt">
+看到吐血 (´ཀ`」 ∠)
+
+
+协程(Coroutine)本质上是一个函数，特点是在代码块中可以将执行权交给其他协程
+众所周知，子程序（函数）都是层级调用的，如果在A中调用了B，那么B执行完毕返回后A才能执行完毕。协程与子程序有点类...</span></a></div></section></div>
 
 
   <div class="related-wrap md-text" id="comments">
@@ -307,9 +315,9 @@
 
 
 
-<footer class="page-footer footnote"><hr><div class="text"><p><a target="_blank" rel="noopener" href="https://shansan.top">Copyright © 2018-2025 ShanSan</a><br><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">桂ICP备19000444号</a><br />
-本站由 <a href="/">ShanSan</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br />
-本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。<br />
+<footer class="page-footer footnote"><hr><div class="text"><p><a target="_blank" rel="noopener" href="https://shansan.top">Copyright © 2018-2025 ShanSan</a><br><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">桂ICP备19000444号</a><br>
+本站由 <a href="/">ShanSan</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br>
+本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。<br>
 <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span></p>
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 </div></footer>
@@ -318,7 +326,7 @@
 <widget class="widget-wrapper user-card ghuser"><div class="widget-body data-service ds-ghinfo" data-api="https://api.github.com/users/yeshan333"><div class="avatar" ><img no-lazy type="img" id="avatar_url" src="undefined" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></div><p class="username" type="text" id="name">&nbsp;</p><p class="bio" type="text" id="bio">&nbsp;</p><div class="buttons"><a class="btn" target="_blank" rel="noopener" href="https://github.com/yeshan333?tab=followers"><span class="title" type="text" id="followers">0</span><span class="desc">followers</span></a><a class="btn" target="_blank" rel="noopener" href="https://github.com/yeshan333?tab=following"><span class="title" type="text" id="following">0</span><span class="desc">following</span></a><a class="btn" target="_blank" rel="noopener" href="https://github.com/yeshan333?tab=repositories"><span class="title" type="text" id="public_repos">0</span><span class="desc">repos</span></a></div><a class="follow" target="_blank" rel="noopener" href="https://github.com/yeshan333"><svg aria-hidden="true" role="img" class="color-icon-primary" viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor" style="display:inline-block;user-select:none;vertical-align:text-bottom;overflow:visible"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>Follow</a></div></widget>
 
 
-<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%BA%8F%E8%A8%80"><span class="toc-text"> 1. 序言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-websockets"><span class="toc-text"> 2. WebSockets?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-websockets-%E7%9A%84%E9%97%AE%E9%A2%98%E5%9C%A8%E4%BA%8E%E5%93%AA%E9%87%8C"><span class="toc-text"> 3. WebSockets 的问题在于哪里</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#31-%E5%8E%8B%E7%BC%A9-compression"><span class="toc-text"> 3.1 压缩 (Compression)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#32-%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8-multiplexing"><span class="toc-text"> 3.2 多路复用 (Multiplexing)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#33-%E4%BB%A3%E7%90%86%E9%97%AE%E9%A2%98-issues-with-proxies"><span class="toc-text"> 3.3 代理问题 (Issues with proxies)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#34-%E8%B7%A8%E7%AB%99-websocket-%E5%8A%AB%E6%8C%81"><span class="toc-text"> 3.4 跨站 WebSocket 劫持</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-server-sent-events"><span class="toc-text"> 4. Server-Sent Events</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E6%9D%A5%E7%82%B9%E5%AE%9E%E9%99%85%E4%BB%A3%E7%A0%81-demo"><span class="toc-text"> 5. 来点实际代码 Demo</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#51-%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86"><span class="toc-text"> 5.1 反向代理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#52-%E5%89%8D%E7%AB%AF"><span class="toc-text"> 5.2 前端</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#53-%E5%90%8E%E7%AB%AF"><span class="toc-text"> 5.3 后端</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E5%BD%A9%E8%9B%8B-sse-%E5%BE%88%E6%A3%92%E7%9A%84%E7%89%B9%E6%80%A7"><span class="toc-text"> 6. 彩蛋: SSE 很棒的特性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E6%80%BB%E7%BB%93"><span class="toc-text"> 7. 总结</span></a></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a><a class="buttom" onclick="util.scrollComment()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M8 10.5h8M8 14h5.5M17 3.338A9.95 9.95 0 0 0 12 2C6.477 2 2 6.477 2 12c0 1.6.376 3.112 1.043 4.453c.178.356.237.763.134 1.148l-.595 2.226a1.3 1.3 0 0 0 1.591 1.592l2.226-.596a1.63 1.63 0 0 1 1.149.133A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10c0-1.821-.487-3.53-1.338-5"/></svg><span>参与讨论</span></a></div></widget>
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1.-%E5%BA%8F%E8%A8%80"><span class="toc-text">1. 序言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.-websockets?"><span class="toc-text">2. WebSockets?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3.-websockets-%E7%9A%84%E9%97%AE%E9%A2%98%E5%9C%A8%E4%BA%8E%E5%93%AA%E9%87%8C"><span class="toc-text">3. WebSockets 的问题在于哪里</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3.1-%E5%8E%8B%E7%BC%A9-(compression)"><span class="toc-text">3.1 压缩 (Compression)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3.2-%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8-(multiplexing)"><span class="toc-text">3.2 多路复用 (Multiplexing)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3.3-%E4%BB%A3%E7%90%86%E9%97%AE%E9%A2%98-(issues-with-proxies)"><span class="toc-text">3.3 代理问题 (Issues with proxies)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3.4-%E8%B7%A8%E7%AB%99-websocket-%E5%8A%AB%E6%8C%81"><span class="toc-text">3.4 跨站 WebSocket 劫持</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4.-server-sent-events"><span class="toc-text">4. Server-Sent Events</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5.-%E6%9D%A5%E7%82%B9%E5%AE%9E%E9%99%85%E4%BB%A3%E7%A0%81-demo"><span class="toc-text">5. 来点实际代码 Demo</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5.1-%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86"><span class="toc-text">5.1 反向代理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5.2-%E5%89%8D%E7%AB%AF"><span class="toc-text">5.2 前端</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5.3-%E5%90%8E%E7%AB%AF"><span class="toc-text">5.3 后端</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6.-%E5%BD%A9%E8%9B%8B:-sse-%E5%BE%88%E6%A3%92%E7%9A%84%E7%89%B9%E6%80%A7"><span class="toc-text">6. 彩蛋: SSE 很棒的特性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7.-%E6%80%BB%E7%BB%93"><span class="toc-text">7. 总结</span></a></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a><a class="buttom" onclick="util.scrollComment()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M8 10.5h8M8 14h5.5M17 3.338A9.95 9.95 0 0 0 12 2C6.477 2 2 6.477 2 12c0 1.6.376 3.112 1.043 4.453c.178.356.237.763.134 1.148l-.595 2.226a1.3 1.3 0 0 0 1.591 1.592l2.226-.596a1.63 1.63 0 0 1 1.149.133A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10c0-1.821-.487-3.53-1.338-5"/></svg><span>参与讨论</span></a></div></widget>
 </div></aside><div class='float-panel'>
   <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
@@ -331,7 +339,7 @@
 
 
 <script type="text/javascript">
-  window.canonical = {"originalHost":"shansan.top","officialHosts":["localhost","shansan.top","shansan.cn","yeshan333.github.io"],"encoded":"c2hhbnNhbi50b3A="};
+  window.canonical = {"originalHost":"","officialHosts":["localhost","shansan.top","shansan.cn","yeshan333.github.io"],"encoded":""};
   const ctx = {
     date_suffix: {
       just: `刚刚`,

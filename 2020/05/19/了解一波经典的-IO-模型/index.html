@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1" theme-name="Stellar" theme-version="1.33.1">
-  <link rel="canonical" href="https://shansan.top/2020/05/19/%E4%BA%86%E8%A7%A3%E4%B8%80%E6%B3%A2%E7%BB%8F%E5%85%B8%E7%9A%84-IO-%E6%A8%A1%E5%9E%8B/">
+  
   
   <meta name="generator" content="Hexo 7.3.0">
   <meta http-equiv='x-dns-prefetch-control' content='on' />
@@ -20,12 +20,12 @@
   <title>了解一波经典的 I/O 模型 - ShanSan</title>
 
   
-    <meta name="description" content="最近读了波网络 I&#x2F;O 相关的文章，做下总结、摘录。（未完）  经典 I&#x2F;O 模型   red checked, 阻塞式 I&#x2F;O（blocking I&#x2F;O）   red checked, 非阻塞式 I&#x2F;O（non-blocking I&#x2F;O）   red, I&#x2F;O 多路复用（I&#x2F;O multiplexing）   cyan , 信号驱动式 I&#x2F;O（signal driven I&#x2F;O）   cyan">
+    <meta name="description" content="最近读了波网络 I&#x2F;O 相关的文章，做下总结、摘录。（未完） 经典 I&#x2F;O 模型   red checked, 阻塞式 I&#x2F;O（blocking I&#x2F;O）   red checked, 非阻塞式 I&#x2F;O（non-blocking I&#x2F;O）   red, I&#x2F;O 多路复用（I&#x2F;O multiplexing）   cyan , 信号驱动式 I&#x2F;O（signal driven I&#x2F;O）   cyan ,">
 <meta property="og:type" content="article">
 <meta property="og:title" content="了解一波经典的 I&#x2F;O 模型">
 <meta property="og:url" content="https://yeshan333.github.io/2020/05/19/%E4%BA%86%E8%A7%A3%E4%B8%80%E6%B3%A2%E7%BB%8F%E5%85%B8%E7%9A%84-IO-%E6%A8%A1%E5%9E%8B/">
 <meta property="og:site_name" content="ShanSan">
-<meta property="og:description" content="最近读了波网络 I&#x2F;O 相关的文章，做下总结、摘录。（未完）  经典 I&#x2F;O 模型   red checked, 阻塞式 I&#x2F;O（blocking I&#x2F;O）   red checked, 非阻塞式 I&#x2F;O（non-blocking I&#x2F;O）   red, I&#x2F;O 多路复用（I&#x2F;O multiplexing）   cyan , 信号驱动式 I&#x2F;O（signal driven I&#x2F;O）   cyan">
+<meta property="og:description" content="最近读了波网络 I&#x2F;O 相关的文章，做下总结、摘录。（未完） 经典 I&#x2F;O 模型   red checked, 阻塞式 I&#x2F;O（blocking I&#x2F;O）   red checked, 非阻塞式 I&#x2F;O（non-blocking I&#x2F;O）   red, I&#x2F;O 多路复用（I&#x2F;O multiplexing）   cyan , 信号驱动式 I&#x2F;O（signal driven I&#x2F;O）   cyan ,">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://mypic-1258313760.cos.ap-guangzhou.myqcloud.com/img/20200519164453.png">
 <meta property="og:image" content="https://mypic-1258313760.cos.ap-guangzhou.myqcloud.com/img/20200519164642.png">
@@ -56,7 +56,7 @@
 
   
 
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"ShanSan","sameAs":[]},"dateCreated":"2020-05-19T15:19:14+00:00","dateModified":"2020-05-19T15:19:14+00:00","datePublished":"2020-05-19T15:19:14+00:00","description":"最近读了波网络 I/O 相关的文章，做下总结、摘录。（未完）\n 经典 I/O 模型\n\n\nred checked, 阻塞式 I/O（blocking I/O）\n\n\nred checked, 非阻塞式 I/O（non-blocking I/O）\n\n\nred, I/O 多路复用（I/O multiplexing）\n\n\ncyan , 信号驱动式 I/O（signal driven I/O）\n\n\ncyan , 异步 I/O（asynchronous I/O）\n\n\n 阻塞式 I/O 模型\n对于阻塞式 I/O，以套接字（Socket）的输入操作为例。\n\n1、首先应用进程发起 I/O 系统调用后，应用进程阻塞，转到内核空间处理。\n2、之后，内核开始等待数据，等待数据到达之后，将内核中的数据拷贝到用户的缓冲区中，整个 I/O 处理完毕后返回进程。最后应用进程解除阻塞状态，处理数据。\n","headline":"了解一波经典的 I/O 模型","mainEntityOfPage":{"@type":"WebPage","@id":"https://yeshan333.github.io/2020/05/19/%E4%BA%86%E8%A7%A3%E4%B8%80%E6%B3%A2%E7%BB%8F%E5%85%B8%E7%9A%84-IO-%E6%A8%A1%E5%9E%8B/"},"publisher":{"@type":"Organization","name":"ShanSan","sameAs":[]},"url":"https://yeshan333.github.io/2020/05/19/%E4%BA%86%E8%A7%A3%E4%B8%80%E6%B3%A2%E7%BB%8F%E5%85%B8%E7%9A%84-IO-%E6%A8%A1%E5%9E%8B/","keywords":"I/O模型","image":[]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"ShanSan","sameAs":[]},"dateCreated":"2020-05-19T15:19:14+00:00","dateModified":"2020-05-19T15:19:14+00:00","datePublished":"2020-05-19T15:19:14+00:00","description":"最近读了波网络 I/O 相关的文章，做下总结、摘录。（未完）\n经典 I/O 模型\n\n\nred checked, 阻塞式 I/O（blocking I/O）\n\n\nred checked, 非阻塞式 I/O（non-blocking I/O）\n\n\nred, I/O 多路复用（I/O multiplexing）\n\n\ncyan , 信号驱动式 I/O（signal driven I/O）\n\n\ncyan , 异步 I/O（asynchronous I/O）\n\n\n阻塞式 I/O 模型\n对于阻塞式 I/O，以套接字（Socket）的输入操作为例。\n\n1、首先应用进程发起 I/O 系统调用后，应用进程阻塞，转到内核空间处理。\n2、之后，内核开始等待数据，等待数据到达之后，将内核中的数据拷贝到用户的缓冲区中，整个 I/O 处理完毕后返回进程。最后应用进程解除阻塞状态，处理数据。\n","headline":"了解一波经典的 I/O 模型","mainEntityOfPage":{"@type":"WebPage","@id":"https://yeshan333.github.io/2020/05/19/%E4%BA%86%E8%A7%A3%E4%B8%80%E6%B3%A2%E7%BB%8F%E5%85%B8%E7%9A%84-IO-%E6%A8%A1%E5%9E%8B/"},"publisher":{"@type":"Organization","name":"ShanSan","sameAs":[]},"url":"https://yeshan333.github.io/2020/05/19/%E4%BA%86%E8%A7%A3%E4%B8%80%E6%B3%A2%E7%BB%8F%E5%85%B8%E7%9A%84-IO-%E6%A8%A1%E5%9E%8B/","keywords":"I/O模型","image":[]}</script>
   
 </head>
 <body>
@@ -100,7 +100,7 @@
     
   </div>
   </div><article class="md-text content"><p>最近读了波网络 I/O 相关的文章，做下总结、摘录。（未完）</p>
-<h2 id="经典-io-模型"><a class="markdownIt-Anchor" href="#经典-io-模型"></a> 经典 I/O 模型</h2>
+<h2 id="%E7%BB%8F%E5%85%B8-i%2Fo-%E6%A8%A1%E5%9E%8B" tabindex="-1">经典 I/O 模型</h2>
 <ul>
 <li>
 <div class="tag-plugin colorful checkbox" ><input type="checkbox"/><span>red checked, 阻塞式 I/O（blocking I/O）</span></div>
@@ -118,45 +118,45 @@
 <div class="tag-plugin colorful checkbox" ><input type="checkbox"/><span>cyan , 异步 I/O（asynchronous I/O）</span></div>
 </li>
 </ul>
-<h3 id="阻塞式-io-模型"><a class="markdownIt-Anchor" href="#阻塞式-io-模型"></a> 阻塞式 I/O 模型</h3>
+<h3 id="%E9%98%BB%E5%A1%9E%E5%BC%8F-i%2Fo-%E6%A8%A1%E5%9E%8B" tabindex="-1">阻塞式 I/O 模型</h3>
 <p>对于阻塞式 I/O，以套接字（Socket）的输入操作为例。</p>
 <ul>
 <li>1、首先应用进程发起 I/O 系统调用后，应用进程阻塞，转到内核空间处理。</li>
 <li>2、之后，内核开始等待数据，等待数据到达之后，将内核中的数据拷贝到用户的缓冲区中，整个 I/O 处理完毕后返回进程。最后应用进程解除阻塞状态，处理数据。</li>
 </ul>
 <span id="more"></span>
-<p><img src="https://mypic-1258313760.cos.ap-guangzhou.myqcloud.com/img/20200519164453.png" alt="阻塞式示例" /></p>
+<p><img src="https://mypic-1258313760.cos.ap-guangzhou.myqcloud.com/img/20200519164453.png" alt="阻塞式示例"></p>
 <p>上图以 UDP 的 Socket 调用为例，进程调用 recvfrom 后，系统调用直到数据报到达且被复制到用户空间中或发生错误才返回。进程从调用开始到它返回的整段时间内是被阻塞的。recvfrom 成功返回后，应用进程开始处理数据报。</p>
 <blockquote>
 <p>默认情形，Linux/Unix 的所有 Socket 是阻塞的。</p>
 </blockquote>
 <p>附：基于 UDP 协议的 Socket 程序函数调用过程图</p>
-<p><img src="https://mypic-1258313760.cos.ap-guangzhou.myqcloud.com/img/20200519164642.png" alt="基于 UDP 协议的 Socket 程序函数调用过程图" /></p>
+<p><img src="https://mypic-1258313760.cos.ap-guangzhou.myqcloud.com/img/20200519164642.png" alt="基于 UDP 协议的 Socket 程序函数调用过程图"></p>
 <blockquote>
 <p>一般情况下，服务端需要管理多个客户端连接（处理并发连接），而 recvfrom 只能监视单个 Socket。上图的阻塞式 I/O 模型表示的是一对一沟通的情形，使用多线程/进程 + 阻塞式 I/O 我们可以管理多个 Socket ，实现一对多服务。</p>
 </blockquote>
-<h3 id="非阻塞式-io-模型"><a class="markdownIt-Anchor" href="#非阻塞式-io-模型"></a> 非阻塞式 I/O 模型</h3>
+<h3 id="%E9%9D%9E%E9%98%BB%E5%A1%9E%E5%BC%8F-i%2Fo-%E6%A8%A1%E5%9E%8B" tabindex="-1">非阻塞式 I/O 模型</h3>
 <p>在类 Unix 系统下，可以把一个 Socket 设置成非阻塞的。这意味着内核在数据报没有准备好时不会阻塞应用进程（睡眠态），而是返回一个错误。</p>
-<p><img src="https://mypic-1258313760.cos.ap-guangzhou.myqcloud.com/img/20200519170609.png" alt="非阻塞式 I/O 模型示例图" /></p>
+<p><img src="https://mypic-1258313760.cos.ap-guangzhou.myqcloud.com/img/20200519170609.png" alt="非阻塞式 I/O 模型示例图"></p>
 <p>上图以 UDP 的 Socket 调用为例，进程反复调用 recvfrom（polling，轮询），无数据返回 EWOULDBLOCK 错误，直至数据报准备好。</p>
 <p>问题：<strong>单进程处理数据报，不同于阻塞I/O，由于需要反复 polling，非阻塞 I/O 会耗费大量的 CPU 资源，进程阻塞不耗费 CPU 资源</strong>。如果耍上了多进程，那耗费，是不可承受的。</p>
 <p>关于阻塞的原理，这篇文章有简单介绍<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/63179839">✔🔗</a>。</p>
-<h3 id="io-多路复用模型"><a class="markdownIt-Anchor" href="#io-多路复用模型"></a> I/O 多路复用模型</h3>
+<h3 id="i%2Fo-%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E6%A8%A1%E5%9E%8B" tabindex="-1">I/O 多路复用模型</h3>
 <p>什么是多路复用？多路指的是多个通道，一般就是多个网络连接的 I/O；复用指的是多个通道复用在一个复用器上。</p>
 <p>引入多路复用机制的一个目的是为了处理多个网络连接 I/O。</p>
 <blockquote>
 <p>I/O多路复用方法的演进历程：select 模型-&gt; poll 模型-&gt; epoll 模型</p>
 </blockquote>
-<h4 id="select-模型"><a class="markdownIt-Anchor" href="#select-模型"></a> select 模型</h4>
-<p><img src="https://mypic-1258313760.cos.ap-guangzhou.myqcloud.com/img/20200519214552.png" alt="select多路复用示例" /></p>
+<h4 id="select-%E6%A8%A1%E5%9E%8B" tabindex="-1">select 模型</h4>
+<p><img src="https://mypic-1258313760.cos.ap-guangzhou.myqcloud.com/img/20200519214552.png" alt="select多路复用示例"></p>
 <p>上图所示的整个用户进程一般一直是被阻塞的（blocking），即被 select（复用器） 所阻塞，多个 Socket 被注册在 select 中。进程阻塞于 select 调用，等待数据报套接字变为可读，一但 select 返回套接字可读，系统调用 recvfrom 把所读数据报复制到应用进程缓冲区。</p>
 <div class="tag-plugin colorful note" ><div class="title">blue,</div><div class="body"><p>问题来了？为了处理多个网络连接 I/O，我们也可以通过多线程/进程的方式实现，多路复用的优势何在？这里的多路复用模型似乎比阻塞式 I/O 模型更为复杂，但它最大的优势在于用户可以在一个进程/线程内同时处理多个 socket 的 IO 请求。用户可以注册多个 socket，然后不断地调用 select 读取被激活的 socket，即可达到在同一个线程内同时处理多个 IO 请求的目的。（select 可接受的 socket 描述符数会有一定限制）</p></div></div>
 <div class="tag-plugin colorful note" ><div class="title">red,</div><div class="body"><p>我们知道，操作系统多个进程/线程的开销维护还是蛮大的。对于高并发场景，如果一台机器要维护 1 万个连接（C10K问题），使用多线程/进程的方式处理，操作系统是无法承受的。如果维持 1 亿用户在线需要 10 万台服务器，成本那是相当的高。</p></div></div>
 <div class="tag-plugin colorful note" ><div class="title">yellow,</div><div class="body"><p>$ 服务端单机最大 TCP 连接数=客户端 IP 数×客户端端口数 $，对于 IPv4，客户端的 IP 数最多为 2 的 32 次方，客户端的端口数最多为 2 的 16 次方。这只是理论上限，每个 TCP 连接的建立会受制于操作系统内存等因素的影响。</p></div></div>
-<h4 id="epoll-模型"><a class="markdownIt-Anchor" href="#epoll-模型"></a> epoll 模型</h4>
+<h4 id="epoll-%E6%A8%A1%E5%9E%8B" tabindex="-1">epoll 模型</h4>
 <p>新模型的出现肯定是为了解决旧模型的问题，那么 select 模型有什么问题？每次 Socket 所在的文件描述符集合中有 Socket 发生变化的时候，select 都需要通过轮询的方式去检查，而 epoll 引入了 CallBack（回调）机制，当某个文件描述符发送变化的时候，主动通知。随着监听的 Socket 数据增加的时候，效率相比于 select 的轮询快多了。</p>
 <p>了解 epoll 的本质 -&gt; <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/64138532">如果这篇文章说不清epoll的本质，那就过来掐死我吧！ （2）</a></p>
-<h2 id="参考"><a class="markdownIt-Anchor" href="#参考"></a> 参考</h2>
+<h2 id="%E5%8F%82%E8%80%83" tabindex="-1">参考</h2>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://book.douban.com/subject/4859464/">《UNIX网络编程 卷1：套接字联网API》</a></li>
 <li><a target="_blank" rel="noopener" href="https://time.geekbang.org/column/article/9293">趣谈网络协议</a></li>
@@ -165,6 +165,8 @@
 <li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/54580385">5种网络IO模型（有图，很清楚）</a></li>
 <li><a target="_blank" rel="noopener" href="https://book.douban.com/subject/25773187/">《Nginx高性能Web服务器详解》</a></li>
 </ul>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">
 </article>
 <div class="article-footer">
     <section id="license">
@@ -180,13 +182,13 @@
       <div class="body">
         <div class="link"><input class="copy-area" readonly="true" id="copy-link" value="https://yeshan333.github.io/2020/05/19/%E4%BA%86%E8%A7%A3%E4%B8%80%E6%B3%A2%E7%BB%8F%E5%85%B8%E7%9A%84-IO-%E6%A8%A1%E5%9E%8B/" /></div>
         <div class="social-wrap dis-select"><a class="social share-item wechat" onclick="util.toggle(&quot;qrcode-wechat&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/b32ef3da1162a.svg" /></a><a class="social share-item weibo" target="_blank" rel="external nofollow noopener noreferrer" href="https://service.weibo.com/share/share.php?url=https://yeshan333.github.io/2020/05/19/%E4%BA%86%E8%A7%A3%E4%B8%80%E6%B3%A2%E7%BB%8F%E5%85%B8%E7%9A%84-IO-%E6%A8%A1%E5%9E%8B/&title=了解一波经典的 I/O 模型 - ShanSan&summary=最近读了波网络 I/O 相关的文章，做下总结、摘录。（未完）
- 经典 I/O 模型
+经典 I/O 模型
 
 
 red checked, 阻塞式 I/O（blocking I/O）
 
 
-red checked, 非阻塞式 I/O（non-blocking I..."><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/80c07e4dbb303.svg" /></a><a class="social share-item email" href="mailto:?subject=了解一波经典的 I/O 模型 - ShanSan&amp;body=https://yeshan333.github.io/2020/05/19/%E4%BA%86%E8%A7%A3%E4%B8%80%E6%B3%A2%E7%BB%8F%E5%85%B8%E7%9A%84-IO-%E6%A8%A1%E5%9E%8B/"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/a1b00e20f425d.svg" /></a><a class="social share-item link" onclick="util.copy(&quot;copy-link&quot;, &quot;复制成功&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/8411ed322ced6.svg" /></a></div>
+red checked, 非阻塞式 I/O（non-blocking I/..."><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/80c07e4dbb303.svg" /></a><a class="social share-item email" href="mailto:?subject=了解一波经典的 I/O 模型 - ShanSan&amp;body=https://yeshan333.github.io/2020/05/19/%E4%BA%86%E8%A7%A3%E4%B8%80%E6%B3%A2%E7%BB%8F%E5%85%B8%E7%9A%84-IO-%E6%A8%A1%E5%9E%8B/"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/a1b00e20f425d.svg" /></a><a class="social share-item link" onclick="util.copy(&quot;copy-link&quot;, &quot;复制成功&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/8411ed322ced6.svg" /></a></div>
         
         <div class="qrcode" id="qrcode-wechat" style="opacity:0;height:0">
           <img src="https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=https://yeshan333.github.io/2020/05/19/%E4%BA%86%E8%A7%A3%E4%B8%80%E6%B3%A2%E7%BB%8F%E5%85%B8%E7%9A%84-IO-%E6%A8%A1%E5%9E%8B/"/>
@@ -204,9 +206,9 @@ red checked, 非阻塞式 I/O（non-blocking I..."><img  src="https://gcore.jsde
     </section>
     <section class='body'>
     <div class="related-posts"><a class="item" href="/2021/11/27/loopback-addr/" title="回环地址的一点儿破事"><span class="title">回环地址的一点儿破事</span><span class="excerpt">心血来潮，小水一篇！
- 回环地址（loopback address）
+回环地址（loopback address）
 
-loopback 在维基百科上有一段这样的解释：Loopback (also written loop-back) is the routing of elect...</span></a></div></section></div>
+loopback 在维基百科上有一段这样的解释：Loopback (also written loop-back) is the routing of electr...</span></a></div></section></div>
 
 
   <div class="related-wrap md-text" id="comments">
@@ -223,9 +225,9 @@ loopback 在维基百科上有一段这样的解释：Loopback (also written loo
 
 
 
-<footer class="page-footer footnote"><hr><div class="text"><p><a target="_blank" rel="noopener" href="https://shansan.top">Copyright © 2018-2025 ShanSan</a><br><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">桂ICP备19000444号</a><br />
-本站由 <a href="/">ShanSan</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br />
-本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。<br />
+<footer class="page-footer footnote"><hr><div class="text"><p><a target="_blank" rel="noopener" href="https://shansan.top">Copyright © 2018-2025 ShanSan</a><br><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">桂ICP备19000444号</a><br>
+本站由 <a href="/">ShanSan</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br>
+本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。<br>
 <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span></p>
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 </div></footer>
@@ -234,7 +236,7 @@ loopback 在维基百科上有一段这样的解释：Loopback (also written loo
 <widget class="widget-wrapper user-card ghuser"><div class="widget-body data-service ds-ghinfo" data-api="https://api.github.com/users/yeshan333"><div class="avatar" ><img no-lazy type="img" id="avatar_url" src="undefined" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></div><p class="username" type="text" id="name">&nbsp;</p><p class="bio" type="text" id="bio">&nbsp;</p><div class="buttons"><a class="btn" target="_blank" rel="noopener" href="https://github.com/yeshan333?tab=followers"><span class="title" type="text" id="followers">0</span><span class="desc">followers</span></a><a class="btn" target="_blank" rel="noopener" href="https://github.com/yeshan333?tab=following"><span class="title" type="text" id="following">0</span><span class="desc">following</span></a><a class="btn" target="_blank" rel="noopener" href="https://github.com/yeshan333?tab=repositories"><span class="title" type="text" id="public_repos">0</span><span class="desc">repos</span></a></div><a class="follow" target="_blank" rel="noopener" href="https://github.com/yeshan333"><svg aria-hidden="true" role="img" class="color-icon-primary" viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor" style="display:inline-block;user-select:none;vertical-align:text-bottom;overflow:visible"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>Follow</a></div></widget>
 
 
-<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%8F%E5%85%B8-io-%E6%A8%A1%E5%9E%8B"><span class="toc-text"> 经典 I&#x2F;O 模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%98%BB%E5%A1%9E%E5%BC%8F-io-%E6%A8%A1%E5%9E%8B"><span class="toc-text"> 阻塞式 I&#x2F;O 模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%9E%E9%98%BB%E5%A1%9E%E5%BC%8F-io-%E6%A8%A1%E5%9E%8B"><span class="toc-text"> 非阻塞式 I&#x2F;O 模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#io-%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E6%A8%A1%E5%9E%8B"><span class="toc-text"> I&#x2F;O 多路复用模型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#select-%E6%A8%A1%E5%9E%8B"><span class="toc-text"> select 模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#epoll-%E6%A8%A1%E5%9E%8B"><span class="toc-text"> epoll 模型</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text"> 参考</span></a></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a><a class="buttom" onclick="util.scrollComment()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M8 10.5h8M8 14h5.5M17 3.338A9.95 9.95 0 0 0 12 2C6.477 2 2 6.477 2 12c0 1.6.376 3.112 1.043 4.453c.178.356.237.763.134 1.148l-.595 2.226a1.3 1.3 0 0 0 1.591 1.592l2.226-.596a1.63 1.63 0 0 1 1.149.133A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10c0-1.821-.487-3.53-1.338-5"/></svg><span>参与讨论</span></a></div></widget>
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%8F%E5%85%B8-i/o-%E6%A8%A1%E5%9E%8B"><span class="toc-text">经典 I&#x2F;O 模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%98%BB%E5%A1%9E%E5%BC%8F-i/o-%E6%A8%A1%E5%9E%8B"><span class="toc-text">阻塞式 I&#x2F;O 模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%9E%E9%98%BB%E5%A1%9E%E5%BC%8F-i/o-%E6%A8%A1%E5%9E%8B"><span class="toc-text">非阻塞式 I&#x2F;O 模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#i/o-%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E6%A8%A1%E5%9E%8B"><span class="toc-text">I&#x2F;O 多路复用模型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#select-%E6%A8%A1%E5%9E%8B"><span class="toc-text">select 模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#epoll-%E6%A8%A1%E5%9E%8B"><span class="toc-text">epoll 模型</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a><a class="buttom" onclick="util.scrollComment()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M8 10.5h8M8 14h5.5M17 3.338A9.95 9.95 0 0 0 12 2C6.477 2 2 6.477 2 12c0 1.6.376 3.112 1.043 4.453c.178.356.237.763.134 1.148l-.595 2.226a1.3 1.3 0 0 0 1.591 1.592l2.226-.596a1.63 1.63 0 0 1 1.149.133A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10c0-1.821-.487-3.53-1.338-5"/></svg><span>参与讨论</span></a></div></widget>
 </div></aside><div class='float-panel'>
   <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
@@ -247,7 +249,7 @@ loopback 在维基百科上有一段这样的解释：Loopback (also written loo
 
 
 <script type="text/javascript">
-  window.canonical = {"originalHost":"shansan.top","officialHosts":["localhost","shansan.top","shansan.cn","yeshan333.github.io"],"encoded":"c2hhbnNhbi50b3A="};
+  window.canonical = {"originalHost":"","officialHosts":["localhost","shansan.top","shansan.cn","yeshan333.github.io"],"encoded":""};
   const ctx = {
     date_suffix: {
       just: `刚刚`,

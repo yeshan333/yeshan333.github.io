@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1" theme-name="Stellar" theme-version="1.33.1">
-  <link rel="canonical" href="https://shansan.top/2019/03/16/Flask%E7%9A%84%E8%AF%B7%E6%B1%82%E9%92%A9%E5%AD%90%E4%B8%8E%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%80%E8%AE%B0/">
+  
   
   <meta name="generator" content="Hexo 7.3.0">
   <meta http-equiv='x-dns-prefetch-control' content='on' />
@@ -20,12 +20,12 @@
   <title>Flask的请求钩子与上下文简记 - ShanSan</title>
 
   
-    <meta name="description" content="请求钩子(Hook)  在客户端和服务器交互的过程中，有些准备工作或扫尾工作需要处理，比如：在请求开始时，建立数据库连接；在请求结束时，指定数据的交互格式。为了让&gt;每个视图函数避免编写重复功能的代码，Flask提供了通用设施的功能，即请求钩子。通过请求钩子，我们可以对请求进行预处理(preprocessing)和后处理&gt;(postprocessing)。  Flask的请求钩子通过装">
+    <meta name="description" content="请求钩子(Hook)  在客户端和服务器交互的过程中，有些准备工作或扫尾工作需要处理，比如：在请求开始时，建立数据库连接；在请求结束时，指定数据的交互格式。为了让&gt;每个视图函数避免编写重复功能的代码，Flask提供了通用设施的功能，即请求钩子。通过请求钩子，我们可以对请求进行预处理(preprocessing)和后处理&gt;(postprocessing)。  Flask的请求钩子通过装饰">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Flask的请求钩子与上下文简记">
 <meta property="og:url" content="https://yeshan333.github.io/2019/03/16/Flask%E7%9A%84%E8%AF%B7%E6%B1%82%E9%92%A9%E5%AD%90%E4%B8%8E%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%80%E8%AE%B0/">
 <meta property="og:site_name" content="ShanSan">
-<meta property="og:description" content="请求钩子(Hook)  在客户端和服务器交互的过程中，有些准备工作或扫尾工作需要处理，比如：在请求开始时，建立数据库连接；在请求结束时，指定数据的交互格式。为了让&gt;每个视图函数避免编写重复功能的代码，Flask提供了通用设施的功能，即请求钩子。通过请求钩子，我们可以对请求进行预处理(preprocessing)和后处理&gt;(postprocessing)。  Flask的请求钩子通过装">
+<meta property="og:description" content="请求钩子(Hook)  在客户端和服务器交互的过程中，有些准备工作或扫尾工作需要处理，比如：在请求开始时，建立数据库连接；在请求结束时，指定数据的交互格式。为了让&gt;每个视图函数避免编写重复功能的代码，Flask提供了通用设施的功能，即请求钩子。通过请求钩子，我们可以对请求进行预处理(preprocessing)和后处理&gt;(postprocessing)。  Flask的请求钩子通过装饰">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.ax1x.com/2019/03/15/AEdgN4.png">
 <meta property="article:published_time" content="2019-03-16T22:32:05.000Z">
@@ -53,7 +53,7 @@
 
   
 
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"ShanSan","sameAs":[]},"dateCreated":"2019-03-16T22:32:05+00:00","dateModified":"2019-03-16T22:32:05+00:00","datePublished":"2019-03-16T22:32:05+00:00","description":" 请求钩子(Hook)\n\n在客户端和服务器交互的过程中，有些准备工作或扫尾工作需要处理，比如：在请求开始时，建立数据库连接；在请求结束时，指定数据的交互格式。为了让&gt;每个视图函数避免编写重复功能的代码，Flask提供了通用设施的功能，即请求钩子。通过请求钩子，我们可以对请求进行预处理(preprocessing)和后处理&gt;(postprocessing)。\n\nFlask的请求钩子通过装饰器实现，每个钩子可以注册任意多个处理函数，默认的五种请求钩子如下:\n\n\n\n钩子\n说明\n\n\n\n\nbefore_first_request\n注册一个函数，在处理请求前运行\n\n\nbefore_request\n注册一个函数，在处理每个请求前运行\n\n\nafter_request\n注册一个函数，如果有未处理的一场抛出。会在每个请求结束后运行\n\n\nteardown_request\n注册一个函数，即使有未处理的异常抛出，会在每个请求介绍后执行。如果发生异常，会传入异常对象作为参数注册到函数中\n\n\nafter_this_request\n在视图函数内注册一个函数，在这个请求结束后运行\n\n\n","headline":"Flask的请求钩子与上下文简记","mainEntityOfPage":{"@type":"WebPage","@id":"https://yeshan333.github.io/2019/03/16/Flask%E7%9A%84%E8%AF%B7%E6%B1%82%E9%92%A9%E5%AD%90%E4%B8%8E%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%80%E8%AE%B0/"},"publisher":{"@type":"Organization","name":"ShanSan","sameAs":[]},"url":"https://yeshan333.github.io/2019/03/16/Flask%E7%9A%84%E8%AF%B7%E6%B1%82%E9%92%A9%E5%AD%90%E4%B8%8E%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%80%E8%AE%B0/","keywords":"Flask","image":[]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"ShanSan","sameAs":[]},"dateCreated":"2019-03-16T22:32:05+00:00","dateModified":"2019-03-16T22:32:05+00:00","datePublished":"2019-03-16T22:32:05+00:00","description":"请求钩子(Hook)\n\n在客户端和服务器交互的过程中，有些准备工作或扫尾工作需要处理，比如：在请求开始时，建立数据库连接；在请求结束时，指定数据的交互格式。为了让&gt;每个视图函数避免编写重复功能的代码，Flask提供了通用设施的功能，即请求钩子。通过请求钩子，我们可以对请求进行预处理(preprocessing)和后处理&gt;(postprocessing)。\n\nFlask的请求钩子通过装饰器实现，每个钩子可以注册任意多个处理函数，默认的五种请求钩子如下:\n\n\n\n钩子\n说明\n\n\n\n\nbefore_first_request\n注册一个函数，在处理请求前运行\n\n\nbefore_request\n注册一个函数，在处理每个请求前运行\n\n\nafter_request\n注册一个函数，如果有未处理的一场抛出。会在每个请求结束后运行\n\n\nteardown_request\n注册一个函数，即使有未处理的异常抛出，会在每个请求介绍后执行。如果发生异常，会传入异常对象作为参数注册到函数中\n\n\nafter_this_request\n在视图函数内注册一个函数，在这个请求结束后运行\n\n\n","headline":"Flask的请求钩子与上下文简记","mainEntityOfPage":{"@type":"WebPage","@id":"https://yeshan333.github.io/2019/03/16/Flask%E7%9A%84%E8%AF%B7%E6%B1%82%E9%92%A9%E5%AD%90%E4%B8%8E%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%80%E8%AE%B0/"},"publisher":{"@type":"Organization","name":"ShanSan","sameAs":[]},"url":"https://yeshan333.github.io/2019/03/16/Flask%E7%9A%84%E8%AF%B7%E6%B1%82%E9%92%A9%E5%AD%90%E4%B8%8E%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%80%E8%AE%B0/","keywords":"Flask","image":[]}</script>
   
 </head>
 <body>
@@ -96,7 +96,7 @@
     </div>
     
   </div>
-  </div><article class="md-text content"><h1 id="请求钩子hook"><a class="markdownIt-Anchor" href="#请求钩子hook"></a> 请求钩子(Hook)</h1>
+  </div><article class="md-text content"><h1 id="%E8%AF%B7%E6%B1%82%E9%92%A9%E5%AD%90(hook)" tabindex="-1">请求钩子(Hook)</h1>
 <blockquote>
 <p>在客户端和服务器交互的过程中，有些准备工作或扫尾工作需要处理，比如：在请求开始时，建立数据库连接；在请求结束时，指定数据的交互格式。为了让&gt;每个视图函数避免编写重复功能的代码，Flask提供了通用设施的功能，即请求钩子。通过请求钩子，我们可以对请求进行预处理(preprocessing)和后处理&gt;(postprocessing)。</p>
 </blockquote>
@@ -133,15 +133,15 @@
 </table>
 <span id="more"></span>
 <p>假如我们创建了三个视图函数A、B、C，其中视图C使用了after_this_request钩子，那么当请求A进入后，整个请求处理周期的请求处理函数调用流程如图:</p>
-<p><img src="https://s2.ax1x.com/2019/03/15/AEdgN4.png" alt="AEdgN4.png" /></p>
-<h1 id="上下文"><a class="markdownIt-Anchor" href="#上下文"></a> 上下文</h1>
+<p><img src="https://s2.ax1x.com/2019/03/15/AEdgN4.png" alt="AEdgN4.png"></p>
+<h1 id="%E4%B8%8A%E4%B8%8B%E6%96%87" tabindex="-1">上下文</h1>
 <blockquote>
-<p>什么是上下文？上下文相当于一个容器，它保存了程序运行过程中的一些信息，它是当前环境的一个快照(snapshot)。<br />
-Flask中有两种上下文，程序上下文(application context)和请求上下文(request context)。<br />
+<p>什么是上下文？上下文相当于一个容器，它保存了程序运行过程中的一些信息，它是当前环境的一个快照(snapshot)。<br>
+Flask中有两种上下文，程序上下文(application context)和请求上下文(request context)。<br>
 程序上下文中包含了程序运行所必须的信息；请求上下文里包含了请求的各种信息，比如请求的URL、HTTP方法等</p>
 </blockquote>
-<h2 id="上下文全局变量"><a class="markdownIt-Anchor" href="#上下文全局变量"></a> 上下文全局变量</h2>
-<p>我们知道，Flask将请求报文封装在request对象中。按照一般的思路，如果我们要在视图函数中使用它，就得把它作为参数传入视图函数，就像我们接收URL变量一样。但这样就会导致大量的重复，而且增加了的程序的负担。<br />
+<h2 id="%E4%B8%8A%E4%B8%8B%E6%96%87%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F" tabindex="-1">上下文全局变量</h2>
+<p>我们知道，Flask将请求报文封装在request对象中。按照一般的思路，如果我们要在视图函数中使用它，就得把它作为参数传入视图函数，就像我们接收URL变量一样。但这样就会导致大量的重复，而且增加了的程序的负担。<br>
 不一般的是，我们可以从Flask导入一个全局的request变量，在视图函数中直接调用request的属性获取数据。这是为什么？因为Flask会在每个请求产生后后自动激活当前请求的上下文，激活请求上下文后，request被临时设置为全局可访问。在每个请求结束后，Flask就会销毁对应的请求上下文。</p>
 <p>Flask提供的四个上下文全局变量如下：</p>
 <table>
@@ -179,7 +179,7 @@ Flask中有两种上下文，程序上下文(application context)和请求上下
 <li>不同的视图函数中，request对象都表示和视图函数对应的请求，也就是当前请求</li>
 <li>程序存在多个程序实例的情况，使用current_app可获取对应的实例</li>
 </ul>
-<h2 id="上下文的激活"><a class="markdownIt-Anchor" href="#上下文的激活"></a> 上下文的激活</h2>
+<h2 id="%E4%B8%8A%E4%B8%8B%E6%96%87%E7%9A%84%E6%BF%80%E6%B4%BB" tabindex="-1">上下文的激活</h2>
 <p><strong>请求进入时，Flask会自动激活请求上下文，此时程序上下文也被自动激活。请求处理完毕后，请求上下文和程序上下文也会自动销毁。两者具有相同的生命周期。</strong></p>
 <ul>
 <li>
@@ -204,6 +204,8 @@ Flask中有两种上下文，程序上下文(application context)和请求上下
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash">&gt;&gt; from app import app</span></span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash">&gt;&gt; from flask import current_app</span></span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash">&gt;&gt; app_ctx = app.app_context()</span></span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash">&gt;&gt; app_ctx.push()</span></span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash">&gt;&gt; current_app.name</span></span><br><span class="line">&#x27;app&#x27;</span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash">&gt;&gt; app_ctx.pop()</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash">&gt;&gt; from app import app</span></span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash">&gt;&gt; from flask import request</span></span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash">&gt;&gt; with app.test_request_context(<span class="string">&#x27;/hello&#x27;</span>):</span></span><br><span class="line">...     request.method</span><br><span class="line">&#x27;GET&#x27;</span><br></pre></td></tr></table></figure>
 <p>参考：<a target="_blank" rel="noopener" href="https://book.douban.com/subject/30310340/">https://book.douban.com/subject/30310340/</a></p>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">
 </article>
 <div class="article-footer">
     <section id="license">
@@ -218,9 +220,9 @@ Flask中有两种上下文，程序上下文(application context)和请求上下
       <div class="header"><span>分享文章</span></div>
       <div class="body">
         <div class="link"><input class="copy-area" readonly="true" id="copy-link" value="https://yeshan333.github.io/2019/03/16/Flask%E7%9A%84%E8%AF%B7%E6%B1%82%E9%92%A9%E5%AD%90%E4%B8%8E%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%80%E8%AE%B0/" /></div>
-        <div class="social-wrap dis-select"><a class="social share-item wechat" onclick="util.toggle(&quot;qrcode-wechat&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/b32ef3da1162a.svg" /></a><a class="social share-item weibo" target="_blank" rel="external nofollow noopener noreferrer" href="https://service.weibo.com/share/share.php?url=https://yeshan333.github.io/2019/03/16/Flask%E7%9A%84%E8%AF%B7%E6%B1%82%E9%92%A9%E5%AD%90%E4%B8%8E%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%80%E8%AE%B0/&title=Flask的请求钩子与上下文简记 - ShanSan&summary= 请求钩子(Hook)
+        <div class="social-wrap dis-select"><a class="social share-item wechat" onclick="util.toggle(&quot;qrcode-wechat&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/b32ef3da1162a.svg" /></a><a class="social share-item weibo" target="_blank" rel="external nofollow noopener noreferrer" href="https://service.weibo.com/share/share.php?url=https://yeshan333.github.io/2019/03/16/Flask%E7%9A%84%E8%AF%B7%E6%B1%82%E9%92%A9%E5%AD%90%E4%B8%8E%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%80%E8%AE%B0/&title=Flask的请求钩子与上下文简记 - ShanSan&summary=请求钩子(Hook)
 
-在客户端和服务器交互的过程中，有些准备工作或扫尾工作需要处理，比如：在请求开始时，建立数据库连接；在请求结束时，指定数据的交互格式。为了让&gt;每个视图函数避免编写重复功能的代码，Flask提供了通用设施的..."><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/80c07e4dbb303.svg" /></a><a class="social share-item email" href="mailto:?subject=Flask的请求钩子与上下文简记 - ShanSan&amp;body=https://yeshan333.github.io/2019/03/16/Flask%E7%9A%84%E8%AF%B7%E6%B1%82%E9%92%A9%E5%AD%90%E4%B8%8E%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%80%E8%AE%B0/"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/a1b00e20f425d.svg" /></a><a class="social share-item link" onclick="util.copy(&quot;copy-link&quot;, &quot;复制成功&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/8411ed322ced6.svg" /></a></div>
+在客户端和服务器交互的过程中，有些准备工作或扫尾工作需要处理，比如：在请求开始时，建立数据库连接；在请求结束时，指定数据的交互格式。为了让&gt;每个视图函数避免编写重复功能的代码，Flask提供了通用设施的功..."><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/80c07e4dbb303.svg" /></a><a class="social share-item email" href="mailto:?subject=Flask的请求钩子与上下文简记 - ShanSan&amp;body=https://yeshan333.github.io/2019/03/16/Flask%E7%9A%84%E8%AF%B7%E6%B1%82%E9%92%A9%E5%AD%90%E4%B8%8E%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%80%E8%AE%B0/"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/a1b00e20f425d.svg" /></a><a class="social share-item link" onclick="util.copy(&quot;copy-link&quot;, &quot;复制成功&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/8411ed322ced6.svg" /></a></div>
         
         <div class="qrcode" id="qrcode-wechat" style="opacity:0;height:0">
           <img src="https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=https://yeshan333.github.io/2019/03/16/Flask%E7%9A%84%E8%AF%B7%E6%B1%82%E9%92%A9%E5%AD%90%E4%B8%8E%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%80%E8%AE%B0/"/>
@@ -237,11 +239,11 @@ Flask中有两种上下文，程序上下文(application context)和请求上下
       <div class='title cap theme'>您可能感兴趣的文章</div>
     </section>
     <section class='body'>
-    <div class="related-posts"><a class="item" href="/2019/01/09/Jinja2语法小记/" title="Jinja2语法小记"><span class="title">Jinja2语法小记</span><span class="excerpt"> jinja2模板语法小记
+    <div class="related-posts"><a class="item" href="/2019/01/09/Jinja2语法小记/" title="Jinja2语法小记"><span class="title">Jinja2语法小记</span><span class="excerpt">jinja2模板语法小记
 
 Jinja2模板中文文档
 
- 三种常见界定符
+三种常见界定符
 
 表达式
 
@@ -255,22 +257,22 @@ Jinja2模板中文文档
 
 注释
 
-{# ...</span></a><a class="item" href="/2020/01/13/React-Flask打造前后端分离项目开发环境/" title="React+Flask打造前后端分离项目开发环境"><span class="title">React+Flask打造前后端分离项目开发环境</span><span class="excerpt"> 前言
+{# .....</span></a><a class="item" href="/2020/01/13/React-Flask打造前后端分离项目开发环境/" title="React+Flask打造前后端分离项目开发环境"><span class="title">React+Flask打造前后端分离项目开发环境</span><span class="excerpt">前言
 
 新的一年，开始水第一篇技术文。碰巧最近React玩得多，撸一篇文章纪念一下开发环境的搭建。🤔
 
 
 开篇两问：
 
-什么是React？：React，用于构建用户界面的 JavaScript 库（官网复制粘贴，真香，不用怎么写t...</span></a><a class="item" href="/2019/03/20/SQLAlchemy建立数据库模型之间的关系/" title="SQLAlchemy建立数据库模型之间的关系"><span class="title">SQLAlchemy建立数据库模型之间的关系</span><span class="excerpt"> 常见关系：
+什么是React？：React，用于构建用户界面的 JavaScript 库（官网复制粘贴，真香，不用怎么写te...</span></a><a class="item" href="/2019/03/20/SQLAlchemy建立数据库模型之间的关系/" title="SQLAlchemy建立数据库模型之间的关系"><span class="title">SQLAlchemy建立数据库模型之间的关系</span><span class="excerpt">常见关系：
 
 一对多关系
 多对一关系
 多对多关系
 一对一关系
 
- 一对多关系（一个作者，多篇文章）
-123456789101112131415161718192021222324252627282930## 一对多关系，单作者-多文...</span></a></div></section></div>
+一对多关系（一个作者，多篇文章）
+123456789101112131415161718192021222324252627282930## 一对多关系，单作者-多文章，...</span></a></div></section></div>
 
 
   <div class="related-wrap md-text" id="comments">
@@ -287,9 +289,9 @@ Jinja2模板中文文档
 
 
 
-<footer class="page-footer footnote"><hr><div class="text"><p><a target="_blank" rel="noopener" href="https://shansan.top">Copyright © 2018-2025 ShanSan</a><br><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">桂ICP备19000444号</a><br />
-本站由 <a href="/">ShanSan</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br />
-本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。<br />
+<footer class="page-footer footnote"><hr><div class="text"><p><a target="_blank" rel="noopener" href="https://shansan.top">Copyright © 2018-2025 ShanSan</a><br><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">桂ICP备19000444号</a><br>
+本站由 <a href="/">ShanSan</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br>
+本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。<br>
 <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span></p>
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 </div></footer>
@@ -298,7 +300,7 @@ Jinja2模板中文文档
 <widget class="widget-wrapper user-card ghuser"><div class="widget-body data-service ds-ghinfo" data-api="https://api.github.com/users/yeshan333"><div class="avatar" ><img no-lazy type="img" id="avatar_url" src="undefined" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></div><p class="username" type="text" id="name">&nbsp;</p><p class="bio" type="text" id="bio">&nbsp;</p><div class="buttons"><a class="btn" target="_blank" rel="noopener" href="https://github.com/yeshan333?tab=followers"><span class="title" type="text" id="followers">0</span><span class="desc">followers</span></a><a class="btn" target="_blank" rel="noopener" href="https://github.com/yeshan333?tab=following"><span class="title" type="text" id="following">0</span><span class="desc">following</span></a><a class="btn" target="_blank" rel="noopener" href="https://github.com/yeshan333?tab=repositories"><span class="title" type="text" id="public_repos">0</span><span class="desc">repos</span></a></div><a class="follow" target="_blank" rel="noopener" href="https://github.com/yeshan333"><svg aria-hidden="true" role="img" class="color-icon-primary" viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor" style="display:inline-block;user-select:none;vertical-align:text-bottom;overflow:visible"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>Follow</a></div></widget>
 
 
-<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E9%92%A9%E5%AD%90hook"><span class="toc-text"> 请求钩子(Hook)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%8A%E4%B8%8B%E6%96%87"><span class="toc-text"> 上下文</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8A%E4%B8%8B%E6%96%87%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F"><span class="toc-text"> 上下文全局变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8A%E4%B8%8B%E6%96%87%E7%9A%84%E6%BF%80%E6%B4%BB"><span class="toc-text"> 上下文的激活</span></a></li></ol></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a><a class="buttom" onclick="util.scrollComment()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M8 10.5h8M8 14h5.5M17 3.338A9.95 9.95 0 0 0 12 2C6.477 2 2 6.477 2 12c0 1.6.376 3.112 1.043 4.453c.178.356.237.763.134 1.148l-.595 2.226a1.3 1.3 0 0 0 1.591 1.592l2.226-.596a1.63 1.63 0 0 1 1.149.133A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10c0-1.821-.487-3.53-1.338-5"/></svg><span>参与讨论</span></a></div></widget>
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E9%92%A9%E5%AD%90(hook)"><span class="toc-text">请求钩子(Hook)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%8A%E4%B8%8B%E6%96%87"><span class="toc-text">上下文</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8A%E4%B8%8B%E6%96%87%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F"><span class="toc-text">上下文全局变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8A%E4%B8%8B%E6%96%87%E7%9A%84%E6%BF%80%E6%B4%BB"><span class="toc-text">上下文的激活</span></a></li></ol></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a><a class="buttom" onclick="util.scrollComment()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M8 10.5h8M8 14h5.5M17 3.338A9.95 9.95 0 0 0 12 2C6.477 2 2 6.477 2 12c0 1.6.376 3.112 1.043 4.453c.178.356.237.763.134 1.148l-.595 2.226a1.3 1.3 0 0 0 1.591 1.592l2.226-.596a1.63 1.63 0 0 1 1.149.133A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10c0-1.821-.487-3.53-1.338-5"/></svg><span>参与讨论</span></a></div></widget>
 </div></aside><div class='float-panel'>
   <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
@@ -311,7 +313,7 @@ Jinja2模板中文文档
 
 
 <script type="text/javascript">
-  window.canonical = {"originalHost":"shansan.top","officialHosts":["localhost","shansan.top","shansan.cn","yeshan333.github.io"],"encoded":"c2hhbnNhbi50b3A="};
+  window.canonical = {"originalHost":"","officialHosts":["localhost","shansan.top","shansan.cn","yeshan333.github.io"],"encoded":""};
   const ctx = {
     date_suffix: {
       just: `刚刚`,

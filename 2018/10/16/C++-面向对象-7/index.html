@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1" theme-name="Stellar" theme-version="1.33.1">
-  <link rel="canonical" href="https://shansan.top/2018/10/16/C++-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-7/">
+  
   
   <meta name="generator" content="Hexo 7.3.0">
   <meta http-equiv='x-dns-prefetch-control' content='on' />
@@ -20,12 +20,12 @@
   <title>C++面向对象-7 - ShanSan</title>
 
   
-    <meta name="description" content="数据抽象  数据抽象(data abstraction)是与面向对象(object-oriented)并列的一种编程范式(programming paradigm)。数据抽象也成为抽象数据类型(abstract data type&#x2F;ADT)。 数据抽象是一种依赖于接口和实现分离的编程（设计）技术。  https:&#x2F;&#x2F;wizardforcel.gitbooks.io&#x2F;sicp-py&#x2F;conten">
+    <meta name="description" content="数据抽象  数据抽象(data abstraction)是与面向对象(object-oriented)并列的一种编程范式(programming paradigm)。数据抽象也成为抽象数据类型(abstract data type&#x2F;ADT)。 数据抽象是一种依赖于接口和实现分离的编程（设计）技术。  https:&#x2F;&#x2F;wizardforcel.gitbooks.io&#x2F;sicp-py&#x2F;content">
 <meta property="og:type" content="article">
 <meta property="og:title" content="C++面向对象-7">
 <meta property="og:url" content="https://yeshan333.github.io/2018/10/16/C++-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-7/">
 <meta property="og:site_name" content="ShanSan">
-<meta property="og:description" content="数据抽象  数据抽象(data abstraction)是与面向对象(object-oriented)并列的一种编程范式(programming paradigm)。数据抽象也成为抽象数据类型(abstract data type&#x2F;ADT)。 数据抽象是一种依赖于接口和实现分离的编程（设计）技术。  https:&#x2F;&#x2F;wizardforcel.gitbooks.io&#x2F;sicp-py&#x2F;conten">
+<meta property="og:description" content="数据抽象  数据抽象(data abstraction)是与面向对象(object-oriented)并列的一种编程范式(programming paradigm)。数据抽象也成为抽象数据类型(abstract data type&#x2F;ADT)。 数据抽象是一种依赖于接口和实现分离的编程（设计）技术。  https:&#x2F;&#x2F;wizardforcel.gitbooks.io&#x2F;sicp-py&#x2F;content">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://i.imgur.com/wIL9Cmo.jpg">
 <meta property="og:image" content="https://i.imgur.com/USkfOBR.png">
@@ -55,7 +55,7 @@
 
   
 
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"ShanSan","sameAs":[]},"dateCreated":"2018-10-16T23:39:00+00:00","dateModified":"2018-10-16T23:39:00+00:00","datePublished":"2018-10-16T23:39:00+00:00","description":"\n 数据抽象\n\n数据抽象(data abstraction)是与面向对象(object-oriented)并列的一种编程范式(programming paradigm)。数据抽象也成为抽象数据类型(abstract data type/ADT)。\n数据抽象是一种依赖于接口和实现分离的编程（设计）技术。\n\nhttps://wizardforcel.gitbooks.io/sicp-py/content/2.2.html\nhttp://wj196.iteye.com/blog/860303\nhttps://blog.csdn.net/Solstice/article/details/6707148\nC++类为数据抽象提供了可能。它们向外界提供了大量用于操作对象数据的公共方法，也就是说，外界实际上并不清楚类的内部实现。\n数据抽象仅为用户暴露接口，而把具体的实现隐藏了起来","headline":"C++面向对象-7","mainEntityOfPage":{"@type":"WebPage","@id":"https://yeshan333.github.io/2018/10/16/C++-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-7/"},"publisher":{"@type":"Organization","name":"ShanSan","sameAs":[]},"url":"https://yeshan333.github.io/2018/10/16/C++-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-7/","keywords":"CPP","image":[]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"ShanSan","sameAs":[]},"dateCreated":"2018-10-16T23:39:00+00:00","dateModified":"2018-10-16T23:39:00+00:00","datePublished":"2018-10-16T23:39:00+00:00","description":"\n数据抽象\n\n数据抽象(data abstraction)是与面向对象(object-oriented)并列的一种编程范式(programming paradigm)。数据抽象也成为抽象数据类型(abstract data type/ADT)。\n数据抽象是一种依赖于接口和实现分离的编程（设计）技术。\n\nhttps://wizardforcel.gitbooks.io/sicp-py/content/2.2.html\nhttp://wj196.iteye.com/blog/860303\nhttps://blog.csdn.net/Solstice/article/details/6707148\nC++类为数据抽象提供了可能。它们向外界提供了大量用于操作对象数据的公共方法，也就是说，外界实际上并不清楚类的内部实现。\n数据抽象仅为用户暴露接口，而把具体的实现隐藏了起来","headline":"C++面向对象-7","mainEntityOfPage":{"@type":"WebPage","@id":"https://yeshan333.github.io/2018/10/16/C++-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-7/"},"publisher":{"@type":"Organization","name":"ShanSan","sameAs":[]},"url":"https://yeshan333.github.io/2018/10/16/C++-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-7/","keywords":"CPP","image":[]}</script>
   
 </head>
 <body>
@@ -98,33 +98,33 @@
     </div>
     
   </div>
-  </div><article class="md-text content"><p><img src="https://i.imgur.com/wIL9Cmo.jpg" alt="banner" /></p>
-<h1 id="数据抽象"><a class="markdownIt-Anchor" href="#数据抽象"></a> 数据抽象</h1>
+  </div><article class="md-text content"><p><img src="https://i.imgur.com/wIL9Cmo.jpg" alt="banner"></p>
+<h1 id="%E6%95%B0%E6%8D%AE%E6%8A%BD%E8%B1%A1" tabindex="-1">数据抽象</h1>
 <blockquote>
-<p>数据抽象(data abstraction)是与面向对象(object-oriented)并列的一种编程范式(programming paradigm)。数据抽象也成为抽象数据类型(abstract data type/ADT)。<br />
+<p>数据抽象(data abstraction)是与面向对象(object-oriented)并列的一种编程范式(programming paradigm)。数据抽象也成为抽象数据类型(abstract data type/ADT)。<br>
 数据抽象是一种依赖于接口和实现分离的编程（设计）技术。</p>
 </blockquote>
-<p><a target="_blank" rel="noopener" href="https://wizardforcel.gitbooks.io/sicp-py/content/2.2.html">https://wizardforcel.gitbooks.io/sicp-py/content/2.2.html</a><br />
-<a target="_blank" rel="noopener" href="http://wj196.iteye.com/blog/860303">http://wj196.iteye.com/blog/860303</a><br />
+<p><a target="_blank" rel="noopener" href="https://wizardforcel.gitbooks.io/sicp-py/content/2.2.html">https://wizardforcel.gitbooks.io/sicp-py/content/2.2.html</a><br>
+<a target="_blank" rel="noopener" href="http://wj196.iteye.com/blog/860303">http://wj196.iteye.com/blog/860303</a><br>
 <a target="_blank" rel="noopener" href="https://blog.csdn.net/Solstice/article/details/6707148">https://blog.csdn.net/Solstice/article/details/6707148</a></p>
-<p>C++类为数据抽象提供了可能。它们向外界提供了大量用于操作对象数据的公共方法，也就是说，外界实际上并不清楚类的内部实现。<br />
+<p>C++类为数据抽象提供了可能。它们向外界提供了大量用于操作对象数据的公共方法，也就是说，外界实际上并不清楚类的内部实现。<br>
 数据抽象仅为用户暴露接口，而把具体的实现隐藏了起来</p>
 <span id="more"></span>
-<h2 id="数据抽象的两个优势"><a class="markdownIt-Anchor" href="#数据抽象的两个优势"></a> 数据抽象的两个优势</h2>
+<h2 id="%E6%95%B0%E6%8D%AE%E6%8A%BD%E8%B1%A1%E7%9A%84%E4%B8%A4%E4%B8%AA%E4%BC%98%E5%8A%BF" tabindex="-1">数据抽象的两个优势</h2>
 <ul>
 <li>类的内部受到保护，不会因为无意的用户级错误导致对象状态受损。</li>
 <li>类实现可能随着时间的推移而发生变化，以便应对不断变化的需求，或者应对哪些不改变用户级代码的错误报告。</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//example：</span></span><br><span class="line"><span class="comment">//demo</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Student</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">private</span>:</span><br><span class="line">		<span class="comment">//对外隐藏的数据</span></span><br><span class="line">	    <span class="type">int</span> num;</span><br><span class="line">		<span class="type">int</span> score;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="comment">//构造函数</span></span><br><span class="line">	    <span class="built_in">Student</span>()</span><br><span class="line">		&#123;</span><br><span class="line">			cout&lt;&lt;<span class="string">&quot;Constructor called !&quot;</span>&lt;&lt;endl;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//对外的接口</span></span><br><span class="line">		<span class="function"><span class="type">int</span> <span class="title">SetNum</span><span class="params">(<span class="type">int</span> number)</span></span></span><br><span class="line"><span class="function">		</span>&#123;</span><br><span class="line">			<span class="keyword">this</span>-&gt;num = number;</span><br><span class="line">		    <span class="keyword">return</span> num;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//对外的接口</span></span><br><span class="line">		<span class="function"><span class="type">int</span> <span class="title">SetScore</span><span class="params">(<span class="type">int</span> s)</span></span></span><br><span class="line"><span class="function">		</span>&#123;</span><br><span class="line">			<span class="keyword">this</span>-&gt;score = s;</span><br><span class="line">			<span class="keyword">return</span> score;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Student A;</span><br><span class="line">	cout&lt;&lt;A.<span class="built_in">SetScore</span>(<span class="number">20</span>)&lt;&lt;endl;</span><br><span class="line">	cout&lt;&lt;A.<span class="built_in">SetNum</span>(<span class="number">17001</span>)&lt;&lt;endl;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="https://i.imgur.com/USkfOBR.png" alt="运行结果" /></p>
-<h1 id="数据封装"><a class="markdownIt-Anchor" href="#数据封装"></a> 数据封装</h1>
+<p><img src="https://i.imgur.com/USkfOBR.png" alt="运行结果"></p>
+<h1 id="%E6%95%B0%E6%8D%AE%E5%B0%81%E8%A3%85" tabindex="-1">数据封装</h1>
 <blockquote>
-<p>数据封装是一种把数据和操作数据的函数捆绑在一起的机制。<br />
+<p>数据封装是一种把数据和操作数据的函数捆绑在一起的机制。<br>
 C++程序中，任何带有公有和私有成员的类都可以作为数据封装和数据抽象的实例</p>
 </blockquote>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Adder</span><span class="comment">//求和类</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">private</span>:</span><br><span class="line">		<span class="comment">//对外隐藏的数据，数据隐藏</span></span><br><span class="line">		<span class="type">int</span> total;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">	    <span class="built_in">Adder</span>(<span class="type">int</span> i=<span class="number">0</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			total = i;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//对外接口</span></span><br><span class="line">		<span class="function"><span class="type">void</span> <span class="title">addNum</span><span class="params">(<span class="type">int</span> number)</span></span></span><br><span class="line"><span class="function">		</span>&#123;</span><br><span class="line">			total += number;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//对外接口</span></span><br><span class="line">		<span class="function"><span class="type">int</span> <span class="title">getTotal</span><span class="params">()</span></span></span><br><span class="line"><span class="function">		</span>&#123;</span><br><span class="line">			<span class="keyword">return</span> total;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Adder A;</span><br><span class="line">    A.<span class="built_in">addNum</span>(<span class="number">10</span>);</span><br><span class="line">    A.<span class="built_in">addNum</span>(<span class="number">33</span>);</span><br><span class="line"></span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;Total: &quot;</span>&lt;&lt;A.<span class="built_in">getTotal</span>()&lt;&lt;endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">- 公有成员addNum和getTotal是对外的接口，用户需要知道他们以便使用类。</span></span><br><span class="line"><span class="comment">- 私有成员total是对外的隐藏，用户不需要了解它，但它又是类能正常工作所必须的。</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
-<h1 id="接口抽象类"><a class="markdownIt-Anchor" href="#接口抽象类"></a> 接口（抽象类）</h1>
-<p><font color="red">如果类中至少有一个函数被声明为纯虚函数，则这个类就是抽象类。</font><br />
+<h1 id="%E6%8E%A5%E5%8F%A3%EF%BC%88%E6%8A%BD%E8%B1%A1%E7%B1%BB%EF%BC%89" tabindex="-1">接口（抽象类）</h1>
+<p><font color="red">如果类中至少有一个函数被声明为纯虚函数，则这个类就是抽象类。</font><br>
 抽象类是一种只能定义，不能生成对象的类。</p>
 <ul>
 <li>抽象类不能用于实例化对象，只能作为接口使用</li>
@@ -135,14 +135,16 @@ C++程序中，任何带有公有和私有成员的类都可以作为数据封�
 <li>抽象类因为抽象、无法具化，所以不能作为参数类型、返回值、强转类型</li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">//example:</span><br><span class="line">#include&lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">class Shape&#123;                //基类</span><br><span class="line">	protected:</span><br><span class="line">		int width;</span><br><span class="line">		int height;</span><br><span class="line">	public:</span><br><span class="line">		//提供接口框架的纯虚函数</span><br><span class="line">		virtual int getArea() = 0;</span><br><span class="line"></span><br><span class="line">		void setWidth(int w)</span><br><span class="line">		&#123;</span><br><span class="line">			this-&gt;width = w;</span><br><span class="line">		&#125;</span><br><span class="line">		void setHeight(int h)</span><br><span class="line">		&#123;</span><br><span class="line">			this-&gt;height = h;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">//派生类</span><br><span class="line">class Rectangle:public Shape&#123;</span><br><span class="line">	public:</span><br><span class="line">		int getArea()</span><br><span class="line">		&#123;</span><br><span class="line">			return width*height;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">class Triangle:public Shape&#123;</span><br><span class="line">	public:</span><br><span class="line">		int getArea()</span><br><span class="line">		&#123;</span><br><span class="line">			return (width*height)/2;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	Rectangle A;  //矩形</span><br><span class="line">	Triangle B;   //三角形</span><br><span class="line"></span><br><span class="line">	A.setHeight(3);</span><br><span class="line">	A.setWidth(4);</span><br><span class="line"></span><br><span class="line">	B.setHeight(3);</span><br><span class="line">	B.setWidth(4);</span><br><span class="line"></span><br><span class="line">	cout&lt;&lt;&quot;Total Rectangle area: &quot;&lt;&lt;A.getArea()&lt;&lt;endl;</span><br><span class="line">	cout&lt;&lt;&quot;Total Triangle area: &quot;&lt;&lt;B.getArea()&lt;&lt;endl;</span><br><span class="line"></span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="https://i.imgur.com/7XBzj3e.png" alt="运行结果" /></p>
-<h1 id="total"><a class="markdownIt-Anchor" href="#total"></a> total</h1>
+<p><img src="https://i.imgur.com/7XBzj3e.png" alt="运行结果"></p>
+<h1 id="total" tabindex="-1">total</h1>
 <ul>
 <li>数据抽象是一种仅向用户暴露接口而把具体实现细节隐藏起来的一种机制</li>
 <li>数据封装是一种把数据和操作数据的函数捆绑在一起的机制</li>
 <li>抽象类作为接口使用，不能用于实例化对象</li>
 </ul>
-<hr />
+<hr>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">
 </article>
 <div class="article-footer">
     <section id="license">
@@ -158,9 +160,9 @@ C++程序中，任何带有公有和私有成员的类都可以作为数据封�
       <div class="body">
         <div class="link"><input class="copy-area" readonly="true" id="copy-link" value="https://yeshan333.github.io/2018/10/16/C++-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-7/" /></div>
         <div class="social-wrap dis-select"><a class="social share-item wechat" onclick="util.toggle(&quot;qrcode-wechat&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/b32ef3da1162a.svg" /></a><a class="social share-item weibo" target="_blank" rel="external nofollow noopener noreferrer" href="https://service.weibo.com/share/share.php?url=https://yeshan333.github.io/2018/10/16/C++-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-7/&title=C++面向对象-7 - ShanSan&summary=
- 数据抽象
+数据抽象
 
-数据抽象(data abstraction)是与面向对象(object-oriented)并列的一种编程范式(programming paradigm)。数据抽象也成为抽象数据类型(abstract data type..."><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/80c07e4dbb303.svg" /></a><a class="social share-item email" href="mailto:?subject=C++面向对象-7 - ShanSan&amp;body=https://yeshan333.github.io/2018/10/16/C++-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-7/"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/a1b00e20f425d.svg" /></a><a class="social share-item link" onclick="util.copy(&quot;copy-link&quot;, &quot;复制成功&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/8411ed322ced6.svg" /></a></div>
+数据抽象(data abstraction)是与面向对象(object-oriented)并列的一种编程范式(programming paradigm)。数据抽象也成为抽象数据类型(abstract data type/..."><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/80c07e4dbb303.svg" /></a><a class="social share-item email" href="mailto:?subject=C++面向对象-7 - ShanSan&amp;body=https://yeshan333.github.io/2018/10/16/C++-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-7/"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/a1b00e20f425d.svg" /></a><a class="social share-item link" onclick="util.copy(&quot;copy-link&quot;, &quot;复制成功&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/8411ed322ced6.svg" /></a></div>
         
         <div class="qrcode" id="qrcode-wechat" style="opacity:0;height:0">
           <img src="https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=https://yeshan333.github.io/2018/10/16/C++-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-7/"/>
@@ -177,8 +179,8 @@ C++程序中，任何带有公有和私有成员的类都可以作为数据封�
       <div class='title cap theme'>您可能感兴趣的文章</div>
     </section>
     <section class='body'>
-    <div class="related-posts"><a class="item" href="/2018/10/02/ACM入门/" title="ACM入门（占个位）"><span class="title">ACM入门（占个位）</span><span class="excerpt"> A+B for Input-Output Practice(using C++)
- 1.
+    <div class="related-posts"><a class="item" href="/2018/10/02/ACM入门/" title="ACM入门（占个位）"><span class="title">ACM入门（占个位）</span><span class="excerpt">A+B for Input-Output Practice(using C++)
+1.
 
 
 
@@ -187,14 +189,14 @@ Problem Description
 
 
 
-Your task is to Calculate a + b. Too easy?! ...</span></a><a class="item" href="/2018/11/05/C++-11特性-1/" title="C++11特性-1"><span class="title">C++11特性-1</span><span class="excerpt"> c++11特性
- 列表初始化
+Your task is to Calculate a + b. Too easy?! Of...</span></a><a class="item" href="/2018/11/05/C++-11特性-1/" title="C++11特性-1"><span class="title">C++11特性-1</span><span class="excerpt">c++11特性
+列表初始化
 
 使用花括号来初始化对象
 使用列表初始化内置类型的变量，可能会存在丢失信息的风险
-</span></a><a class="item" href="/2018/10/03/C++-入坑记-2/" title="C++入坑记(2)"><span class="title">C++入坑记(2)</span><span class="excerpt"> 函数，默认参数的使用
+</span></a><a class="item" href="/2018/10/03/C++-入坑记-2/" title="C++入坑记(2)"><span class="title">C++入坑记(2)</span><span class="excerpt">函数，默认参数的使用
 在C++中，允许在自定义函数的形参列表中，给形参一个默认的值，这样在调用的时候如果有实参，那么按照实参传递给形参的方法使用；若调用的时候没有指定对应的实参，则形参将使用默认值。
-由于参数的传递顺序是从右至左入栈...</span></a><a class="item" href="/2018/10/04/C++-入坑记-3/" title="C++入坑记(3)"><span class="title">C++入坑记(3)</span><span class="excerpt"> 变量初始化问题
+由于参数的传递顺序是从右至左入栈，...</span></a><a class="item" href="/2018/10/04/C++-入坑记-3/" title="C++入坑记(3)"><span class="title">C++入坑记(3)</span><span class="excerpt">变量初始化问题
 当局部变量被定义时，系统不会自动对其初始化；
 当全局变量被定义时，系统会初始化为下列值:
 
@@ -222,17 +224,26 @@ char
 ‘\0’
 
 
-poi...</span></a><a class="item" href="/2018/11/05/C++-标准库类型/" title="C++标准库类型"><span class="title">C++标准库类型</span><span class="excerpt"> 标准库类型string
-
-标准库类型string表示可变长的字符序列
-使用string类型必须包含string头文件，string定义在命名空间std中
-
- 定义和初始化string对象
-初始化string对象的方式
+poin...</span></a><a class="item" href="/2018/10/02/C++-入坑记/" title="C++入坑记"><span class="title">C++入坑记</span><span class="excerpt">C++关键字
+https://www.runoob.com/w3cnote/cpp-keyword-intro.html
 
 
 
-初始化方...</span></a></div></section></div>
+asm
+else
+new
+this
+
+
+
+
+auto
+enum
+operator
+throw
+
+
+bool...</span></a></div></section></div>
 
 
   <div class="related-wrap md-text" id="comments">
@@ -249,9 +260,9 @@ poi...</span></a><a class="item" href="/2018/11/05/C++-标准库类型/" title="
 
 
 
-<footer class="page-footer footnote"><hr><div class="text"><p><a target="_blank" rel="noopener" href="https://shansan.top">Copyright © 2018-2025 ShanSan</a><br><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">桂ICP备19000444号</a><br />
-本站由 <a href="/">ShanSan</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br />
-本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。<br />
+<footer class="page-footer footnote"><hr><div class="text"><p><a target="_blank" rel="noopener" href="https://shansan.top">Copyright © 2018-2025 ShanSan</a><br><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">桂ICP备19000444号</a><br>
+本站由 <a href="/">ShanSan</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br>
+本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。<br>
 <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span></p>
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 </div></footer>
@@ -260,7 +271,7 @@ poi...</span></a><a class="item" href="/2018/11/05/C++-标准库类型/" title="
 <widget class="widget-wrapper user-card ghuser"><div class="widget-body data-service ds-ghinfo" data-api="https://api.github.com/users/yeshan333"><div class="avatar" ><img no-lazy type="img" id="avatar_url" src="undefined" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></div><p class="username" type="text" id="name">&nbsp;</p><p class="bio" type="text" id="bio">&nbsp;</p><div class="buttons"><a class="btn" target="_blank" rel="noopener" href="https://github.com/yeshan333?tab=followers"><span class="title" type="text" id="followers">0</span><span class="desc">followers</span></a><a class="btn" target="_blank" rel="noopener" href="https://github.com/yeshan333?tab=following"><span class="title" type="text" id="following">0</span><span class="desc">following</span></a><a class="btn" target="_blank" rel="noopener" href="https://github.com/yeshan333?tab=repositories"><span class="title" type="text" id="public_repos">0</span><span class="desc">repos</span></a></div><a class="follow" target="_blank" rel="noopener" href="https://github.com/yeshan333"><svg aria-hidden="true" role="img" class="color-icon-primary" viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor" style="display:inline-block;user-select:none;vertical-align:text-bottom;overflow:visible"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>Follow</a></div></widget>
 
 
-<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E6%8A%BD%E8%B1%A1"><span class="toc-text"> 数据抽象</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E6%8A%BD%E8%B1%A1%E7%9A%84%E4%B8%A4%E4%B8%AA%E4%BC%98%E5%8A%BF"><span class="toc-text"> 数据抽象的两个优势</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%B0%81%E8%A3%85"><span class="toc-text"> 数据封装</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8E%A5%E5%8F%A3%E6%8A%BD%E8%B1%A1%E7%B1%BB"><span class="toc-text"> 接口（抽象类）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#total"><span class="toc-text"> total</span></a></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a><a class="buttom" onclick="util.scrollComment()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M8 10.5h8M8 14h5.5M17 3.338A9.95 9.95 0 0 0 12 2C6.477 2 2 6.477 2 12c0 1.6.376 3.112 1.043 4.453c.178.356.237.763.134 1.148l-.595 2.226a1.3 1.3 0 0 0 1.591 1.592l2.226-.596a1.63 1.63 0 0 1 1.149.133A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10c0-1.821-.487-3.53-1.338-5"/></svg><span>参与讨论</span></a></div></widget>
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E6%8A%BD%E8%B1%A1"><span class="toc-text">数据抽象</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E6%8A%BD%E8%B1%A1%E7%9A%84%E4%B8%A4%E4%B8%AA%E4%BC%98%E5%8A%BF"><span class="toc-text">数据抽象的两个优势</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%B0%81%E8%A3%85"><span class="toc-text">数据封装</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8E%A5%E5%8F%A3%EF%BC%88%E6%8A%BD%E8%B1%A1%E7%B1%BB%EF%BC%89"><span class="toc-text">接口（抽象类）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#total"><span class="toc-text">total</span></a></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a><a class="buttom" onclick="util.scrollComment()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M8 10.5h8M8 14h5.5M17 3.338A9.95 9.95 0 0 0 12 2C6.477 2 2 6.477 2 12c0 1.6.376 3.112 1.043 4.453c.178.356.237.763.134 1.148l-.595 2.226a1.3 1.3 0 0 0 1.591 1.592l2.226-.596a1.63 1.63 0 0 1 1.149.133A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10c0-1.821-.487-3.53-1.338-5"/></svg><span>参与讨论</span></a></div></widget>
 </div></aside><div class='float-panel'>
   <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
@@ -273,7 +284,7 @@ poi...</span></a><a class="item" href="/2018/11/05/C++-标准库类型/" title="
 
 
 <script type="text/javascript">
-  window.canonical = {"originalHost":"shansan.top","officialHosts":["localhost","shansan.top","shansan.cn","yeshan333.github.io"],"encoded":"c2hhbnNhbi50b3A="};
+  window.canonical = {"originalHost":"","officialHosts":["localhost","shansan.top","shansan.cn","yeshan333.github.io"],"encoded":""};
   const ctx = {
     date_suffix: {
       just: `刚刚`,
