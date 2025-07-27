@@ -1,3 +1,5 @@
+https://yeshan333.github.io/2025/07/27/claude-code-subagent-for-tech-writing/
+https://yeshan333.github.io/2025/07/27/migrate-theme-to-stellar-with-claude-code/
 https://yeshan333.github.io/2025/07/12/rss-summary-workflow-with-n8n/
 https://yeshan333.github.io/2025/04/20/use-github-copilot-to-create-rsshub-route/
 https://yeshan333.github.io/2025/03/23/build-agent-with-mcp-agent-and-qwen/
@@ -6,5 +8,3 @@ https://yeshan333.github.io/2025/01/08/debug-emscripten-wasm-in-vscode/
 https://yeshan333.github.io/2024/06/18/install-erlang-and-elixir-via-vfox-on-windows/
 https://yeshan333.github.io/2024/05/29/free-to-use-sider-with-qwen/
 https://yeshan333.github.io/2024/05/25/validate-jenkinsfile/
-https://yeshan333.github.io/2024/05/18/etcd-and-mongodb-chaos-testing/
-https://yeshan333.github.io/2024/04/27/install-erlang-and-elixir-via-vfox/
