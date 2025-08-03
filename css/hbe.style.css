@@ -10,11 +10,36 @@
 	margin: 0 auto;
 	overflow: hidden;
 }
+/* .hbe-content {
+	text-align: center;
+	font-size: 150%;
+	padding: 1em 0;
+} */
+
+/* 自行添加和修改的样式，增加confirm按钮,开始 */
 .hbe-content {
 	text-align: center;
 	font-size: 150%;
 	padding: 1em 0;
+	display: flex;/* 使用 flex 布局 */
+	justify-content: center;/* 水平居中输入框和按钮 */
+	align-items: center;/* 垂直居中输入框和按钮 */
+	gap: 10px;/* 输入框和按钮之间的间距 */
 }
+.hbe-confirm-btn {
+	background-color: #009FF5;
+	color: green;
+	border: none;
+	padding: 10px 20px;
+	font-size: 16px;
+	cursor: pointer;
+	border-radius: 4px;
+	margin-top: 10px;
+}
+.hbe-confirm-btn:hover {
+	background-color: #007bb5;
+}
+/* 自行添加和修改的样式，增加confirm按钮,结束 */
 
 .hbe-input {
 	position: relative;
