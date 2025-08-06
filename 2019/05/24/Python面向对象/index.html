@@ -60,7 +60,7 @@
   
 
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"ShanSan","sameAs":[]},"dateCreated":"2019-05-24T12:54:40+00:00","dateModified":"2019-05-31T12:54:40+00:00","datePublished":"2019-05-24T12:54:40+00:00","description":"\n对象：一个自包含的实体，用一组可识别的特性和行为来标识\n类：具有相同的属性和功能的对象的抽象的集合\n实例：一个真实的对象，实例化就是创建对象的过程\n多态：可对不同类型的对象执行相同的操作，而这些操作就像“被施了魔法”一样能够正常运行\n封装：对外部隐藏有关对象工作原理的细节\n继承：可基于通用类创建专用类\n\n多态\n\n多态可以让我们在不知道变量指向哪种对象时，也能够对其执行操作，且操作的行为将随对象所属的类型（类）而异。每当不知道对象是什么样就能对其执行操作，都是多态在起作用\n多态以 继承 和 重写 父类方法 为前提\n多态是调用方法的技巧，不会影响到类的内部设计\n多态性即向不同的对象发送同一个消息，不同的对象在接收时会产生不同的行为（即方法）\n听说Python天然就多态\n\n12345678910111213141516171819202122232425class Person(object):    def __init__(self,name,sex):        self.name = name        self.sex = sex    def print_title(self):        if self.sex == &quot;male&quot;:            print(&quot;man&quot;)        elif self.sex == &quot;female&quot;:            print(&quot;woman&quot;)class Child(Person):                # Child 继承 Person    def print_title(self):        if self.sex == &quot;male&quot;:            print(&quot;boy&quot;)        elif self.sex == &quot;female&quot;:            print(&quot;girl&quot;)May = Child(&quot;May&quot;,&quot;female&quot;)Peter = Person(&quot;Peter&quot;,&quot;male&quot;)print(May.name,May.sex,Peter.name,Peter.sex)# 同一消息May.print_title()Peter.print_title()","headline":"Python面向对象","mainEntityOfPage":{"@type":"WebPage","@id":"https://shansan.top/2019/05/24/Python%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/"},"publisher":{"@type":"Organization","name":"ShanSan","sameAs":[]},"url":"https://shansan.top/2019/05/24/Python%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/","keywords":"Python","image":[]}</script>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7762707993867214" crossorigin="anonymous"></script>
+  
 </head>
 <body>
 
@@ -232,17 +232,17 @@
       <div class='title cap theme'>您可能感兴趣的文章</div>
     </section>
     <section class='body'>
-    <div class="related-posts"><a class="item" href="/2019/05/22/Jupyter-Notebooks的简单了解/" title="Jupyter Notebooks的简单了解"><span class="title">Jupyter Notebooks的简单了解</span><span class="excerpt">撸一手Jupyter</span></a><a class="item" href="/2019/07/26/Python-自定义上下文管理器/" title="Python-自定义上下文管理器"><span class="title">Python-自定义上下文管理器</span><span class="excerpt">上下文管理器
-
-上下文管理器可以帮助我们自动分配和释放资源
-上下文管理器需要配合with语句使用
-
-比如进行文件操作的时候我们可能会忘记操作后关闭文件（file close），使用with open(filename, mode) a...</span></a><a class="item" href="/2019/07/19/Python协程（Coroutine）/" title="Python协程-asyncio、async/await"><span class="title">Python协程-asyncio、async/await</span><span class="excerpt">
+    <div class="related-posts"><a class="item" href="/2019/05/22/Jupyter-Notebooks的简单了解/" title="Jupyter Notebooks的简单了解"><span class="title">Jupyter Notebooks的简单了解</span><span class="excerpt">撸一手Jupyter</span></a><a class="item" href="/2019/07/19/Python协程（Coroutine）/" title="Python协程-asyncio、async/await"><span class="title">Python协程-asyncio、async/await</span><span class="excerpt">
 看到吐血 (´ཀ`」 ∠)
 
 
 协程(Coroutine)本质上是一个函数，特点是在代码块中可以将执行权交给其他协程
-众所周知，子程序（函数）都是层级调用的，如果在A中调用了B，那么B执行完毕返回后A才能执行完毕。协程与子程序有点类...</span></a><a class="item" href="/2019/09/02/Python环境管理/" title="Python 环境管理与项目依赖管理"><span class="title">Python 环境管理与项目依赖管理</span><span class="excerpt">
+众所周知，子程序（函数）都是层级调用的，如果在A中调用了B，那么B执行完毕返回后A才能执行完毕。协程与子程序有点类...</span></a><a class="item" href="/2019/07/26/Python-自定义上下文管理器/" title="Python-自定义上下文管理器"><span class="title">Python-自定义上下文管理器</span><span class="excerpt">上下文管理器
+
+上下文管理器可以帮助我们自动分配和释放资源
+上下文管理器需要配合with语句使用
+
+比如进行文件操作的时候我们可能会忘记操作后关闭文件（file close），使用with open(filename, mode) a...</span></a><a class="item" href="/2019/09/02/Python环境管理/" title="Python 环境管理与项目依赖管理"><span class="title">Python 环境管理与项目依赖管理</span><span class="excerpt">
 个人简单记录下
 
 virtualenv + pip
@@ -1048,5 +1048,5 @@ pip是Python的包管理工具，Docs
 
 
 <!-- inject -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7762707993867214" crossorigin="anonymous"></script><script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script><script>LA.init({id:"3N0nbmMoWnI9Z6Po",ck:"3N0nbmMoWnI9Z6Po"})</script>
+<script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script><script>LA.init({id:"3N0nbmMoWnI9Z6Po",ck:"3N0nbmMoWnI9Z6Po"})</script>
 </div></body></html>
