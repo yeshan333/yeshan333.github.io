@@ -1,0 +1,988 @@
+
+<!DOCTYPE html><html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1" theme-name="Stellar" theme-version="1.33.1">
+  
+  
+  <meta name="generator" content="Hexo 7.3.0">
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000">
+  <meta name="theme-color" content="#f9fafb">
+  <title>使用 iFLOW-CLI GitHub Action 给 GitHub 仓库生成幻灯片风格的文档站点 - ShanSan</title>
+
+  
+    <meta name="description" content="使用 iFLOW-CLI GitHub Action 给 GitHub 仓库生成幻灯片风格的文档站点">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用 iFLOW-CLI GitHub Action 给 GitHub 仓库生成幻灯片风格的文档站点">
+<meta property="og:url" content="https://shansan.top/2025/08/09/gen-slides-like-docs-site-with-iflow-cli/">
+<meta property="og:site_name" content="ShanSan">
+<meta property="og:description" content="使用 iFLOW-CLI GitHub Action 给 GitHub 仓库生成幻灯片风格的文档站点">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ospy.shan333.cn/blog/iflow-cli-action/iflow-action-usage-demo.gif">
+<meta property="og:image" content="https://ospy.shan333.cn/blog/iflow-cli-action/iflow-cli-action-settings-1.jpg">
+<meta property="og:image" content="https://ospy.shan333.cn/blog/iflow-cli-action/iflow-cli-action-settings-2.jpg">
+<meta property="og:image" content="https://ospy.shan333.cn/blog/iflow-cli-action/iflow-cli-action-running-result.png">
+<meta property="article:published_time" content="2025-08-09T23:40:21.000Z">
+<meta property="article:modified_time" content="2025-08-09T23:40:21.000Z">
+<meta property="article:author" content="ShanSan">
+<meta property="article:tag" content="iFlow CLI">
+<meta property="article:tag" content="AI">
+<meta property="article:tag" content="GitHub Actions">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://ospy.shan333.cn/blog/iflow-cli-action/iflow-action-usage-demo.gif">
+  
+  
+  
+  <meta name="keywords" content="iFLOW CLI, AI Agent, GitHub Actions">
+
+  <!-- feed -->
+  
+    <link rel="alternate" href="/rss2.xml" title="ShanSan" type="application/rss+xml">
+  
+
+  <link rel="stylesheet" href="/css/main.css?v=1.33.1">
+
+
+  
+    <link rel="shortcut icon" href="https://s1.ax1x.com/2022/10/09/xJ7yMF.png">
+  
+
+  
+
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"ShanSan","sameAs":[]},"dateCreated":"2025-08-09T23:40:21+00:00","dateModified":"2025-08-09T23:40:21+00:00","datePublished":"2025-08-09T23:40:21+00:00","description":"","headline":"使用 iFLOW-CLI GitHub Action 给 GitHub 仓库生成幻灯片风格的文档站点","mainEntityOfPage":{"@type":"WebPage","@id":"https://shansan.top/2025/08/09/gen-slides-like-docs-site-with-iflow-cli/"},"publisher":{"@type":"Organization","name":"ShanSan","sameAs":[]},"url":"https://shansan.top/2025/08/09/gen-slides-like-docs-site-with-iflow-cli/","keywords":"iFlow CLI, AI, GitHub Actions","thumbnailUrl":"https://ospy.shan333.cn/blog/iflow-cli-action/iflow-action-usage-demo.gif","image":1}</script>
+  
+</head>
+<body>
+
+<div class="l_body content" id="start" layout="post" type="tech" ><aside class="l_left"><div class="sidebg"></div><div class="leftbar-container">
+
+
+<header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="https://ospy.shan333.cn/blog/blog.avatar.jpg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></a><a class="title" href="/"><div class="main">ShanSan</div><div class="sub cap">个人博客</div></a></div></header>
+
+<div class="nav-area">
+
+<nav class="menu dis-select"><a class="nav-item" title="博文" href="/archives/"><span>博文</span></a><a class="nav-item" title="关于" href="/about/"><span>关于</span></a><a class="nav-item" title="友链" href="/friends/"><span>友链</span></a><a class="nav-item" title="Bio" href="/wiki/bio/"><span>Bio</span></a></nav>
+</div>
+<div class="widgets">
+<div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" placeholder="站内搜索"></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
+
+
+
+<widget class="widget-wrapper recent post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title" href="/2025/08/09/gen-slides-like-docs-site-with-iflow-cli/"><span class="title">使用 iFLOW-CLI GitHub Action 给 GitHub 仓库生成幻灯片风格的文档站点</span></a><a class="item title" href="/2025/07/27/claude-code-subagent-for-tech-writing/"><span class="title">使用 Claude Code 的自定义 Sub Agent 完善博文写作体验</span></a><a class="item title" href="/2025/07/27/migrate-theme-to-stellar-with-claude-code/"><span class="title">使用 Claude Code 和 Qwen3 Coder 将博客主题成功迁移到了 Stellar 🎉</span></a><a class="item title" href="/2025/07/12/rss-summary-workflow-with-n8n/"><span class="title">使用 n8n 和飞书多维表打造自己的 RSS Feed 订阅管理 & AI 大模型阅读提炼工作流</span></a><a class="item title" href="/2025/04/20/use-github-copilot-to-create-rsshub-route/"><span class="title">【体验】使用 GitHub Copilot Agent 创建新的 RSSHub 路由</span></a><a class="item title" href="/2025/03/23/build-agent-with-mcp-agent-and-qwen/"><span class="title">使用 mcp-agent 框架和百炼通义千问大模型构建基于 MCP 协议的网页总结智能代理 (agent)</span></a><a class="item title" href="/2025/02/06/mongodb-deployment-with-tls-and-mkcert/"><span class="title">使用 mkcert 本地部署启动了 TLS/SSL 加密通讯的 MongoDB 副本集和分片集群</span></a><a class="item title" href="/2025/01/08/debug-emscripten-wasm-in-vscode/"><span class="title">在 Visual Studio Code 与微信开发者工具中调试使用 emscripten 基于 C 生成的 WASM 代码</span></a><a class="item title" href="/2024/06/18/install-erlang-and-elixir-via-vfox-on-windows/"><span class="title">(Amazing!) 通过 vfox 在 Windows 上安装管理多个 Erlang/OTP 和 Elixir 的版本</span></a><a class="item title" href="/2024/05/29/free-to-use-sider-with-qwen/"><span class="title">手把手教你如何在 Sider (ChatGPT Sidebar) 中免费使用通义千问</span></a></div></widget>
+</div>
+<footer class="footer dis-select"><div class="social-wrap"><a class="social" href="mailto:1329441308@qq.com" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 64C150 64 64 150 64 256s86 192 192 192c17.7 0 32 14.3 32 32s-14.3 32-32 32C114.6 512 0 397.4 0 256S114.6 0 256 0S512 114.6 512 256v32c0 53-43 96-96 96c-29.3 0-55.6-13.2-73.2-33.9C320 371.1 289.5 384 256 384c-70.7 0-128-57.3-128-128s57.3-128 128-128c27.9 0 53.7 8.9 74.7 24.1c5.7-5 13.1-8.1 21.3-8.1c17.7 0 32 14.3 32 32v80 32c0 17.7 14.3 32 32 32s32-14.3 32-32V256c0-106-86-192-192-192zm64 192a64 64 0 1 0 -128 0 64 64 0 1 0 128 0z"/></svg></a><a class="social" href="https://github.com/yeshan333?tab=repositories" target="_blank" rel="external nofollow noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></a><a class="social" href="https://music.163.com/#/my/m/music/playlist?id=2617691792" target="_blank" rel="external nofollow noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>NetEase Music</title><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></a><a class="social" href="https://www.zhihu.com/people/si-kong-ji-54/activities" target="_blank" rel="external nofollow noopener noreferrer"><svg fill="#18abdc" viewBox="0 0 24 24" role="img" xmlns="http://www.w3.org/2000/svg" stroke="#18abdc"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><title>Zhihu icon</title><path d="M5.721 0C2.251 0 0 2.25 0 5.719V18.28C0 21.751 2.252 24 5.721 24h12.56C21.751 24 24 21.75 24 18.281V5.72C24 2.249 21.75 0 18.281 0zm1.964 4.078c-.271.73-.5 1.434-.68 2.11h4.587c.545-.006.445 1.168.445 1.171H9.384a58.104 58.104 0 01-.112 3.797h2.712c.388.023.393 1.251.393 1.266H9.183a9.223 9.223 0 01-.408 2.102l.757-.604c.452.456 1.512 1.712 1.906 2.177.473.681.063 2.081.063 2.081l-2.794-3.382c-.653 2.518-1.845 3.607-1.845 3.607-.523.468-1.58.82-2.64.516 2.218-1.73 3.44-3.917 3.667-6.497H4.491c0-.015.197-1.243.806-1.266h2.71c.024-.32.086-3.254.086-3.797H6.598c-.136.406-.158.447-.268.753-.594 1.095-1.603 1.122-1.907 1.155.906-1.821 1.416-3.6 1.591-4.064.425-1.124 1.671-1.125 1.671-1.125zM13.078 6h6.377v11.33h-2.573l-2.184 1.373-.401-1.373h-1.219zm1.313 1.219v8.86h.623l.263.937 1.455-.938h1.456v-8.86z"></path></g></svg></a><a class="social" href="/rss2.xml" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zM96 136c0-13.3 10.7-24 24-24c137 0 248 111 248 248c0 13.3-10.7 24-24 24s-24-10.7-24-24c0-110.5-89.5-200-200-200c-13.3 0-24-10.7-24-24zm0 96c0-13.3 10.7-24 24-24c83.9 0 152 68.1 152 152c0 13.3-10.7 24-24 24s-24-10.7-24-24c0-57.4-46.6-104-104-104c-13.3 0-24-10.7-24-24zm0 120a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"/></svg></a></div></footer>
+</div></aside><div class="l_main" id="main">
+
+
+
+
+
+<div class="article banner top">
+  <div class="content">
+    <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
+<span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/AI/">AI</a> <span class="sep"></span> <a class="cap breadcrumb-link" href="/categories/GitHub-Actions/">GitHub Actions</a> <span class="sep"></span> <a class="cap breadcrumb-link" href="/categories/iFlow-CLI/">iFlow CLI</a></div>
+<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2025-08-09T23:40:21.000Z">2025-08-09</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2025-08-09T23:40:21.000Z">2025-08-09</time></span></div></div></div>
+    
+    <div class="bottom only-title">
+      
+      <div class="text-area">
+        <h1 class="text title"><span>使用 iFLOW-CLI GitHub Action 给 GitHub 仓库生成幻灯片风格的文档站点</span></h1>
+        
+      </div>
+    </div>
+    
+  </div>
+  </div><article class="md-text content"><p>阿里的心流 <a target="_blank" rel="noopener" href="https://www.iflow.cn/">https://www.iflow.cn/</a> 团队最近开源了一款基于终端的 AI Agent 工具 <a target="_blank" rel="noopener" href="https://github.com/iflow-ai/iflow-cli">iFLOW CLI</a>, 目前可以<strong>免费</strong>使用到强大的 Qwen3-Coder、Kimi K2 等模型。又是一款类似 Anthropics <a target="_blank" rel="noopener" href="https://github.com/anthropics/claude-code">Claude Code</a> 的产品。</p>
+<blockquote>
+<p>iFlow CLI 是一款直接在终端中运行的强大 AI 助手。它能够无缝分析代码仓库、执行编程任务、理解上下文需求，通过自动化处理从简单的文件操作到复杂的工作流程，全面提升您的工作效率。</p>
+</blockquote>
+<p>既然是基于终端的 AI Agent 工具，那么就可以很好的利用 Github Action 来实现在文档内容更新之后, 自动生成幻灯片风格的文档站点。</p>
+<p>趁着发布当日，立马基于 GitHub Copilot Agent、iFLOW CLI vibe coding 了一个 GitHub Actions 来方便在隔离的 GitHub Actions 环境中大规模使用。</p>
+<p>GitHub Actions <a target="_blank" rel="noopener" href="https://github.com/marketplace/actions/iflow-cli-action">https://github.com/marketplace/actions/iflow-cli-action</a> 已经发布到了 GitHub 的 Marketplace 市场。欢迎来玩~</p>
+<p>这里我们介绍如何基于这个 GitHub Actions 来生成幻灯片风格的文档站点，最终的效果可以查看这个网站 <a target="_blank" rel="noopener" href="https://vibe-ideas.github.io/iflow-cli-action/#/">https://vibe-ideas.github.io/iflow-cli-action/#/</a>, 预览效果如下：</p>
+<p><img src="https://ospy.shan333.cn/blog/iflow-cli-action/iflow-action-usage-demo.gif" alt="iflow-action-usage-demo"></p>
+<p>接下来我们看看如何使用这个 GitHub Actions.</p>
+<h2 id="%E4%BD%BF%E7%94%A8-iflow-cli-github-action" tabindex="-1">使用 iFLOW CLI GitHub Action</h2>
+<p>如果想要使用这个 iFLOW CLI GitHub Action, 你需要在 GitHub 中创建一个代码库 <a target="_blank" rel="noopener" href="https://github.com/new">https://github.com/new</a>, 然后在代码库中创建一个 <code>.github/workflows</code> 目录，在 <code>.github/workflows</code> 目录下创建一个 <code>iflow-cli-action.yml</code> 文件使用 iFLOW CLI GitHub Action:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/yourname/your-repo.git</span><br><span class="line">cd your-repo</span><br><span class="line"></span><br><span class="line">mkdir -p .github/workflows</span><br><span class="line">touch .github/workflows/iflow-cli-action.yml</span><br></pre></td></tr></table></figure>
+<p>iflow-cli-action.yml 文件内容如下：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">iFlow</span> <span class="string">CLI</span> <span class="string">Example</span></span><br><span class="line"><span class="attr">on:</span> [<span class="string">push</span>]</span><br><span class="line"></span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="attr">analyze-code:</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">uses:</span> <span class="string">actions/checkout@v4</span></span><br><span class="line">      </span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Run</span> <span class="string">iFlow</span> <span class="string">CLI</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">vibe-ideas/iflow-cli-action@v1.2.0</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">prompt:</span> <span class="string">&quot;Analyze this codebase and suggest improvements&quot;</span></span><br><span class="line">          <span class="attr">api_key:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.IFLOW_API_KEY</span> <span class="string">&#125;&#125;</span></span><br><span class="line">          <span class="attr">model:</span> <span class="string">&quot;Qwen3-Coder&quot;</span></span><br><span class="line">          <span class="attr">timeout:</span> <span class="string">&quot;1800&quot;</span></span><br><span class="line">          <span class="attr">extra_args:</span> <span class="string">&quot;--debug&quot;</span></span><br></pre></td></tr></table></figure>
+<p><code>prompt</code> 即提示词，指导 AI Agent 完成你的目标🎯.</p>
+<p><code>secrets.IFLOW_API_KEY</code> 是 iFLOW CLI 的 API 接口访问密钥，你可以在 iFLOW CLI 官网 <a target="_blank" rel="noopener" href="https://www.iflow.cn/">https://www.iflow.cn/</a> 注册一个账号，然后通过这个链接可以获取到密钥 <a target="_blank" rel="noopener" href="https://iflow.cn/?open=setting">https://iflow.cn/?open=setting</a>.</p>
+<p>我们将密钥保存到 GitHub 仓库的 Secrets 中，避免密钥泄露。Settings -&gt; Secrets and variables -&gt; Actions -&gt; New repository secret, Secrets 名为 <code>IFLOW_API_KEY</code>:</p>
+<p><img src="https://ospy.shan333.cn/blog/iflow-cli-action/iflow-cli-action-settings-1.jpg" alt="iflow-cli-action-settings-1.jpg"></p>
+<p><img src="https://ospy.shan333.cn/blog/iflow-cli-action/iflow-cli-action-settings-2.jpg" alt="iflow-cli-action-settings-2.jpg"></p>
+<p>以上配置完成后，将工作流文件提交到 GitHub 仓库中就可以正常使用这个 GitHub Actions 了：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m &quot;add iflow-cli-action.yml&quot;</span><br><span class="line">git push</span><br></pre></td></tr></table></figure>
+<p>推送之后，一般可以在代码仓库的 Actions 中看到运行过程和结果，效果如下 <a target="_blank" rel="noopener" href="https://github.com/vibe-ideas/iflow-cli-action/actions/runs/16844856504">https://github.com/vibe-ideas/iflow-cli-action/actions/runs/16844856504</a>:</p>
+<p><img src="https://ospy.shan333.cn/blog/iflow-cli-action/iflow-cli-action-running-result.png" alt="iflow-cli-action-settings-2.jpg"></p>
+<p>接下来我们再看看如何基于 iFLOW CLI GitHub Action 生成前文提到的幻灯片风格的文档站点。</p>
+<h2 id="%E5%9F%BA%E4%BA%8E-iflow-cli-github-action-%E7%94%9F%E6%88%90%E5%B9%BB%E7%81%AF%E7%89%87%E9%A3%8E%E6%A0%BC%E7%9A%84%E6%96%87%E6%A1%A3%E7%AB%99%E7%82%B9" tabindex="-1">基于 iFLOW CLI GitHub Action 生成幻灯片风格的文档站点</h2>
+<p>相信通过前文，你已经知道如何使用 iFLOW CLI GitHub Action. 这里我们直接给出 GitHub Actions 的配置文件，方便大家参考，这个编排文件也放到了一个 GitHub 公开仓库中 <a href=""></a>:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">Build</span> <span class="string">and</span> <span class="string">Deploy</span> <span class="string">Homepage</span></span><br><span class="line"></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line">  <span class="comment"># Allow manual trigger</span></span><br><span class="line">  <span class="attr">workflow_dispatch:</span></span><br><span class="line">  <span class="comment"># Also run on pushes to main branch</span></span><br><span class="line">  <span class="attr">push:</span></span><br><span class="line">    <span class="attr">branches:</span> [ <span class="string">main</span> ]</span><br><span class="line"></span><br><span class="line"><span class="comment"># Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages</span></span><br><span class="line"><span class="attr">permissions:</span></span><br><span class="line">  <span class="attr">contents:</span> <span class="string">read</span></span><br><span class="line">  <span class="attr">pages:</span> <span class="string">write</span></span><br><span class="line">  <span class="attr">id-token:</span> <span class="string">write</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.</span></span><br><span class="line"><span class="attr">concurrency:</span></span><br><span class="line">  <span class="attr">group:</span> <span class="string">&quot;pages&quot;</span></span><br><span class="line">  <span class="attr">cancel-in-progress:</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="attr">build:</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line">    <span class="attr">env:</span></span><br><span class="line">      <span class="attr">GITHUB_PAGES:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Checkout</span> <span class="string">repository</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/checkout@v4</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Setup</span> <span class="string">Pages</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/configure-pages@v4</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Create</span> <span class="string">homepage</span> <span class="string">directory</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">mkdir</span> <span class="string">-p</span> <span class="string">_site</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Generate</span> <span class="string">homepage</span> <span class="string">using</span> <span class="string">iFlow</span> <span class="string">CLI</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">vibe-ideas/iflow-cli-action@main</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">prompt:</span> <span class="string">|</span></span><br><span class="line"><span class="string">            Please read only the README.md file content from the current repository (do not read any other files), and convert it into a beautiful slideshow-style documentation website based on Reveal.js and save it as _site/index.html.</span></span><br><span class="line"><span class="string"></span>            </span><br><span class="line">            <span class="attr">Requirements:</span></span><br><span class="line">            </span><br><span class="line">            <span class="number">1</span><span class="string">.</span> <span class="string">Use</span> <span class="string">the</span> <span class="string">Reveal.js</span> <span class="string">framework</span> <span class="string">to</span> <span class="string">build</span> <span class="string">a</span> <span class="string">slideshow</span> <span class="string">presentation,</span> <span class="string">splitting</span> <span class="string">the</span> <span class="string">README</span> <span class="string">content</span> <span class="string">into</span> <span class="string">multiple</span> <span class="string">slide</span> <span class="string">pages</span> <span class="string">according</span> <span class="string">to</span> <span class="string">logical</span> <span class="string">structure;</span></span><br><span class="line">            </span><br><span class="line">            <span class="attr">2. Slideshow structure design:</span></span><br><span class="line">               <span class="bullet">-</span> <span class="attr">Homepage slide:</span> <span class="string">Project</span> <span class="string">title,</span> <span class="string">subtitle,</span> <span class="string">GitHub</span> <span class="string">link,</span> <span class="string">and</span> <span class="string">project</span> <span class="string">introduction</span></span><br><span class="line">               <span class="bullet">-</span> <span class="attr">Feature highlights slide:</span> <span class="string">Showcase</span> <span class="string">main</span> <span class="string">features</span> <span class="string">and</span> <span class="string">characteristics</span></span><br><span class="line">               <span class="bullet">-</span> <span class="attr">Installation guide slide:</span> <span class="string">Step-by-step</span> <span class="string">installation</span> <span class="string">process</span></span><br><span class="line">               <span class="bullet">-</span> <span class="attr">Usage examples slide:</span> <span class="string">Display</span> <span class="string">code</span> <span class="string">examples</span> <span class="string">and</span> <span class="string">configuration</span> <span class="string">instructions</span></span><br><span class="line">               <span class="bullet">-</span> <span class="attr">Advanced features slide:</span> <span class="string">Show</span> <span class="string">advanced</span> <span class="string">usage</span> <span class="string">and</span> <span class="string">best</span> <span class="string">practices</span></span><br><span class="line">               <span class="bullet">-</span> <span class="attr">Closing slide:</span> <span class="string">Acknowledgments,</span> <span class="string">contribution</span> <span class="string">guidelines,</span> <span class="string">and</span> <span class="string">contact</span> <span class="string">information;</span></span><br><span class="line">            </span><br><span class="line">            <span class="attr">3. Use modern Reveal.js themes and configurations:</span></span><br><span class="line">               <span class="bullet">-</span> <span class="string">Enable</span> <span class="string">horizontal</span> <span class="string">and</span> <span class="string">vertical</span> <span class="string">navigation</span></span><br><span class="line">               <span class="bullet">-</span> <span class="string">Configure</span> <span class="string">slide</span> <span class="string">transition</span> <span class="string">animation</span> <span class="string">effects</span> <span class="string">(such</span> <span class="string">as</span> <span class="string">slide,</span> <span class="string">fade,</span> <span class="string">zoom)</span></span><br><span class="line">               <span class="bullet">-</span> <span class="string">Add</span> <span class="string">progress</span> <span class="string">bar</span> <span class="string">and</span> <span class="string">slide</span> <span class="string">counter</span></span><br><span class="line">               <span class="bullet">-</span> <span class="string">Support</span> <span class="string">keyboard</span> <span class="string">navigation</span> <span class="string">and</span> <span class="string">touch</span> <span class="string">gestures</span></span><br><span class="line">               <span class="bullet">-</span> <span class="string">Enable</span> <span class="string">autoplay</span> <span class="string">functionality</span> <span class="string">(pausable)</span></span><br><span class="line">               <span class="bullet">-</span> <span class="string">Add</span> <span class="string">slide</span> <span class="string">thumbnail</span> <span class="string">overview;</span></span><br><span class="line">            </span><br><span class="line">            <span class="attr">4. Visual design using surreal digital collage style:</span></span><br><span class="line">               <span class="bullet">-</span> <span class="string">Use</span> <span class="string">vivid</span> <span class="string">color</span> <span class="string">contrasts</span> <span class="string">and</span> <span class="string">geometric</span> <span class="string">elements</span></span><br><span class="line">               <span class="bullet">-</span> <span class="string">Create</span> <span class="string">layered</span> <span class="string">visual</span> <span class="string">effects</span> <span class="string">combining</span> <span class="string">text</span> <span class="string">and</span> <span class="string">graphic</span> <span class="string">elements</span></span><br><span class="line">               <span class="bullet">-</span> <span class="string">Use</span> <span class="string">irregular</span> <span class="string">shapes,</span> <span class="string">transparency,</span> <span class="string">and</span> <span class="string">overlapping</span> <span class="string">effects</span> <span class="string">to</span> <span class="string">create</span> <span class="string">depth</span></span><br><span class="line">               <span class="bullet">-</span> <span class="string">Employ</span> <span class="string">dynamic</span> <span class="string">backgrounds</span> <span class="string">and</span> <span class="string">animated</span> <span class="string">transitions</span> <span class="string">for</span> <span class="string">visual</span> <span class="string">impact</span></span><br><span class="line">               <span class="bullet">-</span> <span class="string">Use</span> <span class="string">abstract</span> <span class="string">graphics</span> <span class="string">and</span> <span class="string">digital</span> <span class="string">elements</span> <span class="string">as</span> <span class="string">decorative</span> <span class="string">elements</span></span><br><span class="line">               <span class="bullet">-</span> <span class="string">Ensure</span> <span class="string">overall</span> <span class="string">design</span> <span class="string">has</span> <span class="string">artistic</span> <span class="string">appeal</span> <span class="string">and</span> <span class="string">visual</span> <span class="string">attraction;</span></span><br><span class="line">            </span><br><span class="line">            <span class="attr">5. Font size and layout optimization (important):</span></span><br><span class="line">               <span class="bullet">-</span> <span class="attr">Title font sizes:</span> <span class="string">Main</span> <span class="string">title</span> <span class="number">2.</span><span class="string">5em,</span> <span class="string">subtitle</span> <span class="number">1.</span><span class="string">8em,</span> <span class="string">section</span> <span class="string">title</span> <span class="number">1.</span><span class="string">5em</span></span><br><span class="line">               <span class="bullet">-</span> <span class="attr">Body text font size:</span> <span class="string">Use</span> <span class="number">1.</span><span class="string">2em,</span> <span class="string">ensure</span> <span class="string">clear</span> <span class="string">readability</span> <span class="string">on</span> <span class="string">all</span> <span class="string">devices</span></span><br><span class="line">               <span class="bullet">-</span> <span class="attr">Code font size:</span> <span class="string">Use</span> <span class="number">0.</span><span class="string">9em,</span> <span class="string">avoid</span> <span class="string">code</span> <span class="string">blocks</span> <span class="string">being</span> <span class="string">too</span> <span class="string">large</span> <span class="string">causing</span> <span class="string">layout</span> <span class="string">issues</span></span><br><span class="line">               <span class="bullet">-</span> <span class="attr">Line height settings:</span> <span class="string">Body</span> <span class="string">text</span> <span class="number">1.</span><span class="string">6x</span> <span class="string">line</span> <span class="string">height,</span> <span class="string">titles</span> <span class="number">1.</span><span class="string">4x</span> <span class="string">line</span> <span class="string">height</span></span><br><span class="line">               <span class="bullet">-</span> <span class="attr">Content area margins:</span> <span class="string">Set</span> <span class="string">appropriate</span> <span class="string">padding</span> <span class="string">for</span> <span class="string">each</span> <span class="string">slide</span> <span class="string">(60px</span> <span class="string">top/bottom,</span> <span class="string">40px</span> <span class="string">left/right)</span></span><br><span class="line">               <span class="bullet">-</span> <span class="string">Ensure</span> <span class="string">sufficient</span> <span class="string">spacing</span> <span class="string">between</span> <span class="string">text</span> <span class="string">and</span> <span class="string">background,</span> <span class="string">avoid</span> <span class="string">blocking</span> <span class="string">and</span> <span class="string">overlap</span></span><br><span class="line">               <span class="bullet">-</span> <span class="string">Limit</span> <span class="string">content</span> <span class="string">amount</span> <span class="string">per</span> <span class="string">slide</span> <span class="string">to</span> <span class="string">avoid</span> <span class="string">information</span> <span class="string">overload</span></span><br><span class="line">               <span class="bullet">-</span> <span class="string">Implement</span> <span class="string">vertical</span> <span class="string">scrolling</span> <span class="string">for</span> <span class="string">long</span> <span class="string">code</span> <span class="string">blocks</span> <span class="string">instead</span> <span class="string">of</span> <span class="string">shrinking</span> <span class="string">font;</span></span><br><span class="line">            </span><br><span class="line">            <span class="attr">6. Code display optimization:</span></span><br><span class="line">               <span class="bullet">-</span> <span class="string">Use</span> <span class="string">Reveal.js</span> <span class="string">code</span> <span class="string">highlighting</span> <span class="string">plugin</span></span><br><span class="line">               <span class="bullet">-</span> <span class="string">Support</span> <span class="string">syntax</span> <span class="string">highlighting</span> <span class="string">(YAML,</span> <span class="string">Bash,</span> <span class="string">Markdown,</span> <span class="string">etc.)</span></span><br><span class="line">               <span class="bullet">-</span> <span class="string">Add</span> <span class="string">line</span> <span class="string">numbers</span> <span class="string">and</span> <span class="string">copy</span> <span class="string">buttons</span></span><br><span class="line">               <span class="bullet">-</span> <span class="string">Use</span> <span class="string">appropriate</span> <span class="string">maximum</span> <span class="string">height</span> <span class="string">(60vh)</span> <span class="string">and</span> <span class="string">scrollbars</span> <span class="string">for</span> <span class="string">code</span> <span class="string">blocks</span></span><br><span class="line">               <span class="bullet">-</span> <span class="string">Implement</span> <span class="string">animated</span> <span class="string">display</span> <span class="string">effects</span> <span class="string">for</span> <span class="string">code</span> <span class="string">snippets;</span></span><br><span class="line">            </span><br><span class="line">            <span class="attr">7. Interactive features:</span></span><br><span class="line">               <span class="bullet">-</span> <span class="string">Add</span> <span class="string">navigation</span> <span class="string">menu</span> <span class="string">and</span> <span class="string">chapter</span> <span class="string">jumping</span></span><br><span class="line">               <span class="bullet">-</span> <span class="string">Implement</span> <span class="string">fullscreen</span> <span class="string">mode</span> <span class="string">and</span> <span class="string">speaker</span> <span class="string">mode</span></span><br><span class="line">               <span class="bullet">-</span> <span class="string">Support</span> <span class="string">ESC</span> <span class="string">key</span> <span class="string">to</span> <span class="string">display</span> <span class="string">slide</span> <span class="string">overview</span></span><br><span class="line">               <span class="bullet">-</span> <span class="string">Add</span> <span class="string">sharing</span> <span class="string">and</span> <span class="string">export</span> <span class="string">functionality;</span></span><br><span class="line">            </span><br><span class="line">            <span class="attr">8. Responsive design:</span></span><br><span class="line">               <span class="bullet">-</span> <span class="string">Ensure</span> <span class="string">good</span> <span class="string">experience</span> <span class="string">on</span> <span class="string">desktop,</span> <span class="string">tablet,</span> <span class="string">and</span> <span class="string">mobile</span> <span class="string">devices</span></span><br><span class="line">               <span class="bullet">-</span> <span class="string">Appropriately</span> <span class="string">reduce</span> <span class="string">font</span> <span class="string">size</span> <span class="string">on</span> <span class="string">mobile</span> <span class="string">devices</span> <span class="string">while</span> <span class="string">maintaining</span> <span class="string">readability</span></span><br><span class="line">               <span class="bullet">-</span> <span class="string">Adapt</span> <span class="string">fonts</span> <span class="string">and</span> <span class="string">layout</span> <span class="string">to</span> <span class="string">different</span> <span class="string">screen</span> <span class="string">sizes</span></span><br><span class="line">               <span class="bullet">-</span> <span class="string">Optimize</span> <span class="string">interaction</span> <span class="string">experience</span> <span class="string">for</span> <span class="string">touch</span> <span class="string">devices;</span></span><br><span class="line">            </span><br><span class="line">            <span class="attr">9. Technical implementation:</span></span><br><span class="line">                <span class="bullet">-</span> <span class="string">Import</span> <span class="string">latest</span> <span class="string">version</span> <span class="string">of</span> <span class="string">Reveal.js</span> <span class="string">from</span> <span class="string">CDN</span></span><br><span class="line">                <span class="bullet">-</span> <span class="string">Configure</span> <span class="string">necessary</span> <span class="string">plugins</span> <span class="string">(highlight.js,</span> <span class="string">notes,</span> <span class="string">zoom,</span> <span class="string">etc.)</span></span><br><span class="line">                <span class="bullet">-</span> <span class="string">Add</span> <span class="string">custom</span> <span class="string">CSS</span> <span class="string">styles</span> <span class="string">to</span> <span class="string">enhance</span> <span class="string">visual</span> <span class="string">effects</span></span><br><span class="line">                <span class="bullet">-</span> <span class="string">Ensure</span> <span class="string">fast</span> <span class="string">loading</span> <span class="string">and</span> <span class="string">smooth</span> <span class="string">animation</span> <span class="string">performance;</span></span><br><span class="line">            </span><br><span class="line">            <span class="attr">10. SEO and accessibility:</span></span><br><span class="line">                <span class="bullet">-</span> <span class="string">Add</span> <span class="string">complete</span> <span class="string">meta</span> <span class="string">tags</span> <span class="string">and</span> <span class="string">structured</span> <span class="string">data</span></span><br><span class="line">                <span class="bullet">-</span> <span class="string">Ensure</span> <span class="string">keyboard</span> <span class="string">navigation</span> <span class="string">accessibility</span></span><br><span class="line">                <span class="bullet">-</span> <span class="string">Add</span> <span class="string">alt</span> <span class="string">text</span> <span class="string">and</span> <span class="string">aria</span> <span class="string">labels</span></span><br><span class="line">                <span class="bullet">-</span> <span class="string">Optimize</span> <span class="string">search</span> <span class="string">engine</span> <span class="string">indexing.</span></span><br><span class="line">            </span><br><span class="line">            <span class="string">Please</span> <span class="string">directly</span> <span class="string">create</span> <span class="string">a</span> <span class="string">complete</span> <span class="string">HTML</span> <span class="string">file</span> <span class="string">using</span> <span class="string">inline</span> <span class="string">CSS</span> <span class="string">and</span> <span class="string">JavaScript,</span> <span class="string">ensuring</span> <span class="string">the</span> <span class="string">file</span> <span class="string">is</span> <span class="string">self-contained</span> <span class="string">and</span> <span class="string">can</span> <span class="string">run</span> <span class="string">directly</span> <span class="string">in</span> <span class="string">browsers.</span></span><br><span class="line">            </span><br><span class="line">            <span class="attr">Project URL:</span> <span class="string">https://github.com/version-fox/vfox-erlang</span></span><br><span class="line">          <span class="attr">api_key:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.IFLOW_API_KEY</span> <span class="string">&#125;&#125;</span></span><br><span class="line">          <span class="comment"># settings_json: $&#123;&#123; secrets.IFLOW_SETTINGS_JSON &#125;&#125;</span></span><br><span class="line">          <span class="attr">model:</span> <span class="string">&quot;Qwen3-Coder&quot;</span></span><br><span class="line">          <span class="attr">timeout:</span> <span class="string">&quot;1800&quot;</span></span><br><span class="line">          <span class="attr">extra_args:</span> <span class="string">&quot;--debug&quot;</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Verify</span> <span class="string">reveal.js</span> <span class="string">presentation</span> <span class="string">was</span> <span class="string">generated</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">|</span></span><br><span class="line"><span class="string">          if [ -f &quot;_site/index.html&quot; ]; then</span></span><br><span class="line"><span class="string">            echo &quot;Reveal.js presentation generated successfully!&quot;</span></span><br><span class="line"><span class="string">            echo &quot;Checking for reveal.js content...&quot;</span></span><br><span class="line"><span class="string">            if grep -q &quot;reveal.js&quot; &quot;_site/index.html&quot;; then</span></span><br><span class="line"><span class="string">              echo &quot;✓ Reveal.js framework detected&quot;</span></span><br><span class="line"><span class="string">            else</span></span><br><span class="line"><span class="string">              echo &quot;⚠ Warning: Reveal.js framework not found in generated file&quot;</span></span><br><span class="line"><span class="string">            fi</span></span><br><span class="line"><span class="string">            ls -la _site/</span></span><br><span class="line"><span class="string">          else</span></span><br><span class="line"><span class="string">            echo &quot;Error: Presentation was not generated by iFlow&quot;</span></span><br><span class="line"><span class="string">            exit 1</span></span><br><span class="line"><span class="string">          fi</span></span><br><span class="line"><span class="string"></span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Upload</span> <span class="string">artifact</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/upload-pages-artifact@v3</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">path:</span> <span class="string">./_site</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">deploy:</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="attr">name:</span> <span class="string">github-pages</span></span><br><span class="line">      <span class="attr">url:</span> <span class="string">$&#123;&#123;</span> <span class="string">steps.deployment.outputs.page_url</span> <span class="string">&#125;&#125;</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line">    <span class="attr">needs:</span> <span class="string">build</span></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Deploy</span> <span class="string">to</span> <span class="string">GitHub</span> <span class="string">Pages</span></span><br><span class="line">        <span class="attr">id:</span> <span class="string">deployment</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/deploy-pages@v4</span></span><br></pre></td></tr></table></figure>
+<p>这里 iFLOW CLI 将会基于代码仓库的 README 和 <a target="_blank" rel="noopener" href="https://revealjs.com/">reveal.js</a> 生成幻灯片风格的文档站点，然后通过 GitHub Pages 发布到网络上。这里的效果可以访问这个网站看到 👀 <a target="_blank" rel="noopener" href="https://version-fox.github.io/vfox-erlang/#/">https://version-fox.github.io/vfox-erlang/#/</a></p>
+<h2 id="%E7%BB%93%E8%AF%AD" tabindex="-1">结语</h2>
+<p>期待你能基于 iFLOW CLI Action, 玩出更多的花样~</p>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">
+</article>
+<div class="article-footer">
+    <section id="license">
+      <div class="header"><span>许可协议</span></div>
+      <div class="body"><p><a href="/wiki/bio/mycat/">喂猫🍞</a> <br/> This article is licensed under the <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>. Please provide attribution when reproducing. <br/> 本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div>
+    </section>
+    
+
+
+    <section id="share">
+      <div class="header"><span>分享文章</span></div>
+      <div class="body">
+        <div class="link"><input class="copy-area" readonly="true" id="copy-link" value="https://shansan.top/2025/08/09/gen-slides-like-docs-site-with-iflow-cli/" /></div>
+        <div class="social-wrap dis-select"><a class="social share-item wechat" onclick="util.toggle(&quot;qrcode-wechat&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/b32ef3da1162a.svg" /></a><a class="social share-item weibo" target="_blank" rel="external nofollow noopener noreferrer" href="https://service.weibo.com/share/share.php?url=https://shansan.top/2025/08/09/gen-slides-like-docs-site-with-iflow-cli/&title=使用 iFLOW-CLI GitHub Action 给 GitHub 仓库生成幻灯片风格的文档站点 - ShanSan&pics=https://ospy.shan333.cn/blog/iflow-cli-action/iflow-action-usage-demo.gif&summary=使用 iFLOW-CLI GitHub Action 给 GitHub 仓库生成幻灯片风格的文档站点"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/80c07e4dbb303.svg" /></a><a class="social share-item email" href="mailto:?subject=使用 iFLOW-CLI GitHub Action 给 GitHub 仓库生成幻灯片风格的文档站点 - ShanSan&amp;body=https://shansan.top/2025/08/09/gen-slides-like-docs-site-with-iflow-cli/"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/a1b00e20f425d.svg" /></a><a class="social share-item link" onclick="util.copy(&quot;copy-link&quot;, &quot;复制成功&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/8411ed322ced6.svg" /></a></div>
+        
+        <div class="qrcode" id="qrcode-wechat" style="opacity:0;height:0">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=https://shansan.top/2025/08/09/gen-slides-like-docs-site-with-iflow-cli/"/>
+        </div>
+        
+      </div>
+    </section>
+    </div>
+
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"></div><div class="item" id="next"><div class="note">较早文章</div><a href="/2025/07/27/claude-code-subagent-for-tech-writing/">使用 Claude Code 的自定义 Sub Agent 完善博文写作体验</a></div></section></div>
+
+<div class="related-wrap" id="related-posts">
+    <section class='header'>
+      <div class='title cap theme'>您可能感兴趣的文章</div>
+    </section>
+    <section class='body'>
+    <div class="related-posts"><a class="item" href="/2025/07/12/rss-summary-workflow-with-n8n/" title="使用 n8n 和飞书多维表打造自己的 RSS Feed 订阅管理 & AI 大模型阅读提炼工作流"><span class="title">使用 n8n 和飞书多维表打造自己的 RSS Feed 订阅管理 & AI 大模型阅读提炼工作流</span><span class="excerpt">使用 n8n 和飞书多维表打造自己的 RSS Feed 订阅管理 & AI 大模型阅读提炼工作流</span></a></div></section></div>
+
+
+  <div class="related-wrap md-text" id="comments">
+    <section class='header cmt-title cap theme'>
+      <p>ShanSan</p>
+
+    </section>
+    <section class='body cmt-body artalk'>
+      
+
+<div class="artalk with-fancybox" id="artalk_container"><svg class="loading" style="vertical-align:middle;fill:currentColor;overflow:hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2709"><path d="M832 512c0-176-144-320-320-320V128c211.2 0 384 172.8 384 384h-64zM192 512c0 176 144 320 320 320v64C300.8 896 128 723.2 128 512h64z" p-id="2710"></path></svg></div>
+    </section>
+  </div>
+
+
+
+<footer class="page-footer footnote"><hr><div class="text"><p><a href="https://shansan.top">Copyright © 2018-2025 ShanSan</a><br><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">桂ICP备19000444号</a><br>
+本站由 <a href="/">ShanSan</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br>
+本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。<br>
+<span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span></p>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</div></footer>
+<div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
+<div class="widgets">
+<widget class="widget-wrapper user-card ghuser"><div class="widget-body data-service ds-ghinfo" data-api="https://api.github.com/users/yeshan333"><div class="avatar" ><img no-lazy type="img" id="avatar_url" src="undefined" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></div><p class="username" type="text" id="name">&nbsp;</p><p class="bio" type="text" id="bio">&nbsp;</p><div class="buttons"><a class="btn" target="_blank" rel="noopener" href="https://github.com/yeshan333?tab=followers"><span class="title" type="text" id="followers">0</span><span class="desc">followers</span></a><a class="btn" target="_blank" rel="noopener" href="https://github.com/yeshan333?tab=following"><span class="title" type="text" id="following">0</span><span class="desc">following</span></a><a class="btn" target="_blank" rel="noopener" href="https://github.com/yeshan333?tab=repositories"><span class="title" type="text" id="public_repos">0</span><span class="desc">repos</span></a></div><a class="follow" target="_blank" rel="noopener" href="https://github.com/yeshan333"><svg aria-hidden="true" role="img" class="color-icon-primary" viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor" style="display:inline-block;user-select:none;vertical-align:text-bottom;overflow:visible"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>Follow</a></div></widget>
+
+
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-iflow-cli-github-action"><span class="toc-text">使用 iFLOW CLI GitHub Action</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E-iflow-cli-github-action-%E7%94%9F%E6%88%90%E5%B9%BB%E7%81%AF%E7%89%87%E9%A3%8E%E6%A0%BC%E7%9A%84%E6%96%87%E6%A1%A3%E7%AB%99%E7%82%B9"><span class="toc-text">基于 iFLOW CLI GitHub Action 生成幻灯片风格的文档站点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a><a class="buttom" onclick="util.scrollComment()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M8 10.5h8M8 14h5.5M17 3.338A9.95 9.95 0 0 0 12 2C6.477 2 2 6.477 2 12c0 1.6.376 3.112 1.043 4.453c.178.356.237.763.134 1.148l-.595 2.226a1.3 1.3 0 0 0 1.591 1.592l2.226-.596a1.63 1.63 0 0 1 1.149.133A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10c0-1.821-.487-3.53-1.338-5"/></svg><span>参与讨论</span></a></div></widget>
+</div></aside><div class='float-panel'>
+  <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
+  </button>
+  <button type='button' style='display:none' class='mobile-only leftbar-toggle mobile' onclick='sidebar.leftbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11c0-3.771 0-5.657 1.172-6.828C4.343 3 6.229 3 10 3h4c3.771 0 5.657 0 6.828 1.172C22 5.343 22 7.229 22 11v2c0 3.771 0 5.657-1.172 6.828C19.657 21 17.771 21 14 21h-4c-3.771 0-5.657 0-6.828-1.172C2 18.657 2 16.771 2 13z"/><path id="sep" stroke-linecap="round" d="M5.5 10h6m-5 4h4m4.5 7V3"/></g></svg>
+  </button>
+</div>
+</div><div class="scripts">
+
+
+<script type="text/javascript">
+  window.canonical = {"originalHost":"","officialHosts":["localhost","shansan.top","shansan.cn","yeshan333.github.io"],"encoded":""};
+  const ctx = {
+    date_suffix: {
+      just: `刚刚`,
+      min: `分钟前`,
+      hour: `小时前`,
+      day: `天前`,
+    },
+    root : `/`,
+    tag_plugins: {
+      chat: Object.assign({"api":"https://siteinfo.listentothewind.cn/api/v1"}),
+    }
+  };
+
+  // required plugins (only load if needs)
+  if (`local_search`) {
+    ctx.search = {};
+    ctx.search.service = `local_search`;
+    if (ctx.search.service == 'local_search') {
+      let service_obj = Object.assign({}, `{"field":"all","path":"/search.json","content":true,"skip_search":null,"sort":"-date"}`);
+      ctx.search[ctx.search.service] = service_obj;
+    }
+  }
+  const def = {
+    avatar: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/3442075.svg`,
+    cover: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/cover/76b86c0226ffd.svg`,
+    loading: `https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd`,
+  };
+  const deps = {
+    jquery: `https://gcore.jsdelivr.net/npm/jquery@3.7/dist/jquery.min.js`,
+    marked: `https://gcore.jsdelivr.net/npm/marked@13.0/lib/marked.umd.min.js`,
+    lazyload: `/%5Bobject%20Object%5D`
+  }
+  
+
+</script>
+
+<script type="text/javascript">
+  
+  function RunItem() {
+    this.list = []; // 存放回调函数
+    this.start = () => {
+      for (var i = 0; i < this.list.length; i++) {
+        this.list[i].run();
+      }
+    };
+    this.push = (fn, name, setRequestAnimationFrame = true) => {
+      let myfn = fn
+      if (setRequestAnimationFrame) {
+        myfn = () => {
+          utils.requestAnimationFrame(fn)
+        }
+      }
+      var f = new Item(myfn, name);
+      this.list.push(f);
+    };
+    this.remove = (name) => {
+      for (let index = 0; index < this.list.length; index++) {
+        const e = this.list[index];
+        if (e.name == name) {
+          this.list.splice(index, 1);
+        }
+      }
+    }
+    // 构造一个可以run的对象
+    function Item(fn, name) {
+      // 函数名称
+      this.name = name || fn.name;
+      // run方法
+      this.run = () => {
+        try {
+          fn()
+        } catch (error) {
+          console.log(error);
+        }
+      };
+    }
+  }
+
+  const utils = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    css: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    js: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')) {
+        src = ctx.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function () {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    jq: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        utils.js(deps.jquery).then(fn)
+      } else {
+        fn()
+      }
+    },
+
+    onLoading: (el) => {
+      if (el) {
+        $(el).append('<div class="loading-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" stroke-opacity=".3" d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="1.3s" values="60;0"/></path><path stroke-dasharray="15" stroke-dashoffset="15" d="M12 3C16.9706 3 21 7.02944 21 12"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></g></svg></div>');
+      }
+    },
+    onLoadSuccess: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap').remove();
+      }
+    },
+    onLoadFailure: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap svg').remove();
+        $(el).find('.loading-wrap').append('<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" d="M12 3L21 20H3L12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.5s" values="60;0"/></path><path stroke-dasharray="6" stroke-dashoffset="6" d="M12 10V14"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.6s" dur="0.2s" values="6;0"/></path></g><circle cx="12" cy="17" r="1" fill="currentColor" fill-opacity="0"><animate fill="freeze" attributeName="fill-opacity" begin="0.8s" dur="0.4s" values="0;1"/></circle></svg>');
+        $(el).find('.loading-wrap').addClass('error');
+      }
+    },
+    request: (el, url, callback, onFailure) => {
+      const maxRetry = 3;
+      let retryCount = 0;
+
+      return new Promise((resolve, reject) => {
+        const load = () => {
+          utils.onLoading?.(el);
+
+          let timedOut = false;
+          const timeout = setTimeout(() => {
+            timedOut = true;
+            console.warn('[request] 超时:', url);
+
+            if (++retryCount >= maxRetry) {
+              utils.onLoadFailure?.(el);
+              onFailure?.();
+              reject('请求超时');
+            } else {
+              setTimeout(load, 1000);
+            }
+          }, 5000);
+
+          fetch(url).then(resp => {
+            if (timedOut) return;
+            clearTimeout(timeout);
+
+            if (!resp.ok) throw new Error('响应失败');
+            return resp;
+          }).then(data => {
+            if (timedOut) return;
+            utils.onLoadSuccess?.(el);
+            callback(data);
+            resolve(data);
+          }).catch(err => {
+            clearTimeout(timeout);
+            console.warn('[request] 错误:', err);
+
+            if (++retryCount >= maxRetry) {
+              utils.onLoadFailure?.(el);
+              onFailure?.();
+              reject(err);
+            } else {
+              setTimeout(load, 1000);
+            }
+          });
+        };
+
+        load();
+      });
+    },
+    requestWithoutLoading: (url, options = {}, maxRetry = 2, timeout = 5000) => {
+      return new Promise((resolve, reject) => {
+        let retryCount = 0;
+
+        const tryRequest = () => {
+          let timedOut = false;
+          const timer = setTimeout(() => {
+            timedOut = true;
+            if (++retryCount > maxRetry) reject('timeout');
+            else tryRequest();
+          }, timeout);
+
+          fetch(url, options)
+            .then(resp => {
+              clearTimeout(timer);
+              if (!resp.ok) throw new Error('bad response');
+              resolve(resp);
+            })
+            .catch(err => {
+              clearTimeout(timer);
+              if (++retryCount > maxRetry) reject(err);
+              else setTimeout(tryRequest, 500);
+            });
+        };
+
+        tryRequest();
+      });
+    },
+    /********************** requestAnimationFrame ********************************/
+    // 1、requestAnimationFrame 会把每一帧中的所有 DOM 操作集中起来，在一次重绘或回流中就完成，并且重绘或回流的时间间隔紧紧跟随浏览器的刷新频率，一般来说，这个频率为每秒60帧。
+    // 2、在隐藏或不可见的元素中，requestAnimationFrame 将不会进行重绘或回流，这当然就意味着更少的的 cpu，gpu 和内存使用量。
+    requestAnimationFrame: (fn) => {
+      if (!window.requestAnimationFrame) {
+        window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame;
+      }
+      window.requestAnimationFrame(fn)
+    },
+    dark: {},
+  };
+
+  // utils.dark.mode 当前模式 dark or light
+  // utils.dark.toggle() 暗黑模式触发器
+  // utils.dark.push(callBack[,"callBackName"]) 传入触发器回调函数
+  utils.dark.method = {
+    toggle: new RunItem(),
+  };
+  utils.dark = Object.assign(utils.dark, {
+    push: utils.dark.method.toggle.push,
+  });
+</script>
+<script>
+  const sidebar = {
+    leftbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    rightbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('rightbar');
+        l_body.removeAttribute('leftbar');
+      }
+    },
+    dismiss: () => {
+      if (l_body) {
+        l_body.removeAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    toggleTOC: () => {
+      document.querySelector('#data-toc').classList.toggle('collapse');
+    }
+  }
+</script>
+<script type="text/javascript">
+  (() => {
+    const tagSwitchers = document.querySelectorAll('.tag-subtree.parent-tag > a > .tag-switcher-wrapper')
+    for (const tagSwitcher of tagSwitchers) {
+      tagSwitcher.addEventListener('click', (e) => {
+        const parent = e.target.closest('.tag-subtree.parent-tag')
+        parent.classList.toggle('expanded')
+        e.preventDefault()
+      })
+    }
+
+    // Get active tag from query string, then activate it.
+    const urlParams = new URLSearchParams(window.location.search)
+    const activeTag = urlParams.get('tag')
+    if (activeTag) {
+      let tag = document.querySelector(`.tag-subtree[data-tag="${activeTag}"]`)
+      if (tag) {
+        tag.querySelector('a').classList.add('active')
+        
+        while (tag) {
+          tag.classList.add('expanded')
+          tag = tag.parentElement.closest('.tag-subtree.parent-tag')
+        }
+      }
+    }
+  })()
+</script>
+
+<script async src="https://gcore.jsdelivr.net/npm/vanilla-lazyload@19.1/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazy",
+    callback_loaded: (el) => {
+      el.classList.add('loaded');
+      const wrapper = el.closest('.lazy-box');
+      const icon = wrapper?.querySelector('.lazy-icon');
+      if (icon) icon.remove();
+    }
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    window.lazyLoadInstance?.update();
+  });
+
+  window.wrapLazyloadImages = (container) => {
+    if (typeof container === 'string') {
+      container = document.querySelector(container);
+    }
+    if (!container) return;
+    
+    const images = container.querySelectorAll('img');
+    images.forEach((img) => {
+      if (img.classList.contains('lazy')) return;
+
+      const src = img.getAttribute('src');
+      if (!src) return;
+
+      const wrapper = document.createElement('div');
+      wrapper.className = 'lazy-box';
+
+      const newImg = img.cloneNode();
+      newImg.removeAttribute('src');
+      newImg.setAttribute('data-src', src);
+      newImg.classList.add('lazy');
+
+      const icon = document.createElement('div');
+      icon.className = 'lazy-icon';
+      if (def.loading) {
+        icon.style.backgroundImage = `url("${def.loading}")`;
+      }
+
+      wrapper.appendChild(newImg);
+      wrapper.appendChild(icon);
+
+      img.replaceWith(wrapper);
+    });
+
+    // 通知 LazyLoad 更新
+    if (window.lazyLoadInstance?.update) {
+      window.lazyLoadInstance.update();
+    }
+  }
+  
+</script>
+
+<!-- required -->
+<script src="/js/main.js?v=1.33.1" defer></script>
+
+<script type="text/javascript">
+  const applyTheme = (theme) => {
+    if (theme === 'auto') {
+      document.documentElement.removeAttribute('data-theme')
+    } else {
+      document.documentElement.setAttribute('data-theme', theme)
+    }
+
+    // applyThemeToGiscus(theme)
+  }
+
+  // FIXME: 这会导致无法使用 preferred_color_scheme 以外的主题
+  const applyThemeToGiscus = (theme) => {
+    // theme = theme === 'auto' ? 'preferred_color_scheme' : theme
+    const cmt = document.getElementById('giscus')
+    if (cmt) {
+      // This works before giscus load.
+      cmt.setAttribute('data-theme', theme)
+    }
+
+    const iframe = document.querySelector('#comments > section.giscus > iframe')
+    if (iframe) {
+      // This works after giscus loaded.
+      const src = iframe.src
+      const newSrc = src.replace(/theme=[\w]+/, `theme=${theme}`)
+      iframe.src = newSrc
+    }
+  }
+
+  const switchTheme = () => {
+    // light -> dark -> auto -> light -> ...
+    const currentTheme = document.documentElement.getAttribute('data-theme')
+    let newTheme;
+    switch (currentTheme) {
+      case 'light':
+        newTheme = 'dark'
+        break
+      case 'dark':
+        newTheme = 'auto'
+        break
+      default:
+        newTheme = 'light'
+    }
+    applyTheme(newTheme)
+    window.localStorage.setItem('Stellar.theme', newTheme)
+    utils.dark.mode = newTheme === 'auto' ? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light") : newTheme;
+    utils.dark.method.toggle.start();
+
+    const messages = {
+      light: `切换到浅色模式`,
+      dark: `切换到深色模式`,
+      auto: `切换到跟随系统配色`,
+    }
+    hud?.toast?.(messages[newTheme])
+  }
+
+  (() => {
+    // Apply user's preferred theme, if any.
+    const theme = window.localStorage.getItem('Stellar.theme')
+    if (theme !== null) {
+      applyTheme(theme)
+    } else {
+      utils.dark.mode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    }
+    utils.dark.method.toggle.start();
+  })()
+</script>
+
+
+<!-- optional -->
+
+  <script type="module">
+  const el = document.getElementById('artalk_container');
+  util.viewportLazyload(el, load_artalk, false);
+
+  function load_artalk() {
+    if (!el) return;
+    utils.css('https://unpkg.com/artalk@2.9.1/dist/Artalk.css');
+    utils.js('https://unpkg.com/artalk@2.9.1/dist/Artalk.js', {defer: true}).then(function () {
+      // 监听 Artalk 事件
+      // FIXME: Artalk开启了懒加载会导致评论输入预览框里的图也变成data-src，导致看不到图
+      // Artalk.use((ctx) => {
+      //   ctx.on('list-loaded', () => window.lazyLoadInstance?.update())
+      // })
+      const path = el.getAttribute('comment_id') ?? decodeURI(window.location.pathname);
+      const artalk = Artalk.init({
+        el: '#artalk_container',
+        pageKey: path,
+        pageTitle: '使用 iFLOW-CLI GitHub Action 给 GitHub 仓库生成幻灯片风格的文档站点',
+        server: 'https://artalk.shan333.cn/',
+        site: 'ShanSan',
+        darkMode: 'auto',
+        
+      });
+    });
+  }
+</script>
+
+
+
+<script defer>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.services = Object.assign({}, JSON.parse(`{"mdrender":{"js":"/js/services/mdrender.js"},"siteinfo":{"js":"/js/services/siteinfo.js","api":null},"ghinfo":{"js":"/js/services/ghinfo.js"},"rating":{"js":"/js/services/rating.js","api":"https://star-vote.xaox.cc/api/rating"},"vote":{"js":"/js/services/vote.js","api":"https://star-vote.xaox.cc/api/vote"},"sites":{"js":"/js/services/sites.js"},"friends":{"js":"/js/services/friends.js"},"friends_and_posts":{"js":"/js/services/friends_and_posts.js"},"timeline":{"js":"/js/services/timeline.js"},"fcircle":{"js":"/js/services/fcircle.js"},"weibo":{"js":"/js/services/weibo.js"},"memos":{"js":"/js/services/memos.js"},"voice":{"js":"/js/plugins/voice.js"},"video":{"js":"/js/plugins/video.js"},"download-file":{"js":"/js/plugins/download-file.js"},"twikoo":{"js":"/js/services/twikoo_latest_comment.js"},"waline":{"js":"/js/services/waline_latest_comment.js"},"artalk":{"js":"/js/services/artalk_latest_comment.js"},"giscus":{"js":"/js/services/giscus_latest_comment.js"},"contributors":{"edit_this_page":{"_posts/":null,"wiki/stellar/":"https://github.com/xaoxuu/hexo-theme-stellar-docs/blob/main/"},"js":"/js/services/contributors.js"}}`));
+    for (let id of Object.keys(ctx.services)) {
+      const js = ctx.services[id].js;
+      if (id == 'siteinfo') {
+        ctx.cardlinks = document.querySelectorAll('a.link-card[cardlink]');
+        if (ctx.cardlinks?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            setCardLink(ctx.cardlinks);
+          });
+        }
+      } else if (id == 'voice') {
+        ctx.voiceAudios = document.querySelectorAll('.voice>audio');
+        if (ctx.voiceAudios?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            createVoiceDom(ctx.voiceAudios);
+          });
+        }
+      } else if (id == 'video') {
+        ctx.videos = document.querySelectorAll('.video>video');
+        if (ctx.videos?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            videoEvents(ctx.videos);
+          });
+        }
+      } else if (id == 'download-file') {
+        ctx.files = document.querySelectorAll('.file');
+        if (ctx.files?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            downloadFileEvent(ctx.files);
+          });
+        }
+      } else {
+        const els = document.getElementsByClassName(`ds-${id}`);
+        if (els?.length > 0) {
+          utils.jq(() => {
+            if (id == 'timeline' || 'memos' || 'marked') {
+              utils.js(deps.marked).then(function () {
+                utils.js(js, { defer: true });
+              });
+            } else {
+              utils.js(js, { defer: true });
+            }
+          });
+        }
+      }
+    }
+
+    // chat iphone time
+    let phoneTimes = document.querySelectorAll('.chat .status-bar .time');
+
+    if (phoneTimes.length > 0) {
+      NowTime();
+      var date = new Date();
+      var sec = date.getSeconds();
+      var firstAdjustInterval = setInterval(firstAdjustTime, 1000 * (60 - sec));
+    }
+
+    function firstAdjustTime() {
+      NowTime();
+      clearInterval(firstAdjustInterval);
+      setInterval(NowTime, 1000 * 60);
+    }
+
+    function NowTime() {
+      for (let i = 0; i < phoneTimes.length; ++i) {
+        var timeSpan = phoneTimes[i];
+        var date = new Date();
+        var hour = date.getHours();
+        var min = date.getMinutes();
+        timeSpan.innerHTML = check(hour) + ":" + check(min);
+      }
+    };
+
+    function check(val) {
+      if (val < 10) {
+        return ("0" + val);
+      }
+      return (val);
+    }
+
+    // chat quote
+    const chat_quote_obverser = new IntersectionObserver((entries, observer) => {
+      entries.filter((entry) => { return entry.isIntersecting }).sort((a, b) => a.intersectionRect.y !== b.intersectionRect.y ? a.intersectionRect.y - b.intersectionRect.y : a.intersectionRect.x - b.intersectionRect.x).forEach((entry, index) => {
+          observer.unobserve(entry.target);
+          setTimeout(() => {
+            entry.target.classList.add('quote-blink');
+            setTimeout(() => {
+              entry.target.classList.remove('quote-blink');
+            }, 1000);
+          }, Math.max(100, 16) * (index + 1));
+        });
+    });
+
+    var chatQuotes = document.querySelectorAll(".chat .talk .quote");
+    chatQuotes.forEach((quote) => {
+      quote.addEventListener('click', function () {
+        var chatCellDom = document.getElementById("quote-" + quote.getAttribute("quotedCellTag"));
+        if (chatCellDom) {
+          var chatDiv = chatCellDom.parentElement;
+          var mid = chatDiv.clientHeight / 2;
+          var offsetTop = chatCellDom.offsetTop;
+          if (offsetTop > mid - chatCellDom.clientHeight / 2) {
+            chatDiv.scrollTo({
+              top: chatCellDom.offsetTop - mid + chatCellDom.clientHeight / 2,
+              behavior: "smooth"
+            });
+          } else {
+            chatDiv.scrollTo({
+              top: 0,
+              behavior: "smooth"
+            });
+          }
+          chat_quote_obverser.observe(chatCellDom);
+        }
+      });
+    });
+  });
+</script>
+
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.search = {
+      path: `/search.json`,
+    }
+    utils.js('/js/search/local-search.js', { defer: true });
+  });
+</script><script>
+  window.FPConfig = {
+    delay: 0,
+    ignoreKeywords: [],
+    maxRPS: 5,
+    hoverDelay: 25
+  };
+</script>
+<script defer src="https://gcore.jsdelivr.net/npm/flying-pages@2/flying-pages.min.js"></script><script>
+  ctx.fancybox = {
+    selector: `.timenode p>img`,
+    css: `https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css`,
+    js: `https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js`
+  };
+  var selector = '[data-fancybox]:not(.error), .with-fancybox .atk-content img:not([atk-emoticon])';
+  if (ctx.fancybox.selector) {
+    selector += `, ${ctx.fancybox.selector}`
+  }
+  var needFancybox = document.querySelectorAll(selector).length !== 0;
+  if (!needFancybox) {
+    const memos = document.getElementsByClassName('ds-memos');
+    if (memos != undefined && memos.length > 0) {
+      needFancybox = true;
+    }
+    const fancybox = document.getElementsByClassName('with-fancybox');
+    if (fancybox != undefined && fancybox.length > 0) {
+      needFancybox = true;
+    }
+  }
+  if (needFancybox) {
+    utils.css(ctx.fancybox.css);
+    utils.js(ctx.fancybox.js, { defer: true }).then(function () {
+      Fancybox.bind(selector, {
+        hideScrollbar: false,
+        Thumbs: {
+          autoStart: false,
+        },
+        caption: (fancybox, slide) => {
+          return slide.triggerEl.alt || slide.triggerEl.dataset.caption || null
+        }
+      });
+    })
+  }
+</script>
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    const swiper_api = document.getElementById('swiper-api');
+    if (swiper_api != undefined) {
+      utils.css(`https://unpkg.com/swiper@10.3/swiper-bundle.min.css`);
+      utils.js(`https://unpkg.com/swiper@10.3/swiper-bundle.min.js`, { defer: true }).then(function () {
+        const effect = swiper_api.getAttribute('effect') || '';
+        var swiper = new Swiper('.swiper#swiper-api', {
+          slidesPerView: 'auto',
+          spaceBetween: 8,
+          centeredSlides: true,
+          effect: effect,
+          rewind: true,
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+        });
+      })
+    }
+  });
+</script>
+<link rel="stylesheet" href="https://gcore.jsdelivr.net/npm/katex@0.16/dist/katex.min.css" integrity="sha384-vKruj+a13U8yHIkAyGgK1J3ArTLzrFGBbBc0tDp4ad/EyewESeXE/Iv67Aj8gKZ0" crossorigin="anonymous">
+
+<script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+  MathJax.Hub.Config({
+    tex2jax: {
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  });
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script defer type="text/javascript" src="https://gcore.jsdelivr.net/npm/mermaid@v9/dist/mermaid.min.js"></script>
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    var mermaid_config = {
+      startOnLoad: true,
+      theme:
+        "auto" == "auto" &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark"
+          : "neutral",
+      logLevel: 3,
+      themeVariables: {
+        darkMode: true
+      },
+      flowchart: {
+        useMaxWidth: false,
+        htmlLabels: true,
+        curve: "linear"
+      },
+      gantt: {
+        axisFormat: "%Y/%m/%d"
+      },
+      sequence: {
+        actorMargin: 50
+      }
+    }
+    mermaid.initialize(mermaid_config);
+  });
+</script><script>
+  document.addEventListener('DOMContentLoaded', function () {
+    window.codeElements = document.querySelectorAll('.code');
+    if (window.codeElements.length > 0) {
+      ctx.copycode = {
+        default_text: `Copy`,
+        success_text: `Copied`,
+        toast: `复制成功`,
+      };
+      utils.js('/js/plugins/copycode.js');
+    }
+  });
+</script>
+
+
+<!-- inject -->
+<script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script><script>LA.init({id:"3N0nbmMoWnI9Z6Po",ck:"3N0nbmMoWnI9Z6Po"})</script>
+</div></body></html>
