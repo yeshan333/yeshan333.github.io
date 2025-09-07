@@ -210,15 +210,7 @@ npm install hexo --save</s>~</p>
       <div class='title cap theme'>您可能感兴趣的文章</div>
     </section>
     <section class='body'>
-    <div class="related-posts"><a class="item" href="/2018/09/25/博客搭建历程（2）/" title="博客搭建历程（2）"><span class="title">博客搭建历程（2）</span><span class="excerpt">
-本文大多数图片链接失效，建议阅读：https://cloud.tencent.com/developer/article/1656959
-
-
-一、使用hexo deploy部署博客到Github
-
-使用参考
-
-** 先安装个扩展$ ...</span></a><a class="item" href="/2018/09/26/博客搭建历程（3）/" title="博客搭建历程（3）"><span class="title">博客搭建历程（3）</span><span class="excerpt">hexo生成工程文件介绍
+    <div class="related-posts"><a class="item" href="/2018/09/26/博客搭建历程（3）/" title="博客搭建历程（3）"><span class="title">博客搭建历程（3）</span><span class="excerpt">hexo生成工程文件介绍
 
 hexo插件
 
@@ -226,7 +218,15 @@ hexo插件
 主题yilia
 
 默认目录结构
-具体参考</span></a><a class="item" href="/2018/09/27/博客搭建历程（4）/" title="博客搭建历程（4）"><span class="title">博客搭建历程（4）</span><span class="excerpt">博客评论系统的选择
+具体参考</span></a><a class="item" href="/2018/09/25/博客搭建历程（2）/" title="博客搭建历程（2）"><span class="title">博客搭建历程（2）</span><span class="excerpt">
+本文大多数图片链接失效，建议阅读：https://cloud.tencent.com/developer/article/1656959
+
+
+一、使用hexo deploy部署博客到Github
+
+使用参考
+
+** 先安装个扩展$ ...</span></a><a class="item" href="/2018/09/27/博客搭建历程（4）/" title="博客搭建历程（4）"><span class="title">博客搭建历程（4）</span><span class="excerpt">博客评论系统的选择
 
 怀念文：当时使用的主题是 yilla
 
@@ -292,11 +292,11 @@ https://github.com...</span></a><a class="item" href="/2019/01/01/2019你好/" t
   };
 
   // required plugins (only load if needs)
-  if (`local_search`) {
+  if (`algolia_search`) {
     ctx.search = {};
-    ctx.search.service = `local_search`;
+    ctx.search.service = `algolia_search`;
     if (ctx.search.service == 'local_search') {
-      let service_obj = Object.assign({}, `{"field":"all","path":"/search.json","content":true,"skip_search":null,"sort":"-date"}`);
+      let service_obj = Object.assign({}, `{"field":"all","path":"/search.json","content":true,"skip_search":null}`);
       ctx.search[ctx.search.service] = service_obj;
     }
   }
@@ -912,12 +912,17 @@ https://github.com...</span></a><a class="item" href="/2019/01/01/2019你好/" t
 
 <script>
   window.addEventListener('DOMContentLoaded', (event) => {
-    ctx.search = {
-      path: `/search.json`,
-    }
-    utils.js('/js/search/local-search.js', { defer: true });
+    window.searchConfig = {
+      appId: 'E4FBK1TGY5', 
+      apiKey: '17f4f10cb451aedeb97bb9f0458ba7e1', 
+      indexName: 'blog', 
+      js: 'https://gcore.jsdelivr.net/algoliasearch/3/algoliasearch.min.js',
+      hitsPerPage: 100, 
+    };
+    utils.js('/js/search/algolia-search.js', { defer: true });
   });
-</script><script>
+</script>
+<script>
   window.FPConfig = {
     delay: 0,
     ignoreKeywords: [],
@@ -987,7 +992,7 @@ https://github.com...</span></a><a class="item" href="/2019/01/01/2019你好/" t
     }
   });
 </script>
-<link rel="stylesheet" href="https://gcore.jsdelivr.net/npm/katex@0.16/dist/katex.min.css" integrity="sha384-vKruj+a13U8yHIkAyGgK1J3ArTLzrFGBbBc0tDp4ad/EyewESeXE/Iv67Aj8gKZ0" crossorigin="anonymous">
+<link rel="stylesheet" href="https://gcore.jsdelivr.net/npm/katex@0.16/dist/katex.min.css" crossorigin="anonymous">
 <script defer type="text/javascript" src="https://cdn.jsdelivr.net/npm/mermaid@11.9.0/dist/mermaid.min.js"></script>
 <script>
   window.addEventListener('DOMContentLoaded', (event) => {

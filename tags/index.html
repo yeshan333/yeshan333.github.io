@@ -165,6 +165,10 @@
           <span class='name'>Requests</span>
         </a>
       
+        <a class='tag' href="/tags/GPG/">
+          <span class='name'>GPG</span>
+        </a>
+      
         <a class='tag' href="/tags/Claude-Code/">
           <span class='name'>Claude Code</span>
         </a>
@@ -179,10 +183,6 @@
       
         <a class='tag' href="/tags/Hexo/">
           <span class='name'>Hexo</span>
-        </a>
-      
-        <a class='tag' href="/tags/GPG/">
-          <span class='name'>GPG</span>
         </a>
       
         <a class='tag' href="/tags/docker/">
@@ -261,12 +261,12 @@
           <span class='name'>环境管理</span>
         </a>
       
-        <a class='tag' href="/tags/Scrapy/">
-          <span class='name'>Scrapy</span>
-        </a>
-      
         <a class='tag' href="/tags/Json/">
           <span class='name'>Json</span>
+        </a>
+      
+        <a class='tag' href="/tags/Scrapy/">
+          <span class='name'>Scrapy</span>
         </a>
       
         <a class='tag' href="/tags/Tech-Weekly/">
@@ -325,16 +325,16 @@
           <span class='name'>WXT</span>
         </a>
       
+        <a class='tag' href="/tags/Elixir-Github-Codespaces/">
+          <span class='name'>Elixir, Github Codespaces</span>
+        </a>
+      
         <a class='tag' href="/tags/Deps/">
           <span class='name'>Deps</span>
         </a>
       
         <a class='tag' href="/tags/Mix/">
           <span class='name'>Mix</span>
-        </a>
-      
-        <a class='tag' href="/tags/Elixir-Github-Codespaces/">
-          <span class='name'>Elixir, Github Codespaces</span>
         </a>
       
         <a class='tag' href="/tags/WSL/">
@@ -393,10 +393,6 @@
           <span class='name'>Windows</span>
         </a>
       
-        <a class='tag' href="/tags/Latex/">
-          <span class='name'>Latex</span>
-        </a>
-      
         <a class='tag' href="/tags/%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95/">
           <span class='name'>压力测试</span>
         </a>
@@ -407,6 +403,10 @@
       
         <a class='tag' href="/tags/IO-Bound/">
           <span class='name'>IO Bound</span>
+        </a>
+      
+        <a class='tag' href="/tags/Latex/">
+          <span class='name'>Latex</span>
         </a>
       
         <a class='tag' href="/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/">
@@ -429,12 +429,12 @@
           <span class='name'>TLS/SSL</span>
         </a>
       
-        <a class='tag' href="/tags/RSS-Reader/">
-          <span class='name'>RSS Reader</span>
-        </a>
-      
         <a class='tag' href="/tags/debug/">
           <span class='name'>debug</span>
+        </a>
+      
+        <a class='tag' href="/tags/RSS-Reader/">
+          <span class='name'>RSS Reader</span>
         </a>
       
         <a class='tag' href="/tags/Profiling/">
@@ -553,18 +553,6 @@
           <span class='name'>dotfiles</span>
         </a>
       
-        <a class='tag' href="/tags/YCSB/">
-          <span class='name'>YCSB</span>
-        </a>
-      
-        <a class='tag' href="/tags/go-ycsb/">
-          <span class='name'>go-ycsb</span>
-        </a>
-      
-        <a class='tag' href="/tags/benchmark/">
-          <span class='name'>benchmark</span>
-        </a>
-      
         <a class='tag' href="/tags/Erlang-OTP/">
           <span class='name'>Erlang/OTP</span>
         </a>
@@ -575,6 +563,18 @@
       
         <a class='tag' href="/tags/vfox-erlang/">
           <span class='name'>vfox-erlang</span>
+        </a>
+      
+        <a class='tag' href="/tags/YCSB/">
+          <span class='name'>YCSB</span>
+        </a>
+      
+        <a class='tag' href="/tags/go-ycsb/">
+          <span class='name'>go-ycsb</span>
+        </a>
+      
+        <a class='tag' href="/tags/benchmark/">
+          <span class='name'>benchmark</span>
         </a>
       
         <a class='tag' href="/tags/Jenkins/">
@@ -633,12 +633,12 @@
           <span class='name'>Jupyter</span>
         </a>
       
-        <a class='tag' href="/tags/Memory/">
-          <span class='name'>Memory</span>
-        </a>
-      
         <a class='tag' href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
           <span class='name'>设计模式</span>
+        </a>
+      
+        <a class='tag' href="/tags/Memory/">
+          <span class='name'>Memory</span>
         </a>
       
         <a class='tag' href="/tags/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/">
@@ -743,11 +743,11 @@
   };
 
   // required plugins (only load if needs)
-  if (`local_search`) {
+  if (`algolia_search`) {
     ctx.search = {};
-    ctx.search.service = `local_search`;
+    ctx.search.service = `algolia_search`;
     if (ctx.search.service == 'local_search') {
-      let service_obj = Object.assign({}, `{"field":"all","path":"/search.json","content":true,"skip_search":null,"sort":"-date"}`);
+      let service_obj = Object.assign({}, `{"field":"all","path":"/search.json","content":true,"skip_search":null}`);
       ctx.search[ctx.search.service] = service_obj;
     }
   }
@@ -1336,12 +1336,17 @@
 
 <script>
   window.addEventListener('DOMContentLoaded', (event) => {
-    ctx.search = {
-      path: `/search.json`,
-    }
-    utils.js('/js/search/local-search.js', { defer: true });
+    window.searchConfig = {
+      appId: 'E4FBK1TGY5', 
+      apiKey: '17f4f10cb451aedeb97bb9f0458ba7e1', 
+      indexName: 'blog', 
+      js: 'https://gcore.jsdelivr.net/algoliasearch/3/algoliasearch.min.js',
+      hitsPerPage: 100, 
+    };
+    utils.js('/js/search/algolia-search.js', { defer: true });
   });
-</script><script>
+</script>
+<script>
   window.FPConfig = {
     delay: 0,
     ignoreKeywords: [],
@@ -1411,7 +1416,7 @@
     }
   });
 </script>
-<link rel="stylesheet" href="https://gcore.jsdelivr.net/npm/katex@0.16/dist/katex.min.css" integrity="sha384-vKruj+a13U8yHIkAyGgK1J3ArTLzrFGBbBc0tDp4ad/EyewESeXE/Iv67Aj8gKZ0" crossorigin="anonymous">
+<link rel="stylesheet" href="https://gcore.jsdelivr.net/npm/katex@0.16/dist/katex.min.css" crossorigin="anonymous">
 <script defer type="text/javascript" src="https://cdn.jsdelivr.net/npm/mermaid@11.9.0/dist/mermaid.min.js"></script>
 <script>
   window.addEventListener('DOMContentLoaded', (event) => {

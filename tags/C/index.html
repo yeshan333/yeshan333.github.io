@@ -145,11 +145,11 @@
   };
 
   // required plugins (only load if needs)
-  if (`local_search`) {
+  if (`algolia_search`) {
     ctx.search = {};
-    ctx.search.service = `local_search`;
+    ctx.search.service = `algolia_search`;
     if (ctx.search.service == 'local_search') {
-      let service_obj = Object.assign({}, `{"field":"all","path":"/search.json","content":true,"skip_search":null,"sort":"-date"}`);
+      let service_obj = Object.assign({}, `{"field":"all","path":"/search.json","content":true,"skip_search":null}`);
       ctx.search[ctx.search.service] = service_obj;
     }
   }
@@ -738,12 +738,17 @@
 
 <script>
   window.addEventListener('DOMContentLoaded', (event) => {
-    ctx.search = {
-      path: `/search.json`,
-    }
-    utils.js('/js/search/local-search.js', { defer: true });
+    window.searchConfig = {
+      appId: 'E4FBK1TGY5', 
+      apiKey: '17f4f10cb451aedeb97bb9f0458ba7e1', 
+      indexName: 'blog', 
+      js: 'https://gcore.jsdelivr.net/algoliasearch/3/algoliasearch.min.js',
+      hitsPerPage: 100, 
+    };
+    utils.js('/js/search/algolia-search.js', { defer: true });
   });
-</script><script>
+</script>
+<script>
   window.FPConfig = {
     delay: 0,
     ignoreKeywords: [],
@@ -813,7 +818,7 @@
     }
   });
 </script>
-<link rel="stylesheet" href="https://gcore.jsdelivr.net/npm/katex@0.16/dist/katex.min.css" integrity="sha384-vKruj+a13U8yHIkAyGgK1J3ArTLzrFGBbBc0tDp4ad/EyewESeXE/Iv67Aj8gKZ0" crossorigin="anonymous">
+<link rel="stylesheet" href="https://gcore.jsdelivr.net/npm/katex@0.16/dist/katex.min.css" crossorigin="anonymous">
 <script defer type="text/javascript" src="https://cdn.jsdelivr.net/npm/mermaid@11.9.0/dist/mermaid.min.js"></script>
 <script>
   window.addEventListener('DOMContentLoaded', (event) => {

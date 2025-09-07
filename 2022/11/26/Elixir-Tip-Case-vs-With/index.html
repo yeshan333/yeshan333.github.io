@@ -159,7 +159,7 @@
       <div class='title cap theme'>您可能感兴趣的文章</div>
     </section>
     <section class='body'>
-    <div class="related-posts"><a class="item" href="/2023/08/12/elixir-deps-debug-skills/" title="Elixir 依赖 (deps) 调试的小技巧"><span class="title">Elixir 依赖 (deps) 调试的小技巧</span><span class="excerpt">Elixir 依赖 (deps) 调试的小技巧</span></a><a class="item" href="/2022/06/29/elixir-run-time-code-line-level-coverage-collection/" title="Elixir 连续运行时代码覆盖率采集方案"><span class="title">Elixir 连续运行时代码覆盖率采集方案</span></a><a class="item" href="/2024/06/18/install-erlang-and-elixir-via-vfox-on-windows/" title="(Amazing!) 通过 vfox 在 Windows 上安装管理多个 Erlang/OTP 和 Elixir 的版本"><span class="title">(Amazing!) 通过 vfox 在 Windows 上安装管理多个 Erlang/OTP 和 Elixir 的版本</span><span class="excerpt">通过 vfox 安装在 Windows 上管理多个 Erlang/OTP 和 Elixir 的版本</span></a><a class="item" href="/2024/04/27/install-erlang-and-elixir-via-vfox/" title="通过 vfox 安装管理多版本 Erlang 和 Elixir"><span class="title">通过 vfox 安装管理多版本 Erlang 和 Elixir</span><span class="excerpt">通过 vfox 安装管理多版本 Erlang 和 Elixir</span></a><a class="item" href="/2022/08/31/the-solution-of-elixir-continuous-runtime-system-code-coverage-collection/" title="the-solution-of-elixir-continuous-runtime-system-code-coverage-collection"><span class="title">the-solution-of-elixir-continuous-runtime-system-code-coverage-collection</span></a></div></section></div>
+    <div class="related-posts"><a class="item" href="/2023/08/12/elixir-deps-debug-skills/" title="Elixir 依赖 (deps) 调试的小技巧"><span class="title">Elixir 依赖 (deps) 调试的小技巧</span><span class="excerpt">Elixir 依赖 (deps) 调试的小技巧</span></a><a class="item" href="/2022/06/29/elixir-run-time-code-line-level-coverage-collection/" title="Elixir 连续运行时代码覆盖率采集方案"><span class="title">Elixir 连续运行时代码覆盖率采集方案</span></a><a class="item" href="/2024/04/27/install-erlang-and-elixir-via-vfox/" title="通过 vfox 安装管理多版本 Erlang 和 Elixir"><span class="title">通过 vfox 安装管理多版本 Erlang 和 Elixir</span><span class="excerpt">通过 vfox 安装管理多版本 Erlang 和 Elixir</span></a><a class="item" href="/2024/06/18/install-erlang-and-elixir-via-vfox-on-windows/" title="(Amazing!) 通过 vfox 在 Windows 上安装管理多个 Erlang/OTP 和 Elixir 的版本"><span class="title">(Amazing!) 通过 vfox 在 Windows 上安装管理多个 Erlang/OTP 和 Elixir 的版本</span><span class="excerpt">通过 vfox 安装在 Windows 上管理多个 Erlang/OTP 和 Elixir 的版本</span></a><a class="item" href="/2022/08/31/the-solution-of-elixir-continuous-runtime-system-code-coverage-collection/" title="the-solution-of-elixir-continuous-runtime-system-code-coverage-collection"><span class="title">the-solution-of-elixir-continuous-runtime-system-code-coverage-collection</span></a></div></section></div>
 
 
   <div class="related-wrap md-text" id="comments">
@@ -215,11 +215,11 @@
   };
 
   // required plugins (only load if needs)
-  if (`local_search`) {
+  if (`algolia_search`) {
     ctx.search = {};
-    ctx.search.service = `local_search`;
+    ctx.search.service = `algolia_search`;
     if (ctx.search.service == 'local_search') {
-      let service_obj = Object.assign({}, `{"field":"all","path":"/search.json","content":true,"skip_search":null,"sort":"-date"}`);
+      let service_obj = Object.assign({}, `{"field":"all","path":"/search.json","content":true,"skip_search":null}`);
       ctx.search[ctx.search.service] = service_obj;
     }
   }
@@ -835,12 +835,17 @@
 
 <script>
   window.addEventListener('DOMContentLoaded', (event) => {
-    ctx.search = {
-      path: `/search.json`,
-    }
-    utils.js('/js/search/local-search.js', { defer: true });
+    window.searchConfig = {
+      appId: 'E4FBK1TGY5', 
+      apiKey: '17f4f10cb451aedeb97bb9f0458ba7e1', 
+      indexName: 'blog', 
+      js: 'https://gcore.jsdelivr.net/algoliasearch/3/algoliasearch.min.js',
+      hitsPerPage: 100, 
+    };
+    utils.js('/js/search/algolia-search.js', { defer: true });
   });
-</script><script>
+</script>
+<script>
   window.FPConfig = {
     delay: 0,
     ignoreKeywords: [],
@@ -910,7 +915,7 @@
     }
   });
 </script>
-<link rel="stylesheet" href="https://gcore.jsdelivr.net/npm/katex@0.16/dist/katex.min.css" integrity="sha384-vKruj+a13U8yHIkAyGgK1J3ArTLzrFGBbBc0tDp4ad/EyewESeXE/Iv67Aj8gKZ0" crossorigin="anonymous">
+<link rel="stylesheet" href="https://gcore.jsdelivr.net/npm/katex@0.16/dist/katex.min.css" crossorigin="anonymous">
 
 <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
 
