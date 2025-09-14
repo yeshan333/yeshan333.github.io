@@ -28,8 +28,8 @@
 <meta property="og:description" content="使用 vfox-erlang 安装管理多个 Erlang&#x2F;OTP 版本">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://vfox.lhan.me/performence.png">
-<meta property="og:image" content="https://telegraph.shansan.top/file/29090c88952e670c3448d.png">
-<meta property="og:image" content="https://telegraph.shansan.top/file/d599dfa1042f22ce7c94f.png">
+<meta property="og:image" content="https://blog-cloudflare-imgbed.pages.dev/file/29090c88952e670c3448d.png">
+<meta property="og:image" content="https://blog-cloudflare-imgbed.pages.dev/file/d599dfa1042f22ce7c94f.png">
 <meta property="article:published_time" content="2024-04-25T23:15:01.000Z">
 <meta property="article:modified_time" content="2024-04-25T23:15:01.000Z">
 <meta property="article:author" content="ShanSan">
@@ -58,7 +58,7 @@
 
   
 
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"ShanSan","sameAs":[]},"dateCreated":"2024-04-25T23:15:01+00:00","dateModified":"2024-04-25T23:15:01+00:00","datePublished":"2024-04-25T23:15:01+00:00","description":"","headline":"使用 vfox-erlang 安装管理多个 Erlang/OTP 版本","mainEntityOfPage":{"@type":"WebPage","@id":"https://shansan.top/2024/04/25/using-vfox-erlang-to-manage-erlang-version/"},"publisher":{"@type":"Organization","name":"ShanSan","sameAs":[]},"url":"https://shansan.top/2024/04/25/using-vfox-erlang-to-manage-erlang-version/","keywords":"vfox, Erlang/OTP, vfox-plugin, vfox-erlang","thumbnailUrl":"https://telegraph.shansan.top/file/ac02992ae1fb890558382.png","image":1}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"ShanSan","sameAs":[]},"dateCreated":"2024-04-25T23:15:01+00:00","dateModified":"2024-04-25T23:15:01+00:00","datePublished":"2024-04-25T23:15:01+00:00","description":"","headline":"使用 vfox-erlang 安装管理多个 Erlang/OTP 版本","mainEntityOfPage":{"@type":"WebPage","@id":"https://shansan.top/2024/04/25/using-vfox-erlang-to-manage-erlang-version/"},"publisher":{"@type":"Organization","name":"ShanSan","sameAs":[]},"url":"https://shansan.top/2024/04/25/using-vfox-erlang-to-manage-erlang-version/","keywords":"vfox, Erlang/OTP, vfox-plugin, vfox-erlang","thumbnailUrl":"https://blog-cloudflare-imgbed.pages.dev/file/ac02992ae1fb890558382.png","image":1}</script>
   
 </head>
 <body>
@@ -123,10 +123,10 @@ OTP 是一组 Erlang 库和设计原则, 提供中间件来开发这些系统。
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">或者直接指定一个版本安装</span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">vfox install erlang@26.2.2</span></span><br><span class="line">...</span><br><span class="line">Install erlang@26.2.2 success! </span><br><span class="line">Please use vfox use erlang@26.2.2 to use it.</span><br></pre></td></tr></table></figure>
 <p>当你看到类似 Install erlang@xxx success! 的信息, 就意味着安装完成了。接下来可以通过 <code>vfox use</code> 命令切换版本, 即可让当前 shell 会话可以使用对应的 Erlang/OTP 版本了.</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vfox use erlang@26.2.2</span><br></pre></td></tr></table></figure>
-<p><img src="https://telegraph.shansan.top/file/29090c88952e670c3448d.png" alt="vfox use demo"></p>
+<p><img src="https://blog-cloudflare-imgbed.pages.dev/file/29090c88952e670c3448d.png" alt="vfox use demo"></p>
 <p>vfox 提供了三种视角的版本管理方法: shell 会话、项目级、全局, 通过一个 <code>.tool-versions</code>, 可以灵活的为不同的项目目录分配使用不同的 Erlang/OTP 版本, 跟多信息可以查看官方文档的介绍: <a target="_blank" rel="noopener" href="https://vfox.lhan.me/guides/quick-start.html#_5-switch-runtime">vfox-Switch runtime</a>.</p>
 <p>本篇文章的使用示例主要以 Linux 系统为主, 但是 vfox-erlang 的使用文档上也给出了在 MacOS Darwin 系统下的使用指南 <a target="_blank" rel="noopener" href="https://github.com/version-fox/vfox-erlang?tab=readme-ov-file#install-in-darwin-macos-13">install-in-darwin-macos-13</a>, 并提供了在 Linux 和 MacOS 下持续集成测试供参考: <a target="_blank" rel="noopener" href="https://github.com/version-fox/vfox-erlang/blob/main/.github/workflows/e2e_test.yaml">vfox-erlang E2E testing</a>.</p>
-<p><img src="https://telegraph.shansan.top/file/d599dfa1042f22ce7c94f.png" alt="e2e testing"></p>
+<p><img src="https://blog-cloudflare-imgbed.pages.dev/file/d599dfa1042f22ce7c94f.png" alt="e2e testing"></p>
 <p>Happy and funny~</p>
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">
@@ -144,7 +144,7 @@ OTP 是一组 Erlang 库和设计原则, 提供中间件来开发这些系统。
       <div class="header"><span>分享文章</span></div>
       <div class="body">
         <div class="link"><input class="copy-area" readonly="true" id="copy-link" value="https://shansan.top/2024/04/25/using-vfox-erlang-to-manage-erlang-version/" /></div>
-        <div class="social-wrap dis-select"><a class="social share-item wechat" onclick="util.toggle(&quot;qrcode-wechat&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/b32ef3da1162a.svg" /></a><a class="social share-item weibo" target="_blank" rel="external nofollow noopener noreferrer" href="https://service.weibo.com/share/share.php?url=https://shansan.top/2024/04/25/using-vfox-erlang-to-manage-erlang-version/&title=使用 vfox-erlang 安装管理多个 Erlang/OTP 版本 - ShanSan&pics=https://telegraph.shansan.top/file/ac02992ae1fb890558382.png&summary=使用 vfox-erlang 安装管理多个 Erlang/OTP 版本"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/80c07e4dbb303.svg" /></a><a class="social share-item email" href="mailto:?subject=使用 vfox-erlang 安装管理多个 Erlang/OTP 版本 - ShanSan&amp;body=https://shansan.top/2024/04/25/using-vfox-erlang-to-manage-erlang-version/"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/a1b00e20f425d.svg" /></a><a class="social share-item link" onclick="util.copy(&quot;copy-link&quot;, &quot;复制成功&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/8411ed322ced6.svg" /></a></div>
+        <div class="social-wrap dis-select"><a class="social share-item wechat" onclick="util.toggle(&quot;qrcode-wechat&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/b32ef3da1162a.svg" /></a><a class="social share-item weibo" target="_blank" rel="external nofollow noopener noreferrer" href="https://service.weibo.com/share/share.php?url=https://shansan.top/2024/04/25/using-vfox-erlang-to-manage-erlang-version/&title=使用 vfox-erlang 安装管理多个 Erlang/OTP 版本 - ShanSan&pics=https://blog-cloudflare-imgbed.pages.dev/file/ac02992ae1fb890558382.png&summary=使用 vfox-erlang 安装管理多个 Erlang/OTP 版本"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/80c07e4dbb303.svg" /></a><a class="social share-item email" href="mailto:?subject=使用 vfox-erlang 安装管理多个 Erlang/OTP 版本 - ShanSan&amp;body=https://shansan.top/2024/04/25/using-vfox-erlang-to-manage-erlang-version/"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/a1b00e20f425d.svg" /></a><a class="social share-item link" onclick="util.copy(&quot;copy-link&quot;, &quot;复制成功&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/8411ed322ced6.svg" /></a></div>
         
         <div class="qrcode" id="qrcode-wechat" style="opacity:0;height:0">
           <img src="https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=https://shansan.top/2024/04/25/using-vfox-erlang-to-manage-erlang-version/"/>
@@ -161,7 +161,7 @@ OTP 是一组 Erlang 库和设计原则, 提供中间件来开发这些系统。
       <div class='title cap theme'>您可能感兴趣的文章</div>
     </section>
     <section class='body'>
-    <div class="related-posts"><a class="item" href="/2024/06/18/install-erlang-and-elixir-via-vfox-on-windows/" title="(Amazing!) 通过 vfox 在 Windows 上安装管理多个 Erlang/OTP 和 Elixir 的版本"><span class="title">(Amazing!) 通过 vfox 在 Windows 上安装管理多个 Erlang/OTP 和 Elixir 的版本</span><span class="excerpt">通过 vfox 安装在 Windows 上管理多个 Erlang/OTP 和 Elixir 的版本</span></a><a class="item" href="/2024/04/27/install-erlang-and-elixir-via-vfox/" title="通过 vfox 安装管理多版本 Erlang 和 Elixir"><span class="title">通过 vfox 安装管理多版本 Erlang 和 Elixir</span><span class="excerpt">通过 vfox 安装管理多版本 Erlang 和 Elixir</span></a></div></section></div>
+    <div class="related-posts"><a class="item" href="/2024/04/27/install-erlang-and-elixir-via-vfox/" title="通过 vfox 安装管理多版本 Erlang 和 Elixir"><span class="title">通过 vfox 安装管理多版本 Erlang 和 Elixir</span><span class="excerpt">通过 vfox 安装管理多版本 Erlang 和 Elixir</span></a><a class="item" href="/2024/06/18/install-erlang-and-elixir-via-vfox-on-windows/" title="(Amazing!) 通过 vfox 在 Windows 上安装管理多个 Erlang/OTP 和 Elixir 的版本"><span class="title">(Amazing!) 通过 vfox 在 Windows 上安装管理多个 Erlang/OTP 和 Elixir 的版本</span><span class="excerpt">通过 vfox 安装在 Windows 上管理多个 Erlang/OTP 和 Elixir 的版本</span></a></div></section></div>
 
 
   <div class="related-wrap md-text" id="comments">
