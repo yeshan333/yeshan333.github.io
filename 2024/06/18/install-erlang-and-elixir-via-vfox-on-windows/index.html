@@ -27,7 +27,7 @@
 <meta property="og:site_name" content="ShanSan">
 <meta property="og:description" content="通过 vfox 安装在 Windows 上管理多个 Erlang&#x2F;OTP 和 Elixir 的版本">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://blog-cloudflare-imgbed.pages.dev/file/bb7f655d91fc39e97c57c.png">
+<meta property="og:image" content="https://gallery.shansan.top/file/bb7f655d91fc39e97c57c.png">
 <meta property="article:published_time" content="2024-06-18T22:58:39.000Z">
 <meta property="article:modified_time" content="2024-06-18T22:58:39.000Z">
 <meta property="article:author" content="ShanSan">
@@ -36,7 +36,7 @@
 <meta property="article:tag" content="vfox">
 <meta property="article:tag" content="Windows">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://blog-cloudflare-imgbed.pages.dev/file/bb7f655d91fc39e97c57c.png">
+<meta name="twitter:image" content="https://gallery.shansan.top/file/bb7f655d91fc39e97c57c.png">
   
   
   
@@ -56,7 +56,7 @@
 
   
 
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"ShanSan","sameAs":[]},"dateCreated":"2024-06-18T22:58:39+00:00","dateModified":"2024-06-18T22:58:39+00:00","datePublished":"2024-06-18T22:58:39+00:00","description":"","headline":"(Amazing!) 通过 vfox 在 Windows 上安装管理多个 Erlang/OTP 和 Elixir 的版本","mainEntityOfPage":{"@type":"WebPage","@id":"https://shansan.top/2024/06/18/install-erlang-and-elixir-via-vfox-on-windows/"},"publisher":{"@type":"Organization","name":"ShanSan","sameAs":[]},"url":"https://shansan.top/2024/06/18/install-erlang-and-elixir-via-vfox-on-windows/","keywords":"Elixir, Erlang, vfox, Windows","thumbnailUrl":"https://blog-cloudflare-imgbed.pages.dev/file/e47d436092cf177a103bc.png","image":1}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"ShanSan","sameAs":[]},"dateCreated":"2024-06-18T22:58:39+00:00","dateModified":"2024-06-18T22:58:39+00:00","datePublished":"2024-06-18T22:58:39+00:00","description":"","headline":"(Amazing!) 通过 vfox 在 Windows 上安装管理多个 Erlang/OTP 和 Elixir 的版本","mainEntityOfPage":{"@type":"WebPage","@id":"https://shansan.top/2024/06/18/install-erlang-and-elixir-via-vfox-on-windows/"},"publisher":{"@type":"Organization","name":"ShanSan","sameAs":[]},"url":"https://shansan.top/2024/06/18/install-erlang-and-elixir-via-vfox-on-windows/","keywords":"Elixir, Erlang, vfox, Windows","thumbnailUrl":"https://gallery.shansan.top/file/e47d436092cf177a103bc.png","image":1}</script>
   
 </head>
 <body>
@@ -101,7 +101,7 @@
   </div>
   </div><article class="md-text content"><p>大概一个多月前, 我写了篇关于如何使用跨平台版本管理工具 vfox 在 Linux 系统下安装管理多个 Erlang/OTP 版本的文章 -&gt; <a target="_blank" rel="noopener" href="https://shan333.cn/2024/04/27/install-erlang-and-elixir-via-vfox/">通过 vfox 安装管理多版本 Erlang 和 Elixir</a>. 文章使用的示范操作系统是 Ubuntu 20.04 Linux 操作系统.</p>
 <p>最近 <a target="_blank" rel="noopener" href="https://github.com/version-fox/vfox-erlang">vfox-erlang</a> 和 <a target="_blank" rel="noopener" href="https://github.com/version-fox/vfox-elixir">vfox-elixir</a> 插件的最新版本已经支持了在 Windows 平台下安装管理多个 Erlang/OTP 和 Elixir 的版本. 且已经通过了 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/System_testing">End to End</a> 测试 -&gt; <a target="_blank" rel="noopener" href="https://github.com/version-fox/vfox-elixir/actions/runs/9566734284">Testing</a>.</p>
-<p><img src="https://blog-cloudflare-imgbed.pages.dev/file/bb7f655d91fc39e97c57c.png" alt="E2E testing"></p>
+<p><img src="https://gallery.shansan.top/file/bb7f655d91fc39e97c57c.png" alt="E2E testing"></p>
 <p>本篇文章将会以 Windows 10 操作系统为例, 教你如何在 Windows 平台安装和管理多个 Erlang/OTP 和 Elixir 版本.</p>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="built_in">Get-ComputerInfo</span></span><br><span class="line">WindowsBuildLabEx                                       : <span class="number">22621.1</span>.amd64fre.ni_release.<span class="number">220506</span><span class="literal">-1250</span></span><br><span class="line">WindowsCurrentVersion                                   : <span class="number">6.3</span></span><br><span class="line">WindowsInstallationType                                 : Client</span><br><span class="line">WindowsProductName                                      : Windows <span class="number">10</span> Pro</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
 <h2 id="1%E3%80%81%E5%AE%89%E8%A3%85-vfox" tabindex="-1">1、安装 vfox</h2>
@@ -151,7 +151,7 @@
       <div class="header"><span>分享文章</span></div>
       <div class="body">
         <div class="link"><input class="copy-area" readonly="true" id="copy-link" value="https://shansan.top/2024/06/18/install-erlang-and-elixir-via-vfox-on-windows/" /></div>
-        <div class="social-wrap dis-select"><a class="social share-item wechat" onclick="util.toggle(&quot;qrcode-wechat&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/b32ef3da1162a.svg" /></a><a class="social share-item weibo" target="_blank" rel="external nofollow noopener noreferrer" href="https://service.weibo.com/share/share.php?url=https://shansan.top/2024/06/18/install-erlang-and-elixir-via-vfox-on-windows/&title=(Amazing!) 通过 vfox 在 Windows 上安装管理多个 Erlang/OTP 和 Elixir 的版本 - ShanSan&pics=https://blog-cloudflare-imgbed.pages.dev/file/e47d436092cf177a103bc.png&summary=通过 vfox 安装在 Windows 上管理多个 Erlang/OTP 和 Elixir 的版本"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/80c07e4dbb303.svg" /></a><a class="social share-item email" href="mailto:?subject=(Amazing!) 通过 vfox 在 Windows 上安装管理多个 Erlang/OTP 和 Elixir 的版本 - ShanSan&amp;body=https://shansan.top/2024/06/18/install-erlang-and-elixir-via-vfox-on-windows/"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/a1b00e20f425d.svg" /></a><a class="social share-item link" onclick="util.copy(&quot;copy-link&quot;, &quot;复制成功&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/8411ed322ced6.svg" /></a></div>
+        <div class="social-wrap dis-select"><a class="social share-item wechat" onclick="util.toggle(&quot;qrcode-wechat&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/b32ef3da1162a.svg" /></a><a class="social share-item weibo" target="_blank" rel="external nofollow noopener noreferrer" href="https://service.weibo.com/share/share.php?url=https://shansan.top/2024/06/18/install-erlang-and-elixir-via-vfox-on-windows/&title=(Amazing!) 通过 vfox 在 Windows 上安装管理多个 Erlang/OTP 和 Elixir 的版本 - ShanSan&pics=https://gallery.shansan.top/file/e47d436092cf177a103bc.png&summary=通过 vfox 安装在 Windows 上管理多个 Erlang/OTP 和 Elixir 的版本"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/80c07e4dbb303.svg" /></a><a class="social share-item email" href="mailto:?subject=(Amazing!) 通过 vfox 在 Windows 上安装管理多个 Erlang/OTP 和 Elixir 的版本 - ShanSan&amp;body=https://shansan.top/2024/06/18/install-erlang-and-elixir-via-vfox-on-windows/"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/a1b00e20f425d.svg" /></a><a class="social share-item link" onclick="util.copy(&quot;copy-link&quot;, &quot;复制成功&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/8411ed322ced6.svg" /></a></div>
         
         <div class="qrcode" id="qrcode-wechat" style="opacity:0;height:0">
           <img src="https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=https://shansan.top/2024/06/18/install-erlang-and-elixir-via-vfox-on-windows/"/>

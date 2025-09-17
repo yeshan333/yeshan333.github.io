@@ -27,17 +27,17 @@
 <meta property="og:site_name" content="ShanSan">
 <meta property="og:description" content="WXT 开发浏览器插件">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://blog-cloudflare-imgbed.pages.dev/file/a989ed6d1aee8952789c0.png">
-<meta property="og:image" content="https://blog-cloudflare-imgbed.pages.dev/file/6b2718aa149d6feabb5e5.png">
-<meta property="og:image" content="https://blog-cloudflare-imgbed.pages.dev/file/b5543ca9568f1fae401b3.png">
-<meta property="og:image" content="https://blog-cloudflare-imgbed.pages.dev/file/67564121734cef6527d83.png">
+<meta property="og:image" content="https://gallery.shansan.top/file/a989ed6d1aee8952789c0.png">
+<meta property="og:image" content="https://gallery.shansan.top/file/6b2718aa149d6feabb5e5.png">
+<meta property="og:image" content="https://gallery.shansan.top/file/b5543ca9568f1fae401b3.png">
+<meta property="og:image" content="https://gallery.shansan.top/file/67564121734cef6527d83.png">
 <meta property="article:published_time" content="2024-03-15T07:47:53.000Z">
 <meta property="article:modified_time" content="2024-03-15T07:47:53.000Z">
 <meta property="article:author" content="ShanSan">
 <meta property="article:tag" content="extension">
 <meta property="article:tag" content="WXT">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://blog-cloudflare-imgbed.pages.dev/file/a989ed6d1aee8952789c0.png">
+<meta name="twitter:image" content="https://gallery.shansan.top/file/a989ed6d1aee8952789c0.png">
   
   
   
@@ -57,7 +57,7 @@
 
   
 
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"ShanSan","sameAs":[]},"dateCreated":"2024-03-15T07:47:53+00:00","dateModified":"2024-03-15T07:47:53+00:00","datePublished":"2024-03-15T07:47:53+00:00","description":"","headline":"使用 WXT 开发浏览器插件（上手使用篇）","mainEntityOfPage":{"@type":"WebPage","@id":"https://shansan.top/2024/03/15/develop-web-extension-with-wxt/"},"publisher":{"@type":"Organization","name":"ShanSan","sameAs":[]},"url":"https://shansan.top/2024/03/15/develop-web-extension-with-wxt/","keywords":"extension, WXT","thumbnailUrl":"https://blog-cloudflare-imgbed.pages.dev/file/298031f2826e13ca14330.png","image":1}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"ShanSan","sameAs":[]},"dateCreated":"2024-03-15T07:47:53+00:00","dateModified":"2024-03-15T07:47:53+00:00","datePublished":"2024-03-15T07:47:53+00:00","description":"","headline":"使用 WXT 开发浏览器插件（上手使用篇）","mainEntityOfPage":{"@type":"WebPage","@id":"https://shansan.top/2024/03/15/develop-web-extension-with-wxt/"},"publisher":{"@type":"Organization","name":"ShanSan","sameAs":[]},"url":"https://shansan.top/2024/03/15/develop-web-extension-with-wxt/","keywords":"extension, WXT","thumbnailUrl":"https://gallery.shansan.top/file/298031f2826e13ca14330.png","image":1}</script>
   
 </head>
 <body>
@@ -104,18 +104,18 @@
 <h2 id="%E4%B8%8A%E8%B7%AF~" tabindex="-1">上路~</h2>
 <p>WXT 提供了脚手架可以方便我们快速进行开发，但是我们得先安装好环境依赖，这里我们使用 npm, 所以需要安装下 node，可以参考 <a target="_blank" rel="noopener" href="https://nodejs.org/en">https://nodejs.org/en</a>.</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">直接基于脚手架创建项目</span></span><br><span class="line">npx wxt@latest init yeshan-bowser-extensoin</span><br><span class="line"></span><br><span class="line">cd yeshan-bowser-extensoin</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">安装依赖</span></span><br><span class="line">npm install --registry=https://registry.npmmirror.com</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">开始调试插件</span></span><br><span class="line">npm run dev</span><br></pre></td></tr></table></figure>
-<p><img src="https://blog-cloudflare-imgbed.pages.dev/file/a989ed6d1aee8952789c0.png" alt="https://blog-cloudflare-imgbed.pages.dev/file/a989ed6d1aee8952789c0.png"></p>
+<p><img src="https://gallery.shansan.top/file/a989ed6d1aee8952789c0.png" alt="https://gallery.shansan.top/file/a989ed6d1aee8952789c0.png"></p>
 <h2 id="qaq---wsl2-%E4%B8%8B%E5%BC%80%E5%8F%91%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98" tabindex="-1">QAQ - WSL2 下开发遇到的问题</h2>
 <p>使用 WSL2 进行开发的时候，<code>npm run dev</code> 在 wsl 是没办法自动打开浏览器的，会吐出如下问题：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">WARN  Cannot open browser when using WSL. Load &quot;.output/chrome-mv3&quot; as an unpacked extension manually</span><br></pre></td></tr></table></figure>
 <p>大概看了下 wxt 的实现，它是通过 <a target="_blank" rel="noopener" href="https://github.com/mozilla/web-ext">web-ext</a> 跟进指定的浏览器的 bin 文件（默认为 chromium）启动浏览器装载开发好的插件. 曾经通过文章 <a target="_blank" rel="noopener" href="https://saisuman.org/blog/chromium-in-wsl2">chromium-in-wsl2</a> 提到的办法直接在 wsl2 安装了 chromium，还是没能解决此问题😂😣. 翻了下官方仓库的 issue，有关联问题 <a target="_blank" rel="noopener" href="https://github.com/wxt-dev/wxt/issues/55">https://github.com/wxt-dev/wxt/issues/55</a>, 本质上是 web-ext 的 BUG <a target="_blank" rel="noopener" href="https://github.com/mozilla/web-ext/issues/2108#issuecomment-1837565780">issuecomment-1837565780</a>，截至 2024/3/15 还未修复.</p>
 <h3 id="%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95" tabindex="-1">解决方法</h3>
 <p>没办法了，如果还想继续用 wsl 做开发，只能手动加载插件了，在 windows 上打开 chrome 后，地址栏输入 <code>chrome://extensions/</code> 转到插件管理页 (记得开启开发者模式) -&gt; 加载已解压的扩展程序:</p>
-<p><img src="https://blog-cloudflare-imgbed.pages.dev/file/6b2718aa149d6feabb5e5.png" alt="https://blog-cloudflare-imgbed.pages.dev/file/6b2718aa149d6feabb5e5.png"></p>
+<p><img src="https://gallery.shansan.top/file/6b2718aa149d6feabb5e5.png" alt="https://gallery.shansan.top/file/6b2718aa149d6feabb5e5.png"></p>
 <p>我们要加载的插件目录是在 wsl 中的（即: <code>.output/chrome-mv3/</code>），好在 Window 和 wsl2 的文件文件系统是打通的，可以相互访问，我们可以使用 <a target="_blank" rel="noopener" href="https://github.com/wslutilities/wslu">wslutils</a> 提供的工具获取在 Windows 下可以访问的路径</p>
-<p><img src="https://blog-cloudflare-imgbed.pages.dev/file/b5543ca9568f1fae401b3.png" alt="https://blog-cloudflare-imgbed.pages.dev/file/b5543ca9568f1fae401b3.png"></p>
+<p><img src="https://gallery.shansan.top/file/b5543ca9568f1fae401b3.png" alt="https://gallery.shansan.top/file/b5543ca9568f1fae401b3.png"></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">获取 windows 文件管理器可以访问的地址</span></span><br><span class="line">❯ wslpath -w .output/chrome-mv3/</span><br><span class="line">\\wsl.localhost\Ubuntu-20.04\home\yeshan333\workspace\github\yeshan-bowser-extensoin\.output\chrome-mv3</span><br></pre></td></tr></table></figure>
-<p><img src="https://blog-cloudflare-imgbed.pages.dev/file/67564121734cef6527d83.png" alt="https://blog-cloudflare-imgbed.pages.dev/file/67564121734cef6527d83.png"></p>
+<p><img src="https://gallery.shansan.top/file/67564121734cef6527d83.png" alt="https://gallery.shansan.top/file/67564121734cef6527d83.png"></p>
 <p>Done ~, 搞定咯，可以愉快码代码了~</p>
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">
@@ -133,7 +133,7 @@
       <div class="header"><span>分享文章</span></div>
       <div class="body">
         <div class="link"><input class="copy-area" readonly="true" id="copy-link" value="https://shansan.top/2024/03/15/develop-web-extension-with-wxt/" /></div>
-        <div class="social-wrap dis-select"><a class="social share-item wechat" onclick="util.toggle(&quot;qrcode-wechat&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/b32ef3da1162a.svg" /></a><a class="social share-item weibo" target="_blank" rel="external nofollow noopener noreferrer" href="https://service.weibo.com/share/share.php?url=https://shansan.top/2024/03/15/develop-web-extension-with-wxt/&title=使用 WXT 开发浏览器插件（上手使用篇） - ShanSan&pics=https://blog-cloudflare-imgbed.pages.dev/file/298031f2826e13ca14330.png&summary=WXT 开发浏览器插件"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/80c07e4dbb303.svg" /></a><a class="social share-item email" href="mailto:?subject=使用 WXT 开发浏览器插件（上手使用篇） - ShanSan&amp;body=https://shansan.top/2024/03/15/develop-web-extension-with-wxt/"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/a1b00e20f425d.svg" /></a><a class="social share-item link" onclick="util.copy(&quot;copy-link&quot;, &quot;复制成功&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/8411ed322ced6.svg" /></a></div>
+        <div class="social-wrap dis-select"><a class="social share-item wechat" onclick="util.toggle(&quot;qrcode-wechat&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/b32ef3da1162a.svg" /></a><a class="social share-item weibo" target="_blank" rel="external nofollow noopener noreferrer" href="https://service.weibo.com/share/share.php?url=https://shansan.top/2024/03/15/develop-web-extension-with-wxt/&title=使用 WXT 开发浏览器插件（上手使用篇） - ShanSan&pics=https://gallery.shansan.top/file/298031f2826e13ca14330.png&summary=WXT 开发浏览器插件"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/80c07e4dbb303.svg" /></a><a class="social share-item email" href="mailto:?subject=使用 WXT 开发浏览器插件（上手使用篇） - ShanSan&amp;body=https://shansan.top/2024/03/15/develop-web-extension-with-wxt/"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/a1b00e20f425d.svg" /></a><a class="social share-item link" onclick="util.copy(&quot;copy-link&quot;, &quot;复制成功&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/8411ed322ced6.svg" /></a></div>
         
         <div class="qrcode" id="qrcode-wechat" style="opacity:0;height:0">
           <img src="https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=https://shansan.top/2024/03/15/develop-web-extension-with-wxt/"/>
