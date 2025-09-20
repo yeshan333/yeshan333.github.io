@@ -6,7 +6,7 @@
   <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1" theme-name="Stellar" theme-version="1.33.1">
   
   
-  <meta name="generator" content="Hexo 7.3.0">
+  <meta name="generator" content="Hexo 8.0.0">
   <meta http-equiv='x-dns-prefetch-control' content='on' />
   
   <meta name="renderer" content="webkit">
@@ -20,12 +20,12 @@
   <title>坑人的C++ - ShanSan</title>
 
   
-    <meta name="description" content="C++自定义命名空间 使用关键字namespace namespace namespace_name &#123; 	&#x2F;&#x2F;代码声明 &#125;">
+    <meta name="description" content="C++自定义命名空间 使用关键字namespace namespace namespace_name { 	&#x2F;&#x2F;代码声明 }">
 <meta property="og:type" content="article">
 <meta property="og:title" content="坑人的C++">
 <meta property="og:url" content="https://shansan.top/2018/10/22/%E5%9D%91%E4%BA%BA%E7%9A%84C++/">
 <meta property="og:site_name" content="ShanSan">
-<meta property="og:description" content="C++自定义命名空间 使用关键字namespace namespace namespace_name &#123; 	&#x2F;&#x2F;代码声明 &#125;">
+<meta property="og:description" content="C++自定义命名空间 使用关键字namespace namespace namespace_name { 	&#x2F;&#x2F;代码声明 }">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://i.imgur.com/IvaQsEx.png">
 <meta property="og:image" content="https://i.imgur.com/cmrUaSk.png">
@@ -55,7 +55,7 @@
 
   
 
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"ShanSan","sameAs":[]},"dateCreated":"2018-10-22T23:38:58+00:00","dateModified":"2018-10-22T23:38:58+00:00","datePublished":"2018-10-22T23:38:58+00:00","description":"C++自定义命名空间\n使用关键字namespace\nnamespace namespace_name\n&#123;\n\t//代码声明\n&#125;\n","headline":"坑人的C++","mainEntityOfPage":{"@type":"WebPage","@id":"https://shansan.top/2018/10/22/%E5%9D%91%E4%BA%BA%E7%9A%84C++/"},"publisher":{"@type":"Organization","name":"ShanSan","sameAs":[]},"url":"https://shansan.top/2018/10/22/%E5%9D%91%E4%BA%BA%E7%9A%84C++/","keywords":"CPP","image":[]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"ShanSan","sameAs":[]},"dateCreated":"2018-10-22T23:38:58+00:00","dateModified":"2018-10-22T23:38:58+00:00","datePublished":"2018-10-22T23:38:58+00:00","description":"C++自定义命名空间\n使用关键字namespace\nnamespace namespace_name\n{\n\t//代码声明\n}\n","headline":"坑人的C++","mainEntityOfPage":{"@type":"WebPage","@id":"https://shansan.top/2018/10/22/%E5%9D%91%E4%BA%BA%E7%9A%84C++/"},"publisher":{"@type":"Organization","name":"ShanSan","sameAs":[]},"url":"https://shansan.top/2018/10/22/%E5%9D%91%E4%BA%BA%E7%9A%84C++/","keywords":"CPP","image":[]}</script>
   
 </head>
 <body>
@@ -101,9 +101,9 @@
   </div><article class="md-text content"><h1 id="c%2B%2B%E8%87%AA%E5%AE%9A%E4%B9%89%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4" tabindex="-1">C++自定义命名空间</h1>
 <p>使用关键字namespace</p>
 <pre><code>namespace namespace_name
-&#123;
+{
 	//代码声明
-&#125;
+}
 </code></pre>
 <span id="more"></span>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">using</span> std::cout;</span><br><span class="line"><span class="keyword">namespace</span> print_myname&#123;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">func</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">    	cout&lt;&lt;<span class="string">&quot;myname: shansan&quot;</span>&lt;&lt;endl;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> print_font&#123;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">func_1</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">    	std::cout&lt;&lt;<span class="string">&quot;什么鬼 ！&quot;</span>&lt;&lt;endl;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> print_myname;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> print_font;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//print_myname::func();</span></span><br><span class="line">	<span class="built_in">func</span>();</span><br><span class="line"></span><br><span class="line">	<span class="comment">//print_font::func_1();</span></span><br><span class="line">	<span class="built_in">func_1</span>();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -116,9 +116,9 @@
 下面的命名空间可以定义一个新的命名空间，也可以是为已有的命名空间增加新的元素。</p>
 </blockquote>
 <pre><code>namespace namespace_name
-&#123;
+{
     //代码生明
-&#125;
+}
 </code></pre>
 <h2 id="%E5%B5%8C%E5%A5%97%E7%9A%84%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4" tabindex="-1">嵌套的命名空间</h2>
 <p>可以在一个命名空间中定义另一个命名空间</p>
@@ -159,9 +159,9 @@
         <div class="social-wrap dis-select"><a class="social share-item wechat" onclick="util.toggle(&quot;qrcode-wechat&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/b32ef3da1162a.svg" /></a><a class="social share-item weibo" target="_blank" rel="external nofollow noopener noreferrer" href="https://service.weibo.com/share/share.php?url=https://shansan.top/2018/10/22/%E5%9D%91%E4%BA%BA%E7%9A%84C++/&title=坑人的C++ - ShanSan&summary=C++自定义命名空间
 使用关键字namespace
 namespace namespace_name
-&#123;
+{
 	//代码声明
-&#125;
+}
 "><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/80c07e4dbb303.svg" /></a><a class="social share-item email" href="mailto:?subject=坑人的C++ - ShanSan&amp;body=https://shansan.top/2018/10/22/%E5%9D%91%E4%BA%BA%E7%9A%84C++/"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/a1b00e20f425d.svg" /></a><a class="social share-item link" onclick="util.copy(&quot;copy-link&quot;, &quot;复制成功&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/8411ed322ced6.svg" /></a></div>
         
         <div class="qrcode" id="qrcode-wechat" style="opacity:0;height:0">
@@ -224,26 +224,18 @@ char
 ‘\0’
 
 
-poin...</span></a><a class="item" href="/2018/10/02/C++-入坑记/" title="C++入坑记"><span class="title">C++入坑记</span><span class="excerpt">C++关键字
-https://www.runoob.com/w3cnote/cpp-keyword-intro.html
+poin...</span></a><a class="item" href="/2018/11/05/C++-标准库类型/" title="C++标准库类型"><span class="title">C++标准库类型</span><span class="excerpt">标准库类型string
+
+标准库类型string表示可变长的字符序列
+使用string类型必须包含string头文件，string定义在命名空间std中
+
+定义和初始化string对象
+初始化string对象的方式
 
 
 
-asm
-else
-new
-this
-
-
-
-
-auto
-enum
-operator
-throw
-
-
-bool...</span></a></div></section></div>
+初始化方式
+...</span></a></div></section></div>
 
 
   <div class="related-wrap md-text" id="comments">

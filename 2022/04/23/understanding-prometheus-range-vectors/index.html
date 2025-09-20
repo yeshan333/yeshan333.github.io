@@ -6,7 +6,7 @@
   <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1" theme-name="Stellar" theme-version="1.33.1">
   
   
-  <meta name="generator" content="Hexo 7.3.0">
+  <meta name="generator" content="Hexo 8.0.0">
   <meta http-equiv='x-dns-prefetch-control' content='on' />
   
   <meta name="renderer" content="webkit">
@@ -102,7 +102,7 @@
 <p>由于 Prometheus 是一个时序型的数据库，所以所有的数据都在基于时间戳的上下文中被定义。由时间戳到记录数据的映射（map）序列（series）被称之为时间序列（timeseries）。在 Prometheus 的术语中，关于时间序列的集合（即一组时序数据）被称之为 vector。让我们用一个示例去更好的说明这一点。</p>
 <p>假设 <code>http_requests_total</code> 是一个表示服务受到的 http 请求总量的 vector。Vectors 允许我们更进一步的使用被称为 “labels” 的东西多维度去表示数据。 例:</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// the set of timeseries representing the number of requests with a `200` HTTP response code.</span><br><span class="line">// HTTP 状态码为 200 的请求数的一组时间序列</span><br><span class="line">http_requests_total&#123;code=&quot;200&quot;&#125;</span><br><span class="line"></span><br><span class="line">// the set of timeseries representing the number of requests served by the `/api/v1/query` handler.</span><br><span class="line">// 表示&#x27; /api/v1/query &#x27;处理程序处理的请求数的一组时间序列</span><br><span class="line">http_requests_total&#123;handler=&quot;/api/v1/query&quot;&#125;</span><br></pre></td></tr></table></figure>
-<p>这样，我们就拥有了所有与所服务的 HTTP 请求数量相关的细粒度的信息，同时还可以在需要时选择聚合这些信息。从语法上讲，<code>http_requests_total</code> 指的是命名为它的整个时间序列集。通过添加 <code>&#123;code=&quot;200&quot;&#125;</code> 或 <code>&#123;handler=&quot;/api/v1/query&quot;&#125;</code>，我们选择了一个子集。</p>
+<p>这样，我们就拥有了所有与所服务的 HTTP 请求数量相关的细粒度的信息，同时还可以在需要时选择聚合这些信息。从语法上讲，<code>http_requests_total</code> 指的是命名为它的整个时间序列集。通过添加 <code>{code=&quot;200&quot;}</code> 或 <code>{handler=&quot;/api/v1/query&quot;}</code>，我们选择了一个子集。</p>
 <h2 id="vectors-%E7%9A%84%E7%B1%BB%E5%9E%8B" tabindex="-1">Vectors 的类型</h2>
 <p>Prometheus 进一步定义了两种类型的 vector，取决于时间戳（timestamps）被映射为什么：</p>
 <ul>
@@ -126,7 +126,7 @@
 </ol>
 <h2 id="%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E4%BB%AC%E8%BF%98%E9%9C%80%E8%A6%81-range-vectors" tabindex="-1">为什么我们还需要 Range Vectors</h2>
 <p>我们现在知道，Range Vectors 不能直接用于图表或聚合。因此，很自然地要问它们为什么会存在? 答案很简单: <strong>counter</strong>。 counter 是监控系统的基本类型之一，除了 gauges 和 timings。我们将继续前面的示例，去试图理解 counters 和 range vectors 是如何相互作用的。</p>
-<p>假设我们想知道我们的服务现在正在处理多少请求。我们的度量指标 <code>http_requests_total&#123;code=&quot;200&quot;，handler=&quot;/api/v1/query&quot;&#125;</code> 是一个 instant vector，其值代表一个单调递增的 counter [2]。这个 counter 用于度量我们的服务接收到的请求总数。我们知道 Prometheus 在过去的不同时间里 “爬取（scraped）” 了这个 counter，所以我们可以简单地从请求 counter 的值开始:</p>
+<p>假设我们想知道我们的服务现在正在处理多少请求。我们的度量指标 <code>http_requests_total{code=&quot;200&quot;，handler=&quot;/api/v1/query&quot;}</code> 是一个 instant vector，其值代表一个单调递增的 counter [2]。这个 counter 用于度量我们的服务接收到的请求总数。我们知道 Prometheus 在过去的不同时间里 “爬取（scraped）” 了这个 counter，所以我们可以简单地从请求 counter 的值开始:</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">curl &#x27;http://localhost:9090/api/v1/query&#x27; \</span><br><span class="line">  --data &#x27;query=http_requests_total&#123;code=&quot;200&quot;,handler=&quot;/api/v1/query&quot;&#125;&#x27;</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  &quot;metric&quot;: &#123;&quot;__name__&quot;: &quot;http_requests_total&quot;, &quot;code&quot;: &quot;200&quot;, &quot;handler&quot;:&quot;/api/v1/query&quot;&#125;,</span><br><span class="line">  &quot;value&quot;: [1608437313, &quot;881&quot;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>但从响应中可以看到，这样做会得到我们不感兴趣的请求的总数，我们关注的是它在过去的有限时间内收到的请求的数量（上面表示的是过去所有时间的请求总量），例如，最近十五分钟。当我们只有一个不断增长的 counter 时，我们如何得到这个数字？</p>
 <p>更好的方法是用 counter 的当前值减去 15 分钟前看到的 counter 值。这样我们就可以得到实例在这段时间内接收到的确切请求数。为了在 PromQL 中表示这一点，我们给 instant vector 附加持续时间 <code>[15m]</code>。这部分叫做 range selector，它把 instant vector 转换成 range vector。然后，我们使用像<code>increase</code> 这样的函数，它有效地[3]从 range 开始处的数据点减去 range 结束处的数据点。</p>

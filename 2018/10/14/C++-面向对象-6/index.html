@@ -6,7 +6,7 @@
   <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1" theme-name="Stellar" theme-version="1.33.1">
   
   
-  <meta name="generator" content="Hexo 7.3.0">
+  <meta name="generator" content="Hexo 8.0.0">
   <meta http-equiv='x-dns-prefetch-control' content='on' />
   
   <meta name="renderer" content="webkit">
@@ -120,9 +120,9 @@
 <h3 id="%E8%99%9A%E5%87%BD%E6%95%B0" tabindex="-1">虚函数</h3>
 <p>在基类中使用<code>virtual</code>关键字进行声明的函数。</p>
 <pre><code>virtual 函数返回值 函数名(形参)
-&#123;
+{
 	函数体
-&#125;
+}
 </code></pre>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PI 3.1415926</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Point</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">private</span>:</span><br><span class="line">		<span class="type">int</span> x;</span><br><span class="line">		<span class="type">int</span> y;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="built_in">Point</span>(<span class="type">int</span> x=<span class="number">0</span>,<span class="type">int</span> y=<span class="number">0</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">this</span>-&gt;x=x;</span><br><span class="line">			<span class="keyword">this</span>-&gt;y=y;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="function"><span class="keyword">virtual</span> <span class="type">double</span> <span class="title">area</span><span class="params">()</span></span></span><br><span class="line"><span class="function">		</span>&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="number">0.0</span>;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Circle</span>: <span class="keyword">public</span> Point</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">private</span>:</span><br><span class="line">		<span class="type">int</span> r;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    	<span class="built_in">Circle</span>(<span class="type">int</span> x,<span class="type">int</span> y,<span class="type">int</span> R):<span class="built_in">Point</span>(x,y)<span class="comment">//基基类中有带参数的构造函数，派生类中的构造函数需要自定义</span></span><br><span class="line">    	&#123;</span><br><span class="line">    		<span class="keyword">this</span>-&gt;r=R;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="function"><span class="type">double</span> <span class="title">area</span><span class="params">()</span></span></span><br><span class="line"><span class="function">		</span>&#123;</span><br><span class="line">			<span class="keyword">return</span> r*r*PI;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="function">Point <span class="title">A</span><span class="params">(<span class="number">3</span>,<span class="number">3</span>)</span></span>;<span class="comment">//一个点</span></span><br><span class="line">	<span class="function">Circle <span class="title">B</span><span class="params">(<span class="number">3</span>,<span class="number">3</span>,<span class="number">3</span>)</span></span>;   	<span class="comment">//一个圆</span></span><br><span class="line"></span><br><span class="line">	cout&lt;&lt;A.<span class="built_in">area</span>()&lt;&lt;endl;</span><br><span class="line">	cout&lt;&lt;B.<span class="built_in">area</span>()&lt;&lt;endl;</span><br><span class="line"></span><br><span class="line">	Point *ptr;  <span class="comment">//Point类型的指针</span></span><br><span class="line">	ptr = &amp;B;</span><br><span class="line">	cout&lt;&lt;ptr-&gt;<span class="built_in">area</span>()&lt;&lt;endl;</span><br><span class="line">	cout&lt;&lt;(*ptr).<span class="built_in">area</span>()&lt;&lt;endl;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><img src="https://i.imgur.com/Hp4HVUm.png" alt="运行结果"></p>
@@ -224,26 +224,18 @@ char
 ‘\0’
 
 
-poin...</span></a><a class="item" href="/2018/10/02/C++-入坑记/" title="C++入坑记"><span class="title">C++入坑记</span><span class="excerpt">C++关键字
-https://www.runoob.com/w3cnote/cpp-keyword-intro.html
+poin...</span></a><a class="item" href="/2018/11/05/C++-标准库类型/" title="C++标准库类型"><span class="title">C++标准库类型</span><span class="excerpt">标准库类型string
+
+标准库类型string表示可变长的字符序列
+使用string类型必须包含string头文件，string定义在命名空间std中
+
+定义和初始化string对象
+初始化string对象的方式
 
 
 
-asm
-else
-new
-this
-
-
-
-
-auto
-enum
-operator
-throw
-
-
-bool...</span></a></div></section></div>
+初始化方式
+...</span></a></div></section></div>
 
 
   <div class="related-wrap md-text" id="comments">
