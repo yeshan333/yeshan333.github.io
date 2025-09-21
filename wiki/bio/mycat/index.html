@@ -33,8 +33,8 @@
 <meta property="og:image" content="https://gallery.shansan.top/file/1758344131779_image.png">
 <meta property="og:image" content="https://gallery.shansan.top/file/3d141912f6a4eb2d7c0ab.jpg">
 <meta property="og:image" content="https://gallery.shansan.top/file/08c3f69e9dcc5c02aa83d.jpg">
-<meta property="article:published_time" content="2025-09-20T04:58:16.925Z">
-<meta property="article:modified_time" content="2025-09-20T04:58:16.925Z">
+<meta property="article:published_time" content="2025-09-21T04:53:37.370Z">
+<meta property="article:modified_time" content="2025-09-21T04:53:37.370Z">
 <meta property="article:author" content="ShanSan">
 <meta property="article:tag" content="Cloudys">
 <meta property="article:tag" content="ShanSan">
@@ -94,7 +94,7 @@
   <div class="content">
     <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
 <span class="sep"></span><a class="cap breadcrumb" id="menu" href="/wiki/">文档</a><span class="sep"></span><a class="cap breadcrumb" id="proj" href="/wiki/bio/">ShanSan</a></div>
-<div class="flex-row" id="post-meta"><span class="text created">更新于：<time datetime="2025-09-20T04:58:16.925Z">2025-09-20</time></span></div></div></div>
+<div class="flex-row" id="post-meta"><span class="text created">更新于：<time datetime="2025-09-21T04:53:37.370Z">2025-09-21</time></span></div></div></div>
     
     <div class="bottom only-title">
       
@@ -198,11 +198,11 @@ If you like my articles or projects, you can choose to feed them to my cat (Brea
   };
 
   // required plugins (only load if needs)
-  if (`algolia_search`) {
+  if (`local_search`) {
     ctx.search = {};
-    ctx.search.service = `algolia_search`;
+    ctx.search.service = `local_search`;
     if (ctx.search.service == 'local_search') {
-      let service_obj = Object.assign({}, `{"field":"all","path":"/search.json","content":true,"skip_search":null}`);
+      let service_obj = Object.assign({}, `{"field":"all","path":"/search.json","content":true,"skip_search":null,"sort":"-date"}`);
       ctx.search[ctx.search.service] = service_obj;
     }
   }
@@ -818,17 +818,12 @@ If you like my articles or projects, you can choose to feed them to my cat (Brea
 
 <script>
   window.addEventListener('DOMContentLoaded', (event) => {
-    window.searchConfig = {
-      appId: 'E4FBK1TGY5', 
-      apiKey: '17f4f10cb451aedeb97bb9f0458ba7e1', 
-      indexName: 'blog', 
-      js: 'https://gcore.jsdelivr.net/algoliasearch/3/algoliasearch.min.js',
-      hitsPerPage: 100, 
-    };
-    utils.js('/js/search/algolia-search.js', { defer: true });
+    ctx.search = {
+      path: `/search.json`,
+    }
+    utils.js('/js/search/local-search.js', { defer: true });
   });
-</script>
-<script>
+</script><script>
   window.FPConfig = {
     delay: 0,
     ignoreKeywords: [],

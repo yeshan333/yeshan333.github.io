@@ -282,11 +282,11 @@ Effect Hook
   };
 
   // required plugins (only load if needs)
-  if (`algolia_search`) {
+  if (`local_search`) {
     ctx.search = {};
-    ctx.search.service = `algolia_search`;
+    ctx.search.service = `local_search`;
     if (ctx.search.service == 'local_search') {
-      let service_obj = Object.assign({}, `{"field":"all","path":"/search.json","content":true,"skip_search":null}`);
+      let service_obj = Object.assign({}, `{"field":"all","path":"/search.json","content":true,"skip_search":null,"sort":"-date"}`);
       ctx.search[ctx.search.service] = service_obj;
     }
   }
@@ -902,17 +902,12 @@ Effect Hook
 
 <script>
   window.addEventListener('DOMContentLoaded', (event) => {
-    window.searchConfig = {
-      appId: 'E4FBK1TGY5', 
-      apiKey: '17f4f10cb451aedeb97bb9f0458ba7e1', 
-      indexName: 'blog', 
-      js: 'https://gcore.jsdelivr.net/algoliasearch/3/algoliasearch.min.js',
-      hitsPerPage: 100, 
-    };
-    utils.js('/js/search/algolia-search.js', { defer: true });
+    ctx.search = {
+      path: `/search.json`,
+    }
+    utils.js('/js/search/local-search.js', { defer: true });
   });
-</script>
-<script>
+</script><script>
   window.FPConfig = {
     delay: 0,
     ignoreKeywords: [],
