@@ -6,7 +6,7 @@
   <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1" theme-name="Stellar" theme-version="1.33.1">
   
   
-  <meta name="generator" content="Hexo 8.0.0">
+  <meta name="generator" content="Hexo 8.1.1">
   <meta http-equiv='x-dns-prefetch-control' content='on' />
   
   <meta name="renderer" content="webkit">
@@ -46,7 +46,13 @@
 
   <!-- feed -->
   
-    <link rel="alternate" href="/rss2.xml" title="ShanSan" type="application/rss+xml">
+    
+
+    
+      
+        <link rel="alternate" href="/rss2.xml" title="ShanSan" type="application/rss+xml">
+      
+    
   
 
   <link rel="stylesheet" href="/css/main.css?v=1.33.1">
@@ -58,12 +64,10 @@
 
   
 
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"ShanSan","sameAs":[]},"dateCreated":"2018-12-03T23:51:52+00:00","dateModified":"2018-12-03T23:51:52+00:00","datePublished":"2018-12-03T23:51:52+00:00","description":"gcc常见编译选项\n\n** -c **:只激活预处理、编译和汇编，也就是生成obj文件\n** -S **:只激活处理和编译，把文件编译成汇编代码\n** -o **:定制目标名称，缺省的时候编译出来的可执行程序名为a.exe(windows)或a.out(linux)\n** -Wall **:打开一些很有用的编译警告\n** -std **:指定C标准，如-std=99，使用C99标准\n** -g **:指示编译器，编译的时候添加调试信息\n** -O0 -O1 -O2 -O3 **：编译器的优化选项的4个级别，-O0表示没有优化,-O1为缺省值，-O3优化级别最高\n","headline":"Biu一下GDB","mainEntityOfPage":{"@type":"WebPage","@id":"https://shansan.top/2018/12/03/biu%E4%B8%80%E4%B8%8BGDB/"},"publisher":{"@type":"Organization","name":"ShanSan","sameAs":[]},"url":"https://shansan.top/2018/12/03/biu%E4%B8%80%E4%B8%8BGDB/","keywords":"GDB","image":[]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"ShanSan","sameAs":["https://github.com/yeshan333"]},"dateCreated":"2018-12-03T23:51:52+00:00","dateModified":"2018-12-03T23:51:52+00:00","datePublished":"2018-12-03T23:51:52+00:00","description":"gcc常见编译选项\n\n** -c **:只激活预处理、编译和汇编，也就是生成obj文件\n** -S **:只激活处理和编译，把文件编译成汇编代码\n** -o **:定制目标名称，缺省的时候编译出来的可执行程序名为a.exe(windows)或a.out(linux)\n** -Wall **:打开一些很有用的编译警告\n** -std **:指定C标准，如-std=99，使用C99标准\n** -g **:指示编译器，编译的时候添加调试信息\n** -O0 -O1 -O2 -O3 **：编译器的优化选项的4个级别，-O0表示没有优化,-O1为缺省值，-O3优化级别最高\n","headline":"Biu一下GDB","mainEntityOfPage":{"@type":"WebPage","@id":"https://shansan.top/2018/12/03/biu%E4%B8%80%E4%B8%8BGDB/"},"publisher":{"@type":"Organization","name":"ShanSan","sameAs":["https://github.com/yeshan333"]},"url":"https://shansan.top/2018/12/03/biu%E4%B8%80%E4%B8%8BGDB/","keywords":"GDB","image":[]}</script>
   
 </head>
-<body>
-
-<div class="l_body content" id="start" layout="post" type="tech" ><aside class="l_left"><div class="sidebg"></div><div class="leftbar-container">
+<body><div id="l_cover"></div><div class="l_body content" id="start" layout="post" type="tech" ><aside class="l_left"><div class="sidebg"></div><div class="leftbar-container">
 
 
 <header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="https://ospy.shan333.cn/blog/blog.avatar.jpg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></a><a class="title" href="/"><div class="main">ShanSan</div><div class="sub cap">个人博客</div></a></div></header>
@@ -304,12 +308,11 @@ C语言的变量都是放在内存中的，而内存中间的每一个字节都�
 <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span></p>
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 </div></footer>
-<div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
-<div class="widgets">
+<div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right"><div class="widgets">
 <widget class="widget-wrapper user-card ghuser"><div class="widget-body data-service ds-ghinfo" data-api="https://api.github.com/users/yeshan333"><div class="avatar" ><img no-lazy type="img" id="avatar_url" src="undefined" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></div><p class="username" type="text" id="name">&nbsp;</p><p class="bio" type="text" id="bio">&nbsp;</p><div class="buttons"><a class="btn" target="_blank" rel="noopener" href="https://github.com/yeshan333?tab=followers"><span class="title" type="text" id="followers">0</span><span class="desc">followers</span></a><a class="btn" target="_blank" rel="noopener" href="https://github.com/yeshan333?tab=following"><span class="title" type="text" id="following">0</span><span class="desc">following</span></a><a class="btn" target="_blank" rel="noopener" href="https://github.com/yeshan333?tab=repositories"><span class="title" type="text" id="public_repos">0</span><span class="desc">repos</span></a></div><a class="follow" target="_blank" rel="noopener" href="https://github.com/yeshan333"><svg aria-hidden="true" role="img" class="color-icon-primary" viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor" style="display:inline-block;user-select:none;vertical-align:text-bottom;overflow:visible"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>Follow</a></div></widget>
 
 
-<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#gcc%E5%B8%B8%E8%A7%81%E7%BC%96%E8%AF%91%E9%80%89%E9%A1%B9"><span class="toc-text">gcc常见编译选项</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#gdb%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-text">GDB的使用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#gdb%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4"><span class="toc-text">GDB常见命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B0%83%E7%94%A8%E6%A0%88%EF%BC%88call-stack%EF%BC%89"><span class="toc-text">调用栈（Call Stack）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8B%BF%E4%B8%AA%E7%A8%8B%E5%BA%8F%E6%9D%A5%E7%8E%A9%E7%8E%A9,swap.c%E6%96%87%E4%BB%B6"><span class="toc-text">拿个程序来玩玩,swap.c文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#o(*%E2%89%A7%E2%96%BD%E2%89%A6)%E3%83%84%E2%94%8F%E2%94%81%E2%94%93%E6%8B%BF%E4%B8%AA%E9%80%92%E5%BD%92%E7%A8%8B%E5%BA%8F%E6%9D%A5%E7%8E%A9%E7%8E%A9"><span class="toc-text">o(*≧▽≦)ツ┏━┓拿个递归程序来玩玩</span></a></li></ol></li></ol></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a><a class="buttom" onclick="util.scrollComment()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M8 10.5h8M8 14h5.5M17 3.338A9.95 9.95 0 0 0 12 2C6.477 2 2 6.477 2 12c0 1.6.376 3.112 1.043 4.453c.178.356.237.763.134 1.148l-.595 2.226a1.3 1.3 0 0 0 1.591 1.592l2.226-.596a1.63 1.63 0 0 1 1.149.133A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10c0-1.821-.487-3.53-1.338-5"/></svg><span>参与讨论</span></a></div></widget>
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#gcc%25E5%25B8%25B8%25E8%25A7%2581%25E7%25BC%2596%25E8%25AF%2591%25E9%2580%2589%25E9%25A1%25B9"><span class="toc-text">gcc常见编译选项</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#gdb%25E7%259A%2584%25E4%25BD%25BF%25E7%2594%25A8"><span class="toc-text">GDB的使用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#gdb%25E5%25B8%25B8%25E8%25A7%2581%25E5%2591%25BD%25E4%25BB%25A4"><span class="toc-text">GDB常见命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%25E8%25B0%2583%25E7%2594%25A8%25E6%25A0%2588%25EF%25BC%2588call-stack%25EF%25BC%2589"><span class="toc-text">调用栈（Call Stack）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%25E6%258B%25BF%25E4%25B8%25AA%25E7%25A8%258B%25E5%25BA%258F%25E6%259D%25A5%25E7%258E%25A9%25E7%258E%25A9%252Cswap.c%25E6%2596%2587%25E4%25BB%25B6"><span class="toc-text">拿个程序来玩玩,swap.c文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#o(*%25E2%2589%25A7%25E2%2596%25BD%25E2%2589%25A6)%25E3%2583%2584%25E2%2594%258F%25E2%2594%2581%25E2%2594%2593%25E6%258B%25BF%25E4%25B8%25AA%25E9%2580%2592%25E5%25BD%2592%25E7%25A8%258B%25E5%25BA%258F%25E6%259D%25A5%25E7%258E%25A9%25E7%258E%25A9"><span class="toc-text">o(*≧▽≦)ツ┏━┓拿个递归程序来玩玩</span></a></li></ol></li></ol></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a><a class="buttom" onclick="util.scrollComment()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M8 10.5h8M8 14h5.5M17 3.338A9.95 9.95 0 0 0 12 2C6.477 2 2 6.477 2 12c0 1.6.376 3.112 1.043 4.453c.178.356.237.763.134 1.148l-.595 2.226a1.3 1.3 0 0 0 1.591 1.592l2.226-.596a1.63 1.63 0 0 1 1.149.133A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10c0-1.821-.487-3.53-1.338-5"/></svg><span>参与讨论</span></a></div></widget>
 </div></aside><div class='float-panel'>
   <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
@@ -322,7 +325,25 @@ C语言的变量都是放在内存中的，而内存中间的每一个字节都�
 
 
 <script type="text/javascript">
-  window.canonical = {"originalHost":"","officialHosts":["localhost","shansan.top","shansan.cn","yeshan333.github.io"],"encoded":""};
+  window.canonical = {"closeEnable":true,"closeText":"关闭提示","originalHost":"","officialHosts":["localhost","shansan.top","shansan.cn","yeshan333.github.io"],"encoded":""};
+  window.canonical["param"] = {"permalink":"https://shansan.top/2018/12/03/biu%E4%B8%80%E4%B8%8BGDB/","checklink":"/js/plugins/video.js"};
+  // Fix: Ensure page is at the correct top position on data load
+  if (history.scrollRestoration) {
+    history.scrollRestoration = 'auto';
+  }
+  (function() {
+    const scrollHandler = () => {
+      const wikiCover = document.querySelector('#l_cover .l_cover.wiki');
+      const startEl = document.getElementById('start');
+      if (wikiCover && startEl) {
+        window.scrollTo(0, startEl.offsetTop);
+      } else {
+        window.scrollTo(0, 0);
+      }
+    };
+    if (document.readyState !== 'loading') scrollHandler();
+    else document.addEventListener('DOMContentLoaded', scrollHandler);
+  })();
   const ctx = {
     date_suffix: {
       just: `刚刚`,
@@ -355,8 +376,6 @@ C语言的变量都是放在内存中的，而内存中间的每一个字节都�
     marked: `https://gcore.jsdelivr.net/npm/marked@13.0/lib/marked.umd.min.js`,
     lazyload: `/%5Bobject%20Object%5D`
   }
-  
-
 </script>
 
 <script type="text/javascript">
@@ -379,9 +398,10 @@ C语言的变量都是放在内存中的，而内存中间的每一个字节都�
       this.list.push(f);
     };
     this.remove = (name) => {
-      for (let index = 0; index < this.list.length; index++) {
+      // 倒序遍历避免 splice 后的索引问题
+      for (let index = this.list.length - 1; index >= 0; index--) {
         const e = this.list[index];
-        if (e.name == name) {
+        if (e.name === name) {
           this.list.splice(index, 1);
         }
       }
@@ -402,8 +422,15 @@ C语言的变量都是放在内存中的，而内存中间的每一个字节都�
   }
 
   const utils = {
+    // 已加载样式缓存
+    _loadedStyles: new Set(),
+
     // 懒加载 css https://github.com/filamentgroup/loadCSS
     css: (href, before, media, attributes) => {
+      // 如果样式已加载，直接返回 null
+      if (utils._loadedStyles.has(href)) {
+        return null;
+      }
       var doc = window.document;
       var ss = doc.createElement("link");
       var ref;
@@ -424,6 +451,8 @@ C语言的变量都是放在内存中的，而内存中间的每一个字节都�
       ss.rel = "stylesheet";
       ss.href = href;
       ss.media = "only x";
+      // 标记样式为已加载 (在创建元素后立即标记，防止重复创建)
+      utils._loadedStyles.add(href);
       function ready(cb) {
         if (doc.body) {
           return cb();
@@ -461,11 +490,22 @@ C语言的变量都是放在内存中的，而内存中间的每一个字节都�
       return ss;
     },
 
+    // 已加载脚本缓存
+    _loadedScripts: new Set(),
+
+    // 已加载元素缓存 (使用 WeakSet 追踪元素实例,避免 PJAX 导航时的状态混淆)
+    _loadedElements: new WeakSet(),
+
     js: (src, opt) => new Promise((resolve, reject) => {
-      var script = document.createElement('script');
       if (src.startsWith('/')) {
         src = ctx.root + src.substring(1);
       }
+      // 如果脚本已加载，直接返回
+      if (utils._loadedScripts.has(src)) {
+        resolve();
+        return;
+      }
+      var script = document.createElement('script');
       script.src = src;
       if (opt) {
         for (let key of Object.keys(opt)) {
@@ -480,22 +520,42 @@ C语言的变量都是放在内存中的，而内存中间的每一个字节都�
         const loadState = this.readyState
         if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
         script.onload = script.onreadystatechange = null
+        utils._loadedScripts.add(src);
         resolve()
       }
       document.head.appendChild(script)
     }),
 
-    jq: (fn) => {
+    // PJAX 事件监听器管理
+    _pjaxListeners: new Set(),
+    
+    jq: (fn, pjax = true) => {
       if (typeof jQuery === 'undefined') {
         utils.js(deps.jquery).then(fn)
       } else {
         fn()
       }
+      if (pjax && !fn._pjax_registered) {
+        document.addEventListener('pjax:complete', fn);
+        fn._pjax_registered = true;
+        utils._pjaxListeners.add(fn); // 追踪监听器以便清理
+      }
+    },
+    
+    // 清理所有 PJAX 事件监听器
+    cleanupPjaxListeners: () => {
+      utils._pjaxListeners.forEach(fn => {
+        document.removeEventListener('pjax:complete', fn);
+        fn._pjax_registered = false;
+      });
+      utils._pjaxListeners.clear();
     },
 
     onLoading: (el) => {
       if (el) {
-        $(el).append('<div class="loading-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" stroke-opacity=".3" d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="1.3s" values="60;0"/></path><path stroke-dasharray="15" stroke-dashoffset="15" d="M12 3C16.9706 3 21 7.02944 21 12"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></g></svg></div>');
+        if ($(el).find('.loading-wrap').length === 0){
+          $(el).append('<div class="loading-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" stroke-opacity=".3" d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="1.3s" values="60;0"/></path><path stroke-dasharray="15" stroke-dashoffset="15" d="M12 3C16.9706 3 21 7.02944 21 12"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></g></svg></div>');
+        }
       }
     },
     onLoadSuccess: (el) => {
@@ -511,6 +571,10 @@ C语言的变量都是放在内存中的，而内存中间的每一个字节都�
       }
     },
     request: (el, url, callback, onFailure) => {
+      // 检查元素实例是否已加载 (而不是检查属性)
+      if (el && utils._loadedElements.has(el)) {
+        return;
+      }
       const maxRetry = 3;
       let retryCount = 0;
 
@@ -540,6 +604,8 @@ C语言的变量都是放在内存中的，而内存中间的每一个字节都�
             return resp;
           }).then(data => {
             if (timedOut) return;
+            // 标记元素实例为已加载
+            if (el) utils._loadedElements.add(el);
             utils.onLoadSuccess?.(el);
             callback(data);
             resolve(data);
@@ -598,7 +664,99 @@ C语言的变量都是放在内存中的，而内存中间的每一个字节都�
       window.requestAnimationFrame(fn)
     },
     dark: {},
+
+    // 插件初始化管理器 - 统一处理 DOMContentLoaded 和 pjax:complete 事件
+    _pluginInitializers: [],
+    _pluginCleanups: new Map(), // 存储每个插件的清理函数
+    
+    initPlugin: (initFn, name, options = {}) => {
+      if (!initFn || typeof initFn !== 'function') return;
+      
+      // 避免重复注册
+      const pluginName = name || initFn.name;
+      if (utils._pluginInitializers.some(p => p.name === pluginName)) return;
+      
+      // 包装初始化函数，添加防重复执行的保护
+      const wrappedInit = () => {
+        try {
+          // 在执行前先清理旧的资源
+          if (utils._pluginCleanups.has(pluginName)) {
+            const cleanup = utils._pluginCleanups.get(pluginName);
+            if (typeof cleanup === 'function') {
+              cleanup();
+            }
+          }
+          
+          // 执行初始化，可能返回清理函数
+          const cleanup = initFn();
+          
+          // 如果初始化函数返回了清理函数，保存它
+          if (typeof cleanup === 'function') {
+            utils._pluginCleanups.set(pluginName, cleanup);
+          }
+        } catch (error) {
+          console.error(`[Plugin ${pluginName}] 初始化失败:`, error);
+        }
+      };
+      
+      utils._pluginInitializers.push({ 
+        fn: wrappedInit, 
+        name: pluginName,
+        options: options 
+      });
+      
+      // 如果 DOM 已经加载完成，立即执行
+      if (document.readyState === 'complete' || document.readyState === 'interactive') {
+        wrappedInit();
+      } else {
+        // 否则等待 DOMContentLoaded
+        window.addEventListener('DOMContentLoaded', wrappedInit, { once: true });
+      }
+    },
+
+    // 重新初始化所有插件（用于 PJAX 等场景）
+    reinitPlugins: () => {
+      utils._pluginInitializers.forEach(plugin => {
+        // 跳过标记为不需要重新初始化的插件
+        if (plugin.options.skipReinit) return;
+        
+        try {
+          plugin.fn();
+        } catch (error) {
+          console.error(`[Plugin ${plugin.name}] 重新初始化失败:`, error);
+        }
+      });
+    },
+    
+    // 清理所有插件资源
+    cleanupPlugins: () => {
+      utils._pluginCleanups.forEach((cleanup, name) => {
+        try {
+          cleanup();
+        } catch (error) {
+          console.error(`[Plugin ${name}] 清理失败:`, error);
+        }
+      });
+      utils._pluginCleanups.clear();
+    },
+    
+    // 清理所有资源（用于页面卸载或重置）
+    cleanupAll: () => {
+      utils.cleanupPlugins();
+      utils.cleanupPjaxListeners();
+    },
   };
+
+  // 自动处理 PJAX 事件
+  document.addEventListener('pjax:before', () => {
+    // 在导航前清理旧的 PJAX 监听器（如果需要重新注册）
+    // 注意：这里不清理，因为监听器应该是持久的
+    // utils.cleanupPjaxListeners();
+  });
+  
+  document.addEventListener('pjax:complete', () => {
+    utils.reinitPlugins();
+  });
 
   // utils.dark.mode 当前模式 dark or light
   // utils.dark.toggle() 暗黑模式触发器
@@ -695,7 +853,7 @@ C语言的变量都是放在内存中的，而内存中间的每一个字节都�
       container = document.querySelector(container);
     }
     if (!container) return;
-    
+
     const images = container.querySelectorAll('img');
     images.forEach((img) => {
       if (img.classList.contains('lazy')) return;
@@ -728,7 +886,7 @@ C语言的变量都是放在内存中的，而内存中间的每一个字节都�
       window.lazyLoadInstance.update();
     }
   }
-  
+
 </script>
 
 <!-- required -->
@@ -805,118 +963,161 @@ C语言的变量都是放在内存中的，而内存中间的每一个字节都�
 
 <!-- optional -->
 
-  <script type="module">
-  const el = document.getElementById('artalk_container');
-  util.viewportLazyload(el, load_artalk, false);
-
-  function load_artalk() {
-    if (!el) return;
-    utils.css('https://gcore.jsdelivr.net/npm/artalk@2.9.1/dist/Artalk.css');
-    utils.js('https://gcore.jsdelivr.net/npm/artalk@2.9.1/dist/Artalk.js', {defer: true}).then(function () {
-      // 监听 Artalk 事件
-      // FIXME: Artalk开启了懒加载会导致评论输入预览框里的图也变成data-src，导致看不到图
-      // Artalk.use((ctx) => {
-      //   ctx.on('list-loaded', () => window.lazyLoadInstance?.update())
-      // })
-      const path = el.getAttribute('comment_id') ?? decodeURI(window.location.pathname);
-      const artalk = Artalk.init({
-        el: '#artalk_container',
-        pageKey: path,
-        pageTitle: 'Biu一下GDB',
-        server: 'https://artalk.shan333.cn/',
-        site: 'ShanSan',
-        darkMode: 'auto',
-        
-      });
-    });
-  }
+  <script>
+  (function() {
+    const lazyload = false;
+    
+    function initArtalk() {
+      const el = document.getElementById('artalk_container');
+      if (!el) return;
+      
+      function load_artalk() {
+        utils.css('https://gcore.jsdelivr.net/npm/artalk@2.9.1/dist/Artalk.css');
+        utils.js('https://gcore.jsdelivr.net/npm/artalk@2.9.1/dist/Artalk.js', {defer: true}).then(function () {
+          // 监听 Artalk 事件
+          // FIXME: Artalk开启了懒加载会导致评论输入预览框里的图也变成data-src，导致看不到图
+          // Artalk.use((ctx) => {
+          //   ctx.on('list-loaded', () => window.lazyLoadInstance?.update())
+          // })
+          const path = el.getAttribute('comment_id') ?? decodeURI(window.location.pathname);
+          const artalk = Artalk.init({
+            el: '#artalk_container',
+            pageKey: path,
+            pageTitle: 'Biu一下GDB',
+            server: 'https://artalk.shan333.cn/',
+            site: 'ShanSan',
+            darkMode: 'auto',
+            
+          });
+        });
+      }
+      
+      util.viewportLazyload(el, load_artalk, lazyload);
+    }
+    
+    // Store in global stellar namespace for PJAX reinitialization
+    window.stellar = window.stellar || {};
+    window.stellar.initComments = window.stellar.initComments || {};
+    window.stellar.initComments.artalk = initArtalk;
+    
+    // Initialize on page load
+    initArtalk();
+  })();
 </script>
 
 
 
 <script defer>
-  window.addEventListener('DOMContentLoaded', (event) => {
-    ctx.services = Object.assign({}, JSON.parse(`{"mdrender":{"js":"/js/services/mdrender.js"},"siteinfo":{"js":"/js/services/siteinfo.js","api":null},"ghinfo":{"js":"/js/services/ghinfo.js"},"rating":{"js":"/js/services/rating.js","api":"https://star-vote.xaox.cc/api/rating"},"vote":{"js":"/js/services/vote.js","api":"https://star-vote.xaox.cc/api/vote"},"sites":{"js":"/js/services/sites.js"},"friends":{"js":"/js/services/friends.js"},"friends_and_posts":{"js":"/js/services/friends_and_posts.js"},"timeline":{"js":"/js/services/timeline.js"},"fcircle":{"js":"/js/services/fcircle.js"},"weibo":{"js":"/js/services/weibo.js"},"memos":{"js":"/js/services/memos.js"},"voice":{"js":"/js/plugins/voice.js"},"video":{"js":"/js/plugins/video.js"},"download-file":{"js":"/js/plugins/download-file.js"},"twikoo":{"js":"/js/services/twikoo_latest_comment.js"},"waline":{"js":"/js/services/waline_latest_comment.js"},"artalk":{"js":"/js/services/artalk_latest_comment.js"},"giscus":{"js":"/js/services/giscus_latest_comment.js"},"contributors":{"edit_this_page":{"_posts/":null,"wiki/stellar/":"https://github.com/xaoxuu/hexo-theme-stellar-docs/blob/main/"},"js":"/js/services/contributors.js"}}`));
+  const initServices = () => {
+    // 用于存储需要清理的资源
+    let timers = [];
+    
+    ctx.services = Object.assign({}, JSON.parse(`{"mdrender":{"js":"/js/services/mdrender.js"},"siteinfo":{"js":"/js/services/siteinfo.js","api":null},"ghinfo":{"js":"/js/services/ghinfo.js"},"rating":{"js":"/js/services/rating.js","api":"https://star-vote.xaox.cc/api/rating"},"vote":{"js":"/js/services/vote.js","api":"https://star-vote.xaox.cc/api/vote"},"sites":{"js":"/js/services/sites.js"},"friends":{"js":"/js/services/friends.js"},"friends_and_posts":{"js":"/js/services/friends_and_posts.js"},"timeline":{"js":"/js/services/timeline.js"},"fcircle":{"js":"/js/services/fcircle.js"},"weibo":{"js":"/js/services/weibo.js"},"memos":{"js":"/js/services/memos.js"},"voice":{"js":"/js/plugins/voice.js"},"video":{"js":"/js/plugins/video.js"},"download-file":{"js":"/js/plugins/download-file.js"},"twikoo":{"js":"/js/services/twikoo_latest_comment.js"},"waline":{"js":"/js/services/waline_latest_comment.js"},"artalk":{"js":"/js/services/artalk_latest_comment.js"},"giscus":{"js":"/js/services/giscus_latest_comment.js"},"contributors":{"edit_this_page":{"_posts/":null,"wiki/stellar/":"https://github.com/xaoxuu/hexo-theme-stellar-docs/blob/main/"},"js":"/js/services/contributors.js"},"rss":{"js":"/js/services/rss.js"}}`));
     for (let id of Object.keys(ctx.services)) {
       const js = ctx.services[id].js;
       if (id == 'siteinfo') {
-        ctx.cardlinks = document.querySelectorAll('a.link-card[cardlink]');
-        if (ctx.cardlinks?.length > 0) {
+        const cardlinks = document.querySelectorAll('a.link-card[cardlink]');
+        if (cardlinks?.length > 0) {
           utils.js(js, { defer: true }).then(function () {
-            setCardLink(ctx.cardlinks);
+            setCardLink(cardlinks);
           });
         }
+      } else if (id == 'ghinfo') {
+        const els = document.querySelectorAll('.ds-ghinfo');
+        if (els.length > 0) {
+          utils.js(js, { defer: true });
+        }
       } else if (id == 'voice') {
-        ctx.voiceAudios = document.querySelectorAll('.voice>audio');
-        if (ctx.voiceAudios?.length > 0) {
+        const voiceAudios = document.querySelectorAll('.voice>audio');
+        if (voiceAudios?.length > 0) {
           utils.js(js, { defer: true }).then(function () {
-            createVoiceDom(ctx.voiceAudios);
+            createVoiceDom(voiceAudios);
           });
         }
       } else if (id == 'video') {
-        ctx.videos = document.querySelectorAll('.video>video');
-        if (ctx.videos?.length > 0) {
+        const videos = document.querySelectorAll('.video>video');
+        if (videos?.length > 0) {
           utils.js(js, { defer: true }).then(function () {
-            videoEvents(ctx.videos);
+            videoEvents(videos);
           });
         }
       } else if (id == 'download-file') {
-        ctx.files = document.querySelectorAll('.file');
-        if (ctx.files?.length > 0) {
+        const files = document.querySelectorAll('.chat-file');
+        if (files?.length > 0) {
           utils.js(js, { defer: true }).then(function () {
-            downloadFileEvent(ctx.files);
+            downloadFileEvent(files);
           });
         }
       } else {
         const els = document.getElementsByClassName(`ds-${id}`);
         if (els?.length > 0) {
           utils.jq(() => {
-            if (id == 'timeline' || 'memos' || 'marked') {
+            if (id == 'timeline' || id == 'memos' || id == 'marked') {
               utils.js(deps.marked).then(function () {
                 utils.js(js, { defer: true });
               });
             } else {
               utils.js(js, { defer: true });
             }
-          });
+          }, false);
         }
+      }
+    }
+
+    // search
+    if (ctx.search && typeof searchFunc === 'function') {
+      const $inputArea = $("input#search-input");
+      if ($inputArea.length > 0 && !$inputArea[0]._searchInitialized) {
+        const path = ctx.search.path.startsWith('/') ? ctx.root + ctx.search.path.substring(1) : ctx.root + ctx.search.path;
+        const filter = $inputArea.attr('data-filter') || '';
+        searchFunc(path, filter, 'search-wrapper', 'search-input', 'search-result');
+        // 标记为已初始化，防止重复绑定
+        $inputArea[0]._searchInitialized = true;
       }
     }
 
     // chat iphone time
     let phoneTimes = document.querySelectorAll('.chat .status-bar .time');
+    let firstAdjustInterval = null;
+    let mainInterval = null;
 
     if (phoneTimes.length > 0) {
       NowTime();
-      var date = new Date();
-      var sec = date.getSeconds();
-      var firstAdjustInterval = setInterval(firstAdjustTime, 1000 * (60 - sec));
-    }
+      const date = new Date();
+      const sec = date.getSeconds();
+      firstAdjustInterval = setInterval(firstAdjustTime, 1000 * (60 - sec));
+      timers.push(firstAdjustInterval);
 
-    function firstAdjustTime() {
-      NowTime();
-      clearInterval(firstAdjustInterval);
-      setInterval(NowTime, 1000 * 60);
-    }
-
-    function NowTime() {
-      for (let i = 0; i < phoneTimes.length; ++i) {
-        var timeSpan = phoneTimes[i];
-        var date = new Date();
-        var hour = date.getHours();
-        var min = date.getMinutes();
-        timeSpan.innerHTML = check(hour) + ":" + check(min);
+      function firstAdjustTime() {
+        NowTime();
+        if (firstAdjustInterval) {
+          clearInterval(firstAdjustInterval);
+          firstAdjustInterval = null;
+        }
+        mainInterval = setInterval(NowTime, 1000 * 60);
+        timers.push(mainInterval);
       }
-    };
 
-    function check(val) {
-      if (val < 10) {
-        return ("0" + val);
+      function NowTime() {
+        for (let i = 0; i < phoneTimes.length; ++i) {
+          const timeSpan = phoneTimes[i];
+          const date = new Date();
+          const hour = date.getHours();
+          const min = date.getMinutes();
+          timeSpan.innerHTML = check(hour) + ":" + check(min);
+        }
+      };
+
+      function check(val) {
+        if (val < 10) {
+          return ("0" + val);
+        }
+        return (val);
       }
-      return (val);
     }
 
-    // chat quote
+    // chat quote - 存储事件监听器以便清理
+    const quoteClickHandlers = new Map();
     const chat_quote_obverser = new IntersectionObserver((entries, observer) => {
       entries.filter((entry) => { return entry.isIntersecting }).sort((a, b) => a.intersectionRect.y !== b.intersectionRect.y ? a.intersectionRect.y - b.intersectionRect.y : a.intersectionRect.x - b.intersectionRect.x).forEach((entry, index) => {
           observer.unobserve(entry.target);
@@ -931,7 +1132,7 @@ C语言的变量都是放在内存中的，而内存中间的每一个字节都�
 
     var chatQuotes = document.querySelectorAll(".chat .talk .quote");
     chatQuotes.forEach((quote) => {
-      quote.addEventListener('click', function () {
+      const handler = function () {
         var chatCellDom = document.getElementById("quote-" + quote.getAttribute("quotedCellTag"));
         if (chatCellDom) {
           var chatDiv = chatCellDom.parentElement;
@@ -950,9 +1151,41 @@ C语言的变量都是放在内存中的，而内存中间的每一个字节都�
           }
           chat_quote_obverser.observe(chatCellDom);
         }
-      });
+      };
+      quote.addEventListener('click', handler);
+      quoteClickHandlers.set(quote, handler); // 保存处理器引用
     });
-  });
+
+    // 返回清理函数，用于清理定时器和观察器
+    return () => {
+      // 清理所有定时器（包括可能未完成的 firstAdjustInterval）
+      timers.forEach(timer => {
+        if (timer) clearInterval(timer);
+      });
+      timers = [];
+      if (firstAdjustInterval) {
+        clearInterval(firstAdjustInterval);
+        firstAdjustInterval = null;
+      }
+      if (mainInterval) {
+        clearInterval(mainInterval);
+        mainInterval = null;
+      }
+      
+      // 断开观察器
+      if (chat_quote_obverser) {
+        chat_quote_obverser.disconnect();
+      }
+      
+      // 移除所有 click 事件监听器
+      quoteClickHandlers.forEach((handler, quote) => {
+        quote.removeEventListener('click', handler);
+      });
+      quoteClickHandlers.clear();
+    };
+  };
+
+  utils.initPlugin(initServices, 'services');
 </script>
 
 <script>
@@ -1007,7 +1240,7 @@ C语言的变量都是放在内存中的，而内存中间的每一个字节都�
   }
 </script>
 <script>
-  window.addEventListener('DOMContentLoaded', (event) => {
+  utils.initPlugin(() => {
     const swiper_api = document.getElementById('swiper-api');
     if (swiper_api != undefined) {
       utils.css(`https://unpkg.com/swiper@10.3/swiper-bundle.min.css`);
@@ -1030,52 +1263,60 @@ C语言的变量都是放在内存中的，而内存中间的每一个字节都�
         });
       })
     }
-  });
+  }, 'swiper');
 </script>
 <link rel="stylesheet" href="https://gcore.jsdelivr.net/npm/katex@0.16/dist/katex.min.css" crossorigin="anonymous">
 <script defer type="text/javascript" src="https://cdn.jsdelivr.net/npm/mermaid@11.9.0/dist/mermaid.min.js"></script>
 <script>
-  window.addEventListener('DOMContentLoaded', (event) => {
-    var mermaid_config = {
-      startOnLoad: true,
-      theme:
-        "auto" == "auto" &&
-          window.matchMedia("(prefers-color-scheme: dark)").matches
-          ? "dark"
-          : "neutral",
-      logLevel: 3,
-      themeVariables: {
-        darkMode: true
-      },
-      flowchart: {
-        useMaxWidth: false,
-        htmlLabels: true,
-        curve: "linear"
-      },
-      gantt: {
-        axisFormat: "%Y/%m/%d"
-      },
-      sequence: {
-        actorMargin: 50
+  utils.initPlugin(() => {
+    const els = document.querySelectorAll('.mermaid');
+    if (els.length > 0) {
+      const mermaid_config = {
+        startOnLoad: false,
+        theme:
+          "auto" == "auto" &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "neutral",
+        logLevel: 3,
+        themeVariables: {
+          darkMode: true
+        },
+        flowchart: {
+          useMaxWidth: false,
+          htmlLabels: true,
+          curve: "linear"
+        },
+        gantt: {
+          axisFormat: "%Y/%m/%d"
+        },
+        sequence: {
+          actorMargin: 50
+        }
       }
+      mermaid.initialize(mermaid_config);
+      mermaid.run();
     }
-    mermaid.initialize(mermaid_config);
-  });
+  }, 'mermaid');
 </script><script>
-  document.addEventListener('DOMContentLoaded', function () {
-    window.codeElements = document.querySelectorAll('.code');
-    if (window.codeElements.length > 0) {
+  utils.initPlugin(() => {
+    const codeElements = document.querySelectorAll('.code');
+    if (codeElements.length > 0) {
       ctx.copycode = {
         default_text: `Copy`,
         success_text: `Copied`,
         toast: `复制成功`,
       };
-      utils.js('/js/plugins/copycode.js');
+      utils.js('/js/plugins/copycode.js', { defer: true }).then(() => {
+        if (typeof createCopyButtons === 'function') {
+          createCopyButtons(codeElements);
+        }
+      });
     }
-  });
+  }, 'copycode');
 </script>
 
 
 <!-- inject -->
 <script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script><script>LA.init({id:"3N0nbmMoWnI9Z6Po",ck:"3N0nbmMoWnI9Z6Po"})</script>
-</div></body></html>
+</div><div class="page-loading-bar"><img src="https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd"></div></body></html>
