@@ -1,0 +1,1560 @@
+
+<!DOCTYPE html><html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1" theme-name="Stellar" theme-version="1.33.1">
+  
+  
+  <meta name="generator" content="Hexo 8.1.1">
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000">
+  <meta name="theme-color" content="#f9fafb">
+  <title>【Draft】cluacov 的分支覆盖率统计：从行级近似到指令级精确 - ShanSan</title>
+
+  
+    <meta name="description" content="深入剖析 cluacov 的两套分支覆盖率方案——基于行级调试钩子的近似实现与基于指令级计数钩子的精确实现，涵盖 Lua 字节码、调试钩子、Proto 元数据生命周期与 GC 安全设计。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Draft】cluacov 的分支覆盖率统计：从行级近似到指令级精确">
+<meta property="og:url" content="https://shansan.top/2026/05/02/cluacov-branch-coverage/">
+<meta property="og:site_name" content="ShanSan">
+<meta property="og:description" content="深入剖析 cluacov 的两套分支覆盖率方案——基于行级调试钩子的近似实现与基于指令级计数钩子的精确实现，涵盖 Lua 字节码、调试钩子、Proto 元数据生命周期与 GC 安全设计。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog-cloudflare-imgbed.pages.dev/file/img/cluacov-branch-coverage/1777665640997_01-architecture-comparison.png">
+<meta property="og:image" content="https://blog-cloudflare-imgbed.pages.dev/file/img/cluacov-branch-coverage/1777665641279_02-or-bytecode-flow.png">
+<meta property="og:image" content="https://blog-cloudflare-imgbed.pages.dev/file/img/cluacov-branch-coverage/1777665654605_03-pchook-lifecycle.png">
+<meta property="og:image" content="https://blog-cloudflare-imgbed.pages.dev/file/img/cluacov-branch-coverage/1777665666039_04-deepbranches-scan.png">
+<meta property="article:published_time" content="2026-05-02T03:59:00.000Z">
+<meta property="article:modified_time" content="2026-05-02T03:59:00.000Z">
+<meta property="article:author" content="ShanSan">
+<meta property="article:tag" content="Code Coverage">
+<meta property="article:tag" content="Lua">
+<meta property="article:tag" content="LuaCov">
+<meta property="article:tag" content="cluacov">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://blog-cloudflare-imgbed.pages.dev/file/img/cluacov-branch-coverage/1777665640997_01-architecture-comparison.png">
+  
+  
+  
+  <meta name="keywords" content="lua, luacov, cluacov, 分支覆盖率, branch coverage, lua bytecode, debug hook, pchook, deepbranches">
+
+  <!-- feed -->
+  
+    
+
+    
+      
+        <link rel="alternate" href="/rss2.xml" title="ShanSan" type="application/rss+xml">
+      
+    
+  
+
+  <link rel="stylesheet" href="/css/main.css?v=1.33.1">
+
+
+  
+    <link rel="shortcut icon" href="https://ospy.shan333.cn/blog/xJ7yMF.jpg">
+  
+
+  
+
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"ShanSan","sameAs":["https://github.com/yeshan333"]},"dateCreated":"2026-05-02T03:59:00+00:00","dateModified":"2026-05-02T03:59:00+00:00","datePublished":"2026-05-02T03:59:00+00:00","description":"深入剖析 cluacov 的两套分支覆盖率方案——基于行级调试钩子的近似实现（兼容 Lua 5.1-5.5 与 LuaJIT），以及基于指令级计数钩子的精确实现（仅 Lua 5.4+），从 Lua 字节码、调试钩子、Proto 元数据生命周期到 GC 安全性设计，完整呈现 Lua 调试接口在不同粒度下的能力边界。","headline":"【Draft】cluacov 的分支覆盖率统计：从行级近似到指令级精确","mainEntityOfPage":{"@type":"WebPage","@id":"https://shansan.top/2026/05/02/cluacov-branch-coverage/"},"publisher":{"@type":"Organization","name":"ShanSan","sameAs":["https://github.com/yeshan333"]},"url":"https://shansan.top/2026/05/02/cluacov-branch-coverage/","keywords":"Lua, LuaCov, Code Coverage, cluacov","thumbnailUrl":"https://blog-cloudflare-imgbed.pages.dev/file/img/cluacov-branch-coverage/1777666850700_cover.png","image":1}</script>
+  
+</head>
+<body><div id="l_cover"></div><div class="l_body content" id="start" layout="post" type="tech" ><aside class="l_left"><div class="sidebg"></div><div class="leftbar-container">
+
+
+<header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="https://ospy.shan333.cn/blog/blog.avatar.jpg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></a><a class="title" href="/"><div class="main">ShanSan</div><div class="sub cap">个人博客</div></a></div></header>
+
+<div class="nav-area">
+
+<nav class="menu dis-select"><a class="nav-item" title="博文" href="/archives/"><span>博文</span></a><a class="nav-item" title="关于" href="/about/"><span>关于</span></a><a class="nav-item" title="友链" href="/friends/"><span>友链</span></a><a class="nav-item" title="Bio" href="/wiki/bio/"><span>Bio</span></a></nav>
+</div>
+<div class="widgets">
+<div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" placeholder="站内搜索"></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
+
+
+
+<widget class="widget-wrapper recent post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title" href="/2026/05/02/cluacov-branch-coverage/"><span class="title">【Draft】cluacov 的分支覆盖率统计：从行级近似到指令级精确</span></a><a class="item title" href="/2026/04/22/blog-sanitizers-deep-dive/"><span class="title">Sanitizer 全景：从编译插桩到硬件标签的内存安全检测演进</span></a><a class="item title" href="/2026/04/19/Software-Testing-Weekly-Visual-Interpretation/"><span class="title">【连载】Software Testing Weekly 图文解读 with VLM</span></a><a class="item title" href="/2025/09/28/my-mac-tools/"><span class="title">我的 MacOS 常用软件清单</span></a><a class="item title" href="/2025/08/16/the-next-level-of-developer-productivity-with-iflow-cli-action/"><span class="title">使用 iflow-cli-action 在 GitHub 与 Qwen3-Coder、Kimi K2 一起快速提升你的生产力</span></a><a class="item title" href="/2025/08/09/gen-slides-like-docs-site-with-iflow-cli/"><span class="title">使用 iFLOW-CLI GitHub Action 和 Qwen3-Coder 给 GitHub 仓库生成幻灯片风格的文档站点</span></a><a class="item title" href="/2025/07/27/claude-code-subagent-for-tech-writing/"><span class="title">使用 Claude Code 的自定义 Sub Agent 完善博文写作体验</span></a><a class="item title" href="/2025/07/27/migrate-theme-to-stellar-with-claude-code/"><span class="title">使用 Claude Code 和 Qwen3 Coder 将博客主题成功迁移到了 Stellar 🎉</span></a><a class="item title" href="/2025/07/12/rss-summary-workflow-with-n8n/"><span class="title">使用 n8n 和飞书多维表打造自己的 RSS Feed 订阅管理 & AI 大模型阅读提炼工作流</span></a><a class="item title" href="/2025/04/20/use-github-copilot-to-create-rsshub-route/"><span class="title">【体验】使用 GitHub Copilot Agent 创建新的 RSSHub 路由</span></a></div></widget>
+</div>
+<footer class="footer dis-select"><div class="social-wrap"><a class="social" href="mailto:1329441308@qq.com" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 64C150 64 64 150 64 256s86 192 192 192c17.7 0 32 14.3 32 32s-14.3 32-32 32C114.6 512 0 397.4 0 256S114.6 0 256 0S512 114.6 512 256v32c0 53-43 96-96 96c-29.3 0-55.6-13.2-73.2-33.9C320 371.1 289.5 384 256 384c-70.7 0-128-57.3-128-128s57.3-128 128-128c27.9 0 53.7 8.9 74.7 24.1c5.7-5 13.1-8.1 21.3-8.1c17.7 0 32 14.3 32 32v80 32c0 17.7 14.3 32 32 32s32-14.3 32-32V256c0-106-86-192-192-192zm64 192a64 64 0 1 0 -128 0 64 64 0 1 0 128 0z"/></svg></a><a class="social" href="https://github.com/yeshan333?tab=repositories" target="_blank" rel="external nofollow noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></a><a class="social" href="https://music.163.com/#/my/m/music/playlist?id=2617691792" target="_blank" rel="external nofollow noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>NetEase Music</title><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></a><a class="social" href="https://www.zhihu.com/people/si-kong-ji-54/activities" target="_blank" rel="external nofollow noopener noreferrer"><svg fill="#18abdc" viewBox="0 0 24 24" role="img" xmlns="http://www.w3.org/2000/svg" stroke="#18abdc"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><title>Zhihu icon</title><path d="M5.721 0C2.251 0 0 2.25 0 5.719V18.28C0 21.751 2.252 24 5.721 24h12.56C21.751 24 24 21.75 24 18.281V5.72C24 2.249 21.75 0 18.281 0zm1.964 4.078c-.271.73-.5 1.434-.68 2.11h4.587c.545-.006.445 1.168.445 1.171H9.384a58.104 58.104 0 01-.112 3.797h2.712c.388.023.393 1.251.393 1.266H9.183a9.223 9.223 0 01-.408 2.102l.757-.604c.452.456 1.512 1.712 1.906 2.177.473.681.063 2.081.063 2.081l-2.794-3.382c-.653 2.518-1.845 3.607-1.845 3.607-.523.468-1.58.82-2.64.516 2.218-1.73 3.44-3.917 3.667-6.497H4.491c0-.015.197-1.243.806-1.266h2.71c.024-.32.086-3.254.086-3.797H6.598c-.136.406-.158.447-.268.753-.594 1.095-1.603 1.122-1.907 1.155.906-1.821 1.416-3.6 1.591-4.064.425-1.124 1.671-1.125 1.671-1.125zM13.078 6h6.377v11.33h-2.573l-2.184 1.373-.401-1.373h-1.219zm1.313 1.219v8.86h.623l.263.937 1.455-.938h1.456v-8.86z"></path></g></svg></a><a class="social" href="/rss2.xml" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zM96 136c0-13.3 10.7-24 24-24c137 0 248 111 248 248c0 13.3-10.7 24-24 24s-24-10.7-24-24c0-110.5-89.5-200-200-200c-13.3 0-24-10.7-24-24zm0 96c0-13.3 10.7-24 24-24c83.9 0 152 68.1 152 152c0 13.3-10.7 24-24 24s-24-10.7-24-24c0-57.4-46.6-104-104-104c-13.3 0-24-10.7-24-24zm0 120a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"/></svg></a></div></footer>
+</div></aside><div class="l_main" id="main">
+
+
+
+
+
+<div class="article banner top">
+  <div class="content">
+    <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
+<span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/Lua/">Lua</a></div>
+<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2026-05-02T03:59:00.000Z">2026-05-02</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2026-05-02T03:59:00.000Z">2026-05-02</time></span></div></div></div>
+    
+    <div class="bottom only-title">
+      
+      <div class="text-area">
+        <h1 class="text title"><span>【Draft】cluacov 的分支覆盖率统计：从行级近似到指令级精确</span></h1>
+        
+      </div>
+    </div>
+    
+  </div>
+  </div><article class="md-text content"><blockquote>
+<p>五一前几天错峰，闲来无事，在 GTP 5.5 和 Claude Opus 4.7 的帮助下，尝试完善 Lua 生态的测试代码覆盖率统计。</p>
+</blockquote>
+<h2 id="%E5%BC%95%E8%A8%80" tabindex="-1">引言</h2>
+<p>代码覆盖率是衡量测试质量的基础度量之一。行覆盖率（line coverage）回答&quot;这一行是否被执行过&quot;，但它无法回答一个更关键的问题：“这个条件分支的两条路径是否都被覆盖了？”</p>
+<p>考虑这样的 Lua 代码：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> a <span class="keyword">or</span> b <span class="keyword">or</span> c <span class="keyword">then</span></span><br><span class="line">   do_something()</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>行覆盖率只能告诉你 <code>if</code> 所在行是否被执行。但 <code>a or b or c</code> 在编译为字节码时，Lua 编译器会为每个操作数生成一条独立的 <code>TEST</code> 指令——总共 3 条，每条都是一个独立的分支决策点（这是 <code>or</code> 短路求值的编译实现：若 <code>a</code> 为真则直接跳转，否则继续检查 <code>b</code>，依此类推）。仅凭行命中数据，无法区分&quot;只有 <code>a</code> 为真&quot;和&quot;三个条件都被测试过&quot;这两种情况。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/yeshan333/cluacov">cluacov</a> 是 <a target="_blank" rel="noopener" href="https://github.com/lunarmodules/luacov">LuaCov</a>（Lua 生态中最主流的代码覆盖率工具，纯 Lua 实现）的 C 扩展，它提供了两套分支覆盖率实现方案：一套基于行级调试钩子的近似方案（兼容 Lua 5.1 到 5.5 及 LuaJIT），一套基于指令级计数钩子的精确方案（仅支持 Lua 5.4+）。两者的设计差异，本质上反映了 Lua 调试接口在不同粒度下的能力边界。</p>
+<p><img src="https://blog-cloudflare-imgbed.pages.dev/file/img/cluacov-branch-coverage/1777665640997_01-architecture-comparison.png" alt="cluacov 架构对比：行级方案 vs 指令级方案"></p>
+<h2 id="lua-%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86" tabindex="-1">Lua 背景知识</h2>
+<p>本节为不熟悉 Lua 内部机制的读者提供必要的背景。如果你已经了解 Lua 的编译模型和 C API，可以直接跳到&quot;快速上手&quot;。</p>
+<h3 id="%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C%E6%A8%A1%E5%9E%8B" tabindex="-1">编译与执行模型</h3>
+<p>Lua 是一门解释执行的语言。源代码首先被编译为<strong>字节码</strong>（bytecode），然后由一个基于寄存器的虚拟机（VM）逐条解释执行。这类似于 Python 的 <code>.pyc</code> 或 Java 的 <code>.class</code>，但 Lua 的 VM 使用寄存器而非操作数栈。</p>
+<p>每个 Lua 函数编译后在 VM 内部对应一个 C 结构体 <strong><code>Proto</code></strong>（prototype），它存储了函数运行所需的全部静态信息：</p>
+<table>
+<thead>
+<tr>
+<th>Proto 字段</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>code[]</code></td>
+<td>字节码指令数组，VM 实际执行的内容</td>
+</tr>
+<tr>
+<td><code>lineinfo[]</code></td>
+<td>每条指令对应的源码行号（用于调试和错误报告）</td>
+</tr>
+<tr>
+<td><code>source</code></td>
+<td>源文件名字符串，如 <code>&quot;@test.lua&quot;</code></td>
+</tr>
+<tr>
+<td><code>linedefined</code></td>
+<td>函数定义的起始行号</td>
+</tr>
+<tr>
+<td><code>sizecode</code></td>
+<td>字节码总条数</td>
+</tr>
+<tr>
+<td><code>p[]</code></td>
+<td>嵌套子函数的 Proto 指针数组</td>
+</tr>
+<tr>
+<td><code>k[]</code></td>
+<td>常量表（字符串、数字等字面量）</td>
+</tr>
+</tbody>
+</table>
+<p>一个 Lua 文件加载后，最外层是一个 Proto，文件中定义的每个 <code>function</code> 又是一个子 Proto（通过 <code>p[]</code> 嵌套）。<code>loadfile(&quot;foo.lua&quot;)</code> 编译文件并返回最外层 Proto 对应的闭包（closure）。cluacov 的分支分析就是通过读取 <code>Proto.code[]</code> 来扫描字节码中的分支指令。</p>
+<h3 id="%E8%B0%83%E8%AF%95%E9%92%A9%E5%AD%90" tabindex="-1">调试钩子</h3>
+<p>Lua 提供了 C 级别的<strong>调试钩子</strong>（debug hook）API，允许在特定事件发生时调用用户提供的 C 回调函数：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lua_sethook(L, callback, mask, count);</span><br></pre></td></tr></table></figure>
+<p><code>mask</code> 参数控制触发条件：</p>
+<table>
+<thead>
+<tr>
+<th>掩码</th>
+<th>触发时机</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>LUA_MASKCALL</code></td>
+<td>每次函数调用时</td>
+</tr>
+<tr>
+<td><code>LUA_MASKRET</code></td>
+<td>每次函数返回时</td>
+</tr>
+<tr>
+<td><code>LUA_MASKLINE</code></td>
+<td>每次执行到新的源码行时</td>
+</tr>
+<tr>
+<td><code>LUA_MASKCOUNT</code></td>
+<td>每执行 <code>count</code> 条指令时</td>
+</tr>
+</tbody>
+</table>
+<p>覆盖率工具正是利用这些钩子来拦截程序执行并记录命中数据。行覆盖率使用 <code>LUA_MASKLINE</code>，而 cluacov 的指令级方案巧妙地将 <code>LUA_MASKCOUNT</code> 的 <code>count</code> 设为 1，实现每条指令触发。</p>
+<h3 id="lua-c-api-%E5%9F%BA%E7%A1%80" tabindex="-1">Lua C API 基础</h3>
+<p>Lua 和 C 之间通过一个<strong>虚拟栈</strong>通信。C 代码不直接操作 Lua 对象，而是通过 <code>lua_push*</code> 压入值、<code>lua_to*</code> 读取值、<code>lua_rawgeti</code>/<code>lua_rawseti</code> 访问表元素等 API 间接操作。本文代码中出现的几个关键概念：</p>
+<ul>
+<li><strong><code>lua_State</code></strong>：Lua 执行上下文（线程），所有 API 调用的第一个参数</li>
+<li><strong><code>CallInfo</code></strong>：VM 调用栈中的一帧，保存了当前函数的执行状态（包括 <code>savedpc</code>——下一条要执行的指令地址）</li>
+<li><strong>Registry</strong>：一个只有 C 代码能访问的全局 Lua 表，用于存储不想暴露给 Lua 层的私有数据。cluacov 用 Registry 存储 per-Proto 的命中计数表</li>
+</ul>
+<h3 id="gc-%E4%B8%8E-__gc-%E7%BB%88%E7%BB%93%E5%99%A8" tabindex="-1">GC 与 <code>__gc</code> 终结器</h3>
+<p>Lua 使用自动垃圾回收（mark-and-sweep）。当一个对象不再被引用时，GC 会回收它的内存。Lua 支持 <strong><code>__gc</code> 元方法</strong>（终结器/finalizer）：在对象被回收前调用，用于清理资源。</p>
+<p>关键问题：当 Lua 解释器关闭时（<code>lua_close</code>），所有对象在 <code>luaC_freeallobjects</code> 阶段被释放，终结器在此阶段触发。<strong>对象的释放顺序不可预测</strong>——当终结器 A 执行时，终结器 A 依赖的对象 B 可能已经被释放了。这正是 cluacov 需要&quot;写时快照&quot;设计的原因：在 Proto 还活着的时候提前把数据拷出来。</p>
+<h3 id="lua-%E7%89%88%E6%9C%AC%E7%94%9F%E6%80%81" tabindex="-1">Lua 版本生态</h3>
+<p>Lua 主线（PUC-Rio）有多个主要版本，内部结构在版本间有显著变化：</p>
+<table>
+<thead>
+<tr>
+<th>版本</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Lua 5.1（2006）</td>
+<td>最广泛部署的版本，LuaJIT 兼容此版本</td>
+</tr>
+<tr>
+<td>Lua 5.2（2011）</td>
+<td>引入 <code>goto</code>、移除 <code>setfenv</code></td>
+</tr>
+<tr>
+<td>Lua 5.3（2015）</td>
+<td>原生整数类型、位运算</td>
+</tr>
+<tr>
+<td>Lua 5.4（2020）</td>
+<td>泛型 <code>for</code> 改进、<code>CallInfo</code> 布局重构</td>
+</tr>
+<tr>
+<td>Lua 5.5（2025）</td>
+<td>全局变量声明、增量式主 GC、只读循环变量</td>
+</tr>
+<tr>
+<td>LuaJIT 2.1</td>
+<td>高性能 JIT 编译器，API 兼容 5.1</td>
+</tr>
+</tbody>
+</table>
+<p>Proto 结构、<code>CallInfo</code> 布局、操作码编码在这些版本间都有差异。cluacov 需要针对每个版本做适配——这也是为什么代码中有大量条件编译和 vendor 头文件。</p>
+<h2 id="%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B" tabindex="-1">快速上手</h2>
+<h3 id="%E6%8C%87%E4%BB%A4%E7%BA%A7%E8%A6%86%E7%9B%96%E7%8E%87%EF%BC%88%E6%8E%A8%E8%8D%90%EF%BC%8Clua-5.4%2B%EF%BC%89" tabindex="-1">指令级覆盖率（推荐，Lua 5.4+）</h3>
+<p>最简单的使用方式是通过 <code>cluacov.runner</code>，它封装了完整的采集和报告生成流程：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lua -lcluacov.runner your_program.lua</span><br></pre></td></tr></table></figure>
+<p>程序退出后，当前目录下会生成两个文件：</p>
+<ul>
+<li><code>luacov.stats.out</code> — LuaCov 兼容的行命中数据</li>
+<li><code>lcov.info</code> — 包含行覆盖率和分支覆盖率的 LCOV 报告</li>
+</ul>
+<p>使用 <code>genhtml</code> 生成 HTML 报告：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">genhtml lcov.info --output-directory html --branch-coverage</span><br></pre></td></tr></table></figure>
+<p>如果需要手动控制采集生命周期（<code>loadfile</code> 编译 Lua 文件并返回一个可调用的函数对象）：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> pchook = <span class="built_in">require</span>(<span class="string">&quot;cluacov.pchook&quot;</span>)</span><br><span class="line"><span class="keyword">local</span> branchcov = <span class="built_in">require</span>(<span class="string">&quot;cluacov.branchcov&quot;</span>)</span><br><span class="line"></span><br><span class="line">pchook.start()</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 加载并执行被测代码</span></span><br><span class="line"><span class="keyword">local</span> func = <span class="built_in">loadfile</span>(<span class="string">&quot;module_under_test.lua&quot;</span>)</span><br><span class="line"><span class="keyword">local</span> <span class="built_in">mod</span> = func()</span><br><span class="line"><span class="built_in">mod</span>.run_tests()</span><br><span class="line"></span><br><span class="line">pchook.stop()</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 分析分支覆盖率</span></span><br><span class="line"><span class="keyword">local</span> result = branchcov.analyze(func)</span><br><span class="line"><span class="keyword">for</span> _, branch <span class="keyword">in</span> <span class="built_in">ipairs</span>(result.branches) <span class="keyword">do</span></span><br><span class="line">   <span class="built_in">print</span>(<span class="built_in">string</span>.<span class="built_in">format</span>(<span class="string">&quot;Line %d [%s]: %s&quot;</span>,</span><br><span class="line">      branch.line, branch.kind, branch.<span class="built_in">status</span>))</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<h3 id="%E8%A1%8C%E7%BA%A7%E8%A6%86%E7%9B%96%E7%8E%87%EF%BC%88lua-5.1-5.3-%2F-luajit%EF%BC%89" tabindex="-1">行级覆盖率（Lua 5.1-5.3 / LuaJIT）</h3>
+<p>在不支持指令级钩子的环境下，使用传统的 LuaCov 行命中数据配合 <code>deepbranches</code> 静态分析：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lua -lluacov your_program.lua</span><br></pre></td></tr></table></figure>
+<p>然后用 <code>deepbranches.get(func)</code> 发现分支站点，与行命中数据交叉比对来估算分支覆盖率。由于行级钩子的粒度限制，需要经过 <code>branchfilter.lua</code> 过滤无法区分的同行分支。</p>
+<h2 id="%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%EF%BC%9A%E5%88%86%E6%94%AF%E7%AB%99%E7%82%B9%E7%9A%84%E9%9D%99%E6%80%81%E5%8F%91%E7%8E%B0" tabindex="-1">核心概念：分支站点的静态发现</h2>
+<p>无论使用哪套方案，分支覆盖率的第一步都相同：通过 <code>deepbranches.get(func)</code> 静态分析字节码，找出函数中所有的分支站点。</p>
+<p><code>deepbranches.get</code> 接受一个 Lua 函数，遍历其 <code>Proto</code> 结构中的字节码数组，识别四类分支指令：</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>字节码</th>
+<th>源码对应</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>test</code></td>
+<td><code>OP_TEST</code>, <code>OP_TESTSET</code>, <code>OP_EQ</code>, <code>OP_LT</code> 等</td>
+<td><code>if</code>、<code>elseif</code>、<code>and</code>、<code>or</code>、比较运算</td>
+</tr>
+<tr>
+<td><code>loop</code></td>
+<td><code>OP_FORLOOP</code></td>
+<td>数值 <code>for</code> 循环的继续/退出</td>
+</tr>
+<tr>
+<td><code>loop-entry</code></td>
+<td><code>OP_FORPREP</code>（仅 Lua 5.4+）</td>
+<td>数值 <code>for</code> 循环的初始进入</td>
+</tr>
+<tr>
+<td><code>iterator</code></td>
+<td><code>OP_TFORLOOP</code></td>
+<td>泛型 <code>for</code> 迭代器的耗尽判断</td>
+</tr>
+</tbody>
+</table>
+<p>每个分支站点恰好有两个目标——两条可能的执行路径。目标按 PC（程序计数器）升序排列，不按语义方向（“真/假”）排列。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> deepbranches = <span class="built_in">require</span>(<span class="string">&quot;cluacov.deepbranches&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">example</span><span class="params">(x)</span></span></span><br><span class="line">   <span class="keyword">if</span> x &gt; <span class="number">0</span> <span class="keyword">then</span></span><br><span class="line">      <span class="keyword">return</span> <span class="string">&quot;positive&quot;</span></span><br><span class="line">   <span class="keyword">else</span></span><br><span class="line">      <span class="keyword">return</span> <span class="string">&quot;non-positive&quot;</span></span><br><span class="line">   <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">local</span> branches = deepbranches.get(example)</span><br><span class="line"><span class="comment">-- branches[1] = &#123;</span></span><br><span class="line"><span class="comment">--    line = 2,           -- &quot;if x &gt; 0&quot; 所在行</span></span><br><span class="line"><span class="comment">--    pc = 2,             -- 分支指令的 PC（1-based）</span></span><br><span class="line"><span class="comment">--    kind = &quot;test&quot;,</span></span><br><span class="line"><span class="comment">--    linedefined = 1,    -- 函数定义起始行</span></span><br><span class="line"><span class="comment">--    sizecode = ...,     -- Proto 的字节码长度</span></span><br><span class="line"><span class="comment">--    targets = &#123;</span></span><br><span class="line"><span class="comment">--       &#123; line = 3, pc = 4 &#125;,  -- 路径 A</span></span><br><span class="line"><span class="comment">--       &#123; line = 5, pc = 6 &#125;,  -- 路径 B</span></span><br><span class="line"><span class="comment">--    &#125;</span></span><br><span class="line"><span class="comment">-- &#125;</span></span><br></pre></td></tr></table></figure>
+<p><code>deepbranches.get</code> 会递归遍历嵌套函数的 Proto 链（<code>proto-&gt;p[]</code>），一次调用即可获取整个文件中所有函数的分支站点。</p>
+<h2 id="%E8%A1%8C%E7%BA%A7%E6%96%B9%E6%A1%88%EF%BC%88%E6%97%A7%E6%9E%B6%E6%9E%84%EF%BC%89%E7%9A%84%E5%AE%9E%E7%8E%B0" tabindex="-1">行级方案（旧架构）的实现</h2>
+<h3 id="%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86" tabindex="-1">工作原理</h3>
+<p>旧架构的数据采集依赖 Lua 的 <code>LUA_MASKLINE</code> 调试钩子。<code>hook.c</code> 中的 <code>l_debug_hook</code> 在每行代码执行时被调用，记录 <code>data[filename][line_nr]</code> 的命中次数。这是标准的 LuaCov 行覆盖率采集机制，cluacov 的 <code>hook.c</code> 只是将其从 Lua 实现改为 C 实现以提升性能。</p>
+<p>采集完成后，分支覆盖率的计算逻辑如下：</p>
+<ol>
+<li><code>deepbranches.get(func)</code> 静态发现所有分支站点及其两个目标的行号</li>
+<li>检查每个目标行是否有命中数据（<code>line_hits[target.line] &gt; 0</code>）</li>
+<li>两个目标都命中 → covered；一个命中 → partial；都未命中 → uncovered</li>
+</ol>
+<h3 id="%E8%A1%8C%E7%BA%A7%E7%B2%92%E5%BA%A6%E7%9A%84%E6%A0%B9%E6%9C%AC%E9%99%90%E5%88%B6" tabindex="-1">行级粒度的根本限制</h3>
+<p>问题出在第 2 步：行命中数据的粒度是&quot;行&quot;，而非&quot;指令&quot;。当同一行包含多条分支指令时，它们共享同一个命中计数。</p>
+<p>以 <code>if a or b or c then</code> 为例，Lua 编译器会生成 3 条 <code>TEST</code> 指令，都对应同一行源码。假设 <code>a</code> 为真，程序直接跳入 <code>then</code> 体。此时第 2、第 3 条 <code>TEST</code> 根本未执行，但行命中数据显示 <code>if</code> 所在行被命中了——3 条 <code>TEST</code> 的命中状态无法区分。</p>
+<p><img src="https://blog-cloudflare-imgbed.pages.dev/file/img/cluacov-branch-coverage/1777665641279_02-or-bytecode-flow.png" alt="if a or b or c then 的字节码流与分支可见性对比"></p>
+<p>这不是 cluacov 的设计缺陷，而是 Lua 调试接口的能力边界：<code>LUA_MASKLINE</code> 钩子按行触发，Lua 官方不提供指令级的回调机制。C/gcov 之所以能做到精确的分支覆盖率，是因为编译器在编译期就插入了弧计数器（arc counters），每条分支指令有独立的计数。Lua 的调试钩子没有这个能力。</p>
+<h3 id="branchfilter%EF%BC%9A%E8%BF%87%E6%BB%A4%E4%B8%8D%E5%8F%AF%E5%8C%BA%E5%88%86%E7%9A%84%E5%88%86%E6%94%AF" tabindex="-1">branchfilter：过滤不可区分的分支</h3>
+<p>既然同行多分支不可区分，旧架构就需要把这些分支过滤掉，避免产生误导性的报告。<code>branchfilter.lua</code> 的过滤规则：</p>
+<p>对于同一行上有多个分支站点的情况，只保留<strong>两个目标行都不在本行</strong>的分支。同时，对目标行对相同的分支做去重。</p>
+<p>这条规则有明确的语义基础。以 <code>if a and b</code> 为例，编译为两条 <code>TEST</code>：第一条的两个目标中，一个指向本行的第二条 TEST（短路跳转），另一个也在本行（顺序执行）；只有最后一条 <code>TEST</code> 的两个目标分别指向 <code>then</code> 体和 <code>else</code> 体（都不在本行），因此只有它被保留。这保证了保留下来的分支是可以通过行命中数据真正区分的。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">M.filter</span><span class="params">(branches)</span></span></span><br><span class="line">   <span class="keyword">local</span> line_counts = &#123;&#125;</span><br><span class="line">   <span class="keyword">for</span> _, branch <span class="keyword">in</span> <span class="built_in">ipairs</span>(branches) <span class="keyword">do</span></span><br><span class="line">      line_counts[branch.line] = (line_counts[branch.line] <span class="keyword">or</span> <span class="number">0</span>) + <span class="number">1</span></span><br><span class="line">   <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">   <span class="keyword">local</span> result = &#123;&#125;</span><br><span class="line">   <span class="keyword">local</span> seen_target_pairs = &#123;&#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">for</span> _, branch <span class="keyword">in</span> <span class="built_in">ipairs</span>(branches) <span class="keyword">do</span></span><br><span class="line">      <span class="keyword">if</span> line_counts[branch.line] == <span class="number">1</span> <span class="keyword">then</span></span><br><span class="line">         result[#result + <span class="number">1</span>] = branch  <span class="comment">-- 该行只有一个分支，直接保留</span></span><br><span class="line">      <span class="keyword">else</span></span><br><span class="line">         <span class="keyword">local</span> t1 = branch.targets[<span class="number">1</span>].line</span><br><span class="line">         <span class="keyword">local</span> t2 = branch.targets[<span class="number">2</span>].line</span><br><span class="line">         <span class="keyword">if</span> t1 ~= branch.line <span class="keyword">and</span> t2 ~= branch.line <span class="keyword">then</span></span><br><span class="line">            <span class="keyword">local</span> key = branch.line .. <span class="string">&quot;:&quot;</span> .. t1 .. <span class="string">&quot;:&quot;</span> .. t2</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> seen_target_pairs[key] <span class="keyword">then</span></span><br><span class="line">               seen_target_pairs[key] = <span class="literal">true</span></span><br><span class="line">               result[#result + <span class="number">1</span>] = branch</span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">         <span class="keyword">end</span></span><br><span class="line">      <span class="keyword">end</span></span><br><span class="line">   <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">   <span class="keyword">return</span> result</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>过滤后的分支数量通常远少于原始分支数量。对于 <code>if a or b or c then</code>，3 条 <code>TEST</code> 只保留 1 条；对于 <code>for i = 1, n</code>，<code>FORPREP</code> 和 <code>FORLOOP</code> 的目标行对相同，去重后只保留 1 条。</p>
+<h2 id="%E6%8C%87%E4%BB%A4%E7%BA%A7%E6%96%B9%E6%A1%88%EF%BC%88%E6%96%B0%E6%9E%B6%E6%9E%84%EF%BC%89%E7%9A%84%E5%AE%9E%E7%8E%B0" tabindex="-1">指令级方案（新架构）的实现</h2>
+<h3 id="%E6%A0%B8%E5%BF%83%E8%AE%BE%E8%AE%A1%EF%BC%9A%E6%AF%8F%E6%9D%A1%E6%8C%87%E4%BB%A4%E4%B8%80%E6%AC%A1%E5%9B%9E%E8%B0%83" tabindex="-1">核心设计：每条指令一次回调</h3>
+<p>新架构的核心突破在于使用 <code>LUA_MASKCOUNT</code> 计数钩子（<code>count=1</code>），使得 C 回调在<strong>每条字节码指令执行时</strong>触发。这不是 Lua 标准调试 API 中的&quot;指令钩子&quot;（Lua 并未提供 <code>LUA_MASKPC</code>），而是利用计数钩子的一种技巧：将计数间隔设为 1，效果上等同于每条指令触发。</p>
+<p><code>pchook.c</code> 中的 <code>l_start</code> 函数注册钩子：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lua_sethook(L, pc_hook, LUA_MASKCOUNT, <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+<p>钩子回调 <code>pc_hook</code> 在每次触发时读取当前函数的 Proto 指针和程序计数器（PC），然后在一个 Lua 表中递增该 PC 的命中计数：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">pc_hook</span><span class="params">(lua_State *L, lua_Debug *ar)</span> &#123;</span><br><span class="line">    Proto *proto;</span><br><span class="line">    CallInfo *ci;</span><br><span class="line">    <span class="type">int</span> pc;</span><br><span class="line"></span><br><span class="line">    lua_getinfo(L, <span class="string">&quot;f&quot;</span>, ar);</span><br><span class="line">    <span class="keyword">if</span> (lua_iscfunction(L, <span class="number">-1</span>)) &#123; lua_pop(L, <span class="number">1</span>); <span class="keyword">return</span>; &#125;</span><br><span class="line"></span><br><span class="line">    proto = get_proto(L, <span class="number">-1</span>);</span><br><span class="line">    lua_pop(L, <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    ci = (CallInfo *)ar-&gt;i_ci;</span><br><span class="line">    pc = (<span class="type">int</span>)(ci-&gt;u.l.savedpc - proto-&gt;code);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取或创建该 Proto 的 hits 表</span></span><br><span class="line">    <span class="keyword">if</span> (push_hits_for_proto(L, proto) != <span class="number">0</span>) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// hits[pc] += 1</span></span><br><span class="line">    lua_rawgeti(L, <span class="number">-1</span>, pc);</span><br><span class="line">    lua_Integer count = lua_tointeger(L, <span class="number">-1</span>) + <span class="number">1</span>;</span><br><span class="line">    lua_pop(L, <span class="number">1</span>);</span><br><span class="line">    lua_pushinteger(L, count);</span><br><span class="line">    lua_rawseti(L, <span class="number">-2</span>, pc);</span><br><span class="line">    lua_pop(L, <span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>关键的技术细节在于 PC 的获取方式：通过 <code>ar-&gt;i_ci</code>（<code>CallInfo</code> 指针）访问 <code>ci-&gt;u.l.savedpc</code>，它是 Lua 5.4 的 <code>CallInfo</code> 结构中保存的当前指令地址。<code>savedpc - proto-&gt;code</code> 就是当前指令的偏移量。这个内部结构在 Lua 5.4 之前的版本中有不同的布局，所以 <code>pchook</code> 仅支持 Lua 5.4+。</p>
+<h3 id="proto-%E5%85%83%E6%95%B0%E6%8D%AE%E7%9A%84%E5%86%99%E6%97%B6%E5%BF%AB%E7%85%A7%EF%BC%9Agc-%E5%AE%89%E5%85%A8%E6%80%A7%E8%AE%BE%E8%AE%A1" tabindex="-1">Proto 元数据的写时快照：GC 安全性设计</h3>
+<p><code>pchook.c</code> 最精妙的设计在于它如何处理 <code>Proto*</code> 指针的生命周期问题。</p>
+<p><code>cluacov.runner</code> 使用 GC finalizer（<code>__gc</code>，参见前文&quot;GC 与 <code>__gc</code> 终结器&quot;）来确保程序退出时自动保存覆盖率数据。但 <code>__gc</code> 在 <code>luaC_freeallobjects</code> 阶段触发，此时 Proto 对象可能已被释放。如果报告生成函数试图读取 <code>proto-&gt;source</code> 或 <code>proto-&gt;lineinfo</code>，就是一次 use-after-free，直接导致 SIGSEGV。</p>
+<p>解决方案是<strong>写时快照</strong>（snapshot on first write）：在钩子第一次遇到某个 Proto 时，立即将所有后续需要的元数据复制到纯 Lua 表中，此后再也不需要访问 Proto 指针。</p>
+<p><img src="https://blog-cloudflare-imgbed.pages.dev/file/img/cluacov-branch-coverage/1777665654605_03-pchook-lifecycle.png" alt="pchook.c 数据生命周期：Proto 写时快照与 GC 安全"></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">materialize_proto_entry</span><span class="params">(lua_State *L, <span class="type">const</span> Proto *proto)</span> &#123;</span><br><span class="line">    lua_createtable(L, <span class="number">0</span>, <span class="number">5</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 复制 source 字符串（Lua 管理的副本）</span></span><br><span class="line">    <span class="type">const</span> <span class="type">char</span> *source = get_source_name(proto);</span><br><span class="line">    lua_pushstring(L, source ? source : <span class="string">&quot;?&quot;</span>);</span><br><span class="line">    lua_setfield(L, <span class="number">-2</span>, <span class="string">&quot;source&quot;</span>);</span><br><span class="line"></span><br><span class="line">    lua_pushinteger(L, proto-&gt;linedefined);</span><br><span class="line">    lua_setfield(L, <span class="number">-2</span>, <span class="string">&quot;linedefined&quot;</span>);</span><br><span class="line"></span><br><span class="line">    lua_pushinteger(L, proto-&gt;sizecode);</span><br><span class="line">    lua_setfield(L, <span class="number">-2</span>, <span class="string">&quot;sizecode&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 预计算 PC -&gt; 行号的映射（Proto 此时保证存活）</span></span><br><span class="line">    lua_createtable(L, proto-&gt;sizecode, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> pc = <span class="number">0</span>; pc &lt; proto-&gt;sizecode; pc++) &#123;</span><br><span class="line">        <span class="type">int</span> line = get_pc_line(proto, pc);</span><br><span class="line">        <span class="keyword">if</span> (line &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            lua_pushinteger(L, line);</span><br><span class="line">            lua_rawseti(L, <span class="number">-2</span>, pc);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    lua_setfield(L, <span class="number">-2</span>, <span class="string">&quot;lines&quot;</span>);</span><br><span class="line"></span><br><span class="line">    lua_createtable(L, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">    lua_setfield(L, <span class="number">-2</span>, <span class="string">&quot;hits&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Registry 中的数据布局：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">PCHOOK_KEY[entry_id] = &#123;</span><br><span class="line">    source      = &quot;string&quot;,     -- Lua 字符串，GC 安全</span><br><span class="line">    linedefined = integer,</span><br><span class="line">    sizecode    = integer,</span><br><span class="line">    lines       = &#123; [pc] = line, ... &#125;,  -- 0-based PC 键</span><br><span class="line">    hits        = &#123; [pc] = count, ... &#125;, -- 由钩子更新</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">PROTO_INDEX_KEY[Proto*] = entry_id   -- 仅钩子存活期有效</span><br></pre></td></tr></table></figure>
+<p><code>PROTO_INDEX_KEY</code> 是唯一持有 <code>Proto*</code> 的结构。<code>l_stop</code> 在关闭钩子后立即预构建快照（<code>SNAPSHOT_*_KEY</code>），将聚合结果缓存；后续从 <code>__gc</code> 中调用 <code>get_all_hits</code> 时直接返回缓存，无需再碰 Proto。</p>
+<h3 id="branchcov%EF%BC%9A%E6%8C%87%E4%BB%A4%E7%BA%A7%E5%88%86%E6%94%AF%E8%A6%86%E7%9B%96%E7%8E%87%E5%88%86%E6%9E%90" tabindex="-1">branchcov：指令级分支覆盖率分析</h3>
+<p>有了 per-PC 命中数据，<code>branchcov.lua</code> 的分析逻辑非常直接：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">M.analyze</span><span class="params">(func)</span></span></span><br><span class="line">   <span class="keyword">local</span> branches = deepbranches.get(func)</span><br><span class="line">   <span class="keyword">local</span> all_hits = pchook.get_hits(func)</span><br><span class="line"></span><br><span class="line">   <span class="comment">-- 按 linedefined:sizecode 索引命中表</span></span><br><span class="line">   <span class="keyword">local</span> hits_by_func = &#123;&#125;</span><br><span class="line">   <span class="keyword">for</span> _, entry <span class="keyword">in</span> <span class="built_in">ipairs</span>(all_hits) <span class="keyword">do</span></span><br><span class="line">      hits_by_func[entry.linedefined .. <span class="string">&quot;:&quot;</span> .. entry.sizecode] = entry.hits</span><br><span class="line">   <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">   <span class="keyword">local</span> result_branches = &#123;&#125;</span><br><span class="line">   <span class="keyword">local</span> total, hit = <span class="number">0</span>, <span class="number">0</span></span><br><span class="line"></span><br><span class="line">   <span class="keyword">for</span> _, branch <span class="keyword">in</span> <span class="built_in">ipairs</span>(branches) <span class="keyword">do</span></span><br><span class="line">      <span class="keyword">local</span> proto_hits = hits_by_func[branch.linedefined .. <span class="string">&quot;:&quot;</span> .. branch.sizecode] <span class="keyword">or</span> &#123;&#125;</span><br><span class="line">      <span class="keyword">local</span> targets = &#123;&#125;</span><br><span class="line">      <span class="keyword">local</span> targets_hit = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">      <span class="keyword">for</span> _, target <span class="keyword">in</span> <span class="built_in">ipairs</span>(branch.targets) <span class="keyword">do</span></span><br><span class="line">         <span class="keyword">local</span> target_hits = proto_hits[target.pc] <span class="keyword">or</span> <span class="number">0</span></span><br><span class="line">         targets[#targets + <span class="number">1</span>] = &#123; pc = target.pc, line = target.line, hits = target_hits &#125;</span><br><span class="line">         total = total + <span class="number">1</span></span><br><span class="line">         <span class="keyword">if</span> target_hits &gt; <span class="number">0</span> <span class="keyword">then</span> hit = hit + <span class="number">1</span>; targets_hit = targets_hit + <span class="number">1</span> <span class="keyword">end</span></span><br><span class="line">      <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">      <span class="keyword">local</span> <span class="built_in">status</span> = (targets_hit == #targets) <span class="keyword">and</span> <span class="string">&quot;covered&quot;</span></span><br><span class="line">                  <span class="keyword">or</span> (targets_hit &gt; <span class="number">0</span>) <span class="keyword">and</span> <span class="string">&quot;partial&quot;</span></span><br><span class="line">                  <span class="keyword">or</span> <span class="string">&quot;uncovered&quot;</span></span><br><span class="line">      result_branches[#result_branches + <span class="number">1</span>] = &#123;</span><br><span class="line">         line = branch.line, pc = branch.pc, kind = branch.kind,</span><br><span class="line">         linedefined = branch.linedefined, targets = targets, <span class="built_in">status</span> = <span class="built_in">status</span>,</span><br><span class="line">      &#125;</span><br><span class="line">   <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">   <span class="keyword">return</span> &#123; branches = result_branches, total = total, hit = hit &#125;</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>Proto 的标识使用 <code>linedefined:sizecode</code> 组合键，而非 Proto 指针，这与写时快照的设计一致。每个分支的每个目标都有独立的命中计数，<code>if a or b or c then</code> 的 3 条 TEST 指令各自产生 2 个目标，总共 6 个分支目标，每个都可以独立判断是否被执行。</p>
+<p>因此，指令级方案<strong>不需要 branchfilter</strong>。</p>
+<h2 id="%E8%A1%8C%E4%B8%BA%E7%BB%86%E8%8A%82%E4%B8%8E%E5%B8%B8%E8%A7%81%E8%AF%AF%E5%8C%BA" tabindex="-1">行为细节与常见误区</h2>
+<h3 id="%E7%9B%AE%E6%A0%87-pc-%E7%9A%84%E6%8E%92%E5%BA%8F%E4%B8%8D%E4%BB%A3%E8%A1%A8%E8%AF%AD%E4%B9%89%E6%96%B9%E5%90%91" tabindex="-1">目标 PC 的排序不代表语义方向</h3>
+<p><code>deepbranches.get</code> 返回的 <code>targets[1]</code> 和 <code>targets[2]</code> 按 PC 升序排列，不是 <code>targets[1]</code> = true 分支、<code>targets[2]</code> = false 分支。这是一个稳定的排序规则，但如果你试图根据索引判断&quot;哪个是 true 路径&quot;，结果会出错。覆盖率分析不需要知道语义方向，只需要知道&quot;两条路径是否都被执行过&quot;。</p>
+<h3 id="%E5%85%B1%E4%BA%AB%E7%9B%AE%E6%A0%87-pc-%E7%9A%84%E8%AF%AD%E4%B9%89" tabindex="-1">共享目标 PC 的语义</h3>
+<p>多条分支指令可能共享同一个目标 PC。<code>if a or b or c then do_something() end</code> 中，3 条 <code>TEST</code> 的 true 目标都指向 <code>do_something()</code> 的第一条指令。当 <code>a</code> 为真时，该目标 PC 被执行，但只有第一条 <code>TEST</code> 的 true 路径真正被&quot;走过&quot;。然而 per-PC 数据只能说明&quot;该 PC 是否被执行过&quot;（指令覆盖率），不能说明&quot;是从哪条分支到达的&quot;（边覆盖率）。这是指令级方案的一个已知近似——在绝大多数实际场景中，这个近似足够准确。</p>
+<h3 id="get_hits-%E8%A6%81%E6%B1%82%E5%90%8C%E4%B8%80%E5%87%BD%E6%95%B0%E5%AF%B9%E8%B1%A1" tabindex="-1"><code>get_hits</code> 要求同一函数对象</h3>
+<p><code>pchook.get_hits(func)</code> 中的 <code>func</code> 必须是在 <code>pchook.start()</code> 活跃期间<strong>实际执行过</strong>的那个函数对象。钩子通过 <code>Proto*</code> 指针标识函数。如果你用 <code>loadfile</code> 重新加载同一个文件，得到的是一个新的 Proto 对象，与钩子记录的不匹配，<code>get_hits</code> 会返回空数据。</p>
+<h3 id="lua-5.4-%E7%9A%84%E8%A1%8C%E5%8F%B7%E7%BC%96%E7%A0%81" tabindex="-1">Lua 5.4 的行号编码</h3>
+<p>Lua 5.4 对调试信息的行号编码做了重大改变：从 5.3 及之前版本的 <code>lineinfo[pc]</code> 直接映射，变成了 <code>abslineinfo</code> 基线索引表 + <code>lineinfo[pc]</code> 增量编码的两级结构。这是为了压缩大函数的调试信息体积（增量编码的每个条目只需 1 字节，而绝对行号需要 4 字节）。<code>deepbranches.c</code> 和 <code>pchook.c</code> 中都需要实现 <code>getbaseline</code> + 增量累加来还原行号：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">int</span> <span class="title function_">luaG_getfuncline</span><span class="params">(<span class="type">const</span> Proto *f, <span class="type">int</span> pc)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (f-&gt;lineinfo == <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    <span class="type">int</span> basepc;</span><br><span class="line">    <span class="type">int</span> baseline = getbaseline(f, pc, &amp;basepc);</span><br><span class="line">    <span class="keyword">while</span> (basepc++ &lt; pc) &#123;</span><br><span class="line">        baseline += f-&gt;lineinfo[basepc];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> baseline;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="%E5%86%85%E9%83%A8%E5%AE%9E%E7%8E%B0%E6%9C%BA%E5%88%B6" tabindex="-1">内部实现机制</h2>
+<h3 id="deepbranches.c-%E7%9A%84%E5%AD%97%E8%8A%82%E7%A0%81%E9%81%8D%E5%8E%86" tabindex="-1">deepbranches.c 的字节码遍历</h3>
+<p><img src="https://blog-cloudflare-imgbed.pages.dev/file/img/cluacov-branch-coverage/1777665666039_04-deepbranches-scan.png" alt="deepbranches.c 字节码分支发现流程"></p>
+<p><code>deepbranches.c</code> 的核心是一个线性扫描：遍历 <code>proto-&gt;code[0..sizecode-1]</code>，对每条指令检查操作码是否属于分支指令类型。</p>
+<p>对于 <code>test</code> 类分支（Lua 5.1-5.3），识别模式是&quot;TEST 指令 + 紧跟的 JMP 指令&quot;。TEST 本身不跳转，它设置跳转条件，紧随的 JMP 执行实际跳转。两个目标分别是 <code>pc+2</code>（不跳转，跳过 JMP）和 JMP 的目标地址。</p>
+<p>Lua 5.4 改变了这个模式：TEST 类指令后面不再跟 JMP，而是直接在 TEST 指令中编码跳转偏移。但 <code>deepbranches.c</code> 中仍然检查 <code>is_test_opcode</code> 后是否紧跟 <code>OP_JMP</code>，这是因为 Lua 5.4 的比较指令（<code>OP_EQ</code>、<code>OP_LT</code> 等）仍然使用 TEST+JMP 模式。</p>
+<p>对于循环分支，各版本的处理差异较大：</p>
+<ul>
+<li>Lua 5.4+：<code>OP_FORPREP</code> 变成了条件指令（判断初始条件是否满足），产生 <code>loop-entry</code> 类型分支；<code>OP_FORLOOP</code> 使用 <code>Bx</code> 参数编码回跳偏移</li>
+<li>Lua 5.1-5.3：<code>OP_FORLOOP</code> 使用 <code>sBx</code> 参数编码回跳偏移</li>
+<li>Lua 5.1：<code>OP_TFORLOOP</code> 后跟 <code>OP_JMP</code>；Lua 5.2+：<code>OP_TFORLOOP</code> 自带 <code>sBx</code> 跳转</li>
+</ul>
+<p>这些差异通过条件编译处理，这也是 <code>deepbranches.c</code> 需要 vendor 各版本 Lua 的 <code>lobject.h</code> 和 <code>lopcodes.h</code> 头文件的原因。</p>
+<h3 id="pchook.c-%E7%9A%84%E4%B8%A4%E9%98%B6%E6%AE%B5%E8%81%9A%E5%90%88" tabindex="-1">pchook.c 的两阶段聚合</h3>
+<p>为了在高频回调场景下保持性能，<code>pchook.c</code> 采用了两阶段设计：</p>
+<p><strong>Phase 1（l_stop 时）</strong>：钩子停止后立即遍历 <code>PCHOOK_KEY</code> 的所有条目，预构建两种聚合表并缓存到 <code>SNAPSHOT_*_KEY</code>。这是一次 O(N) 的操作（N = 所有 Proto 的总指令数），但只执行一次。</p>
+<p><em><em>Phase 2（l_get_all_</em> 时）</em>*：检查 <code>SNAPSHOT_*_KEY</code> 是否已有缓存。有则直接返回（O(1)）；无则实时计算。缓存路径专为 GC finalizer 设计——此时钩子已停止，数据不会再变化，缓存是安全的。</p>
+<p>聚合函数全程使用<strong>绝对栈索引</strong>（Lua C API 通过虚拟栈与 C 代码通信，栈索引可以是从栈底计数的正数&quot;绝对索引&quot;，或从栈顶计数的负数&quot;相对索引&quot;）：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">aggregate_all_hits</span><span class="params">(lua_State *L, <span class="type">int</span> result_idx)</span> &#123;</span><br><span class="line">    lua_rawgetp(L, LUA_REGISTRYINDEX, &amp;PCHOOK_KEY);</span><br><span class="line">    <span class="type">int</span> pchook_idx = lua_gettop(L);     <span class="comment">// 绝对索引</span></span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> n = (<span class="type">int</span>)lua_rawlen(L, pchook_idx);</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        lua_rawgeti(L, pchook_idx, i);  <span class="comment">// 用绝对索引安全访问</span></span><br><span class="line">        <span class="type">int</span> entry_idx = lua_gettop(L);</span><br><span class="line">        <span class="comment">// ... 内部有多次 push/pop，但 pchook_idx 和 entry_idx 始终有效</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在涉及多层栈操作的 C/Lua 胶水代码中，相对索引（如 <code>-3</code>）在 push/pop 后会失效，而绝对索引不会。这是一个在实际开发中容易犯错的点——<code>pchook.c</code> 的第一版重写就因为相对索引导致了崩溃。</p>
+<h3 id="%E9%92%A9%E5%AD%90%E5%BF%AB%E9%80%9F%E8%B7%AF%E5%BE%84%E7%9A%84%E6%91%8A%E8%BF%98%E4%BB%A3%E4%BB%B7" tabindex="-1">钩子快速路径的摊还代价</h3>
+<p><code>push_hits_for_proto</code> 在首次遇到某个 Proto 时执行快照（O(sizecode)），后续访问只需通过 <code>PROTO_INDEX_KEY</code> 查找 entry_id 再读取 hits 表（O(1)）。由于每个 Proto 只快照一次，整个采集过程的快照总代价是 O(S)（S = 所有 Proto 的字节码总长度），而钩子本身的每次调用是 O(1)。在程序执行数百万条指令的典型场景中，快照代价被充分摊还。</p>
+<h2 id="%E6%80%A7%E8%83%BD%E4%B8%8E%E7%89%B9%E6%80%A7%E5%88%86%E6%9E%90" tabindex="-1">性能与特性分析</h2>
+<h3 id="%E6%80%A7%E8%83%BD%E4%BB%A3%E4%BB%B7" tabindex="-1">性能代价</h3>
+<p>指令级钩子在<strong>每条 VM 指令</strong>上触发 C 回调，事件量是行级钩子的 3-7 倍。直觉上这应该更慢，但<a target="_blank" rel="noopener" href="https://github.com/yeshan333/cluacov/blob/main/docs/benchmark.md">实际基准测试</a>显示两者的性能差距取决于硬件和工作负载。在三台不同机器上的几何均值减速因子：</p>
+<table>
+<thead>
+<tr>
+<th>机器</th>
+<th>cluacov C 钩子</th>
+<th>pchook</th>
+<th>总体胜者</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://github.com/yeshan333/cluacov/blob/main/docs/benchmark.md">Xeon 8269CY（Linux CI）</a></td>
+<td>28.1x</td>
+<td>36.1x</td>
+<td>cluacov C 钩子（快 1.28 倍）</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://github.com/yeshan333/cluacov/blob/main/docs/benchmark-linux-8369b.md">Xeon 8369B（Linux）</a></td>
+<td>36.9x</td>
+<td>49.6x</td>
+<td>cluacov C 钩子（快 1.34 倍）</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://github.com/yeshan333/cluacov/blob/main/docs/benchmark-macos.md">Apple M4 Pro（macOS）</a></td>
+<td>43.3x</td>
+<td>54.0x</td>
+<td>cluacov C 钩子（快 1.25 倍）</td>
+</tr>
+</tbody>
+</table>
+<p>cluacov C 钩子在所有测试机器上总体胜出（几何均值快 1.25-1.34 倍），两者性能处于同一量级。纯 Lua 的 luacov 钩子开销最大（231-299x）。</p>
+<p>关键在于 per-call 成本与事件量的权衡。cluacov C 行级钩子每次回调需要调用 <code>lua_getstack</code> + <code>lua_getinfo(L, &quot;S&quot;, ...)</code> 来解析源文件名，单次成本约 <strong>400 ns</strong>。而 pchook 只调用轻量的 <code>lua_getinfo(L, &quot;f&quot;, ar)</code> 获取函数值，然后直接从 <code>CallInfo.u.l.savedpc - proto-&gt;code</code> 读取 PC（一次指针减法），通过预建的整数索引查找元数据，跳过了昂贵的源文件解析，单次成本仅约 <strong>100-130 ns</strong>。但 pchook 的事件量是行级钩子的 3-7 倍，在所有测试机器上（包括 Xeon 8269CY、Xeon 8369B 和 M4 Pro），pchook 更高的事件量在几何均值层面都抵消了其 per-call 优势。pchook 仅在紧密循环工作负载上胜出（指令/行比率低，约 3:1），而 cluacov C 钩子在递归和函数调用密集的代码上一致胜出（指令/行比率 3.5-7:1）。</p>
+<h3 id="%E5%86%85%E5%AD%98%E5%BC%80%E9%94%80" tabindex="-1">内存开销</h3>
+<p>per-PC 模式需要为每个 Proto 的每条被执行指令维护一个 Lua 整数。对于一个 1000 行的 Lua 文件（假设编译为约 3000 条指令），额外的内存开销大约在几十 KB 量级。快照后的元数据（source 字符串、lines 表）也会占用额外空间，但因为是 Lua GC 管理的，不需要手动释放。</p>
+<h3 id="%E5%87%86%E7%A1%AE%E6%80%A7%E7%9A%84-trade-off" tabindex="-1">准确性的 trade-off</h3>
+<p>行级方案的准确性受限于过滤规则。过滤会丢弃同行的短路分支，导致报告中的分支总数少于实际分支数。对于 <code>if a or b or c then</code>，行级方案只报告 1 个分支（2 个目标），而指令级方案报告 3 个分支（6 个目标）。</p>
+<p>指令级方案虽然更精确，但仍然是<strong>指令覆盖率</strong>而非<strong>边覆盖率</strong>——它知道某个 PC 是否被执行过，但不知道执行时是从哪条分支跳转过来的。在实际工程中，这个区别很少造成误判。</p>
+<h2 id="%E4%B8%A4%E5%A5%97%E6%96%B9%E6%A1%88%E7%9A%84%E5%AF%B9%E6%AF%94" tabindex="-1">两套方案的对比</h2>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>行级方案（hook.c）</th>
+<th>指令级方案（pchook.c）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Lua 版本</td>
+<td>5.1-5.5, LuaJIT</td>
+<td>仅 5.4+</td>
+</tr>
+<tr>
+<td>钩子类型</td>
+<td><code>LUA_MASKLINE</code></td>
+<td><code>LUA_MASKCOUNT</code>（count=1）</td>
+</tr>
+<tr>
+<td>数据粒度</td>
+<td>行</td>
+<td>字节码指令（PC）</td>
+</tr>
+<tr>
+<td>复合条件</td>
+<td>不可区分（<code>if a or b or c</code> = 1 个分支）</td>
+<td>独立计数（= 3 个分支）</td>
+</tr>
+<tr>
+<td>是否需要过滤</td>
+<td>需要（branchfilter）</td>
+<td>不需要</td>
+</tr>
+<tr>
+<td>性能开销</td>
+<td>28-43x 几何均值（换行触发，~400 ns/call）</td>
+<td>36-54x 几何均值（每条指令触发，~100 ns/call）；总体较慢但功能更强</td>
+</tr>
+<tr>
+<td>GC 安全性</td>
+<td>历史上有 use-after-free 问题</td>
+<td>通过写时快照设计解决</td>
+</tr>
+<tr>
+<td>输出格式</td>
+<td>需手动生成 LCOV</td>
+<td>runner 自动生成</td>
+</tr>
+<tr>
+<td>代码量</td>
+<td>~540 行 C（hook.c + deepbranches.c）</td>
+<td>~910 行 C + Lua（pchook.c 841 行 + branchcov.lua 68 行；deepbranches.c 共用）</td>
+</tr>
+</tbody>
+</table>
+<p>行级方案适合 Lua 5.1-5.3 或 LuaJIT 环境，或只需粗粒度覆盖率的场景。指令级方案适合 Lua 5.4+ 环境且需要精确分支覆盖率的场景，如安全关键系统的测试验证或 CI/CD 流水线中的覆盖率质量门禁。多平台基准测试表明 cluacov C 钩子在所有测试机器上的几何均值都快于 pchook（1.25-1.34 倍），但两者仍处于同一量级，因此方案选择应以功能需求为主导。</p>
+<h2 id="%E4%B8%8E%E7%9B%B8%E5%85%B3%E6%8A%80%E6%9C%AF%E7%9A%84%E5%AF%B9%E6%AF%94" tabindex="-1">与相关技术的对比</h2>
+<h3 id="%E4%B8%8E-luacov-%E5%8E%9F%E7%94%9F%E6%96%B9%E6%A1%88%E7%9A%84%E5%8C%BA%E5%88%AB" tabindex="-1">与 LuaCov 原生方案的区别</h3>
+<p>LuaCov 本身只做行覆盖率。它没有分支分析能力，也不会输出 <code>BRDA</code> 记录。cluacov 的 <code>deepbranches</code> 和 <code>pchook</code> 是在 LuaCov 的行命中数据之上的增量能力。<code>cluacov.runner</code> 在输出 <code>luacov.stats.out</code>（LuaCov 兼容）的同时，额外输出 <code>lcov.info</code>（包含分支记录）。</p>
+<h3 id="%E4%B8%8E-c%2Fgcov-%E7%9A%84%E5%88%86%E6%94%AF%E8%A6%86%E7%9B%96%E7%8E%87%E5%AF%B9%E6%AF%94" tabindex="-1">与 C/gcov 的分支覆盖率对比</h3>
+<p>gcov 的分支覆盖率是编译器级别的精确实现：GCC 在编译期为每条分支指令插入弧计数器，运行时直接递增硬件级计数器，开销极低。gcov 提供的是真正的<strong>边覆盖率</strong>（edge coverage）——不仅知道某个基本块是否被执行，还知道从哪个前驱块到达。</p>
+<p>cluacov 在 Lua 层面没有这个条件。Lua 是解释执行的，没有编译期插桩的机会。指令级钩子是运行时拦截，每次触发都有函数调用和表操作的代价。即便如此，cluacov 在 Lua 生态中已经是分支覆盖率能力最强的方案。</p>
+<h2 id="%E4%BD%BF%E7%94%A8%E5%BB%BA%E8%AE%AE" tabindex="-1">使用建议</h2>
+<p>适合使用 <code>cluacov.runner</code>（指令级方案）的场景：</p>
+<ul>
+<li>Lua 5.4+ 项目的 CI/CD 覆盖率采集</li>
+<li>需要发现复合条件（<code>and</code>/<code>or</code>）中未覆盖的子条件</li>
+<li>需要生成带分支标注的 HTML 报告</li>
+</ul>
+<p>适合使用行级方案的场景：</p>
+<ul>
+<li>必须兼容 Lua 5.1-5.3 或 LuaJIT</li>
+<li>只需粗粒度覆盖率，行级足够</li>
+</ul>
+<p>不适合使用指令级钩子的场景：</p>
+<ul>
+<li>生产环境的性能监控（两种 C 钩子的开销在 28-54x 量级，不适合生产环境）</li>
+<li>需要边覆盖率语义的严格验证</li>
+</ul>
+<p>常见错误用法：</p>
+<ul>
+<li>在 <code>pchook.stop()</code> 后用 <code>loadfile</code> 重新加载文件，然后传给 <code>get_hits</code>——得到的是新 Proto 对象，无法匹配钩子数据</li>
+<li>在 Lua 5.3 环境调用 <code>pchook.start()</code>——会直接报错</li>
+<li>忘记在 <code>.luacov</code> 中配置 <code>exclude</code> 规则，导致 cluacov 自身的模块也被采集</li>
+</ul>
+<h2 id="%E6%80%BB%E7%BB%93" tabindex="-1">总结</h2>
+<p>cluacov 的分支覆盖率实现本质上是在 Lua 调试接口的能力边界内做到了最大化利用：行级钩子只能做到近似，通过过滤规则剔除不可区分的分支来保证报告的可信度；指令级钩子利用 <code>LUA_MASKCOUNT</code> 的每指令触发特性，配合 Proto 元数据写时快照解决了 GC 安全性问题，实现了无需过滤的精确分支覆盖率。两套方案是递进关系而非替代关系——前者保证了广泛兼容性，后者在 Lua 5.4+ 上提供了更高的精度。</p>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">
+</article>
+<div class="article-footer">
+    <section id="license">
+      <div class="header"><span>许可协议</span></div>
+      <div class="body"><p><a href="/wiki/bio/mycat/">喂猫🍞</a> <br/> This article is licensed under the <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>. Please provide attribution when reproducing. <br/> 本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div>
+    </section>
+    
+
+
+    <section id="share">
+      <div class="header"><span>分享文章</span></div>
+      <div class="body">
+        <div class="link"><input class="copy-area" readonly="true" id="copy-link" value="https://shansan.top/2026/05/02/cluacov-branch-coverage/" /></div>
+        <div class="social-wrap dis-select"><a class="social share-item wechat" onclick="util.toggle(&quot;qrcode-wechat&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/b32ef3da1162a.svg" /></a><a class="social share-item weibo" target="_blank" rel="external nofollow noopener noreferrer" href="https://service.weibo.com/share/share.php?url=https://shansan.top/2026/05/02/cluacov-branch-coverage/&title=【Draft】cluacov 的分支覆盖率统计：从行级近似到指令级精确 - ShanSan&pics=https://blog-cloudflare-imgbed.pages.dev/file/img/cluacov-branch-coverage/1777666850700_cover.png&summary=深入剖析 cluacov 的两套分支覆盖率方案——基于行级调试钩子的近似实现与基于指令级计数钩子的精确实现，涵盖 Lua 字节码、调试钩子、Proto 元数据生命周期与 GC 安全设计。"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/80c07e4dbb303.svg" /></a><a class="social share-item email" href="mailto:?subject=【Draft】cluacov 的分支覆盖率统计：从行级近似到指令级精确 - ShanSan&amp;body=https://shansan.top/2026/05/02/cluacov-branch-coverage/"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/a1b00e20f425d.svg" /></a><a class="social share-item link" onclick="util.copy(&quot;copy-link&quot;, &quot;复制成功&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/8411ed322ced6.svg" /></a></div>
+        
+        <div class="qrcode" id="qrcode-wechat" style="opacity:0;height:0">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=https://shansan.top/2026/05/02/cluacov-branch-coverage/"/>
+        </div>
+        
+      </div>
+    </section>
+    </div>
+
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"></div><div class="item" id="next"><div class="note">较早文章</div><a href="/2026/04/22/blog-sanitizers-deep-dive/">Sanitizer 全景：从编译插桩到硬件标签的内存安全检测演进</a></div></section></div>
+
+<div class="related-wrap" id="related-posts"></div>
+
+
+  <div class="related-wrap md-text" id="comments">
+    <section class='header cmt-title cap theme'>
+      <p>ShanSan</p>
+
+    </section>
+    <section class='body cmt-body artalk'>
+      
+
+<div class="artalk with-fancybox" id="artalk_container"><svg class="loading" style="vertical-align:middle;fill:currentColor;overflow:hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2709"><path d="M832 512c0-176-144-320-320-320V128c211.2 0 384 172.8 384 384h-64zM192 512c0 176 144 320 320 320v64C300.8 896 128 723.2 128 512h64z" p-id="2710"></path></svg></div>
+    </section>
+  </div>
+
+
+
+<footer class="page-footer footnote"><hr><div class="sitemap" style="column-count:2;"><div class="sitemap-group"><span class="fs15">AI</span><a target="_blank" rel="noopener" href="https://www.anthropic.com/claude-code">Claude Code</a><a target="_blank" rel="noopener" href="https://platform.iflow.cn/cli/quickstart">iFLOW CLI</a><a target="_blank" rel="noopener" href="https://github.com/vibe-ideas/iflow-cli-action">iFLOW CLI Action</a><a target="_blank" rel="noopener" href="https://awesome-tech-weekly-zh.netlify.app/">中文技术周刊一览</a></div><div class="sitemap-group"><span class="fs15">blog</span><a target="_blank" rel="noopener" href="https://www.seangoedecke.com/popular/">Sean Goedecke</a></div></div><div class="text"><p><a href="https://shansan.top">Copyright © 2018-2025 ShanSan</a><br><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">桂ICP备19000444号</a><br>
+本站由 <a href="/">ShanSan</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br>
+本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。<br>
+<span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span></p>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</div></footer>
+<div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right"><div class="widgets">
+<widget class="widget-wrapper user-card ghuser"><div class="widget-body data-service ds-ghinfo" data-api="https://api.github.com/users/yeshan333"><div class="avatar" ><img no-lazy type="img" id="avatar_url" src="undefined" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></div><p class="username" type="text" id="name">&nbsp;</p><p class="bio" type="text" id="bio">&nbsp;</p><div class="buttons"><a class="btn" target="_blank" rel="noopener" href="https://github.com/yeshan333?tab=followers"><span class="title" type="text" id="followers">0</span><span class="desc">followers</span></a><a class="btn" target="_blank" rel="noopener" href="https://github.com/yeshan333?tab=following"><span class="title" type="text" id="following">0</span><span class="desc">following</span></a><a class="btn" target="_blank" rel="noopener" href="https://github.com/yeshan333?tab=repositories"><span class="title" type="text" id="public_repos">0</span><span class="desc">repos</span></a></div><a class="follow" target="_blank" rel="noopener" href="https://github.com/yeshan333"><svg aria-hidden="true" role="img" class="color-icon-primary" viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor" style="display:inline-block;user-select:none;vertical-align:text-bottom;overflow:visible"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>Follow</a></div></widget>
+
+
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%25E5%25BC%2595%25E8%25A8%2580"><span class="toc-text">引言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#lua-%25E8%2583%258C%25E6%2599%25AF%25E7%259F%25A5%25E8%25AF%2586"><span class="toc-text">Lua 背景知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%25E7%25BC%2596%25E8%25AF%2591%25E4%25B8%258E%25E6%2589%25A7%25E8%25A1%258C%25E6%25A8%25A1%25E5%259E%258B"><span class="toc-text">编译与执行模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%25E8%25B0%2583%25E8%25AF%2595%25E9%2592%25A9%25E5%25AD%2590"><span class="toc-text">调试钩子</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#lua-c-api-%25E5%259F%25BA%25E7%25A1%2580"><span class="toc-text">Lua C API 基础</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#gc-%25E4%25B8%258E-__gc-%25E7%25BB%2588%25E7%25BB%2593%25E5%2599%25A8"><span class="toc-text">GC 与 __gc 终结器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#lua-%25E7%2589%2588%25E6%259C%25AC%25E7%2594%259F%25E6%2580%2581"><span class="toc-text">Lua 版本生态</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%25E5%25BF%25AB%25E9%2580%259F%25E4%25B8%258A%25E6%2589%258B"><span class="toc-text">快速上手</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%25E6%258C%2587%25E4%25BB%25A4%25E7%25BA%25A7%25E8%25A6%2586%25E7%259B%2596%25E7%258E%2587%25EF%25BC%2588%25E6%258E%25A8%25E8%258D%2590%25EF%25BC%258Clua-5.4%252B%25EF%25BC%2589"><span class="toc-text">指令级覆盖率（推荐，Lua 5.4+）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%25E8%25A1%258C%25E7%25BA%25A7%25E8%25A6%2586%25E7%259B%2596%25E7%258E%2587%25EF%25BC%2588lua-5.1-5.3-%252F-luajit%25EF%25BC%2589"><span class="toc-text">行级覆盖率（Lua 5.1-5.3 &#x2F; LuaJIT）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%25E6%25A0%25B8%25E5%25BF%2583%25E6%25A6%2582%25E5%25BF%25B5%25EF%25BC%259A%25E5%2588%2586%25E6%2594%25AF%25E7%25AB%2599%25E7%2582%25B9%25E7%259A%2584%25E9%259D%2599%25E6%2580%2581%25E5%258F%2591%25E7%258E%25B0"><span class="toc-text">核心概念：分支站点的静态发现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%25E8%25A1%258C%25E7%25BA%25A7%25E6%2596%25B9%25E6%25A1%2588%25EF%25BC%2588%25E6%2597%25A7%25E6%259E%25B6%25E6%259E%2584%25EF%25BC%2589%25E7%259A%2584%25E5%25AE%259E%25E7%258E%25B0"><span class="toc-text">行级方案（旧架构）的实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%25E5%25B7%25A5%25E4%25BD%259C%25E5%258E%259F%25E7%2590%2586"><span class="toc-text">工作原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%25E8%25A1%258C%25E7%25BA%25A7%25E7%25B2%2592%25E5%25BA%25A6%25E7%259A%2584%25E6%25A0%25B9%25E6%259C%25AC%25E9%2599%2590%25E5%2588%25B6"><span class="toc-text">行级粒度的根本限制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#branchfilter%25EF%25BC%259A%25E8%25BF%2587%25E6%25BB%25A4%25E4%25B8%258D%25E5%258F%25AF%25E5%258C%25BA%25E5%2588%2586%25E7%259A%2584%25E5%2588%2586%25E6%2594%25AF"><span class="toc-text">branchfilter：过滤不可区分的分支</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%25E6%258C%2587%25E4%25BB%25A4%25E7%25BA%25A7%25E6%2596%25B9%25E6%25A1%2588%25EF%25BC%2588%25E6%2596%25B0%25E6%259E%25B6%25E6%259E%2584%25EF%25BC%2589%25E7%259A%2584%25E5%25AE%259E%25E7%258E%25B0"><span class="toc-text">指令级方案（新架构）的实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%25E6%25A0%25B8%25E5%25BF%2583%25E8%25AE%25BE%25E8%25AE%25A1%25EF%25BC%259A%25E6%25AF%258F%25E6%259D%25A1%25E6%258C%2587%25E4%25BB%25A4%25E4%25B8%2580%25E6%25AC%25A1%25E5%259B%259E%25E8%25B0%2583"><span class="toc-text">核心设计：每条指令一次回调</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#proto-%25E5%2585%2583%25E6%2595%25B0%25E6%258D%25AE%25E7%259A%2584%25E5%2586%2599%25E6%2597%25B6%25E5%25BF%25AB%25E7%2585%25A7%25EF%25BC%259Agc-%25E5%25AE%2589%25E5%2585%25A8%25E6%2580%25A7%25E8%25AE%25BE%25E8%25AE%25A1"><span class="toc-text">Proto 元数据的写时快照：GC 安全性设计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#branchcov%25EF%25BC%259A%25E6%258C%2587%25E4%25BB%25A4%25E7%25BA%25A7%25E5%2588%2586%25E6%2594%25AF%25E8%25A6%2586%25E7%259B%2596%25E7%258E%2587%25E5%2588%2586%25E6%259E%2590"><span class="toc-text">branchcov：指令级分支覆盖率分析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%25E8%25A1%258C%25E4%25B8%25BA%25E7%25BB%2586%25E8%258A%2582%25E4%25B8%258E%25E5%25B8%25B8%25E8%25A7%2581%25E8%25AF%25AF%25E5%258C%25BA"><span class="toc-text">行为细节与常见误区</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%25E7%259B%25AE%25E6%25A0%2587-pc-%25E7%259A%2584%25E6%258E%2592%25E5%25BA%258F%25E4%25B8%258D%25E4%25BB%25A3%25E8%25A1%25A8%25E8%25AF%25AD%25E4%25B9%2589%25E6%2596%25B9%25E5%2590%2591"><span class="toc-text">目标 PC 的排序不代表语义方向</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%25E5%2585%25B1%25E4%25BA%25AB%25E7%259B%25AE%25E6%25A0%2587-pc-%25E7%259A%2584%25E8%25AF%25AD%25E4%25B9%2589"><span class="toc-text">共享目标 PC 的语义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#get_hits-%25E8%25A6%2581%25E6%25B1%2582%25E5%2590%258C%25E4%25B8%2580%25E5%2587%25BD%25E6%2595%25B0%25E5%25AF%25B9%25E8%25B1%25A1"><span class="toc-text">get_hits 要求同一函数对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#lua-5.4-%25E7%259A%2584%25E8%25A1%258C%25E5%258F%25B7%25E7%25BC%2596%25E7%25A0%2581"><span class="toc-text">Lua 5.4 的行号编码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%25E5%2586%2585%25E9%2583%25A8%25E5%25AE%259E%25E7%258E%25B0%25E6%259C%25BA%25E5%2588%25B6"><span class="toc-text">内部实现机制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#deepbranches.c-%25E7%259A%2584%25E5%25AD%2597%25E8%258A%2582%25E7%25A0%2581%25E9%2581%258D%25E5%258E%2586"><span class="toc-text">deepbranches.c 的字节码遍历</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pchook.c-%25E7%259A%2584%25E4%25B8%25A4%25E9%2598%25B6%25E6%25AE%25B5%25E8%2581%259A%25E5%2590%2588"><span class="toc-text">pchook.c 的两阶段聚合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%25E9%2592%25A9%25E5%25AD%2590%25E5%25BF%25AB%25E9%2580%259F%25E8%25B7%25AF%25E5%25BE%2584%25E7%259A%2584%25E6%2591%258A%25E8%25BF%2598%25E4%25BB%25A3%25E4%25BB%25B7"><span class="toc-text">钩子快速路径的摊还代价</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%25E6%2580%25A7%25E8%2583%25BD%25E4%25B8%258E%25E7%2589%25B9%25E6%2580%25A7%25E5%2588%2586%25E6%259E%2590"><span class="toc-text">性能与特性分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%25E6%2580%25A7%25E8%2583%25BD%25E4%25BB%25A3%25E4%25BB%25B7"><span class="toc-text">性能代价</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%25E5%2586%2585%25E5%25AD%2598%25E5%25BC%2580%25E9%2594%2580"><span class="toc-text">内存开销</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%25E5%2587%2586%25E7%25A1%25AE%25E6%2580%25A7%25E7%259A%2584-trade-off"><span class="toc-text">准确性的 trade-off</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%25E4%25B8%25A4%25E5%25A5%2597%25E6%2596%25B9%25E6%25A1%2588%25E7%259A%2584%25E5%25AF%25B9%25E6%25AF%2594"><span class="toc-text">两套方案的对比</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%25E4%25B8%258E%25E7%259B%25B8%25E5%2585%25B3%25E6%258A%2580%25E6%259C%25AF%25E7%259A%2584%25E5%25AF%25B9%25E6%25AF%2594"><span class="toc-text">与相关技术的对比</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%25E4%25B8%258E-luacov-%25E5%258E%259F%25E7%2594%259F%25E6%2596%25B9%25E6%25A1%2588%25E7%259A%2584%25E5%258C%25BA%25E5%2588%25AB"><span class="toc-text">与 LuaCov 原生方案的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%25E4%25B8%258E-c%252Fgcov-%25E7%259A%2584%25E5%2588%2586%25E6%2594%25AF%25E8%25A6%2586%25E7%259B%2596%25E7%258E%2587%25E5%25AF%25B9%25E6%25AF%2594"><span class="toc-text">与 C&#x2F;gcov 的分支覆盖率对比</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%25E4%25BD%25BF%25E7%2594%25A8%25E5%25BB%25BA%25E8%25AE%25AE"><span class="toc-text">使用建议</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%25E6%2580%25BB%25E7%25BB%2593"><span class="toc-text">总结</span></a></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a><a class="buttom" onclick="util.scrollComment()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M8 10.5h8M8 14h5.5M17 3.338A9.95 9.95 0 0 0 12 2C6.477 2 2 6.477 2 12c0 1.6.376 3.112 1.043 4.453c.178.356.237.763.134 1.148l-.595 2.226a1.3 1.3 0 0 0 1.591 1.592l2.226-.596a1.63 1.63 0 0 1 1.149.133A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10c0-1.821-.487-3.53-1.338-5"/></svg><span>参与讨论</span></a></div></widget>
+</div></aside><div class='float-panel'>
+  <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
+  </button>
+  <button type='button' style='display:none' class='mobile-only leftbar-toggle mobile' onclick='sidebar.leftbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11c0-3.771 0-5.657 1.172-6.828C4.343 3 6.229 3 10 3h4c3.771 0 5.657 0 6.828 1.172C22 5.343 22 7.229 22 11v2c0 3.771 0 5.657-1.172 6.828C19.657 21 17.771 21 14 21h-4c-3.771 0-5.657 0-6.828-1.172C2 18.657 2 16.771 2 13z"/><path id="sep" stroke-linecap="round" d="M5.5 10h6m-5 4h4m4.5 7V3"/></g></svg>
+  </button>
+</div>
+</div><div class="scripts">
+
+
+<script type="text/javascript">
+  window.canonical = {"closeEnable":true,"closeText":"关闭提示","originalHost":"","officialHosts":["localhost","shansan.top","shansan.cn","yeshan333.github.io"],"encoded":""};
+  window.canonical["param"] = {"permalink":"https://shansan.top/2026/05/02/cluacov-branch-coverage/","checklink":"/js/plugins/video.js"};
+  // Fix: Ensure page is at the correct top position on data load
+  if (history.scrollRestoration) {
+    history.scrollRestoration = 'auto';
+  }
+  (function() {
+    const scrollHandler = () => {
+      const wikiCover = document.querySelector('#l_cover .l_cover.wiki');
+      const startEl = document.getElementById('start');
+      if (wikiCover && startEl) {
+        window.scrollTo(0, startEl.offsetTop);
+      } else {
+        window.scrollTo(0, 0);
+      }
+    };
+    if (document.readyState !== 'loading') scrollHandler();
+    else document.addEventListener('DOMContentLoaded', scrollHandler);
+  })();
+  const ctx = {
+    date_suffix: {
+      just: `刚刚`,
+      min: `分钟前`,
+      hour: `小时前`,
+      day: `天前`,
+    },
+    root : `/`,
+    tag_plugins: {
+      chat: Object.assign({"api":"https://siteinfo.listentothewind.cn/api/v1"}),
+    }
+  };
+
+  // required plugins (only load if needs)
+  if (`local_search`) {
+    ctx.search = {};
+    ctx.search.service = `local_search`;
+    if (ctx.search.service == 'local_search') {
+      let service_obj = Object.assign({}, `{"field":"all","path":"/search.json","content":true,"skip_search":null,"sort":"-date"}`);
+      ctx.search[ctx.search.service] = service_obj;
+    }
+  }
+  const def = {
+    avatar: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/3442075.svg`,
+    cover: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/cover/76b86c0226ffd.svg`,
+    loading: `https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd`,
+  };
+  const deps = {
+    jquery: `https://gcore.jsdelivr.net/npm/jquery@3.7/dist/jquery.min.js`,
+    marked: `https://gcore.jsdelivr.net/npm/marked@13.0/lib/marked.umd.min.js`,
+    lazyload: `/%5Bobject%20Object%5D`
+  }
+</script>
+
+<script type="text/javascript">
+  
+  function RunItem() {
+    this.list = []; // 存放回调函数
+    this.start = () => {
+      for (var i = 0; i < this.list.length; i++) {
+        this.list[i].run();
+      }
+    };
+    this.push = (fn, name, setRequestAnimationFrame = true) => {
+      let myfn = fn
+      if (setRequestAnimationFrame) {
+        myfn = () => {
+          utils.requestAnimationFrame(fn)
+        }
+      }
+      var f = new Item(myfn, name);
+      this.list.push(f);
+    };
+    this.remove = (name) => {
+      // 倒序遍历避免 splice 后的索引问题
+      for (let index = this.list.length - 1; index >= 0; index--) {
+        const e = this.list[index];
+        if (e.name === name) {
+          this.list.splice(index, 1);
+        }
+      }
+    }
+    // 构造一个可以run的对象
+    function Item(fn, name) {
+      // 函数名称
+      this.name = name || fn.name;
+      // run方法
+      this.run = () => {
+        try {
+          fn()
+        } catch (error) {
+          console.log(error);
+        }
+      };
+    }
+  }
+
+  const utils = {
+    // 已加载样式缓存
+    _loadedStyles: new Set(),
+
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    css: (href, before, media, attributes) => {
+      // 如果样式已加载，直接返回 null
+      if (utils._loadedStyles.has(href)) {
+        return null;
+      }
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      // 标记样式为已加载 (在创建元素后立即标记，防止重复创建)
+      utils._loadedStyles.add(href);
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 已加载脚本缓存
+    _loadedScripts: new Set(),
+
+    // 已加载元素缓存 (使用 WeakSet 追踪元素实例,避免 PJAX 导航时的状态混淆)
+    _loadedElements: new WeakSet(),
+
+    js: (src, opt) => new Promise((resolve, reject) => {
+      if (src.startsWith('/')) {
+        src = ctx.root + src.substring(1);
+      }
+      // 如果脚本已加载，直接返回
+      if (utils._loadedScripts.has(src)) {
+        resolve();
+        return;
+      }
+      var script = document.createElement('script');
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function () {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        utils._loadedScripts.add(src);
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // PJAX 事件监听器管理
+    _pjaxListeners: new Set(),
+    
+    jq: (fn, pjax = true) => {
+      if (typeof jQuery === 'undefined') {
+        utils.js(deps.jquery).then(fn)
+      } else {
+        fn()
+      }
+      if (pjax && !fn._pjax_registered) {
+        document.addEventListener('pjax:complete', fn);
+        fn._pjax_registered = true;
+        utils._pjaxListeners.add(fn); // 追踪监听器以便清理
+      }
+    },
+    
+    // 清理所有 PJAX 事件监听器
+    cleanupPjaxListeners: () => {
+      utils._pjaxListeners.forEach(fn => {
+        document.removeEventListener('pjax:complete', fn);
+        fn._pjax_registered = false;
+      });
+      utils._pjaxListeners.clear();
+    },
+
+    onLoading: (el) => {
+      if (el) {
+        if ($(el).find('.loading-wrap').length === 0){
+          $(el).append('<div class="loading-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" stroke-opacity=".3" d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="1.3s" values="60;0"/></path><path stroke-dasharray="15" stroke-dashoffset="15" d="M12 3C16.9706 3 21 7.02944 21 12"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></g></svg></div>');
+        }
+      }
+    },
+    onLoadSuccess: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap').remove();
+      }
+    },
+    onLoadFailure: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap svg').remove();
+        $(el).find('.loading-wrap').append('<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" d="M12 3L21 20H3L12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.5s" values="60;0"/></path><path stroke-dasharray="6" stroke-dashoffset="6" d="M12 10V14"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.6s" dur="0.2s" values="6;0"/></path></g><circle cx="12" cy="17" r="1" fill="currentColor" fill-opacity="0"><animate fill="freeze" attributeName="fill-opacity" begin="0.8s" dur="0.4s" values="0;1"/></circle></svg>');
+        $(el).find('.loading-wrap').addClass('error');
+      }
+    },
+    request: (el, url, callback, onFailure) => {
+      // 检查元素实例是否已加载 (而不是检查属性)
+      if (el && utils._loadedElements.has(el)) {
+        return;
+      }
+      const maxRetry = 3;
+      let retryCount = 0;
+
+      return new Promise((resolve, reject) => {
+        const load = () => {
+          utils.onLoading?.(el);
+
+          let timedOut = false;
+          const timeout = setTimeout(() => {
+            timedOut = true;
+            console.warn('[request] 超时:', url);
+
+            if (++retryCount >= maxRetry) {
+              utils.onLoadFailure?.(el);
+              onFailure?.();
+              reject('请求超时');
+            } else {
+              setTimeout(load, 1000);
+            }
+          }, 5000);
+
+          fetch(url).then(resp => {
+            if (timedOut) return;
+            clearTimeout(timeout);
+
+            if (!resp.ok) throw new Error('响应失败');
+            return resp;
+          }).then(data => {
+            if (timedOut) return;
+            // 标记元素实例为已加载
+            if (el) utils._loadedElements.add(el);
+            utils.onLoadSuccess?.(el);
+            callback(data);
+            resolve(data);
+          }).catch(err => {
+            clearTimeout(timeout);
+            console.warn('[request] 错误:', err);
+
+            if (++retryCount >= maxRetry) {
+              utils.onLoadFailure?.(el);
+              onFailure?.();
+              reject(err);
+            } else {
+              setTimeout(load, 1000);
+            }
+          });
+        };
+
+        load();
+      });
+    },
+    requestWithoutLoading: (url, options = {}, maxRetry = 2, timeout = 5000) => {
+      return new Promise((resolve, reject) => {
+        let retryCount = 0;
+
+        const tryRequest = () => {
+          let timedOut = false;
+          const timer = setTimeout(() => {
+            timedOut = true;
+            if (++retryCount > maxRetry) reject('timeout');
+            else tryRequest();
+          }, timeout);
+
+          fetch(url, options)
+            .then(resp => {
+              clearTimeout(timer);
+              if (!resp.ok) throw new Error('bad response');
+              resolve(resp);
+            })
+            .catch(err => {
+              clearTimeout(timer);
+              if (++retryCount > maxRetry) reject(err);
+              else setTimeout(tryRequest, 500);
+            });
+        };
+
+        tryRequest();
+      });
+    },
+    /********************** requestAnimationFrame ********************************/
+    // 1、requestAnimationFrame 会把每一帧中的所有 DOM 操作集中起来，在一次重绘或回流中就完成，并且重绘或回流的时间间隔紧紧跟随浏览器的刷新频率，一般来说，这个频率为每秒60帧。
+    // 2、在隐藏或不可见的元素中，requestAnimationFrame 将不会进行重绘或回流，这当然就意味着更少的的 cpu，gpu 和内存使用量。
+    requestAnimationFrame: (fn) => {
+      if (!window.requestAnimationFrame) {
+        window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame;
+      }
+      window.requestAnimationFrame(fn)
+    },
+    dark: {},
+
+    // 插件初始化管理器 - 统一处理 DOMContentLoaded 和 pjax:complete 事件
+    _pluginInitializers: [],
+    _pluginCleanups: new Map(), // 存储每个插件的清理函数
+    
+    initPlugin: (initFn, name, options = {}) => {
+      if (!initFn || typeof initFn !== 'function') return;
+      
+      // 避免重复注册
+      const pluginName = name || initFn.name;
+      if (utils._pluginInitializers.some(p => p.name === pluginName)) return;
+      
+      // 包装初始化函数，添加防重复执行的保护
+      const wrappedInit = () => {
+        try {
+          // 在执行前先清理旧的资源
+          if (utils._pluginCleanups.has(pluginName)) {
+            const cleanup = utils._pluginCleanups.get(pluginName);
+            if (typeof cleanup === 'function') {
+              cleanup();
+            }
+          }
+          
+          // 执行初始化，可能返回清理函数
+          const cleanup = initFn();
+          
+          // 如果初始化函数返回了清理函数，保存它
+          if (typeof cleanup === 'function') {
+            utils._pluginCleanups.set(pluginName, cleanup);
+          }
+        } catch (error) {
+          console.error(`[Plugin ${pluginName}] 初始化失败:`, error);
+        }
+      };
+      
+      utils._pluginInitializers.push({ 
+        fn: wrappedInit, 
+        name: pluginName,
+        options: options 
+      });
+      
+      // 如果 DOM 已经加载完成，立即执行
+      if (document.readyState === 'complete' || document.readyState === 'interactive') {
+        wrappedInit();
+      } else {
+        // 否则等待 DOMContentLoaded
+        window.addEventListener('DOMContentLoaded', wrappedInit, { once: true });
+      }
+    },
+
+    // 重新初始化所有插件（用于 PJAX 等场景）
+    reinitPlugins: () => {
+      utils._pluginInitializers.forEach(plugin => {
+        // 跳过标记为不需要重新初始化的插件
+        if (plugin.options.skipReinit) return;
+        
+        try {
+          plugin.fn();
+        } catch (error) {
+          console.error(`[Plugin ${plugin.name}] 重新初始化失败:`, error);
+        }
+      });
+    },
+    
+    // 清理所有插件资源
+    cleanupPlugins: () => {
+      utils._pluginCleanups.forEach((cleanup, name) => {
+        try {
+          cleanup();
+        } catch (error) {
+          console.error(`[Plugin ${name}] 清理失败:`, error);
+        }
+      });
+      utils._pluginCleanups.clear();
+    },
+    
+    // 清理所有资源（用于页面卸载或重置）
+    cleanupAll: () => {
+      utils.cleanupPlugins();
+      utils.cleanupPjaxListeners();
+    },
+  };
+
+  // 自动处理 PJAX 事件
+  document.addEventListener('pjax:before', () => {
+    // 在导航前清理旧的 PJAX 监听器（如果需要重新注册）
+    // 注意：这里不清理，因为监听器应该是持久的
+    // utils.cleanupPjaxListeners();
+  });
+  
+  document.addEventListener('pjax:complete', () => {
+    utils.reinitPlugins();
+  });
+
+  // utils.dark.mode 当前模式 dark or light
+  // utils.dark.toggle() 暗黑模式触发器
+  // utils.dark.push(callBack[,"callBackName"]) 传入触发器回调函数
+  utils.dark.method = {
+    toggle: new RunItem(),
+  };
+  utils.dark = Object.assign(utils.dark, {
+    push: utils.dark.method.toggle.push,
+  });
+</script>
+<script>
+  const sidebar = {
+    leftbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    rightbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('rightbar');
+        l_body.removeAttribute('leftbar');
+      }
+    },
+    dismiss: () => {
+      if (l_body) {
+        l_body.removeAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    toggleTOC: () => {
+      document.querySelector('#data-toc').classList.toggle('collapse');
+    }
+  }
+</script>
+<script type="text/javascript">
+  (() => {
+    const tagSwitchers = document.querySelectorAll('.tag-subtree.parent-tag > a > .tag-switcher-wrapper')
+    for (const tagSwitcher of tagSwitchers) {
+      tagSwitcher.addEventListener('click', (e) => {
+        const parent = e.target.closest('.tag-subtree.parent-tag')
+        parent.classList.toggle('expanded')
+        e.preventDefault()
+      })
+    }
+
+    // Get active tag from query string, then activate it.
+    const urlParams = new URLSearchParams(window.location.search)
+    const activeTag = urlParams.get('tag')
+    if (activeTag) {
+      let tag = document.querySelector(`.tag-subtree[data-tag="${activeTag}"]`)
+      if (tag) {
+        tag.querySelector('a').classList.add('active')
+        
+        while (tag) {
+          tag.classList.add('expanded')
+          tag = tag.parentElement.closest('.tag-subtree.parent-tag')
+        }
+      }
+    }
+  })()
+</script>
+
+<script async src="https://gcore.jsdelivr.net/npm/vanilla-lazyload@19.1/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazy",
+    callback_loaded: (el) => {
+      el.classList.add('loaded');
+      const wrapper = el.closest('.lazy-box');
+      const icon = wrapper?.querySelector('.lazy-icon');
+      if (icon) icon.remove();
+    }
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    window.lazyLoadInstance?.update();
+  });
+
+  window.wrapLazyloadImages = (container) => {
+    if (typeof container === 'string') {
+      container = document.querySelector(container);
+    }
+    if (!container) return;
+
+    const images = container.querySelectorAll('img');
+    images.forEach((img) => {
+      if (img.classList.contains('lazy')) return;
+
+      const src = img.getAttribute('src');
+      if (!src) return;
+
+      const wrapper = document.createElement('div');
+      wrapper.className = 'lazy-box';
+
+      const newImg = img.cloneNode();
+      newImg.removeAttribute('src');
+      newImg.setAttribute('data-src', src);
+      newImg.classList.add('lazy');
+
+      const icon = document.createElement('div');
+      icon.className = 'lazy-icon';
+      if (def.loading) {
+        icon.style.backgroundImage = `url("${def.loading}")`;
+      }
+
+      wrapper.appendChild(newImg);
+      wrapper.appendChild(icon);
+
+      img.replaceWith(wrapper);
+    });
+
+    // 通知 LazyLoad 更新
+    if (window.lazyLoadInstance?.update) {
+      window.lazyLoadInstance.update();
+    }
+  }
+
+</script>
+
+<!-- required -->
+<script src="/js/main.js?v=1.33.1" defer></script>
+
+<script type="text/javascript">
+  const applyTheme = (theme) => {
+    if (theme === 'auto') {
+      document.documentElement.removeAttribute('data-theme')
+    } else {
+      document.documentElement.setAttribute('data-theme', theme)
+    }
+
+    // applyThemeToGiscus(theme)
+  }
+
+  // FIXME: 这会导致无法使用 preferred_color_scheme 以外的主题
+  const applyThemeToGiscus = (theme) => {
+    // theme = theme === 'auto' ? 'preferred_color_scheme' : theme
+    const cmt = document.getElementById('giscus')
+    if (cmt) {
+      // This works before giscus load.
+      cmt.setAttribute('data-theme', theme)
+    }
+
+    const iframe = document.querySelector('#comments > section.giscus > iframe')
+    if (iframe) {
+      // This works after giscus loaded.
+      const src = iframe.src
+      const newSrc = src.replace(/theme=[\w]+/, `theme=${theme}`)
+      iframe.src = newSrc
+    }
+  }
+
+  const switchTheme = () => {
+    // light -> dark -> auto -> light -> ...
+    const currentTheme = document.documentElement.getAttribute('data-theme')
+    let newTheme;
+    switch (currentTheme) {
+      case 'light':
+        newTheme = 'dark'
+        break
+      case 'dark':
+        newTheme = 'auto'
+        break
+      default:
+        newTheme = 'light'
+    }
+    applyTheme(newTheme)
+    window.localStorage.setItem('Stellar.theme', newTheme)
+    utils.dark.mode = newTheme === 'auto' ? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light") : newTheme;
+    utils.dark.method.toggle.start();
+
+    const messages = {
+      light: `切换到浅色模式`,
+      dark: `切换到深色模式`,
+      auto: `切换到跟随系统配色`,
+    }
+    hud?.toast?.(messages[newTheme])
+  }
+
+  (() => {
+    // Apply user's preferred theme, if any.
+    const theme = window.localStorage.getItem('Stellar.theme')
+    if (theme !== null) {
+      applyTheme(theme)
+    } else {
+      utils.dark.mode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    }
+    utils.dark.method.toggle.start();
+  })()
+</script>
+
+
+<!-- optional -->
+
+  <script>
+  (function() {
+    const lazyload = false;
+    
+    function initArtalk() {
+      const el = document.getElementById('artalk_container');
+      if (!el) return;
+      
+      function load_artalk() {
+        utils.css('https://gcore.jsdelivr.net/npm/artalk@2.9.1/dist/Artalk.css');
+        utils.js('https://gcore.jsdelivr.net/npm/artalk@2.9.1/dist/Artalk.js', {defer: true}).then(function () {
+          // 监听 Artalk 事件
+          // FIXME: Artalk开启了懒加载会导致评论输入预览框里的图也变成data-src，导致看不到图
+          // Artalk.use((ctx) => {
+          //   ctx.on('list-loaded', () => window.lazyLoadInstance?.update())
+          // })
+          const path = el.getAttribute('comment_id') ?? decodeURI(window.location.pathname);
+          const artalk = Artalk.init({
+            el: '#artalk_container',
+            pageKey: path,
+            pageTitle: '【Draft】cluacov 的分支覆盖率统计：从行级近似到指令级精确',
+            server: 'https://artalk.shan333.cn/',
+            site: 'ShanSan',
+            darkMode: 'auto',
+            
+          });
+        });
+      }
+      
+      util.viewportLazyload(el, load_artalk, lazyload);
+    }
+    
+    // Store in global stellar namespace for PJAX reinitialization
+    window.stellar = window.stellar || {};
+    window.stellar.initComments = window.stellar.initComments || {};
+    window.stellar.initComments.artalk = initArtalk;
+    
+    // Initialize on page load
+    initArtalk();
+  })();
+</script>
+
+
+
+<script defer>
+  const initServices = () => {
+    // 用于存储需要清理的资源
+    let timers = [];
+    
+    ctx.services = Object.assign({}, JSON.parse(`{"mdrender":{"js":"/js/services/mdrender.js"},"siteinfo":{"js":"/js/services/siteinfo.js","api":null},"ghinfo":{"js":"/js/services/ghinfo.js"},"rating":{"js":"/js/services/rating.js","api":"https://star-vote.xaox.cc/api/rating"},"vote":{"js":"/js/services/vote.js","api":"https://star-vote.xaox.cc/api/vote"},"sites":{"js":"/js/services/sites.js"},"friends":{"js":"/js/services/friends.js"},"friends_and_posts":{"js":"/js/services/friends_and_posts.js"},"timeline":{"js":"/js/services/timeline.js"},"fcircle":{"js":"/js/services/fcircle.js"},"weibo":{"js":"/js/services/weibo.js"},"memos":{"js":"/js/services/memos.js"},"voice":{"js":"/js/plugins/voice.js"},"video":{"js":"/js/plugins/video.js"},"download-file":{"js":"/js/plugins/download-file.js"},"twikoo":{"js":"/js/services/twikoo_latest_comment.js"},"waline":{"js":"/js/services/waline_latest_comment.js"},"artalk":{"js":"/js/services/artalk_latest_comment.js"},"giscus":{"js":"/js/services/giscus_latest_comment.js"},"contributors":{"edit_this_page":{"_posts/":null,"wiki/stellar/":"https://github.com/xaoxuu/hexo-theme-stellar-docs/blob/main/"},"js":"/js/services/contributors.js"},"rss":{"js":"/js/services/rss.js"}}`));
+    for (let id of Object.keys(ctx.services)) {
+      const js = ctx.services[id].js;
+      if (id == 'siteinfo') {
+        const cardlinks = document.querySelectorAll('a.link-card[cardlink]');
+        if (cardlinks?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            setCardLink(cardlinks);
+          });
+        }
+      } else if (id == 'ghinfo') {
+        const els = document.querySelectorAll('.ds-ghinfo');
+        if (els.length > 0) {
+          utils.js(js, { defer: true });
+        }
+      } else if (id == 'voice') {
+        const voiceAudios = document.querySelectorAll('.voice>audio');
+        if (voiceAudios?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            createVoiceDom(voiceAudios);
+          });
+        }
+      } else if (id == 'video') {
+        const videos = document.querySelectorAll('.video>video');
+        if (videos?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            videoEvents(videos);
+          });
+        }
+      } else if (id == 'download-file') {
+        const files = document.querySelectorAll('.chat-file');
+        if (files?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            downloadFileEvent(files);
+          });
+        }
+      } else {
+        const els = document.getElementsByClassName(`ds-${id}`);
+        if (els?.length > 0) {
+          utils.jq(() => {
+            if (id == 'timeline' || id == 'memos' || id == 'marked') {
+              utils.js(deps.marked).then(function () {
+                utils.js(js, { defer: true });
+              });
+            } else {
+              utils.js(js, { defer: true });
+            }
+          }, false);
+        }
+      }
+    }
+
+    // search
+    if (ctx.search && typeof searchFunc === 'function') {
+      const $inputArea = $("input#search-input");
+      if ($inputArea.length > 0 && !$inputArea[0]._searchInitialized) {
+        const path = ctx.search.path.startsWith('/') ? ctx.root + ctx.search.path.substring(1) : ctx.root + ctx.search.path;
+        const filter = $inputArea.attr('data-filter') || '';
+        searchFunc(path, filter, 'search-wrapper', 'search-input', 'search-result');
+        // 标记为已初始化，防止重复绑定
+        $inputArea[0]._searchInitialized = true;
+      }
+    }
+
+    // chat iphone time
+    let phoneTimes = document.querySelectorAll('.chat .status-bar .time');
+    let firstAdjustInterval = null;
+    let mainInterval = null;
+
+    if (phoneTimes.length > 0) {
+      NowTime();
+      const date = new Date();
+      const sec = date.getSeconds();
+      firstAdjustInterval = setInterval(firstAdjustTime, 1000 * (60 - sec));
+      timers.push(firstAdjustInterval);
+
+      function firstAdjustTime() {
+        NowTime();
+        if (firstAdjustInterval) {
+          clearInterval(firstAdjustInterval);
+          firstAdjustInterval = null;
+        }
+        mainInterval = setInterval(NowTime, 1000 * 60);
+        timers.push(mainInterval);
+      }
+
+      function NowTime() {
+        for (let i = 0; i < phoneTimes.length; ++i) {
+          const timeSpan = phoneTimes[i];
+          const date = new Date();
+          const hour = date.getHours();
+          const min = date.getMinutes();
+          timeSpan.innerHTML = check(hour) + ":" + check(min);
+        }
+      };
+
+      function check(val) {
+        if (val < 10) {
+          return ("0" + val);
+        }
+        return (val);
+      }
+    }
+
+    // chat quote - 存储事件监听器以便清理
+    const quoteClickHandlers = new Map();
+    const chat_quote_obverser = new IntersectionObserver((entries, observer) => {
+      entries.filter((entry) => { return entry.isIntersecting }).sort((a, b) => a.intersectionRect.y !== b.intersectionRect.y ? a.intersectionRect.y - b.intersectionRect.y : a.intersectionRect.x - b.intersectionRect.x).forEach((entry, index) => {
+          observer.unobserve(entry.target);
+          setTimeout(() => {
+            entry.target.classList.add('quote-blink');
+            setTimeout(() => {
+              entry.target.classList.remove('quote-blink');
+            }, 1000);
+          }, Math.max(100, 16) * (index + 1));
+        });
+    });
+
+    var chatQuotes = document.querySelectorAll(".chat .talk .quote");
+    chatQuotes.forEach((quote) => {
+      const handler = function () {
+        var chatCellDom = document.getElementById("quote-" + quote.getAttribute("quotedCellTag"));
+        if (chatCellDom) {
+          var chatDiv = chatCellDom.parentElement;
+          var mid = chatDiv.clientHeight / 2;
+          var offsetTop = chatCellDom.offsetTop;
+          if (offsetTop > mid - chatCellDom.clientHeight / 2) {
+            chatDiv.scrollTo({
+              top: chatCellDom.offsetTop - mid + chatCellDom.clientHeight / 2,
+              behavior: "smooth"
+            });
+          } else {
+            chatDiv.scrollTo({
+              top: 0,
+              behavior: "smooth"
+            });
+          }
+          chat_quote_obverser.observe(chatCellDom);
+        }
+      };
+      quote.addEventListener('click', handler);
+      quoteClickHandlers.set(quote, handler); // 保存处理器引用
+    });
+
+    // 返回清理函数，用于清理定时器和观察器
+    return () => {
+      // 清理所有定时器（包括可能未完成的 firstAdjustInterval）
+      timers.forEach(timer => {
+        if (timer) clearInterval(timer);
+      });
+      timers = [];
+      if (firstAdjustInterval) {
+        clearInterval(firstAdjustInterval);
+        firstAdjustInterval = null;
+      }
+      if (mainInterval) {
+        clearInterval(mainInterval);
+        mainInterval = null;
+      }
+      
+      // 断开观察器
+      if (chat_quote_obverser) {
+        chat_quote_obverser.disconnect();
+      }
+      
+      // 移除所有 click 事件监听器
+      quoteClickHandlers.forEach((handler, quote) => {
+        quote.removeEventListener('click', handler);
+      });
+      quoteClickHandlers.clear();
+    };
+  };
+
+  utils.initPlugin(initServices, 'services');
+</script>
+
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.search = {
+      path: `/search.json`,
+    }
+    utils.js('/js/search/local-search.js', { defer: true });
+  });
+</script><script>
+  window.FPConfig = {
+    delay: 0,
+    ignoreKeywords: [],
+    maxRPS: 5,
+    hoverDelay: 25
+  };
+</script>
+<script defer src="https://gcore.jsdelivr.net/npm/flying-pages@2/flying-pages.min.js"></script><script>
+  ctx.fancybox = {
+    selector: `.timenode p>img`,
+    css: `https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css`,
+    js: `https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js`
+  };
+  var selector = '[data-fancybox]:not(.error), .with-fancybox .atk-content img:not([atk-emoticon])';
+  if (ctx.fancybox.selector) {
+    selector += `, ${ctx.fancybox.selector}`
+  }
+  var needFancybox = document.querySelectorAll(selector).length !== 0;
+  if (!needFancybox) {
+    const memos = document.getElementsByClassName('ds-memos');
+    if (memos != undefined && memos.length > 0) {
+      needFancybox = true;
+    }
+    const fancybox = document.getElementsByClassName('with-fancybox');
+    if (fancybox != undefined && fancybox.length > 0) {
+      needFancybox = true;
+    }
+  }
+  if (needFancybox) {
+    utils.css(ctx.fancybox.css);
+    utils.js(ctx.fancybox.js, { defer: true }).then(function () {
+      Fancybox.bind(selector, {
+        hideScrollbar: false,
+        Thumbs: {
+          autoStart: false,
+        },
+        caption: (fancybox, slide) => {
+          return slide.triggerEl.alt || slide.triggerEl.dataset.caption || null
+        }
+      });
+    })
+  }
+</script>
+<script>
+  utils.initPlugin(() => {
+    const swiper_api = document.getElementById('swiper-api');
+    if (swiper_api != undefined) {
+      utils.css(`https://unpkg.com/swiper@10.3/swiper-bundle.min.css`);
+      utils.js(`https://unpkg.com/swiper@10.3/swiper-bundle.min.js`, { defer: true }).then(function () {
+        const effect = swiper_api.getAttribute('effect') || '';
+        var swiper = new Swiper('.swiper#swiper-api', {
+          slidesPerView: 'auto',
+          spaceBetween: 8,
+          centeredSlides: true,
+          effect: effect,
+          rewind: true,
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+        });
+      })
+    }
+  }, 'swiper');
+</script>
+<link rel="stylesheet" href="https://gcore.jsdelivr.net/npm/katex@0.16/dist/katex.min.css" crossorigin="anonymous">
+<script defer type="text/javascript" src="https://cdn.jsdelivr.net/npm/mermaid@11.9.0/dist/mermaid.min.js"></script>
+<script>
+  utils.initPlugin(() => {
+    const els = document.querySelectorAll('.mermaid');
+    if (els.length > 0) {
+      const mermaid_config = {
+        startOnLoad: false,
+        theme:
+          "auto" == "auto" &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "neutral",
+        logLevel: 3,
+        themeVariables: {
+          darkMode: true
+        },
+        flowchart: {
+          useMaxWidth: false,
+          htmlLabels: true,
+          curve: "linear"
+        },
+        gantt: {
+          axisFormat: "%Y/%m/%d"
+        },
+        sequence: {
+          actorMargin: 50
+        }
+      }
+      mermaid.initialize(mermaid_config);
+      mermaid.run();
+    }
+  }, 'mermaid');
+</script><script>
+  utils.initPlugin(() => {
+    const codeElements = document.querySelectorAll('.code');
+    if (codeElements.length > 0) {
+      ctx.copycode = {
+        default_text: `Copy`,
+        success_text: `Copied`,
+        toast: `复制成功`,
+      };
+      utils.js('/js/plugins/copycode.js', { defer: true }).then(() => {
+        if (typeof createCopyButtons === 'function') {
+          createCopyButtons(codeElements);
+        }
+      });
+    }
+  }, 'copycode');
+</script>
+
+
+<!-- inject -->
+<script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script><script>LA.init({id:"3N0nbmMoWnI9Z6Po",ck:"3N0nbmMoWnI9Z6Po"})</script>
+</div><div class="page-loading-bar"><img src="https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd"></div></body></html>
