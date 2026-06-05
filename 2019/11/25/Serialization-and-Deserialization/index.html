@@ -1,682 +1,1276 @@
-<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="generator" content="Astro"><meta name="description" content="python, marshmallow"><link rel="icon" href="https://ospy.shan333.cn/blog/xJ7yMF.jpg"><title>Serialization and Deserialization - ShanSan</title><script>
-      (function() {
-        var theme = window.localStorage.getItem('Stellar.theme');
-        if (theme === 'light' || theme === 'dark') {
-          document.documentElement.setAttribute('data-theme', theme);
-        }
-      })();
-    </script><script>
-          window.MathJax = {
-            tex: {
-              inlineMath: [['$', '$'], ['\\(', '\\)']],
-              displayMath: [['$$', '$$'], ['\\[', '\\]']],
-              processEscapes: true
-            },
-            options: {
-              skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-            }
-          };
-        </script><script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><link rel="stylesheet" href="/_astro/BaseLayout.p7vNpaz3.css"></head> <body> <div id="l_cover"></div> <div class="l_body content" id="start" layout="post" type="tech"> <aside class="l_left"> <div class="sidebg"></div> <div class="leftbar-container"> <header class="header"> <div class="logo-wrap"> <a class="avatar" href="/about/"> <div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div> <img no-lazy class="avatar" src="https://ospy.shan333.cn/blog/blog.avatar.jpg" alt="ShanSan"> </a> <a class="title" href="/"> <div class="main">ShanSan</div> <div class="sub cap">个人博客</div> </a> </div> </header> <div class="nav-area"> <nav class="menu dis-select"> <a class="nav-item active" title="博文" href="/archives/"> <span>博文</span> </a><a class="nav-item" title="关于" href="/about/"> <span>关于</span> </a><a class="nav-item" title="友链" href="/friends/"> <span>友链</span> </a><a class="nav-item" title="Bio" href="/wiki/bio/"> <span>Bio</span> </a> </nav> </div> <div class="widgets"> <div class="search-wrapper" id="search-wrapper"> <form class="search-form"> <a class="search-button" onclick="document.getElementById('search-input').focus();"> <svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg> </a> <input type="text" class="search-input" id="search-input" placeholder="站内搜索"> </form> <div id="search-result"></div> <div class="search-no-result">没有找到内容！</div> </div> <script>
-(function () {
-  var cache = null;
-  var input = document.getElementById("search-input");
-  var result = document.getElementById("search-result");
-  var wrapper = document.getElementById("search-wrapper");
-  if (!input || !result || !wrapper) return;
 
-  function fetchData() {
-    if (cache) return;
-    fetch("/search.json")
-      .then(function (r) { return r.json(); })
-      .then(function (data) { cache = data; });
-  }
+<!DOCTYPE html><html lang="zh-CN">
 
-  function escapeRe(s) {
-    return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  }
+<head>
+  <meta charset="utf-8">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1" theme-name="Stellar" theme-version="1.33.1">
+  
+  
+  <meta name="generator" content="Hexo 8.1.2">
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000">
+  <meta name="theme-color" content="#f9fafb">
+  <title>Serialization and Deserialization - ShanSan</title>
 
-  function combinations(words) {
-    var out = [];
-    var max = 3;
-    for (var i = 0; i < words.length; i++) {
-      for (var j = i + 1; j <= Math.min(i + max, words.length); j++) {
-        out.push(words.slice(i, j).join(" "));
-      }
-    }
-    return out.sort(function (a, b) {
-      return b.split(" ").length - a.split(" ").length;
-    });
-  }
+  
+    <meta name="description" content="序列化与反序列化  Serialization：Data Structure&#x2F;Object --&gt; Binary String Deserialization：Binary String --&gt; Data Structure&#x2F;Object Goals：Cross-platform Communication、Persistent Storage and More  Python中对象的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Serialization and Deserialization">
+<meta property="og:url" content="https://shansan.top/2019/11/25/Serialization-and-Deserialization/">
+<meta property="og:site_name" content="ShanSan">
+<meta property="og:description" content="序列化与反序列化  Serialization：Data Structure&#x2F;Object --&gt; Binary String Deserialization：Binary String --&gt; Data Structure&#x2F;Object Goals：Cross-platform Communication、Persistent Storage and More  Python中对象的">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-11-25T16:25:23.000Z">
+<meta property="article:modified_time" content="2019-11-25T16:25:23.000Z">
+<meta property="article:author" content="ShanSan">
+<meta property="article:tag" content="Json">
+<meta property="article:tag" content="Python">
+<meta name="twitter:card" content="summary">
+  
+  
+  
+  <meta name="keywords" content="python, marshmallow">
 
-  function searchable(post) {
-    return [
-      post.title || "",
-      post.description || "",
-      (post.tags || []).join(" "),
-      (post.categories || []).join(" "),
-      post.content || "",
-    ].join(" ");
-  }
+  <!-- feed -->
+  
+    
 
-  function highlight(text, re) {
-    return text.replace(re, function (m) {
-      return '<span class="search-keyword">' + m + "</span>";
-    });
-  }
+    
+      
+        <link rel="alternate" href="/rss2.xml" title="ShanSan" type="application/rss+xml">
+      
+    
+  
 
-  function contentSnippet(content, keywords) {
-    if (!content) return "";
-    var lower = content.toLowerCase();
-    var best = -1;
-    for (var i = 0; i < keywords.length; i++) {
-      var idx = lower.indexOf(keywords[i]);
-      if (idx >= 0) { best = idx; break; }
-    }
-    if (best < 0) return "";
-    var start = Math.max(0, best - 30);
-    var end = Math.min(content.length, best + 80);
-    return (start > 0 ? "..." : "") + content.substring(start, end) + (end < content.length ? "..." : "");
-  }
+  <link rel="stylesheet" href="/css/main.css?v=1.33.1">
 
-  function doSearch(query) {
-    result.innerHTML = "";
-    if (!query) {
-      wrapper.setAttribute("searching", "false");
-      wrapper.classList.remove("noresult");
-      return;
-    }
-    wrapper.setAttribute("searching", "true");
-    if (!cache) return;
 
-    var keywords = combinations(query.toLowerCase().split(/\s+/).filter(Boolean));
-    if (!keywords.length) return;
+  
+    <link rel="shortcut icon" href="https://ospy.shan333.cn/blog/xJ7yMF.jpg">
+  
 
-    var hits = [];
-    cache.forEach(function (post) {
-      if (post.protected) return;
-      var blob = searchable(post).toLowerCase();
-      var title = (post.title || "").trim();
-      var titleLower = title.toLowerCase();
-      var matches = 0;
+  
 
-      keywords.forEach(function (kw) {
-        if (titleLower.indexOf(kw) >= 0 || blob.indexOf(kw) >= 0) {
-          matches++;
-        }
-      });
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"ShanSan","sameAs":["https://github.com/yeshan333"]},"dateCreated":"2019-11-25T16:25:23+00:00","dateModified":"2019-11-25T16:25:23+00:00","datePublished":"2019-11-25T16:25:23+00:00","description":"序列化与反序列化\n\nSerialization：Data Structure/Object --&gt; Binary String\nDeserialization：Binary String --&gt; Data Structure/Object\nGoals：Cross-platform Communication、Persistent Storage and More\n\nPython中对象的序列化与反序列化\npickle module\n\npickle 仅可用于 Python，pickle所使用的数据流格式仅可用于 Python\npickle 模块可以将复杂对象转换为字节流，也可以将字节流转换为具有相同内部结构的对象。\n可被pickling和unpickling的对象：https://docs.python.org/zh-cn/3/library/pickle.html#what-can-be-pickled-and-unpickled\n\npickle提供了优秀的方法方便我们对对象进行pickling（封存）和unpickling（解封）","headline":"Serialization and Deserialization","mainEntityOfPage":{"@type":"WebPage","@id":"https://shansan.top/2019/11/25/Serialization-and-Deserialization/"},"publisher":{"@type":"Organization","name":"ShanSan","sameAs":["https://github.com/yeshan333"]},"url":"https://shansan.top/2019/11/25/Serialization-and-Deserialization/","keywords":"Python, Json","image":[]}</script>
+  
+</head>
+<body><div id="l_cover"></div><div class="l_body content" id="start" layout="post" type="tech" ><aside class="l_left"><div class="sidebg"></div><div class="leftbar-container">
 
-      if (matches > 0) {
-        hits.push({ post: post, rank: matches });
-      }
-    });
 
-    if (!hits.length) {
-      wrapper.classList.add("noresult");
-      return;
-    }
-    wrapper.classList.remove("noresult");
+<header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="https://ospy.shan333.cn/blog/blog.avatar.jpg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></a><a class="title" href="/"><div class="main">ShanSan</div><div class="sub cap">个人博客</div></a></div></header>
 
-    hits.sort(function (a, b) { return b.rank - a.rank; });
+<div class="nav-area">
 
-    var re = new RegExp(keywords.map(escapeRe).join("|"), "gi");
-    var ul = document.createElement("ul");
-    ul.className = "search-result-list";
+<nav class="menu dis-select"><a class="nav-item" title="博文" href="/archives/"><span>博文</span></a><a class="nav-item" title="关于" href="/about/"><span>关于</span></a><a class="nav-item" title="友链" href="/friends/"><span>友链</span></a><a class="nav-item" title="Bio" href="/wiki/bio/"><span>Bio</span></a></nav>
+</div>
+<div class="widgets">
+<div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" placeholder="站内搜索"></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
 
-    hits.forEach(function (h) {
-      var p = h.post;
-      var li = document.createElement("li");
-      var a = document.createElement("a");
-      a.href = p.url;
 
-      var span = document.createElement("span");
-      span.className = "search-result-title";
-      span.innerHTML = highlight(p.title || "Untitled", re);
-      a.appendChild(span);
 
-      var desc = p.description || "";
-      var tags = (p.tags || []).concat(p.categories || []).join(", ");
-      var snippet = desc || contentSnippet(p.content || "", keywords) || tags;
-      if (snippet) {
-        var para = document.createElement("p");
-        para.className = "search-result-content";
-        para.innerHTML = highlight(
-          snippet.length > 100 ? snippet.substring(0, 100) + "..." : snippet,
-          re,
-        );
-        a.appendChild(para);
-      }
+<widget class="widget-wrapper recent post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title" href="/2026/04/19/Software-Testing-Weekly-Visual-Interpretation/"><span class="title">【连载】Software Testing Weekly 图文解读 with VLM</span></a><a class="item title" href="/2026/05/17/your-new-tab-ai-search-hub-promo/"><span class="title">Your New Tab：把常用的 AI 搜索放进新标签页</span></a><a class="item title" href="/2026/05/02/cluacov-branch-coverage/"><span class="title">【Draft】基于 cluacov 的 Lua 代码分支覆盖率统计：从行级近似到指令级精确</span></a><a class="item title" href="/2026/04/22/blog-sanitizers-deep-dive/"><span class="title">Sanitizer 全景：从编译插桩到硬件标签的内存安全检测演进</span></a><a class="item title" href="/2025/09/28/my-mac-tools/"><span class="title">我的 MacOS 常用软件清单</span></a><a class="item title" href="/2025/08/16/the-next-level-of-developer-productivity-with-iflow-cli-action/"><span class="title">使用 iflow-cli-action 在 GitHub 与 Qwen3-Coder、Kimi K2 一起快速提升你的生产力</span></a><a class="item title" href="/2025/08/09/gen-slides-like-docs-site-with-iflow-cli/"><span class="title">使用 iFLOW-CLI GitHub Action 和 Qwen3-Coder 给 GitHub 仓库生成幻灯片风格的文档站点</span></a><a class="item title" href="/2025/07/27/claude-code-subagent-for-tech-writing/"><span class="title">使用 Claude Code 的自定义 Sub Agent 完善博文写作体验</span></a><a class="item title" href="/2025/07/27/migrate-theme-to-stellar-with-claude-code/"><span class="title">使用 Claude Code 和 Qwen3 Coder 将博客主题成功迁移到了 Stellar 🎉</span></a><a class="item title" href="/2025/07/12/rss-summary-workflow-with-n8n/"><span class="title">使用 n8n 和飞书多维表打造自己的 RSS Feed 订阅管理 & AI 大模型阅读提炼工作流</span></a></div></widget>
+</div>
+<footer class="footer dis-select"><div class="social-wrap"><a class="social" href="mailto:1329441308@qq.com" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 64C150 64 64 150 64 256s86 192 192 192c17.7 0 32 14.3 32 32s-14.3 32-32 32C114.6 512 0 397.4 0 256S114.6 0 256 0S512 114.6 512 256v32c0 53-43 96-96 96c-29.3 0-55.6-13.2-73.2-33.9C320 371.1 289.5 384 256 384c-70.7 0-128-57.3-128-128s57.3-128 128-128c27.9 0 53.7 8.9 74.7 24.1c5.7-5 13.1-8.1 21.3-8.1c17.7 0 32 14.3 32 32v80 32c0 17.7 14.3 32 32 32s32-14.3 32-32V256c0-106-86-192-192-192zm64 192a64 64 0 1 0 -128 0 64 64 0 1 0 128 0z"/></svg></a><a class="social" href="https://github.com/yeshan333?tab=repositories" target="_blank" rel="external nofollow noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></a><a class="social" href="https://music.163.com/#/my/m/music/playlist?id=2617691792" target="_blank" rel="external nofollow noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>NetEase Music</title><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></a><a class="social" href="https://www.zhihu.com/people/si-kong-ji-54/activities" target="_blank" rel="external nofollow noopener noreferrer"><svg fill="#18abdc" viewBox="0 0 24 24" role="img" xmlns="http://www.w3.org/2000/svg" stroke="#18abdc"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><title>Zhihu icon</title><path d="M5.721 0C2.251 0 0 2.25 0 5.719V18.28C0 21.751 2.252 24 5.721 24h12.56C21.751 24 24 21.75 24 18.281V5.72C24 2.249 21.75 0 18.281 0zm1.964 4.078c-.271.73-.5 1.434-.68 2.11h4.587c.545-.006.445 1.168.445 1.171H9.384a58.104 58.104 0 01-.112 3.797h2.712c.388.023.393 1.251.393 1.266H9.183a9.223 9.223 0 01-.408 2.102l.757-.604c.452.456 1.512 1.712 1.906 2.177.473.681.063 2.081.063 2.081l-2.794-3.382c-.653 2.518-1.845 3.607-1.845 3.607-.523.468-1.58.82-2.64.516 2.218-1.73 3.44-3.917 3.667-6.497H4.491c0-.015.197-1.243.806-1.266h2.71c.024-.32.086-3.254.086-3.797H6.598c-.136.406-.158.447-.268.753-.594 1.095-1.603 1.122-1.907 1.155.906-1.821 1.416-3.6 1.591-4.064.425-1.124 1.671-1.125 1.671-1.125zM13.078 6h6.377v11.33h-2.573l-2.184 1.373-.401-1.373h-1.219zm1.313 1.219v8.86h.623l.263.937 1.455-.938h1.456v-8.86z"></path></g></svg></a><a class="social" href="/rss2.xml" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zM96 136c0-13.3 10.7-24 24-24c137 0 248 111 248 248c0 13.3-10.7 24-24 24s-24-10.7-24-24c0-110.5-89.5-200-200-200c-13.3 0-24-10.7-24-24zm0 96c0-13.3 10.7-24 24-24c83.9 0 152 68.1 152 152c0 13.3-10.7 24-24 24s-24-10.7-24-24c0-57.4-46.6-104-104-104c-13.3 0-24-10.7-24-24zm0 120a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"/></svg></a></div></footer>
+</div></aside><div class="l_main" id="main">
 
-      li.appendChild(a);
-      ul.appendChild(li);
-    });
 
-    result.appendChild(ul);
-  }
 
-  input.addEventListener("focus", fetchData, { once: true });
 
-  var timer = null;
-  input.addEventListener("input", function () {
-    clearTimeout(timer);
-    var q = input.value.trim();
-    timer = setTimeout(function () { doSearch(q); }, 150);
-  });
 
-  input.addEventListener("keydown", function (e) {
-    if (e.key === "Enter" || e.which === 13) e.preventDefault();
-  });
-})();
-</script> <widget class="widget-wrapper linklist"> <div class="widget-body fs14"> <div class="linklist left" style="grid-template-columns:repeat(1,1fr);"> <a class="link" title="开往" target="_blank" rel="noopener noreferrer" href="https://www.travellings.cn/go.html"> <div class="flex"> <img src="https://www.travellings.cn/assets/travelling-dark.png" alt=""> <span>开往</span> </div> </a> <a class="link" title="十年之约虫洞" target="_blank" rel="noopener noreferrer" href="https://www.foreverblog.cn/go.html"> <div class="flex"> <img src="https://foreverblog.cn/assets/logo/wormhole_1.gif" alt=""> <span>十年之约虫洞</span> </div> </a> <a class="link" title="境内访问" target="_blank" rel="noopener noreferrer" href="https://shan333.cn"> <div class="flex"> <img src="https://gallery.shansan.top/file/f9b8a67f6c7c6c2d647b4.jpg" alt=""> <span>境内访问</span> </div> </a> </div> </div> </widget> <widget class="widget-wrapper recent post-list"> <div class="widget-header dis-select"><span class="name">最近更新</span></div> <div class="widget-body fs14"> <a class="item title" href="/2026/05/17/your-new-tab-ai-search-hub-promo/"> <span class="title">Your New Tab：把常用的 AI 搜索放进新标签页</span> </a><a class="item title" href="/2026/04/19/Software-Testing-Weekly-Visual-Interpretation/"> <span class="title">【连载】Software Testing Weekly 图文解读 with VLM</span> </a><a class="item title" href="/2026/05/02/cluacov-branch-coverage/"> <span class="title">【Draft】基于 cluacov 的 Lua 代码分支覆盖率统计：从行级近似到指令级精确</span> </a><a class="item title" href="/2026/04/22/blog-sanitizers-deep-dive/"> <span class="title">Sanitizer 全景：从编译插桩到硬件标签的内存安全检测演进</span> </a><a class="item title" href="/2025/09/28/my-mac-tools/"> <span class="title">我的 MacOS 常用软件清单</span> </a><a class="item title" href="/2025/08/16/the-next-level-of-developer-productivity-with-iflow-cli-action/"> <span class="title">使用 iflow-cli-action 在 GitHub 与 Qwen3-Coder、Kimi K2 一起快速提升你的生产力</span> </a><a class="item title" href="/2025/08/09/gen-slides-like-docs-site-with-iflow-cli/"> <span class="title">使用 iFLOW-CLI GitHub Action 和 Qwen3-Coder 给 GitHub 仓库生成幻灯片风格的文档站点</span> </a><a class="item title" href="/2025/07/27/claude-code-subagent-for-tech-writing/"> <span class="title">使用 Claude Code 的自定义 Sub Agent 完善博文写作体验</span> </a><a class="item title" href="/2025/07/27/migrate-theme-to-stellar-with-claude-code/"> <span class="title">使用 Claude Code 和 Qwen3 Coder 将博客主题成功迁移到了 Stellar 🎉</span> </a><a class="item title" href="/2025/07/12/rss-summary-workflow-with-n8n/"> <span class="title">使用 n8n 和飞书多维表打造自己的 RSS Feed 订阅管理 &amp; AI 大模型阅读提炼工作流</span> </a> </div> </widget> </div> <footer class="footer dis-select"> <div class="social-wrap"> <a class="social" href="mailto:1329441308@qq.com" rel="noopener noreferrer" aria-label="Email"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 64C150 64 64 150 64 256s86 192 192 192c17.7 0 32 14.3 32 32s-14.3 32-32 32C114.6 512 0 397.4 0 256S114.6 0 256 0S512 114.6 512 256v32c0 53-43 96-96 96c-29.3 0-55.6-13.2-73.2-33.9C320 371.1 289.5 384 256 384c-70.7 0-128-57.3-128-128s57.3-128 128-128c27.9 0 53.7 8.9 74.7 24.1c5.7-5 13.1-8.1 21.3-8.1c17.7 0 32 14.3 32 32v80 32c0 17.7 14.3 32 32 32s32-14.3 32-32V256c0-106-86-192-192-192zm64 192a64 64 0 1 0 -128 0 64 64 0 1 0 128 0z"></path></svg></a> <a class="social" href="https://github.com/yeshan333?tab=repositories" target="_blank" rel="external nofollow noopener noreferrer" aria-label="GitHub"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg></a> <a class="social" href="https://music.163.com/#/my/m/music/playlist?id=2617691792" target="_blank" rel="external nofollow noopener noreferrer" aria-label="Music"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg></a> <a class="social" href="https://www.zhihu.com/people/si-kong-ji-54/activities" target="_blank" rel="external nofollow noopener noreferrer" aria-label="Zhihu"><svg fill="#18abdc" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M5.721 0C2.251 0 0 2.25 0 5.719V18.28C0 21.751 2.252 24 5.721 24h12.56C21.751 24 24 21.75 24 18.281V5.72C24 2.249 21.75 0 18.281 0zm1.964 4.078c-.271.73-.5 1.434-.68 2.11h4.587c.545-.006.445 1.168.445 1.171H9.384a58.104 58.104 0 01-.112 3.797h2.712c.388.023.393 1.251.393 1.266H9.183a9.223 9.223 0 01-.408 2.102l.757-.604c.452.456 1.512 1.712 1.906 2.177.473.681.063 2.081.063 2.081l-2.794-3.382c-.653 2.518-1.845 3.607-1.845 3.607-.523.468-1.58.82-2.64.516 2.218-1.73 3.44-3.917 3.667-6.497H4.491c0-.015.197-1.243.806-1.266h2.71c.024-.32.086-3.254.086-3.797H6.598c-.136.406-.158.447-.268.753-.594 1.095-1.603 1.122-1.907 1.155.906-1.821 1.416-3.6 1.591-4.064.425-1.124 1.671-1.125 1.671-1.125zM13.078 6h6.377v11.33h-2.573l-2.184 1.373-.401-1.373h-1.219zm1.313 1.219v8.86h.623l.263.937 1.455-.938h1.456v-8.86z"></path></svg></a> <a class="social" href="/rss2.xml" rel="noopener noreferrer" aria-label="RSS"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zM96 136c0-13.3 10.7-24 24-24c137 0 248 111 248 248c0 13.3-10.7 24-24 24s-24-10.7-24-24c0-110.5-89.5-200-200-200c-13.3 0-24-10.7-24-24zm0 96c0-13.3 10.7-24 24-24c83.9 0 152 68.1 152 152c0 13.3-10.7 24-24 24s-24-10.7-24-24c0-57.4-46.6-104-104-104c-13.3 0-24-10.7-24-24zm0 120a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"></path></svg></a> </div> </footer> </div> </aside> <div class="l_main" id="main"> <header class="header mobile-only"> <div class="logo-wrap"> <a class="avatar" href="/about/"> <img no-lazy class="avatar" src="https://ospy.shan333.cn/blog/blog.avatar.jpg" alt="ShanSan"> </a> <a class="title" href="/"> <div class="main">ShanSan</div> <div class="sub cap">个人博客</div> </a> </div> </header>  <div class="article banner top">  <div class="content"> <div class="top bread-nav footnote"> <div class="left"> <div class="flex-row" id="breadcrumb"> <a class="cap breadcrumb" href="/">主页</a> <span class="sep"></span> <a class="cap breadcrumb" href="/archives/">文章</a>  <span class="sep"></span> <a class="cap breadcrumb-link" href="/archives/">Python</a>  </div> <div class="flex-row" id="post-meta"> <span class="text created">
-发布于：<time datetime="2019-11-25">2019-11-25</time> </span> <span class="sep updated"></span> <span class="text updated">
-更新于：<time datetime="2019-11-25">2019-11-25</time> </span> </div> </div> </div> <div class="bottom only-title"> <div class="text-area"> <h1 class="text title"><span>Serialization and Deserialization</span></h1> </div> </div> </div> </div> <article class="md-text content"> <div class="music-embed"><iframe title="Music Player" frameborder="no" border="0" marginwidth="0" marginheight="0" width="100%" height="86" src="https://music.163.com/outchain/player?type=2&amp;id=31877127&amp;auto=0&amp;height=66" loading="lazy"></iframe></div> <h1 id="序列化与反序列化">序列化与反序列化</h1>
+<div class="article banner top">
+  <div class="content">
+    <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
+<span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/Python/">Python</a></div>
+<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2019-11-25T16:25:23.000Z">2019-11-25</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2019-11-25T16:25:23.000Z">2019-11-25</time></span></div></div></div>
+    
+    <div class="bottom only-title">
+      
+      <div class="text-area">
+        <h1 class="text title"><span>Serialization and Deserialization</span></h1>
+        
+      </div>
+    </div>
+    
+  </div>
+  </div><article class="md-text content"><h1 id="%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96" tabindex="-1">序列化与反序列化</h1>
 <blockquote>
-<p>Serialization：Data Structure/Object --&gt; Binary String
-Deserialization：Binary String --&gt; Data Structure/Object
+<p>Serialization：Data Structure/Object --&gt; Binary String<br>
+Deserialization：Binary String --&gt; Data Structure/Object<br>
 Goals：Cross-platform Communication、Persistent Storage and More</p>
 </blockquote>
-<h1 id="python中对象的序列化与反序列化">Python中对象的序列化与反序列化</h1>
-<h2 id="pickle-module">pickle module</h2>
+<h1 id="python%E4%B8%AD%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96" tabindex="-1">Python中对象的序列化与反序列化</h1>
+<h2 id="pickle-module" tabindex="-1">pickle module</h2>
 <blockquote>
-<p>pickle 仅可用于 Python，pickle所使用的数据流格式仅可用于 Python
-pickle 模块可以将复杂对象转换为字节流，也可以将字节流转换为具有相同内部结构的对象。
-可被pickling和unpickling的对象：<a href="https://docs.python.org/zh-cn/3/library/pickle.html#what-can-be-pickled-and-unpickled">https://docs.python.org/zh-cn/3/library/pickle.html#what-can-be-pickled-and-unpickled</a></p>
+<p>pickle 仅可用于 Python，pickle所使用的数据流格式仅可用于 Python<br>
+pickle 模块可以将复杂对象转换为字节流，也可以将字节流转换为具有相同内部结构的对象。<br>
+可被pickling和unpickling的对象：<a target="_blank" rel="noopener" href="https://docs.python.org/zh-cn/3/library/pickle.html#what-can-be-pickled-and-unpickled">https://docs.python.org/zh-cn/3/library/pickle.html#what-can-be-pickled-and-unpickled</a></p>
 </blockquote>
 <p>pickle提供了优秀的方法方便我们对对象进行pickling（封存）和unpickling（解封）</p>
-<h3 id="使用dumps和loads方法进行序列化和反序列化">使用dumps和loads方法进行序列化和反序列化</h3>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> pickle</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>person = <span class="built_in">dict</span>(name=<span class="string">&#x27;shan&#x27;</span>, age=<span class="number">20</span>, sex=<span class="string">&quot;man&quot;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>pickle.dumps(person)  <span class="comment"># dumps方法会将obj序列化为bytes返回</span></span><br><span class="line"><span class="string">b&#x27;\x80\x03}q\x00(X\x04\x00\x00\x00nameq\x01X\x04\x00\x00\x00shanq\x02X\x03\x00\x00\x00ageq\x03K\x14X\x03\x00\x00\x00sexq\x04X\x03\x00\x00\x00manq\x05u.</span></span><br><span class="line"><span class="string">&gt;&gt;&gt;</span></span><br><span class="line"><span class="string">&gt;&gt;&gt; with open(&quot;dump.txt&quot;,&quot;wb&quot;) as f:</span></span><br><span class="line"><span class="string">...     pickle.dump(person, f)</span></span><br><span class="line"><span class="string">...</span></span><br><span class="line"><span class="string">&gt;&gt;&gt; f = open(&quot;dump.txt&quot;,&quot;rb&quot;)</span></span><br><span class="line"><span class="string">&gt;&gt;&gt; d = pickle.load(f)</span></span><br><span class="line"><span class="string">&gt;&gt;&gt; f.close()</span></span><br><span class="line"><span class="string">&gt;&gt;&gt; d</span></span><br><span class="line"><span class="string">{&#x27;</span>name<span class="string">&#x27;: &#x27;</span>shan<span class="string">&#x27;, &#x27;</span>age<span class="string">&#x27;: 20, &#x27;</span>sex<span class="string">&#x27;: &#x27;</span>man<span class="string">&#x27;}</span></span><br><span class="line"><span class="string">&gt;&gt;&gt; pickle.loads(pickle.dumps(d))</span></span><br><span class="line"><span class="string">{&#x27;</span>name<span class="string">&#x27;: &#x27;</span>shan<span class="string">&#x27;, &#x27;</span>age<span class="string">&#x27;: 20, &#x27;</span>sex<span class="string">&#x27;: &#x27;</span>man<span class="string">&#x27;}</span></span></pre></td></tr></table></figure><ul>
-<li><a href="https://docs.python.org/zh-cn/3/library/pickle.html#pickle.dump">https://docs.python.org/zh-cn/3/library/pickle.html#pickle.dump</a></li>
+<span id="more"></span>
+<h3 id="%E4%BD%BF%E7%94%A8dumps%E5%92%8Cloads%E6%96%B9%E6%B3%95%E8%BF%9B%E8%A1%8C%E5%BA%8F%E5%88%97%E5%8C%96%E5%92%8C%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96" tabindex="-1">使用dumps和loads方法进行序列化和反序列化</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> pickle</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>person = <span class="built_in">dict</span>(name=<span class="string">&#x27;shan&#x27;</span>, age=<span class="number">20</span>, sex=<span class="string">&quot;man&quot;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>pickle.dumps(person)  <span class="comment"># dumps方法会将obj序列化为bytes返回</span></span><br><span class="line"><span class="string">b&#x27;\x80\x03&#125;q\x00(X\x04\x00\x00\x00nameq\x01X\x04\x00\x00\x00shanq\x02X\x03\x00\x00\x00ageq\x03K\x14X\x03\x00\x00\x00sexq\x04X\x03\x00\x00\x00manq\x05u.</span></span><br><span class="line"><span class="string">&gt;&gt;&gt;</span></span><br><span class="line"><span class="string">&gt;&gt;&gt; with open(&quot;dump.txt&quot;,&quot;wb&quot;) as f:</span></span><br><span class="line"><span class="string">...     pickle.dump(person, f)</span></span><br><span class="line"><span class="string">...</span></span><br><span class="line"><span class="string">&gt;&gt;&gt; f = open(&quot;dump.txt&quot;,&quot;rb&quot;)</span></span><br><span class="line"><span class="string">&gt;&gt;&gt; d = pickle.load(f)</span></span><br><span class="line"><span class="string">&gt;&gt;&gt; f.close()</span></span><br><span class="line"><span class="string">&gt;&gt;&gt; d</span></span><br><span class="line"><span class="string">&#123;&#x27;</span>name<span class="string">&#x27;: &#x27;</span>shan<span class="string">&#x27;, &#x27;</span>age<span class="string">&#x27;: 20, &#x27;</span>sex<span class="string">&#x27;: &#x27;</span>man<span class="string">&#x27;&#125;</span></span><br><span class="line"><span class="string">&gt;&gt;&gt; pickle.loads(pickle.dumps(d))</span></span><br><span class="line"><span class="string">&#123;&#x27;</span>name<span class="string">&#x27;: &#x27;</span>shan<span class="string">&#x27;, &#x27;</span>age<span class="string">&#x27;: 20, &#x27;</span>sex<span class="string">&#x27;: &#x27;</span>man<span class="string">&#x27;&#125;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://docs.python.org/zh-cn/3/library/pickle.html#pickle.dump">https://docs.python.org/zh-cn/3/library/pickle.html#pickle.dump</a></li>
 <li>bytes对象是由单个字节组成的不可变序列</li>
 <li>使用<code>dump</code>方法可将序列化的对象写入file obj</li>
 <li>load用于还原封存生成的bytes_object，loads方法用于还原从文件中读取的封存对象</li>
 </ul>
-<h2 id="json-module">json module</h2>
+<h2 id="json-module" tabindex="-1">json module</h2>
 <blockquote>
-<p>相比于pickle，json只能表示内置类型的子集，不能表示自定义的类
-json格式的文件的易读性更好
+<p>相比于pickle，json只能表示内置类型的子集，不能表示自定义的类<br>
+json格式的文件的易读性更好<br>
 Python json模块提供的API与pickle模块很相似</p>
 </blockquote>
-<h3 id="使用dumps和loads进行序列化和反序列化">使用dumps和loads进行序列化和反序列化</h3>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> json</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>person = <span class="built_in">dict</span>(name=<span class="string">&#x27;shan&#x27;</span>, age=<span class="number">20</span>, sex=<span class="string">&quot;man&quot;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>json.dumps(person)</span><br><span class="line"><span class="string">&#x27;{&quot;name&quot;: &quot;shan&quot;, &quot;age&quot;: 20, &quot;sex&quot;: &quot;man&quot;}&#x27;</span></span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>json_str = json.dumps(person)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>json.loads(json_str)</span><br><span class="line">{<span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;shan&#x27;</span>, <span class="string">&#x27;age&#x27;</span>: <span class="number">20</span>, <span class="string">&#x27;sex&#x27;</span>: <span class="string">&#x27;man&#x27;</span>}</span></pre></td></tr></table></figure><ul>
+<h3 id="%E4%BD%BF%E7%94%A8dumps%E5%92%8Cloads%E8%BF%9B%E8%A1%8C%E5%BA%8F%E5%88%97%E5%8C%96%E5%92%8C%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96" tabindex="-1">使用dumps和loads进行序列化和反序列化</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> json</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>person = <span class="built_in">dict</span>(name=<span class="string">&#x27;shan&#x27;</span>, age=<span class="number">20</span>, sex=<span class="string">&quot;man&quot;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>json.dumps(person)</span><br><span class="line"><span class="string">&#x27;&#123;&quot;name&quot;: &quot;shan&quot;, &quot;age&quot;: 20, &quot;sex&quot;: &quot;man&quot;&#125;&#x27;</span></span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>json_str = json.dumps(person)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>json.loads(json_str)</span><br><span class="line">&#123;<span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;shan&#x27;</span>, <span class="string">&#x27;age&#x27;</span>: <span class="number">20</span>, <span class="string">&#x27;sex&#x27;</span>: <span class="string">&#x27;man&#x27;</span>&#125;</span><br></pre></td></tr></table></figure>
+<ul>
 <li>dumps方法会将obj转换为标准格式的JSON str并返回</li>
 <li>loads方法可将包含JSON文档的str、bytes或者bytearray反序列化为Python对象</li>
 </ul>
-<h3 id="自定义对象的序列化与反序列化">自定义对象的序列化与反序列化</h3>
+<h3 id="%E8%87%AA%E5%AE%9A%E4%B9%89%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96" tabindex="-1">自定义对象的序列化与反序列化</h3>
 <blockquote>
-<p>对于自定义对象的序列化和反序列化操作需要我们实现专门的encoder和decoder
-需要用到dumps方法的default参数和loads方法的object_hook参数
-<a href="https://docs.python.org/3/library/json.html#json.loads">https://docs.python.org/3/library/json.html#json.loads</a>
-<a href="https://docs.python.org/3/library/json.html#json.loads">https://docs.python.org/3/library/json.html#json.loads</a></p>
+<p>对于自定义对象的序列化和反序列化操作需要我们实现专门的encoder和decoder<br>
+需要用到dumps方法的default参数和loads方法的object_hook参数<br>
+<a target="_blank" rel="noopener" href="https://docs.python.org/3/library/json.html#json.loads">https://docs.python.org/3/library/json.html#json.loads</a><br>
+<a target="_blank" rel="noopener" href="https://docs.python.org/3/library/json.html#json.loads">https://docs.python.org/3/library/json.html#json.loads</a></p>
 </blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> json</span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">class</span> <span class="title class_">Student</span>(<span class="title class_ inherited__">object</span>):</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, name, age, score</span>):</span><br><span class="line"><span class="meta">... </span>        <span class="variable language_">self</span>.name = name</span><br><span class="line"><span class="meta">... </span>        <span class="variable language_">self</span>.age = age</span><br><span class="line"><span class="meta">... </span>        <span class="variable language_">self</span>.score = score</span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">def</span> <span class="title function_">student2dict</span>(<span class="params">std</span>):</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">return</span> {</span><br><span class="line"><span class="meta">... </span>        <span class="string">&#x27;name&#x27;</span>: std.name,</span><br><span class="line"><span class="meta">... </span>        <span class="string">&#x27;age&#x27;</span>: std.age,</span><br><span class="line"><span class="meta">... </span>        <span class="string">&#x27;score&#x27;</span>: std.score</span><br><span class="line"><span class="meta">... </span>    }</span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">def</span> <span class="title function_">dict2student</span>(<span class="params">d</span>):</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">return</span> Student(d[<span class="string">&#x27;name&#x27;</span>], d[<span class="string">&#x27;age&#x27;</span>], d[<span class="string">&#x27;score&#x27;</span>])</span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = Student(<span class="string">&#x27;Bob&#x27;</span>, <span class="number">20</span>, <span class="number">88</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">print</span>(json.dumps(s, default=student2dict))</span><br><span class="line">{<span class="string">&quot;name&quot;</span>: <span class="string">&quot;Bob&quot;</span>, <span class="string">&quot;age&quot;</span>: <span class="number">20</span>, <span class="string">&quot;score&quot;</span>: <span class="number">88</span>}</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>json_str = json.dumps(s, default=student2dict)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">print</span>(json.loads(json_str, object_hook=dict2student))</span><br><span class="line">&lt;__main__.Student <span class="built_in">object</span> at <span class="number">0x000001B101675198</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>json.loads(json_str, object_hook=dict2student)</span><br><span class="line">&lt;__main__.Student <span class="built_in">object</span> at <span class="number">0x000001B101675128</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>old = json.loads(json_str, object_hook=dict2student)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>old.name</span><br><span class="line"><span class="string">&#x27;Bob&#x27;</span></span></pre></td></tr></table></figure><h2 id="third-party-modulemarshmallow">third-party module：marshmallow</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> json</span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">class</span> <span class="title class_">Student</span>(<span class="title class_ inherited__">object</span>):</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, name, age, score</span>):</span><br><span class="line"><span class="meta">... </span>        <span class="variable language_">self</span>.name = name</span><br><span class="line"><span class="meta">... </span>        <span class="variable language_">self</span>.age = age</span><br><span class="line"><span class="meta">... </span>        <span class="variable language_">self</span>.score = score</span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">def</span> <span class="title function_">student2dict</span>(<span class="params">std</span>):</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">return</span> &#123;</span><br><span class="line"><span class="meta">... </span>        <span class="string">&#x27;name&#x27;</span>: std.name,</span><br><span class="line"><span class="meta">... </span>        <span class="string">&#x27;age&#x27;</span>: std.age,</span><br><span class="line"><span class="meta">... </span>        <span class="string">&#x27;score&#x27;</span>: std.score</span><br><span class="line"><span class="meta">... </span>    &#125;</span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">def</span> <span class="title function_">dict2student</span>(<span class="params">d</span>):</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">return</span> Student(d[<span class="string">&#x27;name&#x27;</span>], d[<span class="string">&#x27;age&#x27;</span>], d[<span class="string">&#x27;score&#x27;</span>])</span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = Student(<span class="string">&#x27;Bob&#x27;</span>, <span class="number">20</span>, <span class="number">88</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">print</span>(json.dumps(s, default=student2dict))</span><br><span class="line">&#123;<span class="string">&quot;name&quot;</span>: <span class="string">&quot;Bob&quot;</span>, <span class="string">&quot;age&quot;</span>: <span class="number">20</span>, <span class="string">&quot;score&quot;</span>: <span class="number">88</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>json_str = json.dumps(s, default=student2dict)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">print</span>(json.loads(json_str, object_hook=dict2student))</span><br><span class="line">&lt;__main__.Student <span class="built_in">object</span> at <span class="number">0x000001B101675198</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>json.loads(json_str, object_hook=dict2student)</span><br><span class="line">&lt;__main__.Student <span class="built_in">object</span> at <span class="number">0x000001B101675128</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>old = json.loads(json_str, object_hook=dict2student)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>old.name</span><br><span class="line"><span class="string">&#x27;Bob&#x27;</span></span><br></pre></td></tr></table></figure>
+<h2 id="third-party-module%EF%BC%9Amarshmallow" tabindex="-1">third-party module：marshmallow</h2>
 <blockquote>
 <p>marshmallow is an ORM/ODM/framework-agnostic library for converting complex datatypes, such as objects, to and from native Python datatypes.</p>
 </blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> datetime <span class="keyword">as</span> dt</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> marshmallow</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> dataclasses <span class="keyword">import</span> dataclass</span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> marshmallow <span class="keyword">import</span> Schema, fields</span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>@dataclass</span><br><span class="line"><span class="meta">... </span><span class="keyword">class</span> <span class="title class_">Album</span>:</span><br><span class="line"><span class="meta">... </span>    title: <span class="built_in">str</span></span><br><span class="line"><span class="meta">... </span>    release_date: dt.date</span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">class</span> <span class="title class_">AlbumSchema</span>(<span class="title class_ inherited__">Schema</span>):</span><br><span class="line"><span class="meta">... </span>    title = fields.Str()</span><br><span class="line"><span class="meta">... </span>    release_date = fields.Date()</span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>album = Album(<span class="string">&quot;Seven Innovation Base&quot;</span>, dt.date(<span class="number">2019</span>, <span class="number">11</span>, <span class="number">23</span>))</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>schema = AlbumSchema()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>data = schema.dump(album)  <span class="comment"># obj -&gt; dict</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>data</span><br><span class="line">{<span class="string">&#x27;title&#x27;</span>: <span class="string">&#x27;Seven Innovation Base&#x27;</span>, <span class="string">&#x27;release_date&#x27;</span>: <span class="string">&#x27;2019-11-23&#x27;</span>}</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>data_str = schema.dumps(album)  <span class="comment"># obj -&gt; str</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>data_str</span><br><span class="line"><span class="string">&#x27;{&quot;title&quot;: &quot;Seven Innovation Base&quot;, &quot;release_date&quot;: &quot;2019-11-23&quot;}&#x27;</span></span></pre></td></tr></table></figure><ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> datetime <span class="keyword">as</span> dt</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> marshmallow</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> dataclasses <span class="keyword">import</span> dataclass</span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> marshmallow <span class="keyword">import</span> Schema, fields</span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>@dataclass</span><br><span class="line"><span class="meta">... </span><span class="keyword">class</span> <span class="title class_">Album</span>:</span><br><span class="line"><span class="meta">... </span>    title: <span class="built_in">str</span></span><br><span class="line"><span class="meta">... </span>    release_date: dt.date</span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">class</span> <span class="title class_">AlbumSchema</span>(<span class="title class_ inherited__">Schema</span>):</span><br><span class="line"><span class="meta">... </span>    title = fields.Str()</span><br><span class="line"><span class="meta">... </span>    release_date = fields.Date()</span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>album = Album(<span class="string">&quot;Seven Innovation Base&quot;</span>, dt.date(<span class="number">2019</span>, <span class="number">11</span>, <span class="number">23</span>))</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>schema = AlbumSchema()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>data = schema.dump(album)  <span class="comment"># obj -&gt; dict</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>data</span><br><span class="line">&#123;<span class="string">&#x27;title&#x27;</span>: <span class="string">&#x27;Seven Innovation Base&#x27;</span>, <span class="string">&#x27;release_date&#x27;</span>: <span class="string">&#x27;2019-11-23&#x27;</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>data_str = schema.dumps(album)  <span class="comment"># obj -&gt; str</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>data_str</span><br><span class="line"><span class="string">&#x27;&#123;&quot;title&quot;: &quot;Seven Innovation Base&quot;, &quot;release_date&quot;: &quot;2019-11-23&quot;&#125;&#x27;</span></span><br></pre></td></tr></table></figure>
+<ul>
 <li>使用 marshmallow 可以很方便的对自定义对象进行序列化和反序列化</li>
 <li>对object进行在序列化之前，需要为object创建一个schema,schema中的字段名必须与自定义的object中的成员一致</li>
 <li>dumps method：obj -&gt; str, dump method：obj -&gt; dict</li>
 <li>反序列化的 dict -&gt; obj 需要使用decorator：<code>post_load</code>自己实现</li>
 </ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> marshmallow <span class="keyword">import</span> Schema, fields, post_load</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">User</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, name, email</span>):</span><br><span class="line">        <span class="variable language_">self</span>.name = name</span><br><span class="line">        <span class="variable language_">self</span>.email = email</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__repr__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;&lt;User(name={self.name!r})&gt;&quot;</span>.<span class="built_in">format</span>(<span class="variable language_">self</span>=<span class="variable language_">self</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">UserSchema</span>(<span class="title class_ inherited__">Schema</span>):</span><br><span class="line">    name = fields.Str()</span><br><span class="line">    email = fields.Email()</span><br><span class="line"></span><br><span class="line"><span class="meta">    @post_load</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">make_user</span>(<span class="params">self, data, **kwargs</span>):</span><br><span class="line">        <span class="keyword">return</span> User(**data)</span><br><span class="line"></span><br><span class="line">user_data = {</span><br><span class="line">    <span class="string">&quot;email&quot;</span>: <span class="string">&quot;ken@yahoo.com&quot;</span>,</span><br><span class="line">    <span class="string">&quot;name&quot;</span>: <span class="string">&quot;Ken&quot;</span>,</span><br><span class="line">}</span><br><span class="line">schema = UserSchema()</span><br><span class="line">result = schema.load(user_data)</span><br><span class="line"><span class="built_in">print</span>(result)  <span class="comment"># 输出结果：&lt;User(name=&#x27;Ken&#x27;)&gt;</span></span></pre></td></tr></table></figure><h1 id="references">References</h1>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> marshmallow <span class="keyword">import</span> Schema, fields, post_load</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">User</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, name, email</span>):</span><br><span class="line">        <span class="variable language_">self</span>.name = name</span><br><span class="line">        <span class="variable language_">self</span>.email = email</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__repr__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;&lt;User(name=&#123;self.name!r&#125;)&gt;&quot;</span>.<span class="built_in">format</span>(<span class="variable language_">self</span>=<span class="variable language_">self</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">UserSchema</span>(<span class="title class_ inherited__">Schema</span>):</span><br><span class="line">    name = fields.Str()</span><br><span class="line">    email = fields.Email()</span><br><span class="line"></span><br><span class="line"><span class="meta">    @post_load</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">make_user</span>(<span class="params">self, data, **kwargs</span>):</span><br><span class="line">        <span class="keyword">return</span> User(**data)</span><br><span class="line"></span><br><span class="line">user_data = &#123;</span><br><span class="line">    <span class="string">&quot;email&quot;</span>: <span class="string">&quot;ken@yahoo.com&quot;</span>,</span><br><span class="line">    <span class="string">&quot;name&quot;</span>: <span class="string">&quot;Ken&quot;</span>,</span><br><span class="line">&#125;</span><br><span class="line">schema = UserSchema()</span><br><span class="line">result = schema.load(user_data)</span><br><span class="line"><span class="built_in">print</span>(result)  <span class="comment"># 输出结果：&lt;User(name=&#x27;Ken&#x27;)&gt;</span></span><br></pre></td></tr></table></figure>
+<h1 id="references" tabindex="-1">References</h1>
 <ul>
-<li><a href="https://www.infoq.cn/article/serialization-and-deserialization">序列化与反序列化</a></li>
-<li><a href="https://docs.python.org/zh-cn/3/library/pickle.html">pickle module</a></li>
-<li><a href="https://docs.python.org/zh-cn/3/library/json.html#module-json">json module</a></li>
-<li><a href="https://docs.python.org/zh-cn/3/library/stdtypes.html#bytes">bytes</a></li>
-<li><a href="https://blog.igevin.info/posts/restful-api-get-started-to-write/">RESTful API编写指南</a></li>
-<li><a href="https://blog.igevin.info/posts/flask-rest-serialize-deserialize/">Flask RESTful API开发之序列化与反序列化</a></li>
-<li><a href="https://marshmallow.readthedocs.io/en/stable/quickstart.html">marshmallow</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.infoq.cn/article/serialization-and-deserialization">序列化与反序列化</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.python.org/zh-cn/3/library/pickle.html">pickle module</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.python.org/zh-cn/3/library/json.html#module-json">json module</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.python.org/zh-cn/3/library/stdtypes.html#bytes">bytes</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.igevin.info/posts/restful-api-get-started-to-write/">RESTful API编写指南</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.igevin.info/posts/flask-rest-serialize-deserialize/">Flask RESTful API开发之序列化与反序列化</a></li>
+<li><a target="_blank" rel="noopener" href="https://marshmallow.readthedocs.io/en/stable/quickstart.html">marshmallow</a></li>
 </ul>
- </article> <div class="article-footer"> <section id="license"> <div class="header"><span>许可协议</span></div> <div class="body"> <p> <a href="/wiki/bio/mycat/">喂猫🍞</a> <br>
-This article is licensed under the <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>. Please provide attribution when reproducing.
-<br>
-本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。
-</p> </div> </section> <section id="share"> <div class="header"><span>分享文章</span></div> <div class="body"> <div class="link"><input class="copy-area" readonly id="copy-link" value="https://shansan.top/2019/11/25/Serialization-and-Deserialization/"></div> <div class="social-wrap dis-select"> <button type="button" class="social share-item wechat" id="share-wechat-btn" aria-label="显示微信二维码"><img src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/b32ef3da1162a.svg" alt=""></button> <a class="social share-item weibo" target="_blank" rel="external nofollow noopener noreferrer" href="https://service.weibo.com/share/share.php?url=https%3A%2F%2Fshansan.top%2F2019%2F11%2F25%2FSerialization-and-Deserialization%2F&amp;title=Serialization+and+Deserialization+-+ShanSan&amp;summary=%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96+Serialization%EF%BC%9AData+Structure%2FObject+Binary+String+Deserialization%EF%BC%9ABinary+String+Data+Structure%2FObject+Goals%EF%BC%9ACross+platform+Communic"><img src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/80c07e4dbb303.svg"></a> <a class="social share-item email" href="mailto:?subject=Serialization%20and%20Deserialization%20-%20ShanSan&amp;body=https%3A%2F%2Fshansan.top%2F2019%2F11%2F25%2FSerialization-and-Deserialization%2F"><img src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/a1b00e20f425d.svg"></a> <button type="button" class="social share-item link" id="share-copy-btn" aria-label="复制文章链接"><img src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/8411ed322ced6.svg" alt=""></button> </div> <div class="qrcode" id="qrcode-wechat" style="opacity:0;height:0"> <img src="https://api.qrserver.com/v1/create-qr-code/?size=256x256&amp;data=https%3A%2F%2Fshansan.top%2F2019%2F11%2F25%2FSerialization-and-Deserialization%2F" alt="QR Code"> </div> </div> </section> <script>
-(function() {
-  var wechatBtn = document.getElementById('share-wechat-btn');
-  var copyBtn = document.getElementById('share-copy-btn');
-  var qrcode = document.getElementById('qrcode-wechat');
-  var copyInput = document.getElementById('copy-link');
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">
+</article>
+<div class="article-footer">
+    <section id="license">
+      <div class="header"><span>许可协议</span></div>
+      <div class="body"><p><a href="/wiki/bio/mycat/">喂猫🍞</a> <br/> This article is licensed under the <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>. Please provide attribution when reproducing. <br/> 本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div>
+    </section>
+    
 
-  if (wechatBtn && qrcode) {
-    wechatBtn.addEventListener('click', function() {
-      var isOpen = qrcode.style.height !== '0px' && qrcode.style.height !== '0';
-      qrcode.style.opacity = isOpen ? '0' : '1';
-      qrcode.style.height = isOpen ? '0' : '128px';
-      wechatBtn.setAttribute('aria-expanded', String(!isOpen));
-    });
+
+    <section id="share">
+      <div class="header"><span>分享文章</span></div>
+      <div class="body">
+        <div class="link"><input class="copy-area" readonly="true" id="copy-link" value="https://shansan.top/2019/11/25/Serialization-and-Deserialization/" /></div>
+        <div class="social-wrap dis-select"><a class="social share-item wechat" onclick="util.toggle(&quot;qrcode-wechat&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/b32ef3da1162a.svg" /></a><a class="social share-item weibo" target="_blank" rel="external nofollow noopener noreferrer" href="https://service.weibo.com/share/share.php?url=https://shansan.top/2019/11/25/Serialization-and-Deserialization/&title=Serialization and Deserialization - ShanSan&summary=序列化与反序列化
+
+Serialization：Data Structure/Object --&gt; Binary String
+Deserialization：Binary String --&gt; Data Structur..."><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/80c07e4dbb303.svg" /></a><a class="social share-item email" href="mailto:?subject=Serialization and Deserialization - ShanSan&amp;body=https://shansan.top/2019/11/25/Serialization-and-Deserialization/"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/a1b00e20f425d.svg" /></a><a class="social share-item link" onclick="util.copy(&quot;copy-link&quot;, &quot;复制成功&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/8411ed322ced6.svg" /></a></div>
+        
+        <div class="qrcode" id="qrcode-wechat" style="opacity:0;height:0">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=https://shansan.top/2019/11/25/Serialization-and-Deserialization/"/>
+        </div>
+        
+      </div>
+    </section>
+    </div>
+
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/2019/11/28/heart/">❤Thanksgiving❤</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/2019/11/14/map-filter-reduce/">map-filter-reduce</a></div></section></div>
+
+<div class="related-wrap" id="related-posts">
+    <section class='header'>
+      <div class='title cap theme'>您可能感兴趣的文章</div>
+    </section>
+    <section class='body'>
+    <div class="related-posts"><a class="item" href="/2019/05/22/Jupyter-Notebooks的简单了解/" title="Jupyter Notebooks的简单了解"><span class="title">Jupyter Notebooks的简单了解</span><span class="excerpt">撸一手Jupyter</span></a><a class="item" href="/2019/07/26/Python-自定义上下文管理器/" title="Python-自定义上下文管理器"><span class="title">Python-自定义上下文管理器</span><span class="excerpt">上下文管理器
+
+上下文管理器可以帮助我们自动分配和释放资源
+上下文管理器需要配合with语句使用
+
+比如进行文件操作的时候我们可能会忘记操作后关闭文件（file close），使用with open(filename, mode) a...</span></a><a class="item" href="/2019/05/11/Python多进程-多线程/" title="Python多进程&&多线程（初步）"><span class="title">Python多进程&&多线程（初步）</span><span class="excerpt">进程 &amp;&amp; 线程
+
+进程：进程是操作系统中执行的一个程序，操作系统以进程为单位分配存储空间，每个进程都有自己的地址空间、数据栈以及其他用于跟踪进程执行的辅助数据，操作系统管理所有进程的执行，为它们合理的分配资源。进程可...</span></a><a class="item" href="/2019/07/19/Python协程（Coroutine）/" title="Python协程-asyncio、async/await"><span class="title">Python协程-asyncio、async/await</span><span class="excerpt">
+看到吐血 (´ཀ`」 ∠)
+
+
+协程(Coroutine)本质上是一个函数，特点是在代码块中可以将执行权交给其他协程
+众所周知，子程序（函数）都是层级调用的，如果在A中调用了B，那么B执行完毕返回后A才能执行完毕。协程与子程序有点类...</span></a><a class="item" href="/2019/05/24/Python面向对象/" title="Python面向对象"><span class="title">Python面向对象</span><span class="excerpt">
+对象：一个自包含的实体，用一组可识别的特性和行为来标识
+类：具有相同的属性和功能的对象的抽象的集合
+实例：一个真实的对象，实例化就是创建对象的过程
+多态：可对不同类型的对象执行相同的操作，而这些操作就像“被施了魔法”一样能够正常运行...</span></a></div></section></div>
+
+
+  <div class="related-wrap md-text" id="comments">
+    <section class='header cmt-title cap theme'>
+      <p>ShanSan</p>
+
+    </section>
+    <section class='body cmt-body artalk'>
+      
+
+<div class="artalk with-fancybox" id="artalk_container"><svg class="loading" style="vertical-align:middle;fill:currentColor;overflow:hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2709"><path d="M832 512c0-176-144-320-320-320V128c211.2 0 384 172.8 384 384h-64zM192 512c0 176 144 320 320 320v64C300.8 896 128 723.2 128 512h64z" p-id="2710"></path></svg></div>
+    </section>
+  </div>
+
+
+
+<footer class="page-footer footnote"><hr><div class="sitemap" style="column-count:2;"><div class="sitemap-group"><span class="fs15">AI</span><a target="_blank" rel="noopener" href="https://www.anthropic.com/claude-code">Claude Code</a><a target="_blank" rel="noopener" href="https://platform.iflow.cn/cli/quickstart">iFLOW CLI</a><a target="_blank" rel="noopener" href="https://github.com/vibe-ideas/iflow-cli-action">iFLOW CLI Action</a><a target="_blank" rel="noopener" href="https://awesome-tech-weekly-zh.netlify.app/">中文技术周刊一览</a></div><div class="sitemap-group"><span class="fs15">blog</span><a target="_blank" rel="noopener" href="https://www.seangoedecke.com/popular/">Sean Goedecke</a></div></div><div class="text"><p><a href="https://shansan.top">Copyright © 2018-2025 ShanSan</a><br><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">桂ICP备19000444号</a><br>
+本站由 <a href="/">ShanSan</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br>
+本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。<br>
+<span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span></p>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</div></footer>
+<div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right"><div class="widgets">
+<widget class="widget-wrapper user-card ghuser"><div class="widget-body data-service ds-ghinfo" data-api="https://api.github.com/users/yeshan333"><div class="avatar" ><img no-lazy type="img" id="avatar_url" src="undefined" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></div><p class="username" type="text" id="name">&nbsp;</p><p class="bio" type="text" id="bio">&nbsp;</p><div class="buttons"><a class="btn" target="_blank" rel="noopener" href="https://github.com/yeshan333?tab=followers"><span class="title" type="text" id="followers">0</span><span class="desc">followers</span></a><a class="btn" target="_blank" rel="noopener" href="https://github.com/yeshan333?tab=following"><span class="title" type="text" id="following">0</span><span class="desc">following</span></a><a class="btn" target="_blank" rel="noopener" href="https://github.com/yeshan333?tab=repositories"><span class="title" type="text" id="public_repos">0</span><span class="desc">repos</span></a></div><a class="follow" target="_blank" rel="noopener" href="https://github.com/yeshan333"><svg aria-hidden="true" role="img" class="color-icon-primary" viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor" style="display:inline-block;user-select:none;vertical-align:text-bottom;overflow:visible"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>Follow</a></div></widget>
+
+
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%25E5%25BA%258F%25E5%2588%2597%25E5%258C%2596%25E4%25B8%258E%25E5%258F%258D%25E5%25BA%258F%25E5%2588%2597%25E5%258C%2596"><span class="toc-text">序列化与反序列化</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#python%25E4%25B8%25AD%25E5%25AF%25B9%25E8%25B1%25A1%25E7%259A%2584%25E5%25BA%258F%25E5%2588%2597%25E5%258C%2596%25E4%25B8%258E%25E5%258F%258D%25E5%25BA%258F%25E5%2588%2597%25E5%258C%2596"><span class="toc-text">Python中对象的序列化与反序列化</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#pickle-module"><span class="toc-text">pickle module</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%25E4%25BD%25BF%25E7%2594%25A8dumps%25E5%2592%258Cloads%25E6%2596%25B9%25E6%25B3%2595%25E8%25BF%259B%25E8%25A1%258C%25E5%25BA%258F%25E5%2588%2597%25E5%258C%2596%25E5%2592%258C%25E5%258F%258D%25E5%25BA%258F%25E5%2588%2597%25E5%258C%2596"><span class="toc-text">使用dumps和loads方法进行序列化和反序列化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#json-module"><span class="toc-text">json module</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%25E4%25BD%25BF%25E7%2594%25A8dumps%25E5%2592%258Cloads%25E8%25BF%259B%25E8%25A1%258C%25E5%25BA%258F%25E5%2588%2597%25E5%258C%2596%25E5%2592%258C%25E5%258F%258D%25E5%25BA%258F%25E5%2588%2597%25E5%258C%2596"><span class="toc-text">使用dumps和loads进行序列化和反序列化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%25E8%2587%25AA%25E5%25AE%259A%25E4%25B9%2589%25E5%25AF%25B9%25E8%25B1%25A1%25E7%259A%2584%25E5%25BA%258F%25E5%2588%2597%25E5%258C%2596%25E4%25B8%258E%25E5%258F%258D%25E5%25BA%258F%25E5%2588%2597%25E5%258C%2596"><span class="toc-text">自定义对象的序列化与反序列化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#third-party-module%25EF%25BC%259Amarshmallow"><span class="toc-text">third-party module：marshmallow</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#references"><span class="toc-text">References</span></a></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a><a class="buttom" onclick="util.scrollComment()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M8 10.5h8M8 14h5.5M17 3.338A9.95 9.95 0 0 0 12 2C6.477 2 2 6.477 2 12c0 1.6.376 3.112 1.043 4.453c.178.356.237.763.134 1.148l-.595 2.226a1.3 1.3 0 0 0 1.591 1.592l2.226-.596a1.63 1.63 0 0 1 1.149.133A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10c0-1.821-.487-3.53-1.338-5"/></svg><span>参与讨论</span></a></div></widget>
+</div></aside><div class='float-panel'>
+  <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
+  </button>
+  <button type='button' style='display:none' class='mobile-only leftbar-toggle mobile' onclick='sidebar.leftbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11c0-3.771 0-5.657 1.172-6.828C4.343 3 6.229 3 10 3h4c3.771 0 5.657 0 6.828 1.172C22 5.343 22 7.229 22 11v2c0 3.771 0 5.657-1.172 6.828C19.657 21 17.771 21 14 21h-4c-3.771 0-5.657 0-6.828-1.172C2 18.657 2 16.771 2 13z"/><path id="sep" stroke-linecap="round" d="M5.5 10h6m-5 4h4m4.5 7V3"/></g></svg>
+  </button>
+</div>
+</div><div class="scripts">
+
+
+<script type="text/javascript">
+  window.canonical = {"closeEnable":true,"closeText":"关闭提示","originalHost":"","officialHosts":["localhost","shansan.top","shansan.cn","yeshan333.github.io"],"encoded":""};
+  window.canonical["param"] = {"permalink":"https://shansan.top/2019/11/25/Serialization-and-Deserialization/","checklink":"/js/plugins/video.js"};
+  // Fix: Ensure page is at the correct top position on data load
+  if (history.scrollRestoration) {
+    history.scrollRestoration = 'auto';
   }
-
-  if (copyBtn && copyInput) {
-    var resetTimer = null;
-    var setCopyState = function(state) {
-      copyBtn.classList.toggle('success', state === 'success');
-      copyBtn.classList.toggle('warning', state === 'warning');
-      copyBtn.setAttribute('aria-label', state === 'success' ? '已复制文章链接' : state === 'warning' ? '复制失败' : '复制文章链接');
-      copyBtn.setAttribute('title', state === 'success' ? '已复制' : state === 'warning' ? '复制失败' : '复制文章链接');
-      if (resetTimer) clearTimeout(resetTimer);
-      if (state !== 'idle') {
-        resetTimer = setTimeout(function() {
-          setCopyState('idle');
-        }, 1800);
+  (function() {
+    const scrollHandler = () => {
+      const wikiCover = document.querySelector('#l_cover .l_cover.wiki');
+      const startEl = document.getElementById('start');
+      if (wikiCover && startEl) {
+        window.scrollTo(0, startEl.offsetTop);
+      } else {
+        window.scrollTo(0, 0);
       }
     };
-    var fallbackCopy = function() {
-      copyInput.focus();
-      copyInput.select();
-      copyInput.setSelectionRange(0, copyInput.value.length);
-      return document.execCommand('copy');
+    if (document.readyState !== 'loading') scrollHandler();
+    else document.addEventListener('DOMContentLoaded', scrollHandler);
+  })();
+  const ctx = {
+    date_suffix: {
+      just: `刚刚`,
+      min: `分钟前`,
+      hour: `小时前`,
+      day: `天前`,
+    },
+    root : `/`,
+    tag_plugins: {
+      chat: Object.assign({"api":"https://siteinfo.listentothewind.cn/api/v1"}),
+    }
+  };
+
+  // required plugins (only load if needs)
+  if (`local_search`) {
+    ctx.search = {};
+    ctx.search.service = `local_search`;
+    if (ctx.search.service == 'local_search') {
+      let service_obj = Object.assign({}, `{"field":"all","path":"/search.json","content":true,"skip_search":null,"sort":"-date"}`);
+      ctx.search[ctx.search.service] = service_obj;
+    }
+  }
+  const def = {
+    avatar: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/3442075.svg`,
+    cover: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/cover/76b86c0226ffd.svg`,
+    loading: `https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd`,
+  };
+  const deps = {
+    jquery: `https://gcore.jsdelivr.net/npm/jquery@3.7/dist/jquery.min.js`,
+    marked: `https://gcore.jsdelivr.net/npm/marked@13.0/lib/marked.umd.min.js`,
+    lazyload: `/%5Bobject%20Object%5D`
+  }
+</script>
+
+<script type="text/javascript">
+  
+  function RunItem() {
+    this.list = []; // 存放回调函数
+    this.start = () => {
+      for (var i = 0; i < this.list.length; i++) {
+        this.list[i].run();
+      }
     };
-    copyBtn.addEventListener('click', function(event) {
-      event.preventDefault();
-      var value = copyInput.value;
-      if (navigator.clipboard && window.isSecureContext) {
-        navigator.clipboard.writeText(value).then(function() {
-          setCopyState('success');
-        }).catch(function() {
-          setCopyState(fallbackCopy() ? 'success' : 'warning');
+    this.push = (fn, name, setRequestAnimationFrame = true) => {
+      let myfn = fn
+      if (setRequestAnimationFrame) {
+        myfn = () => {
+          utils.requestAnimationFrame(fn)
+        }
+      }
+      var f = new Item(myfn, name);
+      this.list.push(f);
+    };
+    this.remove = (name) => {
+      // 倒序遍历避免 splice 后的索引问题
+      for (let index = this.list.length - 1; index >= 0; index--) {
+        const e = this.list[index];
+        if (e.name === name) {
+          this.list.splice(index, 1);
+        }
+      }
+    }
+    // 构造一个可以run的对象
+    function Item(fn, name) {
+      // 函数名称
+      this.name = name || fn.name;
+      // run方法
+      this.run = () => {
+        try {
+          fn()
+        } catch (error) {
+          console.log(error);
+        }
+      };
+    }
+  }
+
+  const utils = {
+    // 已加载样式缓存
+    _loadedStyles: new Set(),
+
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    css: (href, before, media, attributes) => {
+      // 如果样式已加载，直接返回 null
+      if (utils._loadedStyles.has(href)) {
+        return null;
+      }
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      // 标记样式为已加载 (在创建元素后立即标记，防止重复创建)
+      utils._loadedStyles.add(href);
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
         });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 已加载脚本缓存
+    _loadedScripts: new Set(),
+
+    // 已加载元素缓存 (使用 WeakSet 追踪元素实例,避免 PJAX 导航时的状态混淆)
+    _loadedElements: new WeakSet(),
+
+    js: (src, opt) => new Promise((resolve, reject) => {
+      if (src.startsWith('/')) {
+        src = ctx.root + src.substring(1);
+      }
+      // 如果脚本已加载，直接返回
+      if (utils._loadedScripts.has(src)) {
+        resolve();
         return;
       }
-      setCopyState(fallbackCopy() ? 'success' : 'warning');
-    });
-    setCopyState('idle');
-  }
-})();
-</script> </div> <div class="related-wrap" id="read-next"> <section class="body"> <div class="item" id="prev"> <div class="note">较新文章</div> <a href="/2019/11/28/heart/">❤Thanksgiving❤</a> </div> <div class="item" id="next"> <div class="note">较早文章</div> <a href="/2019/11/14/map-filter-reduce/">map-filter-reduce</a> </div> </section> </div> <div class="related-wrap" id="related-posts"> <section class="header"> <div class="title cap theme">您可能感兴趣的文章</div> </section> <section class="body"> <div class="related-posts"> <a class="item" href="/2020/03/06/使用-mypy-做type-check/" title="使用 mypy 做 type check"> <span class="title">使用 mypy 做 type check</span> <span class="excerpt">前言 完残！😂，最近看之前写的 Python 代码老得琢磨这比变量的类型是啥（ Python 无类型系统xxx ），不愧是我写的！ 看段之前写的实现迭代器模式的代码： python 抽象迭代</span> </a><a class="item" href="/2019/10/02/简单了解下Python内置数据类型常用操作的性能/" title="简单感受下Python内置数据类型常用操作的性能"> <span class="title">简单感受下Python内置数据类型常用操作的性能</span> <span class="excerpt">生成一个列表的几种方式的性能对比 Python coding: utf 8 from timeit import Timer import matplotlib.pyplot as plt 列</span> </a><a class="item" href="/2019/09/02/Python环境管理/" title="Python 环境管理与项目依赖管理"> <span class="title">Python 环境管理与项目依赖管理</span> <span class="excerpt">个人简单记录下 virtualenv + pip virtualenv是一个用于创建&quot;隔离的ython运行环境&quot;的工具，Docs pip是Python的包管理工具，Docs bash 安装vi</span> </a><a class="item" href="/2019/08/07/几个不错的Jupyter Notebook云端展示平台/" title="几个不错的Jupyter Notebook云端展示平台"> <span class="title">几个不错的Jupyter Notebook云端展示平台</span> <span class="excerpt">jupyter nbviewer URL:https://nbviewer.jupyter.org/ 结合Github的示例用法：https://nbviewer.jupyter.org/gi</span> </a><a class="item" href="/2019/07/28/pdb-profile/" title="pdb &amp;&amp; cProfile"> <span class="title">pdb &amp;&amp; cProfile</span> <span class="excerpt">pdb https://docs.python.org/zh cn/3.7/library/pdb.html module pdb 使用方式 1、在命令行下直接运行调试 bash python</span> </a> </div> </section> </div><div class="related-wrap md-text" id="comments"> <section class="header cmt-title cap theme"> <p>ShanSan</p> </section> <section class="body cmt-body artalk"> <div class="artalk with-fancybox" id="artalk_container"> <svg class="loading" style="vertical-align:middle;fill:currentColor;overflow:hidden;" viewBox="0 0 1024 1024" version="1.1"> <path d="M832 512c0-176-144-320-320-320V128c211.2 0 384 172.8 384 384h-64zM192 512c0 176 144 320 320 320v64C300.8 896 128 723.2 128 512h64z"></path> </svg> </div> </section> </div> <script>(() => {
-  const el = document.getElementById('artalk_container');
-  if (!el) return;
-
-  const loadCss = (href) => {
-    if (document.querySelector('link[data-artalk-css]')) return;
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = href;
-    link.dataset.artalkCss = 'true';
-    document.head.appendChild(link);
-  };
-
-  const loadJs = (src) => {
-    const existing = document.querySelector('script[data-artalk-js]');
-    if (existing && window.Artalk) return Promise.resolve();
-    if (existing) {
-      return new Promise((resolve) => existing.addEventListener('load', resolve, { once: true }));
-    }
-    return new Promise((resolve, reject) => {
-      const script = document.createElement('script');
+      var script = document.createElement('script');
       script.src = src;
-      script.defer = true;
-      script.dataset.artalkJs = 'true';
-      script.onload = resolve;
-      script.onerror = reject;
-      document.body.appendChild(script);
-    });
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function () {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        utils._loadedScripts.add(src);
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // PJAX 事件监听器管理
+    _pjaxListeners: new Set(),
+    
+    jq: (fn, pjax = true) => {
+      if (typeof jQuery === 'undefined') {
+        utils.js(deps.jquery).then(fn)
+      } else {
+        fn()
+      }
+      if (pjax && !fn._pjax_registered) {
+        document.addEventListener('pjax:complete', fn);
+        fn._pjax_registered = true;
+        utils._pjaxListeners.add(fn); // 追踪监听器以便清理
+      }
+    },
+    
+    // 清理所有 PJAX 事件监听器
+    cleanupPjaxListeners: () => {
+      utils._pjaxListeners.forEach(fn => {
+        document.removeEventListener('pjax:complete', fn);
+        fn._pjax_registered = false;
+      });
+      utils._pjaxListeners.clear();
+    },
+
+    onLoading: (el) => {
+      if (el) {
+        if ($(el).find('.loading-wrap').length === 0){
+          $(el).append('<div class="loading-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" stroke-opacity=".3" d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="1.3s" values="60;0"/></path><path stroke-dasharray="15" stroke-dashoffset="15" d="M12 3C16.9706 3 21 7.02944 21 12"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></g></svg></div>');
+        }
+      }
+    },
+    onLoadSuccess: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap').remove();
+      }
+    },
+    onLoadFailure: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap svg').remove();
+        $(el).find('.loading-wrap').append('<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" d="M12 3L21 20H3L12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.5s" values="60;0"/></path><path stroke-dasharray="6" stroke-dashoffset="6" d="M12 10V14"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.6s" dur="0.2s" values="6;0"/></path></g><circle cx="12" cy="17" r="1" fill="currentColor" fill-opacity="0"><animate fill="freeze" attributeName="fill-opacity" begin="0.8s" dur="0.4s" values="0;1"/></circle></svg>');
+        $(el).find('.loading-wrap').addClass('error');
+      }
+    },
+    request: (el, url, callback, onFailure) => {
+      // 检查元素实例是否已加载 (而不是检查属性)
+      if (el && utils._loadedElements.has(el)) {
+        return;
+      }
+      const maxRetry = 3;
+      let retryCount = 0;
+
+      return new Promise((resolve, reject) => {
+        const load = () => {
+          utils.onLoading?.(el);
+
+          let timedOut = false;
+          const timeout = setTimeout(() => {
+            timedOut = true;
+            console.warn('[request] 超时:', url);
+
+            if (++retryCount >= maxRetry) {
+              utils.onLoadFailure?.(el);
+              onFailure?.();
+              reject('请求超时');
+            } else {
+              setTimeout(load, 1000);
+            }
+          }, 5000);
+
+          fetch(url).then(resp => {
+            if (timedOut) return;
+            clearTimeout(timeout);
+
+            if (!resp.ok) throw new Error('响应失败');
+            return resp;
+          }).then(data => {
+            if (timedOut) return;
+            // 标记元素实例为已加载
+            if (el) utils._loadedElements.add(el);
+            utils.onLoadSuccess?.(el);
+            callback(data);
+            resolve(data);
+          }).catch(err => {
+            clearTimeout(timeout);
+            console.warn('[request] 错误:', err);
+
+            if (++retryCount >= maxRetry) {
+              utils.onLoadFailure?.(el);
+              onFailure?.();
+              reject(err);
+            } else {
+              setTimeout(load, 1000);
+            }
+          });
+        };
+
+        load();
+      });
+    },
+    requestWithoutLoading: (url, options = {}, maxRetry = 2, timeout = 5000) => {
+      return new Promise((resolve, reject) => {
+        let retryCount = 0;
+
+        const tryRequest = () => {
+          let timedOut = false;
+          const timer = setTimeout(() => {
+            timedOut = true;
+            if (++retryCount > maxRetry) reject('timeout');
+            else tryRequest();
+          }, timeout);
+
+          fetch(url, options)
+            .then(resp => {
+              clearTimeout(timer);
+              if (!resp.ok) throw new Error('bad response');
+              resolve(resp);
+            })
+            .catch(err => {
+              clearTimeout(timer);
+              if (++retryCount > maxRetry) reject(err);
+              else setTimeout(tryRequest, 500);
+            });
+        };
+
+        tryRequest();
+      });
+    },
+    /********************** requestAnimationFrame ********************************/
+    // 1、requestAnimationFrame 会把每一帧中的所有 DOM 操作集中起来，在一次重绘或回流中就完成，并且重绘或回流的时间间隔紧紧跟随浏览器的刷新频率，一般来说，这个频率为每秒60帧。
+    // 2、在隐藏或不可见的元素中，requestAnimationFrame 将不会进行重绘或回流，这当然就意味着更少的的 cpu，gpu 和内存使用量。
+    requestAnimationFrame: (fn) => {
+      if (!window.requestAnimationFrame) {
+        window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame;
+      }
+      window.requestAnimationFrame(fn)
+    },
+    dark: {},
+
+    // 插件初始化管理器 - 统一处理 DOMContentLoaded 和 pjax:complete 事件
+    _pluginInitializers: [],
+    _pluginCleanups: new Map(), // 存储每个插件的清理函数
+    
+    initPlugin: (initFn, name, options = {}) => {
+      if (!initFn || typeof initFn !== 'function') return;
+      
+      // 避免重复注册
+      const pluginName = name || initFn.name;
+      if (utils._pluginInitializers.some(p => p.name === pluginName)) return;
+      
+      // 包装初始化函数，添加防重复执行的保护
+      const wrappedInit = () => {
+        try {
+          // 在执行前先清理旧的资源
+          if (utils._pluginCleanups.has(pluginName)) {
+            const cleanup = utils._pluginCleanups.get(pluginName);
+            if (typeof cleanup === 'function') {
+              cleanup();
+            }
+          }
+          
+          // 执行初始化，可能返回清理函数
+          const cleanup = initFn();
+          
+          // 如果初始化函数返回了清理函数，保存它
+          if (typeof cleanup === 'function') {
+            utils._pluginCleanups.set(pluginName, cleanup);
+          }
+        } catch (error) {
+          console.error(`[Plugin ${pluginName}] 初始化失败:`, error);
+        }
+      };
+      
+      utils._pluginInitializers.push({ 
+        fn: wrappedInit, 
+        name: pluginName,
+        options: options 
+      });
+      
+      // 如果 DOM 已经加载完成，立即执行
+      if (document.readyState === 'complete' || document.readyState === 'interactive') {
+        wrappedInit();
+      } else {
+        // 否则等待 DOMContentLoaded
+        window.addEventListener('DOMContentLoaded', wrappedInit, { once: true });
+      }
+    },
+
+    // 重新初始化所有插件（用于 PJAX 等场景）
+    reinitPlugins: () => {
+      utils._pluginInitializers.forEach(plugin => {
+        // 跳过标记为不需要重新初始化的插件
+        if (plugin.options.skipReinit) return;
+        
+        try {
+          plugin.fn();
+        } catch (error) {
+          console.error(`[Plugin ${plugin.name}] 重新初始化失败:`, error);
+        }
+      });
+    },
+    
+    // 清理所有插件资源
+    cleanupPlugins: () => {
+      utils._pluginCleanups.forEach((cleanup, name) => {
+        try {
+          cleanup();
+        } catch (error) {
+          console.error(`[Plugin ${name}] 清理失败:`, error);
+        }
+      });
+      utils._pluginCleanups.clear();
+    },
+    
+    // 清理所有资源（用于页面卸载或重置）
+    cleanupAll: () => {
+      utils.cleanupPlugins();
+      utils.cleanupPjaxListeners();
+    },
   };
 
-  function initArtalk() {
-    loadCss('https://gcore.jsdelivr.net/npm/artalk@2.9.1/dist/Artalk.css');
-    loadJs('https://gcore.jsdelivr.net/npm/artalk@2.9.1/dist/Artalk.js').then(function () {
-      if (el.dataset.loaded === 'true') return;
-      const path = el.getAttribute('comment_id') ?? decodeURI(window.location.pathname);
-      Artalk.init({
-        el: '#artalk_container',
-        pageKey: path,
-        pageTitle: "Serialization and Deserialization",
-        server: 'https://artalk.shan333.cn/',
-        site: 'ShanSan',
-        darkMode: 'auto',
-      });
-      el.dataset.loaded = 'true';
-    });
-  }
+  // 自动处理 PJAX 事件
+  document.addEventListener('pjax:before', () => {
+    // 在导航前清理旧的 PJAX 监听器（如果需要重新注册）
+    // 注意：这里不清理，因为监听器应该是持久的
+    // utils.cleanupPjaxListeners();
+  });
+  
+  document.addEventListener('pjax:complete', () => {
+    utils.reinitPlugins();
+  });
 
-  window.stellar = window.stellar || {};
-  window.stellar.initComments = window.stellar.initComments || {};
-  window.stellar.initComments.artalk = initArtalk;
-  initArtalk();
-})();</script>   <footer class="page-footer footnote"> <hr> <div class="text"> <p> <a href="https://shansan.top">Copyright &copy; 2018-2025 ShanSan</a><br> <a target="_blank" rel="noopener noreferrer" href="https://beian.miit.gov.cn/">桂ICP备19000444号</a><br>
-本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。<br>
-Powered by <a target="_blank" rel="noopener noreferrer" href="https://astro.build/">Astro</a> </p> </div> </footer> <div class="main-mask" onclick="sidebar.dismiss()"></div> </div> <aside class="l_right"> <div class="widgets"> <widget class="widget-wrapper user-card ghuser"> <div class="widget-body data-service ds-ghinfo" data-api="https://api.github.com/users/yeshan333"> <div class="avatar"> <img no-lazy type="img" id="avatar_url" src="https://ospy.shan333.cn/blog/github_avatar.png" alt="yeshan333"> </div> <p class="username" type="text" id="name">yeshan333</p> <p class="bio" type="text" id="bio">ShanSan</p> <div class="buttons"> <a class="btn" target="_blank" rel="noopener noreferrer" href="https://github.com/yeshan333?tab=followers"> <span class="title" type="text" id="followers">0</span> <span class="desc">followers</span> </a> <a class="btn" target="_blank" rel="noopener noreferrer" href="https://github.com/yeshan333?tab=following"> <span class="title" type="text" id="following">0</span> <span class="desc">following</span> </a> <a class="btn" target="_blank" rel="noopener noreferrer" href="https://github.com/yeshan333?tab=repositories"> <span class="title" type="text" id="public_repos">0</span> <span class="desc">repos</span> </a> </div> <a class="follow" target="_blank" rel="noopener noreferrer" href="https://github.com/yeshan333">Follow</a> </div> </widget> <widget class="widget-wrapper toc" id="data-toc" collapse="true"> <div class="widget-header dis-select"> <span class="name">本文目录</span> <a class="cap-action" onclick="sidebar.toggleTOC()"> <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"> <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"></path> </svg> </a> </div> <div class="widget-body"> <ol class="toc"> <li class="toc-item toc-level-2"> <a class="toc-link" href="#pickle-module"> <span class="toc-text">pickle module</span> </a> <ol class="toc-child"> <li class="toc-item toc-level-3"> <a class="toc-link" href="#使用dumps和loads方法进行序列化和反序列化"> <span class="toc-text">使用dumps和loads方法进行序列化和反序列化</span> </a> </li> </ol> </li><li class="toc-item toc-level-2"> <a class="toc-link" href="#json-module"> <span class="toc-text">json module</span> </a> <ol class="toc-child"> <li class="toc-item toc-level-3"> <a class="toc-link" href="#使用dumps和loads进行序列化和反序列化"> <span class="toc-text">使用dumps和loads进行序列化和反序列化</span> </a> </li><li class="toc-item toc-level-3"> <a class="toc-link" href="#自定义对象的序列化与反序列化"> <span class="toc-text">自定义对象的序列化与反序列化</span> </a> </li> </ol> </li><li class="toc-item toc-level-2"> <a class="toc-link" href="#third-party-modulemarshmallow"> <span class="toc-text">third-party module：marshmallow</span> </a>  </li> </ol> </div> <div class="widget-footer"> <a class="top" href="#start"> <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"> <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"> <path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"></path> <path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"></path> </g> </svg> <span>回到顶部</span> </a> <a class="buttom" href="#comments"> <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"> <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M8 10.5h8M8 14h5.5M17 3.338A9.95 9.95 0 0 0 12 2C6.477 2 2 6.477 2 12c0 1.6.376 3.112 1.043 4.453c.178.356.237.763.134 1.148l-.595 2.226a1.3 1.3 0 0 0 1.591 1.592l2.226-.596a1.63 1.63 0 0 1 1.149.133A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10c0-1.821-.487-3.53-1.338-5"></path> </svg> <span>参与讨论</span> </a> </div> </widget> </div> </aside> <div class="float-panel"> <button type="button" class="theme-toggle" onclick="switchTheme()" aria-label="切换深色模式" title="切换深色模式"> <span class="theme-icon theme-icon-moon" aria-hidden="true"> <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"></path></svg> </span> <span class="theme-icon theme-icon-sun" aria-hidden="true" hidden> <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2m0 16v2m10-10h-2M4 12H2m17.07-7.07l-1.41 1.41M6.34 17.66l-1.41 1.41m0-14.14l1.41 1.41m11.32 11.32l1.41 1.41"></path></g></svg> </span> </button> <button type="button" style="display:none" class="laptop-only rightbar-toggle mobile" onclick="sidebar.rightbar()"> <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"></path></svg> </button> <button type="button" style="display:none" class="mobile-only leftbar-toggle mobile" onclick="sidebar.leftbar()"> <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11c0-3.771 0-5.657 1.172-6.828C4.343 3 6.229 3 10 3h4c3.771 0 5.657 0 6.828 1.172C22 5.343 22 7.229 22 11v2c0 3.771 0 5.657-1.172 6.828C19.657 21 17.771 21 14 21h-4c-3.771 0-5.657 0-6.828-1.172C2 18.657 2 16.771 2 13z"></path><path id="sep" stroke-linecap="round" d="M5.5 10h6m-5 4h4m4.5 7V3"></path></g></svg> </button> </div> </div> <script>
-  var l_body = document.querySelector('.l_body');
-  var sidebar = {
-    leftbar: function() {
+  // utils.dark.mode 当前模式 dark or light
+  // utils.dark.toggle() 暗黑模式触发器
+  // utils.dark.push(callBack[,"callBackName"]) 传入触发器回调函数
+  utils.dark.method = {
+    toggle: new RunItem(),
+  };
+  utils.dark = Object.assign(utils.dark, {
+    push: utils.dark.method.toggle.push,
+  });
+</script>
+<script>
+  const sidebar = {
+    leftbar: () => {
       if (l_body) {
         l_body.toggleAttribute('leftbar');
         l_body.removeAttribute('rightbar');
       }
     },
-    rightbar: function() {
+    rightbar: () => {
       if (l_body) {
         l_body.toggleAttribute('rightbar');
         l_body.removeAttribute('leftbar');
       }
     },
-    dismiss: function() {
+    dismiss: () => {
       if (l_body) {
         l_body.removeAttribute('leftbar');
         l_body.removeAttribute('rightbar');
       }
     },
-    toggleTOC: function() {
-      var toc = document.querySelector('#data-toc');
-      if (toc) toc.classList.toggle('collapse');
+    toggleTOC: () => {
+      document.querySelector('#data-toc').classList.toggle('collapse');
+    }
+  }
+</script>
+<script type="text/javascript">
+  (() => {
+    const tagSwitchers = document.querySelectorAll('.tag-subtree.parent-tag > a > .tag-switcher-wrapper')
+    for (const tagSwitcher of tagSwitchers) {
+      tagSwitcher.addEventListener('click', (e) => {
+        const parent = e.target.closest('.tag-subtree.parent-tag')
+        parent.classList.toggle('expanded')
+        e.preventDefault()
+      })
+    }
+
+    // Get active tag from query string, then activate it.
+    const urlParams = new URLSearchParams(window.location.search)
+    const activeTag = urlParams.get('tag')
+    if (activeTag) {
+      let tag = document.querySelector(`.tag-subtree[data-tag="${activeTag}"]`)
+      if (tag) {
+        tag.querySelector('a').classList.add('active')
+        
+        while (tag) {
+          tag.classList.add('expanded')
+          tag = tag.parentElement.closest('.tag-subtree.parent-tag')
+        }
+      }
+    }
+  })()
+</script>
+
+<script async src="https://gcore.jsdelivr.net/npm/vanilla-lazyload@19.1/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazy",
+    callback_loaded: (el) => {
+      el.classList.add('loaded');
+      const wrapper = el.closest('.lazy-box');
+      const icon = wrapper?.querySelector('.lazy-icon');
+      if (icon) icon.remove();
     }
   };
-  function getCurrentTheme() {
-    var explicit = document.documentElement.getAttribute('data-theme');
-    if (explicit === 'light' || explicit === 'dark') return explicit;
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) return 'dark';
-    return 'light';
-  }
-  function syncThemeToggle() {
-    var button = document.querySelector('.theme-toggle');
-    if (!button) return;
-    var current = getCurrentTheme();
-    var isDark = current === 'dark';
-    button.setAttribute('aria-pressed', String(isDark));
-    button.setAttribute('aria-label', isDark ? '切换到白天模式' : '切换到黑夜模式');
-    button.setAttribute('title', isDark ? '切换到白天模式' : '切换到黑夜模式');
-    var moon = button.querySelector('.theme-icon-moon');
-    var sun = button.querySelector('.theme-icon-sun');
-    if (moon) moon.hidden = isDark;
-    if (sun) sun.hidden = !isDark;
-  }
-  function switchTheme() {
-    var next = getCurrentTheme() === 'dark' ? 'light' : 'dark';
-    document.documentElement.setAttribute('data-theme', next);
-    window.localStorage.setItem('Stellar.theme', next);
-    syncThemeToggle();
-  }
-  syncThemeToggle();
-  if (window.matchMedia) {
-    var themeQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    var onSystemThemeChange = function() {
-      if (!document.documentElement.getAttribute('data-theme')) syncThemeToggle();
-    };
-    if (themeQuery.addEventListener) themeQuery.addEventListener('change', onSystemThemeChange);
-    else if (themeQuery.addListener) themeQuery.addListener(onSystemThemeChange);
-  }
-</script> <script>
-  (function() {
-    var adSlots = document.querySelectorAll('[data-adsense-lazy] ins.adsbygoogle');
-    if (!adSlots.length) return;
-
-    var scriptPromise = null;
-    var loadedSlots = new WeakSet();
-    var earliestLoadAt = Date.now() + 4500;
-    var windowLoaded = document.readyState === 'complete';
-
-    if (!windowLoaded) {
-      window.addEventListener('load', function() {
-        windowLoaded = true;
-      }, { once: true });
-    }
-
-    function loadAdScript() {
-      if (scriptPromise) return scriptPromise;
-      scriptPromise = new Promise(function(resolve, reject) {
-        if (document.querySelector('script[data-adsense-loader]')) {
-          resolve();
-          return;
-        }
-        var script = document.createElement('script');
-        script.async = true;
-        script.crossOrigin = 'anonymous';
-        script.dataset.adsenseLoader = 'true';
-        script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7762707993867214';
-        script.onload = function() { resolve(); };
-        script.onerror = function() { reject(); };
-        document.head.appendChild(script);
-      });
-      return scriptPromise;
-    }
-
-    function schedule(callback) {
-      var runWhenQuiet = function() {
-        if ('requestIdleCallback' in window) {
-          window.requestIdleCallback(callback, { timeout: 3000 });
-        } else {
-          window.setTimeout(callback, 800);
-        }
-      };
-      var runAfterDelay = function() {
-        window.setTimeout(runWhenQuiet, Math.max(0, earliestLoadAt - Date.now()));
-      };
-
-      if (windowLoaded) {
-        runAfterDelay();
-      } else {
-        window.addEventListener('load', runAfterDelay, { once: true });
-      }
-    }
-
-    function hydrateAd(slot) {
-      if (loadedSlots.has(slot)) return;
-      loadedSlots.add(slot);
-      schedule(function() {
-        loadAdScript().then(function() {
-          window.adsbygoogle = window.adsbygoogle || [];
-          window.adsbygoogle.push({});
-          slot.closest('[data-adsense-lazy]')?.setAttribute('data-adsense-loaded', 'true');
-        }).catch(function() {
-          loadedSlots.delete(slot);
-        });
-      });
-    }
-
-    if ('IntersectionObserver' in window) {
-      var observer = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-          if (!entry.isIntersecting) return;
-          hydrateAd(entry.target);
-          observer.unobserve(entry.target);
-        });
-      }, { rootMargin: '200px 0px', threshold: 0.01 });
-      adSlots.forEach(function(slot) { observer.observe(slot); });
-      return;
-    }
-
-    adSlots.forEach(hydrateAd);
-  })();
-</script> <script>
-  (function() {
-    var lazyImgs = document.querySelectorAll('img.lazy[data-src]');
-    if (!lazyImgs.length) return;
-    lazyImgs.forEach(function(img) { img.setAttribute('data-ll-status', 'loading'); });
-    var observer = new IntersectionObserver(function(entries) {
-      entries.forEach(function(entry) {
-        if (!entry.isIntersecting) return;
-        var img = entry.target;
-        var src = img.getAttribute('data-src');
-        if (src) {
-          img.src = src;
-          img.removeAttribute('data-src');
-          img.addEventListener('load', function() {
-            img.classList.add('loaded');
-            img.setAttribute('data-ll-status', 'loaded');
-          });
-          img.addEventListener('error', function() {
-            img.classList.add('error');
-            img.setAttribute('data-ll-status', 'error');
-          });
-        }
-        observer.unobserve(img);
-      });
-    }, { rootMargin: '200px' });
-    lazyImgs.forEach(function(img) { observer.observe(img); });
-  })();
-</script> <script>
-  (function() {
-    var els = document.getElementsByClassName('ds-ghinfo');
-    for (var i = 0; i < els.length; i++) {
-      (function(el) {
-        var api = el.getAttribute('data-api');
-        if (!api) return;
-        fetch(api).then(function(r) { return r.json(); }).then(function(data) {
-          var keys = Object.keys(data);
-          for (var j = 0; j < keys.length; j++) {
-            var key = keys[j];
-            var textEl = el.querySelector('[type="text"]#' + key);
-            if (textEl) textEl.textContent = data[key];
-            var imgEl = el.querySelector('[type="img"]#' + key);
-            if (imgEl) imgEl.setAttribute('src', data[key]);
-          }
-        }).catch(function() {});
-      })(els[i]);
-    }
-  })();
-</script> <script>
-  document.querySelectorAll('.tabs .nav-tabs .tab').forEach(function(element) {
-    element.addEventListener('click', function(event) {
-      event.preventDefault();
-      if (element.classList.contains('active')) return;
-      var siblings = element.parentNode.children;
-      for (var i = 0; i < siblings.length; i++) {
-        siblings[i].classList.toggle('active', siblings[i] === element);
-      }
-      var href = element.querySelector('a').getAttribute('href').replace('#', '');
-      var tActive = document.getElementById(href);
-      if (!tActive) return;
-      var panes = tActive.parentNode.children;
-      for (var j = 0; j < panes.length; j++) {
-        panes[j].classList.toggle('active', panes[j] === tActive);
-      }
-    });
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    window.lazyLoadInstance?.update();
   });
-</script> <script>
+
+  window.wrapLazyloadImages = (container) => {
+    if (typeof container === 'string') {
+      container = document.querySelector(container);
+    }
+    if (!container) return;
+
+    const images = container.querySelectorAll('img');
+    images.forEach((img) => {
+      if (img.classList.contains('lazy')) return;
+
+      const src = img.getAttribute('src');
+      if (!src) return;
+
+      const wrapper = document.createElement('div');
+      wrapper.className = 'lazy-box';
+
+      const newImg = img.cloneNode();
+      newImg.removeAttribute('src');
+      newImg.setAttribute('data-src', src);
+      newImg.classList.add('lazy');
+
+      const icon = document.createElement('div');
+      icon.className = 'lazy-icon';
+      if (def.loading) {
+        icon.style.backgroundImage = `url("${def.loading}")`;
+      }
+
+      wrapper.appendChild(newImg);
+      wrapper.appendChild(icon);
+
+      img.replaceWith(wrapper);
+    });
+
+    // 通知 LazyLoad 更新
+    if (window.lazyLoadInstance?.update) {
+      window.lazyLoadInstance.update();
+    }
+  }
+
+</script>
+
+<!-- required -->
+<script src="/js/main.js?v=1.33.1" defer></script>
+
+<script type="text/javascript">
+  const applyTheme = (theme) => {
+    if (theme === 'auto') {
+      document.documentElement.removeAttribute('data-theme')
+    } else {
+      document.documentElement.setAttribute('data-theme', theme)
+    }
+
+    // applyThemeToGiscus(theme)
+  }
+
+  // FIXME: 这会导致无法使用 preferred_color_scheme 以外的主题
+  const applyThemeToGiscus = (theme) => {
+    // theme = theme === 'auto' ? 'preferred_color_scheme' : theme
+    const cmt = document.getElementById('giscus')
+    if (cmt) {
+      // This works before giscus load.
+      cmt.setAttribute('data-theme', theme)
+    }
+
+    const iframe = document.querySelector('#comments > section.giscus > iframe')
+    if (iframe) {
+      // This works after giscus loaded.
+      const src = iframe.src
+      const newSrc = src.replace(/theme=[\w]+/, `theme=${theme}`)
+      iframe.src = newSrc
+    }
+  }
+
+  const switchTheme = () => {
+    // light -> dark -> auto -> light -> ...
+    const currentTheme = document.documentElement.getAttribute('data-theme')
+    let newTheme;
+    switch (currentTheme) {
+      case 'light':
+        newTheme = 'dark'
+        break
+      case 'dark':
+        newTheme = 'auto'
+        break
+      default:
+        newTheme = 'light'
+    }
+    applyTheme(newTheme)
+    window.localStorage.setItem('Stellar.theme', newTheme)
+    utils.dark.mode = newTheme === 'auto' ? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light") : newTheme;
+    utils.dark.method.toggle.start();
+
+    const messages = {
+      light: `切换到浅色模式`,
+      dark: `切换到深色模式`,
+      auto: `切换到跟随系统配色`,
+    }
+    hud?.toast?.(messages[newTheme])
+  }
+
+  (() => {
+    // Apply user's preferred theme, if any.
+    const theme = window.localStorage.getItem('Stellar.theme')
+    if (theme !== null) {
+      applyTheme(theme)
+    } else {
+      utils.dark.mode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    }
+    utils.dark.method.toggle.start();
+  })()
+</script>
+
+
+<!-- optional -->
+
+  <script>
   (function() {
-    document.querySelectorAll('figure.highlight .code').forEach(function(codeCell) {
-      if (codeCell.querySelector('.copy-btn')) return;
-      var btn = document.createElement('div');
-      btn.className = 'copy-btn';
-      btn.textContent = 'Copy';
-      btn.addEventListener('click', function() {
-        var pre = codeCell.querySelector('pre');
-        if (!pre) return;
-        var text = pre.innerText || '';
-        if (navigator.clipboard) {
-          navigator.clipboard.writeText(text).then(function() {
-            btn.textContent = 'Copied!';
-            btn.classList.add('success');
-            setTimeout(function() {
-              btn.textContent = 'Copy';
-              btn.classList.remove('success');
-            }, 3000);
-          }).catch(function() {
-            btn.textContent = 'Failed';
-            btn.classList.add('warning');
-            setTimeout(function() {
-              btn.textContent = 'Copy';
-              btn.classList.remove('warning');
-            }, 3000);
+    const lazyload = false;
+    
+    function initArtalk() {
+      const el = document.getElementById('artalk_container');
+      if (!el) return;
+      
+      function load_artalk() {
+        utils.css('https://gcore.jsdelivr.net/npm/artalk@2.9.1/dist/Artalk.css');
+        utils.js('https://gcore.jsdelivr.net/npm/artalk@2.9.1/dist/Artalk.js', {defer: true}).then(function () {
+          // 监听 Artalk 事件
+          // FIXME: Artalk开启了懒加载会导致评论输入预览框里的图也变成data-src，导致看不到图
+          // Artalk.use((ctx) => {
+          //   ctx.on('list-loaded', () => window.lazyLoadInstance?.update())
+          // })
+          const path = el.getAttribute('comment_id') ?? decodeURI(window.location.pathname);
+          const artalk = Artalk.init({
+            el: '#artalk_container',
+            pageKey: path,
+            pageTitle: 'Serialization and Deserialization',
+            server: 'https://artalk.shan333.cn/',
+            site: 'ShanSan',
+            darkMode: 'auto',
+            
+          });
+        });
+      }
+      
+      util.viewportLazyload(el, load_artalk, lazyload);
+    }
+    
+    // Store in global stellar namespace for PJAX reinitialization
+    window.stellar = window.stellar || {};
+    window.stellar.initComments = window.stellar.initComments || {};
+    window.stellar.initComments.artalk = initArtalk;
+    
+    // Initialize on page load
+    initArtalk();
+  })();
+</script>
+
+
+
+<script defer>
+  const initServices = () => {
+    // 用于存储需要清理的资源
+    let timers = [];
+    
+    ctx.services = Object.assign({}, JSON.parse(`{"mdrender":{"js":"/js/services/mdrender.js"},"siteinfo":{"js":"/js/services/siteinfo.js","api":null},"ghinfo":{"js":"/js/services/ghinfo.js"},"rating":{"js":"/js/services/rating.js","api":"https://star-vote.xaox.cc/api/rating"},"vote":{"js":"/js/services/vote.js","api":"https://star-vote.xaox.cc/api/vote"},"sites":{"js":"/js/services/sites.js"},"friends":{"js":"/js/services/friends.js"},"friends_and_posts":{"js":"/js/services/friends_and_posts.js"},"timeline":{"js":"/js/services/timeline.js"},"fcircle":{"js":"/js/services/fcircle.js"},"weibo":{"js":"/js/services/weibo.js"},"memos":{"js":"/js/services/memos.js"},"voice":{"js":"/js/plugins/voice.js"},"video":{"js":"/js/plugins/video.js"},"download-file":{"js":"/js/plugins/download-file.js"},"twikoo":{"js":"/js/services/twikoo_latest_comment.js"},"waline":{"js":"/js/services/waline_latest_comment.js"},"artalk":{"js":"/js/services/artalk_latest_comment.js"},"giscus":{"js":"/js/services/giscus_latest_comment.js"},"contributors":{"edit_this_page":{"_posts/":null,"wiki/stellar/":"https://github.com/xaoxuu/hexo-theme-stellar-docs/blob/main/"},"js":"/js/services/contributors.js"},"rss":{"js":"/js/services/rss.js"}}`));
+    for (let id of Object.keys(ctx.services)) {
+      const js = ctx.services[id].js;
+      if (id == 'siteinfo') {
+        const cardlinks = document.querySelectorAll('a.link-card[cardlink]');
+        if (cardlinks?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            setCardLink(cardlinks);
           });
         }
-      });
-      codeCell.appendChild(btn);
-    });
-  })();
-</script> <script>
-  (function() {
-    var tocEl = document.querySelector('#data-toc .toc');
-    if (!tocEl) return;
-    var headers = document.querySelectorAll('article.md-text :is(h1,h2,h3,h4,h5,h6)[id]');
-    if (!headers.length) return;
-    var links = document.querySelectorAll('#data-toc a.toc-link');
-    var scrollOffset = 32;
-
-    function activeTOC() {
-      var scrollTop = window.scrollY || document.documentElement.scrollTop;
-      var topSeg = null;
-      for (var i = 0; i < headers.length; i++) {
-        var rect = headers[i].getBoundingClientRect();
-        var top = rect.top + scrollTop - document.documentElement.clientTop;
-        if (top > scrollTop + scrollOffset) continue;
-        if (!topSeg || top >= topSeg.top) {
-          topSeg = { el: headers[i], top: top };
+      } else if (id == 'ghinfo') {
+        const els = document.querySelectorAll('.ds-ghinfo');
+        if (els.length > 0) {
+          utils.js(js, { defer: true });
+        }
+      } else if (id == 'voice') {
+        const voiceAudios = document.querySelectorAll('.voice>audio');
+        if (voiceAudios?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            createVoiceDom(voiceAudios);
+          });
+        }
+      } else if (id == 'video') {
+        const videos = document.querySelectorAll('.video>video');
+        if (videos?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            videoEvents(videos);
+          });
+        }
+      } else if (id == 'download-file') {
+        const files = document.querySelectorAll('.chat-file');
+        if (files?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            downloadFileEvent(files);
+          });
+        }
+      } else {
+        const els = document.getElementsByClassName(`ds-${id}`);
+        if (els?.length > 0) {
+          utils.jq(() => {
+            if (id == 'timeline' || id == 'memos' || id == 'marked') {
+              utils.js(deps.marked).then(function () {
+                utils.js(js, { defer: true });
+              });
+            } else {
+              utils.js(js, { defer: true });
+            }
+          }, false);
         }
       }
-      for (var j = 0; j < links.length; j++) {
-        links[j].classList.remove('active');
-      }
-      if (topSeg) {
-        var href = '#' + topSeg.el.getAttribute('id');
-        var active = document.querySelector('#data-toc a.toc-link[href="' + href + '"]');
-        if (active) active.classList.add('active');
-      } else if (links.length) {
-        links[0].classList.add('active');
+    }
+
+    // search
+    if (ctx.search && typeof searchFunc === 'function') {
+      const $inputArea = $("input#search-input");
+      if ($inputArea.length > 0 && !$inputArea[0]._searchInitialized) {
+        const path = ctx.search.path.startsWith('/') ? ctx.root + ctx.search.path.substring(1) : ctx.root + ctx.search.path;
+        const filter = $inputArea.attr('data-filter') || '';
+        searchFunc(path, filter, 'search-wrapper', 'search-input', 'search-result');
+        // 标记为已初始化，防止重复绑定
+        $inputArea[0]._searchInitialized = true;
       }
     }
 
-    function scrollTOC() {
-      var activeLink = document.querySelector('#data-toc a.toc-link.active');
-      if (!tocEl || !activeLink) return;
-      var ob = activeLink.getBoundingClientRect().bottom - tocEl.getBoundingClientRect().bottom + 100;
-      var ot = activeLink.getBoundingClientRect().top - tocEl.getBoundingClientRect().top - 64;
-      if (ot < 0) {
-        tocEl.scrollBy({ top: ot, behavior: 'smooth' });
-      } else if (ob > 0) {
-        tocEl.scrollBy({ top: ob, behavior: 'smooth' });
+    // chat iphone time
+    let phoneTimes = document.querySelectorAll('.chat .status-bar .time');
+    let firstAdjustInterval = null;
+    let mainInterval = null;
+
+    if (phoneTimes.length > 0) {
+      NowTime();
+      const date = new Date();
+      const sec = date.getSeconds();
+      firstAdjustInterval = setInterval(firstAdjustTime, 1000 * (60 - sec));
+      timers.push(firstAdjustInterval);
+
+      function firstAdjustTime() {
+        NowTime();
+        if (firstAdjustInterval) {
+          clearInterval(firstAdjustInterval);
+          firstAdjustInterval = null;
+        }
+        mainInterval = setInterval(NowTime, 1000 * 60);
+        timers.push(mainInterval);
+      }
+
+      function NowTime() {
+        for (let i = 0; i < phoneTimes.length; ++i) {
+          const timeSpan = phoneTimes[i];
+          const date = new Date();
+          const hour = date.getHours();
+          const min = date.getMinutes();
+          timeSpan.innerHTML = check(hour) + ":" + check(min);
+        }
+      };
+
+      function check(val) {
+        if (val < 10) {
+          return ("0" + val);
+        }
+        return (val);
       }
     }
 
-    var timeout = null;
-    window.addEventListener('scroll', function() {
-      activeTOC();
-      if (timeout !== null) clearTimeout(timeout);
-      timeout = setTimeout(scrollTOC, 50);
+    // chat quote - 存储事件监听器以便清理
+    const quoteClickHandlers = new Map();
+    const chat_quote_obverser = new IntersectionObserver((entries, observer) => {
+      entries.filter((entry) => { return entry.isIntersecting }).sort((a, b) => a.intersectionRect.y !== b.intersectionRect.y ? a.intersectionRect.y - b.intersectionRect.y : a.intersectionRect.x - b.intersectionRect.x).forEach((entry, index) => {
+          observer.unobserve(entry.target);
+          setTimeout(() => {
+            entry.target.classList.add('quote-blink');
+            setTimeout(() => {
+              entry.target.classList.remove('quote-blink');
+            }, 1000);
+          }, Math.max(100, 16) * (index + 1));
+        });
     });
-    activeTOC();
-  })();
-</script> <script type="module">
-  const mermaidBlocks = [...document.querySelectorAll("pre > code.language-mermaid")];
-  if (mermaidBlocks.length) {
-    import("https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs").then(({ default: mermaid }) => {
-      mermaid.initialize({ startOnLoad: false, theme: "default" });
-      mermaidBlocks.forEach((block) => {
-        const source = block.textContent || "";
-        const container = document.createElement("div");
-        container.className = "mermaid";
-        container.textContent = source;
-        block.closest("pre")?.replaceWith(container);
+
+    var chatQuotes = document.querySelectorAll(".chat .talk .quote");
+    chatQuotes.forEach((quote) => {
+      const handler = function () {
+        var chatCellDom = document.getElementById("quote-" + quote.getAttribute("quotedCellTag"));
+        if (chatCellDom) {
+          var chatDiv = chatCellDom.parentElement;
+          var mid = chatDiv.clientHeight / 2;
+          var offsetTop = chatCellDom.offsetTop;
+          if (offsetTop > mid - chatCellDom.clientHeight / 2) {
+            chatDiv.scrollTo({
+              top: chatCellDom.offsetTop - mid + chatCellDom.clientHeight / 2,
+              behavior: "smooth"
+            });
+          } else {
+            chatDiv.scrollTo({
+              top: 0,
+              behavior: "smooth"
+            });
+          }
+          chat_quote_obverser.observe(chatCellDom);
+        }
+      };
+      quote.addEventListener('click', handler);
+      quoteClickHandlers.set(quote, handler); // 保存处理器引用
+    });
+
+    // 返回清理函数，用于清理定时器和观察器
+    return () => {
+      // 清理所有定时器（包括可能未完成的 firstAdjustInterval）
+      timers.forEach(timer => {
+        if (timer) clearInterval(timer);
       });
-      mermaid.run();
-    });
+      timers = [];
+      if (firstAdjustInterval) {
+        clearInterval(firstAdjustInterval);
+        firstAdjustInterval = null;
+      }
+      if (mainInterval) {
+        clearInterval(mainInterval);
+        mainInterval = null;
+      }
+      
+      // 断开观察器
+      if (chat_quote_obverser) {
+        chat_quote_obverser.disconnect();
+      }
+      
+      // 移除所有 click 事件监听器
+      quoteClickHandlers.forEach((handler, quote) => {
+        quote.removeEventListener('click', handler);
+      });
+      quoteClickHandlers.clear();
+    };
+  };
+
+  utils.initPlugin(initServices, 'services');
+</script>
+
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.search = {
+      path: `/search.json`,
+    }
+    utils.js('/js/search/local-search.js', { defer: true });
+  });
+</script><script>
+  window.FPConfig = {
+    delay: 0,
+    ignoreKeywords: [],
+    maxRPS: 5,
+    hoverDelay: 25
+  };
+</script>
+<script defer src="https://gcore.jsdelivr.net/npm/flying-pages@2/flying-pages.min.js"></script><script>
+  ctx.fancybox = {
+    selector: `.timenode p>img`,
+    css: `https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css`,
+    js: `https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js`
+  };
+  var selector = '[data-fancybox]:not(.error), .with-fancybox .atk-content img:not([atk-emoticon])';
+  if (ctx.fancybox.selector) {
+    selector += `, ${ctx.fancybox.selector}`
   }
-</script> <script>
-  (function() {
-    // Add data-fancybox="post" to article images that don't already have a group
-    var articleImgs = document.querySelectorAll('.md-text.content img, .md-text article img');
-    articleImgs.forEach(function(img) {
-      if (!img.getAttribute('data-fancybox')) {
-        img.setAttribute('data-fancybox', 'post');
-      }
-    });
-    // Also tag timeline images
-    var timelineImgs = document.querySelectorAll('.timenode p>img');
-    timelineImgs.forEach(function(img) {
-      if (!img.getAttribute('data-fancybox')) {
-        img.setAttribute('data-fancybox', 'post');
-      }
-    });
-
-    var selector = '[data-fancybox]:not(.error)';
-    if (!document.querySelectorAll(selector).length) return;
-
-    var link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = 'https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css';
-    document.head.appendChild(link);
-    var script = document.createElement('script');
-    script.src = 'https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js';
-    script.onload = function() {
+  var needFancybox = document.querySelectorAll(selector).length !== 0;
+  if (!needFancybox) {
+    const memos = document.getElementsByClassName('ds-memos');
+    if (memos != undefined && memos.length > 0) {
+      needFancybox = true;
+    }
+    const fancybox = document.getElementsByClassName('with-fancybox');
+    if (fancybox != undefined && fancybox.length > 0) {
+      needFancybox = true;
+    }
+  }
+  if (needFancybox) {
+    utils.css(ctx.fancybox.css);
+    utils.js(ctx.fancybox.js, { defer: true }).then(function () {
       Fancybox.bind(selector, {
         hideScrollbar: false,
-        Thumbs: { autoStart: false },
-        caption: function(fancybox, slide) {
-          return slide.triggerEl.alt || slide.triggerEl.dataset.caption || null;
+        Thumbs: {
+          autoStart: false,
+        },
+        caption: (fancybox, slide) => {
+          return slide.triggerEl.alt || slide.triggerEl.dataset.caption || null
         }
       });
-    };
-    document.body.appendChild(script);
-  })();
-</script> </body></html>
+    })
+  }
+</script>
+<script>
+  utils.initPlugin(() => {
+    const swiper_api = document.getElementById('swiper-api');
+    if (swiper_api != undefined) {
+      utils.css(`https://unpkg.com/swiper@10.3/swiper-bundle.min.css`);
+      utils.js(`https://unpkg.com/swiper@10.3/swiper-bundle.min.js`, { defer: true }).then(function () {
+        const effect = swiper_api.getAttribute('effect') || '';
+        var swiper = new Swiper('.swiper#swiper-api', {
+          slidesPerView: 'auto',
+          spaceBetween: 8,
+          centeredSlides: true,
+          effect: effect,
+          rewind: true,
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+        });
+      })
+    }
+  }, 'swiper');
+</script>
+<link rel="stylesheet" href="https://gcore.jsdelivr.net/npm/katex@0.16/dist/katex.min.css" crossorigin="anonymous">
+
+<script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+  MathJax.Hub.Config({
+    tex2jax: {
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  });
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script defer type="text/javascript" src="https://cdn.jsdelivr.net/npm/mermaid@11.9.0/dist/mermaid.min.js"></script>
+<script>
+  utils.initPlugin(() => {
+    const els = document.querySelectorAll('.mermaid');
+    if (els.length > 0) {
+      const mermaid_config = {
+        startOnLoad: false,
+        theme:
+          "auto" == "auto" &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "neutral",
+        logLevel: 3,
+        themeVariables: {
+          darkMode: true
+        },
+        flowchart: {
+          useMaxWidth: false,
+          htmlLabels: true,
+          curve: "linear"
+        },
+        gantt: {
+          axisFormat: "%Y/%m/%d"
+        },
+        sequence: {
+          actorMargin: 50
+        }
+      }
+      mermaid.initialize(mermaid_config);
+      mermaid.run();
+    }
+  }, 'mermaid');
+</script><script>
+  utils.initPlugin(() => {
+    const codeElements = document.querySelectorAll('.code');
+    if (codeElements.length > 0) {
+      ctx.copycode = {
+        default_text: `Copy`,
+        success_text: `Copied`,
+        toast: `复制成功`,
+      };
+      utils.js('/js/plugins/copycode.js', { defer: true }).then(() => {
+        if (typeof createCopyButtons === 'function') {
+          createCopyButtons(codeElements);
+        }
+      });
+    }
+  }, 'copycode');
+</script>
+
+
+<!-- inject -->
+<script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script><script>LA.init({id:"3N0nbmMoWnI9Z6Po",ck:"3N0nbmMoWnI9Z6Po"})</script>
+</div><div class="page-loading-bar"><img src="https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd"></div></body></html>
