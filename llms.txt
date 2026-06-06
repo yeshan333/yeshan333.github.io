@@ -1,6 +1,6 @@
 # ShanSan's Blog
 
-> ShanSan（yeshan333）的个人技术博客，分享云原生（Cloud Native）、DevOps / DevTest、AI Coding、混沌测试、Erlang/Elixir、Go、Python 等领域的实践经验、踩坑记录与工具推荐。博客基于 Hexo 搭建，主题为 Stellar，部署在 GitHub Pages，主域名为 https://shansan.top ，备用域名为 https://shan333.cn 。
+> ShanSan（yeshan333）的个人技术博客，分享云原生（Cloud Native）、DevOps / DevTest、AI Coding、混沌测试、Erlang/Elixir、Go、Python 等领域的实践经验、踩坑记录与工具推荐。博客基于 Astro 搭建，部署在 GitHub Pages，主域名为 https://shansan.top ，备用域名为 https://shan333.cn 。
 
 博主自我介绍：信息与计算科学专业毕业，目前关注 Cloud Native、DevOps、DevTest 方向，是 Pythonista / Elixirist / Gopher，业余略懂乐理 🎹。博客自 2018 年诞生以来已持续维护多年，加入了「十年之约」项目。
 
