@@ -142,10 +142,10 @@
 </li>
 </ul>
 <p>与 Kafka 相关的几个问题：</p>
-<div class="tag-plugin tabs" id="tab-kafka-problem-enqw59"><div class="nav-tabs"><div class="tab active"><a href="#tab-kafka-problem-enqw59-1">Kafka 实现高可用的手段</a></div><div class="tab"><a href="#tab-kafka-problem-enqw59-2">Kafka 实现伸缩性的手段</a></div><div class="tab"><a href="#tab-kafka-problem-enqw59-3">Zookeeper在Kafka中的作用</a></div><div class="tab"><a href="#tab-kafka-problem-enqw59-4">Kafka如何实现消息的有序</a></div></div><div class="tab-content"><div class="tab-pane active" id="tab-kafka-problem-enqw59-1"><ul>
+<div class="tag-plugin tabs" id="tab-kafka-problem-jkyyrf"><div class="nav-tabs"><div class="tab active"><a href="#tab-kafka-problem-jkyyrf-1">Kafka 实现高可用的手段</a></div><div class="tab"><a href="#tab-kafka-problem-jkyyrf-2">Kafka 实现伸缩性的手段</a></div><div class="tab"><a href="#tab-kafka-problem-jkyyrf-3">Zookeeper在Kafka中的作用</a></div><div class="tab"><a href="#tab-kafka-problem-jkyyrf-4">Kafka如何实现消息的有序</a></div></div><div class="tab-content"><div class="tab-pane active" id="tab-kafka-problem-jkyyrf-1"><ul>
 <li>Broker 分布式部署</li>
 <li>备份机制（Replacation），把相同的数据拷贝到多台机器上。即 Kafka Replica，Leader Replica 提供数据的读写操作，Follower Replica 负责同步数据。</li>
-</ul></div><div class="tab-pane" id="tab-kafka-problem-enqw59-2"><p>Partition 机制，一个 Topic 划分为多个 Partition，防止单台 Broker 机器无法容纳太多的数据，Partition 机制与 Replica 机制联系紧密，每个 Partition 可以有多个 Replica（1 Leader + N Followers）。</p></div><div class="tab-pane" id="tab-kafka-problem-enqw59-3"><blockquote>
+</ul></div><div class="tab-pane" id="tab-kafka-problem-jkyyrf-2"><p>Partition 机制，一个 Topic 划分为多个 Partition，防止单台 Broker 机器无法容纳太多的数据，Partition 机制与 Replica 机制联系紧密，每个 Partition 可以有多个 Replica（1 Leader + N Followers）。</p></div><div class="tab-pane" id="tab-kafka-problem-jkyyrf-3"><blockquote>
 <p>Zookeeper 可为分布式系统提供分布式配置服务、同步服务和命名注册服务。</p>
 </blockquote>
 <ul>
@@ -167,7 +167,7 @@
 <li>
 <p><a href="https://zhuanlan.zhihu.com/p/41953232">源码解说zookeeper在kafka中的作用</a></p>
 </li>
-</ul></div><div class="tab-pane" id="tab-kafka-problem-enqw59-4"><p>从前文可知，Kafka 的消息存储在 Topic 中，一个 Topic 又可以划分为多个 Partition，多 Partition 时，Kafka 只能保证 Partition 内的消息有序（Offset保证有序），如需保证 Topic 消息的有序，那么只能使用单个Partition了。如果仍要使用多个 Partition，消息的分区写入策略应选择按键（Key）保存。</p>
+</ul></div><div class="tab-pane" id="tab-kafka-problem-jkyyrf-4"><p>从前文可知，Kafka 的消息存储在 Topic 中，一个 Topic 又可以划分为多个 Partition，多 Partition 时，Kafka 只能保证 Partition 内的消息有序（Offset保证有序），如需保证 Topic 消息的有序，那么只能使用单个Partition了。如果仍要使用多个 Partition，消息的分区写入策略应选择按键（Key）保存。</p>
 <ul>
 <li><a href="https://www.cnblogs.com/listenfwind/p/12465409.html">详细解析kafka之kafka分区和副本</a></li>
 </ul></div></div></div>
