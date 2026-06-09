@@ -586,6 +586,45 @@
     <loc>https://shansan.top/cloud-native/</loc>
   </url>
   <url>
+    <loc>https://shansan.top/drafts/</loc>
+  </url>
+  <url>
+    <loc>https://shansan.top/drafts/cluacov-branch-coverage-en-medium/</loc>
+  </url>
+  <url>
+    <loc>https://shansan.top/drafts/cluacov-branch-coverage-en/</loc>
+  </url>
+  <url>
+    <loc>https://shansan.top/drafts/deep-dive-go-race-detector/</loc>
+  </url>
+  <url>
+    <loc>https://shansan.top/drafts/ebpf-and-bpftrace/</loc>
+  </url>
+  <url>
+    <loc>https://shansan.top/drafts/emscripten-wasm-compilation-deep-dive/</loc>
+  </url>
+  <url>
+    <loc>https://shansan.top/drafts/etcd-and-mongodb-chaos-testing/</loc>
+  </url>
+  <url>
+    <loc>https://shansan.top/drafts/gen-slides-like-docs-site-with-iflow-cli/</loc>
+  </url>
+  <url>
+    <loc>https://shansan.top/drafts/install-erlang-and-elixir-via-vfox-in-windows/</loc>
+  </url>
+  <url>
+    <loc>https://shansan.top/drafts/install-erlang-and-elixir-via-vfox/</loc>
+  </url>
+  <url>
+    <loc>https://shansan.top/drafts/try-cline-with-qwen/</loc>
+  </url>
+  <url>
+    <loc>https://shansan.top/drafts/using-vfox-erlang-to-manage-erlang-version/</loc>
+  </url>
+  <url>
+    <loc>https://shansan.top/drafts/validate-jenkins-with-llms/</loc>
+  </url>
+  <url>
     <loc>https://shansan.top/friends/</loc>
   </url>
   <url>

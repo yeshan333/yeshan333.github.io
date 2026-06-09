@@ -1,0 +1,1253 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="generator" content="Astro"><meta name="description" content="Go race detector, ThreadSanitizer, data race, happens-before, shadow memory, vector clock"><link rel="icon" href="https://ospy.shan333.cn/blog/xJ7yMF.jpg"><title>[Draft] 深入 Go Race Detector：从编译器插桩到 ThreadSanitizer 运行时 - ShanSan</title><script>
+      (function() {
+        var theme = window.localStorage.getItem('Stellar.theme');
+        if (theme === 'light' || theme === 'dark') {
+          document.documentElement.setAttribute('data-theme', theme);
+        }
+      })();
+    </script><link rel="stylesheet" href="/_astro/content.DAadCCD1.css">
+<style>.img-wrap[data-astro-cid-x4ppssot]{position:relative;overflow:hidden;line-height:0}.img-wrap[data-astro-cid-x4ppssot].loading:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--block, #eee) 25%,var(--bg-a50, #f5f5f5) 50%,var(--block, #eee) 75%);background-size:200% 100%;animation:shimmer 1.5s infinite}.img-wrap[data-astro-cid-x4ppssot].loading img[data-astro-cid-x4ppssot]{opacity:0}.img-wrap[data-astro-cid-x4ppssot] img[data-astro-cid-x4ppssot]{opacity:1;transition:opacity .4s ease}@keyframes shimmer{0%{background-position:200% 0}to{background-position:-200% 0}}
+.music-source-link[data-astro-cid-x6feou3b]{display:inline-flex;align-items:center;gap:4px;margin-top:8px;font-size:13px;color:var(--text-p3);text-decoration:none;opacity:.7;transition:opacity .2s}.music-source-link[data-astro-cid-x6feou3b]:hover{opacity:1;color:#e60026}
+</style>
+<link rel="stylesheet" href="/_astro/BaseLayout.o5thb_dG.css"></head> <body> <div class="l_body content" id="start" layout="post" type="tech"> <aside class="l_left"> <div class="sidebg"></div> <div class="leftbar-container"> <header class="header"> <div class="logo-wrap"> <a class="avatar" href="/about/"> <div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div> <img no-lazy class="avatar" src="https://ospy.shan333.cn/blog/blog.avatar.jpg" alt="ShanSan"> </a> <a class="title" href="/"> <div class="main">ShanSan</div> <div class="sub cap">个人博客</div> </a> </div> </header> <div class="nav-area"> <nav class="menu dis-select"> <a class="nav-item active" title="博文" href="/archives/"> <span>博文</span> </a><a class="nav-item" title="关于" href="/about/"> <span>关于</span> </a><a class="nav-item" title="友链" href="/friends/"> <span>友链</span> </a><a class="nav-item" title="Bio" href="/wiki/bio/"> <span>Bio</span> </a> </nav> </div> <div class="widgets"> <div class="search-wrapper" id="search-wrapper"> <form class="search-form"> <button type="button" class="search-button" aria-label="搜索" onclick="document.getElementById('search-input').focus();"> <svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg> </button> <input type="text" class="search-input" id="search-input" placeholder="站内搜索"> </form> <div id="search-result"></div> <div class="search-no-result">没有找到内容！</div> </div> <script>
+(function () {
+  var pagefind = null;
+  var input = document.getElementById("search-input");
+  var result = document.getElementById("search-result");
+  var wrapper = document.getElementById("search-wrapper");
+  if (!input || !result || !wrapper) return;
+
+  async function loadPagefind() {
+    if (pagefind) return true;
+    try {
+      pagefind = await import("/pagefind/pagefind.js");
+      await pagefind.init();
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  async function doSearch(query) {
+    result.innerHTML = "";
+    if (!query) {
+      wrapper.setAttribute("searching", "false");
+      wrapper.classList.remove("noresult");
+      return;
+    }
+    wrapper.setAttribute("searching", "true");
+
+    var loaded = await loadPagefind();
+    if (!loaded) {
+      result.innerHTML = '<p class="search-dev-notice">搜索功能需要先运行 build</p>';
+      return;
+    }
+
+    var search = await pagefind.search(query);
+    if (!search.results.length) {
+      wrapper.classList.add("noresult");
+      return;
+    }
+    wrapper.classList.remove("noresult");
+
+    var top = search.results.slice(0, 10);
+    var items = await Promise.all(top.map(function (r) { return r.data(); }));
+
+    var ul = document.createElement("ul");
+    ul.className = "search-result-list";
+
+    items.forEach(function (item) {
+      var li = document.createElement("li");
+      var a = document.createElement("a");
+      a.href = item.url;
+
+      var span = document.createElement("span");
+      span.className = "search-result-title";
+      span.textContent = item.meta.title || "Untitled";
+      a.appendChild(span);
+
+      if (item.excerpt) {
+        var para = document.createElement("p");
+        para.className = "search-result-content";
+        para.innerHTML = item.excerpt;
+        a.appendChild(para);
+      }
+
+      li.appendChild(a);
+      ul.appendChild(li);
+    });
+
+    result.appendChild(ul);
+  }
+
+  input.addEventListener("focus", function () { loadPagefind(); }, { once: true });
+
+  var timer = null;
+  input.addEventListener("input", function () {
+    clearTimeout(timer);
+    var q = input.value.trim();
+    timer = setTimeout(function () { doSearch(q); }, 200);
+  });
+
+  input.addEventListener("keydown", function (e) {
+    if (e.key === "Enter" || e.which === 13) e.preventDefault();
+  });
+})();
+</script> <widget class="widget-wrapper linklist"> <div class="widget-body fs14"> <div class="linklist left" style="grid-template-columns:repeat(1,1fr);"> <a class="link" title="开往" target="_blank" rel="noopener noreferrer" href="https://www.travellings.cn/go.html"> <div class="flex"> <img src="https://www.travellings.cn/assets/travelling-dark.png" alt=""> <span>开往</span> </div> </a> <a class="link" title="十年之约虫洞" target="_blank" rel="noopener noreferrer" href="https://www.foreverblog.cn/go.html"> <div class="flex"> <img src="https://foreverblog.cn/assets/logo/wormhole_1.gif" alt=""> <span>十年之约虫洞</span> </div> </a> <a class="link" title="境内访问" target="_blank" rel="noopener noreferrer" href="https://shan333.cn"> <div class="flex"> <img src="https://gallery.shansan.top/file/f9b8a67f6c7c6c2d647b4.jpg" alt=""> <span>境内访问</span> </div> </a> </div> </div> </widget> <widget class="widget-wrapper recent post-list"> <div class="widget-header dis-select"><span class="name">最近更新</span></div> <div class="widget-body fs14">  </div> </widget> </div> <footer class="footer dis-select"> <div class="social-wrap"> <a class="social" href="mailto:1329441308@qq.com" rel="noopener noreferrer" aria-label="Email"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 64C150 64 64 150 64 256s86 192 192 192c17.7 0 32 14.3 32 32s-14.3 32-32 32C114.6 512 0 397.4 0 256S114.6 0 256 0S512 114.6 512 256v32c0 53-43 96-96 96c-29.3 0-55.6-13.2-73.2-33.9C320 371.1 289.5 384 256 384c-70.7 0-128-57.3-128-128s57.3-128 128-128c27.9 0 53.7 8.9 74.7 24.1c5.7-5 13.1-8.1 21.3-8.1c17.7 0 32 14.3 32 32v80 32c0 17.7 14.3 32 32 32s32-14.3 32-32V256c0-106-86-192-192-192zm64 192a64 64 0 1 0 -128 0 64 64 0 1 0 128 0z"></path></svg></a> <a class="social" href="https://github.com/yeshan333?tab=repositories" target="_blank" rel="external nofollow noopener noreferrer" aria-label="GitHub"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg></a> <a class="social" href="https://music.163.com/#/my/m/music/playlist?id=2617691792" target="_blank" rel="external nofollow noopener noreferrer" aria-label="Music"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg></a> <a class="social" href="https://www.zhihu.com/people/si-kong-ji-54/activities" target="_blank" rel="external nofollow noopener noreferrer" aria-label="Zhihu"><svg fill="#18abdc" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M5.721 0C2.251 0 0 2.25 0 5.719V18.28C0 21.751 2.252 24 5.721 24h12.56C21.751 24 24 21.75 24 18.281V5.72C24 2.249 21.75 0 18.281 0zm1.964 4.078c-.271.73-.5 1.434-.68 2.11h4.587c.545-.006.445 1.168.445 1.171H9.384a58.104 58.104 0 01-.112 3.797h2.712c.388.023.393 1.251.393 1.266H9.183a9.223 9.223 0 01-.408 2.102l.757-.604c.452.456 1.512 1.712 1.906 2.177.473.681.063 2.081.063 2.081l-2.794-3.382c-.653 2.518-1.845 3.607-1.845 3.607-.523.468-1.58.82-2.64.516 2.218-1.73 3.44-3.917 3.667-6.497H4.491c0-.015.197-1.243.806-1.266h2.71c.024-.32.086-3.254.086-3.797H6.598c-.136.406-.158.447-.268.753-.594 1.095-1.603 1.122-1.907 1.155.906-1.821 1.416-3.6 1.591-4.064.425-1.124 1.671-1.125 1.671-1.125zM13.078 6h6.377v11.33h-2.573l-2.184 1.373-.401-1.373h-1.219zm1.313 1.219v8.86h.623l.263.937 1.455-.938h1.456v-8.86z"></path></svg></a> <a class="social" href="/rss2.xml" rel="noopener noreferrer" aria-label="RSS"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zM96 136c0-13.3 10.7-24 24-24c137 0 248 111 248 248c0 13.3-10.7 24-24 24s-24-10.7-24-24c0-110.5-89.5-200-200-200c-13.3 0-24-10.7-24-24zm0 96c0-13.3 10.7-24 24-24c83.9 0 152 68.1 152 152c0 13.3-10.7 24-24 24s-24-10.7-24-24c0-57.4-46.6-104-104-104c-13.3 0-24-10.7-24-24zm0 120a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"></path></svg></a> </div> </footer> </div> </aside> <div class="l_main" id="main"> <header class="header mobile-only"> <div class="logo-wrap"> <a class="avatar" href="/about/"> <img no-lazy class="avatar" src="https://ospy.shan333.cn/blog/blog.avatar.jpg" alt="ShanSan"> </a> <a class="title" href="/"> <div class="main">ShanSan</div> <div class="sub cap">个人博客</div> </a> </div> </header> <main>  <div class="article banner top">  <div class="content"> <div class="top bread-nav footnote"> <div class="left"> <div class="flex-row" id="breadcrumb"> <a class="cap breadcrumb" href="/">主页</a> <span class="sep"></span> <a class="cap breadcrumb" href="/archives/">文章</a>  <span class="sep"></span> <a class="cap breadcrumb-link" href="/categories/Go/">Go</a>  </div> <div class="flex-row" id="post-meta"> <span class="text created">
+发布于：<time datetime="2026-06-10">2026-06-10</time> </span> <span class="sep updated"></span> <span class="text updated">
+更新于：<time datetime="2026-06-10">2026-06-10</time> </span> </div> </div> </div> <div class="bottom only-title"> <div class="text-area"> <h1 class="text title"><span>深入 Go Race Detector：从编译器插桩到 ThreadSanitizer 运行时</span></h1> </div> </div> </div> </div> <article class="md-text content" data-pagefind-body>  <p>数据竞争（data race）是并发程序中最隐蔽的缺陷类别。它不产生编译错误，不一定触发 panic，甚至可能在数百万次执行中只复现一次。C/C++ 标准将包含数据竞争的程序定义为 undefined behavior；Go 的内存模型同样明确：对同一变量的并发读写若无同步保护，其行为未定义。</p>
+<p>Go 从语言层面鼓励并发——goroutine 和 channel 是一等公民。但这把双刃剑也使得数据竞争更容易被引入。2012 年，Dmitry Vyukov 将 Google 内部的 ThreadSanitizer v2（TSan v2）与 Go 工具链集成，Go 1.1（2013 年）正式发布了 <code>-race</code> 标志。截至 2026 年，race detector 已在 Go 标准库中发现并修复了超过 42 个竞态 bug，在 Google 内部更是阻止了数以千计的竞态缺陷进入生产环境。</p>
+<p>这套系统的核心问题是：<strong>如何在运行时以可接受的开销，精确判定两次内存访问之间是否存在 happens-before 关系？</strong></p>
+<pre><code class="language-mermaid">graph LR
+    A["Go 源码"] -->|go build -race| B["编译器插桩"]
+    B --> C["插桩后的二进制"]
+    C --> D["运行时执行"]
+    D --> E["TSan C Runtime&#x3C;br/>分析 shadow memory"]
+    E -->|检测到竞态| F["输出诊断报告"]
+    E -->|未检测到| G["正常退出"]
+</code></pre>
+<h2 id="从一个最小示例开始">从一个最小示例开始</h2>
+<figure class="highlight go"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// main.go</span></span><br><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> {</span><br><span class="line">    count := <span class="number">0</span></span><br><span class="line">    done := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="type">bool</span>)</span><br><span class="line">    <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> {</span><br><span class="line">        count++ <span class="comment">// 写</span></span><br><span class="line">        done &#x3C;- <span class="literal">true</span></span><br><span class="line">    }()</span><br><span class="line">    fmt.Println(count) <span class="comment">// 读（与上面的写并发）</span></span><br><span class="line">    &#x3C;-done</span><br><span class="line">}</span><br><span class="line"></span></pre></td></tr></tbody></table></figure>
+<figure class="highlight text"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span></pre></td><td class="code"><pre><span class="line">$ go run -race main.go</span><br><span class="line">==================</span><br><span class="line">WARNING: DATA RACE</span><br><span class="line">Read at 0x00c0000b4010 by main goroutine:</span><br><span class="line">  main.main()</span><br><span class="line">      /tmp/main.go:11 +0x9c</span><br><span class="line"></span><br><span class="line">Previous write at 0x00c0000b4010 by goroutine 7:</span><br><span class="line">  main.main.func1()</span><br><span class="line">      /tmp/main.go:8 +0x30</span><br><span class="line"></span><br><span class="line">Goroutine 7 (finished) created at:</span><br><span class="line">  main.main()</span><br><span class="line">      /tmp/main.go:7 +0x6c</span><br><span class="line">==================</span><br><span class="line">0</span><br><span class="line">Found 1 data race(s)</span><br><span class="line">exit status 66</span><br><span class="line"></span></pre></td></tr></tbody></table></figure>
+<p>输入是普通的 Go 源码。<code>-race</code> 标志让编译器对每一次内存读写插入检测调用，让运行时链接 TSan 的 C 运行时库。输出是一份精确到源码行号的竞态报告：包含冲突的两次访问地址、各自的 goroutine 调用栈、以及 goroutine 的创建位置。退出码 66 表示检测到了竞态。</p>
+<figure class="highlight text"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span></pre></td><td class="code"><pre><span class="line">┌─────────────┐     ┌──────────────────┐     ┌─────────────────┐</span><br><span class="line">│  Go 源码     │────▶│ go build -race   │────▶│ 插桩后的二进制   │</span><br><span class="line">│  (.go files) │     │  编译器插桩 +     │     │  + TSan C 运行时 │</span><br><span class="line">│              │     │  链接 .syso      │     │  (.syso 静态链接)│</span><br><span class="line">└─────────────┘     └──────────────────┘     └─────────────────┘</span><br><span class="line">                                                      │</span><br><span class="line">                                                      ▼</span><br><span class="line">                                             ┌─────────────────┐</span><br><span class="line">                                             │ 执行：每次内存   │</span><br><span class="line">                                             │ 读写触发 TSan    │</span><br><span class="line">                                             │ shadow memory    │</span><br><span class="line">                                             │ 检查             │</span><br><span class="line">                                             └────────┬────────┘</span><br><span class="line">                                                      │</span><br><span class="line">                                              ┌───────┴───────┐</span><br><span class="line">                                              │               │</span><br><span class="line">                                              ▼               ▼</span><br><span class="line">                                         检测到竞态      正常退出</span><br><span class="line">                                         exit(66)        exit(0)</span><br><span class="line"></span></pre></td></tr></tbody></table></figure>
+<h2 id="最终产物分析">最终产物分析</h2>
+<p><code>go build -race</code> 产出的二进制与普通构建有三项本质差异：</p>
+<p><strong>1. 编译器插入的检测调用（业务逻辑层）</strong></p>
+<p>编译器在 SSA 阶段为每个内存访问插入 <code>runtime.raceread</code> / <code>runtime.racewrite</code> 调用，为每个函数入口/出口插入 <code>runtime.racefuncenter</code> / <code>runtime.racefuncexit</code>。这些调用是编译产物的一部分，与业务逻辑交织在一起。</p>
+<p><strong>2. Go runtime 的竞态事件层（Runtime 层）</strong></p>
+<p>Go runtime 在 goroutine 创建/销毁、channel 操作、mutex 加锁/解锁等关键路径上，调用 <code>raceacquire</code> / <code>racerelease</code> / <code>racegostart</code> / <code>racegoend</code> 等函数，向 TSan 传递 happens-before 同步信息。这一层的代码通过 <code>//go:build race</code> 条件编译，仅在 <code>-race</code> 构建时生效。</p>
+<p><strong>3. TSan C 运行时库（基础设施层）</strong></p>
+<p>预编译的 <code>.syso</code> 文件（如 <code>race_darwin_arm64.syso</code>）是从 LLVM compiler-rt 项目的 TSan 运行时编译而来的 C 目标文件。它包含 shadow memory 管理、vector clock 比较、竞态报告生成等全部核心逻辑。通过静态链接嵌入最终二进制。</p>
+<pre><code class="language-mermaid">graph TB
+    subgraph "最终二进制"
+        subgraph "业务逻辑层"
+            A["用户代码 + 编译器插入的&#x3C;br/>raceread/racewrite 调用"]
+        end
+        subgraph "Runtime 层"
+            B["Go runtime race 事件&#x3C;br/>raceacquire/racerelease&#x3C;br/>racegostart/racegoend"]
+            C["汇编桥接层&#x3C;br/>race_amd64.s / race_arm64.s"]
+        end
+        subgraph "基础设施层"
+            D["TSan C Runtime (.syso)&#x3C;br/>shadow memory · vector clock&#x3C;br/>竞态检测 · 报告生成"]
+        end
+    end
+    A --> B
+    B --> C
+    C --> D
+</code></pre>
+<p>三者的协作关系：业务代码的每次内存访问触发编译器插入的检测调用 → 汇编 stub 将 goroutine 上下文和访问地址传递给 C TSan 运行时 → TSan 查询/更新 shadow memory，比较 vector clock，判定是否存在竞态。</p>
+<h2 id="全局架构与数据流">全局架构与数据流</h2>
+<pre><code class="language-mermaid">flowchart TB
+    subgraph Compiler["编译器（cmd/compile）"]
+        SSA["SSA 阶段"]
+        INS["插桩决策"]
+        SSA --> INS
+        INS -->|instrumentMemory=true| MEM["插入 raceread/racewrite"]
+        INS -->|instrumentEnterExit=true| FN["插入 racefuncenter/racefuncexit"]
+    end
+
+    subgraph Runtime["Go Runtime"]
+        INIT["raceinit()"]
+        GS["racegostart() / racegoend()"]
+        SYNC["raceacquire() / racerelease()"]
+        ALLOC["racemalloc() / racemapshadow()"]
+    end
+
+    subgraph ASM["汇编桥接层"]
+        CALL["racecalladdr&#x3C;>"]
+        ATOMIC["racecallatomic&#x3C;>"]
+        GENERIC["racecall&#x3C;>"]
+    end
+
+    subgraph TSan["TSan C Runtime"]
+        SM["Shadow Memory"]
+        VC["Vector Clock"]
+        DETECT["竞态检测引擎"]
+        REPORT["报告生成 + 符号化"]
+    end
+
+    MEM --> CALL
+    FN --> ASM
+    INIT --> GENERIC
+    GS --> GENERIC
+    SYNC --> GENERIC
+    ALLOC --> GENERIC
+    CALL --> TSan
+    ATOMIC --> TSan
+    GENERIC --> TSan
+    DETECT --> REPORT
+</code></pre>
+<h3 id="四大模块职责">四大模块职责</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>模块</th><th>职责</th><th>关键文件（go1.26.4）</th></tr></thead><tbody><tr><td><strong>编译器</strong></td><td>决定哪些内存访问需要插桩，插入检测函数调用</td><td><code>cmd/compile/internal/ssagen/ssa.go</code></td></tr><tr><td><strong>Go Runtime</strong></td><td>将 Go 语义（goroutine、channel、mutex）转化为 TSan 的 acquire/release 事件</td><td><code>runtime/race.go</code>, <code>runtime/chan.go</code>, <code>runtime/proc.go</code></td></tr><tr><td><strong>汇编桥接</strong></td><td>高效地从 Go 调用 C TSan 函数，处理栈切换和地址过滤</td><td><code>runtime/race_amd64.s</code></td></tr><tr><td><strong>TSan C Runtime</strong></td><td>管理 shadow memory，执行 happens-before 检测，生成报告</td><td><code>.syso</code> 文件（源自 LLVM compiler-rt）</td></tr></tbody></table>
+<h3 id="数据生命周期">数据生命周期</h3>
+<ol>
+<li><strong>初始化</strong>：<code>main</code> 启动前，<code>runtime.raceinit()</code> 调用 <code>__tsan_init</code> 初始化 TSan，计算全局数据段（data/bss）的边界，调用 <code>__tsan_map_shadow</code> 映射 shadow memory。</li>
+<li><strong>运行时事件流</strong>：每个 goroutine 携带 <code>racectx</code>（TSan 线程上下文）。每次内存访问、同步操作都通过汇编 stub 传递给 TSan。</li>
+<li><strong>检测</strong>：TSan 在每次内存访问时查询 shadow memory 中的 4 个 shadow slot，与当前访问的 thread/epoch 做 happens-before 比较。</li>
+<li><strong>报告</strong>：检测到竞态时，TSan 通过回调 <code>racecallbackthunk</code> → <code>racecallback</code> → <code>raceSymbolizeCode</code> 将 PC 地址翻译为 Go 源码的文件名和行号。</li>
+<li><strong>终结</strong>：<code>runtime.racefini()</code> 调用 <code>__tsan_fini</code>，输出最终统计。若检测到竞态，进程以 exit code 66 退出。</li>
+</ol>
+<h2 id="核心实现机制">核心实现机制</h2>
+<h3 id="机制一shadow-memory用空间换取精确检测">机制一：Shadow Memory——用空间换取精确检测</h3>
+<h4 id="解决什么问题">解决什么问题</h4>
+<p>Race detector 需要记录每个内存地址最近的访问历史：哪个线程、什么时间、是读还是写。这些元数据不能存在被监控的内存中（会改变程序行为），必须有独立的存储空间。</p>
+<h4 id="如何实现">如何实现</h4>
+<p>TSan v2 使用 <strong>直接映射的 shadow memory</strong>：应用程序地址空间中的每 8 字节对应 4 个 shadow word，每个 shadow word 32 位。</p>
+<figure class="highlight text"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span></pre></td><td class="code"><pre><span class="line">应用内存                    Shadow Memory</span><br><span class="line">┌────────────────┐         ┌─────────────────────────────────────┐</span><br><span class="line">│ 8 bytes        │────────▶│ Slot 0 │ Slot 1 │ Slot 2 │ Slot 3  │</span><br><span class="line">│ (1 shadow cell)│         │ 4 B    │ 4 B    │ 4 B    │ 4 B     │</span><br><span class="line">└────────────────┘         └─────────────────────────────────────┘</span><br><span class="line">                                    16 bytes total</span><br><span class="line"></span><br><span class="line">Shadow-to-App ratio = (4 slots × 4 bytes) / 8 bytes = 2×</span><br><span class="line"></span></pre></td></tr></tbody></table></figure>
+<p>4 个 slot 记录最近 4 次不同线程的访问。每个 shadow word 的 32 位编码如下：</p>
+<figure class="highlight text"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span></pre></td><td class="code"><pre><span class="line">31   30   29          16  15      8  7            0</span><br><span class="line">┌────┬────┬──────────────┬─────────┬───────────────┐</span><br><span class="line">│ A  │ R  │   Epoch (14) │ SID (8) │ Access (8)    │</span><br><span class="line">└────┴────┴──────────────┴─────────┴───────────────┘</span><br><span class="line"></span><br><span class="line">A (bit 31) : is_atomic — 是否为原子操作</span><br><span class="line">R (bit 30) : is_read   — 是否为读操作</span><br><span class="line">Epoch      : 14-bit 逻辑时间戳</span><br><span class="line">SID        : 8-bit 线程槽位 ID（Thread Slot ID）</span><br><span class="line">Access     : 8-bit 字节掩码，编码访问的偏移量和大小</span><br><span class="line"></span></pre></td></tr></tbody></table></figure>
+<p>Access 字段的编码方式：<code>((1 &#x3C;&#x3C; size) - 1) &#x3C;&#x3C; (addr &#x26; 0x7)</code>。例如，从偏移 2 开始读取 4 字节，掩码为 <code>0b00111100</code>。这种位掩码设计允许通过简单的按位与（<code>&#x26;</code>）判断两次访问是否有字节重叠。</p>
+<h4 id="为什么这样设计">为什么这样设计</h4>
+<p><strong>4 个 slot 而非更多</strong>：slot 数量是检测能力与内存开销之间的权衡。4 个 slot 意味着只能记住最近 4 个不同线程的访问。如果第 5 个线程访问同一地址，最旧的记录会被淘汰——这可能导致 false negative（漏报），但不会导致 false positive（误报）。将 slot 增加到 8 会使 shadow memory 开销从 2× 增加到 4×。</p>
+<p><strong>32 位而非 64 位</strong>：v2 将 shadow word 从 v1 的 64 位压缩到 32 位。这使得 4 个 slot 恰好占 16 字节（2 个 cache line 的 1/4），2× 的内存比率在生产环境中可接受。</p>
+<h4 id="替代方案">替代方案</h4>
+<ul>
+<li><strong>哈希表</strong>：节省空间但查找慢，无法满足每次内存访问的延迟要求。</li>
+<li><strong>更大的 shadow ratio</strong>：Helgrind 使用 4×-8× 的比率，换取更多元数据容量，但内存开销过高。</li>
+<li><strong>采样</strong>：只监控部分地址。降低开销但严重影响检测率。</li>
+</ul>
+<h4 id="trade-off">Trade-off</h4>
+<p>2× 内存开销是硬成本。对于内存密集型应用，这意味着 RSS 翻倍甚至更多（加上 vector clock 和禁用的 tiny allocator）。Go 官方文档标注的典型内存开销为 5-10×。</p>
+<h3 id="机制二vector-clock-与-epoch-压缩">机制二：Vector Clock 与 Epoch 压缩</h3>
+<h4 id="解决什么问题-2">解决什么问题</h4>
+<p>判断两次访问是否存在数据竞争的关键在于：它们之间是否存在 happens-before 关系。经典的 happens-before 检测需要维护每个线程的 vector clock（向量时钟）——一个记录"我已知道每个线程推进到哪个时间点"的数组。</p>
+<p>朴素的 vector clock 大小为 O(N)，N 为线程数。Go 程序可能有数十万 goroutine，直接维护 O(N) 的 vector clock 不可行。</p>
+<h4 id="如何实现-2">如何实现</h4>
+<p>TSan v2 使用 <strong>固定大小的线程槽位（Thread Slot）</strong> 机制：</p>
+<ul>
+<li>整个系统只有 <strong>256 个线程槽位</strong>（SID 0-254，255 保留）</li>
+<li>每个活跃 goroutine 占用一个槽位，不活跃的 goroutine 不占用</li>
+<li>当所有槽位用完时，TSan 会"抢占"一个槽位：将目标线程的当前 epoch 保存到槽位的 journal 中，然后将槽位分配给新线程</li>
+<li>Vector clock 因此固定为 256 个条目，每条目记录一个 epoch（14 位）</li>
+</ul>
+<pre><code class="language-mermaid">graph LR
+    subgraph "Thread Slot Pool (256 slots)"
+        S0["Slot 0&#x3C;br/>SID=0&#x3C;br/>epoch=42"]
+        S1["Slot 1&#x3C;br/>SID=1&#x3C;br/>epoch=17"]
+        S2["..."]
+        S254["Slot 254&#x3C;br/>SID=254&#x3C;br/>epoch=3"]
+    end
+    subgraph "Active Goroutines"
+        G1["goroutine A&#x3C;br/>→ Slot 0"]
+        G2["goroutine B&#x3C;br/>→ Slot 1"]
+        G3["goroutine C&#x3C;br/>→ Slot 254"]
+    end
+    G1 --> S0
+    G2 --> S1
+    G3 --> S254
+</code></pre>
+<p><strong>Epoch</strong> 是每个线程槽位上的单调递增计数器（14 位，最大值 16383）。每次线程重新获取槽位时，epoch 递增。竞态检测时的 happens-before 判定简化为一次比较：</p>
+<figure class="highlight text"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span></pre></td><td class="code"><pre><span class="line">if current_thread.clock[old_shadow.sid] >= old_shadow.epoch:</span><br><span class="line">    // old access happens-before current access, 无竞态</span><br><span class="line">else:</span><br><span class="line">    // 无 happens-before 关系，可能存在竞态</span><br><span class="line"></span></pre></td></tr></tbody></table></figure>
+<h4 id="为什么这样设计-2">为什么这样设计</h4>
+<p>将 O(N) 的 vector clock 压缩到固定 256 个条目，使得：</p>
+<ul>
+<li>Shadow word 中只需 8 位存储 SID，14 位存储 epoch</li>
+<li>Vector clock 比较是 O(1) 的单次数组查找</li>
+<li>内存占用固定，不随 goroutine 数量增长</li>
+</ul>
+<h4 id="trade-off-2">Trade-off</h4>
+<p>256 个槽位的限制意味着当并发 goroutine 超过 256 个时，必须进行槽位回收。回收过程中旧的访问记录会丢失，可能导致 false negative。14 位 epoch 意味着每个槽位最多记录 16383 个事件后必须重置——但在实践中这足够了，因为槽位回收会在此之前重置 epoch。</p>
+<h3 id="机制三编译器插桩策略">机制三：编译器插桩策略</h3>
+<h4 id="解决什么问题-3">解决什么问题</h4>
+<p>Race detector 需要拦截程序中的每一次内存读写。手动插桩不可行，必须由编译器自动完成。但全量插桩会引入巨大的运行时开销，因此需要智能的插桩策略。</p>
+<h4 id="如何实现-3">如何实现</h4>
+<p>Go 编译器在 SSA（Static Single Assignment）阶段进行插桩，入口位于 <code>cmd/compile/internal/ssagen/ssa.go</code>。每个函数有两个独立的插桩开关：</p>
+<ul>
+<li><code>instrumentMemory</code>：是否插桩内存访问</li>
+<li><code>instrumentEnterExit</code>：是否插桩函数入口/出口</li>
+</ul>
+<figure class="highlight go"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// ssa.go:340-345 (go1.26.4)</span></span><br><span class="line"><span class="keyword">if</span> base.Flag.Cfg.Instrumenting &#x26;&#x26; fn.Pragma&#x26;ir.Norace == <span class="number">0</span> &#x26;&#x26;</span><br><span class="line">    !fn.Linksym().ABIWrapper() {</span><br><span class="line">    <span class="keyword">if</span> !base.Flag.Race || !objabi.LookupPkgSpecial(fn.Sym().Pkg.Path).NoRaceFunc {</span><br><span class="line">        s.instrumentMemory = <span class="literal">true</span></span><br><span class="line">        <span class="keyword">if</span> base.Flag.Race {</span><br><span class="line">            s.instrumentEnterExit = <span class="literal">true</span></span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span></pre></td></tr></tbody></table></figure>
+<p>插桩发生在 SSA 的 <code>load</code>、<code>store</code>、<code>move</code>、<code>zero</code> 操作中：</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>SSA 操作</th><th>插入的检测调用</th><th>时机</th></tr></thead><tbody><tr><td><code>load()</code></td><td><code>raceread</code> / <code>racereadrange</code></td><td>在实际加载<strong>之前</strong></td></tr><tr><td><code>storeType()</code></td><td><code>racewrite</code> / <code>racewriterange</code></td><td>在实际存储<strong>之前</strong></td></tr><tr><td><code>move()</code></td><td><code>raceread(src)</code> + <code>racewrite(dst)</code></td><td>在实际拷贝<strong>之前</strong></td></tr><tr><td><code>zero()</code></td><td><code>racewrite</code> / <code>racewriterange</code></td><td>在实际清零<strong>之前</strong></td></tr></tbody></table>
+<p>对于复合类型（struct、array），使用 <code>racereadrange</code> / <code>racewriterange</code> 传递完整的内存范围；对于标量类型，使用 <code>raceread</code> / <code>racewrite</code> 仅传递起始地址。</p>
+<h4 id="编译器优化哪些访问被跳过">编译器优化——哪些访问被跳过</h4>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>优化</th><th>机制</th><th>原因</th></tr></thead><tbody><tr><td>零大小类型</td><td><code>if w == 0 { return }</code></td><td>零大小的访问不可能产生竞态</td></tr><tr><td>栈本地变量</td><td><code>canSSAName</code> 判定</td><td>纯寄存器变量不经过 load/store 路径</td></tr><tr><td><code>go:norace</code> 标注</td><td><code>fn.Pragma&#x26;ir.Norace</code></td><td>显式标注的函数跳过插桩</td></tr><tr><td>NoInstrument 包</td><td>编译器直接清除 <code>-race</code></td><td>runtime 等包不需要插桩</td></tr><tr><td>ABI wrapper</td><td><code>fn.Linksym().ABIWrapper()</code></td><td>自动生成的 ABI 包装函数</td></tr><tr><td><code>sync/atomic</code> 内联</td><td>禁用 intrinsic</td><td>原子操作必须通过 TSan 专用路径</td></tr></tbody></table>
+<h4 id="为什么禁用-syncatomic-intrinsic">为什么禁用 <code>sync/atomic</code> intrinsic</h4>
+<p>正常构建中，编译器将 <code>sync/atomic.LoadInt64</code> 等函数内联为单条机器指令。但在 <code>-race</code> 模式下，原子操作必须通知 TSan——它不仅是内存访问，还建立同步关系。因此编译器禁用 intrinsic（<code>intrinsics.go:2161-2164</code>），转而使用汇编 stub 调用 <code>__tsan_go_atomic64_load</code> 等专用函数。</p>
+<h4 id="trade-off-3">Trade-off</h4>
+<p>插桩在编译期完成，运行时零判断开销。但这意味着只有被 <code>-race</code> 编译的代码才会被检测。CGo 调用的 C 代码、汇编代码、未用 <code>-race</code> 编译的第三方库都不在检测范围内。</p>
+<h3 id="机制四go-同步原语的-happens-before-建模">机制四：Go 同步原语的 Happens-Before 建模</h3>
+<h4 id="解决什么问题-4">解决什么问题</h4>
+<p>TSan 的 C 运行时理解 pthread_mutex 和 C11 atomics，但不理解 Go 的 channel、goroutine、WaitGroup、RWMutex 等并发原语。Go runtime 必须将这些高级原语的同步语义翻译为 TSan 的 acquire/release 事件。</p>
+<h4 id="如何实现-4">如何实现</h4>
+<p>Go runtime 使用 4 个核心 TSan API 建模所有 happens-before 关系：</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>TSan API</th><th>C11 语义等价</th><th>Go runtime 中的用途</th></tr></thead><tbody><tr><td><code>__tsan_acquire(addr)</code></td><td><code>atomic_load(memory_order_acquire)</code></td><td>获取同步：Lock 成功、channel recv、Wait 返回</td></tr><tr><td><code>__tsan_release(addr)</code></td><td><code>atomic_store(memory_order_release)</code></td><td>释放同步：Unlock、channel close</td></tr><tr><td><code>__tsan_release_acquire(addr)</code></td><td><code>atomic_exchange(memory_order_acq_rel)</code></td><td>双向同步：buffered channel 的 slot 传递</td></tr><tr><td><code>__tsan_release_merge(addr)</code></td><td><code>atomic_exchange(memory_order_release)</code> + merge</td><td>累积同步：WaitGroup.Done、goroutine exit</td></tr></tbody></table>
+<p>以下是各原语的 happens-before 边建模：</p>
+<pre><code class="language-mermaid">graph TB
+    subgraph "Channel（无缓冲）"
+        CS["send: racerelease(chanbuf(c,0))"] --> CR["recv: raceacquire(chanbuf(c,0))"]
+    end
+
+    subgraph "Channel（有缓冲）"
+        BS["send: racereleaseacquire(slot)"] --> BR["recv: racereleaseacquire(slot)"]
+    end
+
+    subgraph "Mutex"
+        MU["Unlock: racerelease(m)"] --> ML["Lock: raceacquire(m)"]
+    end
+
+    subgraph "WaitGroup"
+        WD["Done: racereleasemergeg(wg)"] --> WW["Wait return: raceacquire(wg)"]
+    end
+
+    subgraph "Goroutine"
+        GC["go func(): racegostart(pc)"] --> GR["新 goroutine 开始执行"]
+    end
+</code></pre>
+<p><strong>Channel 的特殊处理</strong></p>
+<p>Channel 是 Go race detector 中最复杂的同步原语。runtime 使用三种不同的策略：</p>
+<ol>
+<li><strong>无缓冲 channel</strong>：发送方和接收方直接交会。使用 <code>racesync()</code> 建立双向 happens-before 边：</li>
+</ol>
+<figure class="highlight go"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// runtime/chan.go:930-935</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">racesync</span><span class="params">(c *hchan, sg *sudog)</span></span> {</span><br><span class="line">    racerelease(chanbuf(c, <span class="number">0</span>))</span><br><span class="line">    raceacquireg(sg.g, chanbuf(c, <span class="number">0</span>))</span><br><span class="line">    racereleaseg(sg.g, chanbuf(c, <span class="number">0</span>))</span><br><span class="line">    raceacquire(chanbuf(c, <span class="number">0</span>))</span><br><span class="line">}</span><br><span class="line"></span></pre></td></tr></tbody></table></figure>
+<ol start="2">
+<li>
+<p><strong>有缓冲 channel</strong>：每个 buffer slot 作为独立的同步对象，使用 <code>racereleaseacquire</code> 建立 slot 级别的 happens-before。</p>
+</li>
+<li>
+<p><strong>零大小元素的 channel</strong>（<code>chan struct{}</code>）：Go 不为其分配实际 buffer，所有同步信息累积在 <code>c.buf</code> 上。</p>
+</li>
+</ol>
+<p><strong>RWMutex 的 <code>RaceDisable/RaceEnable</code></strong></p>
+<p><code>sync.RWMutex.RLock</code> 中有一段关键代码：先调用 <code>race.Read(&#x26;rw.w)</code> 检测读者与写者的竞态，然后调用 <code>race.Disable()</code> 临时禁用同步事件追踪，最后在获锁后调用 <code>race.Enable()</code> 恢复。</p>
+<p>为什么？因为 <code>RWMutex</code> 内部使用原子操作管理 <code>readerCount</code>。如果不禁用同步追踪，TSan 会将这些原子操作视为读者之间的同步点，从而隐藏读者之间的真实数据竞争。这是一个精确建模与性能之间的权衡。</p>
+<h4 id="trade-off-4">Trade-off</h4>
+<p>手工建模的同步语义意味着任何 Go 同步原语的实现变更都需要同步更新 race detector 的 happens-before 标注。遗漏会导致 false positive 或 false negative。</p>
+<h3 id="机制五汇编桥接层性能关键路径">机制五：汇编桥接层——性能关键路径</h3>
+<h4 id="解决什么问题-5">解决什么问题</h4>
+<p>Go 代码调用 C TSan 运行时的传统方式是通过 cgo。但 cgo 调用开销高（需要完整的 G-M-P 调度切换），对于每次内存访问都走 cgo 不可接受。</p>
+<h4 id="如何实现-5">如何实现</h4>
+<p>Go 使用手写汇编 stub（<code>runtime/race_amd64.s</code>）直接调用 TSan C 函数，绕过 cgo。汇编 stub 的核心 <code>racecall&#x3C;></code> 仅做三件事：</p>
+<figure class="highlight text"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span></pre></td><td class="code"><pre><span class="line">1. 保存当前 SP</span><br><span class="line">2. 切换到 g0 栈（TSan C 代码在 g0 栈上执行）</span><br><span class="line">3. CALL AX（调用 TSan 函数）</span><br><span class="line">4. 恢复 SP</span><br><span class="line"></span></pre></td></tr></tbody></table></figure>
+<figure class="highlight asm"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span></pre></td><td class="code"><pre><span class="line">// runtime/race_amd64<span class="number">.</span>s:<span class="number">437</span>-<span class="number">459</span></span><br><span class="line">TEXT racecall&#x3C;>(SB), <span class="built_in">NOSPLIT</span>|NOFRAME, <span class="number">$0</span>-<span class="number">0</span></span><br><span class="line">    <span class="keyword">MOVQ</span>  g_m(<span class="built_in">R14</span>), <span class="built_in">R13</span></span><br><span class="line">    <span class="keyword">MOVQ</span>  <span class="built_in">SP</span>, <span class="built_in">R12</span>           // 保存调用者 <span class="built_in">SP</span></span><br><span class="line">    <span class="keyword">MOVQ</span>  m_g0(<span class="built_in">R13</span>), <span class="built_in">R10</span></span><br><span class="line">    CMPQ  <span class="built_in">R10</span>, <span class="built_in">R14</span></span><br><span class="line">    <span class="keyword">JE</span>    <span class="keyword">call</span>              // 已在 g0 上，跳过切换</span><br><span class="line">    <span class="keyword">MOVQ</span>  (g_sched+gobuf_sp)(<span class="built_in">R10</span>), <span class="built_in">SP</span></span><br><span class="line"><span class="symbol">call:</span></span><br><span class="line">    ANDQ  $~<span class="number">15</span>, <span class="built_in">SP</span>          // <span class="number">16</span> 字节对齐（C ABI 要求）</span><br><span class="line">    <span class="keyword">CALL</span>  <span class="built_in">AX</span></span><br><span class="line">    <span class="keyword">MOVQ</span>  <span class="built_in">R12</span>, <span class="built_in">SP</span>           // 恢复 <span class="built_in">SP</span></span><br><span class="line">    <span class="keyword">RET</span></span><br><span class="line"></span></pre></td></tr></tbody></table></figure>
+<p><code>racecalladdr&#x3C;></code> 在此基础上增加了地址过滤：只有位于 <code>[racearenastart, racearenaend)</code>（堆）或 <code>[racedatastart, racedataend)</code>（全局数据）范围内的地址才会调用 TSan。栈上的地址直接跳过——栈内存不需要竞态检测。</p>
+<figure class="highlight asm"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// runtime/race_amd64.s:151-167</span></span><br><span class="line"><span class="symbol">TEXT</span> racecalladdr&#x3C;>(<span class="built_in">SB</span>), NOSPLIT, <span class="number">$0</span>-<span class="number">0</span></span><br><span class="line">    MOVQ  g_racectx(<span class="built_in">R14</span>), RARG0   <span class="comment">// goroutine 的 TSan 上下文</span></span><br><span class="line">    CMPQ  RARG1, runtime·racearenastart(<span class="built_in">SB</span>)</span><br><span class="line">    JB    <span class="meta">data</span></span><br><span class="line">    CMPQ  RARG1, runtime·racearenaend(<span class="built_in">SB</span>)</span><br><span class="line">    JB    call                     <span class="comment">// 在堆范围内，调用 TSan</span></span><br><span class="line"><span class="symbol">data:</span></span><br><span class="line">    CMPQ  RARG1, runtime·racedatastart(<span class="built_in">SB</span>)</span><br><span class="line">    JB    ret                      <span class="comment">// 不在任何受监控范围内，跳过</span></span><br><span class="line">    CMPQ  RARG1, runtime·racedataend(<span class="built_in">SB</span>)</span><br><span class="line">    JAE   ret</span><br><span class="line"><span class="symbol">call:</span></span><br><span class="line">    JMP   racecall&#x3C;>(<span class="built_in">SB</span>)</span><br><span class="line"><span class="symbol">ret:</span></span><br><span class="line">    RET</span><br><span class="line"></span></pre></td></tr></tbody></table></figure>
+<h4 id="为什么这样设计-3">为什么这样设计</h4>
+<p><code>runtime/race_amd64.s</code> 文件头部的注释说明了三个原因：</p>
+<blockquote>
+<ol>
+<li>比 cgo 快得多（在真实程序上最高 50% 的加速）</li>
+<li>消除了 cgocall 和调度器中的 race 特殊处理</li>
+<li>长期可以移除 runtime/race 对 cmd/go 的循环依赖</li>
+</ol>
+</blockquote>
+<h4 id="trade-off-5">Trade-off</h4>
+<p>手写汇编意味着每个新架构都需要移植一份完整的汇编文件（目前维护 6 个：amd64、arm64、loong64、ppc64le、riscv64、s390x）。</p>
+<h2 id="一次完整执行路径分析">一次完整执行路径分析</h2>
+<p>以一次全局变量写操作 <code>counter++</code> 为例，追踪从源码到竞态判定的完整调用链。</p>
+<pre><code class="language-mermaid">sequenceDiagram
+    participant Code as 用户代码
+    participant Compiler as 编译器插桩
+    participant ASM as 汇编桥接
+    participant TSan as TSan C Runtime
+    participant Shadow as Shadow Memory
+
+    Code->>Compiler: counter++ (对全局变量的写)
+    Note over Compiler: SSA storeType() 插入&#x3C;br/>racewrite(addr)
+    Compiler->>ASM: runtime.racewrite(addr)
+    Note over ASM: 加载 g.racectx&#x3C;br/>检查 addr 范围
+    ASM->>ASM: addr ∈ [datastart, dataend)?
+    ASM->>ASM: 切换到 g0 栈
+    ASM->>TSan: __tsan_write(thr, addr, pc)
+    TSan->>Shadow: 计算 shadow_addr = f(addr)
+    TSan->>Shadow: 加载 4 个 shadow slots
+    Note over TSan: 对每个 slot:&#x3C;br/>1. 字节重叠？&#x3C;br/>2. 同一线程？&#x3C;br/>3. 都是读/原子？&#x3C;br/>4. happens-before？
+    alt 检测到竞态
+        TSan->>TSan: DoReportRace()
+        TSan->>Code: 回调 raceSymbolizeCode
+        Note over Code: 翻译 PC → 文件:行号
+        TSan->>Code: 输出诊断报告
+    else 无竞态
+        TSan->>Shadow: 写入新 shadow word
+        TSan->>ASM: 返回
+        ASM->>Code: 继续执行
+    end
+</code></pre>
+<h3 id="逐步拆解">逐步拆解</h3>
+<p><strong>Step 1：编译器插桩</strong></p>
+<p>编译器在 <code>storeType()</code> 中发现这是一次对非栈、非零大小变量的写操作。在 SSA IR 中，在实际 store 指令之前插入 <code>runtime.racewrite(addr)</code> 调用。</p>
+<p><strong>Step 2：汇编 stub（<code>racewrite</code>）</strong></p>
+<figure class="highlight asm"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span></pre></td><td class="code"><pre><span class="line">TEXT runtime·racewrite&#x3C;ABIInternal>(SB), <span class="built_in">NOSPLIT</span>, <span class="number">$0</span>-<span class="number">8</span></span><br><span class="line">    <span class="keyword">MOVQ</span>  <span class="built_in">AX</span>, RARG1            // addr → 第二个 C 参数</span><br><span class="line">    <span class="keyword">MOVQ</span>  (<span class="built_in">SP</span>), RARG2          // 返回地址（PC）→ 第三个 C 参数</span><br><span class="line">    <span class="keyword">MOVQ</span>  $__tsan_write(SB), <span class="built_in">AX</span></span><br><span class="line">    <span class="keyword">JMP</span>   racecalladdr&#x3C;>(SB)</span><br><span class="line"></span></pre></td></tr></tbody></table></figure>
+<p><code>racecalladdr&#x3C;></code> 执行：</p>
+<ol>
+<li>将 <code>g.racectx</code>（goroutine 的 TSan 线程上下文）载入第一个 C 参数</li>
+<li>检查 <code>addr</code> 是否在堆或全局数据范围内（不在则直接 <code>RET</code>）</li>
+<li>切换到 <code>g0</code> 栈，调用 <code>__tsan_write</code></li>
+</ol>
+<p><strong>Step 3：TSan 竞态检测（C Runtime 内部）</strong></p>
+<p><code>__tsan_write(thr, addr, pc)</code> 的核心逻辑伪代码：</p>
+<figure class="highlight text"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span></pre></td><td class="code"><pre><span class="line">func tsan_write(thr, addr, pc):</span><br><span class="line">    // 1. 构造当前访问的 shadow word</span><br><span class="line">    cur = Shadow(thr.fast_state.sid, thr.fast_state.epoch,</span><br><span class="line">                 addr &#x26; 0x7, size, WRITE)</span><br><span class="line"></span><br><span class="line">    // 2. 计算 shadow 地址，加载 4 个 slot</span><br><span class="line">    shadow_mem = shadow_of(addr)</span><br><span class="line">    slots = load_4_shadows(shadow_mem)</span><br><span class="line"></span><br><span class="line">    // 3. 快速路径：是否存在完全相同的访问？</span><br><span class="line">    if contains_same_access(slots, cur):</span><br><span class="line">        return  // 同一线程的重复访问，跳过</span><br><span class="line"></span><br><span class="line">    // 4. 逐个检查 4 个 slot</span><br><span class="line">    for i in 0..3:</span><br><span class="line">        old = slots[i]</span><br><span class="line">        if old is empty:</span><br><span class="line">            store cur in slots[i]</span><br><span class="line">            return</span><br><span class="line"></span><br><span class="line">        if (cur.access &#x26; old.access) == 0:</span><br><span class="line">            continue  // 字节不重叠</span><br><span class="line"></span><br><span class="line">        if cur.sid == old.sid:</span><br><span class="line">            // 同一线程，更新 shadow</span><br><span class="line">            update_slot(slots[i], cur)</span><br><span class="line">            continue</span><br><span class="line"></span><br><span class="line">        if both_reads_or_atomic(old, cur):</span><br><span class="line">            continue  // 都是读，或一方是原子操作</span><br><span class="line"></span><br><span class="line">        if thr.clock[old.sid] >= old.epoch:</span><br><span class="line">            continue  // happens-before 成立</span><br><span class="line"></span><br><span class="line">        // 竞态！</span><br><span class="line">        report_race(old, cur, addr, pc)</span><br><span class="line">        return</span><br><span class="line"></span><br><span class="line">    // 5. 所有 slot 都满且无竞态，淘汰最旧的</span><br><span class="line">    replace_oldest_slot(slots, cur)</span><br><span class="line"></span></pre></td></tr></tbody></table></figure>
+<p><strong>Step 4：报告生成</strong></p>
+<p>TSan 通过回调机制将 PC 地址传回 Go 进行符号化。<code>raceSymbolizeCode</code>（<code>runtime/race.go:254-294</code>）使用 <code>findfunc</code> 和 <code>newInlineUnwinder</code> 处理内联函数的展开，将 PC 翻译为源文件名、行号和函数名。</p>
+<h2 id="runtime-与底层机制">Runtime 与底层机制</h2>
+<h3 id="goroutine-与-tsan-线程上下文">Goroutine 与 TSan 线程上下文</h3>
+<p>每个 goroutine 结构体 <code>g</code> 中包含一个 <code>racectx uintptr</code> 字段，存储 TSan 分配的线程上下文指针。</p>
+<figure class="highlight text"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span></pre></td><td class="code"><pre><span class="line">goroutine 生命周期中的 race 事件：</span><br><span class="line"></span><br><span class="line">newproc()</span><br><span class="line">  └─ racegostart(callerpc)</span><br><span class="line">       └─ __tsan_go_start(parent.racectx, &#x26;child.racectx, pc)</span><br><span class="line">            返回新的 racectx，赋给 newg.racectx</span><br><span class="line"></span><br><span class="line">... goroutine 运行 ...</span><br><span class="line">每次内存访问：raceread/racewrite 使用 g.racectx</span><br><span class="line">每次同步操作：raceacquire/racerelease 使用 g.racectx</span><br><span class="line"></span><br><span class="line">goexit1()</span><br><span class="line">  └─ racegoend()</span><br><span class="line">       └─ __tsan_go_end(g.racectx)</span><br><span class="line"></span></pre></td></tr></tbody></table></figure>
+<p><code>racegostart</code> 建立了父 goroutine 到子 goroutine 的 happens-before 边：<code>go</code> 语句之前的所有操作 happens-before 子 goroutine 的开始执行。</p>
+<h3 id="pprocessor与-tsan-处理器上下文">P（Processor）与 TSan 处理器上下文</h3>
+<p>除了 goroutine 上下文，每个 P 也持有一个 <code>raceprocctx</code>：</p>
+<figure class="highlight go"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// runtime/proc.go:5925-5930</span></span><br><span class="line"><span class="keyword">if</span> raceenabled &#x26;&#x26; pp.raceprocctx == <span class="number">0</span> {</span><br><span class="line">    <span class="keyword">if</span> raceprocctx0 != <span class="number">0</span> {</span><br><span class="line">        pp.raceprocctx = raceprocctx0</span><br><span class="line">        raceprocctx0 = <span class="number">0</span>  <span class="comment">// bootstrap</span></span><br><span class="line">    } <span class="keyword">else</span> {</span><br><span class="line">        pp.raceprocctx = raceproccreate()</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span></pre></td></tr></tbody></table></figure>
+<p>TSan 使用这个上下文管理 per-processor 的元数据（如 shadow memory 的本地缓存），避免全局锁争用。</p>
+<h3 id="内存分配与-shadow-memory-映射">内存分配与 Shadow Memory 映射</h3>
+<p>Go runtime 的堆内存分配器在 <code>-race</code> 模式下有两项重要调整：</p>
+<ol>
+<li>
+<p><strong>禁用 tiny allocator</strong>：正常模式下，Go 将多个小对象（&#x3C;16 字节）合并到同一个内存块中。在 <code>-race</code> 模式下这会导致不相关的小对象共享 shadow memory slot，引发 false positive。因此 tiny allocator 被完全禁用。</p>
+</li>
+<li>
+<p><strong>Shadow memory 按需映射</strong>：每次分配新的堆内存 span 时，<code>racemapshadow(v, size)</code> 通知 TSan 映射对应的 shadow memory。新分配的对象通过 <code>racemalloc(x, size)</code> 通知 TSan 清空对应的 shadow slot——这确保新对象不会继承上一个对象的访问历史。</p>
+</li>
+</ol>
+<h3 id="调度器随机化">调度器随机化</h3>
+<figure class="highlight go"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// runtime/proc.go:7471</span></span><br><span class="line"><span class="keyword">const</span> randomizeScheduler = raceenabled</span><br><span class="line"></span></pre></td></tr></tbody></table></figure>
+<p>在 <code>-race</code> 模式下，goroutine 的调度顺序被随机化。这增加了暴露竞态的概率——确定性调度可能恰好让竞态的两个 goroutine 总是"错开"执行，永远不触发竞态。</p>
+<h2 id="性能与工程取舍">性能与工程取舍</h2>
+<h3 id="量化开销">量化开销</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>维度</th><th>正常构建</th><th>-race 构建</th><th>开销倍数</th></tr></thead><tbody><tr><td>CPU 时间</td><td>基准</td><td>2-20×</td><td>取决于内存访问密度</td></tr><tr><td>内存（RSS）</td><td>基准</td><td>5-10×</td><td>shadow memory 2× + vector clock + 禁用 tiny allocator</td></tr><tr><td>二进制大小</td><td>基准</td><td>+数 MB</td><td>链接 .syso TSan 运行时</td></tr><tr><td>编译时间</td><td>基准</td><td>约 1.5-2×</td><td>额外的 SSA 插桩 pass + 链接 .syso</td></tr></tbody></table>
+<p>CPU 开销的 2-20× 范围跨度大，原因在于内存访问密度的差异。计算密集型程序（大量算术、少量内存访问）接近 2×；内存密集型程序（大量结构体操作、slice 遍历）接近 20×。</p>
+<h3 id="go-做了哪些优化">Go 做了哪些优化</h3>
+<ul>
+<li><strong>地址过滤</strong>：汇编 stub 在调用 TSan 前检查地址范围，栈上的内存访问直接跳过。这避免了大量不必要的 TSan 调用。</li>
+<li><strong>绕过 cgo</strong>：手写汇编 stub 直接在 g0 栈上调用 C 函数，避免 cgo 的完整调度切换（最高 50% 加速）。</li>
+<li><strong>编译期过滤</strong>：零大小类型、纯寄存器变量、<code>go:norace</code> 标注的函数在编译期就被排除。</li>
+<li><strong>Shadow word 压缩</strong>：32 位 shadow word（相比 v1 的 64 位）将内存开销减半。</li>
+</ul>
+<h3 id="go-牺牲了什么">Go 牺牲了什么</h3>
+<ul>
+<li><strong>完整性</strong>：动态检测只能覆盖实际执行的代码路径。未触发的竞态无法被发现。</li>
+<li><strong>Goroutine 限制</strong>：256 个线程槽位是硬限制。超过此数的并发 goroutine 会导致槽位回收和检测精度下降。</li>
+<li><strong>不适合生产环境</strong>：5-10× 的内存开销和 2-20× 的 CPU 开销使得 <code>-race</code> 不适用于生产环境。它是测试和 CI 工具，不是运行时保护。</li>
+<li><strong>Cgo 边界</strong>：C 代码中的内存访问不受 Go race detector 监控。跨语言竞态可能漏报。</li>
+</ul>
+<h2 id="与同类方案对比">与同类方案对比</h2>
+<h3 id="go-race-detector-vs-helgrindvalgrind">Go Race Detector vs. Helgrind（Valgrind）</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>维度</th><th>Go Race Detector</th><th>Helgrind</th></tr></thead><tbody><tr><td>检测方法</td><td>编译器插桩 + happens-before</td><td>二进制翻译 + happens-before + lockset 混合</td></tr><tr><td>适用语言</td><td>Go</td><td>C/C++/任何 ELF 二进制</td></tr><tr><td>CPU 开销</td><td>2-20×</td><td>50-200×</td></tr><tr><td>内存开销</td><td>5-10×</td><td>4-8×</td></tr><tr><td>是否需要重新编译</td><td>是（<code>-race</code> 标志）</td><td>否（直接运行二进制）</td></tr><tr><td>误报率</td><td>无误报（纯 happens-before）</td><td>lockset 部分可能误报</td></tr><tr><td>漏报率</td><td>存在（仅动态覆盖）</td><td>存在（仅动态覆盖）</td></tr></tbody></table>
+<p>Helgrind 的优势在于不需要重新编译，但 50-200× 的 CPU 开销使其在大型测试套件中不实用。Go race detector 的 2-20× 开销使得在 CI 中默认启用 <code>-race</code> 成为可行的工程实践。</p>
+<h3 id="go-race-detector-vs-静态分析">Go Race Detector vs. 静态分析</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>维度</th><th>Go Race Detector</th><th>静态分析（go vet、staticcheck）</th></tr></thead><tbody><tr><td>覆盖范围</td><td>仅实际执行路径</td><td>所有代码路径（理论上）</td></tr><tr><td>精确度</td><td>无误报</td><td>较高误报率</td></tr><tr><td>开销</td><td>运行时 2-20×</td><td>仅编译期</td></tr><tr><td>检测能力</td><td>任意复杂的并发模式</td><td>有限的模式匹配</td></tr></tbody></table>
+<p>静态分析擅长发现简单的并发模式错误（如未加锁的 map 并发读写），但对复杂的 happens-before 关系无能为力。race detector 的 happens-before 分析能捕获任意复杂的同步模式，但代价是只能检测到实际执行路径上的竞态。</p>
+<p>两者互补：静态分析覆盖所有路径但浅，动态检测覆盖部分路径但深。</p>
+<h3 id="go-race-detector-vs-tsan-for-cc">Go Race Detector vs. TSan for C/C++</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>维度</th><th>Go Race Detector</th><th>C/C++ TSan</th></tr></thead><tbody><tr><td>同步原语</td><td>Go 语义（channel, goroutine, WaitGroup）</td><td>POSIX 语义（pthread, C11 atomics）</td></tr><tr><td>TSan 集成方式</td><td>预编译 .syso + 汇编桥接</td><td>LLVM pass + 动态链接 libTSan</td></tr><tr><td>线程模型</td><td>百万级 goroutine → 256 个 TSan 线程槽位</td><td>1:1 线程映射</td></tr><tr><td>原子操作处理</td><td>汇编 stub 替换 intrinsic</td><td>编译器自动插桩</td></tr></tbody></table>
+<p>Go 的独特挑战在于 goroutine 到 OS 线程的 M:N 映射。TSan 原生理解的是 OS 线程，Go runtime 必须在 goroutine 调度层面维护 TSan 的线程上下文，并通过 <code>racegostart</code> / <code>racegoend</code> 显式管理 goroutine 的生命周期。</p>
+<h2 id="源码关键路径分析">源码关键路径分析</h2>
+<p>以下是理解 Go race detector 实现的核心源码阅读地图。</p>
+<figure class="highlight text"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span></pre></td><td class="code"><pre><span class="line">入口：go build -race</span><br><span class="line">  │</span><br><span class="line">  ├─ cmd/go/internal/work/init.go      # -race 标志验证，设置 forcedGcflags</span><br><span class="line">  │    └─ 注入 -race 到编译器标志</span><br><span class="line">  │</span><br><span class="line">  ├─ cmd/go/internal/load/pkg.go       # 强制依赖 runtime/race</span><br><span class="line">  │</span><br><span class="line">  ├─ cmd/compile/internal/gc/main.go   # 设置 Instrumenting = true</span><br><span class="line">  │</span><br><span class="line">  ├─ cmd/compile/internal/ssagen/ssa.go # SSA 插桩核心</span><br><span class="line">  │    ├─ 行 164-169: 注册 race 符号（Racefuncenter 等）</span><br><span class="line">  │    ├─ 行 340-345: 决定 instrumentMemory / instrumentEnterExit</span><br><span class="line">  │    ├─ 行 568-571: 函数入口插入 racefuncenter</span><br><span class="line">  │    ├─ 行 1522-1579: instrument2() — 内存访问插桩</span><br><span class="line">  │    └─ 行 5620-5624: storeType() — store 前插入 racewrite</span><br><span class="line">  │</span><br><span class="line">  ├─ runtime/race.go                    # Go ↔ TSan 桥接</span><br><span class="line">  │    ├─ 行 448-493: raceinit() — 初始化 TSan + shadow memory</span><br><span class="line">  │    ├─ 行 550-562: racegostart() — goroutine 创建</span><br><span class="line">  │    ├─ 行 616-672: raceacquire/release — 同步事件</span><br><span class="line">  │    └─ 行 254-294: raceSymbolizeCode() — PC 符号化</span><br><span class="line">  │</span><br><span class="line">  ├─ runtime/race_amd64.s              # 汇编桥接</span><br><span class="line">  │    ├─ 行 47-52: raceread → __tsan_read</span><br><span class="line">  │    ├─ 行 73-78: racewrite → __tsan_write</span><br><span class="line">  │    ├─ 行 151-167: racecalladdr&#x3C;> — 地址过滤</span><br><span class="line">  │    ├─ 行 384-423: racecallatomic&#x3C;> — 原子操作</span><br><span class="line">  │    └─ 行 437-459: racecall&#x3C;> — 栈切换 + C 调用</span><br><span class="line">  │</span><br><span class="line">  ├─ runtime/chan.go                    # Channel 的 HB 建模</span><br><span class="line">  │    ├─ 行 930-935: racesync() — 无缓冲 channel</span><br><span class="line">  │    └─ 行 940-969: racenotify() — 有缓冲 channel</span><br><span class="line">  │</span><br><span class="line">  ├─ runtime/proc.go                   # Goroutine 生命周期</span><br><span class="line">  │    ├─ 行 859-860: raceinit() 调用点</span><br><span class="line">  │    └─ 行 5413-5416: newg.racectx = racegostart()</span><br><span class="line">  │</span><br><span class="line">  └─ runtime/race/                     # TSan C 运行时</span><br><span class="line">       ├─ README: .syso 文件来源（LLVM compiler-rt）</span><br><span class="line">       └─ *.syso: 预编译的 TSan 运行时（每个 OS/arch 一份）</span><br><span class="line"></span></pre></td></tr></tbody></table></figure>
+<h3 id="调用链示例racewrite-的完整路径">调用链示例：<code>racewrite</code> 的完整路径</h3>
+<figure class="highlight text"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span></pre></td><td class="code"><pre><span class="line">用户代码: x = 42 (编译器生成)</span><br><span class="line">  → runtime.racewrite(addr)            [Go, 编译器插入]</span><br><span class="line">  → runtime·racewrite (ABIInternal)    [汇编, race_amd64.s:47]</span><br><span class="line">  → racecalladdr&#x3C;>                     [汇编, 地址过滤]</span><br><span class="line">  → racecall&#x3C;>                         [汇编, 切换 g0 栈]</span><br><span class="line">  → __tsan_write(thr, addr, pc)        [C, .syso 中的 TSan]</span><br><span class="line">  → 查询/更新 shadow memory</span><br><span class="line">  → 返回（或触发 report）</span><br><span class="line"></span></pre></td></tr></tbody></table></figure>
+<h2 id="实践建议">实践建议</h2>
+<h3 id="适合使用的场景">适合使用的场景</h3>
+<ul>
+<li><strong>CI/CD 流水线</strong>：在测试阶段启用 <code>go test -race ./...</code>，这是最高投入产出比的用法。</li>
+<li><strong>集成测试</strong>：竞态通常在多组件交互时才暴露，集成测试的覆盖面比单元测试更有价值。</li>
+<li><strong>新并发代码的验证</strong>：任何涉及 goroutine 或 shared state 的新代码，推送前用 <code>-race</code> 跑一遍。</li>
+</ul>
+<h3 id="不适合使用的场景">不适合使用的场景</h3>
+<ul>
+<li><strong>生产环境</strong>：5-10× 内存和 2-20× CPU 开销不可接受。</li>
+<li><strong>性能基准测试</strong>：插桩代码会严重扭曲性能数据。</li>
+<li><strong>纯计算代码</strong>：没有并发的代码启用 <code>-race</code> 只会浪费资源。</li>
+</ul>
+<h3 id="常见误区">常见误区</h3>
+<ol>
+<li><strong>"没有报竞态就没有竞态"</strong>：race detector 只能检测已执行路径上的竞态。测试覆盖率直接决定检测效果。</li>
+<li><strong>"<code>-race</code> 可以在生产环境使用"</strong>：除非你的服务有充足的资源余量，否则不建议。某些团队在金丝雀实例上启用 <code>-race</code>，但这需要额外的监控和告警。</li>
+<li><strong>"竞态报告可以忽略"</strong>：Go 的数据竞争是 undefined behavior。即使当前表现"正常"，编译器优化、CPU 架构差异、Go 版本升级都可能改变行为。每个 race 报告都应当修复。</li>
+<li><strong>"用 atomic 替代 mutex 可以避免竞态"</strong>：只在操作是单个 word 的读写时成立。多字段的结构体更新需要 mutex。</li>
+<li><strong>"channel 天然安全"</strong>：channel 自身是安全的，但通过 channel 传递指针后，对指针指向内容的并发访问仍需同步。</li>
+</ol>
+<h3 id="性能陷阱">性能陷阱</h3>
+<ul>
+<li><strong><code>-count</code> 参数</strong>：<code>go test -race -count=10</code> 多次运行同一测试，增加暴露竞态的概率，但 10× 的运行次数乘以 race 的开销可能导致 CI 超时。</li>
+<li><strong>大 struct 的 <code>racewriterange</code></strong>：每次对大结构体的赋值都会触发 range 检测，开销与结构体大小成正比。如果 <code>-race</code> 下性能极差，检查是否有高频的大结构体拷贝。</li>
+</ul>
+<h2 id="总结">总结</h2>
+<p>Go race detector 的本质是一个<strong>编译器-运行时协作系统</strong>：编译器负责"看到"每一次内存访问，Go runtime 负责"翻译"Go 的同步语义，TSan C 运行时负责"判定"happens-before 关系。三层各司其职，通过汇编桥接层高效衔接。</p>
+<p>最重要的设计思想是 <strong>复用而非重造</strong>。Go 团队没有从零实现竞态检测算法，而是选择与 LLVM TSan v2 深度集成。TSan 的 shadow memory + vector clock + epoch 压缩是经过 Google 内部大规模验证的成熟方案。Go 的贡献在于精确建模了 channel、goroutine、WaitGroup 等 Go 特有原语的 happens-before 语义。</p>
+<p>最值得学习的工程实践：<strong>让工具可以被低成本地使用</strong>。2× 内存 + 2-20× CPU 的开销使得 <code>-race</code> 可以在 CI 中默认启用，而不是像 Valgrind 那样只能偶尔手动运行。Go 团队为此做了大量优化——汇编 stub 绕过 cgo、地址范围过滤、编译期排除不必要的插桩。这些优化的目标不是让 race detector 更快，而是让它快到"所有人都愿意在 CI 中开启"。</p>
+<hr>
+<p><em>基于 Go 1.26.4 源码分析（commit: a9ce111, tag: go1.26.4）。TSan C 运行时源自 LLVM compiler-rt（commit: 51bfeff）。</em></p> </article> <div class="article-footer"> <section id="license"> <div class="header"><span>许可协议</span></div> <div class="body"> <p> <a href="/wiki/bio/mycat/">喂猫🍞</a> <br>
+This article is licensed under the <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>. Please provide attribution when reproducing.
+<br>
+本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。
+</p> </div> </section> <section id="share"> <div class="header"><span>分享文章</span></div> <div class="body"> <div class="link"><label for="copy-link" class="sr-only">文章链接</label><input class="copy-area" readonly id="copy-link" value="https://shansan.top/drafts/deep-dive-go-race-detector/"></div> <div class="social-wrap dis-select"> <button type="button" class="social share-item wechat" id="share-wechat-btn" aria-label="显示微信二维码"><img src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/b32ef3da1162a.svg" alt=""></button> <a class="social share-item weibo" target="_blank" rel="external nofollow noopener noreferrer" href="https://service.weibo.com/share/share.php?url=https%3A%2F%2Fshansan.top%2Fdrafts%2Fdeep-dive-go-race-detector%2F&amp;title=%E6%B7%B1%E5%85%A5+Go+Race+Detector%EF%BC%9A%E4%BB%8E%E7%BC%96%E8%AF%91%E5%99%A8%E6%8F%92%E6%A1%A9%E5%88%B0+ThreadSanitizer+%E8%BF%90%E8%A1%8C%E6%97%B6+-+ShanSan&amp;summary=%E6%95%B0%E6%8D%AE%E7%AB%9E%E4%BA%89%EF%BC%88data+race%EF%BC%89%E6%98%AF%E5%B9%B6%E5%8F%91%E7%A8%8B%E5%BA%8F%E4%B8%AD%E6%9C%80%E9%9A%90%E8%94%BD%E7%9A%84%E7%BC%BA%E9%99%B7%E7%B1%BB%E5%88%AB%E3%80%82%E5%AE%83%E4%B8%8D%E4%BA%A7%E7%94%9F%E7%BC%96%E8%AF%91%E9%94%99%E8%AF%AF%EF%BC%8C%E4%B8%8D%E4%B8%80%E5%AE%9A%E8%A7%A6%E5%8F%91+panic%EF%BC%8C%E7%94%9A%E8%87%B3%E5%8F%AF%E8%83%BD%E5%9C%A8%E6%95%B0%E7%99%BE%E4%B8%87%E6%AC%A1%E6%89%A7%E8%A1%8C%E4%B8%AD%E5%8F%AA%E5%A4%8D%E7%8E%B0%E4%B8%80%E6%AC%A1%E3%80%82C%2FC%2B%2B+%E6%A0%87%E5%87%86%E5%B0%86%E5%8C%85%E5%90%AB%E6%95%B0%E6%8D%AE%E7%AB%9E%E4%BA%89%E7%9A%84%E7%A8%8B%E5%BA%8F%E5%AE%9A%E4%B9%89%E4%B8%BA+undefined+behavior%EF%BC%9BGo+%E7%9A%84%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%E5%90%8C%E6%A0%B7%E6%98%8E%E7%A1%AE%EF%BC%9A%E5%AF%B9%E5%90%8C%E4%B8%80%E5%8F%98%E9%87%8F%E7%9A%84%E5%B9%B6%E5%8F%91%E8%AF%BB%E5%86%99%E8%8B%A5%E6%97%A0%E5%90%8C%E6%AD%A5%E4%BF%9D%E6%8A%A4%EF%BC%8C" aria-label="分享到微博"><img src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/80c07e4dbb303.svg" alt="微博"></a> <a class="social share-item email" href="mailto:?subject=%E6%B7%B1%E5%85%A5%20Go%20Race%20Detector%EF%BC%9A%E4%BB%8E%E7%BC%96%E8%AF%91%E5%99%A8%E6%8F%92%E6%A1%A9%E5%88%B0%20ThreadSanitizer%20%E8%BF%90%E8%A1%8C%E6%97%B6%20-%20ShanSan&amp;body=https%3A%2F%2Fshansan.top%2Fdrafts%2Fdeep-dive-go-race-detector%2F" aria-label="通过邮件分享"><img src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/a1b00e20f425d.svg" alt="邮件"></a> <button type="button" class="social share-item link" id="share-copy-btn" aria-label="复制文章链接"><img src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/8411ed322ced6.svg" alt=""></button> </div> <div class="qrcode" id="qrcode-wechat" style="opacity:0;height:0"> <img src="https://api.qrserver.com/v1/create-qr-code/?size=256x256&amp;data=https%3A%2F%2Fshansan.top%2Fdrafts%2Fdeep-dive-go-race-detector%2F" alt="QR Code"> </div> </div> </section> <script>
+(function() {
+  var wechatBtn = document.getElementById('share-wechat-btn');
+  var copyBtn = document.getElementById('share-copy-btn');
+  var qrcode = document.getElementById('qrcode-wechat');
+  var copyInput = document.getElementById('copy-link');
+
+  if (wechatBtn && qrcode) {
+    wechatBtn.addEventListener('click', function() {
+      var isOpen = qrcode.style.height !== '0px' && qrcode.style.height !== '0';
+      qrcode.style.opacity = isOpen ? '0' : '1';
+      qrcode.style.height = isOpen ? '0' : '128px';
+      wechatBtn.setAttribute('aria-expanded', String(!isOpen));
+    });
+  }
+
+  if (copyBtn && copyInput) {
+    var resetTimer = null;
+    var setCopyState = function(state) {
+      copyBtn.classList.toggle('success', state === 'success');
+      copyBtn.classList.toggle('warning', state === 'warning');
+      copyBtn.setAttribute('aria-label', state === 'success' ? '已复制文章链接' : state === 'warning' ? '复制失败' : '复制文章链接');
+      copyBtn.setAttribute('title', state === 'success' ? '已复制' : state === 'warning' ? '复制失败' : '复制文章链接');
+      if (resetTimer) clearTimeout(resetTimer);
+      if (state !== 'idle') {
+        resetTimer = setTimeout(function() {
+          setCopyState('idle');
+        }, 1800);
+      }
+    };
+    var fallbackCopy = function() {
+      copyInput.focus();
+      copyInput.select();
+      copyInput.setSelectionRange(0, copyInput.value.length);
+      return document.execCommand('copy');
+    };
+    copyBtn.addEventListener('click', function(event) {
+      event.preventDefault();
+      var value = copyInput.value;
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(value).then(function() {
+          setCopyState('success');
+        }).catch(function() {
+          setCopyState(fallbackCopy() ? 'success' : 'warning');
+        });
+        return;
+      }
+      setCopyState(fallbackCopy() ? 'success' : 'warning');
+    });
+    setCopyState('idle');
+  }
+})();
+</script> </div> <div class="related-wrap md-text" id="comments"> <section class="header cmt-title cap theme"> <p>ShanSan</p> </section> <section class="body cmt-body artalk"> <div class="artalk with-fancybox" id="artalk_container"> <svg class="loading" style="vertical-align:middle;fill:currentColor;overflow:hidden;" viewBox="0 0 1024 1024" version="1.1"> <path d="M832 512c0-176-144-320-320-320V128c211.2 0 384 172.8 384 384h-64zM192 512c0 176 144 320 320 320v64C300.8 896 128 723.2 128 512h64z"></path> </svg> </div> </section> </div> <script>(() => {
+  const el = document.getElementById('artalk_container');
+  if (!el) return;
+
+  const loadCss = (href) => {
+    if (document.querySelector('link[data-artalk-css]')) return;
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = href;
+    link.dataset.artalkCss = 'true';
+    document.head.appendChild(link);
+  };
+
+  const loadJs = (src) => {
+    const existing = document.querySelector('script[data-artalk-js]');
+    if (existing && window.Artalk) return Promise.resolve();
+    if (existing) {
+      return new Promise((resolve) => existing.addEventListener('load', resolve, { once: true }));
+    }
+    return new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = src;
+      script.defer = true;
+      script.dataset.artalkJs = 'true';
+      script.onload = resolve;
+      script.onerror = reject;
+      document.body.appendChild(script);
+    });
+  };
+
+  function initArtalk() {
+    loadCss('https://gcore.jsdelivr.net/npm/artalk@2.9.1/dist/Artalk.css');
+    loadJs('https://gcore.jsdelivr.net/npm/artalk@2.9.1/dist/Artalk.js').then(function () {
+      if (el.dataset.loaded === 'true') return;
+      const path = el.getAttribute('comment_id') ?? decodeURI(window.location.pathname);
+      Artalk.init({
+        el: '#artalk_container',
+        pageKey: path,
+        pageTitle: "深入 Go Race Detector：从编译器插桩到 ThreadSanitizer 运行时",
+        server: 'https://artalk.shan333.cn/',
+        site: 'ShanSan',
+        darkMode: 'auto',
+      });
+      el.dataset.loaded = 'true';
+    });
+  }
+
+  window.stellar = window.stellar || {};
+  window.stellar.initComments = window.stellar.initComments || {};
+  window.stellar.initComments.artalk = initArtalk;
+  if ('IntersectionObserver' in window) {
+    var obs = new IntersectionObserver(function(entries) {
+      if (entries[0].isIntersecting) {
+        obs.disconnect();
+        initArtalk();
+      }
+    }, { rootMargin: '200px' });
+    obs.observe(el);
+  } else {
+    initArtalk();
+  }
+})();</script> <script>
+(function() {
+  var container = document.getElementById('artalk_container');
+  if (!container) return;
+  function fixAria() {
+    container.querySelectorAll('i[aria-label]:not([role])').forEach(function(el) {
+      el.setAttribute('role', 'button');
+    });
+  }
+  var observer = new MutationObserver(fixAria);
+  observer.observe(container, { childList: true, subtree: true });
+})();
+</script>   </main> <footer class="page-footer footnote"> <hr> <div class="text"> <p> <a href="https://shansan.top">Copyright &copy; 2018-2026 ShanSan</a><br> <a target="_blank" rel="noopener noreferrer" href="https://beian.miit.gov.cn/">桂ICP备19000444号</a><br>
+本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。<br>
+Powered by <a target="_blank" rel="noopener noreferrer" href="https://astro.build/">Astro</a> and <a target="_blank" rel="noopener noreferrer" href="https://github.com/xaoxuu/hexo-theme-stellar">hexo-theme-stellar</a><br> <span id="busuanzi_container_site_pv" style="display:none">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span> </p> </div> </footer> <script>
+          (function(){
+            function load(){
+              var s=document.createElement('script');
+              s.src='https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js';
+              s.async=true;
+              document.body.appendChild(s);
+            }
+            if('requestIdleCallback' in window){requestIdleCallback(load)}
+            else{window.addEventListener('load',function(){setTimeout(load,200)})}
+          })();
+        </script> <div class="main-mask" data-sidebar-action="dismiss"></div> </div> <aside class="l_right"> <div class="widgets"> <widget class="widget-wrapper user-card ghuser"> <div class="widget-body data-service ds-ghinfo" data-api="https://api.github.com/users/yeshan333"> <div class="avatar"> <img no-lazy type="img" id="avatar_url" width="128" height="128" src="https://ospy.shan333.cn/blog/github_avatar.png" alt="yeshan333"> </div> <p class="username" type="text" id="name">yeshan333</p> <p class="bio" type="text" id="bio">ShanSan</p> <div class="buttons"> <a class="btn" target="_blank" rel="noopener noreferrer" href="https://github.com/yeshan333?tab=followers"> <span class="title" type="text" id="followers">0</span> <span class="desc">followers</span> </a> <a class="btn" target="_blank" rel="noopener noreferrer" href="https://github.com/yeshan333?tab=following"> <span class="title" type="text" id="following">0</span> <span class="desc">following</span> </a> <a class="btn" target="_blank" rel="noopener noreferrer" href="https://github.com/yeshan333?tab=repositories"> <span class="title" type="text" id="public_repos">0</span> <span class="desc">repos</span> </a> </div> <a class="follow" target="_blank" rel="noopener noreferrer" href="https://github.com/yeshan333">Follow</a> </div> </widget> <widget class="widget-wrapper toc" id="data-toc" collapse="true"> <div class="widget-header dis-select"> <span class="name">本文目录</span> <button type="button" class="cap-action" data-sidebar-action="toggleTOC" aria-label="折叠目录" title="折叠目录"> <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"> <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"></path> </svg> </button> </div> <div class="widget-body"> <ol class="toc"> <li class="toc-item toc-level-2"> <a class="toc-link" href="#从一个最小示例开始"> <span class="toc-text">从一个最小示例开始</span> </a>  </li><li class="toc-item toc-level-2"> <a class="toc-link" href="#最终产物分析"> <span class="toc-text">最终产物分析</span> </a>  </li><li class="toc-item toc-level-2"> <a class="toc-link" href="#全局架构与数据流"> <span class="toc-text">全局架构与数据流</span> </a> <ol class="toc-child"> <li class="toc-item toc-level-3"> <a class="toc-link" href="#四大模块职责"> <span class="toc-text">四大模块职责</span> </a>  </li><li class="toc-item toc-level-3"> <a class="toc-link" href="#数据生命周期"> <span class="toc-text">数据生命周期</span> </a>  </li> </ol> </li><li class="toc-item toc-level-2"> <a class="toc-link" href="#核心实现机制"> <span class="toc-text">核心实现机制</span> </a> <ol class="toc-child"> <li class="toc-item toc-level-3"> <a class="toc-link" href="#机制一shadow-memory用空间换取精确检测"> <span class="toc-text">机制一：Shadow Memory——用空间换取精确检测</span> </a> <ol class="toc-child"> <li class="toc-item toc-level-4"> <a class="toc-link" href="#解决什么问题"> <span class="toc-text">解决什么问题</span> </a> </li><li class="toc-item toc-level-4"> <a class="toc-link" href="#如何实现"> <span class="toc-text">如何实现</span> </a> </li><li class="toc-item toc-level-4"> <a class="toc-link" href="#为什么这样设计"> <span class="toc-text">为什么这样设计</span> </a> </li><li class="toc-item toc-level-4"> <a class="toc-link" href="#替代方案"> <span class="toc-text">替代方案</span> </a> </li><li class="toc-item toc-level-4"> <a class="toc-link" href="#trade-off"> <span class="toc-text">Trade-off</span> </a> </li> </ol> </li><li class="toc-item toc-level-3"> <a class="toc-link" href="#机制二vector-clock-与-epoch-压缩"> <span class="toc-text">机制二：Vector Clock 与 Epoch 压缩</span> </a> <ol class="toc-child"> <li class="toc-item toc-level-4"> <a class="toc-link" href="#解决什么问题-2"> <span class="toc-text">解决什么问题</span> </a> </li><li class="toc-item toc-level-4"> <a class="toc-link" href="#如何实现-2"> <span class="toc-text">如何实现</span> </a> </li><li class="toc-item toc-level-4"> <a class="toc-link" href="#为什么这样设计-2"> <span class="toc-text">为什么这样设计</span> </a> </li><li class="toc-item toc-level-4"> <a class="toc-link" href="#trade-off-2"> <span class="toc-text">Trade-off</span> </a> </li> </ol> </li><li class="toc-item toc-level-3"> <a class="toc-link" href="#机制三编译器插桩策略"> <span class="toc-text">机制三：编译器插桩策略</span> </a> <ol class="toc-child"> <li class="toc-item toc-level-4"> <a class="toc-link" href="#解决什么问题-3"> <span class="toc-text">解决什么问题</span> </a> </li><li class="toc-item toc-level-4"> <a class="toc-link" href="#如何实现-3"> <span class="toc-text">如何实现</span> </a> </li><li class="toc-item toc-level-4"> <a class="toc-link" href="#编译器优化哪些访问被跳过"> <span class="toc-text">编译器优化——哪些访问被跳过</span> </a> </li><li class="toc-item toc-level-4"> <a class="toc-link" href="#为什么禁用-syncatomic-intrinsic"> <span class="toc-text">为什么禁用 sync/atomic intrinsic</span> </a> </li><li class="toc-item toc-level-4"> <a class="toc-link" href="#trade-off-3"> <span class="toc-text">Trade-off</span> </a> </li> </ol> </li><li class="toc-item toc-level-3"> <a class="toc-link" href="#机制四go-同步原语的-happens-before-建模"> <span class="toc-text">机制四：Go 同步原语的 Happens-Before 建模</span> </a> <ol class="toc-child"> <li class="toc-item toc-level-4"> <a class="toc-link" href="#解决什么问题-4"> <span class="toc-text">解决什么问题</span> </a> </li><li class="toc-item toc-level-4"> <a class="toc-link" href="#如何实现-4"> <span class="toc-text">如何实现</span> </a> </li><li class="toc-item toc-level-4"> <a class="toc-link" href="#trade-off-4"> <span class="toc-text">Trade-off</span> </a> </li> </ol> </li><li class="toc-item toc-level-3"> <a class="toc-link" href="#机制五汇编桥接层性能关键路径"> <span class="toc-text">机制五：汇编桥接层——性能关键路径</span> </a> <ol class="toc-child"> <li class="toc-item toc-level-4"> <a class="toc-link" href="#解决什么问题-5"> <span class="toc-text">解决什么问题</span> </a> </li><li class="toc-item toc-level-4"> <a class="toc-link" href="#如何实现-5"> <span class="toc-text">如何实现</span> </a> </li><li class="toc-item toc-level-4"> <a class="toc-link" href="#为什么这样设计-3"> <span class="toc-text">为什么这样设计</span> </a> </li><li class="toc-item toc-level-4"> <a class="toc-link" href="#trade-off-5"> <span class="toc-text">Trade-off</span> </a> </li> </ol> </li> </ol> </li><li class="toc-item toc-level-2"> <a class="toc-link" href="#一次完整执行路径分析"> <span class="toc-text">一次完整执行路径分析</span> </a> <ol class="toc-child"> <li class="toc-item toc-level-3"> <a class="toc-link" href="#逐步拆解"> <span class="toc-text">逐步拆解</span> </a>  </li> </ol> </li><li class="toc-item toc-level-2"> <a class="toc-link" href="#runtime-与底层机制"> <span class="toc-text">Runtime 与底层机制</span> </a> <ol class="toc-child"> <li class="toc-item toc-level-3"> <a class="toc-link" href="#goroutine-与-tsan-线程上下文"> <span class="toc-text">Goroutine 与 TSan 线程上下文</span> </a>  </li><li class="toc-item toc-level-3"> <a class="toc-link" href="#pprocessor与-tsan-处理器上下文"> <span class="toc-text">P（Processor）与 TSan 处理器上下文</span> </a>  </li><li class="toc-item toc-level-3"> <a class="toc-link" href="#内存分配与-shadow-memory-映射"> <span class="toc-text">内存分配与 Shadow Memory 映射</span> </a>  </li><li class="toc-item toc-level-3"> <a class="toc-link" href="#调度器随机化"> <span class="toc-text">调度器随机化</span> </a>  </li> </ol> </li><li class="toc-item toc-level-2"> <a class="toc-link" href="#性能与工程取舍"> <span class="toc-text">性能与工程取舍</span> </a> <ol class="toc-child"> <li class="toc-item toc-level-3"> <a class="toc-link" href="#量化开销"> <span class="toc-text">量化开销</span> </a>  </li><li class="toc-item toc-level-3"> <a class="toc-link" href="#go-做了哪些优化"> <span class="toc-text">Go 做了哪些优化</span> </a>  </li><li class="toc-item toc-level-3"> <a class="toc-link" href="#go-牺牲了什么"> <span class="toc-text">Go 牺牲了什么</span> </a>  </li> </ol> </li><li class="toc-item toc-level-2"> <a class="toc-link" href="#与同类方案对比"> <span class="toc-text">与同类方案对比</span> </a> <ol class="toc-child"> <li class="toc-item toc-level-3"> <a class="toc-link" href="#go-race-detector-vs-helgrindvalgrind"> <span class="toc-text">Go Race Detector vs. Helgrind（Valgrind）</span> </a>  </li><li class="toc-item toc-level-3"> <a class="toc-link" href="#go-race-detector-vs-静态分析"> <span class="toc-text">Go Race Detector vs. 静态分析</span> </a>  </li><li class="toc-item toc-level-3"> <a class="toc-link" href="#go-race-detector-vs-tsan-for-cc"> <span class="toc-text">Go Race Detector vs. TSan for C/C++</span> </a>  </li> </ol> </li><li class="toc-item toc-level-2"> <a class="toc-link" href="#源码关键路径分析"> <span class="toc-text">源码关键路径分析</span> </a> <ol class="toc-child"> <li class="toc-item toc-level-3"> <a class="toc-link" href="#调用链示例racewrite-的完整路径"> <span class="toc-text">调用链示例：racewrite 的完整路径</span> </a>  </li> </ol> </li><li class="toc-item toc-level-2"> <a class="toc-link" href="#实践建议"> <span class="toc-text">实践建议</span> </a> <ol class="toc-child"> <li class="toc-item toc-level-3"> <a class="toc-link" href="#适合使用的场景"> <span class="toc-text">适合使用的场景</span> </a>  </li><li class="toc-item toc-level-3"> <a class="toc-link" href="#不适合使用的场景"> <span class="toc-text">不适合使用的场景</span> </a>  </li><li class="toc-item toc-level-3"> <a class="toc-link" href="#常见误区"> <span class="toc-text">常见误区</span> </a>  </li><li class="toc-item toc-level-3"> <a class="toc-link" href="#性能陷阱"> <span class="toc-text">性能陷阱</span> </a>  </li> </ol> </li><li class="toc-item toc-level-2"> <a class="toc-link" href="#总结"> <span class="toc-text">总结</span> </a>  </li> </ol> </div> <div class="widget-footer"> <a class="top" href="#start" data-scroll-target="#start"> <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"> <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"> <path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"></path> <path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"></path> </g> </svg> <span>回到顶部</span> </a> <a class="buttom" href="#comments" data-scroll-target="#comments"> <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"> <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M8 10.5h8M8 14h5.5M17 3.338A9.95 9.95 0 0 0 12 2C6.477 2 2 6.477 2 12c0 1.6.376 3.112 1.043 4.453c.178.356.237.763.134 1.148l-.595 2.226a1.3 1.3 0 0 0 1.591 1.592l2.226-.596a1.63 1.63 0 0 1 1.149.133A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10c0-1.821-.487-3.53-1.338-5"></path> </svg> <span>参与讨论</span> </a> </div> </widget> </div> </aside> <div class="float-panel"> <button type="button" class="theme-toggle" data-theme-action="toggle" aria-label="切换深色模式" title="切换深色模式"> <span class="theme-icon theme-icon-moon" aria-hidden="true"> <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"></path></svg> </span> <span class="theme-icon theme-icon-sun" aria-hidden="true" hidden> <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2m0 16v2m10-10h-2M4 12H2m17.07-7.07l-1.41 1.41M6.34 17.66l-1.41 1.41m0-14.14l1.41 1.41m11.32 11.32l1.41 1.41"></path></g></svg> </span> </button> <button type="button" style="display:none" class="laptop-only rightbar-toggle mobile" data-sidebar-action="rightbar" aria-label="打开目录" title="打开目录"> <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"></path></svg> </button> <button type="button" style="display:none" class="mobile-only leftbar-toggle mobile" data-sidebar-action="leftbar" aria-label="打开侧栏" title="打开侧栏"> <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11c0-3.771 0-5.657 1.172-6.828C4.343 3 6.229 3 10 3h4c3.771 0 5.657 0 6.828 1.172C22 5.343 22 7.229 22 11v2c0 3.771 0 5.657-1.172 6.828C19.657 21 17.771 21 14 21h-4c-3.771 0-5.657 0-6.828-1.172C2 18.657 2 16.771 2 13z"></path><path id="sep" stroke-linecap="round" d="M5.5 10h6m-5 4h4m4.5 7V3"></path></g></svg> </button> </div> </div> <script>
+  var l_body = document.querySelector('.l_body');
+  var sidebar = {
+    leftbar: function() {
+      if (l_body) {
+        l_body.toggleAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    rightbar: function() {
+      if (l_body) {
+        l_body.toggleAttribute('rightbar');
+        l_body.removeAttribute('leftbar');
+      }
+    },
+    dismiss: function() {
+      if (l_body) {
+        l_body.removeAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    toggleTOC: function() {
+      var toc = document.querySelector('#data-toc');
+      if (toc) toc.classList.toggle('collapse');
+    }
+  };
+  window.sidebar = sidebar;
+  function getCurrentTheme() {
+    var explicit = document.documentElement.getAttribute('data-theme');
+    if (explicit === 'light' || explicit === 'dark') return explicit;
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) return 'dark';
+    return 'light';
+  }
+  function syncThemeToggle() {
+    var button = document.querySelector('.theme-toggle');
+    if (!button) return;
+    var current = getCurrentTheme();
+    var isDark = current === 'dark';
+    button.setAttribute('aria-pressed', String(isDark));
+    button.setAttribute('aria-label', isDark ? '切换到白天模式' : '切换到黑夜模式');
+    button.setAttribute('title', isDark ? '切换到白天模式' : '切换到黑夜模式');
+    var moon = button.querySelector('.theme-icon-moon');
+    var sun = button.querySelector('.theme-icon-sun');
+    if (moon) moon.hidden = isDark;
+    if (sun) sun.hidden = !isDark;
+  }
+  function switchTheme() {
+    var next = getCurrentTheme() === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    window.localStorage.setItem('Stellar.theme', next);
+    syncThemeToggle();
+  }
+  document.addEventListener('click', function(event) {
+    var sidebarTrigger = event.target.closest('[data-sidebar-action]');
+    if (sidebarTrigger) {
+      event.preventDefault();
+      var action = sidebarTrigger.getAttribute('data-sidebar-action');
+      if (action && sidebar[action]) sidebar[action]();
+      return;
+    }
+
+    var themeTrigger = event.target.closest('[data-theme-action="toggle"]');
+    if (themeTrigger) {
+      event.preventDefault();
+      switchTheme();
+      return;
+    }
+
+    var scrollTrigger = event.target.closest('[data-scroll-target]');
+    if (scrollTrigger) {
+      var selector = scrollTrigger.getAttribute('data-scroll-target');
+      var target = selector ? document.querySelector(selector) : null;
+      if (!target) return;
+      event.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      sidebar.dismiss();
+    }
+  });
+  window.switchTheme = switchTheme;
+  syncThemeToggle();
+  if (window.matchMedia) {
+    var themeQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    var onSystemThemeChange = function() {
+      if (!document.documentElement.getAttribute('data-theme')) syncThemeToggle();
+    };
+    if (themeQuery.addEventListener) themeQuery.addEventListener('change', onSystemThemeChange);
+    else if (themeQuery.addListener) themeQuery.addListener(onSystemThemeChange);
+  }
+</script> <script>
+  (function() {
+    var adSlots = document.querySelectorAll('[data-adsense-lazy] ins.adsbygoogle');
+    if (!adSlots.length) return;
+
+    var scriptPromise = null;
+    var loadedSlots = new WeakSet();
+    var earliestLoadAt = Date.now() + 4500;
+    var windowLoaded = document.readyState === 'complete';
+
+    if (!windowLoaded) {
+      window.addEventListener('load', function() {
+        windowLoaded = true;
+      }, { once: true });
+    }
+
+    function loadAdScript() {
+      if (scriptPromise) return scriptPromise;
+      scriptPromise = new Promise(function(resolve, reject) {
+        if (document.querySelector('script[data-adsense-loader]')) {
+          resolve();
+          return;
+        }
+        var script = document.createElement('script');
+        script.async = true;
+        script.crossOrigin = 'anonymous';
+        script.dataset.adsenseLoader = 'true';
+        script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7762707993867214';
+        script.onload = function() { resolve(); };
+        script.onerror = function() { reject(); };
+        document.head.appendChild(script);
+      });
+      return scriptPromise;
+    }
+
+    function schedule(callback) {
+      var runWhenQuiet = function() {
+        if ('requestIdleCallback' in window) {
+          window.requestIdleCallback(callback, { timeout: 3000 });
+        } else {
+          window.setTimeout(callback, 800);
+        }
+      };
+      var runAfterDelay = function() {
+        window.setTimeout(runWhenQuiet, Math.max(0, earliestLoadAt - Date.now()));
+      };
+
+      if (windowLoaded) {
+        runAfterDelay();
+      } else {
+        window.addEventListener('load', runAfterDelay, { once: true });
+      }
+    }
+
+    function hydrateAd(slot) {
+      if (loadedSlots.has(slot)) return;
+      loadedSlots.add(slot);
+      schedule(function() {
+        loadAdScript().then(function() {
+          window.adsbygoogle = window.adsbygoogle || [];
+          window.adsbygoogle.push({});
+          slot.closest('[data-adsense-lazy]')?.setAttribute('data-adsense-loaded', 'true');
+        }).catch(function() {
+          loadedSlots.delete(slot);
+        });
+      });
+    }
+
+    if ('IntersectionObserver' in window) {
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (!entry.isIntersecting) return;
+          hydrateAd(entry.target);
+          observer.unobserve(entry.target);
+        });
+      }, { rootMargin: '200px 0px', threshold: 0.01 });
+      adSlots.forEach(function(slot) { observer.observe(slot); });
+      return;
+    }
+
+    adSlots.forEach(hydrateAd);
+  })();
+</script> <script>
+  (function() {
+    var lazyImgs = document.querySelectorAll('img.lazy[data-src]');
+    if (!lazyImgs.length) return;
+    lazyImgs.forEach(function(img) { img.setAttribute('data-ll-status', 'loading'); });
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (!entry.isIntersecting) return;
+        var img = entry.target;
+        var src = img.getAttribute('data-src');
+        if (src) {
+          img.src = src;
+          img.removeAttribute('data-src');
+          img.addEventListener('load', function() {
+            img.classList.add('loaded');
+            img.setAttribute('data-ll-status', 'loaded');
+          });
+          img.addEventListener('error', function() {
+            img.classList.add('error');
+            img.setAttribute('data-ll-status', 'error');
+          });
+        }
+        observer.unobserve(img);
+      });
+    }, { rootMargin: '200px' });
+    lazyImgs.forEach(function(img) { observer.observe(img); });
+  })();
+</script> <script>
+  (function() {
+    var els = document.getElementsByClassName('ds-ghinfo');
+    for (var i = 0; i < els.length; i++) {
+      (function(el) {
+        var api = el.getAttribute('data-api');
+        if (!api) return;
+        fetch(api).then(function(r) { return r.json(); }).then(function(data) {
+          var keys = Object.keys(data);
+          for (var j = 0; j < keys.length; j++) {
+            var key = keys[j];
+            var textEl = el.querySelector('[type="text"]#' + key);
+            if (textEl) textEl.textContent = data[key];
+            var imgEl = el.querySelector('[type="img"]#' + key);
+            if (imgEl) imgEl.setAttribute('src', data[key]);
+          }
+        }).catch(function() {});
+      })(els[i]);
+    }
+  })();
+</script> <script>
+  document.querySelectorAll('.tabs .nav-tabs .tab').forEach(function(element) {
+    element.addEventListener('click', function(event) {
+      event.preventDefault();
+      if (element.classList.contains('active')) return;
+      var siblings = element.parentNode.children;
+      for (var i = 0; i < siblings.length; i++) {
+        siblings[i].classList.toggle('active', siblings[i] === element);
+      }
+      var href = element.querySelector('a').getAttribute('href').replace('#', '');
+      var tActive = document.getElementById(href);
+      if (!tActive) return;
+      var panes = tActive.parentNode.children;
+      for (var j = 0; j < panes.length; j++) {
+        panes[j].classList.toggle('active', panes[j] === tActive);
+      }
+    });
+  });
+</script> <script>
+  (function() {
+    document.querySelectorAll('figure.highlight .code').forEach(function(codeCell) {
+      if (codeCell.querySelector('.copy-btn')) return;
+      var btn = document.createElement('div');
+      btn.className = 'copy-btn';
+      btn.textContent = 'Copy';
+      btn.addEventListener('click', function() {
+        var pre = codeCell.querySelector('pre');
+        if (!pre) return;
+        var text = pre.innerText || '';
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(text).then(function() {
+            btn.textContent = 'Copied!';
+            btn.classList.add('success');
+            setTimeout(function() {
+              btn.textContent = 'Copy';
+              btn.classList.remove('success');
+            }, 3000);
+          }).catch(function() {
+            btn.textContent = 'Failed';
+            btn.classList.add('warning');
+            setTimeout(function() {
+              btn.textContent = 'Copy';
+              btn.classList.remove('warning');
+            }, 3000);
+          });
+        }
+      });
+      codeCell.appendChild(btn);
+    });
+  })();
+</script> <script>
+  (function() {
+    var tocEl = document.querySelector('#data-toc .toc');
+    if (!tocEl) return;
+    var headers = document.querySelectorAll('article.md-text :is(h1,h2,h3,h4,h5,h6)[id]');
+    if (!headers.length) return;
+    var links = document.querySelectorAll('#data-toc a.toc-link');
+    var scrollOffset = 32;
+
+    function activeTOC() {
+      var scrollTop = window.scrollY || document.documentElement.scrollTop;
+      var topSeg = null;
+      for (var i = 0; i < headers.length; i++) {
+        var rect = headers[i].getBoundingClientRect();
+        var top = rect.top + scrollTop - document.documentElement.clientTop;
+        if (top > scrollTop + scrollOffset) continue;
+        if (!topSeg || top >= topSeg.top) {
+          topSeg = { el: headers[i], top: top };
+        }
+      }
+      for (var j = 0; j < links.length; j++) {
+        links[j].classList.remove('active');
+      }
+      if (topSeg) {
+        var href = '#' + topSeg.el.getAttribute('id');
+        var active = document.querySelector('#data-toc a.toc-link[href="' + href + '"]');
+        if (active) active.classList.add('active');
+      } else if (links.length) {
+        links[0].classList.add('active');
+      }
+    }
+
+    function scrollTOC() {
+      var activeLink = document.querySelector('#data-toc a.toc-link.active');
+      if (!tocEl || !activeLink) return;
+      var ob = activeLink.getBoundingClientRect().bottom - tocEl.getBoundingClientRect().bottom + 100;
+      var ot = activeLink.getBoundingClientRect().top - tocEl.getBoundingClientRect().top - 64;
+      if (ot < 0) {
+        tocEl.scrollBy({ top: ot, behavior: 'smooth' });
+      } else if (ob > 0) {
+        tocEl.scrollBy({ top: ob, behavior: 'smooth' });
+      }
+    }
+
+    var timeout = null;
+    window.addEventListener('scroll', function() {
+      activeTOC();
+      if (timeout !== null) clearTimeout(timeout);
+      timeout = setTimeout(scrollTOC, 50);
+    });
+    activeTOC();
+  })();
+</script> <script type="module">
+  const mermaidBlocks = [...document.querySelectorAll("pre > code.language-mermaid")];
+  if (mermaidBlocks.length) {
+    import("https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs").then(({ default: mermaid }) => {
+      mermaid.initialize({ startOnLoad: false, theme: "default" });
+      mermaidBlocks.forEach((block) => {
+        const source = block.textContent || "";
+        const container = document.createElement("div");
+        container.className = "mermaid";
+        container.textContent = source;
+        block.closest("pre")?.replaceWith(container);
+      });
+      mermaid.run();
+    });
+  }
+</script> <script>
+  (function() {
+    // Add data-fancybox="post" to article images that don't already have a group
+    var articleImgs = document.querySelectorAll('.md-text.content img, .md-text article img');
+    articleImgs.forEach(function(img) {
+      if (!img.getAttribute('data-fancybox')) {
+        img.setAttribute('data-fancybox', 'post');
+      }
+    });
+    // Also tag timeline images
+    var timelineImgs = document.querySelectorAll('.timenode p>img');
+    timelineImgs.forEach(function(img) {
+      if (!img.getAttribute('data-fancybox')) {
+        img.setAttribute('data-fancybox', 'post');
+      }
+    });
+
+    var selector = '[data-fancybox]:not(.error)';
+    if (!document.querySelectorAll(selector).length) return;
+
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = 'https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css';
+    document.head.appendChild(link);
+    var script = document.createElement('script');
+    script.src = 'https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js';
+    script.onload = function() {
+      Fancybox.bind(selector, {
+        hideScrollbar: false,
+        Thumbs: { autoStart: false },
+        caption: function(fancybox, slide) {
+          return slide.triggerEl.alt || slide.triggerEl.dataset.caption || null;
+        }
+      });
+    };
+    document.body.appendChild(script);
+  })();
+</script> </body></html>
