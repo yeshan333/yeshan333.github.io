@@ -1,0 +1,1138 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="generator" content="Astro"><meta name="description" content="MiMo-Code, Dream, Distill, persistent memory, experience evolution, checkpoint-writer, self-improvement"><link rel="preconnect" href="https://gallery.shansan.top"><link rel="preconnect" href="https://ospy.shan333.cn"><link rel="icon" href="https://ospy.shan333.cn/blog/xJ7yMF.jpg"><title>[Draft] 深入 MiMo-Code：基于 Dream 与 Distill 双循环的跨会话经验进化机制 - ShanSan</title><script>
+      (function() {
+        var theme = window.localStorage.getItem('Stellar.theme');
+        if (theme === 'light' || theme === 'dark') {
+          document.documentElement.setAttribute('data-theme', theme);
+        }
+      })();
+    </script><link rel="stylesheet" href="/_astro/content.D1Yh0DJP.css">
+<style>.img-wrap[data-astro-cid-x4ppssot]{position:relative;overflow:hidden;line-height:0}.img-wrap[data-astro-cid-x4ppssot].bg{position:absolute;inset:0;z-index:0}.img-wrap[data-astro-cid-x4ppssot].bg .bg-blur[data-astro-cid-x4ppssot]{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:blur(20px) brightness(.8);transform:scale(1.1);z-index:-1}.img-wrap[data-astro-cid-x4ppssot].loading:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--block, #eee) 25%,var(--bg-a50, #f5f5f5) 50%,var(--block, #eee) 75%);background-size:200% 100%;animation:shimmer 1.5s infinite}.img-wrap[data-astro-cid-x4ppssot].loading img[data-astro-cid-x4ppssot]{opacity:0}.img-wrap[data-astro-cid-x4ppssot] img[data-astro-cid-x4ppssot]{opacity:1;transition:opacity .4s ease,transform .4s ease}.img-wrap[data-astro-cid-x4ppssot]:hover img[data-astro-cid-x4ppssot]:not(.bg-blur){transform:scale(1.03)}@keyframes shimmer{0%{background-position:200% 0}to{background-position:-200% 0}}
+.music-source-link[data-astro-cid-x6feou3b]{display:inline-flex;align-items:center;gap:4px;margin-top:8px;font-size:13px;color:var(--text-p3);text-decoration:none;opacity:.7;transition:opacity .2s}.music-source-link[data-astro-cid-x6feou3b]:hover{opacity:1;color:#e60026}
+</style>
+<link rel="stylesheet" href="/_astro/BaseLayout.GETsND5y.css">
+<link rel="stylesheet" href="/_astro/style.C5ap-Sga.css"></head> <body> <div class="l_body content" id="start" layout="post" type="tech"> <aside class="l_left"> <div class="sidebg"></div> <div class="leftbar-container"> <header class="header"> <div class="logo-wrap"> <a class="avatar" href="/about/"> <div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div> <img no-lazy class="avatar" src="https://ospy.shan333.cn/blog/blog.avatar.jpg" alt="ShanSan"> </a> <a class="title" href="/"> <div class="main">ShanSan</div> <div class="sub cap">个人博客</div> </a> </div> </header> <div class="nav-area"> <nav class="menu dis-select"> <a class="nav-item active" title="博文" href="/archives/"> <span>博文</span> </a><a class="nav-item" title="关于" href="/about/"> <span>关于</span> </a><a class="nav-item" title="友链" href="/friends/"> <span>友链</span> </a><a class="nav-item" title="Bio" href="/wiki/bio/"> <span>Bio</span> </a> </nav> </div> <div class="widgets"> <div class="search-wrapper" id="search-wrapper"> <form class="search-form"> <button type="button" class="search-button" aria-label="搜索" onclick="document.getElementById('search-input').focus();"> <svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg> </button> <input type="text" class="search-input" id="search-input" placeholder="站内搜索"> </form> <div id="search-result"></div> <div class="search-no-result">没有找到内容！</div> </div> <script>
+(function () {
+  var pagefind = null;
+  var input = document.getElementById("search-input");
+  var result = document.getElementById("search-result");
+  var wrapper = document.getElementById("search-wrapper");
+  if (!input || !result || !wrapper) return;
+
+  async function loadPagefind() {
+    if (pagefind) return true;
+    try {
+      pagefind = await import("/pagefind/pagefind.js");
+      await pagefind.init();
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  async function doSearch(query) {
+    result.innerHTML = "";
+    if (!query) {
+      wrapper.setAttribute("searching", "false");
+      wrapper.classList.remove("noresult");
+      return;
+    }
+    wrapper.setAttribute("searching", "true");
+
+    var loaded = await loadPagefind();
+    if (!loaded) {
+      result.innerHTML = '<p class="search-dev-notice">搜索功能需要先运行 build</p>';
+      return;
+    }
+
+    var search = await pagefind.search(query);
+    if (!search.results.length) {
+      wrapper.classList.add("noresult");
+      return;
+    }
+    wrapper.classList.remove("noresult");
+
+    var top = search.results.slice(0, 10);
+    var items = await Promise.all(top.map(function (r) { return r.data(); }));
+
+    var ul = document.createElement("ul");
+    ul.className = "search-result-list";
+
+    items.forEach(function (item) {
+      var li = document.createElement("li");
+      var a = document.createElement("a");
+      a.href = item.url;
+
+      var span = document.createElement("span");
+      span.className = "search-result-title";
+      span.textContent = item.meta.title || "Untitled";
+      a.appendChild(span);
+
+      if (item.excerpt) {
+        var para = document.createElement("p");
+        para.className = "search-result-content";
+        para.innerHTML = item.excerpt;
+        a.appendChild(para);
+      }
+
+      li.appendChild(a);
+      ul.appendChild(li);
+    });
+
+    result.appendChild(ul);
+  }
+
+  input.addEventListener("focus", function () { loadPagefind(); }, { once: true });
+
+  var timer = null;
+  input.addEventListener("input", function () {
+    clearTimeout(timer);
+    var q = input.value.trim();
+    timer = setTimeout(function () { doSearch(q); }, 200);
+  });
+
+  input.addEventListener("keydown", function (e) {
+    if (e.key === "Enter" || e.which === 13) e.preventDefault();
+  });
+})();
+</script> <widget class="widget-wrapper linklist"> <div class="widget-body fs14"> <div class="linklist left" style="grid-template-columns:repeat(1,1fr);"> <a class="link" title="开往" target="_blank" rel="noopener noreferrer" href="https://www.travellings.cn/go.html"> <div class="flex"> <img src="https://www.travellings.cn/assets/travelling-dark.png" alt=""> <span>开往</span> </div> </a> <a class="link" title="十年之约虫洞" target="_blank" rel="noopener noreferrer" href="https://www.foreverblog.cn/go.html"> <div class="flex"> <img src="https://foreverblog.cn/assets/logo/wormhole_1.gif" alt=""> <span>十年之约虫洞</span> </div> </a> <a class="link" title="境内访问" target="_blank" rel="noopener noreferrer" href="https://shan333.cn"> <div class="flex"> <img src="https://gallery.shansan.top/file/f9b8a67f6c7c6c2d647b4.jpg" alt=""> <span>境内访问</span> </div> </a> </div> </div> </widget> <widget class="widget-wrapper recent post-list"> <div class="widget-header dis-select"><span class="name">最近更新</span></div> <div class="widget-body fs14">  </div> </widget> </div> <footer class="footer dis-select"> <div class="social-wrap"> <a class="social" href="mailto:1329441308@qq.com" rel="noopener noreferrer" aria-label="Email"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 64C150 64 64 150 64 256s86 192 192 192c17.7 0 32 14.3 32 32s-14.3 32-32 32C114.6 512 0 397.4 0 256S114.6 0 256 0S512 114.6 512 256v32c0 53-43 96-96 96c-29.3 0-55.6-13.2-73.2-33.9C320 371.1 289.5 384 256 384c-70.7 0-128-57.3-128-128s57.3-128 128-128c27.9 0 53.7 8.9 74.7 24.1c5.7-5 13.1-8.1 21.3-8.1c17.7 0 32 14.3 32 32v80 32c0 17.7 14.3 32 32 32s32-14.3 32-32V256c0-106-86-192-192-192zm64 192a64 64 0 1 0 -128 0 64 64 0 1 0 128 0z"></path></svg></a> <a class="social" href="https://github.com/yeshan333?tab=repositories" target="_blank" rel="external nofollow noopener noreferrer" aria-label="GitHub"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg></a> <a class="social" href="https://music.163.com/#/my/m/music/playlist?id=2617691792" target="_blank" rel="external nofollow noopener noreferrer" aria-label="Music"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg></a> <a class="social" href="https://www.zhihu.com/people/si-kong-ji-54/activities" target="_blank" rel="external nofollow noopener noreferrer" aria-label="Zhihu"><svg fill="#18abdc" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M5.721 0C2.251 0 0 2.25 0 5.719V18.28C0 21.751 2.252 24 5.721 24h12.56C21.751 24 24 21.75 24 18.281V5.72C24 2.249 21.75 0 18.281 0zm1.964 4.078c-.271.73-.5 1.434-.68 2.11h4.587c.545-.006.445 1.168.445 1.171H9.384a58.104 58.104 0 01-.112 3.797h2.712c.388.023.393 1.251.393 1.266H9.183a9.223 9.223 0 01-.408 2.102l.757-.604c.452.456 1.512 1.712 1.906 2.177.473.681.063 2.081.063 2.081l-2.794-3.382c-.653 2.518-1.845 3.607-1.845 3.607-.523.468-1.58.82-2.64.516 2.218-1.73 3.44-3.917 3.667-6.497H4.491c0-.015.197-1.243.806-1.266h2.71c.024-.32.086-3.254.086-3.797H6.598c-.136.406-.158.447-.268.753-.594 1.095-1.603 1.122-1.907 1.155.906-1.821 1.416-3.6 1.591-4.064.425-1.124 1.671-1.125 1.671-1.125zM13.078 6h6.377v11.33h-2.573l-2.184 1.373-.401-1.373h-1.219zm1.313 1.219v8.86h.623l.263.937 1.455-.938h1.456v-8.86z"></path></svg></a> <a class="social" href="/rss2.xml" rel="noopener noreferrer" aria-label="RSS"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zM96 136c0-13.3 10.7-24 24-24c137 0 248 111 248 248c0 13.3-10.7 24-24 24s-24-10.7-24-24c0-110.5-89.5-200-200-200c-13.3 0-24-10.7-24-24zm0 96c0-13.3 10.7-24 24-24c83.9 0 152 68.1 152 152c0 13.3-10.7 24-24 24s-24-10.7-24-24c0-57.4-46.6-104-104-104c-13.3 0-24-10.7-24-24zm0 120a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"></path></svg></a> </div> </footer> </div> </aside> <div class="l_main" id="main"> <header class="header mobile-only"> <div class="logo-wrap"> <a class="avatar" href="/about/"> <img no-lazy class="avatar" src="https://ospy.shan333.cn/blog/blog.avatar.jpg" alt="ShanSan"> </a> <a class="title" href="/"> <div class="main">ShanSan</div> <div class="sub cap">个人博客</div> </a> </div> </header> <main>  <div class="article banner top">  <div class="content"> <div class="top bread-nav footnote"> <div class="left"> <div class="flex-row" id="breadcrumb"> <a class="cap breadcrumb" href="/">主页</a> <span class="sep"></span> <a class="cap breadcrumb" href="/archives/">文章</a>  <span class="sep"></span> <a class="cap breadcrumb-link" href="/categories/技术分析xAI/">技术分析xAI</a>  </div> <div class="flex-row" id="post-meta"> <span class="text created">
+发布于：<time datetime="2026-06-14">2026-06-14</time> </span> <span class="sep updated"></span> <span class="text updated">
+更新于：<time datetime="2026-06-14">2026-06-14</time> </span> </div> </div> </div> <div class="bottom only-title"> <div class="text-area"> <h1 class="text title"><span>深入 MiMo-Code：基于 Dream 与 Distill 双循环的跨会话经验进化机制</span></h1> </div> </div> </div> </div> <article class="md-text content" data-pagefind-body>  <p>在长上下文语言模型（LLM）普及的今天，智能体（Agent）似乎拥有了无限的“短期记忆”。然而，当开发任务跨越数天、数周，经历成百上千次会话时，简单的“把所有历史塞进上下文”很快就会遭遇上下文窗口爆满、检索退化（Needle-in-a-Haystack 问题）以及巨额 Token 成本的瓶颈。最关键的是，Agent 在过去会话中辛苦 Debug 出来的 Gotchas、探索出的项目架构认知以及沉淀的高频工作流，在开启新会话时均会付诸东流。</p>
+<p><strong>如何让 AI Agent 实现不依赖人工干预、跨越会话周期的经验累积与能力进化？</strong> 这是当前 Agent 落地工程实践的核心痛点。</p>
+<p>MiMo-Code（一个开源的自主 Agent 编码辅助工具）通过引入 <strong>Dream（每 7 天自动整理记忆）</strong> 与 <strong>Distill（每 30 天提炼可复用技能）</strong> 的双循环自进化机制，提供了一种优雅的解法。本文将深入 MiMo-Code 的源码底层，剖析这套让 Agent 实现“自我成长”的跨会话进化设计。</p>
+<p>为避免正文里反复打断阅读，本文把常用术语统一收拢到下表；后文默认直接使用简称。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>简称/术语</th><th>全称</th><th>中文说明</th></tr></thead><tbody><tr><td>FTS</td><td>Full-Text Search</td><td>全文检索：基于 SQLite FTS5 虚拟表的本地 Markdown 记忆索引</td></tr><tr><td>BM25</td><td>Best Matching 25</td><td>一种经典的文本相关性计算算法，用于 FTS 搜索评分</td></tr><tr><td>Trajectory</td><td>Trajectory</td><td>轨迹：存储在本地 SQLite 数据库中的 Agent 历史会话、工具调用及执行结果的完整流水记录</td></tr><tr><td>MEMORY.md</td><td>Project Memory File</td><td>项目级持久记忆文件，包含项目上下文、硬性规则、架构决定与 Gotchas 等内容</td></tr><tr><td>checkpoint.md</td><td>Session Checkpoint File</td><td>会话级检查点文件，由后台 <code>checkpoint-writer</code> 维护的当前会话状态快照</td></tr><tr><td>checkpoint-writer</td><td>Checkpoint Writer</td><td>检查点写入器：当会话 Token 数量超限时，自动唤醒的非交互后台子智能体，用以维护 checkpoint.md 并推荐记忆晋升</td></tr><tr><td>dream</td><td>Dream Agent</td><td>记忆整理智能体：每 7 天自动运行，读取近期会话轨迹与临时 notes，并通过数据库校验后增量合并至项目级持久记忆中</td></tr><tr><td>distill</td><td>Distill Agent</td><td>技能提炼智能体：每 30 天自动运行，分析长期轨迹中的重复模式，提炼并封装为 Skill/Subagent/Command 资产</td></tr><tr><td>ALS</td><td>AsyncLocalStorage</td><td>异步本地存储：Node.js/Bun 运行时的 API，用于在异步调用链路中隔离并透传当前的实例与项目上下文</td></tr></tbody></table>
+<hr/>
+<h2 id="1-最小使用示例">1. 最小使用示例</h2>
+<p>在 MiMo-Code 中，Dream 与 Distill 默认是由系统在后台周期性自动触发的。然而，为了便于开发者介入与调试，系统也提供了手动的命令入口。</p>
+<h3 id="11-手动运行-dream-记忆整合">1.1 手动运行 Dream 记忆整合</h3>
+<p>在终端或 Agent 交互界面中输入 <code>/dream</code> 命令，即可手动强制唤醒 <code>dream</code> 智能体执行记忆整理：</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span></pre></td><td class="code"><pre><span class="line">/dream <span class="string">&quot;focus on build tools&quot;</span></span><br/><span class="line"></span></pre></td></tr></tbody></table></figure>
+<p><strong>输出结果：</strong></p>
+<figure class="highlight markdown"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/><span class="line">10</span><br/><span class="line">11</span><br/><span class="line">12</span><br/><span class="line">13</span><br/><span class="line">14</span><br/><span class="line">15</span><br/><span class="line">16</span><br/><span class="line">17</span><br/><span class="line">18</span></pre></td><td class="code"><pre><span class="line">Run one manual dream memory consolidation pass for the current project.</span><br/><span class="line"></span><br/><span class="line">Orienting:</span><br/><span class="line"><span class="bullet">-</span> Found project memory: memory/projects/a1b2c3d4e5f6/MEMORY.md (32 lines)</span><br/><span class="line"><span class="bullet">-</span> Scanning recent checkpoints from last 7 days... Found 4 sessions.</span><br/><span class="line"></span><br/><span class="line">Consolidation Output:</span><br/><span class="line"><span class="bullet">-</span> Consolidated [New]:</span><br/><span class="line"><span class="bullet">  -</span> ## Rules: Always use bun run instead of npm run for building hexo pages. [ses<span class="emphasis">_abc123]</span></span><br/><span class="line"><span class="emphasis">  - ## Gotchas: Netlify deployments will fail if public/ folder contains symlinks. [ses_</span>xyz789]</span><br/><span class="line"><span class="bullet">-</span> Updated:</span><br/><span class="line"><span class="bullet">  -</span> ## Architecture decisions: Upgraded to Astro-based frontend (2026-06-12). [ses<span class="emphasis">_def456]</span></span><br/><span class="line"><span class="emphasis">- Deleted:</span></span><br/><span class="line"><span class="emphasis">  - (none)</span></span><br/><span class="line"><span class="emphasis"></span></span><br/><span class="line"><span class="emphasis">Health: project memory line count 34/200 and size 2.1KB/10KB.</span></span><br/><span class="line"><span class="emphasis">Notes cleared.</span></span><br/><span class="line"><span class="emphasis"></span></span></pre></td></tr></tbody></table></figure>
+<h3 id="12-手动运行-distill-技能提炼">1.2 手动运行 Distill 技能提炼</h3>
+<p>使用 <code>/distill</code> 命令，可以让 Agent 挖掘并封装近 30 天内的重复工作流：</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span></pre></td><td class="code"><pre><span class="line">/distill</span><br/><span class="line"></span></pre></td></tr></tbody></table></figure>
+<p><strong>输出结果：</strong></p>
+<figure class="highlight markdown"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/><span class="line">10</span><br/><span class="line">11</span><br/><span class="line">12</span><br/><span class="line">13</span><br/><span class="line">14</span><br/><span class="line">15</span><br/><span class="line">16</span><br/><span class="line">17</span><br/><span class="line">18</span></pre></td><td class="code"><pre><span class="line">Run one manual distill pass for the current project.</span><br/><span class="line"></span><br/><span class="line">Inventorying:</span><br/><span class="line"><span class="bullet">-</span> Skills found: 2 (.mimocode/skills/build-docs, .mimocode/skills/deploy-site)</span><br/><span class="line"><span class="bullet">-</span> Commands found: 1 (.mimocode/commands/db-migrate)</span><br/><span class="line"></span><br/><span class="line">Distillation Output:</span><br/><span class="line"><span class="bullet">-</span> Shortlist:</span><br/><span class="line"><span class="bullet">  -</span> repeated workflow: compile and test hexo templates</span><br/><span class="line"><span class="code">    evidence: [ses_101, ses_202]</span></span><br/><span class="line"><span class="code">    frequency: 4 times in 20 days</span></span><br/><span class="line"><span class="code">    recommended form: skill</span></span><br/><span class="line"><span class="code">- Created assets:</span></span><br/><span class="line"><span class="code">  - Created skill: .mimocode/skills/test-theme/SKILL.md</span></span><br/><span class="line"><span class="code">    Purpose: Run compilation and linting tests on Hexo theme modifications.</span></span><br/><span class="line"><span class="code">- Skipped:</span></span><br/><span class="line"><span class="code">  - Git branch cleanups (frequency high but trivial tool operation).</span></span><br/><span class="line"><span class="code"></span></span></pre></td></tr></tbody></table></figure>
+<hr/>
+<h2 id="2-产物分析artifact-analysis">2. 产物分析（Artifact Analysis）</h2>
+<p>为了了解进化机制对项目的实际影响，我们先看看它们所操纵和生成的产物结构。</p>
+<h3 id="21-项目持久记忆文件-memorymd">2.1 项目持久记忆文件 <code>MEMORY.md</code></h3>
+<p><code>dream</code> 智能体的核心工作是增量改写位于数据目录下对应项目 ID 中的 <code>MEMORY.md</code>。其标准结构被限制为 4 个主要 H2 分节：</p>
+<figure class="highlight markdown"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/><span class="line">10</span><br/><span class="line">11</span><br/><span class="line">12</span><br/><span class="line">13</span><br/><span class="line">14</span><br/><span class="line">15</span><br/><span class="line">16</span><br/><span class="line">17</span><br/><span class="line">18</span></pre></td><td class="code"><pre><span class="line"><span class="section"># Project Memory</span></span><br/><span class="line"></span><br/><span class="line"><span class="section">## Project context</span></span><br/><span class="line">A static blog engine using Hexo and deployed via Netlify CI/CD.</span><br/><span class="line"></span><br/><span class="line"><span class="section">## Rules</span></span><br/><span class="line"><span class="bullet">-</span> R1: Always use <span class="code">`pnpm`</span> instead of <span class="code">`npm`</span> or <span class="code">`yarn`</span> [ses<span class="emphasis">_abc123]</span></span><br/><span class="line"><span class="emphasis">- R2: Never check in production environment variables to `.env.local` [ses_</span>xyz456]</span><br/><span class="line"></span><br/><span class="line"><span class="section">## Architecture decisions</span></span><br/><span class="line"><span class="bullet">-</span> 2026-06-12: Switched deployment pipeline to GitHub Actions runner [ses<span class="emphasis">_actions_</span>01]</span><br/><span class="line"></span><br/><span class="line"><span class="section">## Discovered durable knowledge</span></span><br/><span class="line"><span class="bullet">-</span> Bun&#39;s File implementation in v1.1.0 does not support range queries [ses<span class="emphasis">_bun_</span>bug]</span><br/><span class="line"></span><br/><span class="line"><span class="section">## Gotchas</span></span><br/><span class="line"><span class="bullet">-</span> Netlify build fails if directory structure exceeds 5 nested layers [ses<span class="emphasis">_net_</span>5]</span><br/><span class="line"></span></pre></td></tr></tbody></table></figure>
+<blockquote>
+<p>[!NOTE]
+这里的每一条事实尾部都会附带原作者会话 ID（例如 <code>[ses_abc123]</code>）。这是极度重要的元数据设计，便于后续 <code>dream</code> 再次整理时溯源，也方便人在阅读时回溯原始上下文。</p>
+</blockquote>
+<h3 id="22-自动提炼的-skill-资产">2.2 自动提炼的 Skill 资产</h3>
+<p><code>distill</code> 提取的产物则直接写入项目的工作树目录 <code>.mimocode/skills/&lt;name&gt;/SKILL.md</code>：</p>
+<figure class="highlight yaml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/><span class="line">10</span><br/><span class="line">11</span><br/><span class="line">12</span><br/><span class="line">13</span><br/><span class="line">14</span></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br/><span class="line"><span class="attr">name:</span> <span class="string">test-theme</span></span><br/><span class="line"><span class="attr">description:</span> <span class="string">Run</span> <span class="string">compilation</span> <span class="string">and</span> <span class="string">linting</span> <span class="string">tests</span> <span class="string">on</span> <span class="string">Hexo</span> <span class="string">theme</span> <span class="string">modifications</span></span><br/><span class="line"><span class="meta">---</span></span><br/><span class="line"><span class="meta"></span></span><br/><span class="line"><span class="comment"># Test Theme Playbook</span></span><br/><span class="line"></span><br/><span class="line"><span class="string">Use</span> <span class="string">this</span> <span class="string">skill</span> <span class="string">when</span> <span class="string">theme</span> <span class="string">source</span> <span class="string">files</span> <span class="string">under</span> <span class="string">`themes/`</span> <span class="string">are</span> <span class="string">modified.</span></span><br/><span class="line"></span><br/><span class="line"><span class="comment">## Steps</span></span><br/><span class="line"><span class="number">1</span><span class="string">.</span> <span class="string">Run</span> <span class="string">`pnpm</span> <span class="string">run</span> <span class="string">lint`</span> <span class="string">to</span> <span class="string">check</span> <span class="string">JS/TS</span> <span class="string">quality.</span></span><br/><span class="line"><span class="number">2</span><span class="string">.</span> <span class="string">Run</span> <span class="string">`pnpm</span> <span class="string">run</span> <span class="string">build`</span> <span class="string">to</span> <span class="string">verify</span> <span class="string">Hexo</span> <span class="string">static</span> <span class="string">generation.</span></span><br/><span class="line"><span class="number">3</span><span class="string">.</span> <span class="string">Inspect</span> <span class="string">postcss</span> <span class="string">compilation</span> <span class="string">outputs</span> <span class="string">under</span> <span class="string">the</span> <span class="string">public</span> <span class="string">folder</span> <span class="string">to</span> <span class="string">verify</span> <span class="string">compilation.</span></span><br/><span class="line"></span></pre></td></tr></tbody></table></figure>
+<hr/>
+<h2 id="3-系统架构与数据流">3. 系统架构与数据流</h2>
+<p>MiMo-Code 的自进化系统是一个由底层数据库支撑、中层服务索引、上层 Agent 执行并由沙箱过滤的多层架构。</p>
+<style>astro-island,astro-slot,astro-static-slot{display:contents}</style><script>(()=>{var e=async t=>{await(await t())()};(self.Astro||(self.Astro={})).only=e;window.dispatchEvent(new Event("astro:only"));})();</script><script>(()=>{var g=Object.defineProperty;var w=(c,s,d)=>s in c?g(c,s,{enumerable:!0,configurable:!0,writable:!0,value:d}):c[s]=d;var l=(c,s,d)=>w(c,typeof s!="symbol"?s+"":s,d);var E=new Set(["__proto__","constructor","prototype"]);{let c={0:t=>y(t),1:t=>d(t),2:t=>new RegExp(t),3:t=>new Date(t),4:t=>new Map(d(t)),5:t=>new Set(d(t)),6:t=>BigInt(t),7:t=>new URL(t),8:t=>new Uint8Array(t),9:t=>new Uint16Array(t),10:t=>new Uint32Array(t),11:t=>Number.POSITIVE_INFINITY*t},s=t=>{let[p,e]=t;return p in c?c[p](e):void 0},d=t=>t.map(s),y=t=>typeof t!="object"||t===null?t:Object.fromEntries(Object.entries(t).map(([p,e])=>[p,s(e)]));class f extends HTMLElement{constructor(){super(...arguments);l(this,"Component");l(this,"hydrator");l(this,"hydrate",async()=>{var b;if(!this.hydrator||!this.isConnected)return;let e=(b=this.parentElement)==null?void 0:b.closest("astro-island[ssr]");if(e){e.addEventListener("astro:hydrate",this.hydrate,{once:!0});return}let n=this.querySelectorAll("astro-slot"),r={},i=this.querySelectorAll("template[data-astro-template]");for(let o of i){let a=o.closest(this.tagName);a!=null&&a.isSameNode(this)&&(r[o.getAttribute("data-astro-template")||"default"]=o.innerHTML,o.remove())}for(let o of n){let a=o.closest(this.tagName);a!=null&&a.isSameNode(this)&&(r[o.getAttribute("name")||"default"]=o.innerHTML)}let u;try{u=this.hasAttribute("props")?y(JSON.parse(this.getAttribute("props"))):{}}catch(o){let a=this.getAttribute("component-url")||"<unknown>",v=this.getAttribute("component-export");throw v&&(a+=` (export ${v})`),console.error(`[hydrate] Error parsing props for component ${a}`,this.getAttribute("props"),o),o}let h;await this.hydrator(this)(this.Component,u,r,{client:this.getAttribute("client")}),this.removeAttribute("ssr"),this.dispatchEvent(new CustomEvent("astro:hydrate"))});l(this,"unmount",()=>{this.isConnected||this.dispatchEvent(new CustomEvent("astro:unmount"))})}disconnectedCallback(){document.removeEventListener("astro:after-swap",this.unmount),document.addEventListener("astro:after-swap",this.unmount,{once:!0})}connectedCallback(){if(!this.hasAttribute("await-children")||document.readyState==="interactive"||document.readyState==="complete")this.childrenConnectedCallback();else{let e=()=>{document.removeEventListener("DOMContentLoaded",e),n.disconnect(),this.childrenConnectedCallback()},n=new MutationObserver(()=>{var r;((r=this.lastChild)==null?void 0:r.nodeType)===Node.COMMENT_NODE&&this.lastChild.nodeValue==="astro:end"&&(this.lastChild.remove(),e())});n.observe(this,{childList:!0}),document.addEventListener("DOMContentLoaded",e)}}async childrenConnectedCallback(){let e=this.getAttribute("before-hydration-url");e&&await import(e),this.start()}getRetryImportUrl(e){let n=new URL(e,document.baseURI),r=`astro-retry=${Date.now()}`,i=n.hash.replace(/^#/,"");return n.hash=i?`${i}&${r}`:r,n.toString()}async importWithRetry(e){try{return await import(e)}catch(n){return await new Promise(r=>setTimeout(r,1e3)),import(this.getRetryImportUrl(e))}}handleHydrationError(e){let n=this.getAttribute("component-url"),r=new CustomEvent("astro:hydration-error",{cancelable:!0,bubbles:!0,composed:!0,detail:{error:e,componentUrl:n}});this.dispatchEvent(r)&&console.error(`[astro-island] Error hydrating ${n}`,e)}async start(){let e=JSON.parse(this.getAttribute("opts")),n=this.getAttribute("client");if(Astro[n]===void 0){window.addEventListener(`astro:${n}`,()=>this.start(),{once:!0});return}try{await Astro[n](async()=>{let r=this.getAttribute("renderer-url");try{let[i,{default:u}]=await Promise.all([this.importWithRetry(this.getAttribute("component-url")),r?this.importWithRetry(r):Promise.resolve({default:()=>()=>{}})]),h=this.getAttribute("component-export")||"default";if(h.includes(".")){this.Component=i;for(let m of h.split(".")){if(E.has(m)||!this.Component||typeof this.Component!="object"&&typeof this.Component!="function"||!Object.hasOwn(this.Component,m))throw new Error(`Invalid component export path: ${h}`);this.Component=this.Component[m]}}else{if(E.has(h))throw new Error(`Invalid component export path: ${h}`);this.Component=i[h]}return this.hydrator=u,this.hydrate}catch(i){return this.handleHydrationError(i),()=>{}}},e,this)}catch(r){this.handleHydrationError(r)}}attributeChangedCallback(){this.hydrate()}}l(f,"observedAttributes",["props"]),customElements.get("astro-island")||customElements.define("astro-island",f)}})();</script><astro-island uid="Z2we6My" component-url="/_astro/MimoFlows.AIlTvbTP.js" component-export="MimoArchitectureFlow" renderer-url="/_astro/client.B8D08m9d.js" props="{}" ssr client="only" opts="{&quot;name&quot;:&quot;MimoArchitectureFlow&quot;,&quot;value&quot;:&quot;react&quot;}"></astro-island>
+<p>以下是系统的模块结构与关键文件映射：</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>模块</th><th>职责</th><th>关键文件</th></tr></thead><tbody><tr><td><strong>自动触发层</strong></td><td>检测会话周期、判定冷却时间并静默生成后台子智能体进程</td><td><a href="https://github.com/XiaomiMiMo/MiMo-Code/blob/42e7da3d51dba1129cd3abfa214e29f7385924a3/packages/opencode/src/session/auto-dream.ts">auto-dream.ts</a><br/><a href="https://github.com/XiaomiMiMo/MiMo-Code/blob/42e7da3d51dba1129cd3abfa214e29f7385924a3/packages/opencode/src/session/prompt.ts">prompt.ts</a></td></tr><tr><td><strong>策略设定层</strong></td><td>定义 <code>dream</code> 和 <code>distill</code> 的行为范式、多阶段流程及约束规范</td><td><a href="https://github.com/XiaomiMiMo/MiMo-Code/blob/42e7da3d51dba1129cd3abfa214e29f7385924a3/packages/opencode/src/agent/prompt/dream.txt">dream.txt</a><br/><a href="https://github.com/XiaomiMiMo/MiMo-Code/blob/42e7da3d51dba1129cd3abfa214e29f7385924a3/packages/opencode/src/agent/prompt/distill.txt">distill.txt</a><br/><a href="https://github.com/XiaomiMiMo/MiMo-Code/blob/42e7da3d51dba1129cd3abfa214e29f7385924a3/packages/opencode/src/agent/agent.ts">agent.ts</a></td></tr><tr><td><strong>检索服务层</strong></td><td>提供内存数据到本地 SQLite FTS5 的双向同步以及 BM25 的检索能力</td><td><a href="https://github.com/XiaomiMiMo/MiMo-Code/blob/42e7da3d51dba1129cd3abfa214e29f7385924a3/packages/opencode/src/memory/service.ts">service.ts</a><br/><a href="https://github.com/XiaomiMiMo/MiMo-Code/blob/42e7da3d51dba1129cd3abfa214e29f7385924a3/packages/opencode/src/memory/reconcile.ts">reconcile.ts</a><br/><a href="https://github.com/XiaomiMiMo/MiMo-Code/blob/42e7da3d51dba1129cd3abfa214e29f7385924a3/packages/opencode/src/memory/paths.ts">paths.ts</a><br/><a href="https://github.com/XiaomiMiMo/MiMo-Code/blob/42e7da3d51dba1129cd3abfa214e29f7385924a3/packages/opencode/src/memory/fts-query.ts">fts-query.ts</a></td></tr><tr><td><strong>安全沙箱层</strong></td><td>文件级权限拦截，防止后台自进化 Agent 污染用户源码或越权写库</td><td><a href="https://github.com/XiaomiMiMo/MiMo-Code/blob/42e7da3d51dba1129cd3abfa214e29f7385924a3/packages/opencode/src/tool/memory-path-guard.ts">memory-path-guard.ts</a><br/><a href="https://github.com/XiaomiMiMo/MiMo-Code/blob/42e7da3d51dba1129cd3abfa214e29f7385924a3/packages/opencode/src/tool/external-directory.ts">external-directory.ts</a></td></tr><tr><td><strong>运行轨迹层</strong></td><td>对会话日志、工具调用数据及检查点进行持久化存储与库级别过滤</td><td><a href="https://github.com/XiaomiMiMo/MiMo-Code/blob/42e7da3d51dba1129cd3abfa214e29f7385924a3/packages/opencode/src/storage/db.ts">db.ts</a><br/><a href="https://github.com/XiaomiMiMo/MiMo-Code/blob/42e7da3d51dba1129cd3abfa214e29f7385924a3/packages/opencode/src/session/checkpoint.ts">checkpoint.ts</a></td></tr></tbody></table>
+<hr/>
+<h2 id="4-核心实现机制core-mechanisms">4. 核心实现机制（Core Mechanisms）</h2>
+<p>下面我们将拆解 4 个最为核心的技术实现机制。</p>
+<h3 id="41-自动双循环触发与静默调度机制">4.1 自动双循环触发与静默调度机制</h3>
+<h4 id="411-解决什么问题">4.1.1 解决什么问题</h4>
+<p>频繁唤醒大模型整理记忆极其耗费资源（Token 成本与耗时）。如何在用户开启新会话时，既保证记忆时效性，又不影响用户前端的交互响应速度？</p>
+<h4 id="412-如何实现">4.1.2 如何实现</h4>
+<p>在 <code>packages/opencode/src/session/prompt.ts</code> 的会话主循环中，当判定为会话的第一步且不是子会话时（<code>step === 1 &amp;&amp; !session.parentID</code>），会自动读取系统配置并执行调度判断：</p>
+<figure class="highlight typescript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/><span class="line">10</span><br/><span class="line">11</span><br/><span class="line">12</span><br/><span class="line">13</span><br/><span class="line">14</span><br/><span class="line">15</span><br/><span class="line">16</span><br/><span class="line">17</span><br/><span class="line">18</span><br/><span class="line">19</span><br/><span class="line">20</span><br/><span class="line">21</span><br/><span class="line">22</span><br/><span class="line">23</span><br/><span class="line">24</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// packages/opencode/src/session/prompt.ts:2253-2287 (42e7da3)</span></span><br/><span class="line"><span class="keyword">if</span> (step === <span class="number">1</span> &amp;&amp; !session.<span class="property">parentID</span>) {</span><br/><span class="line">  <span class="keyword">const</span> cfg = <span class="keyword">yield</span>* config.<span class="title function_">get</span>()</span><br/><span class="line">  <span class="keyword">const</span> dreamTrigger = <span class="keyword">yield</span>* <span class="title function_">shouldAutoDream</span>(cfg).<span class="title function_">pipe</span>(<span class="title class_">Effect</span>.<span class="title function_">catch</span>(<span class="function">() =&gt;</span> <span class="title class_">Effect</span>.<span class="title function_">succeed</span>(<span class="literal">false</span>)))</span><br/><span class="line">  <span class="keyword">const</span> distillTrigger = <span class="keyword">yield</span>* <span class="title function_">shouldAutoDistill</span>(cfg).<span class="title function_">pipe</span>(<span class="title class_">Effect</span>.<span class="title function_">catch</span>(<span class="function">() =&gt;</span> <span class="title class_">Effect</span>.<span class="title function_">succeed</span>(<span class="literal">false</span>)))</span><br/><span class="line">  <span class="keyword">const</span> mdl = { <span class="attr">providerID</span>: lastUser.<span class="property">model</span>.<span class="property">providerID</span>, <span class="attr">modelID</span>: lastUser.<span class="property">model</span>.<span class="property">modelID</span> }</span><br/><span class="line"></span><br/><span class="line">  <span class="keyword">if</span> (dreamTrigger || distillTrigger) {</span><br/><span class="line">    <span class="keyword">const</span> { <span class="title class_">AppRuntime</span> } = <span class="keyword">yield</span>* <span class="title class_">Effect</span>.<span class="title function_">promise</span>(<span class="function">() =&gt;</span> <span class="keyword">import</span>(<span class="string">&quot;@/effect/app-runtime&quot;</span>))</span><br/><span class="line">    <span class="keyword">if</span> (dreamTrigger) {</span><br/><span class="line">      <span class="title class_">AppRuntime</span>.<span class="title function_">runPromise</span>(</span><br/><span class="line">        <span class="title class_">Session</span>.<span class="property">Service</span>.<span class="title function_">use</span>(<span class="function">(<span class="params">svc</span>) =&gt;</span></span><br/><span class="line">          <span class="title class_">Effect</span>.<span class="title function_">gen</span>(<span class="keyword">function</span>* () {</span><br/><span class="line">            <span class="keyword">const</span> s = <span class="keyword">yield</span>* svc.<span class="title function_">create</span>({ <span class="attr">title</span>: <span class="variable constant_">AUTO_DREAM_TITLE</span> })</span><br/><span class="line">            <span class="keyword">const</span> sp = <span class="keyword">yield</span>* <span class="title class_">Service</span></span><br/><span class="line">            <span class="keyword">yield</span>* sp.<span class="title function_">prompt</span>({ <span class="attr">sessionID</span>: s.<span class="property">id</span>, <span class="attr">agent</span>: <span class="string">&quot;dream&quot;</span>, <span class="attr">model</span>: mdl, <span class="attr">parts</span>: [{ <span class="attr">type</span>: <span class="string">&quot;text&quot;</span>, <span class="attr">text</span>: <span class="variable constant_">DREAM_TASK</span> }] })</span><br/><span class="line">          }),</span><br/><span class="line">        ),</span><br/><span class="line">      ).<span class="title function_">catch</span>(<span class="function">(<span class="params">err</span>) =&gt;</span> log.<span class="title function_">error</span>(<span class="string">&quot;auto-dream prompt failed&quot;</span>, { <span class="attr">error</span>: <span class="title class_">String</span>(err) }))</span><br/><span class="line">    }</span><br/><span class="line">    <span class="comment">// ... 对 distillTrigger 做类似后台跑 Promise 的操作</span></span><br/><span class="line">  }</span><br/><span class="line">}</span><br/><span class="line"></span></pre></td></tr></tbody></table></figure>
+<p>其触发规则定义在 <code>packages/opencode/src/session/auto-dream.ts</code> 中。<code>shouldAutoRun</code> 函数的核心判定逻辑为：</p>
+<ol>
+<li>从数据库 <code>SessionTable</code> 搜索历史会话中是否存在标题等于 <code>&quot;Auto Dream&quot;</code> 的最新记录：
+<figure class="highlight typescript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/><span class="line">10</span><br/><span class="line">11</span><br/><span class="line">12</span><br/><span class="line">13</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// packages/opencode/src/session/auto-dream.ts:49-59 (42e7da3)</span></span><br/><span class="line"><span class="keyword">const</span> lastRun = <span class="keyword">yield</span>* <span class="title class_">Effect</span>.<span class="title function_">sync</span>(<span class="function">() =&gt;</span></span><br/><span class="line">  <span class="title class_">Database</span>.<span class="title function_">use</span>(<span class="function">(<span class="params">db</span>) =&gt;</span></span><br/><span class="line">    db</span><br/><span class="line">      .<span class="title function_">select</span>({ <span class="attr">time_created</span>: <span class="title class_">SessionTable</span>.<span class="property">time_created</span> })</span><br/><span class="line">      .<span class="title function_">from</span>(<span class="title class_">SessionTable</span>)</span><br/><span class="line">      .<span class="title function_">where</span>(<span class="title function_">eq</span>(<span class="title class_">SessionTable</span>.<span class="property">title</span>, input.<span class="property">title</span>))</span><br/><span class="line">      .<span class="title function_">orderBy</span>(<span class="title function_">desc</span>(<span class="title class_">SessionTable</span>.<span class="property">time_created</span>))</span><br/><span class="line">      .<span class="title function_">limit</span>(<span class="number">1</span>)</span><br/><span class="line">      .<span class="title function_">get</span>(),</span><br/><span class="line">  ),</span><br/><span class="line">)</span><br/><span class="line"></span></pre></td></tr></tbody></table></figure>
+</li>
+<li>计算当前时间到上一次运行时间的差值 <code>elapsed</code>：
+<ul>
+<li>若 <code>lastRun</code> 不存在，则查找首个非子会话创建时间作为项目起点。如果项目创建时间小于设定的周期（例如 7 天），则直接跳过（免得项目刚建还没产生足够积累就跑 Dream 浪费资源）。</li>
+<li>若 <code>elapsed</code> 小于设定的 <code>intervalMs</code>，跳过执行。</li>
+<li>否则，通过后台 Detached Promise 执行 <code>AppRuntime.runPromise</code> 异步抛出任务，不阻塞前端 UI 的消息回复。</li>
+</ul>
+</li>
+</ol>
+<h4 id="413-为什么这样设计">4.1.3 为什么这样设计</h4>
+<p>MiMo-Code 没有去实现一个常驻内存的 <code>cron</code> 定时器进程，而是将调度寄生在“会话初始化”的生命周期中。这种设计对于 CLI 和 IDE 插件工具来说是天然适配的——没有程序运行就无需调度；只要有新任务启动，就能立刻从轨迹数据库中检测时差并触发执行。</p>
+<h4 id="414-trade-off取舍">4.1.4 Trade-off（取舍）</h4>
+<ul>
+<li><strong>缺点</strong>：若用户连续几个月完全不使用本工具，在这期间就不会触发后台任务进行自动化演练。</li>
+<li><strong>优点</strong>：规避了死机、无故占用后台 CPU 资源的窘境，完全按需触发。</li>
+</ul>
+<hr/>
+<h3 id="42-基于-sql-轨迹与-fts-索引的记忆检索与校验">4.2 基于 SQL 轨迹与 FTS 索引的记忆检索与校验</h3>
+<h4 id="421-解决什么问题">4.2.1 解决什么问题</h4>
+<p>单纯靠 LLM 的 Prompt 容易产生幻觉。如果 Dream 和 Distill Agent 在整理经验时，纯凭记忆联想，往往会编造错误的文件路径或指令。</p>
+<h4 id="422-如何实现">4.2.2 如何实现</h4>
+<astro-island uid="Z7kuEG" component-url="/_astro/MimoFlows.AIlTvbTP.js" component-export="MimoIntroFlow" renderer-url="/_astro/client.B8D08m9d.js" props="{}" ssr client="only" opts="{&quot;name&quot;:&quot;MimoIntroFlow&quot;,&quot;value&quot;:&quot;react&quot;}"></astro-island>
+<p>该机制分两步联动配合：</p>
+<h5 id="1-基于-sqlite-fts5-的本地文件搜索引擎">1. 基于 SQLite FTS5 的本地文件搜索引擎</h5>
+<p>在 <code>packages/opencode/src/memory/reconcile.ts</code> 中，系统维护了一张包含 FTS 虚拟索引表的内存映射关系：</p>
+<figure class="highlight typescript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/><span class="line">10</span><br/><span class="line">11</span><br/><span class="line">12</span><br/><span class="line">13</span><br/><span class="line">14</span><br/><span class="line">15</span><br/><span class="line">16</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// packages/opencode/src/memory/reconcile.ts:66-90 (42e7da3)</span></span><br/><span class="line"><span class="title class_">Database</span>.<span class="title function_">use</span>(<span class="function">(<span class="params">db</span>) =&gt;</span></span><br/><span class="line">  db</span><br/><span class="line">    .<span class="title function_">insert</span>(<span class="title class_">MemoryFtsTable</span>)</span><br/><span class="line">    .<span class="title function_">values</span>({</span><br/><span class="line">      <span class="attr">path</span>: absPath,</span><br/><span class="line">      <span class="attr">scope</span>: loc.<span class="property">scope</span>,</span><br/><span class="line">      <span class="attr">scope_id</span>: loc.<span class="property">scope_id</span>,</span><br/><span class="line">      <span class="attr">type</span>: finalType,</span><br/><span class="line">      body,</span><br/><span class="line">      fingerprint,</span><br/><span class="line">      <span class="attr">last_indexed_at</span>: <span class="title class_">Date</span>.<span class="title function_">now</span>(),</span><br/><span class="line">    })</span><br/><span class="line">    <span class="comment">// ... onConflictDoUpdate 更新</span></span><br/><span class="line">)</span><br/><span class="line"></span></pre></td></tr></tbody></table></figure>
+<p>在执行 <code>Memory.search</code> 时，系统会使用经典的 <code>BM25</code> 检索评分对所有 Markdown 节点（例如以前生成的 <code>checkpoint.md</code>）进行匹配。它还使用了一个相对 floor 过滤策略来过滤杂音：</p>
+<figure class="highlight typescript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// packages/opencode/src/memory/service.ts:131-133 (42e7da3)</span></span><br/><span class="line"><span class="keyword">const</span> topScore = mapped[<span class="number">0</span>].<span class="property">score</span></span><br/><span class="line"><span class="keyword">const</span> cutoff = floorRatio &gt; <span class="number">0</span> ? topScore * floorRatio : -<span class="title class_">Infinity</span></span><br/><span class="line"><span class="keyword">return</span> mapped.<span class="title function_">filter</span>(<span class="function">(<span class="params">r, i</span>) =&gt;</span> i === <span class="number">0</span> || r.<span class="property">score</span> &gt;= cutoff).<span class="title function_">slice</span>(<span class="number">0</span>, limit)</span><br/><span class="line"></span></pre></td></tr></tbody></table></figure>
+<h5 id="2-trajectory-底层校验">2. Trajectory 底层校验</h5>
+<p>一旦 <code>dream</code> 或 <code>distill</code> 从近期 checkpoints 或 notes 中发现了“候选事实”（比如一条 Gotcha 规则），系统<strong>不直接写入</strong>，而是强迫 Agent 使用 <code>bash</code> 工具和底层 SQLite 关系直接校验真实轨迹库。
+在 <code>dream.txt</code> 的 Phase 3 中，有明确的 Query 模板和指令，让 Agent 检查并确定事实：</p>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/><span class="line">10</span><br/><span class="line">11</span></pre></td><td class="code"><pre><span class="line"><span class="comment">-- packages/opencode/src/agent/prompt/dream.txt:81-89 (42e7da3)</span></span><br/><span class="line"><span class="keyword">SELECT</span> m.id, m.agent_id,</span><br/><span class="line">       json_extract(p.data, <span class="string">&#39;$.type&#39;</span>) <span class="keyword">as</span> part_type,</span><br/><span class="line">       json_extract(p.data, <span class="string">&#39;$.tool&#39;</span>) <span class="keyword">as</span> tool,</span><br/><span class="line">       substr(p.data, <span class="number">1</span>, <span class="number">800</span>) <span class="keyword">as</span> preview</span><br/><span class="line"><span class="keyword">FROM</span> message m</span><br/><span class="line"><span class="keyword">JOIN</span> part p <span class="keyword">ON</span> p.message_id <span class="operator">=</span> m.id</span><br/><span class="line"><span class="keyword">WHERE</span> m.session_id <span class="operator">=</span> <span class="string">&#39;&lt;SESSION_ID&gt;&#39;</span></span><br/><span class="line">  <span class="keyword">AND</span> json_extract(m.data, <span class="string">&#39;$.role&#39;</span>) <span class="operator">=</span> <span class="string">&#39;assistant&#39;</span></span><br/><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> m.time_created, p.time_created;</span><br/><span class="line"></span></pre></td></tr></tbody></table></figure>
+<p>Agent 需要通过此 SQL 获取该 session 里的工具执行轨迹。只有当该事实具有<strong>用户明确的要求</strong>（Explicit statement）或<strong>两次以上工具失败重试的实际轨迹</strong>（Repeated evidence）支撑时，才被允许合并到持久记忆。</p>
+<p>同样，<code>distill</code> 在 Phase 3 会执行一个聚合查询，查明究竟什么工具/指令在过去 30 天内执行次数最多，从而避免主观臆测：</p>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/><span class="line">10</span><br/><span class="line">11</span><br/><span class="line">12</span><br/><span class="line">13</span></pre></td><td class="code"><pre><span class="line"><span class="comment">-- packages/opencode/src/agent/prompt/distill.txt:106-118 (42e7da3)</span></span><br/><span class="line"><span class="keyword">SELECT</span> json_extract(p.data, <span class="string">&#39;$.tool&#39;</span>) <span class="keyword">as</span> tool,</span><br/><span class="line">       substr(json_extract(p.data, <span class="string">&#39;$.state.input&#39;</span>), <span class="number">1</span>, <span class="number">200</span>) <span class="keyword">as</span> input_preview,</span><br/><span class="line">       <span class="built_in">count</span>(<span class="operator">*</span>) <span class="keyword">as</span> n</span><br/><span class="line"><span class="keyword">FROM</span> message m</span><br/><span class="line"><span class="keyword">JOIN</span> part p <span class="keyword">ON</span> p.message_id <span class="operator">=</span> m.id</span><br/><span class="line"><span class="keyword">WHERE</span> json_extract(m.data, <span class="string">&#39;$.role&#39;</span>) <span class="operator">=</span> <span class="string">&#39;assistant&#39;</span></span><br/><span class="line">  <span class="keyword">AND</span> json_extract(p.data, <span class="string">&#39;$.type&#39;</span>) <span class="operator">=</span> <span class="string">&#39;tool&#39;</span></span><br/><span class="line">  <span class="keyword">AND</span> m.time_created <span class="operator">&gt;</span> <span class="operator">&lt;</span>CUTOFF_MS<span class="operator">&gt;</span></span><br/><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> tool, input_preview</span><br/><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> n <span class="keyword">DESC</span></span><br/><span class="line">LIMIT <span class="number">50</span>;</span><br/><span class="line"></span></pre></td></tr></tbody></table></figure>
+<h4 id="423-为什么这样设计">4.2.3 为什么这样设计</h4>
+<p>这种**「上层 NLP 意图提取 + 底层 SQL 关系化事实校验」**的双重验证（Double-Check）模式，将 LLM 的推理生成和确定性的数据库统计有机结合。FTS 快速定位“有什么想法”，SQLite SQL 查询判定“该想法是否符合客观历史事实”，极大提升了进化产物的可信度。</p>
+<h4 id="424-trade-off取舍">4.2.4 Trade-off（取舍）</h4>
+<ul>
+<li><strong>性能消耗</strong>：每次执行 FTS 搜索或重新索引时需要解析所有 Markdown 文件。如果记忆文件超长、超大，会导致延迟。这也是为什么系统严格限制 <code>MEMORY.md</code> 必须在 200 行以内的原因之一。</li>
+</ul>
+<hr/>
+<h3 id="43-自动化非交互写入与安全隔离沙箱">4.3 自动化非交互写入与安全隔离沙箱</h3>
+<h4 id="431-解决什么问题">4.3.1 解决什么问题</h4>
+<p>Dream 与 Distill 是自动跑在后台的任务，不能弹出 UI 界面询问用户“是否同意创建 Skill 文件夹”或“是否允许修改 MEMORY.md”，否则会直接卡死。但如果直接授予其全局写入权限，Agent 极有可能在意外的任务中把项目本身的源代码文件写坏。</p>
+<h4 id="432-如何实现">4.3.2 如何实现</h4>
+<astro-island uid="1uO6ek" component-url="/_astro/MimoFlows.AIlTvbTP.js" component-export="MimoWriteGuardFlow" renderer-url="/_astro/client.B8D08m9d.js" props="{}" ssr client="only" opts="{&quot;name&quot;:&quot;MimoWriteGuardFlow&quot;,&quot;value&quot;:&quot;react&quot;}"></astro-island>
+<h5 id="1-非交互授权降级">1. 非交互授权降级</h5>
+<p>在 <code>packages/opencode/src/agent/config.ts</code> 中，<code>SYSTEM_SPAWNED_AGENT_TYPES</code> 包含了 <code>&quot;checkpoint-writer&quot;, &quot;dream&quot;, &quot;distill&quot;</code>。这些 Agent 类型在进入执行循环时，其外部交互反馈权限机制会被强制降级为非交互模式（<code>interactive: false</code>）。在需要写文件的地方，如果写在沙箱外，将直接静默失败，而不会挂起等待用户点击“批准”。</p>
+<h5 id="2-精准的-memory-path-guard-校验">2. 精准的 Memory Path Guard 校验</h5>
+<p>系统为 <code>dream</code> 与 <code>distill</code> 配置了只允许读写 <code>&lt;DATA&gt;/memory/</code> 目录的特权，并且通过代码层面的硬拦截进行了隔离防御。在 <code>packages/opencode/src/tool/memory-path-guard.ts</code> 中：</p>
+<figure class="highlight typescript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/><span class="line">10</span><br/><span class="line">11</span><br/><span class="line">12</span><br/><span class="line">13</span><br/><span class="line">14</span><br/><span class="line">15</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// packages/opencode/src/tool/memory-path-guard.ts:122-134 (42e7da3)</span></span><br/><span class="line"><span class="keyword">if</span> (agentName === <span class="string">&quot;checkpoint-writer&quot;</span>) {</span><br/><span class="line">  <span class="keyword">if</span> (!<span class="title function_">isCheckpointWriterAllowed</span>(parts)) {</span><br/><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">Error</span>(</span><br/><span class="line">      <span class="string">`Path &#39;<span class="subst">${rel}</span>&#39; is not in the checkpoint-writer allowlist.\n`</span> +</span><br/><span class="line">      <span class="string">`Writer may only write to:\n`</span> +</span><br/><span class="line">      <span class="string">`  <span class="subst">${memoryFile}</span>                           — project memory (or memory-&lt;topic&gt;.md spillover)\n`</span> +</span><br/><span class="line">      <span class="string">`  <span class="subst">${checkpointFile}</span>                       — session checkpoint (or checkpoint-&lt;topic&gt;.md spillover)\n`</span> +</span><br/><span class="line">      <span class="string">`  <span class="subst">${taskMemDir}</span>/&lt;task_id&gt;/*.md            — per-task narratives (any .md filename)\n`</span> +</span><br/><span class="line">      <span class="string">`You attempted: <span class="subst">${target}</span>.`</span></span><br/><span class="line">    )</span><br/><span class="line">  }</span><br/><span class="line">  <span class="keyword">return</span></span><br/><span class="line">}</span><br/><span class="line"></span></pre></td></tr></tbody></table></figure>
+<p>同时，该机制完美限制了不同 Agent 对任务树进度文件的操作权限：</p>
+<ul>
+<li>只有被绑定了特定任务 ID 的子 Agent 才可以写自己对应的 <code>tasks/&lt;tid&gt;/*.md</code>，防止发生跨任务的日志篡改。</li>
+<li>主 Agent（主线程）则完全不允许碰这些路径，从而形成了清晰的控制链。</li>
+</ul>
+<h4 id="433-为什么这样设计">4.3.3 为什么这样设计</h4>
+<p>如果纯用 Prompt 约束 Agent：“你不能动 src 文件夹下的代码”，大模型一旦出现逻辑偏离就会越界。MiMo-Code 在底层文件工具的入口处（<code>external-directory.ts:assertWriteAllowed</code>）利用代码硬编码直接判断 Agent 类型和目标路径，彻底杜绝了进化引擎损坏主程序代码的隐患。</p>
+<h4 id="434-trade-off取舍">4.3.4 Trade-off（取舍）</h4>
+<ul>
+<li><strong>高度耦合</strong>：修改外部文件路径拦截规则或引入新的后台智能体类型时，必须同步修改 <code>memory-path-guard.ts</code> 中的白名单正则表达式。</li>
+</ul>
+<hr/>
+<h3 id="44-增量合并与垃圾回收机制garbage-collection">4.4 增量合并与垃圾回收机制（Garbage Collection）</h3>
+<h4 id="441-解决什么问题">4.4.1 解决什么问题</h4>
+<p>记忆数据越积越多，会导致 <code>MEMORY.md</code> 发生信息爆炸，同样会吃掉大量上下文。怎么保证记忆始终是“高亮精华”？</p>
+<h4 id="442-如何实现">4.4.2 如何实现</h4>
+<p>MiMo-Code 从三个维度实施了垃圾回收（GC）：</p>
+<h5 id="1-物理尺寸熔断与外溢spillover">1. 物理尺寸熔断与外溢（Spillover）</h5>
+<p>在 <code>dream.txt</code> 的最后设定了严格的产物上限：<strong>200 行（200 lines）且不大于 10KB</strong>。当文件体积逼近上限时，Agent 需要实施外溢策略，将某个具体的复杂技术问题外溢保存至独立子文件 <code>memory/projects/&lt;id&gt;/memory-&lt;topic&gt;.md</code> 中，而在 <code>MEMORY.md</code> 里只保留一条带有索引指向的单行链接：</p>
+<figure class="highlight markdown"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> See memory-postgreshb.md (12 items) - Postgres connection pooling rules.</span><br/><span class="line"></span></pre></td></tr></tbody></table></figure>
+<p>这让大文件变成了分布式存储的“星型拓扑”结构，便于按需按目录读取。</p>
+<h5 id="2-擦除式更新pruning">2. 擦除式更新（Pruning）</h5>
+<p>在 Dream 进行整理时，如果发现最近的 trajectory 数据或新写入的架构决定证明以前的某些规则（如某版本 bug）已经被消除，则 Agent 拥有<strong>主动删除/更新旧事实</strong>的责任（Phase 5）。</p>
+<h5 id="3-消费后即刻清空consume-and-clear">3. 消费后即刻清空（Consume-and-Clear）</h5>
+<p>在会话中产生的 <code>notes.md</code> 往往是杂乱无章的灵感和备忘录。Dream 智能体完成对 <code>notes.md</code> 的消费提炼后，会直接使用 <code>Write</code> 工具把 <code>notes.md</code> 重写恢复为干净的基础模板状态：</p>
+<figure class="highlight typescript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// packages/opencode/src/agent/prompt/checkpoint-writer.txt:114 (42e7da3)</span></span><br/><span class="line"><span class="title class_">For</span> notes.<span class="property">md</span>: <span class="title class_">Use</span> <span class="title class_">Write</span> tool to overwrite notes.<span class="property">md</span> <span class="keyword">with</span> the <span class="variable constant_">NOTES_TEMPLATE</span> byte-<span class="keyword">for</span>-byte...</span><br/><span class="line"></span></pre></td></tr></tbody></table></figure>
+<p>这能够确保每次 Dream 的输入事实均是“增量”的，不会对同样的历史信息进行反复冗余的提炼。</p>
+<h4 id="443-为什么这样设计">4.4.3 为什么这样设计</h4>
+<p>人类的大脑在睡眠（Dreaming）时，会自动剪枝弱连接的神经元，并保留强化重要的反射弧。MiMo-Code 将这种生物学机制映射在了记忆体系中。只进不出、一味累加的记忆不仅消耗 Token，而且往往因为前后矛盾产生幻觉，主动剪枝对于长期自演化至关重要。</p>
+<hr/>
+<h2 id="5-执行路径追踪execution-path-trace">5. 执行路径追踪（Execution Path Trace）</h2>
+<p>下面我们以一次由于冷却时间满足触发的 <strong>Auto Dream</strong> 后台执行过程为例，理清底层的核心调用流水：</p>
+<pre><code class="language-mermaid">sequenceDiagram
+    autonumber
+    participant Main as Session Loop (prompt.ts)
+    participant Svc as Session Service
+    participant Scheduler as auto-dream.ts
+    participant DB as SQLite DB (mimocode.db)
+    participant Guard as memory-path-guard
+    participant DreamAgent as Dream Subagent
+
+    Main-&gt;&gt;Scheduler: shouldAutoDream(config)
+    Scheduler-&gt;&gt;DB: 查询上一次包含 &quot;Auto Dream&quot; 的 Session 记录
+    DB--&gt;&gt;Scheduler: 返回最近一次创建时间 t_last
+    Note over Scheduler: 判定 elapsed = now - t_last &gt; 7天
+    Scheduler--&gt;&gt;Main: 返回 dreamTrigger = true
+
+    Main-&gt;&gt;Svc: svc.create({ title: &quot;Auto Dream&quot; })
+    Svc--&gt;&gt;Main: 创建后台隔离会话 s_id
+    Main-&gt;&gt;DreamAgent: sp.prompt({ sessionID: s_id, agent: &quot;dream&quot;, parts: [DREAM_TASK] })
+    
+    activate DreamAgent
+    Note over DreamAgent: Phase 0/1: 定位数据与环境对齐
+    DreamAgent-&gt;&gt;DB: FTS 全文检索 recent checkpoint &amp; notes
+    DB--&gt;&gt;DreamAgent: 返回近期临时事实碎片
+    
+    Note over DreamAgent: Phase 2/3: SQL轨迹校验
+    DreamAgent-&gt;&gt;DB: 执行 SQL 统计工具调用、查询指定会话历史消息
+    DB--&gt;&gt;DreamAgent: 返回确定性执行日志
+    
+    Note over DreamAgent: Phase 4/5: 合并与剪枝
+    DreamAgent-&gt;&gt;Guard: 写文件请求: projects/&lt;pid&gt;/MEMORY.md
+    activate Guard
+    Note over Guard: 检测为 dream 智能体，检验路径匹配
+    Guard--&gt;&gt;DreamAgent: 校验通过，允许无询问静默写入
+    deactivate Guard
+    
+    DreamAgent-&gt;&gt;Guard: 重置清空 notes.md
+    Guard--&gt;&gt;DreamAgent: 写入成功
+    
+    DreamAgent--&gt;&gt;Main: 返回 Dream 整理总结输出
+    deactivate DreamAgent
+    Note over Main: 主线程对用户返回消息，进化在后台默默完成
+</code></pre>
+<hr/>
+<h2 id="6-运行时底层原理解析runtime-internals">6. 运行时底层原理解析（Runtime &amp; Internals）</h2>
+<p>我们继续探究一些 MiMo-Code 在 Node.js/Bun 运行时层面是如何支持这一自进化引擎的。</p>
+<h3 id="61-基于-als-的多实例与路径解耦">6.1 基于 ALS 的多实例与路径解耦</h3>
+<p>在 CLI / LSP 执行过程中，Agent 所面对的项目环境、当前工作目录（CWD）经常处于切换状态。为了保证 <code>assertWriteAllowed()</code> 能随时拿到正确的 <code>ProjectID</code> 与 <code>SessionID</code>，MiMo-Code 利用了异步上下文传播。
+在 <code>packages/opencode/src/tool/external-directory.ts</code> 的 <code>assertWriteAllowed</code> 方法中：</p>
+<figure class="highlight typescript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// packages/opencode/src/tool/external-directory.ts:89-95 (42e7da3)</span></span><br/><span class="line"><span class="keyword">const</span> projectID = (<span class="function">() =&gt;</span> {</span><br/><span class="line">  <span class="keyword">try</span> {</span><br/><span class="line">    <span class="keyword">return</span> (<span class="title class_">Instance</span>.<span class="property">current</span>?.<span class="property">project</span>?.<span class="property">id</span> <span class="keyword">as</span> <span class="title class_">ProjectID</span> | <span class="literal">undefined</span>) ?? <span class="title class_">ProjectID</span>.<span class="property">global</span></span><br/><span class="line">  } <span class="keyword">catch</span> {</span><br/><span class="line">    <span class="keyword">return</span> <span class="title class_">ProjectID</span>.<span class="property">global</span></span><br/><span class="line">  }</span><br/><span class="line">})()</span><br/><span class="line"></span></pre></td></tr></tbody></table></figure>
+<p>这里通过 <code>Instance.current</code> 从当前的上下文（由 <code>AsyncLocalStorage</code> 维护）中提取绑定了特定会话的运行实例。即使前台用户在执行复杂的任务，后台运行的 Detached Fiber 依然能精准确定当前的任务目录是哪个，做到了运行时状态的多路隔离与并发安全性。</p>
+<h3 id="62-索引重建的惰性加载lazy-reconcile">6.2 索引重建的惰性加载（Lazy Reconcile）</h3>
+<p>我们经常担心，频繁的文件更新会不会导致 FTS 检索卡死？
+MiMo-Code 采用了惰性对齐的手段。数据库的全文对齐只发生在一类动作的开头：也就是当 Agent 决定调用 <code>memory</code> 工具执行查询时。
+在 <code>packages/opencode/src/memory/service.ts</code> 的 <code>search</code> 方法中：</p>
+<figure class="highlight typescript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// packages/opencode/src/memory/service.ts:60-64 (42e7da3)</span></span><br/><span class="line"><span class="keyword">const</span> cfg = <span class="keyword">yield</span>* config.<span class="title function_">get</span>()</span><br/><span class="line"><span class="keyword">if</span> (cfg.<span class="property">checkpoint</span>?.<span class="property">memory_reconcile_on_search</span> ?? <span class="literal">true</span>) {</span><br/><span class="line">  <span class="keyword">const</span> cc = cfg.<span class="property">memory</span>?.<span class="property">cc_index</span> ? ccBase : <span class="literal">undefined</span></span><br/><span class="line">  <span class="keyword">yield</span>* <span class="title class_">Effect</span>.<span class="title function_">promise</span>(<span class="function">() =&gt;</span> <span class="title function_">reconcileMemory</span>({ <span class="attr">mimo</span>: root, cc }))</span><br/><span class="line">}</span><br/><span class="line"></span></pre></td></tr></tbody></table></figure>
+<p>只有在 Agent 确实调用了检索操作时，才会通过 <code>reconcileMemory</code> 收集两端根目录（<code>mimo</code> 内存树 + <code>ccBase</code> 即 Claude Code 外部工程记忆目录）下的文件，对比其物理大小与修改时间戳（<code>fingerprint: ${stat.size}-${stat.mtimeMs}</code>）进行增量重建。对于没有检索发生的普通任务，该过程开销为零。</p>
+<hr/>
+<h2 id="7-性能与成本performance-trade-offs">7. 性能与成本（Performance &amp; Trade-offs）</h2>
+<p>对 Agent 进化机制的引入需要全面衡量其运行时性能与 Token 消耗。</p>
+<h3 id="71-系统开销与性能指标">7.1 系统开销与性能指标</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>操作维度</th><th>实测耗时</th><th>资源占用 / 消耗说明</th></tr></thead><tbody><tr><td><strong>双循环调度检测</strong></td><td>~2.5 ms</td><td>单次 O(1) 索引查询，检测上次 session 记录，基本无感知</td></tr><tr><td><strong>内存树扫描与 FTS 索引重建</strong></td><td>12 - 40 ms</td><td>根据磁盘 I/O 速度而异，通过文件的 size 和修改时间进行增量校验，速度极快</td></tr><tr><td><strong>FTS BM25 查询评分与相对 floor 过滤</strong></td><td>~5 ms</td><td>SQLite 纯 C 实现的 FTS 排序与过滤</td></tr><tr><td><strong>Dream 智能体后台执行（单次）</strong></td><td>30 - 60 s</td><td>会话创建与非交互多步骤验证，完全不占用主线程，通过后台 Detached Promise 机制，不影响前台交互</td></tr><tr><td><strong>Distill 智能体后台执行（单次）</strong></td><td>45 - 90 s</td><td>对 30 天轨迹进行 SQL 大批量统计分析及文件创建，占用后台执行资源，消耗一定 Token</td></tr></tbody></table>
+<h3 id="72-核心取舍">7.2 核心取舍</h3>
+<ol>
+<li><strong>以 Token 成本换上下文窗口与时效性</strong>：
+<ul>
+<li><em>牺牲</em>：触发一次 Dream 往往需要 3 - 5 轮 of 后台 LLM 交互验证，每次后台执行会吃掉几千甚至上万 Token（取决于最近的 session 复杂程度）。</li>
+<li><em>获得</em>：将数十万 Token 的原始会话细节压缩成了几百字节的高信噪比 facts。长远来看，这避免了主会话重复带入庞大的历史上下文，实现了更大的经济效应与检索召回率。</li>
+</ul>
+</li>
+<li><strong>以严格白名单架构换取零人工交互</strong>：
+<ul>
+<li><em>牺牲</em>：Agent 在后台虽然拥有强大的 <code>bash</code> 工具，却无法通过提示词操作任何 memory 文件夹外的代码。如果由于进化导致需要更新 <code>.gitignore</code> 等全局文件，Agent 只能发出倡议，无法自行操作。</li>
+<li><em>获得</em>：保证了后台全自动化执行的绝对安全性，杜绝了 Agent 在无监督状态下跑坏项目代码或逻辑外泄的问题。</li>
+</ul>
+</li>
+</ol>
+<hr/>
+<h2 id="8-与同类方案的对比">8. 与同类方案的对比</h2>
+<p>我们选择将 MiMo-Code (Dream &amp; Distill) 与 <strong>Hermes Agent (Nous Research)</strong> 以及 <strong>OpenClaw</strong> 这两款极具代表性的开源 AI 智能体持久记忆方案进行横向对比：</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>维度</th><th>MiMo-Code (Dream &amp; Distill)</th><th>Hermes Agent (Nous Research)</th><th>OpenClaw</th></tr></thead><tbody><tr><td><strong>存储媒介</strong></td><td>本地 Markdown + SQLite 轨迹库与 FTS 索引</td><td>本地 Markdown (<code>~/.hermes/memories/</code>) + FTS5 <code>state.db</code></td><td>本地 Markdown (<code>memory/YYYY-MM-DD.md</code>) + SQLite (Hybrid embeddings &amp; BM25)</td></tr><tr><td><strong>整理与去重方式</strong></td><td><strong>后台非交互大模型增量合并 + 相对 floor 剪枝与外溢机制</strong></td><td>主 Agent 使用内置 Memory 工具实时修改，超长时触发合并压缩</td><td>会话级 Compaction（压缩）前执行 “Memory Flush” 刷盘保存</td></tr><tr><td><strong>事实校验与防幻觉</strong></td><td><strong>极强。通过 SQLite 校验 raw 轨迹数据（Message/Part 统计）</strong></td><td>一般。完全基于 Agent 在上下文内自我总结和推理</td><td>一般。基于预设规则和会话滑动窗口总结</td></tr><tr><td><strong>技能与工作流进化</strong></td><td><strong>有。使用 Distill 提炼重复命令与操作，并包装为 Skills/Agents</strong></td><td>有。任务完成后生成可复用的 Markdown 技能 Playbook</td><td>无自动提炼。主要通过用户自定义插件和扩展</td></tr><tr><td><strong>对源码的安全性</strong></td><td><strong>有。Memory Path Guard 严格沙箱拦截（硬编码级别）</strong></td><td>较弱。主要依赖模型遵从 Prompt 规范或外部沙箱</td><td>较弱。主要依赖 Agent 逻辑与提示词隔离</td></tr><tr><td><strong>可读性与编辑友好度</strong></td><td><strong>极高。直接暴露 MEMORY.md 给用户，支持手工合并修改</strong></td><td>极高。可随时手动修改 <code>MEMORY.md</code> 和 <code>USER.md</code></td><td>极高。平铺的 Daily Logs 和 Wiki markdown 文件</td></tr></tbody></table>
+<h3 id="81-方案对比分析">8.1 方案对比分析</h3>
+<ol>
+<li>
+<p><strong>与 Hermes Agent 的对比</strong>
+Nous Research 的 Hermes Agent 极具特色地将记忆视作核心主权，其采用 <code>~/.hermes/memories/</code> 目录存放全局偏好（<code>USER.md</code>）与项目环境事实（<code>MEMORY.md</code>）。然而，Hermes 的记忆整合是<strong>实时且阻塞式</strong>的——主 Agent 在对话中若发现需要保存的内容，会实时调用工具改写这些 Markdown，并且在上下文容量吃紧时在主进程内直接进行合并。
+相比之下，MiMo-Code 的 <strong>Dream 机制采用了“离线异步后台协程”的设计</strong>，并且引入了<strong>轨迹库（Trajectory DB）的双重验证</strong>。Hermes 在写入记忆时完全基于大模型自身的联想与推理，容易写错文件路径或编造命令；而 MiMo-Code 能够利用 SQLite 查明当前会话里确实运行过该命令并成功或失败过，才允许在 Dream 中落地为知识，防幻觉能力显著优于 Hermes。此外，在技能进化维度，Hermes 仅能在任务结束时生成平铺的 Skill Playbook Markdown，而 MiMo-Code 能够通过 Distill 提炼出自定义子 Agent 和快捷 Command。</p>
+</li>
+<li>
+<p><strong>与 OpenClaw 的对比</strong>
+OpenClaw 特别强调本地文件的主权，采用每日日志（<code>memory/YYYY-MM-DD.md</code>）作为临时记忆面，并辅以持久化的知识库（<code>MEMORY.md</code>）。OpenClaw 的持久化策略是在会话因为长度超限需要进行 Compaction（消息滑动压缩）之前，触发一次 <strong>“Memory Flush”（内存刷盘）</strong>。
+这一设计解决了单会话的信息遗忘问题，但是它的致命痛点在于<strong>缺乏全局的增量剪枝与垃圾回收</strong>。随着时间推移，OpenClaw 的 Daily Logs 会无限膨胀，而其 <code>MEMORY.md</code> 往往缺乏像 MiMo-Code 那样的“10KB/200行物理熔断和外溢机制”，极易退化成一个充斥着过期 bug、冗余规则的庞大历史垃圾堆。在安全防线维度，OpenClaw 的写操作缺少 MiMo-Code 这种针对 Agent 角色（如 checkpoint-writer）进行严密路径限定的硬编码沙箱拦截，极易因为模型失控而污染项目主源码。</p>
+</li>
+</ol>
+<h3 id="82-hacker-news-社区视角与行业洞察">8.2 Hacker News 社区视角与行业洞察</h3>
+<p>在 Hacker News 以及相关开发者社区关于 AI 智能体脚手架（Harness）的探讨中，MiMo-Code 的设计引发了关于智能体未来演进路线的深度讨论，主要聚焦于以下三个维度：</p>
+<ol>
+<li><strong>Harness War（智能体底座之争）与模型锁死（Model Lock-in）</strong>
+社区广泛担忧，如果智能体的长期记忆和偏好完全被绑定在特定的闭源云端大模型上，或者被封装进非标的私有记忆格式中，将会产生严重的“模型锁死”风险。根据 <a href="https://news.ycombinator.com">Hacker News 社区</a> 对 <a href="https://github.com/NousResearch/hermes-agent">Nous Research Hermes Agent</a> 等项目的热议，MiMo-Code 作为一款开源的 Harness，通过将记忆与技能解耦成标准 Markdown 文件（如 <code>MEMORY.md</code>）和通用的 SQLite 本地轨迹库，实现了与具体 LLM 提供商的解耦。这种跨模型兼容性意味着开发者可以在不同的底座模型（如 Claude, GPT, DeepSeek）之间自由切换，而无需重构其自进化出的知识体系。</li>
+<li><strong>脚手架质量乘数效应（Harness Quality Multiplier）</strong>
+不少开发者指出，当前的“智能体军备竞赛”不能仅依靠底座模型上下文窗口 of 扩大或推理能力的微调。相反，智能体脚手架（Harness）的设计质量正成为核心的能力乘数（Multiplier）。在有关智能体内存管理的趋势探讨中（参见 <a href="https://hn.algolia.com/?q=agent+memory+filesystem">Hacker News 关于文件系统记忆的讨论</a>），社区对于使用文件系统（Filesystem）替代 Vector DB 存放记忆的趋势表示了强烈认可。MiMo-Code 的 Dream/Distill 双循环架构证明了：即使在模型能力保持不变的情况下，通过精妙的静态文件去重、事实校验与技能沉淀，也能够让智能体在解决复杂、长上下文工程任务时的成功率呈现出指数级增长。</li>
+<li><strong>安全性与远程代码执行（RCE）的隐忧</strong>
+像 <a href="https://github.com/OpenClaw/OpenClaw">OpenClaw</a> 等高频迭代的开源智能体项目，由于其工具调用（特别是 Bash/Terminal 执行）权限过于宽泛，在 Hacker News 上常被指出存在由于提示词注入（Prompt Injection）而导致 RCE（远程代码执行）等高危安全漏洞（参见 <a href="https://hn.algolia.com/?q=OpenClaw+security">Hacker News 上的安全讨论</a>）。MiMo-Code 的核心防线在于其 <code>Memory Path Guard</code> 的硬编码级别白名单沙箱。后台非交互式的 <code>checkpoint-writer</code> 和 <code>dream</code> 协程被物理隔离在 <code>Global.Path.data/memory</code> 目录下，彻底杜绝了模型失控后恶意修改项目源码或删除系统关键文件的可能，提供了一种在无监督进化与系统安全之间达成平衡的绝佳范式。</li>
+</ol>
+<hr/>
+<h2 id="9-源码阅读地图-source-code-map">9. 源码阅读地图 (Source Code Map)</h2>
+<p>如果你想进一步通过阅读 MiMo-Code 源码验证其细节，建议按照以下路线图进行：</p>
+<astro-island uid="1nkci2" component-url="/_astro/MimoFlows.AIlTvbTP.js" component-export="MimoSourceMapFlow" renderer-url="/_astro/client.B8D08m9d.js" props="{}" ssr client="only" opts="{&quot;name&quot;:&quot;MimoSourceMapFlow&quot;,&quot;value&quot;:&quot;react&quot;}"></astro-island>
+<ol>
+<li>首先从 <strong>触发判断</strong> 开始：
+<ul>
+<li>阅读 <a href="https://github.com/XiaomiMiMo/MiMo-Code/blob/42e7da3d51dba1129cd3abfa214e29f7385924a3/packages/opencode/src/session/auto-dream.ts#L38-L101">auto-dream.ts</a>：理解 <code>shouldAutoRun</code> 是怎么查库和判定冷却时长的。</li>
+<li>查看 <a href="https://github.com/XiaomiMiMo/MiMo-Code/blob/42e7da3d51dba1129cd3abfa214e29f7385924a3/packages/opencode/src/session/prompt.ts#L2253-L2287">prompt.ts</a>：理解后台 Fiber (Detached Promise) 创建新后台会话的方法。</li>
+</ul>
+</li>
+<li>随后切入 <strong>Agent 行为设定</strong>：
+<ul>
+<li>阅读系统提示词 <a href="https://github.com/XiaomiMiMo/MiMo-Code/blob/42e7da3d51dba1129cd3abfa214e29f7385924a3/packages/opencode/src/agent/prompt/dream.txt">dream.txt</a> 和 <a href="https://github.com/XiaomiMiMo/MiMo-Code/blob/42e7da3d51dba1129cd3abfa214e29f7385924a3/packages/opencode/src/agent/prompt/distill.txt">distill.txt</a>：观察它们如何从 Phase 0 逐步进阶到最终的修改与输出。</li>
+</ul>
+</li>
+<li>接着研究 <strong>底层检索服务</strong>：
+<ul>
+<li>阅读 <a href="https://github.com/XiaomiMiMo/MiMo-Code/blob/42e7da3d51dba1129cd3abfa214e29f7385924a3/packages/opencode/src/memory/reconcile.ts#L46-L92">reconcile.ts</a>：研究 Markdown 文件的指纹变更以及是如何利用 SQLite 写入 FTS 数据库的。</li>
+<li>深入 <a href="https://github.com/XiaomiMiMo/MiMo-Code/blob/42e7da3d51dba1129cd3abfa214e29f7385924a3/packages/opencode/src/memory/service.ts#L66-L133">service.ts</a>：理解 FTS BM25 查询评分排序、条件过滤与 cutoff floor 的具体计算实现。</li>
+</ul>
+</li>
+<li>最后阅读 <strong>安全防火墙</strong>：
+<ul>
+<li>阅读 <a href="https://github.com/XiaomiMiMo/MiMo-Code/blob/42e7da3d51dba1129cd3abfa214e29f7385924a3/packages/opencode/src/tool/memory-path-guard.ts#L95-L162">memory-path-guard.ts</a>：剖析 Agent 在工具层是如何被拦截判断并防范越权写入的。</li>
+</ul>
+</li>
+</ol>
+<hr/>
+<h2 id="10-最佳工程实践与建议">10. 最佳工程实践与建议</h2>
+<ol>
+<li><strong>设定合理的运行周期</strong>：
+对于超高频调用的团队，默认的 7 天 Dream 与 30 天 Distill 是被实践证明较为稳妥的。你可以在项目根目录下放置 <code>mimocode.json</code> 进行个性化配置：
+<figure class="highlight json"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/><span class="line">10</span><br/><span class="line">11</span></pre></td><td class="code"><pre><span class="line"><span class="punctuation">{</span></span><br/><span class="line">  <span class="attr">&quot;dream&quot;</span><span class="punctuation">:</span> <span class="punctuation">{</span></span><br/><span class="line">    <span class="attr">&quot;auto&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br/><span class="line">    <span class="attr">&quot;interval_days&quot;</span><span class="punctuation">:</span> <span class="number">5</span></span><br/><span class="line">  <span class="punctuation">}</span><span class="punctuation">,</span></span><br/><span class="line">  <span class="attr">&quot;distill&quot;</span><span class="punctuation">:</span> <span class="punctuation">{</span></span><br/><span class="line">    <span class="attr">&quot;auto&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br/><span class="line">    <span class="attr">&quot;interval_days&quot;</span><span class="punctuation">:</span> <span class="number">15</span></span><br/><span class="line">  <span class="punctuation">}</span></span><br/><span class="line"><span class="punctuation">}</span></span><br/><span class="line"></span></pre></td></tr></tbody></table></figure>
+</li>
+<li><strong>人工干预与微调</strong>：
+因为 MiMo-Code 将持久化记忆通过平铺直叙的 Markdown 文件（<code>MEMORY.md</code>）保存在你的工程目录中。你完全可以在开发过程中像改普通文件一样手工纠正、补充或删除里面的条款。下次 Agent 运行时，会自动通过 FTS 感知你手动编写的内容，并把它们当做绝对可信的真理执行。</li>
+<li><strong>避免技能泛滥</strong>：
+在编写新技能时，如果觉得 Distill 智能体自动提炼的 Skill 存在细节偏差，可直接进入 <code>.mimocode/skills/</code> 中对 <code>SKILL.md</code> 的步骤说明进行润色，而不是删掉重新生成。Distill 提炼前会调用 Phase 1 扫描现有资产，直接原地修改会使其在下个周期智能复用现有技能。</li>
+</ol>
+<hr/>
+<h2 id="11-总结">11. 总结</h2>
+<p>MiMo-Code 的自进化经验积淀架构，代表了下一代 AI Agent 的发展方向：<strong>不再寄希望于单一会长上下文大模型的记忆能力，而是将记忆的「记录」、「整理」与「提炼」作为一种独立的系统级协程存在。</strong></p>
+<p>通过 <code>checkpoint-writer</code> 实现短期的“工作记忆”记录；通过 <code>Dream</code> 在后台异步对历史轨迹和临时便签进行多阶段的数据库校验与长期的事实整合；最后通过 <code>Distill</code> 完成面向业务工作流的技能抽象与可重用资产化。这套基于 SQLite FTS、轨迹数据与硬白名单沙箱组成的双循环架构，成功突破了单会话 Agent 的限制，为大规模团队中 Agent 的“工作经验进化”提供了一条极具参考价值的底层链路。</p>
+<hr/>
+<h3 id="分析版本声明">分析版本声明</h3>
+<ul>
+<li><strong>分析仓库</strong>：<a href="https://github.com/XiaomiMiMo/MiMo-Code.git">MiMo-Code</a></li>
+<li><strong>提交哈希 (Commit Hash)</strong>：<code>42e7da3d51dba1129cd3abfa214e29f7385924a3</code></li>
+<li><strong>标记 (Tag/Branch)</strong>：<code>main</code></li>
+</ul> </article> <div class="article-footer"> <section id="license"> <div class="header"><span>许可协议</span></div> <div class="body"> <p> <a href="/wiki/bio/mycat/">喂猫🍞</a> <br>
+This article is licensed under the <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>. Please provide attribution when reproducing.
+<br>
+本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。
+</p> </div> </section> <section id="share"> <div class="header"><span>分享文章</span></div> <div class="body"> <div class="link"><label for="copy-link" class="sr-only">文章链接</label><input class="copy-area" readonly id="copy-link" value="https://shansan.top/drafts/mimo-dream-distill-deep-dive/"></div> <div class="social-wrap dis-select"> <button type="button" class="social share-item wechat" id="share-wechat-btn" aria-label="显示微信二维码"><img src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/b32ef3da1162a.svg" alt=""></button> <a class="social share-item weibo" target="_blank" rel="external nofollow noopener noreferrer" href="https://service.weibo.com/share/share.php?url=https%3A%2F%2Fshansan.top%2Fdrafts%2Fmimo-dream-distill-deep-dive%2F&amp;title=%E6%B7%B1%E5%85%A5+MiMo-Code%EF%BC%9A%E5%9F%BA%E4%BA%8E+Dream+%E4%B8%8E+Distill+%E5%8F%8C%E5%BE%AA%E7%8E%AF%E7%9A%84%E8%B7%A8%E4%BC%9A%E8%AF%9D%E7%BB%8F%E9%AA%8C%E8%BF%9B%E5%8C%96%E6%9C%BA%E5%88%B6+-+ShanSan&amp;summary=import+%7B+MimoIntroFlow%2C+MimoArchitectureFlow%2C+MimoDreamFlow%2C+MimoDistillFlow%2C+MimoWriteGuardFlow%2C+MimoSourceMapFlow%2C+%7D+from+%22..%2F..%2Fastro+sit" aria-label="分享到微博"><img src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/80c07e4dbb303.svg" alt="微博"></a> <a class="social share-item email" href="mailto:?subject=%E6%B7%B1%E5%85%A5%20MiMo-Code%EF%BC%9A%E5%9F%BA%E4%BA%8E%20Dream%20%E4%B8%8E%20Distill%20%E5%8F%8C%E5%BE%AA%E7%8E%AF%E7%9A%84%E8%B7%A8%E4%BC%9A%E8%AF%9D%E7%BB%8F%E9%AA%8C%E8%BF%9B%E5%8C%96%E6%9C%BA%E5%88%B6%20-%20ShanSan&amp;body=https%3A%2F%2Fshansan.top%2Fdrafts%2Fmimo-dream-distill-deep-dive%2F" aria-label="通过邮件分享"><img src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/a1b00e20f425d.svg" alt="邮件"></a> <button type="button" class="social share-item link" id="share-copy-btn" aria-label="复制文章链接"><img src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/8411ed322ced6.svg" alt=""></button> </div> <div class="qrcode" id="qrcode-wechat" style="opacity:0;height:0"> <img src="https://api.qrserver.com/v1/create-qr-code/?size=256x256&amp;data=https%3A%2F%2Fshansan.top%2Fdrafts%2Fmimo-dream-distill-deep-dive%2F" alt="QR Code"> </div> </div> </section> <script>
+(function() {
+  var wechatBtn = document.getElementById('share-wechat-btn');
+  var copyBtn = document.getElementById('share-copy-btn');
+  var qrcode = document.getElementById('qrcode-wechat');
+  var copyInput = document.getElementById('copy-link');
+
+  if (wechatBtn && qrcode) {
+    wechatBtn.addEventListener('click', function() {
+      var isOpen = qrcode.style.height !== '0px' && qrcode.style.height !== '0';
+      qrcode.style.opacity = isOpen ? '0' : '1';
+      qrcode.style.height = isOpen ? '0' : '128px';
+      wechatBtn.setAttribute('aria-expanded', String(!isOpen));
+    });
+  }
+
+  if (copyBtn && copyInput) {
+    var resetTimer = null;
+    var setCopyState = function(state) {
+      copyBtn.classList.toggle('success', state === 'success');
+      copyBtn.classList.toggle('warning', state === 'warning');
+      copyBtn.setAttribute('aria-label', state === 'success' ? '已复制文章链接' : state === 'warning' ? '复制失败' : '复制文章链接');
+      copyBtn.setAttribute('title', state === 'success' ? '已复制' : state === 'warning' ? '复制失败' : '复制文章链接');
+      if (resetTimer) clearTimeout(resetTimer);
+      if (state !== 'idle') {
+        resetTimer = setTimeout(function() {
+          setCopyState('idle');
+        }, 1800);
+      }
+    };
+    var fallbackCopy = function() {
+      copyInput.focus();
+      copyInput.select();
+      copyInput.setSelectionRange(0, copyInput.value.length);
+      return document.execCommand('copy');
+    };
+    copyBtn.addEventListener('click', function(event) {
+      event.preventDefault();
+      var value = copyInput.value;
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(value).then(function() {
+          setCopyState('success');
+        }).catch(function() {
+          setCopyState(fallbackCopy() ? 'success' : 'warning');
+        });
+        return;
+      }
+      setCopyState(fallbackCopy() ? 'success' : 'warning');
+    });
+    setCopyState('idle');
+  }
+})();
+</script> </div> <div class="related-wrap md-text" id="comments"> <section class="header cmt-title cap theme"> <p>ShanSan</p> </section> <section class="body cmt-body artalk"> <div class="artalk with-fancybox" id="artalk_container"> <svg class="loading" style="vertical-align:middle;fill:currentColor;overflow:hidden;" viewBox="0 0 1024 1024" version="1.1"> <path d="M832 512c0-176-144-320-320-320V128c211.2 0 384 172.8 384 384h-64zM192 512c0 176 144 320 320 320v64C300.8 896 128 723.2 128 512h64z"></path> </svg> </div> </section> </div> <script>(() => {
+  const el = document.getElementById('artalk_container');
+  if (!el) return;
+
+  const loadCss = (href) => {
+    if (document.querySelector('link[data-artalk-css]')) return;
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = href;
+    link.dataset.artalkCss = 'true';
+    document.head.appendChild(link);
+  };
+
+  const loadJs = (src) => {
+    const existing = document.querySelector('script[data-artalk-js]');
+    if (existing && window.Artalk) return Promise.resolve();
+    if (existing) {
+      return new Promise((resolve) => existing.addEventListener('load', resolve, { once: true }));
+    }
+    return new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = src;
+      script.defer = true;
+      script.dataset.artalkJs = 'true';
+      script.onload = resolve;
+      script.onerror = reject;
+      document.body.appendChild(script);
+    });
+  };
+
+  function initArtalk() {
+    loadCss('https://gcore.jsdelivr.net/npm/artalk@2.9.1/dist/Artalk.css');
+    loadJs('https://gcore.jsdelivr.net/npm/artalk@2.9.1/dist/Artalk.js').then(function () {
+      if (el.dataset.loaded === 'true') return;
+      const path = el.getAttribute('comment_id') ?? decodeURI(window.location.pathname);
+      Artalk.init({
+        el: '#artalk_container',
+        pageKey: path,
+        pageTitle: "深入 MiMo-Code：基于 Dream 与 Distill 双循环的跨会话经验进化机制",
+        server: 'https://artalk.shan333.cn/',
+        site: 'ShanSan',
+        darkMode: 'auto',
+      });
+      el.dataset.loaded = 'true';
+    });
+  }
+
+  window.stellar = window.stellar || {};
+  window.stellar.initComments = window.stellar.initComments || {};
+  window.stellar.initComments.artalk = initArtalk;
+  if ('IntersectionObserver' in window) {
+    var obs = new IntersectionObserver(function(entries) {
+      if (entries[0].isIntersecting) {
+        obs.disconnect();
+        initArtalk();
+      }
+    }, { rootMargin: '200px' });
+    obs.observe(el);
+  } else {
+    initArtalk();
+  }
+})();</script> <script>
+(function() {
+  var container = document.getElementById('artalk_container');
+  if (!container) return;
+  function fixAria() {
+    container.querySelectorAll('i[aria-label]:not([role])').forEach(function(el) {
+      el.setAttribute('role', 'button');
+    });
+  }
+  var observer = new MutationObserver(fixAria);
+  observer.observe(container, { childList: true, subtree: true });
+})();
+</script>   </main> <footer class="page-footer footnote"> <hr> <div class="text"> <p> <a href="https://shansan.top">Copyright &copy; 2018-2026 ShanSan</a><br> <a target="_blank" rel="noopener noreferrer" href="https://beian.miit.gov.cn/">桂ICP备19000444号</a><br>
+本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。<br>
+Powered by <a target="_blank" rel="noopener noreferrer" href="https://astro.build/">Astro</a> and <a target="_blank" rel="noopener noreferrer" href="https://github.com/xaoxuu/hexo-theme-stellar">hexo-theme-stellar</a><br> <span id="busuanzi_container_site_pv" style="display:none">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span> </p> </div> </footer> <script>
+          (function(){
+            function load(){
+              var s=document.createElement('script');
+              s.src='https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js';
+              s.async=true;
+              document.body.appendChild(s);
+            }
+            if('requestIdleCallback' in window){requestIdleCallback(load)}
+            else{window.addEventListener('load',function(){setTimeout(load,200)})}
+          })();
+        </script> <div class="main-mask" data-sidebar-action="dismiss"></div> </div> <aside class="l_right"> <div class="widgets"> <widget class="widget-wrapper user-card ghuser"> <div class="widget-body data-service ds-ghinfo" data-api="https://api.github.com/users/yeshan333"> <div class="avatar"> <img no-lazy type="img" id="avatar_url" width="128" height="128" src="https://ospy.shan333.cn/blog/github_avatar.png" alt="yeshan333"> </div> <p class="username" type="text" id="name">yeshan333</p> <p class="bio" type="text" id="bio">ShanSan</p> <div class="buttons"> <a class="btn" target="_blank" rel="noopener noreferrer" href="https://github.com/yeshan333?tab=followers"> <span class="title" type="text" id="followers">0</span> <span class="desc">followers</span> </a> <a class="btn" target="_blank" rel="noopener noreferrer" href="https://github.com/yeshan333?tab=following"> <span class="title" type="text" id="following">0</span> <span class="desc">following</span> </a> <a class="btn" target="_blank" rel="noopener noreferrer" href="https://github.com/yeshan333?tab=repositories"> <span class="title" type="text" id="public_repos">0</span> <span class="desc">repos</span> </a> </div> <a class="follow" target="_blank" rel="noopener noreferrer" href="https://github.com/yeshan333">Follow</a> </div> </widget> <widget class="widget-wrapper toc" id="data-toc" collapse="true"> <div class="widget-header dis-select"> <span class="name">本文目录</span> <button type="button" class="cap-action" data-sidebar-action="toggleTOC" aria-label="折叠目录" title="折叠目录"> <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"> <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"></path> </svg> </button> </div> <div class="widget-body"> <ol class="toc"> <li class="toc-item toc-level-2"> <a class="toc-link" href="#1-最小使用示例"> <span class="toc-text">1. 最小使用示例</span> </a> <ol class="toc-child"> <li class="toc-item toc-level-3"> <a class="toc-link" href="#11-手动运行-dream-记忆整合"> <span class="toc-text">1.1 手动运行 Dream 记忆整合</span> </a>  </li><li class="toc-item toc-level-3"> <a class="toc-link" href="#12-手动运行-distill-技能提炼"> <span class="toc-text">1.2 手动运行 Distill 技能提炼</span> </a>  </li> </ol> </li><li class="toc-item toc-level-2"> <a class="toc-link" href="#2-产物分析artifact-analysis"> <span class="toc-text">2. 产物分析（Artifact Analysis）</span> </a> <ol class="toc-child"> <li class="toc-item toc-level-3"> <a class="toc-link" href="#21-项目持久记忆文件-memorymd"> <span class="toc-text">2.1 项目持久记忆文件 MEMORY.md</span> </a>  </li><li class="toc-item toc-level-3"> <a class="toc-link" href="#22-自动提炼的-skill-资产"> <span class="toc-text">2.2 自动提炼的 Skill 资产</span> </a>  </li> </ol> </li><li class="toc-item toc-level-2"> <a class="toc-link" href="#3-系统架构与数据流"> <span class="toc-text">3. 系统架构与数据流</span> </a>  </li><li class="toc-item toc-level-2"> <a class="toc-link" href="#4-核心实现机制core-mechanisms"> <span class="toc-text">4. 核心实现机制（Core Mechanisms）</span> </a> <ol class="toc-child"> <li class="toc-item toc-level-3"> <a class="toc-link" href="#41-自动双循环触发与静默调度机制"> <span class="toc-text">4.1 自动双循环触发与静默调度机制</span> </a> <ol class="toc-child"> <li class="toc-item toc-level-4"> <a class="toc-link" href="#411-解决什么问题"> <span class="toc-text">4.1.1 解决什么问题</span> </a> </li><li class="toc-item toc-level-4"> <a class="toc-link" href="#412-如何实现"> <span class="toc-text">4.1.2 如何实现</span> </a> </li><li class="toc-item toc-level-4"> <a class="toc-link" href="#413-为什么这样设计"> <span class="toc-text">4.1.3 为什么这样设计</span> </a> </li><li class="toc-item toc-level-4"> <a class="toc-link" href="#414-trade-off取舍"> <span class="toc-text">4.1.4 Trade-off（取舍）</span> </a> </li> </ol> </li><li class="toc-item toc-level-3"> <a class="toc-link" href="#42-基于-sql-轨迹与-fts-索引的记忆检索与校验"> <span class="toc-text">4.2 基于 SQL 轨迹与 FTS 索引的记忆检索与校验</span> </a> <ol class="toc-child"> <li class="toc-item toc-level-4"> <a class="toc-link" href="#421-解决什么问题"> <span class="toc-text">4.2.1 解决什么问题</span> </a> </li><li class="toc-item toc-level-4"> <a class="toc-link" href="#422-如何实现"> <span class="toc-text">4.2.2 如何实现</span> </a> </li><li class="toc-item toc-level-4"> <a class="toc-link" href="#423-为什么这样设计"> <span class="toc-text">4.2.3 为什么这样设计</span> </a> </li><li class="toc-item toc-level-4"> <a class="toc-link" href="#424-trade-off取舍"> <span class="toc-text">4.2.4 Trade-off（取舍）</span> </a> </li> </ol> </li><li class="toc-item toc-level-3"> <a class="toc-link" href="#43-自动化非交互写入与安全隔离沙箱"> <span class="toc-text">4.3 自动化非交互写入与安全隔离沙箱</span> </a> <ol class="toc-child"> <li class="toc-item toc-level-4"> <a class="toc-link" href="#431-解决什么问题"> <span class="toc-text">4.3.1 解决什么问题</span> </a> </li><li class="toc-item toc-level-4"> <a class="toc-link" href="#432-如何实现"> <span class="toc-text">4.3.2 如何实现</span> </a> </li><li class="toc-item toc-level-4"> <a class="toc-link" href="#433-为什么这样设计"> <span class="toc-text">4.3.3 为什么这样设计</span> </a> </li><li class="toc-item toc-level-4"> <a class="toc-link" href="#434-trade-off取舍"> <span class="toc-text">4.3.4 Trade-off（取舍）</span> </a> </li> </ol> </li><li class="toc-item toc-level-3"> <a class="toc-link" href="#44-增量合并与垃圾回收机制garbage-collection"> <span class="toc-text">4.4 增量合并与垃圾回收机制（Garbage Collection）</span> </a> <ol class="toc-child"> <li class="toc-item toc-level-4"> <a class="toc-link" href="#441-解决什么问题"> <span class="toc-text">4.4.1 解决什么问题</span> </a> </li><li class="toc-item toc-level-4"> <a class="toc-link" href="#442-如何实现"> <span class="toc-text">4.4.2 如何实现</span> </a> </li><li class="toc-item toc-level-4"> <a class="toc-link" href="#443-为什么这样设计"> <span class="toc-text">4.4.3 为什么这样设计</span> </a> </li> </ol> </li> </ol> </li><li class="toc-item toc-level-2"> <a class="toc-link" href="#5-执行路径追踪execution-path-trace"> <span class="toc-text">5. 执行路径追踪（Execution Path Trace）</span> </a>  </li><li class="toc-item toc-level-2"> <a class="toc-link" href="#6-运行时底层原理解析runtime-internals"> <span class="toc-text">6. 运行时底层原理解析（Runtime &amp; Internals）</span> </a> <ol class="toc-child"> <li class="toc-item toc-level-3"> <a class="toc-link" href="#61-基于-als-的多实例与路径解耦"> <span class="toc-text">6.1 基于 ALS 的多实例与路径解耦</span> </a>  </li><li class="toc-item toc-level-3"> <a class="toc-link" href="#62-索引重建的惰性加载lazy-reconcile"> <span class="toc-text">6.2 索引重建的惰性加载（Lazy Reconcile）</span> </a>  </li> </ol> </li><li class="toc-item toc-level-2"> <a class="toc-link" href="#7-性能与成本performance-trade-offs"> <span class="toc-text">7. 性能与成本（Performance &amp; Trade-offs）</span> </a> <ol class="toc-child"> <li class="toc-item toc-level-3"> <a class="toc-link" href="#71-系统开销与性能指标"> <span class="toc-text">7.1 系统开销与性能指标</span> </a>  </li><li class="toc-item toc-level-3"> <a class="toc-link" href="#72-核心取舍"> <span class="toc-text">7.2 核心取舍</span> </a>  </li> </ol> </li><li class="toc-item toc-level-2"> <a class="toc-link" href="#8-与同类方案的对比"> <span class="toc-text">8. 与同类方案的对比</span> </a> <ol class="toc-child"> <li class="toc-item toc-level-3"> <a class="toc-link" href="#81-方案对比分析"> <span class="toc-text">8.1 方案对比分析</span> </a>  </li><li class="toc-item toc-level-3"> <a class="toc-link" href="#82-hacker-news-社区视角与行业洞察"> <span class="toc-text">8.2 Hacker News 社区视角与行业洞察</span> </a>  </li> </ol> </li><li class="toc-item toc-level-2"> <a class="toc-link" href="#9-源码阅读地图-source-code-map"> <span class="toc-text">9. 源码阅读地图 (Source Code Map)</span> </a>  </li><li class="toc-item toc-level-2"> <a class="toc-link" href="#10-最佳工程实践与建议"> <span class="toc-text">10. 最佳工程实践与建议</span> </a>  </li><li class="toc-item toc-level-2"> <a class="toc-link" href="#11-总结"> <span class="toc-text">11. 总结</span> </a> <ol class="toc-child"> <li class="toc-item toc-level-3"> <a class="toc-link" href="#分析版本声明"> <span class="toc-text">分析版本声明</span> </a>  </li> </ol> </li> </ol> </div> <div class="widget-footer"> <a class="top" href="#start" data-scroll-target="#start"> <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"> <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"> <path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"></path> <path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"></path> </g> </svg> <span>回到顶部</span> </a> <a class="buttom" href="#comments" data-scroll-target="#comments"> <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"> <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M8 10.5h8M8 14h5.5M17 3.338A9.95 9.95 0 0 0 12 2C6.477 2 2 6.477 2 12c0 1.6.376 3.112 1.043 4.453c.178.356.237.763.134 1.148l-.595 2.226a1.3 1.3 0 0 0 1.591 1.592l2.226-.596a1.63 1.63 0 0 1 1.149.133A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10c0-1.821-.487-3.53-1.338-5"></path> </svg> <span>参与讨论</span> </a> <a class="immersive" href="javascript:void(0)" data-sidebar-action="toggleImmersive"> <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"> <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 8V6a2 2 0 0 1 2-2h2m12 4V6a2 2 0 0 0-2-2h-2M4 16v2a2 2 0 0 0 2 2h2m12-4v2a2 2 0 0 1-2 2h-2"></path> </svg> <span>沉浸阅读</span> </a> </div> </widget> </div> </aside> <div class="float-panel"> <button type="button" class="theme-toggle" data-theme-action="toggle" aria-label="切换深色模式" title="切换深色模式"> <span class="theme-icon theme-icon-moon" aria-hidden="true"> <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"></path></svg> </span> <span class="theme-icon theme-icon-sun" aria-hidden="true" hidden> <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2m0 16v2m10-10h-2M4 12H2m17.07-7.07l-1.41 1.41M6.34 17.66l-1.41 1.41m0-14.14l1.41 1.41m11.32 11.32l1.41 1.41"></path></g></svg> </span> </button> <button type="button" style="display:none" class="laptop-only rightbar-toggle mobile" data-sidebar-action="rightbar" aria-label="打开目录" title="打开目录"> <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"></path></svg> </button> <button type="button" style="display:none" class="mobile-only leftbar-toggle mobile" data-sidebar-action="leftbar" aria-label="打开侧栏" title="打开侧栏"> <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11c0-3.771 0-5.657 1.172-6.828C4.343 3 6.229 3 10 3h4c3.771 0 5.657 0 6.828 1.172C22 5.343 22 7.229 22 11v2c0 3.771 0 5.657-1.172 6.828C19.657 21 17.771 21 14 21h-4c-3.771 0-5.657 0-6.828-1.172C2 18.657 2 16.771 2 13z"></path><path id="sep" stroke-linecap="round" d="M5.5 10h6m-5 4h4m4.5 7V3"></path></g></svg> </button> </div> </div> <script>
+  var l_body = document.querySelector('.l_body');
+  var sidebar = {
+    leftbar: function() {
+      if (l_body) {
+        l_body.toggleAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    rightbar: function() {
+      if (l_body) {
+        l_body.toggleAttribute('rightbar');
+        l_body.removeAttribute('leftbar');
+      }
+    },
+    dismiss: function() {
+      if (l_body) {
+        l_body.removeAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    toggleImmersive: function() {
+      if (l_body) {
+        l_body.classList.toggle('immersive-mode');
+      }
+    },
+    toggleTOC: function() {
+      var toc = document.querySelector('#data-toc');
+      if (toc) toc.classList.toggle('collapse');
+    }
+  };
+  window.sidebar = sidebar;
+  function getCurrentTheme() {
+    var explicit = document.documentElement.getAttribute('data-theme');
+    if (explicit === 'light' || explicit === 'dark') return explicit;
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) return 'dark';
+    return 'light';
+  }
+  function syncThemeToggle() {
+    var button = document.querySelector('.theme-toggle');
+    if (!button) return;
+    var current = getCurrentTheme();
+    var isDark = current === 'dark';
+    button.setAttribute('aria-pressed', String(isDark));
+    button.setAttribute('aria-label', isDark ? '切换到白天模式' : '切换到黑夜模式');
+    button.setAttribute('title', isDark ? '切换到白天模式' : '切换到黑夜模式');
+    var moon = button.querySelector('.theme-icon-moon');
+    var sun = button.querySelector('.theme-icon-sun');
+    if (moon) moon.hidden = isDark;
+    if (sun) sun.hidden = !isDark;
+  }
+  function switchTheme() {
+    var next = getCurrentTheme() === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    window.localStorage.setItem('Stellar.theme', next);
+    syncThemeToggle();
+  }
+  document.addEventListener('click', function(event) {
+    var sidebarTrigger = event.target.closest('[data-sidebar-action]');
+    if (sidebarTrigger) {
+      event.preventDefault();
+      var action = sidebarTrigger.getAttribute('data-sidebar-action');
+      if (action && sidebar[action]) sidebar[action]();
+      return;
+    }
+
+    var themeTrigger = event.target.closest('[data-theme-action="toggle"]');
+    if (themeTrigger) {
+      event.preventDefault();
+      switchTheme();
+      return;
+    }
+
+    var scrollTrigger = event.target.closest('[data-scroll-target]');
+    if (scrollTrigger) {
+      var selector = scrollTrigger.getAttribute('data-scroll-target');
+      var target = selector ? document.querySelector(selector) : null;
+      if (!target) return;
+      event.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      sidebar.dismiss();
+    }
+  });
+  window.switchTheme = switchTheme;
+  syncThemeToggle();
+  if (window.matchMedia) {
+    var themeQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    var onSystemThemeChange = function() {
+      if (!document.documentElement.getAttribute('data-theme')) syncThemeToggle();
+    };
+    if (themeQuery.addEventListener) themeQuery.addEventListener('change', onSystemThemeChange);
+    else if (themeQuery.addListener) themeQuery.addListener(onSystemThemeChange);
+  }
+</script> <script>
+  (function() {
+    var adSlots = document.querySelectorAll('[data-adsense-lazy] ins.adsbygoogle');
+    if (!adSlots.length) return;
+
+    var scriptPromise = null;
+    var loadedSlots = new WeakSet();
+    var earliestLoadAt = Date.now() + 4500;
+    var windowLoaded = document.readyState === 'complete';
+
+    if (!windowLoaded) {
+      window.addEventListener('load', function() {
+        windowLoaded = true;
+      }, { once: true });
+    }
+
+    function loadAdScript() {
+      if (scriptPromise) return scriptPromise;
+      scriptPromise = new Promise(function(resolve, reject) {
+        if (document.querySelector('script[data-adsense-loader]')) {
+          resolve();
+          return;
+        }
+        var script = document.createElement('script');
+        script.async = true;
+        script.crossOrigin = 'anonymous';
+        script.dataset.adsenseLoader = 'true';
+        script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7762707993867214';
+        script.onload = function() { resolve(); };
+        script.onerror = function() { reject(); };
+        document.head.appendChild(script);
+      });
+      return scriptPromise;
+    }
+
+    function schedule(callback) {
+      var runWhenQuiet = function() {
+        if ('requestIdleCallback' in window) {
+          window.requestIdleCallback(callback, { timeout: 3000 });
+        } else {
+          window.setTimeout(callback, 800);
+        }
+      };
+      var runAfterDelay = function() {
+        window.setTimeout(runWhenQuiet, Math.max(0, earliestLoadAt - Date.now()));
+      };
+
+      if (windowLoaded) {
+        runAfterDelay();
+      } else {
+        window.addEventListener('load', runAfterDelay, { once: true });
+      }
+    }
+
+    function hydrateAd(slot) {
+      if (loadedSlots.has(slot)) return;
+      loadedSlots.add(slot);
+      schedule(function() {
+        loadAdScript().then(function() {
+          window.adsbygoogle = window.adsbygoogle || [];
+          window.adsbygoogle.push({});
+          slot.closest('[data-adsense-lazy]')?.setAttribute('data-adsense-loaded', 'true');
+        }).catch(function() {
+          loadedSlots.delete(slot);
+        });
+      });
+    }
+
+    if ('IntersectionObserver' in window) {
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (!entry.isIntersecting) return;
+          hydrateAd(entry.target);
+          observer.unobserve(entry.target);
+        });
+      }, { rootMargin: '200px 0px', threshold: 0.01 });
+      adSlots.forEach(function(slot) { observer.observe(slot); });
+      return;
+    }
+
+    adSlots.forEach(hydrateAd);
+  })();
+</script> <script>
+  (function() {
+    var lazyImgs = document.querySelectorAll('img.lazy[data-src]');
+    if (!lazyImgs.length) return;
+    lazyImgs.forEach(function(img) { img.setAttribute('data-ll-status', 'loading'); });
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (!entry.isIntersecting) return;
+        var img = entry.target;
+        var src = img.getAttribute('data-src');
+        if (src) {
+          img.src = src;
+          img.removeAttribute('data-src');
+          img.addEventListener('load', function() {
+            img.classList.add('loaded');
+            img.setAttribute('data-ll-status', 'loaded');
+          });
+          img.addEventListener('error', function() {
+            img.classList.add('error');
+            img.setAttribute('data-ll-status', 'error');
+          });
+        }
+        observer.unobserve(img);
+      });
+    }, { rootMargin: '200px' });
+    lazyImgs.forEach(function(img) { observer.observe(img); });
+  })();
+</script> <script>
+  (function() {
+    var els = document.getElementsByClassName('ds-ghinfo');
+    for (var i = 0; i < els.length; i++) {
+      (function(el) {
+        var api = el.getAttribute('data-api');
+        if (!api) return;
+        fetch(api).then(function(r) { return r.json(); }).then(function(data) {
+          var keys = Object.keys(data);
+          for (var j = 0; j < keys.length; j++) {
+            var key = keys[j];
+            var textEl = el.querySelector('[type="text"]#' + key);
+            if (textEl) textEl.textContent = data[key];
+            var imgEl = el.querySelector('[type="img"]#' + key);
+            if (imgEl) imgEl.setAttribute('src', data[key]);
+          }
+        }).catch(function() {});
+      })(els[i]);
+    }
+  })();
+</script> <script>
+  document.querySelectorAll('.tabs .nav-tabs .tab').forEach(function(element) {
+    element.addEventListener('click', function(event) {
+      event.preventDefault();
+      if (element.classList.contains('active')) return;
+      var siblings = element.parentNode.children;
+      for (var i = 0; i < siblings.length; i++) {
+        siblings[i].classList.toggle('active', siblings[i] === element);
+      }
+      var href = element.querySelector('a').getAttribute('href').replace('#', '');
+      var tActive = document.getElementById(href);
+      if (!tActive) return;
+      var panes = tActive.parentNode.children;
+      for (var j = 0; j < panes.length; j++) {
+        panes[j].classList.toggle('active', panes[j] === tActive);
+      }
+    });
+  });
+</script> <script>
+  (function() {
+    document.querySelectorAll('figure.highlight .code').forEach(function(codeCell) {
+      if (codeCell.querySelector('.copy-btn')) return;
+      var btn = document.createElement('div');
+      btn.className = 'copy-btn';
+      btn.textContent = 'Copy';
+      btn.addEventListener('click', function() {
+        var pre = codeCell.querySelector('pre');
+        if (!pre) return;
+        var text = pre.innerText || '';
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(text).then(function() {
+            btn.textContent = 'Copied!';
+            btn.classList.add('success');
+            setTimeout(function() {
+              btn.textContent = 'Copy';
+              btn.classList.remove('success');
+            }, 3000);
+          }).catch(function() {
+            btn.textContent = 'Failed';
+            btn.classList.add('warning');
+            setTimeout(function() {
+              btn.textContent = 'Copy';
+              btn.classList.remove('warning');
+            }, 3000);
+          });
+        }
+      });
+      codeCell.appendChild(btn);
+    });
+  })();
+</script> <script>
+  (function() {
+    var tocEl = document.querySelector('#data-toc .toc');
+    if (!tocEl) return;
+    var headers = document.querySelectorAll('article.md-text :is(h1,h2,h3,h4,h5,h6)[id]');
+    if (!headers.length) return;
+    var links = document.querySelectorAll('#data-toc a.toc-link');
+    var scrollOffset = 32;
+
+    function activeTOC() {
+      var scrollTop = window.scrollY || document.documentElement.scrollTop;
+      var topSeg = null;
+      for (var i = 0; i < headers.length; i++) {
+        var rect = headers[i].getBoundingClientRect();
+        var top = rect.top + scrollTop - document.documentElement.clientTop;
+        if (top > scrollTop + scrollOffset) continue;
+        if (!topSeg || top >= topSeg.top) {
+          topSeg = { el: headers[i], top: top };
+        }
+      }
+      for (var j = 0; j < links.length; j++) {
+        links[j].classList.remove('active');
+      }
+      if (topSeg) {
+        var href = '#' + topSeg.el.getAttribute('id');
+        var active = document.querySelector('#data-toc a.toc-link[href="' + href + '"]');
+        if (active) active.classList.add('active');
+      } else if (links.length) {
+        links[0].classList.add('active');
+      }
+    }
+
+    function scrollTOC() {
+      var activeLink = document.querySelector('#data-toc a.toc-link.active');
+      if (!tocEl || !activeLink) return;
+      var ob = activeLink.getBoundingClientRect().bottom - tocEl.getBoundingClientRect().bottom + 100;
+      var ot = activeLink.getBoundingClientRect().top - tocEl.getBoundingClientRect().top - 64;
+      if (ot < 0) {
+        tocEl.scrollBy({ top: ot, behavior: 'smooth' });
+      } else if (ob > 0) {
+        tocEl.scrollBy({ top: ob, behavior: 'smooth' });
+      }
+    }
+
+    var timeout = null;
+    window.addEventListener('scroll', function() {
+      activeTOC();
+      if (timeout !== null) clearTimeout(timeout);
+      timeout = setTimeout(scrollTOC, 50);
+    });
+    activeTOC();
+  })();
+</script> <script type="module">
+  const mermaidBlocks = [...document.querySelectorAll("pre > code.language-mermaid")];
+  if (mermaidBlocks.length) {
+    import("https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs").then(({ default: mermaid }) => {
+      mermaid.initialize({ 
+        startOnLoad: false, 
+        theme: "default", 
+        themeVariables: { fontSize: "16px" }
+      });
+      
+      mermaidBlocks.forEach((block) => {
+        const source = block.textContent || "";
+        const container = document.createElement("div");
+        container.className = "mermaid";
+        container.style.textAlign = "center";
+        container.textContent = source;
+        block.closest("pre")?.replaceWith(container);
+      });
+      mermaid.run().then(() => {
+        document.querySelectorAll(".mermaid svg").forEach(svg => {
+          const title = svg.getAttribute("aria-label") || "Mermaid diagram";
+          const clone = svg.cloneNode(true);
+          clone.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+          clone.setAttribute("role", "img");
+          clone.setAttribute("aria-label", title);
+          clone.style.backgroundColor = "#ffffff";
+
+          const width = parseFloat(clone.getAttribute("width") || (clone.viewBox && clone.viewBox.baseVal.width) || 0);
+          const height = parseFloat(clone.getAttribute("height") || (clone.viewBox && clone.viewBox.baseVal.height) || 0);
+          if (!clone.getAttribute("viewBox") && width && height) {
+            clone.setAttribute("viewBox", "0 0 " + width + " " + height);
+          }
+          const viewBox = clone.getAttribute("viewBox");
+          const viewBoxParts = viewBox ? viewBox.trim().split(/\s+/).map(Number) : [];
+          const viewBoxWidth = viewBoxParts.length === 4 && viewBoxParts.every(Number.isFinite) ? viewBoxParts[2] : width;
+          const viewBoxHeight = viewBoxParts.length === 4 && viewBoxParts.every(Number.isFinite) ? viewBoxParts[3] : height;
+          const sourceWidth = viewBoxWidth || width || 960;
+          const sourceHeight = viewBoxHeight || height || 540;
+          const exportScale = Math.max(1, Math.min(4, 1180 / sourceWidth));
+          const exportWidth = Math.round(sourceWidth * exportScale);
+          const exportHeight = Math.round(sourceHeight * exportScale);
+          clone.setAttribute("width", String(exportWidth));
+          clone.setAttribute("height", String(exportHeight));
+          clone.setAttribute("preserveAspectRatio", "xMidYMid meet");
+
+          const xml = new XMLSerializer().serializeToString(clone);
+          const href = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(xml);
+          const link = document.createElement("a");
+          link.href = href;
+          link.setAttribute("data-src", href);
+          link.setAttribute("data-fancybox", "post");
+          link.setAttribute("data-type", "image");
+          link.setAttribute("data-width", String(exportWidth));
+          link.setAttribute("data-height", String(exportHeight));
+          link.setAttribute("data-mermaid-fancybox", "true");
+          link.setAttribute("aria-label", "Open Mermaid diagram");
+          link.className = "mermaid-fancybox";
+          link.style.cursor = "zoom-in";
+          svg.replaceWith(link);
+          link.appendChild(svg);
+        });
+      });
+    });
+  }
+</script> <script>
+  (function() {
+    // Add data-fancybox="post" to article images that don't already have a group
+    var articleImgs = document.querySelectorAll('.md-text.content img, .md-text article img');
+    articleImgs.forEach(function(img) {
+      if (!img.getAttribute('data-fancybox')) {
+        img.setAttribute('data-fancybox', 'post');
+      }
+    });
+    // Also tag timeline images
+    var timelineImgs = document.querySelectorAll('.timenode p>img');
+    timelineImgs.forEach(function(img) {
+      if (!img.getAttribute('data-fancybox')) {
+        img.setAttribute('data-fancybox', 'post');
+      }
+    });
+
+    var selector = '[data-fancybox]:not(.error)';
+    if (!document.querySelectorAll(selector).length && !document.querySelectorAll('code.language-mermaid, .mermaid').length) return;
+
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = 'https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css';
+    document.head.appendChild(link);
+    var mermaidStyle = document.createElement('style');
+    mermaidStyle.textContent = [
+      '.fancybox__container .fancybox__slide:has([src^="data:image/svg+xml"]) { padding: 72px 28px 44px; }',
+      '.fancybox__container img[src^="data:image/svg+xml"] {',
+      '  background: #fff;',
+      '  border-radius: 12px;',
+      '  box-shadow: 0 18px 70px rgba(0, 0, 0, 0.36);',
+      '  max-width: min(1180px, calc(100vw - 56px));',
+      '  max-height: calc(100vh - 116px);',
+      '  object-fit: contain;',
+      '}'
+    ].join('\n');
+    document.head.appendChild(mermaidStyle);
+    var script = document.createElement('script');
+    script.src = 'https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js';
+    script.onload = function() {
+      Fancybox.bind(selector, {
+        hideScrollbar: false,
+        Thumbs: { autoStart: false },
+        caption: function(fancybox, slide) {
+          return slide.triggerEl.alt || slide.triggerEl.dataset.caption || null;
+        }
+      });
+    };
+    document.body.appendChild(script);
+  })();
+</script>  </body></html>

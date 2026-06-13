@@ -15,6 +15,7 @@
 - [博客首页](https://shansan.top/): 最新文章列表，按时间倒序。
 - [关于我 / About](https://shansan.top/about/): 博主介绍、博客演进时间线、联系方式。
 - [归档 Archives](https://shansan.top/archives/): 全部文章按年月归档。
+- [AI](https://shansan.top/xai/): AI / LLM / Agent 相关的技术分析文章聚合页。
 - [分类 Categories](https://shansan.top/categories/): 按分类浏览文章。
 - [标签 Tags](https://shansan.top/tags/): 按标签浏览文章。
 - [友链 Friends](https://shansan.top/friends/): 博主的朋友们。
