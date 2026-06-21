@@ -101,13 +101,27 @@
 更新于 <time datetime="2021-07-19">2021-07-19</time> </span>    </div> </article> </a> </div><div class="post-card-wrap"> <a class="post-card post no-cover" href="/2018/10/03/工具小整合/"> <article class="md-text">  <h2 class="post-title">工具小整合</h2> <div class="excerpt"> <p>百度文库、知网文章下载 https://pan.baidu.com/s/1 BY2B4hBn 3wHgYlXkFLCg 百度云下载提速软件 https://pan.baidu.com/s/1EYy5AN9JVv7m42f6NNmvlA 微软PE工具箱 ht</p> </div> <div class="meta cap">  <span class="cap" id="post-meta"> <time datetime="2018-10-03">2018-10-03</time> </span> <span class="cap updated-meta">
 更新于 <time datetime="2021-07-19">2021-07-19</time> </span>    </div> </article> </a> </div> </div>   </main> <footer class="page-footer footnote"> <hr> <div class="text"> <p> <a href="https://shansan.top">Copyright &copy; 2018-2026 ShanSan</a><br> <a target="_blank" rel="noopener noreferrer" href="https://beian.miit.gov.cn/">桂ICP备19000444号</a><br>
 本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。<br>
-Powered by <a target="_blank" rel="noopener noreferrer" href="https://astro.build/">Astro</a> and <a target="_blank" rel="noopener noreferrer" href="https://github.com/xaoxuu/hexo-theme-stellar">hexo-theme-stellar</a><br> <span id="busuanzi_container_site_pv" style="display:none">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span> </p> </div> </footer> <script>
+Powered by <a target="_blank" rel="noopener noreferrer" href="https://astro.build/">Astro</a> and <a target="_blank" rel="noopener noreferrer" href="https://github.com/xaoxuu/hexo-theme-stellar">hexo-theme-stellar</a><br> <span id="pageview_container" style="display:none">本站总访问量<span id="pageview_site_pv"></span>次</span> </p> </div> </footer> <script>
           (function(){
+            var endpoint = 'https://actions-for-hexo-blog.vercel.app/api/pageview';
             function load(){
-              var s=document.createElement('script');
-              s.src='https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js';
-              s.async=true;
-              document.body.appendChild(s);
+              var container = document.getElementById('pageview_container');
+              var counter = document.getElementById('pageview_site_pv');
+              if (!container || !counter) return;
+              fetch(endpoint, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ path: window.location.pathname + window.location.search }),
+                keepalive: true,
+                mode: 'cors'
+              }).then(function(response){
+                if (!response.ok) return null;
+                return response.json();
+              }).then(function(data){
+                if (!data || !data.ok) return;
+                counter.textContent = String(data.sitePv || 0);
+                container.style.display = '';
+              }).catch(function(){});
             }
             if('requestIdleCallback' in window){requestIdleCallback(load)}
             else{window.addEventListener('load',function(){setTimeout(load,200)})}

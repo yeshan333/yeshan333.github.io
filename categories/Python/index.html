@@ -102,13 +102,27 @@
 更新于 <time datetime="2022-11-06">2022-11-06</time> </span> <span class="cap breadcrumb"> <span>Python</span> </span>   </div> </article> </a> </div><div class="post-card-wrap"> <a class="post-card post no-cover" href="/2019/05/24/Python面向对象/"> <article class="md-text">  <h2 class="post-title">Python面向对象</h2> <div class="excerpt"> <p>对象：一个自包含的实体，用一组可识别的特性和行为来标识 类：具有相同的属性和功能的对象的抽象的集合 实例：一个真实的对象，实例化就是创建对象的过程 多态：可对不同类型的对象执行相同的操作，而这些操作就像“被施了魔法”一样能够正常运行 封装：对外部隐藏有关对</p> </div> <div class="meta cap">  <span class="cap" id="post-meta"> <time datetime="2019-05-24">2019-05-24</time> </span> <span class="cap updated-meta">
 更新于 <time datetime="2019-05-31">2019-05-31</time> </span> <span class="cap breadcrumb"> <span>Python</span> </span>   </div> </article> </a> </div> </div> <div class="paginator-wrap dis-select"><span class="extend prev"></span><span class="page-number current">1</span><a class="page-number" href="/categories/Python/page/2/">2</a><a class="page-number" href="/categories/Python/page/3/">3</a><a class="extend next" rel="next" href="/categories/Python/page/2/" aria-label="下一页"></a></div>  </main> <footer class="page-footer footnote"> <hr> <div class="text"> <p> <a href="https://shansan.top">Copyright &copy; 2018-2026 ShanSan</a><br> <a target="_blank" rel="noopener noreferrer" href="https://beian.miit.gov.cn/">桂ICP备19000444号</a><br>
 本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。<br>
-Powered by <a target="_blank" rel="noopener noreferrer" href="https://astro.build/">Astro</a> and <a target="_blank" rel="noopener noreferrer" href="https://github.com/xaoxuu/hexo-theme-stellar">hexo-theme-stellar</a><br> <span id="busuanzi_container_site_pv" style="display:none">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span> </p> </div> </footer> <script>
+Powered by <a target="_blank" rel="noopener noreferrer" href="https://astro.build/">Astro</a> and <a target="_blank" rel="noopener noreferrer" href="https://github.com/xaoxuu/hexo-theme-stellar">hexo-theme-stellar</a><br> <span id="pageview_container" style="display:none">本站总访问量<span id="pageview_site_pv"></span>次</span> </p> </div> </footer> <script>
           (function(){
+            var endpoint = 'https://actions-for-hexo-blog.vercel.app/api/pageview';
             function load(){
-              var s=document.createElement('script');
-              s.src='https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js';
-              s.async=true;
-              document.body.appendChild(s);
+              var container = document.getElementById('pageview_container');
+              var counter = document.getElementById('pageview_site_pv');
+              if (!container || !counter) return;
+              fetch(endpoint, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ path: window.location.pathname + window.location.search }),
+                keepalive: true,
+                mode: 'cors'
+              }).then(function(response){
+                if (!response.ok) return null;
+                return response.json();
+              }).then(function(data){
+                if (!data || !data.ok) return;
+                counter.textContent = String(data.sitePv || 0);
+                container.style.display = '';
+              }).catch(function(){});
             }
             if('requestIdleCallback' in window){requestIdleCallback(load)}
             else{window.addEventListener('load',function(){setTimeout(load,200)})}

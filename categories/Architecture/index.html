@@ -94,13 +94,27 @@
 更新于 <time datetime="2026-05-02">2026-05-02</time> </span> <span class="cap breadcrumb"> <span>Architecture</span> </span>  <span class="pin">music</span> </div> </article> </a> </div><div class="post-card-wrap"> <a class="post-card post" href="/2020/04/06/可扩展架构设计之消息队列/"> <article class="md-text"> <div class="post-cover"> <div class="img-wrap " data-astro-cid-x4ppssot>  <img src="https://gallery.shansan.top/file/img/webp-covers/1780836409645_a2890627b4.webp" alt width="800" height="242" loading="lazy" class="astro-x4ppssot" onload="this.parentElement.classList.remove('loading')" onerror="this.parentElement.classList.remove('loading')" data-astro-cid-x4ppssot> </div> </div> <h2 class="post-title">『笔记』可扩展架构设计之消息队列</h2> <div class="excerpt"> <p>前言 众所周知，开发低耦合系统是软件开发的终极目标之一。低耦合的系统更加容易扩展，低耦合的模块更加容易复用，更易于维护和管理。我们知道，消息队列的主要功能就是收发消息，但是它的作用不仅仅只是解决应用之间的通信问题这么简单。消息队列作为常用的中间件，经常被用</p> </div> <div class="meta cap">  <span class="cap" id="post-meta"> <time datetime="2020-04-06">2020-04-06</time> </span> <span class="cap updated-meta">
 更新于 <time datetime="2021-07-19">2021-07-19</time> </span> <span class="cap breadcrumb"> <span>Architecture</span> </span>   </div> </article> </a> </div> </div>   </main> <footer class="page-footer footnote"> <hr> <div class="text"> <p> <a href="https://shansan.top">Copyright &copy; 2018-2026 ShanSan</a><br> <a target="_blank" rel="noopener noreferrer" href="https://beian.miit.gov.cn/">桂ICP备19000444号</a><br>
 本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。<br>
-Powered by <a target="_blank" rel="noopener noreferrer" href="https://astro.build/">Astro</a> and <a target="_blank" rel="noopener noreferrer" href="https://github.com/xaoxuu/hexo-theme-stellar">hexo-theme-stellar</a><br> <span id="busuanzi_container_site_pv" style="display:none">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span> </p> </div> </footer> <script>
+Powered by <a target="_blank" rel="noopener noreferrer" href="https://astro.build/">Astro</a> and <a target="_blank" rel="noopener noreferrer" href="https://github.com/xaoxuu/hexo-theme-stellar">hexo-theme-stellar</a><br> <span id="pageview_container" style="display:none">本站总访问量<span id="pageview_site_pv"></span>次</span> </p> </div> </footer> <script>
           (function(){
+            var endpoint = 'https://actions-for-hexo-blog.vercel.app/api/pageview';
             function load(){
-              var s=document.createElement('script');
-              s.src='https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js';
-              s.async=true;
-              document.body.appendChild(s);
+              var container = document.getElementById('pageview_container');
+              var counter = document.getElementById('pageview_site_pv');
+              if (!container || !counter) return;
+              fetch(endpoint, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ path: window.location.pathname + window.location.search }),
+                keepalive: true,
+                mode: 'cors'
+              }).then(function(response){
+                if (!response.ok) return null;
+                return response.json();
+              }).then(function(data){
+                if (!data || !data.ok) return;
+                counter.textContent = String(data.sitePv || 0);
+                container.style.display = '';
+              }).catch(function(){});
             }
             if('requestIdleCallback' in window){requestIdleCallback(load)}
             else{window.addEventListener('load',function(){setTimeout(load,200)})}

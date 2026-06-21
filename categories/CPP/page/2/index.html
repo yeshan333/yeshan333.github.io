@@ -102,13 +102,27 @@
 更新于 <time datetime="2021-07-19">2021-07-19</time> </span> <span class="cap breadcrumb"> <span>CPP</span> </span>   </div> </article> </a> </div><div class="post-card-wrap"> <a class="post-card post no-cover" href="/2018/10/03/C++-入坑记-2/"> <article class="md-text">  <h2 class="post-title">C++入坑记(2)</h2> <div class="excerpt"> <p>函数，默认参数的使用 在C++中，允许在自定义函数的形参列表中，给形参一个默认的值，这样在调用的时候如果有实参，那么按照实参传递给形参的方法使用；若调用的时候没有指定对应的实参，则形参将使用默认值。 由于参数的传递顺序是从右至左入栈，所以有默认值的参数必须</p> </div> <div class="meta cap">  <span class="cap" id="post-meta"> <time datetime="2018-10-03">2018-10-03</time> </span> <span class="cap updated-meta">
 更新于 <time datetime="2021-07-19">2021-07-19</time> </span> <span class="cap breadcrumb"> <span>CPP</span> </span>   </div> </article> </a> </div> </div> <div class="paginator-wrap dis-select"><a class="extend prev" rel="prev" href="/categories/CPP/" aria-label="上一页"></a><a class="page-number" href="/categories/CPP/">1</a><span class="page-number current">2</span><a class="page-number" href="/categories/CPP/page/3/">3</a><a class="extend next" rel="next" href="/categories/CPP/page/3/" aria-label="下一页"></a></div>  </main> <footer class="page-footer footnote"> <hr> <div class="text"> <p> <a href="https://shansan.top">Copyright &copy; 2018-2026 ShanSan</a><br> <a target="_blank" rel="noopener noreferrer" href="https://beian.miit.gov.cn/">桂ICP备19000444号</a><br>
 本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。<br>
-Powered by <a target="_blank" rel="noopener noreferrer" href="https://astro.build/">Astro</a> and <a target="_blank" rel="noopener noreferrer" href="https://github.com/xaoxuu/hexo-theme-stellar">hexo-theme-stellar</a><br> <span id="busuanzi_container_site_pv" style="display:none">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span> </p> </div> </footer> <script>
+Powered by <a target="_blank" rel="noopener noreferrer" href="https://astro.build/">Astro</a> and <a target="_blank" rel="noopener noreferrer" href="https://github.com/xaoxuu/hexo-theme-stellar">hexo-theme-stellar</a><br> <span id="pageview_container" style="display:none">本站总访问量<span id="pageview_site_pv"></span>次</span> </p> </div> </footer> <script>
           (function(){
+            var endpoint = 'https://actions-for-hexo-blog.vercel.app/api/pageview';
             function load(){
-              var s=document.createElement('script');
-              s.src='https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js';
-              s.async=true;
-              document.body.appendChild(s);
+              var container = document.getElementById('pageview_container');
+              var counter = document.getElementById('pageview_site_pv');
+              if (!container || !counter) return;
+              fetch(endpoint, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ path: window.location.pathname + window.location.search }),
+                keepalive: true,
+                mode: 'cors'
+              }).then(function(response){
+                if (!response.ok) return null;
+                return response.json();
+              }).then(function(data){
+                if (!data || !data.ok) return;
+                counter.textContent = String(data.sitePv || 0);
+                container.style.display = '';
+              }).catch(function(){});
             }
             if('requestIdleCallback' in window){requestIdleCallback(load)}
             else{window.addEventListener('load',function(){setTimeout(load,200)})}

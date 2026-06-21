@@ -95,13 +95,27 @@
 更新于 <time datetime="2021-07-19">2021-07-19</time> </span> <span class="cap breadcrumb"> <span>React</span> </span>   </div> </article> </a> </div><div class="post-card-wrap"> <a class="post-card post no-cover" href="/2020/01/13/React-Flask打造前后端分离项目开发环境/"> <article class="md-text">  <h2 class="post-title">React+Flask打造前后端分离项目开发环境</h2> <div class="excerpt"> <p>前言 新的一年，开始水第一篇技术文。碰巧最近React玩得多，撸一篇文章纪念一下开发环境的搭建。🤔 开篇两问： 什么是React？：React，用于构建用户界面的 JavaScript 库（官网复制粘贴，真香，不用怎么写template了，舒服 什么是F</p> </div> <div class="meta cap">  <span class="cap" id="post-meta"> <time datetime="2020-01-13">2020-01-13</time> </span> <span class="cap updated-meta">
 更新于 <time datetime="2022-11-06">2022-11-06</time> </span> <span class="cap breadcrumb"> <span>React</span> </span>   </div> </article> </a> </div> </div>   </main> <footer class="page-footer footnote"> <hr> <div class="text"> <p> <a href="https://shansan.top">Copyright &copy; 2018-2026 ShanSan</a><br> <a target="_blank" rel="noopener noreferrer" href="https://beian.miit.gov.cn/">桂ICP备19000444号</a><br>
 本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。<br>
-Powered by <a target="_blank" rel="noopener noreferrer" href="https://astro.build/">Astro</a> and <a target="_blank" rel="noopener noreferrer" href="https://github.com/xaoxuu/hexo-theme-stellar">hexo-theme-stellar</a><br> <span id="busuanzi_container_site_pv" style="display:none">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span> </p> </div> </footer> <script>
+Powered by <a target="_blank" rel="noopener noreferrer" href="https://astro.build/">Astro</a> and <a target="_blank" rel="noopener noreferrer" href="https://github.com/xaoxuu/hexo-theme-stellar">hexo-theme-stellar</a><br> <span id="pageview_container" style="display:none">本站总访问量<span id="pageview_site_pv"></span>次</span> </p> </div> </footer> <script>
           (function(){
+            var endpoint = 'https://actions-for-hexo-blog.vercel.app/api/pageview';
             function load(){
-              var s=document.createElement('script');
-              s.src='https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js';
-              s.async=true;
-              document.body.appendChild(s);
+              var container = document.getElementById('pageview_container');
+              var counter = document.getElementById('pageview_site_pv');
+              if (!container || !counter) return;
+              fetch(endpoint, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ path: window.location.pathname + window.location.search }),
+                keepalive: true,
+                mode: 'cors'
+              }).then(function(response){
+                if (!response.ok) return null;
+                return response.json();
+              }).then(function(data){
+                if (!data || !data.ok) return;
+                counter.textContent = String(data.sitePv || 0);
+                container.style.display = '';
+              }).catch(function(){});
             }
             if('requestIdleCallback' in window){requestIdleCallback(load)}
             else{window.addEventListener('load',function(){setTimeout(load,200)})}
