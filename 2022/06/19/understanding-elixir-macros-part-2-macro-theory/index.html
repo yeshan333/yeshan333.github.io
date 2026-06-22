@@ -4,6 +4,10 @@
         if (theme === 'light' || theme === 'dark') {
           document.documentElement.setAttribute('data-theme', theme);
         }
+        var layout = window.localStorage.getItem('blog-layout');
+        if (layout === 'card') {
+          document.documentElement.setAttribute('data-layout', 'card');
+        }
       })();
     </script><script>
           window.MathJax = {
@@ -148,7 +152,7 @@
 <p>注意, 上面这两个宏是如何使用并不存在的 <code>conn</code> 变量. 这是因为, <code>get</code> 宏在生成的代码中绑定了该变量. 可以想象一下, 产生的代码如下:</p>
 <figure class="highlight elixir"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">defp</span> <span class="title">do_match</span></span>(<span class="string">"GET"</span>, <span class="string">"/resource1"</span>, conn) <span class="keyword">do</span></span><br><span class="line">    ...</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="function"><span class="keyword">defp</span> <span class="title">do_match</span></span>(<span class="string">"POST"</span>, <span class="string">"/resource2"</span>, conn) <span class="keyword">do</span></span><br><span class="line">    ...</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span></pre></td></tr></tbody></table></figure>
 <p>注意: <code>Plug</code> 生成的真实代码是不同的, 这里为了演示对其进行了简化.</p>
-<p>这是一个例子, 宏引入了一个变量, 它必须不是 <code>hygienic</code> 的. 变量 <code>conn</code> 由 <code>get</code> 宏引入, 必须对调用者可见.<img src="image-1.png" alt="alt text" loading="lazy"></p>
+<p>这是一个例子, 宏引入了一个变量, 它必须不是 <code>hygienic</code> 的. 变量 <code>conn</code> 由 <code>get</code> 宏引入, 必须对调用者可见.<img alt="alt text" loading="lazy" decoding="async" width="1664" height="1251" src="/_astro/image-1.Cio5FV4V_1Vzj1B.webp" srcset=""></p>
 <p>另一个例子是使用 ExActor 的. 看看下面的例子:</p>
 <figure class="highlight elixir"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">defmodule</span> <span class="title">MyServer</span></span> <span class="keyword">do</span></span><br><span class="line">  ...</span><br><span class="line">  defcall my_request(...), <span class="symbol">do:</span> reply(result)</span><br><span class="line">  ...</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span></pre></td></tr></tbody></table></figure>
 <p>如果你对 <code>GenServer</code> 很熟悉, 那么你知道一个 <code>call</code> 的结果必须是 <code>{:reply, response, state}</code> 的形式. 然而, 在上述代码中, 甚至没有提到 <code>state</code>. 那么我们是如何返回 <code>state</code> 的呢？这是因为 <code>defcall</code> 宏生成了一个隐藏的<code>state</code> 变量, 它之后将被 <code>reply</code> 宏明确使用.</p>
@@ -390,7 +394,23 @@ Powered by <a target="_blank" rel="noopener noreferrer" href="https://astro.buil
     },
     toggleImmersive: function() {
       if (l_body) {
-        l_body.classList.toggle('immersive-mode');
+        var isImmersive = l_body.classList.toggle('immersive-mode');
+        try {
+          var path = window.location.pathname;
+          if (isImmersive) {
+            if (!path.endsWith('/immersive') && !path.endsWith('/immersive/')) {
+              var newPath = path.replace(/\/$/, '') + '/immersive/';
+              window.history.replaceState(null, '', newPath + window.location.search + window.location.hash);
+            }
+          } else {
+            if (path.endsWith('/immersive') || path.endsWith('/immersive/')) {
+              var newPath = path.replace(/\/immersive\/?$/, '/');
+              window.history.replaceState(null, '', newPath + window.location.search + window.location.hash);
+            }
+          }
+        } catch (e) {
+          console.error(e);
+        }
       }
     },
     toggleTOC: function() {

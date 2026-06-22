@@ -595,34 +595,67 @@
     <loc>https://shansan.top/drafts/cluacov-branch-coverage-en-medium/</loc>
   </url>
   <url>
+    <loc>https://shansan.top/drafts/cluacov-branch-coverage-en-medium/immersive/</loc>
+  </url>
+  <url>
     <loc>https://shansan.top/drafts/cluacov-branch-coverage-en/</loc>
+  </url>
+  <url>
+    <loc>https://shansan.top/drafts/cluacov-branch-coverage-en/immersive/</loc>
   </url>
   <url>
     <loc>https://shansan.top/drafts/ebpf-and-bpftrace/</loc>
   </url>
   <url>
+    <loc>https://shansan.top/drafts/ebpf-and-bpftrace/immersive/</loc>
+  </url>
+  <url>
     <loc>https://shansan.top/drafts/etcd-and-mongodb-chaos-testing/</loc>
+  </url>
+  <url>
+    <loc>https://shansan.top/drafts/etcd-and-mongodb-chaos-testing/immersive/</loc>
   </url>
   <url>
     <loc>https://shansan.top/drafts/gen-slides-like-docs-site-with-iflow-cli/</loc>
   </url>
   <url>
+    <loc>https://shansan.top/drafts/gen-slides-like-docs-site-with-iflow-cli/immersive/</loc>
+  </url>
+  <url>
     <loc>https://shansan.top/drafts/install-erlang-and-elixir-via-vfox-in-windows/</loc>
+  </url>
+  <url>
+    <loc>https://shansan.top/drafts/install-erlang-and-elixir-via-vfox-in-windows/immersive/</loc>
   </url>
   <url>
     <loc>https://shansan.top/drafts/install-erlang-and-elixir-via-vfox/</loc>
   </url>
   <url>
+    <loc>https://shansan.top/drafts/install-erlang-and-elixir-via-vfox/immersive/</loc>
+  </url>
+  <url>
     <loc>https://shansan.top/drafts/mimo-dream-distill-deep-dive/</loc>
+  </url>
+  <url>
+    <loc>https://shansan.top/drafts/mimo-dream-distill-deep-dive/immersive/</loc>
   </url>
   <url>
     <loc>https://shansan.top/drafts/try-cline-with-qwen/</loc>
   </url>
   <url>
+    <loc>https://shansan.top/drafts/try-cline-with-qwen/immersive/</loc>
+  </url>
+  <url>
     <loc>https://shansan.top/drafts/using-vfox-erlang-to-manage-erlang-version/</loc>
   </url>
   <url>
+    <loc>https://shansan.top/drafts/using-vfox-erlang-to-manage-erlang-version/immersive/</loc>
+  </url>
+  <url>
     <loc>https://shansan.top/drafts/validate-jenkins-with-llms/</loc>
+  </url>
+  <url>
+    <loc>https://shansan.top/drafts/validate-jenkins-with-llms/immersive/</loc>
   </url>
   <url>
     <loc>https://shansan.top/friends/</loc>
@@ -1282,10 +1315,19 @@
     <loc>https://shansan.top/wiki/bio/</loc>
   </url>
   <url>
+    <loc>https://shansan.top/wiki/bio/immersive/</loc>
+  </url>
+  <url>
     <loc>https://shansan.top/wiki/bio/mycat/</loc>
   </url>
   <url>
+    <loc>https://shansan.top/wiki/bio/mycat/immersive/</loc>
+  </url>
+  <url>
     <loc>https://shansan.top/wiki/bio/vibe_coding_projects/</loc>
+  </url>
+  <url>
+    <loc>https://shansan.top/wiki/bio/vibe_coding_projects/immersive/</loc>
   </url>
   <url>
     <loc>https://shansan.top/xai/</loc>
