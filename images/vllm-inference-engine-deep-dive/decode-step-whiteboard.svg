@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">一次 decode step 的白板图</title>
+  <desc id="desc">手绘风白板图：一次 decode step 从本轮计划开始，读 KV cache，跑模型，得到 logits，采样一个 token，再回到输出流。</desc>
+  <rect width="1200" height="720" fill="#fffdf7"/>
+  <style>
+    .ink{fill:none;stroke:#111827;stroke-width:5;stroke-linecap:round;stroke-linejoin:round}
+    .thin{fill:none;stroke:#111827;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+    .blue{fill:#dbeafe;stroke:#1d4ed8;stroke-width:4;stroke-linejoin:round}
+    .green{fill:#dcfce7;stroke:#15803d;stroke-width:4;stroke-linejoin:round}
+    .orange{fill:#ffedd5;stroke:#c2410c;stroke-width:4;stroke-linejoin:round}
+    .purple{fill:#ede9fe;stroke:#6d28d9;stroke-width:4;stroke-linejoin:round}
+    .yellow{fill:#fef3c7;stroke:#a16207;stroke-width:4;stroke-linejoin:round}
+    text{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans SC",sans-serif;fill:#111827}
+    .h{font-size:34px;font-weight:800}
+    .m{font-size:24px;font-weight:700}
+    .s{font-size:19px;font-weight:600}
+  </style>
+
+  <text x="54" y="62" class="h">一次 decode step：不是“生成一整段”，只是推进 1 小步</text>
+  <text x="58" y="102" class="s">本轮通常为每个 running 请求补少量 token；流式输出就是很多小步连起来。</text>
+
+  <path class="blue" d="M80 180 C92 162 280 166 292 184 L286 286 C274 306 92 298 86 280 Z"/>
+  <text x="116" y="222" class="m">本轮计划</text>
+  <text x="112" y="254" class="s">谁上车 / 几个 token</text>
+
+  <path class="ink" d="M312 238 C360 238 392 238 438 238"/>
+  <path class="ink" d="M418 214 L448 238 L418 264"/>
+
+  <path class="orange" d="M462 154 C480 132 676 138 688 160 L680 302 C662 326 478 318 468 296 Z"/>
+  <text x="510" y="198" class="m">读 KV cache</text>
+  <text x="506" y="232" class="s">历史上下文</text>
+  <text x="506" y="262" class="s">block table 指路</text>
+
+  <path class="ink" d="M708 238 C752 238 780 238 822 238"/>
+  <path class="ink" d="M802 214 L832 238 L802 264"/>
+
+  <path class="green" d="M850 160 C870 138 1080 142 1092 166 L1084 304 C1066 326 866 320 856 300 Z"/>
+  <text x="908" y="206" class="m">model forward</text>
+  <text x="902" y="240" class="s">attention + MLP</text>
+  <text x="902" y="270" class="s">算候选分数</text>
+
+  <path class="thin" d="M970 330 C948 382 882 414 804 430"/>
+  <path class="thin" d="M830 410 L800 430 L836 442"/>
+
+  <path class="purple" d="M536 406 C556 384 786 390 798 414 L790 536 C774 558 550 552 542 530 Z"/>
+  <text x="594" y="454" class="m">logits → sampling</text>
+  <text x="580" y="488" class="s">候选分数里选 1 个 token</text>
+  <text x="580" y="518" class="s">可能受温度/结构化输出约束</text>
+
+  <path class="thin" d="M524 470 C432 470 356 454 282 410"/>
+  <path class="thin" d="M304 404 L278 408 L292 432"/>
+
+  <path class="yellow" d="M88 380 C106 360 292 366 304 388 L298 520 C282 542 104 536 94 514 Z"/>
+  <text x="132" y="430" class="m">输出 1 个 token</text>
+  <text x="126" y="464" class="s">放回请求队列</text>
+  <text x="126" y="494" class="s">SSE 推给客户端</text>
+
+  <path class="thin" d="M148 594 C298 628 470 620 622 604 C804 584 946 592 1080 632"/>
+  <text x="292" y="664" class="s">TPOT 抖动可能来自模型，也可能来自 batch 准备、采样、拷贝和流式发送</text>
+</svg>

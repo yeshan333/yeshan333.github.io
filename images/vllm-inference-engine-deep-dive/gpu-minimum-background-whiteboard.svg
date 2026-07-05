@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">读懂 vLLM 需要的最小 GPU 背景</title>
+  <desc id="desc">手绘风白板图：CPU 适合复杂分支和网络 IO，GPU 适合同构并行计算；CPU 提交 kernel，GPU 的 SM 和 warp 执行，数据主要在 HBM 显存里。</desc>
+  <rect width="1200" height="720" fill="#fffdf7"/>
+  <style>
+    .ink{fill:none;stroke:#111827;stroke-width:5;stroke-linecap:round;stroke-linejoin:round}
+    .thin{fill:none;stroke:#111827;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+    .cpu{fill:#dbeafe;stroke:#1d4ed8;stroke-width:4;stroke-linejoin:round}
+    .gpu{fill:#dcfce7;stroke:#15803d;stroke-width:4;stroke-linejoin:round}
+    .mem{fill:#fef3c7;stroke:#a16207;stroke-width:4;stroke-linejoin:round}
+    .note{fill:#ffedd5;stroke:#c2410c;stroke-width:4;stroke-linejoin:round}
+    text{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans SC",sans-serif;fill:#111827}
+    .h{font-size:34px;font-weight:800}
+    .m{font-size:24px;font-weight:700}
+    .s{font-size:19px;font-weight:600}
+  </style>
+
+  <text x="54" y="62" class="h">GPU 最小背景：它不是更快的 CPU</text>
+  <text x="58" y="102" class="s">读 vLLM 只需要先懂这张图，不需要先学完整 CUDA。</text>
+
+  <path class="cpu" d="M70 155 C88 130 360 138 374 162 L366 382 C350 408 88 398 78 374 Z"/>
+  <text x="166" y="205" class="h">CPU</text>
+  <text x="110" y="250" class="m">少量强核心</text>
+  <text x="110" y="288" class="s">擅长：分支、网络 IO、队列</text>
+  <text x="110" y="320" class="s">像：网关线程 / 游戏服主循环</text>
+
+  <path class="ink" d="M396 260 C452 260 492 260 548 260"/>
+  <path class="ink" d="M524 236 L558 260 L524 286"/>
+  <text x="416" y="232" class="m">launch kernel</text>
+  <text x="430" y="310" class="s">提交一批并行任务</text>
+
+  <path class="gpu" d="M590 135 C616 108 1090 118 1110 148 L1100 450 C1074 482 610 470 598 438 Z"/>
+  <text x="790" y="192" class="h">GPU</text>
+  <text x="660" y="238" class="m">很多 SM，同时跑很多 warp</text>
+  <text x="660" y="278" class="s">擅长：同一种计算 × 大量数据</text>
+  <text x="660" y="310" class="s">怕：每个请求都走不同分支</text>
+
+  <path class="mem" d="M650 344 C668 326 1018 330 1032 350 L1024 424 C1008 444 664 438 654 420 Z"/>
+  <text x="690" y="390" class="m">HBM 显存：模型权重 + KV cache 在这里</text>
+
+  <path class="note" d="M96 500 C120 474 1060 482 1080 510 L1068 642 C1044 670 118 660 104 634 Z"/>
+  <text x="140" y="548" class="m">对 vLLM 的直接影响</text>
+  <text x="140" y="586" class="s">1. 请求不能一个个慢慢跑，要凑成 batch。</text>
+  <text x="140" y="620" class="s">2. batch 形状越稳定，CUDA Graph 越容易复用。</text>
+  <text x="620" y="586" class="s">3. KV cache 占显存，显存不够就抢占/抖动。</text>
+  <text x="620" y="620" class="s">4. decode 每轮只前进一步，所以 TPOT 很敏感。</text>
+</svg>

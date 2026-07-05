@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">KV cache 像分页对象池</title>
+  <desc id="desc">手绘风白板图：prompt 写入 KV cache block，decode 每轮读取历史 KV，块池支持复用和淘汰。</desc>
+  <rect width="1200" height="720" fill="#fffdf7"/>
+  <style>
+    .ink{fill:none;stroke:#111827;stroke-width:5;stroke-linecap:round;stroke-linejoin:round}
+    .thin{fill:none;stroke:#111827;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+    .blue{fill:#dbeafe;stroke:#1d4ed8;stroke-width:4;stroke-linejoin:round}
+    .green{fill:#dcfce7;stroke:#15803d;stroke-width:4;stroke-linejoin:round}
+    .orange{fill:#ffedd5;stroke:#c2410c;stroke-width:4;stroke-linejoin:round}
+    .pink{fill:#fce7f3;stroke:#be185d;stroke-width:4;stroke-linejoin:round}
+    text{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans SC",sans-serif;fill:#111827}
+    .h{font-size:34px;font-weight:800}
+    .m{font-size:24px;font-weight:700}
+    .s{font-size:19px;font-weight:600}
+  </style>
+
+  <text x="54" y="62" class="h">KV cache：历史上下文不是字符串，是显存里的块</text>
+  <text x="58" y="102" class="s">prefill 写入历史 KV；decode 每生成 1 个 token 都要回头读这些块。</text>
+
+  <path class="blue" d="M70 180 C78 160 320 164 332 182 L326 278 C312 298 82 292 74 274 Z"/>
+  <text x="104" y="222" class="m">prompt tokens</text>
+  <text x="104" y="254" class="s">1000 个输入 token</text>
+
+  <path class="ink" d="M350 230 C405 230 438 230 494 230"/>
+  <path class="ink" d="M472 206 L502 230 L472 256"/>
+  <text x="382" y="205" class="s">prefill</text>
+
+  <path class="green" d="M520 150 C548 125 1018 130 1040 156 L1032 414 C1010 440 540 434 524 408 Z"/>
+  <text x="666" y="200" class="h">KV block pool</text>
+  <text x="650" y="235" class="s">像对象池/地图分块，不要求连续大内存</text>
+
+  <g>
+    <path class="orange" d="M570 275 C580 258 660 260 668 276 L664 340 C654 354 580 352 574 338 Z"/>
+    <text x="596" y="316" class="m">B1</text>
+    <path class="orange" d="M698 272 C712 256 792 262 798 280 L792 342 C782 356 706 352 702 338 Z"/>
+    <text x="724" y="316" class="m">B2</text>
+    <path class="orange" d="M826 276 C838 258 918 260 926 278 L920 342 C910 358 836 352 830 338 Z"/>
+    <text x="852" y="316" class="m">B3</text>
+    <path class="pink" d="M570 370 C584 354 660 358 670 374 L666 438 C654 454 580 450 574 434 Z"/>
+    <text x="586" y="412" class="m">free</text>
+    <path class="pink" d="M700 370 C712 354 792 358 800 376 L794 438 C784 454 708 450 702 434 Z"/>
+    <text x="716" y="412" class="m">cache</text>
+    <path class="pink" d="M830 368 C842 352 922 358 930 376 L924 438 C914 454 840 450 834 434 Z"/>
+    <text x="848" y="412" class="m">ref=2</text>
+  </g>
+
+  <path class="blue" d="M90 430 C104 410 330 416 338 436 L330 528 C318 548 104 542 96 520 Z"/>
+  <text x="126" y="470" class="m">decode step</text>
+  <text x="126" y="502" class="s">生成下一个 token</text>
+
+  <path class="ink" d="M350 486 C480 460 516 380 584 336"/>
+  <path class="ink" d="M564 332 L594 330 L576 354"/>
+  <text x="390" y="444" class="s">每轮读历史 KV</text>
+
+  <path class="thin" d="M230 590 C350 620 512 612 650 588 C790 564 910 568 1040 604"/>
+  <text x="280" y="650" class="s">抢占和抖动常常不是 API 问题，而是这些块不够或被淘汰</text>
+</svg>

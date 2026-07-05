@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">CUDA Graph 像预录脚本</title>
+  <desc id="desc">手绘风白板图：动态请求先写入固定槽位，稳定路径可以 CUDA Graph replay，不稳定路径走 eager。</desc>
+  <rect width="1200" height="720" fill="#fffdf7"/>
+  <style>
+    .ink{fill:none;stroke:#111827;stroke-width:5;stroke-linecap:round;stroke-linejoin:round}
+    .thin{fill:none;stroke:#111827;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+    .blue{fill:#dbeafe;stroke:#1d4ed8;stroke-width:4;stroke-linejoin:round}
+    .green{fill:#dcfce7;stroke:#15803d;stroke-width:4;stroke-linejoin:round}
+    .orange{fill:#ffedd5;stroke:#c2410c;stroke-width:4;stroke-linejoin:round}
+    .red{fill:#fee2e2;stroke:#b91c1c;stroke-width:4;stroke-linejoin:round}
+    text{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans SC",sans-serif;fill:#111827}
+    .h{font-size:34px;font-weight:800}
+    .m{font-size:24px;font-weight:700}
+    .s{font-size:19px;font-weight:600}
+  </style>
+
+  <text x="54" y="62" class="h">CUDA Graph：把固定执行路径“预录”下来</text>
+  <text x="58" y="102" class="s">输入内容会变，但槽位和执行步骤尽量不变；这样每轮少做重复 launch。</text>
+
+  <path class="blue" d="M80 180 C90 160 312 166 324 184 L318 282 C304 302 92 294 86 276 Z"/>
+  <text x="118" y="222" class="m">动态请求</text>
+  <text x="118" y="254" class="s">长短不同 / 随时取消</text>
+
+  <path class="ink" d="M344 232 C400 232 440 232 492 232"/>
+  <path class="ink" d="M470 208 L500 232 L470 258"/>
+
+  <path class="orange" d="M520 150 C540 126 778 134 790 158 L782 356 C762 380 540 374 526 350 Z"/>
+  <text x="574" y="200" class="m">固定输入槽位</text>
+  <text x="572" y="236" class="s">input_ids</text>
+  <text x="572" y="266" class="s">positions</text>
+  <text x="572" y="296" class="s">seq_lens</text>
+  <text x="572" y="326" class="s">block table</text>
+
+  <path class="ink" d="M805 252 C850 252 880 252 920 252"/>
+  <path class="ink" d="M900 228 L930 252 L900 278"/>
+
+  <path class="green" d="M940 150 C958 130 1110 136 1120 158 L1114 344 C1100 366 952 360 944 340 Z"/>
+  <text x="974" y="204" class="m">replay</text>
+  <text x="970" y="238" class="s">复用预录路径</text>
+  <text x="970" y="270" class="s">少重复 launch</text>
+
+  <path class="red" d="M540 450 C560 430 766 436 778 458 L772 578 C756 600 552 594 544 572 Z"/>
+  <text x="586" y="500" class="m">eager fallback</text>
+  <text x="576" y="536" class="s">形状/功能太动态</text>
+  <text x="576" y="566" class="s">就每轮现跑</text>
+
+  <path class="thin" d="M646 378 C640 406 636 420 634 446"/>
+  <path class="thin" d="M620 426 L634 450 L654 426"/>
+  <text x="690" y="424" class="s">不能预录时</text>
+
+  <path class="thin" d="M128 590 C266 630 444 626 590 610 C760 592 910 596 1060 632"/>
+  <text x="250" y="664" class="s">测试重点：同一服务在不同量化、LoRA、长上下文下，可能走不同路径</text>
+</svg>
