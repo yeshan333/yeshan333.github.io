@@ -230,6 +230,30 @@
   });
   window.switchTheme = switchTheme;
   syncThemeToggle();
+  var hashScrollTimer = null;
+  function scrollHashIntoView() {
+    if (!window.location.hash) return;
+    var id = '';
+    try {
+      id = decodeURIComponent(window.location.hash.slice(1));
+    } catch (_e) {
+      id = window.location.hash.slice(1);
+    }
+    var target = document.getElementById(id);
+    if (target) target.scrollIntoView({ block: 'start' });
+  }
+  function keepHashInView() {
+    if (!window.location.hash) return;
+    if (hashScrollTimer) clearInterval(hashScrollTimer);
+    scrollHashIntoView();
+    var stopAt = Date.now() + 6000;
+    hashScrollTimer = setInterval(function() {
+      scrollHashIntoView();
+      if (Date.now() >= stopAt) clearInterval(hashScrollTimer);
+    }, 250);
+  }
+  window.addEventListener('load', keepHashInView);
+  window.addEventListener('hashchange', keepHashInView);
   if (window.matchMedia) {
     var themeQuery = window.matchMedia('(prefers-color-scheme: dark)');
     var onSystemThemeChange = function() {
@@ -424,7 +448,7 @@
     var headers = document.querySelectorAll('article.md-text :is(h1,h2,h3,h4,h5,h6)[id]');
     if (!headers.length) return;
     var links = document.querySelectorAll('#data-toc a.toc-link');
-    var scrollOffset = 32;
+    var scrollOffset = 48;
 
     function activeTOC() {
       var scrollTop = window.scrollY || document.documentElement.scrollTop;
