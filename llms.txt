@@ -25,6 +25,7 @@
 
 ### AI Coding & AI 工作流
 
+- [深入 vLLM：从网关请求到 GPU 批处理的推理引擎实现](https://shansan.top/2026/07/12/vllm-inference-engine-deep-dive/): 从 OpenAI 兼容请求出发，源码级解析 vLLM V1 的调度循环、PagedAttention、KV Cache、GPU 执行与模型加载链路。
 - [使用 iflow-cli-action 在 GitHub 与 Qwen3-Coder、Kimi K2 一起快速提升你的生产力](https://shansan.top/2025/08/16/the-next-level-of-developer-productivity-with-iflow-cli-action/): 介绍 iFlow CLI Action 在 GitHub Actions 中结合 Qwen3-Coder、Kimi K2 模型提升 DevOps 生产力的实践。
 - [使用 iFLOW-CLI GitHub Action 和 Qwen3-Coder 给 GitHub 仓库生成幻灯片风格的文档站点](https://shansan.top/2025/08/09/gen-slides-like-docs-site-with-iflow-cli/): 用 AI Agent 自动为 GitHub 仓库生成 Slidev 风格的文档站点。
 - [使用 Claude Code 和 Qwen3 Coder 将博客主题成功迁移到了 Stellar 🎉](https://shansan.top/2025/07/27/migrate-theme-to-stellar-with-claude-code/): Claude Code + Qwen3 Coder 协助将 Hexo 博客主题从 Volantis 迁移到 Stellar 的全过程。
