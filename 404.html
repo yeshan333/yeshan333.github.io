@@ -10,7 +10,7 @@
         }
       })();
     </script><link rel="stylesheet" href="/_astro/content.DlXUofga.css"><style>.md-text.error-page{text-align:center;margin-top:2rem}.md-text.error-page img#error{width:30vw;max-height:150px;margin-bottom:2rem}.md-text.error-page h1{margin-bottom:0;font-size:4rem}.md-text.error-page p.what,.md-text.error-page p.why{margin:.5em}.md-text.error-page p.why{font-size:.8125rem}.md-text.error-page a#back{color:#000;background:#fdb62f;border:2px solid #000;margin:2rem 0;display:inline-block}@media screen and (width<=768px){.md-text.error-page{margin-top:4rem}}
-</style><link rel="stylesheet" href="/_astro/BaseLayout.DmE1Uvu3.css"><link rel="stylesheet" href="/_astro/style.DZ0Ws1xk.css"></head><body><div class="l_body content" id="start" layout="page" type="tech"><aside class="l_left"><div class="sidebg"></div><div class="leftbar-container"><header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="https://ospy.shan333.cn/blog/blog.avatar.jpg" alt="ShanSan"></a><a class="title" href="/"><div class="main">ShanSan</div><div class="sub cap">个人博客</div></a></div></header><div class="nav-area"><nav class="menu dis-select"><a class="nav-item active" title="博文" href="/archives/"><span>博文</span></a><a class="nav-item" title="关于" href="/about/"><span>关于</span></a><a class="nav-item" title="友链" href="/friends/"><span>友链</span></a><a class="nav-item" title="Bio" href="/wiki/bio/"><span>Bio</span></a></nav></div><div class="widgets"><div class="search-wrapper" id="search-wrapper"><form class="search-form"><button type="button" class="search-button" aria-label="搜索" onclick="document.getElementById('search-input').focus();"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path class="search-handle" d="m21 21-4.3-4.3"></path></svg></button><input type="text" class="search-input" id="search-input" placeholder="站内搜索"></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div><script>
+</style><link rel="stylesheet" href="/_astro/BaseLayout.DhTfpIy7.css"><link rel="stylesheet" href="/_astro/style.DZ0Ws1xk.css"></head><body><div class="l_body content" id="start" layout="page" type="tech"><aside class="l_left"><div class="sidebg"></div><div class="leftbar-container"><header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="https://ospy.shan333.cn/blog/blog.avatar.jpg" alt="ShanSan"></a><a class="title" href="/"><div class="main">ShanSan</div><div class="sub cap">个人博客</div></a></div></header><div class="nav-area"><nav class="menu dis-select"><a class="nav-item active" title="博文" href="/archives/"><span>博文</span></a><a class="nav-item" title="关于" href="/about/"><span>关于</span></a><a class="nav-item" title="友链" href="/friends/"><span>友链</span></a><a class="nav-item" title="Bio" href="/wiki/bio/"><span>Bio</span></a></nav></div><div class="widgets"><div class="search-wrapper" id="search-wrapper"><form class="search-form"><button type="button" class="search-button" aria-label="搜索" onclick="document.getElementById('search-input').focus();"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path class="search-handle" d="m21 21-4.3-4.3"></path></svg></button><input type="text" class="search-input" id="search-input" placeholder="站内搜索"></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div><script>
 (function () {
   var pagefind = null;
   var input = document.getElementById("search-input");
@@ -436,6 +436,45 @@
       });
     }, { rootMargin: '200px' });
     lazyImgs.forEach(function(img) { observer.observe(img); });
+  })();
+</script><script>
+  (function() {
+    var galleries = document.querySelectorAll('.tag-plugin.gallery[data-gallery-count]');
+    if (!galleries.length) return;
+
+    galleries.forEach(function(gallery) {
+      var images = Array.from(gallery.querySelectorAll('.gallery-item img'));
+      if (!images.length) return;
+
+      gallery.classList.add('is-hydrated');
+
+      function settleImage(img, succeeded) {
+        var item = img.closest('.gallery-item');
+        if (!item || !item.classList.contains('is-loading')) return;
+        var imageBox = img.closest('.gallery-image');
+        var ok = succeeded && img.naturalWidth > 0;
+
+        if (ok) {
+          if (imageBox && img.naturalHeight > 0) {
+            imageBox.style.aspectRatio = img.naturalWidth + ' / ' + img.naturalHeight;
+          }
+          item.classList.add('is-loaded');
+        } else {
+          img.classList.add('error');
+          item.classList.add('is-error');
+        }
+        item.classList.remove('is-loading');
+      }
+
+      images.forEach(function(img) {
+        if (img.complete) {
+          settleImage(img, img.naturalWidth > 0);
+          return;
+        }
+        img.addEventListener('load', function() { settleImage(img, true); }, { once: true });
+        img.addEventListener('error', function() { settleImage(img, false); }, { once: true });
+      });
+    });
   })();
 </script><script>
   (function() {
