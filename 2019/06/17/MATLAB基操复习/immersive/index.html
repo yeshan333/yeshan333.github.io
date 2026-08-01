@@ -846,9 +846,12 @@ x=[0.5,1.0,1.5,2.0,2.5,3.0]，y=[1.75,2.45,3.81,4.80,7.00,8.60]</p>
   (function() {
     var tocEl = document.querySelector('#data-toc .toc');
     if (!tocEl) return;
-    var headers = document.querySelectorAll('article.md-text :is(h1,h2,h3,h4,h5,h6)[id]');
-    if (!headers.length) return;
     var links = document.querySelectorAll('#data-toc a.toc-link');
+    var headers = Array.from(links).map(function(link) {
+      var href = link.getAttribute('href');
+      return href && href.charAt(0) === '#' ? document.getElementById(href.slice(1)) : null;
+    }).filter(Boolean);
+    if (!headers.length) return;
     var scrollOffset = 48;
 
     function activeTOC() {

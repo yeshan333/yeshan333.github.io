@@ -484,9 +484,12 @@
   (function() {
     var tocEl = document.querySelector('#data-toc .toc');
     if (!tocEl) return;
-    var headers = document.querySelectorAll('article.md-text :is(h1,h2,h3,h4,h5,h6)[id]');
-    if (!headers.length) return;
     var links = document.querySelectorAll('#data-toc a.toc-link');
+    var headers = Array.from(links).map(function(link) {
+      var href = link.getAttribute('href');
+      return href && href.charAt(0) === '#' ? document.getElementById(href.slice(1)) : null;
+    }).filter(Boolean);
+    if (!headers.length) return;
     var scrollOffset = 48;
 
     function activeTOC() {
