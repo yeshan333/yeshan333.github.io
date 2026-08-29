@@ -1,0 +1,1185 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="generator" content="Astro"><meta name="description" content="XRepoTest, repository-level unit test generation, LLM benchmark, invocation rate, multilingual testing"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><link rel="preconnect" href="https://gallery.shansan.top"><link rel="preconnect" href="https://ospy.shan333.cn"><link rel="icon" href="https://ospy.shan333.cn/blog/xJ7yMF.jpg"><title>深入 XRepoTest：如何把 LLM 单元测试生成拉回真实仓库 - ShanSan</title><script>
+      (function() {
+        var theme = window.localStorage.getItem('Stellar.theme');
+        if (theme === 'light' || theme === 'dark') {
+          document.documentElement.setAttribute('data-theme', theme);
+        }
+        var layout = window.localStorage.getItem('blog-layout');
+        if (layout === 'card') {
+          document.documentElement.setAttribute('data-layout', 'card');
+        }
+      })();
+    </script><link rel="stylesheet" href="/_astro/content.CMKvXNdM.css"><style>.img-wrap[data-astro-cid-4nxy5lhk]{line-height:0;position:relative;overflow:hidden}.img-wrap[data-astro-cid-4nxy5lhk].bg{z-index:0;position:absolute;inset:0}.img-wrap[data-astro-cid-4nxy5lhk].bg .bg-blur[data-astro-cid-4nxy5lhk]{object-fit:cover;filter:blur(20px)brightness(.8);z-index:-1;width:100%;height:100%;position:absolute;inset:0;transform:scale(1.1)}.img-wrap[data-astro-cid-4nxy5lhk].loading:after{content:"";background:linear-gradient(90deg, var(--block,#eee) 25%, var(--bg-a50,#f5f5f5) 50%, var(--block,#eee) 75%);background-size:200% 100%;animation:1.5s infinite shimmer;position:absolute;inset:0}.img-wrap[data-astro-cid-4nxy5lhk].loading img[data-astro-cid-4nxy5lhk]{opacity:0}.img-wrap[data-astro-cid-4nxy5lhk] img[data-astro-cid-4nxy5lhk]{opacity:1;transition:opacity .4s,transform .4s}.img-wrap[data-astro-cid-4nxy5lhk]:hover img[data-astro-cid-4nxy5lhk]:not(.bg-blur){transform:scale(1.03)}@keyframes shimmer{0%{background-position:200% 0}to{background-position:-200% 0}}
+.music-source-link[data-astro-cid-wur4uk6v]{color:var(--text-p3);opacity:.7;align-items:center;gap:4px;margin-top:8px;font-size:13px;text-decoration:none;transition:opacity .2s;display:inline-flex}.music-source-link[data-astro-cid-wur4uk6v]:hover{opacity:1;color:#e60026}
+</style><link rel="stylesheet" href="/_astro/BaseLayout.CpSEVikC.css"><link rel="stylesheet" href="/_astro/style.CSyC6ryz.css"></head><body><div class="l_body content" id="start" layout="post" type="tech"><aside class="l_left"><div class="sidebg"></div><div class="leftbar-container"><header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="https://ospy.shan333.cn/blog/blog.avatar.jpg" alt="ShanSan"></a><a class="title" href="/"><div class="main">ShanSan</div><div class="sub cap">个人博客</div></a></div></header><div class="nav-area"><nav class="menu dis-select"><a class="nav-item active" title="博文" href="/archives/"><span>博文</span></a><a class="nav-item" title="关于" href="/about/"><span>关于</span></a><a class="nav-item" title="友链" href="/friends/"><span>友链</span></a><a class="nav-item" title="Bio" href="/wiki/bio/"><span>Bio</span></a></nav></div><div class="widgets"><div class="search-wrapper" id="search-wrapper"><form class="search-form"><button type="button" class="search-button" aria-label="搜索" onclick="document.getElementById('search-input').focus();"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path class="search-handle" d="m21 21-4.3-4.3"></path></svg></button><input type="text" class="search-input" id="search-input" placeholder="站内搜索"></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div><script>
+(function () {
+  var pagefind = null;
+  var input = document.getElementById("search-input");
+  var result = document.getElementById("search-result");
+  var wrapper = document.getElementById("search-wrapper");
+  if (!input || !result || !wrapper) return;
+
+  async function loadPagefind() {
+    if (pagefind) return true;
+    try {
+      pagefind = await import("/pagefind/pagefind.js");
+      await pagefind.init();
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  async function doSearch(query) {
+    result.innerHTML = "";
+    if (!query) {
+      wrapper.setAttribute("searching", "false");
+      wrapper.classList.remove("noresult");
+      wrapper.classList.remove("hasresult");
+      return;
+    }
+    wrapper.setAttribute("searching", "true");
+    wrapper.classList.remove("hasresult");
+
+    var loaded = await loadPagefind();
+    if (!loaded) {
+      result.innerHTML = '<p class="search-dev-notice">搜索功能需要先运行 build</p>';
+      return;
+    }
+
+    var search = await pagefind.search(query);
+    if (!search.results.length) {
+      wrapper.classList.add("noresult");
+      return;
+    }
+    wrapper.classList.remove("noresult");
+    wrapper.classList.add("hasresult");
+
+    var top = search.results.slice(0, 10);
+    var items = await Promise.all(top.map(function (r) { return r.data(); }));
+
+    var ul = document.createElement("ul");
+    ul.className = "search-result-list";
+
+    items.forEach(function (item) {
+      var li = document.createElement("li");
+      var a = document.createElement("a");
+      a.href = item.url;
+
+      var span = document.createElement("span");
+      span.className = "search-result-title";
+      span.textContent = item.meta.title || "Untitled";
+      a.appendChild(span);
+
+      if (item.excerpt) {
+        var para = document.createElement("p");
+        para.className = "search-result-content";
+        para.innerHTML = item.excerpt;
+        a.appendChild(para);
+      }
+
+      li.appendChild(a);
+      ul.appendChild(li);
+    });
+
+    result.appendChild(ul);
+  }
+
+  input.addEventListener("focus", function () { loadPagefind(); }, { once: true });
+
+  var timer = null;
+  input.addEventListener("input", function () {
+    clearTimeout(timer);
+    var q = input.value.trim();
+    timer = setTimeout(function () { doSearch(q); }, 200);
+  });
+
+  input.addEventListener("keydown", function (e) {
+    if (e.key === "Enter" || e.which === 13) e.preventDefault();
+  });
+})();
+</script><widget class="widget-wrapper linklist"><div class="widget-body fs14"><div class="linklist left" style="grid-template-columns:repeat(1,1fr);"><a class="link" title="开往" target="_blank" rel="noopener noreferrer" href="https://www.travellings.cn/go.html"><div class="flex"><img src="https://www.travellings.cn/assets/travelling-dark.png" alt=""><span>开往</span></div></a><a class="link" title="十年之约虫洞" target="_blank" rel="noopener noreferrer" href="https://www.foreverblog.cn/go.html"><div class="flex"><img src="https://foreverblog.cn/assets/logo/wormhole_1.gif" alt=""><span>十年之约虫洞</span></div></a><a class="link" title="境内访问" target="_blank" rel="noopener noreferrer" href="https://shan333.cn"><div class="flex"><img src="https://gallery.shansan.top/file/f9b8a67f6c7c6c2d647b4.jpg" alt=""><span>境内访问</span></div></a></div></div></widget><widget class="widget-wrapper recent post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title" href="/2026/04/19/Software-Testing-Weekly-Visual-Interpretation/"><span class="title">【连载】Software Testing Weekly 图文解读 with VLM</span></a><a class="item title" href="/2026/08/29/xrepotest-deep-dive/"><span class="title">深入 XRepoTest：如何把 LLM 单元测试生成拉回真实仓库</span></a><a class="item title" href="/2026/07/12/vllm-inference-engine-deep-dive/"><span class="title">深入 vLLM：从网关请求到 GPU 批处理的推理引擎实现</span></a><a class="item title" href="/2026/06/19/learn-with-ai-friends/"><span class="title">AI 时代快速了解自己感兴趣的计算机辅助的“制作工艺”管线</span></a><a class="item title" href="/2026/06/10/deep-dive-go-race-detector/"><span class="title">深入 Go Race Detector（Go 数据竞争检测器）：从编译器插桩到 ThreadSanitizer 运行时</span></a><a class="item title" href="/2026/06/09/emscripten-wasm-compilation-deep-dive/"><span class="title">Emscripten 的 WebAssembly 编译实现解析</span></a><a class="item title" href="/2026/06/06/ai-software-engineering-paradigm-revolution/"><span class="title">【转载】AI 软件工程范式革命的思考</span></a><a class="item title" href="/2026/05/17/your-new-tab-ai-search-hub-promo/"><span class="title">Your New Tab：把常用的 AI 搜索放进新标签页</span></a><a class="item title" href="/2026/05/02/cluacov-branch-coverage/"><span class="title">【Draft】基于 cluacov 的 Lua 代码分支覆盖率统计：从行级近似到指令级精确</span></a><a class="item title" href="/2026/04/22/blog-sanitizers-deep-dive/"><span class="title">Sanitizer 全景：从编译插桩到硬件标签的内存安全检测演进</span></a></div></widget></div><footer class="footer dis-select"><div class="social-wrap"><a class="social" href="mailto:1329441308@qq.com" rel="noopener noreferrer" aria-label="Email"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 64C150 64 64 150 64 256s86 192 192 192c17.7 0 32 14.3 32 32s-14.3 32-32 32C114.6 512 0 397.4 0 256S114.6 0 256 0S512 114.6 512 256v32c0 53-43 96-96 96c-29.3 0-55.6-13.2-73.2-33.9C320 371.1 289.5 384 256 384c-70.7 0-128-57.3-128-128s57.3-128 128-128c27.9 0 53.7 8.9 74.7 24.1c5.7-5 13.1-8.1 21.3-8.1c17.7 0 32 14.3 32 32v80 32c0 17.7 14.3 32 32 32s32-14.3 32-32V256c0-106-86-192-192-192zm64 192a64 64 0 1 0 -128 0 64 64 0 1 0 128 0z"></path></svg></a><a class="social" href="https://github.com/yeshan333?tab=repositories" target="_blank" rel="external nofollow noopener noreferrer" aria-label="GitHub"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg></a><a class="social" href="https://music.163.com/#/my/m/music/playlist?id=2617691792" target="_blank" rel="external nofollow noopener noreferrer" aria-label="Music"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg></a><a class="social" href="https://www.zhihu.com/people/si-kong-ji-54/activities" target="_blank" rel="external nofollow noopener noreferrer" aria-label="Zhihu"><svg fill="#18abdc" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M5.721 0C2.251 0 0 2.25 0 5.719V18.28C0 21.751 2.252 24 5.721 24h12.56C21.751 24 24 21.75 24 18.281V5.72C24 2.249 21.75 0 18.281 0zm1.964 4.078c-.271.73-.5 1.434-.68 2.11h4.587c.545-.006.445 1.168.445 1.171H9.384a58.104 58.104 0 01-.112 3.797h2.712c.388.023.393 1.251.393 1.266H9.183a9.223 9.223 0 01-.408 2.102l.757-.604c.452.456 1.512 1.712 1.906 2.177.473.681.063 2.081.063 2.081l-2.794-3.382c-.653 2.518-1.845 3.607-1.845 3.607-.523.468-1.58.82-2.64.516 2.218-1.73 3.44-3.917 3.667-6.497H4.491c0-.015.197-1.243.806-1.266h2.71c.024-.32.086-3.254.086-3.797H6.598c-.136.406-.158.447-.268.753-.594 1.095-1.603 1.122-1.907 1.155.906-1.821 1.416-3.6 1.591-4.064.425-1.124 1.671-1.125 1.671-1.125zM13.078 6h6.377v11.33h-2.573l-2.184 1.373-.401-1.373h-1.219zm1.313 1.219v8.86h.623l.263.937 1.455-.938h1.456v-8.86z"></path></svg></a><a class="social" href="/rss2.xml" rel="noopener noreferrer" aria-label="RSS"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zM96 136c0-13.3 10.7-24 24-24c137 0 248 111 248 248c0 13.3-10.7 24-24 24s-24-10.7-24-24c0-110.5-89.5-200-200-200c-13.3 0-24-10.7-24-24zm0 96c0-13.3 10.7-24 24-24c83.9 0 152 68.1 152 152c0 13.3-10.7 24-24 24s-24-10.7-24-24c0-57.4-46.6-104-104-104c-13.3 0-24-10.7-24-24zm0 120a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"></path></svg></a></div></footer></div></aside><div class="l_main" id="main"><header class="header mobile-only"><div class="logo-wrap"><a class="avatar" href="/about/"><img no-lazy class="avatar" src="https://ospy.shan333.cn/blog/blog.avatar.jpg" alt="ShanSan"></a><a class="title" href="/"><div class="main">ShanSan</div><div class="sub cap">个人博客</div></a></div></header><main><div class="article banner top"><div class="content"><div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" href="/archives/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/技术分析xAI/">技术分析xAI</a></div><div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2026-08-29">2026-08-29</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2026-08-29">2026-08-29</time></span></div></div></div><div class="bottom only-title"><div class="text-area"><h1 class="text title"><span>深入 XRepoTest：如何把 LLM 单元测试生成拉回真实仓库</span></h1></div></div></div></div><article class="md-text content" data-pagefind-body><p>在 HumanEval 一类独立函数题中，模型只需补出一段能通过隐藏测试的代码。进入真实仓库后，模型还必须理解包结构、类型、依赖、测试框架和构建工具。<strong>XRepoTest 要回答的核心问题是：当生成的测试必须回到原仓库编译和运行时，大语言模型（LLM, Large Language Model）还能保留多少真实能力？</strong></p>
+<p>答案并不乐观。论文评测了 3,642 个焦点函数、5 种语言和 14 个模型。即使使用旗舰模型，标准模式下许多语言的测试通过率仍只有个位数到二十几个百分点。“测试通过”也不代表测试真正调用了目标函数。</p>
+<p>因此，XRepoTest 不是另一个代码生成器。它是一套基准框架，把<strong>数据构造、上下文消融、模型生成、容器执行和指标聚合</strong>串成完整闭环。</p>
+<p>本文固定分析仓库提交 <a href="https://github.com/solis-team/XRepoTest/tree/39fb6ab3173136d3dac2d38ed7c98baf6c470270"><code>39fb6ab3173136d3dac2d38ed7c98baf6c470270</code></a>，Python 包版本为 <code>0.1.0</code>，对应论文 arXiv v1（2026-08-26）。仓库没有 Git tag，因此提交哈希是唯一可靠版本锚点。</p>
+<h3 id="术语表">术语表</h3>
+<p>为避免正文里反复打断阅读，本文把常用术语统一收拢到下表；后文默认直接使用简称。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>简称/术语</th><th>全称</th><th>中文说明</th></tr></thead><tbody><tr><td>LLM</td><td>Large Language Model</td><td>大语言模型</td></tr><tr><td>AST</td><td>Abstract Syntax Tree</td><td>抽象语法树，Tree-sitter 的结构化解析结果</td></tr><tr><td>LSP</td><td>Language Server Protocol</td><td>语言服务器协议，用于解析符号定义、类型与引用</td></tr><tr><td>CFG</td><td>Control Flow Graph</td><td>控制流图，用于辅助识别焦点函数中的关键调用</td></tr><tr><td>RAG</td><td>Retrieval-Augmented Generation</td><td>检索增强生成，先检索相关代码再组装提示词</td></tr><tr><td>BM25</td><td>Best Matching 25</td><td>基于词项匹配的稀疏检索算法</td></tr><tr><td>CSR</td><td>Compilation Success Rate</td><td>编译成功率</td></tr><tr><td>TPR</td><td>Test Pass Rate</td><td>测试通过率</td></tr><tr><td>IR</td><td>Invocation Rate</td><td>调用率：生成测试是否调用焦点函数</td></tr><tr><td>Coverage</td><td>Line Coverage</td><td>焦点函数行覆盖率</td></tr><tr><td>Mutation</td><td>Mutation Testing</td><td>变异测试：修改程序后观察测试能否发现错误</td></tr><tr><td>JSONL</td><td>JSON Lines</td><td>每行一个 JSON 对象的流式数据格式</td></tr></tbody></table>
+<h2 id="1-最小可运行入口一条命令做了什么">1. 最小可运行入口：一条命令做了什么</h2>
+<p>安装核心依赖并下载基准数据后，最短入口是：</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span></pre></td><td class="code"><pre><span class="line">pip install -e .</span><br/><span class="line">python scripts/fetch_data.py --group base --lang go</span><br/><span class="line">xrepotest run \</span><br/><span class="line">  --lang go \</span><br/><span class="line">  --mode standard \</span><br/><span class="line">  --model gpt-4o \</span><br/><span class="line">  --api_base https://example.com/v1 \</span><br/><span class="line">  --api_key <span class="string">&#39;&lt;key&gt;&#39;</span></span><br/><span class="line"></span></pre></td></tr></tbody></table></figure>
+<p><code>run</code> 不是新的执行引擎，只是依次复用四个已有入口：<code>prompts → responses → preprocess → eval</code>。具体分派见 <a href="https://github.com/solis-team/XRepoTest/blob/39fb6ab3173136d3dac2d38ed7c98baf6c470270/src/xrepotest/cli.py#L202-L290"><code>cli.py:202-290</code></a>。任何阶段返回非零状态，编排立即停止。</p>
+<img src="/images/xrepotest/pipeline.svg" alt="XRepoTest 从真实仓库抽取焦点函数、构造上下文、调用模型并在 Docker 中评测的端到端流水线" loading="lazy"/>
+<p>仅克隆仓库还不能运行这条命令。生成阶段需要模型 API，评测阶段需要 Docker 和对应语言镜像，基准任务还需要 Hugging Face 数据。仓库只包含框架与测试，不包含原始仓库语料。</p>
+<h2 id="2-产物分析真正的接口是-jsonl-和目录">2. 产物分析：真正的“接口”是 JSONL 和目录</h2>
+<p>XRepoTest 各模块没有共享数据库或复杂服务协议，而是通过 JSONL 文件和固定目录衔接：</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>阶段</th><th>主要产物</th><th>关键字段</th></tr></thead><tbody><tr><td>抽取</td><td><code>{lang}_functions.jsonl</code></td><td><code>function_name</code>、<code>file_path</code>、<code>focal_code</code>、起止行</td></tr><tr><td>上下文增强</td><td>LSP/RAG JSONL</td><td><code>argument_definitions_lsp</code>、<code>focal_method_analysis</code>、<code>retrieved_contexts_*</code></td></tr><tr><td>提示词</td><td><code>prompts.jsonl</code></td><td><code>task_id</code>、<code>prompt</code>、函数元数据</td></tr><tr><td>模型调用</td><td><code>prompts_responses.jsonl</code></td><td>原提示词与原始响应</td></tr><tr><td>预处理</td><td><code>processed.jsonl</code></td><td>规范化后的 <code>test</code> 数组</td></tr><tr><td>执行</td><td><code>detailed_results.jsonl</code></td><td><code>logs</code>、<code>checks</code>、<code>coverage_stats</code></td></tr><tr><td>汇总</td><td><code>summary.json</code></td><td>CSR、TPR、IR、覆盖率、变异分数</td></tr></tbody></table>
+<img src="/images/xrepotest/artifacts.svg" alt="函数任务、提示词、模型响应、规范化测试与评测结果之间的文件契约" loading="lazy"/>
+<p>这种设计简单直接，也适合科研基准。每个阶段的中间结果都可以检查和恢复，也可以单独替换某个阶段。</p>
+<p>代价是目录和文件路径成为隐式 API。只要模式名、模型目录名或文件名不一致，任务发现逻辑就会跳过对应任务。</p>
+<h2 id="3-架构与数据流">3. 架构与数据流</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>模块</th><th>职责</th><th>关键源码</th></tr></thead><tbody><tr><td><code>crawler</code></td><td>扫描仓库、解析 AST、筛选焦点函数</td><td><a href="https://github.com/solis-team/XRepoTest/blob/39fb6ab3173136d3dac2d38ed7c98baf6c470270/src/xrepotest/crawler/crawler.py"><code>crawler.py</code></a>、<a href="https://github.com/solis-team/XRepoTest/blob/39fb6ab3173136d3dac2d38ed7c98baf6c470270/src/xrepotest/crawler/extractors/function_extractor.py"><code>function_extractor.py</code></a></td></tr><tr><td><code>lsp</code></td><td>提取参数类型、符号定义、引用和焦点调用</td><td><a href="https://github.com/solis-team/XRepoTest/blob/39fb6ab3173136d3dac2d38ed7c98baf6c470270/src/xrepotest/lsp/lsp_extractor.py"><code>lsp_extractor.py</code></a></td></tr><tr><td><code>rag</code></td><td>切代码窗口并执行 BM25/UniXCoder 检索</td><td><a href="https://github.com/solis-team/XRepoTest/blob/39fb6ab3173136d3dac2d38ed7c98baf6c470270/src/xrepotest/rag/pipeline.py"><code>pipeline.py</code></a></td></tr><tr><td><code>generation</code></td><td>按模式构造提示词并调用模型</td><td><a href="https://github.com/solis-team/XRepoTest/blob/39fb6ab3173136d3dac2d38ed7c98baf6c470270/src/experiments/evaluation/generation/generate_prompts.py"><code>generate_prompts.py</code></a></td></tr><tr><td><code>preprocessing</code></td><td>从模型文本提取测试代码</td><td><a href="https://github.com/solis-team/XRepoTest/blob/39fb6ab3173136d3dac2d38ed7c98baf6c470270/src/experiments/evaluation/preprocessing/preprocess.py"><code>preprocess.py</code></a></td></tr><tr><td><code>environments</code></td><td>统一骨架加五种语言适配器</td><td><a href="https://github.com/solis-team/XRepoTest/blob/39fb6ab3173136d3dac2d38ed7c98baf6c470270/src/xrepotest/environments/base/evaluator.py"><code>base/evaluator.py</code></a></td></tr><tr><td><code>evaluation</code></td><td>发现任务、挂载数据并启动 Docker</td><td><a href="https://github.com/solis-team/XRepoTest/blob/39fb6ab3173136d3dac2d38ed7c98baf6c470270/src/experiments/evaluation/run_evaluation.py"><code>run_evaluation.py</code></a></td></tr></tbody></table>
+<img src="/images/xrepotest/architecture.svg" alt="XRepoTest 数据构造层、生成层、评测层与 JSONL 路径契约的模块架构" loading="lazy"/>
+<p>这套架构的关键不在类层次，而在两条职责边界。</p>
+<p>Python 主进程负责实验编排，Docker 内的语言适配器负责可信执行。通用评测骨架固定了“先编译、再运行、再生成覆盖率，最后按需执行变异测试”的顺序。语言子类只实现各工具链之间的差异。</p>
+<h2 id="4-核心机制">4. 核心机制</h2>
+<h3 id="41-机制一结构化抽取把五种语法压成同一任务契约">4.1 机制一：结构化抽取——把五种语法压成同一任务契约</h3>
+<h4 id="411-解决什么问题">4.1.1 解决什么问题</h4>
+<p>正则表达式无法可靠地区分函数、方法、嵌套结构和注释，更无法跨 Go、Rust、Julia、PHP、Ruby 统一行号与签名。基准首先需要稳定的“焦点函数”单位。</p>
+<h4 id="412-如何实现">4.1.2 如何实现</h4>
+<p>系统先为五种语言初始化 Tree-sitter 解析器。随后，它把每种语言映射到对应的函数节点类型。例如，Go 使用 <code>function_declaration</code> 与 <code>method_declaration</code>，Rust 使用 <code>function_item</code>。（对应函数：<code>LanguageParser</code>、<code>FunctionExtractor.get_function_nodes</code>；源码见 <a href="https://github.com/solis-team/XRepoTest/blob/39fb6ab3173136d3dac2d38ed7c98baf6c470270/src/xrepotest/crawler/extractors/function_extractor.py#L315-L340"><code>function_extractor.py:315-340</code></a>。）</p>
+<p>找到函数节点后，系统提取函数名、源码、签名、类上下文，以及从 1 开始计算的行号（<a href="https://github.com/solis-team/XRepoTest/blob/39fb6ab3173136d3dac2d38ed7c98baf6c470270/src/xrepotest/crawler/extractors/function_extractor.py#L378-L464"><code>function_extractor.py:378-464</code></a>）。</p>
+<p>筛选器再排除依赖目录、构建产物、测试文件和不满足语言规则的函数（<a href="https://github.com/solis-team/XRepoTest/blob/39fb6ab3173136d3dac2d38ed7c98baf6c470270/src/xrepotest/crawler/extractors/function_extractor.py#L466-L580"><code>function_extractor.py:466-580</code></a>）。论文还限定仓库至少 500 星、每种语言选择 6—10 个仓库，并要求存在原生构建配置。</p>
+<img src="/images/xrepotest/extraction.svg" alt="从源码文件到每语言 JSONL 的焦点函数结构化抽取流程" loading="lazy"/>
+<h4 id="413-为什么这样设计">4.1.3 为什么这样设计</h4>
+<p>AST 提供统一的结构语义，而语言映射保留必要差异。最终 JSONL 字段相同，后续提示词和评测逻辑无需理解五种解析树。</p>
+<h4 id="414-替代方案">4.1.4 替代方案</h4>
+<p>可以使用每种语言的编译器前端，但安装、版本和输出格式会变成新的实验变量。Tree-sitter 的结构精度足以完成候选函数抽取，部署成本更低。</p>
+<h4 id="415-取舍">4.1.5 取舍</h4>
+<p>节点类型表与过滤规则仍是人工维护的语言知识；AST 只能证明语法结构，不保证函数可独立构造输入或具有稳定可观察行为。论文最终保留 3,642 个任务，但这不等于所有任务难度一致。</p>
+<h3 id="42-机制二上下文消融不是越多越好而是可控实验变量">4.2 机制二：上下文消融——不是“越多越好”，而是可控实验变量</h3>
+<h4 id="421-解决什么问题">4.2.1 解决什么问题</h4>
+<p>只给焦点函数会缺失类型和调用约束；直接塞入整个仓库又会增加噪声、令牌和位置偏差。基准必须把上下文来源拆成可比较的处理组。</p>
+<h4 id="422-如何实现">4.2.2 如何实现</h4>
+<p>项目提供四类上下文模式：标准模式、完整文件、LSP，以及使用 BM25 或 UniXCoder 的 RAG。标准模式以焦点函数为主；如果任务目标是方法，还会附上类签名。LSP 模式收集参数定义、被调函数定义和引用，并在加入提示词前去重（<a href="https://github.com/solis-team/XRepoTest/blob/39fb6ab3173136d3dac2d38ed7c98baf6c470270/src/experiments/evaluation/generation/generate_prompts.py#L221-L312"><code>generate_prompts.py:221-312</code></a>）。</p>
+<p>RAG 先把仓库切成相互重叠的代码窗口。底层构造器默认每个窗口包含 20 行，相邻窗口重叠 2 行，并保留前 10 个检索结果（<a href="https://github.com/solis-team/XRepoTest/blob/39fb6ab3173136d3dac2d38ed7c98baf6c470270/src/xrepotest/rag/pipeline.py#L62-L97"><code>rag/pipeline.py:62-97</code></a>）。</p>
+<p>检索时，系统使用焦点代码作为查询，并排除与焦点函数行区间重叠的窗口（<a href="https://github.com/solis-team/XRepoTest/blob/39fb6ab3173136d3dac2d38ed7c98baf6c470270/src/xrepotest/rag/pipeline.py#L167-L229"><code>rag/pipeline.py:167-229</code></a>）。如果记录缺少 <code>task_id</code>，系统会对文件路径、函数名和起止行计算 SHA-1，生成稳定标识（<a href="https://github.com/solis-team/XRepoTest/blob/39fb6ab3173136d3dac2d38ed7c98baf6c470270/src/xrepotest/rag/pipeline.py#L36-L60"><code>rag/pipeline.py:36-60</code></a>）。</p>
+<img src="/images/xrepotest/context.svg" alt="Standard、File、LSP 和 RAG 四类上下文模式如何汇入统一提示词模板" loading="lazy"/>
+<h4 id="423-为什么这样设计">4.2.3 为什么这样设计</h4>
+<p>每种模式只改变上下文，不改变任务、生成接口与执行口径，因此可以把指标变化归因于上下文策略，而不是不同评测器。</p>
+<h4 id="424-替代方案">4.2.4 替代方案</h4>
+<p>代理式代码浏览更贴近开发者工作流，但模型会自主决定读取内容和调用次数，成本与轨迹不再容易对齐。项目把它作为独立 <code>agentic</code> 模式，而没有混入基础消融。</p>
+<h4 id="425-取舍">4.2.5 取舍</h4>
+<p>论文发现，增加上下文通常能提高通过率和覆盖率，却可能降低调用率。模型虽然写出了能够通过的测试，注意力却转向了相邻 API。</p>
+<p>固定窗口还可能切断跨文件语义。UniXCoder 的稠密检索也会增加 GPU 和模型依赖。</p>
+<h3 id="43-机制三模板方法评测固定门禁隔离语言差异">4.3 机制三：模板方法评测——固定门禁，隔离语言差异</h3>
+<h4 id="431-解决什么问题">4.3.1 解决什么问题</h4>
+<p>五种语言的测试文件位置、编译命令、覆盖率工具和变异工具完全不同；如果每个评测器各写一套主流程，指标口径会悄悄漂移。</p>
+<h4 id="432-如何实现">4.3.2 如何实现</h4>
+<p>评测器先初始化结果，再遍历所有模型响应（对应函数：<code>BaseEvaluator.evaluate_dataset</code>；源码见 <a href="https://github.com/solis-team/XRepoTest/blob/39fb6ab3173136d3dac2d38ed7c98baf6c470270/src/xrepotest/environments/base/evaluator.py#L57-L97"><code>base/evaluator.py:57-97</code></a>）。</p>
+<p>每条响应依次经过四个阶段：创建测试文件并检查调用、编译、运行、生成覆盖率。如果测试通过且已经显式启用变异测试，评测器才会进入变异阶段（<a href="https://github.com/solis-team/XRepoTest/blob/39fb6ab3173136d3dac2d38ed7c98baf6c470270/src/xrepotest/environments/base/evaluator.py#L159-L201"><code>base/evaluator.py:159-201</code></a>）。</p>
+<p>调用检查在编译前执行，因此即使代码无法编译，仍能保留模型是否试图调用目标函数的信号（<a href="https://github.com/solis-team/XRepoTest/blob/39fb6ab3173136d3dac2d38ed7c98baf6c470270/src/xrepotest/environments/base/evaluator.py#L203-L233"><code>base/evaluator.py:203-233</code></a>）。语言子类实现 <code>create_test_file</code>、<code>check_compilation</code>、<code>run_tests</code>、<code>generate_coverage</code> 和 <code>check_invocation</code> 五个钩子。</p>
+<img src="/images/xrepotest/evaluation.svg" alt="单条生成测试依次经过调用检查、编译、运行、覆盖率和可选变异测试" loading="lazy"/>
+<h4 id="433-为什么这样设计">4.3.3 为什么这样设计</h4>
+<p>固定骨架让失败状态具有同一含义；语言差异被限制在工具适配层。Docker 命令只挂载实验数据目录，执行后自动删除容器（<a href="https://github.com/solis-team/XRepoTest/blob/39fb6ab3173136d3dac2d38ed7c98baf6c470270/src/experiments/evaluation/run_evaluation.py#L241-L305"><code>run_evaluation.py:241-305</code></a>）。</p>
+<h4 id="434-替代方案">4.3.4 替代方案</h4>
+<p>可以把所有工具链装进一个巨型镜像，但依赖冲突和镜像体积会扩大。项目选择每种语言一个镜像，统一的是协议而不是运行时。</p>
+<h4 id="435-取舍">4.3.5 取舍</h4>
+<p>Docker 提升可复现性，却无法消除外部镜像使用 <code>latest</code> 标签带来的漂移；仓库也没有把原始语料一并版本化。若要严格复现实验，应额外记录镜像摘要和数据集 revision。</p>
+<h3 id="44-机制四多指标约束识别通过但没测试的假阳性">4.4 机制四：多指标约束——识别“通过但没测试”的假阳性</h3>
+<h4 id="441-解决什么问题">4.4.1 解决什么问题</h4>
+<p>一个空测试、只验证常量的测试或没有触达焦点函数的测试都可能通过。仅看 TPR 会奖励这种低价值输出；仅看覆盖率也无法衡量断言是否能发现错误。</p>
+<h4 id="442-如何实现">4.4.2 如何实现</h4>
+<p>项目并列统计五类信号，并使用“数据集样本数 × 单样本最大响应槽位数”作为统一分母。缺失的响应槽位按失败和零覆盖计入。</p>
+<p>CSR、TPR 与 IR 分别统计成功槽位。覆盖率对每个槽位中的焦点函数覆盖比例做宏平均。变异分数则等于杀死的变异体数除以变异体总数（<a href="https://github.com/solis-team/XRepoTest/blob/39fb6ab3173136d3dac2d38ed7c98baf6c470270/src/xrepotest/environments/base/metrics.py#L43-L137"><code>base/metrics.py:43-137</code></a>）。</p>
+<img src="/images/xrepotest/metrics.svg" alt="CSR、TPR、IR、覆盖率与变异分数五类互补指标" loading="lazy"/>
+<h4 id="443-为什么这样设计">4.4.3 为什么这样设计</h4>
+<p>五个指标分别回答“能否构建、能否通过、是否调用、执行了多少、能否抓住缺陷”。它们互补而不是可相互替代。</p>
+<h4 id="444-替代方案">4.4.4 替代方案</h4>
+<p>动态调用追踪比 AST 名称匹配更精确，但五种语言都需要插桩，会显著增加运行时适配复杂度。当前 IR 是低成本、跨语言可实现的近似。</p>
+<h4 id="445-取舍">4.4.5 取舍</h4>
+<p>静态调用检查可能把同名函数、包装调用或动态派发判错；宏平均让每个焦点函数权重相同，也会掩盖函数长度差异。变异测试只在 Go、Rust、Ruby 接通，跨五语言对比时不能把它当统一主指标。</p>
+<h2 id="5-执行路径追踪一次-go-标准模式评测">5. 执行路径追踪：一次 Go 标准模式评测</h2>
+<p>以 <code>xrepotest run --lang go --mode standard --model M</code> 为例：</p>
+<ol>
+<li><code>cli._handle_run</code> 计算 <code>responses/go/standard</code> 和 <code>results/go/standard/M</code> 两组目录。</li>
+<li><code>generate_prompts</code> 读取 Go split，在标准模式用焦点函数及可用的类签名构造提示词。</li>
+<li><code>generate_responses</code> 调用 OpenAI 兼容接口，把原始响应写入模型目录。</li>
+<li><code>preprocess</code> 从 Markdown 代码块中提取 Go 测试，写入 <code>processed.jsonl</code>。</li>
+<li><code>run_evaluation</code> 发现 <code>(standard, M)</code> 任务，映射 Go 镜像，并把整个 <code>evaluation/data</code> 挂载到 <code>/data</code>。</li>
+<li>容器中的 Go <code>Evaluator</code> 写入 <code>_test.go</code> 文件，运行 <code>go test</code>，生成覆盖率，再按需执行 <code>go-mutesting</code>。</li>
+<li><code>calculate_summary</code> 读取逐响应 <code>checks</code> 与 <code>coverage_stats</code>，输出 <code>summary.json</code>。</li>
+</ol>
+<p>这条链路采用两种失败处理方式。进入评测器之前，只要某个阶段返回非零状态，流水线就会立即停止。进入评测器之后，单条响应的异常会被捕获并写入日志，不会中止整个数据集。</p>
+<h2 id="6-运行时与内部边界">6. 运行时与内部边界</h2>
+<p>XRepoTest 有三类运行状态：</p>
+<ul>
+<li><strong>主机 Python 状态</strong>：任务发现、模型调用、文件路径和 Docker 子进程。</li>
+<li><strong>持久化实验状态</strong>：JSONL、摘要文件与缓存窗口；它们支持恢复和重复分析。</li>
+<li><strong>容器瞬时状态</strong>：生成测试文件、编译缓存、覆盖率文件与变异过程；容器退出即销毁。</li>
+</ul>
+<p><code>run_evaluation.py</code> 使用 <code>docker run --rm</code>，并且只挂载数据目录。待测仓库和工具链由预构建镜像提供。这种方式简化了执行环境，但“源码仓库提交 + Python 代码提交”仍不足以完整定义一次实验。镜像内容同样属于实验版本。</p>
+<h2 id="7-性能规模与取舍">7. 性能、规模与取舍</h2>
+<p>论文公开的量化边界如下：</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>维度</th><th style="text-align:right">数值</th><th>含义</th></tr></thead><tbody><tr><td>焦点函数</td><td style="text-align:right">3,642</td><td>来自五种语言的真实仓库任务</td></tr><tr><td>仓库数</td><td style="text-align:right">每种语言 6—10</td><td>每仓库至少 500 GitHub 星</td></tr><tr><td>被测模型</td><td style="text-align:right">14</td><td>小型、中型、大型与旗舰模型</td></tr><tr><td>上下文策略</td><td style="text-align:right">5 个 CLI 模式</td><td>Standard、File、LSP、BM25、Dense</td></tr><tr><td>论文 RAG 主配置</td><td style="text-align:right">50 行，Top-10</td><td>附录消融后选择的检索粒度</td></tr><tr><td>变异测试语言</td><td style="text-align:right">3/5</td><td>Go、Rust、Ruby</td></tr></tbody></table>
+<p>标准模式的结果体现了真实仓库的难度。GPT-5.2 在 Go 上的 TPR 为 25.78%，在 Rust 上为 12.24%。Claude 4.5 Sonnet 在 PHP 上为 26.93%，在 Ruby 上仅为 6.37%。</p>
+<p>多数模型在 PHP 上的 IR 接近或超过 90%。这说明“愿意调用目标函数”和“能够写对测试”是两道不同门槛。以上数字来自论文 Table 2，不能外推为所有模型、提示词或后续版本的固定能力。</p>
+<p>底层 <code>RAGPipeline</code> 构造器的缺省值是 20 行、重叠 2 行、Top-10。论文主实验使用 50 行、Top-10，两者不是同一项配置。</p>
+<p>标准模式的运行成本最低。完整文件模式会增加令牌用量；BM25 会增加本地索引和排序开销；UniXCoder 还需要 <code>torch</code>、<code>transformers</code> 和模型推理。Docker 执行成本按照“任务 × 响应数 × 编译、测试和覆盖率阶段”增长。启用变异测试后，成本还会随变异体数量继续增加。</p>
+<h2 id="8-与同类基准比较">8. 与同类基准比较</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>维度</th><th>HumanEval / MBPP</th><th>TestGenEval</th><th>XRepoTest</th></tr></thead><tbody><tr><td>目标</td><td>独立函数代码生成</td><td>Python 仓库级测试生成</td><td>五语言仓库级测试生成</td></tr><tr><td>语言</td><td>主要是 Python</td><td>Python</td><td>Go、Rust、Julia、PHP、Ruby</td></tr><tr><td>原仓库构建</td><td>否</td><td>是</td><td>是</td></tr><tr><td>上下文消融</td><td>很少</td><td>仓库上下文</td><td>Standard / File / LSP / RAG</td></tr><tr><td>真实执行</td><td>隐藏测试</td><td>仓库测试环境</td><td>每语言 Docker 与原生框架</td></tr><tr><td>特色指标</td><td>pass@k</td><td>pass@k、覆盖率、变异分数</td><td>CSR、TPR、IR、覆盖率、变异</td></tr></tbody></table>
+<p>XRepoTest 的特点不是规模最大，而是同时覆盖 Python 和 Java 之外的语言、原仓库执行、可控上下文与调用率。相应的代价是基础设施更重，而且五种语言生态很难做到完全对称。</p>
+<h2 id="9-源码阅读地图">9. 源码阅读地图</h2>
+<p>推荐按执行主链路读，而不是从目录树自上而下扫：</p>
+<img src="/images/xrepotest/source-map.svg" alt="从 CLI 到指标聚合的 XRepoTest 源码阅读顺序" loading="lazy"/>
+<ol>
+<li><a href="https://github.com/solis-team/XRepoTest/blob/39fb6ab3173136d3dac2d38ed7c98baf6c470270/src/xrepotest/cli.py"><code>src/xrepotest/cli.py</code></a>：理解用户命令如何落到各实验模块。</li>
+<li><a href="https://github.com/solis-team/XRepoTest/blob/39fb6ab3173136d3dac2d38ed7c98baf6c470270/src/experiments/evaluation/generation/generate_prompts.py"><code>generate_prompts.py</code></a>：看模式如何真正改变提示词。</li>
+<li><a href="https://github.com/solis-team/XRepoTest/blob/39fb6ab3173136d3dac2d38ed7c98baf6c470270/src/experiments/evaluation/run_evaluation.py"><code>run_evaluation.py</code></a>：理解主机与容器的文件契约。</li>
+<li><a href="https://github.com/solis-team/XRepoTest/blob/39fb6ab3173136d3dac2d38ed7c98baf6c470270/src/xrepotest/environments/base/evaluator.py"><code>base/evaluator.py</code></a>：掌握统一评测状态机。</li>
+<li>任一语言目录，例如 <a href="https://github.com/solis-team/XRepoTest/tree/39fb6ab3173136d3dac2d38ed7c98baf6c470270/src/xrepotest/environments/go"><code>environments/go</code></a>：确认工具链差异如何实现。</li>
+<li><a href="https://github.com/solis-team/XRepoTest/blob/39fb6ab3173136d3dac2d38ed7c98baf6c470270/src/xrepotest/environments/base/metrics.py"><code>base/metrics.py</code></a>：最后核对论文指标与实现分母。</li>
+</ol>
+<p>若要研究数据构造，再回头读 <code>crawler → lsp → rag</code>；这部分不在普通 <code>xrepotest run</code> 的在线主路径上。</p>
+<h2 id="10-实践建议">10. 实践建议</h2>
+<h3 id="适合">适合</h3>
+<ul>
+<li>比较多个模型在相同真实仓库任务上的测试生成能力。</li>
+<li>做上下文策略消融，尤其是 LSP 与检索上下文的收益和噪声。</li>
+<li>分析编译、调用、通过、覆盖率之间的断层。</li>
+<li>验证修复循环或代理式测试生成是否真正改善执行结果。</li>
+</ul>
+<h3 id="不适合">不适合</h3>
+<ul>
+<li>把单个总分直接当作“模型软件工程能力”。任务只隔离测试生成，不覆盖完整 issue 修复流程。</li>
+<li>只跑几条任务就比较语言优劣。仓库领域、工具链和函数难度都是混杂变量。</li>
+<li>仅看 TPR。至少同时报告 CSR、IR 与覆盖率；支持时再加变异分数。</li>
+</ul>
+<h3 id="复现时应补齐的版本信息">复现时应补齐的版本信息</h3>
+<p>除代码提交外，还应记录 Hugging Face 数据 revision、五个 Docker 镜像 digest、模型精确版本、API 参数、每任务响应数和 RAG 窗口参数。否则同名 <code>latest</code> 镜像或服务端模型更新都可能改变结果。</p>
+<h2 id="11-总结">11. 总结</h2>
+<p>XRepoTest 最有价值的设计，不是某个检索器或某个提示词，而是把“测试看起来合理”拆成五道可观测门槛。所有生成结果都必须回到真实仓库，接受原生工具链检验。</p>
+<p>调用率尤其重要。它揭示了通过率中成本最低、也最隐蔽的一类假阳性：测试能够通过，却没有调用目标函数。</p>
+<p>从源码看，XRepoTest 是一套由文件驱动的实验流水线。Tree-sitter 统一数据格式，LSP 和 RAG 提供可控上下文，模板方法固定评测顺序，语言容器则隔离各生态的工具链差异。这套设计直接，也容易审计。</p>
+<p>复现实验时，真正需要谨慎处理的不是 Python 控制流，而是代码提交之外的数据版本和镜像版本。它们共同决定基准结果能否被准确复现。</p>
+<hr/>
+<p><strong>版本说明</strong>：本文分析 XRepoTest <code>0.1.0</code>，源码提交 <a href="https://github.com/solis-team/XRepoTest/commit/39fb6ab3173136d3dac2d38ed7c98baf6c470270"><code>39fb6ab3173136d3dac2d38ed7c98baf6c470270</code></a>，仓库无 tag；论文为 <a href="https://arxiv.org/abs/2608.25939v1">arXiv:2608.25939v1</a>，数据集为 <a href="https://huggingface.co/datasets/solis-soict/xrepotest"><code>solis-soict/xrepotest</code></a>。</p></article><div class="article-footer"><section id="license"><div class="header"><span>许可协议</span></div><div class="body"><p><a href="/wiki/bio/mycat/">喂猫🍞</a><br>This article is licensed under the <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>. Please provide attribution when reproducing.<br>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p></div></section><section id="share"><div class="header"><span>分享文章</span></div><div class="body"><div class="link"><label for="copy-link" class="sr-only">文章链接</label><input class="copy-area" readonly id="copy-link" value="https://shansan.top/2026/08/29/xrepotest-deep-dive/"></div><div class="social-wrap dis-select"><button type="button" class="social share-item wechat" id="share-wechat-btn" aria-label="显示微信二维码"><img src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/b32ef3da1162a.svg" alt=""></button><a class="social share-item weibo" target="_blank" rel="external nofollow noopener noreferrer" href="https://service.weibo.com/share/share.php?url=https%3A%2F%2Fshansan.top%2F2026%2F08%2F29%2Fxrepotest-deep-dive%2F&amp;title=%E6%B7%B1%E5%85%A5+XRepoTest%EF%BC%9A%E5%A6%82%E4%BD%95%E6%8A%8A+LLM+%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E7%94%9F%E6%88%90%E6%8B%89%E5%9B%9E%E7%9C%9F%E5%AE%9E%E4%BB%93%E5%BA%93+-+ShanSan&amp;summary=%E5%9C%A8+HumanEval+%E4%B8%80%E7%B1%BB%E7%8B%AC%E7%AB%8B%E5%87%BD%E6%95%B0%E9%A2%98%E4%B8%AD%EF%BC%8C%E6%A8%A1%E5%9E%8B%E5%8F%AA%E9%9C%80%E8%A1%A5%E5%87%BA%E4%B8%80%E6%AE%B5%E8%83%BD%E9%80%9A%E8%BF%87%E9%9A%90%E8%97%8F%E6%B5%8B%E8%AF%95%E7%9A%84%E4%BB%A3%E7%A0%81%E3%80%82%E8%BF%9B%E5%85%A5%E7%9C%9F%E5%AE%9E%E4%BB%93%E5%BA%93%E5%90%8E%EF%BC%8C%E6%A8%A1%E5%9E%8B%E8%BF%98%E5%BF%85%E9%A1%BB%E7%90%86%E8%A7%A3%E5%8C%85%E7%BB%93%E6%9E%84%E3%80%81%E7%B1%BB%E5%9E%8B%E3%80%81%E4%BE%9D%E8%B5%96%E3%80%81%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6%E5%92%8C%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7%E3%80%82+XRepoTest+%E8%A6%81%E5%9B%9E%E7%AD%94%E7%9A%84%E6%A0%B8%E5%BF%83%E9%97%AE%E9%A2%98%E6%98%AF%EF%BC%9A%E5%BD%93%E7%94%9F%E6%88%90%E7%9A%84%E6%B5%8B%E8%AF%95%E5%BF%85%E9%A1%BB%E5%9B%9E%E5%88%B0%E5%8E%9F%E4%BB%93%E5%BA%93%E7%BC%96%E8%AF%91%E5%92%8C%E8%BF%90%E8%A1%8C%E6%97%B6%EF%BC%8C%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B%EF%BC%88LLM%2C+Large+Languag" aria-label="分享到微博"><img src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/80c07e4dbb303.svg" alt="微博"></a><a class="social share-item email" href="mailto:?subject=%E6%B7%B1%E5%85%A5%20XRepoTest%EF%BC%9A%E5%A6%82%E4%BD%95%E6%8A%8A%20LLM%20%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E7%94%9F%E6%88%90%E6%8B%89%E5%9B%9E%E7%9C%9F%E5%AE%9E%E4%BB%93%E5%BA%93%20-%20ShanSan&amp;body=https%3A%2F%2Fshansan.top%2F2026%2F08%2F29%2Fxrepotest-deep-dive%2F" aria-label="通过邮件分享"><img src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/a1b00e20f425d.svg" alt="邮件"></a><button type="button" class="social share-item link" id="share-copy-btn" aria-label="复制文章链接"><img src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/8411ed322ced6.svg" alt=""></button></div><div class="qrcode" id="qrcode-wechat"><img src="https://api.qrserver.com/v1/create-qr-code/?size=256x256&amp;data=https%3A%2F%2Fshansan.top%2F2026%2F08%2F29%2Fxrepotest-deep-dive%2F" alt="QR Code"></div></div></section><script>
+(function() {
+  var wechatBtn = document.getElementById('share-wechat-btn');
+  var copyBtn = document.getElementById('share-copy-btn');
+  var qrcode = document.getElementById('qrcode-wechat');
+  var copyInput = document.getElementById('copy-link');
+
+  if (wechatBtn && qrcode) {
+    wechatBtn.addEventListener('click', function() {
+      var isOpen = qrcode.classList.contains('display');
+      if (isOpen) {
+        qrcode.classList.remove('display');
+        wechatBtn.classList.remove('active');
+      } else {
+        qrcode.classList.add('display');
+        wechatBtn.classList.add('active');
+      }
+      wechatBtn.setAttribute('aria-expanded', String(!isOpen));
+    });
+  }
+
+  var toast = null;
+  var toastTimer = null;
+  function showToast(anchor, text, type) {
+    if (toast) toast.remove();
+    toast = document.createElement('span');
+    toast.className = 'share-toast ' + type;
+    toast.textContent = text;
+    anchor.appendChild(toast);
+    requestAnimationFrame(function() { toast.classList.add('visible'); });
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function() {
+      if (toast) { toast.classList.remove('visible'); }
+      setTimeout(function() { if (toast) { toast.remove(); toast = null; } }, 150);
+    }, 1500);
+  }
+
+  if (copyBtn && copyInput) {
+    var resetTimer = null;
+    var setCopyState = function(state) {
+      copyBtn.classList.remove('success', 'warning');
+      if (state !== 'idle') copyBtn.classList.add(state);
+      copyBtn.setAttribute('aria-label', state === 'success' ? '已复制文章链接' : state === 'warning' ? '复制失败' : '复制文章链接');
+      if (resetTimer) clearTimeout(resetTimer);
+      if (state === 'success') {
+        showToast(copyBtn, '已复制', 'success');
+      } else if (state === 'warning') {
+        showToast(copyBtn, '复制失败', 'warning');
+      }
+      if (state !== 'idle') {
+        resetTimer = setTimeout(function() { setCopyState('idle'); }, 1800);
+      }
+    };
+    var fallbackCopy = function() {
+      copyInput.focus();
+      copyInput.select();
+      copyInput.setSelectionRange(0, copyInput.value.length);
+      return document.execCommand('copy');
+    };
+    copyBtn.addEventListener('click', function(event) {
+      event.preventDefault();
+      var value = copyInput.value;
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(value).then(function() {
+          setCopyState('success');
+        }).catch(function() {
+          setCopyState(fallbackCopy() ? 'success' : 'warning');
+        });
+        return;
+      }
+      setCopyState(fallbackCopy() ? 'success' : 'warning');
+    });
+  }
+})();
+</script></div><div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/2026/04/19/Software-Testing-Weekly-Visual-Interpretation/">【连载】Software Testing Weekly 图文解读 with VLM</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/2026/07/12/vllm-inference-engine-deep-dive/">深入 vLLM：从网关请求到 GPU 批处理的推理引擎实现</a></div></section></div><div class="related-wrap" id="related-posts"><section class="header"><div class="title cap theme">您可能感兴趣的文章</div></section><section class="body"><div class="related-posts"><a class="item" href="/2026/07/12/vllm-inference-engine-deep-dive/" title="深入 vLLM：从网关请求到 GPU 批处理的推理引擎实现"><span class="title">深入 vLLM：从网关请求到 GPU 批处理的推理引擎实现</span><span class="excerpt">你如果做过网关测试、游戏服务器框架或高并发 RPC，就不要把 vLLM 当成“一个会调 PyTorch 的 HTTP 服务”。更准确的看法是： vLLM 是一个把不可预测的用户请求流，持续转换</span></a><a class="item" href="/2026/06/10/deep-dive-go-race-detector/" title="深入 Go Race Detector（Go 数据竞争检测器）：从编译器插桩到 ThreadSanitizer 运行时"><span class="title">深入 Go Race Detector（Go 数据竞争检测器）：从编译器插桩到 ThreadSanitizer 运行时</span><span class="excerpt">数据竞争（data race）是并发程序中最隐蔽的缺陷类别。它不产生编译错误，不一定触发 panic（运行时异常），甚至可能在数百万次执行中只复现一次。C/C++（C 和 C++ 编程语言）标</span></a><a class="item" href="/2026/04/22/blog-sanitizers-deep-dive/" title="Sanitizer 全景：从编译插桩到硬件标签的内存安全检测演进"><span class="title">Sanitizer 全景：从编译插桩到硬件标签的内存安全检测演进</span><span class="excerpt">Sanitizer 全景：从编译插桩到硬件标签的内存安全检测演进 C 和 C++ 至今仍是操作系统内核、浏览器引擎、数据库等基础软件的主力语言。这些语言不提供自动内存管理，程序员直接操控指针和</span></a><a class="item" href="/2025/04/20/use-github-copilot-to-create-rsshub-route/" title="【体验】使用 GitHub Copilot Agent 创建新的 RSSHub 路由"><span class="title">【体验】使用 GitHub Copilot Agent 创建新的 RSSHub 路由</span><span class="excerpt">使用 GitHub Copilot Agent 创建新的 RSSHub 路由</span></a><a class="item" href="/2025/03/23/build-agent-with-mcp-agent-and-qwen/" title="使用 mcp-agent 框架和百炼通义千问大模型构建基于 MCP 协议的网页总结智能代理 (agent)"><span class="title">使用 mcp-agent 框架和百炼通义千问大模型构建基于 MCP 协议的网页总结智能代理 (agent)</span><span class="excerpt">使用 mcp-agent 框架和百炼大模型构建基于 MCP 协议的网页总结智能代理 (agent)</span></a></div></section></div><div class="related-wrap md-text" id="comments"><section class="header cmt-title cap theme"><p>ShanSan</p></section><section class="body cmt-body artalk"><div class="artalk with-fancybox" id="artalk_container"><svg class="loading" style="vertical-align:middle;fill:currentColor;overflow:hidden;" viewBox="0 0 1024 1024" version="1.1"><path d="M832 512c0-176-144-320-320-320V128c211.2 0 384 172.8 384 384h-64zM192 512c0 176 144 320 320 320v64C300.8 896 128 723.2 128 512h64z"></path></svg></div></section></div><script>(() => {
+  const el = document.getElementById('artalk_container');
+  if (!el) return;
+
+  const loadCss = (href) => {
+    if (document.querySelector('link[data-artalk-css]')) return;
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = href;
+    link.dataset.artalkCss = 'true';
+    document.head.appendChild(link);
+  };
+
+  const loadJs = (src) => {
+    const existing = document.querySelector('script[data-artalk-js]');
+    if (existing && window.Artalk) return Promise.resolve();
+    if (existing) {
+      return new Promise((resolve) => existing.addEventListener('load', resolve, { once: true }));
+    }
+    return new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = src;
+      script.defer = true;
+      script.dataset.artalkJs = 'true';
+      script.onload = resolve;
+      script.onerror = reject;
+      document.body.appendChild(script);
+    });
+  };
+
+  function initArtalk() {
+    loadCss('https://gcore.jsdelivr.net/npm/artalk@2.9.1/dist/Artalk.css');
+    loadJs('https://gcore.jsdelivr.net/npm/artalk@2.9.1/dist/Artalk.js').then(function () {
+      if (el.dataset.loaded === 'true') return;
+      const path = el.getAttribute('comment_id') ?? decodeURI(window.location.pathname);
+      Artalk.init({
+        el: '#artalk_container',
+        pageKey: path,
+        pageTitle: "深入 XRepoTest：如何把 LLM 单元测试生成拉回真实仓库",
+        server: 'https://artalk.shan333.cn/',
+        site: 'ShanSan',
+        darkMode: 'auto',
+      });
+      el.dataset.loaded = 'true';
+    });
+  }
+
+  window.stellar = window.stellar || {};
+  window.stellar.initComments = window.stellar.initComments || {};
+  window.stellar.initComments.artalk = initArtalk;
+  if ('IntersectionObserver' in window) {
+    var obs = new IntersectionObserver(function(entries) {
+      if (entries[0].isIntersecting) {
+        obs.disconnect();
+        initArtalk();
+      }
+    }, { rootMargin: '200px' });
+    obs.observe(el);
+  } else {
+    initArtalk();
+  }
+})();</script><script>
+(function() {
+  var container = document.getElementById('artalk_container');
+  if (!container) return;
+  function fixAria() {
+    container.querySelectorAll('i[aria-label]:not([role])').forEach(function(el) {
+      el.setAttribute('role', 'button');
+    });
+  }
+  var observer = new MutationObserver(fixAria);
+  observer.observe(container, { childList: true, subtree: true });
+})();
+</script></main><footer class="page-footer footnote"><hr><div class="text"><p><a href="https://shansan.top">Copyright &copy; 2018-2026 ShanSan</a><br><a target="_blank" rel="noopener noreferrer" href="https://beian.miit.gov.cn/">桂ICP备19000444号</a><br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。<br>Powered by <a target="_blank" rel="noopener noreferrer" href="https://astro.build/">Astro</a> and <a target="_blank" rel="noopener noreferrer" href="https://github.com/xaoxuu/hexo-theme-stellar">hexo-theme-stellar</a><br><span id="pageview_container" style="display:none">本站总访问量<span id="pageview_site_pv"></span>次</span></p></div></footer><script>
+          (function(){
+            var endpoint = 'https://actions-for-hexo-blog.vercel.app/api/pageview';
+            function load(){
+              var container = document.getElementById('pageview_container');
+              var counter = document.getElementById('pageview_site_pv');
+              if (!container || !counter) return;
+              fetch(endpoint, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ path: window.location.pathname + window.location.search }),
+                keepalive: true,
+                mode: 'cors'
+              }).then(function(response){
+                if (!response.ok) return null;
+                return response.json();
+              }).then(function(data){
+                if (!data || !data.ok) return;
+                counter.textContent = String(data.sitePv || 0);
+                container.style.display = '';
+              }).catch(function(){});
+            }
+            if('requestIdleCallback' in window){requestIdleCallback(load)}
+            else{window.addEventListener('load',function(){setTimeout(load,200)})}
+          })();
+        </script><div class="main-mask" data-sidebar-action="dismiss"></div></div><aside class="l_right"><div class="widgets"><widget class="widget-wrapper user-card ghuser"><div class="widget-body data-service ds-ghinfo" data-api="https://api.github.com/users/yeshan333"><div class="avatar"><img no-lazy type="img" id="avatar_url" width="128" height="128" src="https://ospy.shan333.cn/blog/github_avatar.png" alt="yeshan333"></div><p class="username" type="text" id="name">yeshan333</p><p class="bio" type="text" id="bio">ShanSan</p><div class="buttons"><a class="btn" target="_blank" rel="noopener noreferrer" href="https://github.com/yeshan333?tab=followers"><span class="title" type="text" id="followers">0</span><span class="desc">followers</span></a><a class="btn" target="_blank" rel="noopener noreferrer" href="https://github.com/yeshan333?tab=following"><span class="title" type="text" id="following">0</span><span class="desc">following</span></a><a class="btn" target="_blank" rel="noopener noreferrer" href="https://github.com/yeshan333?tab=repositories"><span class="title" type="text" id="public_repos">0</span><span class="desc">repos</span></a></div><a class="follow" target="_blank" rel="noopener noreferrer" href="https://github.com/yeshan333">Follow</a></div></widget><widget class="widget-wrapper toc" id="data-toc" collapse="true"><div class="widget-header dis-select"><span class="name">本文目录</span><button type="button" class="cap-action" data-sidebar-action="toggleTOC" aria-label="折叠目录" title="折叠目录"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"></path></svg></button></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#术语表"><span class="toc-text">术语表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-最小可运行入口一条命令做了什么"><span class="toc-text">1. 最小可运行入口：一条命令做了什么</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-产物分析真正的接口是-jsonl-和目录"><span class="toc-text">2. 产物分析：真正的“接口”是 JSONL 和目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-架构与数据流"><span class="toc-text">3. 架构与数据流</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-核心机制"><span class="toc-text">4. 核心机制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#41-机制一结构化抽取把五种语法压成同一任务契约"><span class="toc-text">4.1 机制一：结构化抽取——把五种语法压成同一任务契约</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#411-解决什么问题"><span class="toc-text">4.1.1 解决什么问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#412-如何实现"><span class="toc-text">4.1.2 如何实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#413-为什么这样设计"><span class="toc-text">4.1.3 为什么这样设计</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#414-替代方案"><span class="toc-text">4.1.4 替代方案</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#415-取舍"><span class="toc-text">4.1.5 取舍</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#42-机制二上下文消融不是越多越好而是可控实验变量"><span class="toc-text">4.2 机制二：上下文消融——不是“越多越好”，而是可控实验变量</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#421-解决什么问题"><span class="toc-text">4.2.1 解决什么问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#422-如何实现"><span class="toc-text">4.2.2 如何实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#423-为什么这样设计"><span class="toc-text">4.2.3 为什么这样设计</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#424-替代方案"><span class="toc-text">4.2.4 替代方案</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#425-取舍"><span class="toc-text">4.2.5 取舍</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#43-机制三模板方法评测固定门禁隔离语言差异"><span class="toc-text">4.3 机制三：模板方法评测——固定门禁，隔离语言差异</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#431-解决什么问题"><span class="toc-text">4.3.1 解决什么问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#432-如何实现"><span class="toc-text">4.3.2 如何实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#433-为什么这样设计"><span class="toc-text">4.3.3 为什么这样设计</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#434-替代方案"><span class="toc-text">4.3.4 替代方案</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#435-取舍"><span class="toc-text">4.3.5 取舍</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#44-机制四多指标约束识别通过但没测试的假阳性"><span class="toc-text">4.4 机制四：多指标约束——识别“通过但没测试”的假阳性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#441-解决什么问题"><span class="toc-text">4.4.1 解决什么问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#442-如何实现"><span class="toc-text">4.4.2 如何实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#443-为什么这样设计"><span class="toc-text">4.4.3 为什么这样设计</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#444-替代方案"><span class="toc-text">4.4.4 替代方案</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#445-取舍"><span class="toc-text">4.4.5 取舍</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-执行路径追踪一次-go-标准模式评测"><span class="toc-text">5. 执行路径追踪：一次 Go 标准模式评测</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-运行时与内部边界"><span class="toc-text">6. 运行时与内部边界</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-性能规模与取舍"><span class="toc-text">7. 性能、规模与取舍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-与同类基准比较"><span class="toc-text">8. 与同类基准比较</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-源码阅读地图"><span class="toc-text">9. 源码阅读地图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-实践建议"><span class="toc-text">10. 实践建议</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#适合"><span class="toc-text">适合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#不适合"><span class="toc-text">不适合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#复现时应补齐的版本信息"><span class="toc-text">复现时应补齐的版本信息</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-总结"><span class="toc-text">11. 总结</span></a></li></ol></div><div class="widget-footer"><a class="top" href="#start" data-scroll-target="#start"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"></path><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"></path></g></svg><span>回到顶部</span></a><a class="buttom" href="#comments" data-scroll-target="#comments"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M8 10.5h8M8 14h5.5M17 3.338A9.95 9.95 0 0 0 12 2C6.477 2 2 6.477 2 12c0 1.6.376 3.112 1.043 4.453c.178.356.237.763.134 1.148l-.595 2.226a1.3 1.3 0 0 0 1.591 1.592l2.226-.596a1.63 1.63 0 0 1 1.149.133A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10c0-1.821-.487-3.53-1.338-5"></path></svg><span>参与讨论</span></a><a class="immersive" href="javascript:void(0)" data-sidebar-action="toggleImmersive"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 8V6a2 2 0 0 1 2-2h2m12 4V6a2 2 0 0 0-2-2h-2M4 16v2a2 2 0 0 0 2 2h2m12-4v2a2 2 0 0 1-2 2h-2"></path></svg><span>沉浸阅读</span></a></div></widget></div></aside><div class="float-panel"><button type="button" class="theme-toggle" data-theme-action="toggle" aria-label="切换深色模式" title="切换深色模式"><span class="theme-icon theme-icon-moon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"></path></svg></span><span class="theme-icon theme-icon-sun" aria-hidden="true" hidden><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2m0 16v2m10-10h-2M4 12H2m17.07-7.07l-1.41 1.41M6.34 17.66l-1.41 1.41m0-14.14l1.41 1.41m11.32 11.32l1.41 1.41"></path></g></svg></span></button><button type="button" style="display:none" class="laptop-only rightbar-toggle mobile" data-sidebar-action="rightbar" aria-label="打开目录" title="打开目录"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"></path></svg></button><button type="button" style="display:none" class="mobile-only leftbar-toggle mobile" data-sidebar-action="leftbar" aria-label="打开侧栏" title="打开侧栏"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11c0-3.771 0-5.657 1.172-6.828C4.343 3 6.229 3 10 3h4c3.771 0 5.657 0 6.828 1.172C22 5.343 22 7.229 22 11v2c0 3.771 0 5.657-1.172 6.828C19.657 21 17.771 21 14 21h-4c-3.771 0-5.657 0-6.828-1.172C2 18.657 2 16.771 2 13z"></path><path id="sep" stroke-linecap="round" d="M5.5 10h6m-5 4h4m4.5 7V3"></path></g></svg></button></div></div><script>
+  var l_body = document.querySelector('.l_body');
+  var sidebar = {
+    leftbar: function() {
+      if (l_body) {
+        l_body.toggleAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    rightbar: function() {
+      if (l_body) {
+        l_body.toggleAttribute('rightbar');
+        l_body.removeAttribute('leftbar');
+      }
+    },
+    dismiss: function() {
+      if (l_body) {
+        l_body.removeAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    toggleImmersive: function() {
+      if (l_body) {
+        var isImmersive = l_body.classList.toggle('immersive-mode');
+        try {
+          var path = window.location.pathname;
+          if (isImmersive) {
+            if (!path.endsWith('/immersive') && !path.endsWith('/immersive/')) {
+              var newPath = path.replace(/\/$/, '') + '/immersive/';
+              window.history.replaceState(null, '', newPath + window.location.search + window.location.hash);
+            }
+          } else {
+            if (path.endsWith('/immersive') || path.endsWith('/immersive/')) {
+              var newPath = path.replace(/\/immersive\/?$/, '/');
+              window.history.replaceState(null, '', newPath + window.location.search + window.location.hash);
+            }
+          }
+        } catch (e) {
+          console.error(e);
+        }
+      }
+    },
+    toggleTOC: function() {
+      var toc = document.querySelector('#data-toc');
+      if (toc) toc.classList.toggle('collapse');
+    }
+  };
+  window.sidebar = sidebar;
+  function getCurrentTheme() {
+    var explicit = document.documentElement.getAttribute('data-theme');
+    if (explicit === 'light' || explicit === 'dark') return explicit;
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) return 'dark';
+    return 'light';
+  }
+  function syncThemeToggle() {
+    var button = document.querySelector('.theme-toggle');
+    if (!button) return;
+    var current = getCurrentTheme();
+    var isDark = current === 'dark';
+    button.setAttribute('aria-pressed', String(isDark));
+    button.setAttribute('aria-label', isDark ? '切换到白天模式' : '切换到黑夜模式');
+    button.setAttribute('title', isDark ? '切换到白天模式' : '切换到黑夜模式');
+    var moon = button.querySelector('.theme-icon-moon');
+    var sun = button.querySelector('.theme-icon-sun');
+    if (moon) moon.hidden = isDark;
+    if (sun) sun.hidden = !isDark;
+  }
+  function switchTheme() {
+    var next = getCurrentTheme() === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    window.localStorage.setItem('Stellar.theme', next);
+    syncThemeToggle();
+  }
+  document.addEventListener('click', function(event) {
+    var sidebarTrigger = event.target.closest('[data-sidebar-action]');
+    if (sidebarTrigger) {
+      event.preventDefault();
+      var action = sidebarTrigger.getAttribute('data-sidebar-action');
+      if (action && sidebar[action]) sidebar[action]();
+      return;
+    }
+
+    var themeTrigger = event.target.closest('[data-theme-action="toggle"]');
+    if (themeTrigger) {
+      event.preventDefault();
+      switchTheme();
+      return;
+    }
+
+    var scrollTrigger = event.target.closest('[data-scroll-target]');
+    if (scrollTrigger) {
+      var selector = scrollTrigger.getAttribute('data-scroll-target');
+      var target = selector ? document.querySelector(selector) : null;
+      if (!target) return;
+      event.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      sidebar.dismiss();
+    }
+  });
+  window.switchTheme = switchTheme;
+  syncThemeToggle();
+  var hashScrollTimer = null;
+  function scrollHashIntoView() {
+    if (!window.location.hash) return;
+    var id = '';
+    try {
+      id = decodeURIComponent(window.location.hash.slice(1));
+    } catch (_e) {
+      id = window.location.hash.slice(1);
+    }
+    var target = document.getElementById(id);
+    if (target) target.scrollIntoView({ block: 'start' });
+  }
+  function keepHashInView() {
+    if (!window.location.hash) return;
+    if (hashScrollTimer) clearInterval(hashScrollTimer);
+    scrollHashIntoView();
+    var stopAt = Date.now() + 6000;
+    hashScrollTimer = setInterval(function() {
+      scrollHashIntoView();
+      if (Date.now() >= stopAt) clearInterval(hashScrollTimer);
+    }, 250);
+  }
+  window.addEventListener('load', keepHashInView);
+  window.addEventListener('hashchange', keepHashInView);
+  if (window.matchMedia) {
+    var themeQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    var onSystemThemeChange = function() {
+      if (!document.documentElement.getAttribute('data-theme')) syncThemeToggle();
+    };
+    if (themeQuery.addEventListener) themeQuery.addEventListener('change', onSystemThemeChange);
+    else if (themeQuery.addListener) themeQuery.addListener(onSystemThemeChange);
+  }
+</script><script>
+  (function() {
+    var adSlots = document.querySelectorAll('[data-adsense-lazy] ins.adsbygoogle');
+    if (!adSlots.length) return;
+
+    var scriptPromise = null;
+    var loadedSlots = new WeakSet();
+    var earliestLoadAt = Date.now() + 4500;
+    var windowLoaded = document.readyState === 'complete';
+
+    if (!windowLoaded) {
+      window.addEventListener('load', function() {
+        windowLoaded = true;
+      }, { once: true });
+    }
+
+    function loadAdScript() {
+      if (scriptPromise) return scriptPromise;
+      scriptPromise = new Promise(function(resolve, reject) {
+        if (document.querySelector('script[data-adsense-loader]')) {
+          resolve();
+          return;
+        }
+        var script = document.createElement('script');
+        script.async = true;
+        script.crossOrigin = 'anonymous';
+        script.dataset.adsenseLoader = 'true';
+        script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7762707993867214';
+        script.onload = function() { resolve(); };
+        script.onerror = function() { reject(); };
+        document.head.appendChild(script);
+      });
+      return scriptPromise;
+    }
+
+    function schedule(callback) {
+      var runWhenQuiet = function() {
+        if ('requestIdleCallback' in window) {
+          window.requestIdleCallback(callback, { timeout: 3000 });
+        } else {
+          window.setTimeout(callback, 800);
+        }
+      };
+      var runAfterDelay = function() {
+        window.setTimeout(runWhenQuiet, Math.max(0, earliestLoadAt - Date.now()));
+      };
+
+      if (windowLoaded) {
+        runAfterDelay();
+      } else {
+        window.addEventListener('load', runAfterDelay, { once: true });
+      }
+    }
+
+    function hydrateAd(slot) {
+      if (loadedSlots.has(slot)) return;
+      loadedSlots.add(slot);
+      schedule(function() {
+        loadAdScript().then(function() {
+          window.adsbygoogle = window.adsbygoogle || [];
+          window.adsbygoogle.push({});
+          slot.closest('[data-adsense-lazy]')?.setAttribute('data-adsense-loaded', 'true');
+        }).catch(function() {
+          loadedSlots.delete(slot);
+        });
+      });
+    }
+
+    if ('IntersectionObserver' in window) {
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (!entry.isIntersecting) return;
+          hydrateAd(entry.target);
+          observer.unobserve(entry.target);
+        });
+      }, { rootMargin: '200px 0px', threshold: 0.01 });
+      adSlots.forEach(function(slot) { observer.observe(slot); });
+      return;
+    }
+
+    adSlots.forEach(hydrateAd);
+  })();
+</script><script>
+  (function() {
+    var lazyImgs = document.querySelectorAll('img.lazy[data-src]');
+    if (!lazyImgs.length) return;
+    lazyImgs.forEach(function(img) { img.setAttribute('data-ll-status', 'loading'); });
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (!entry.isIntersecting) return;
+        var img = entry.target;
+        var src = img.getAttribute('data-src');
+        if (src) {
+          img.src = src;
+          img.removeAttribute('data-src');
+          img.addEventListener('load', function() {
+            img.classList.add('loaded');
+            img.setAttribute('data-ll-status', 'loaded');
+          });
+          img.addEventListener('error', function() {
+            img.classList.add('error');
+            img.setAttribute('data-ll-status', 'error');
+          });
+        }
+        observer.unobserve(img);
+      });
+    }, { rootMargin: '200px' });
+    lazyImgs.forEach(function(img) { observer.observe(img); });
+  })();
+</script><script>
+  (function() {
+    var galleries = document.querySelectorAll('.tag-plugin.gallery[data-gallery-count]');
+    if (!galleries.length) return;
+
+    galleries.forEach(function(gallery) {
+      var images = Array.from(gallery.querySelectorAll('.gallery-item img'));
+      if (!images.length) return;
+
+      gallery.classList.add('is-hydrated');
+
+      function settleImage(img, succeeded) {
+        var item = img.closest('.gallery-item');
+        if (!item || !item.classList.contains('is-loading')) return;
+        var imageBox = img.closest('.gallery-image');
+        var ok = succeeded && img.naturalWidth > 0;
+
+        if (ok) {
+          if (imageBox && img.naturalHeight > 0) {
+            imageBox.style.aspectRatio = img.naturalWidth + ' / ' + img.naturalHeight;
+          }
+          item.classList.add('is-loaded');
+        } else {
+          img.classList.add('error');
+          item.classList.add('is-error');
+        }
+        item.classList.remove('is-loading');
+      }
+
+      images.forEach(function(img) {
+        if (img.complete) {
+          settleImage(img, img.naturalWidth > 0);
+          return;
+        }
+        img.addEventListener('load', function() { settleImage(img, true); }, { once: true });
+        img.addEventListener('error', function() { settleImage(img, false); }, { once: true });
+      });
+    });
+  })();
+</script><script>
+  (function() {
+    var els = document.getElementsByClassName('ds-ghinfo');
+    for (var i = 0; i < els.length; i++) {
+      (function(el) {
+        var api = el.getAttribute('data-api');
+        if (!api) return;
+        fetch(api).then(function(r) { return r.json(); }).then(function(data) {
+          var keys = Object.keys(data);
+          for (var j = 0; j < keys.length; j++) {
+            var key = keys[j];
+            var textEl = el.querySelector('[type="text"]#' + key);
+            if (textEl) textEl.textContent = data[key];
+            var imgEl = el.querySelector('[type="img"]#' + key);
+            if (imgEl) imgEl.setAttribute('src', data[key]);
+          }
+        }).catch(function() {});
+      })(els[i]);
+    }
+  })();
+</script><script>
+  document.querySelectorAll('.tabs .nav-tabs .tab').forEach(function(element) {
+    element.addEventListener('click', function(event) {
+      event.preventDefault();
+      if (element.classList.contains('active')) return;
+      var siblings = element.parentNode.children;
+      for (var i = 0; i < siblings.length; i++) {
+        siblings[i].classList.toggle('active', siblings[i] === element);
+      }
+      var href = element.querySelector('a').getAttribute('href').replace('#', '');
+      var tActive = document.getElementById(href);
+      if (!tActive) return;
+      var panes = tActive.parentNode.children;
+      for (var j = 0; j < panes.length; j++) {
+        panes[j].classList.toggle('active', panes[j] === tActive);
+      }
+    });
+  });
+</script><script>
+  (function() {
+    document.querySelectorAll('figure.highlight .code').forEach(function(codeCell) {
+      if (codeCell.querySelector('.copy-btn')) return;
+      var btn = document.createElement('div');
+      btn.className = 'copy-btn';
+      btn.textContent = 'Copy';
+      btn.addEventListener('click', function() {
+        var pre = codeCell.querySelector('pre');
+        if (!pre) return;
+        var text = pre.innerText || '';
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(text).then(function() {
+            btn.textContent = 'Copied!';
+            btn.classList.add('success');
+            setTimeout(function() {
+              btn.textContent = 'Copy';
+              btn.classList.remove('success');
+            }, 3000);
+          }).catch(function() {
+            btn.textContent = 'Failed';
+            btn.classList.add('warning');
+            setTimeout(function() {
+              btn.textContent = 'Copy';
+              btn.classList.remove('warning');
+            }, 3000);
+          });
+        }
+      });
+      codeCell.appendChild(btn);
+    });
+  })();
+</script><script>
+  (function() {
+    var tocEl = document.querySelector('#data-toc .toc');
+    if (!tocEl) return;
+    var links = document.querySelectorAll('#data-toc a.toc-link');
+    var headers = Array.from(links).map(function(link) {
+      var href = link.getAttribute('href');
+      return href && href.charAt(0) === '#' ? document.getElementById(href.slice(1)) : null;
+    }).filter(Boolean);
+    if (!headers.length) return;
+    var scrollOffset = 48;
+
+    function activeTOC() {
+      var scrollTop = window.scrollY || document.documentElement.scrollTop;
+      var topSeg = null;
+      for (var i = 0; i < headers.length; i++) {
+        var rect = headers[i].getBoundingClientRect();
+        var top = rect.top + scrollTop - document.documentElement.clientTop;
+        if (top > scrollTop + scrollOffset) continue;
+        if (!topSeg || top >= topSeg.top) {
+          topSeg = { el: headers[i], top: top };
+        }
+      }
+      for (var j = 0; j < links.length; j++) {
+        links[j].classList.remove('active');
+      }
+      if (topSeg) {
+        var href = '#' + topSeg.el.getAttribute('id');
+        var active = document.querySelector('#data-toc a.toc-link[href="' + href + '"]');
+        if (active) active.classList.add('active');
+      } else if (links.length) {
+        links[0].classList.add('active');
+      }
+    }
+
+    function scrollTOC() {
+      var activeLink = document.querySelector('#data-toc a.toc-link.active');
+      if (!tocEl || !activeLink) return;
+      var ob = activeLink.getBoundingClientRect().bottom - tocEl.getBoundingClientRect().bottom + 100;
+      var ot = activeLink.getBoundingClientRect().top - tocEl.getBoundingClientRect().top - 64;
+      if (ot < 0) {
+        tocEl.scrollBy({ top: ot, behavior: 'smooth' });
+      } else if (ob > 0) {
+        tocEl.scrollBy({ top: ob, behavior: 'smooth' });
+      }
+    }
+
+    var timeout = null;
+    window.addEventListener('scroll', function() {
+      activeTOC();
+      if (timeout !== null) clearTimeout(timeout);
+      timeout = setTimeout(scrollTOC, 50);
+    });
+    activeTOC();
+  })();
+</script><script type="module">
+  const mermaidBlocks = [...document.querySelectorAll("pre > code.language-mermaid")];
+  if (mermaidBlocks.length) {
+    import("https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs").then(({ default: mermaid }) => {
+      mermaid.initialize({ 
+        startOnLoad: false, 
+        theme: "default", 
+        themeVariables: { fontSize: "16px" }
+      });
+      
+      mermaidBlocks.forEach((block) => {
+        const source = block.textContent || "";
+        const container = document.createElement("div");
+        container.className = "mermaid";
+        container.style.textAlign = "center";
+        container.textContent = source;
+        block.closest("pre")?.replaceWith(container);
+      });
+      mermaid.run().then(() => {
+        document.querySelectorAll(".mermaid svg").forEach(svg => {
+          const title = svg.getAttribute("aria-label") || "Mermaid diagram";
+          const clone = svg.cloneNode(true);
+          clone.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+          clone.setAttribute("role", "img");
+          clone.setAttribute("aria-label", title);
+          clone.style.backgroundColor = "#ffffff";
+
+          const width = parseFloat(clone.getAttribute("width") || (clone.viewBox && clone.viewBox.baseVal.width) || 0);
+          const height = parseFloat(clone.getAttribute("height") || (clone.viewBox && clone.viewBox.baseVal.height) || 0);
+          if (!clone.getAttribute("viewBox") && width && height) {
+            clone.setAttribute("viewBox", "0 0 " + width + " " + height);
+          }
+          const viewBox = clone.getAttribute("viewBox");
+          const viewBoxParts = viewBox ? viewBox.trim().split(/\s+/).map(Number) : [];
+          const viewBoxWidth = viewBoxParts.length === 4 && viewBoxParts.every(Number.isFinite) ? viewBoxParts[2] : width;
+          const viewBoxHeight = viewBoxParts.length === 4 && viewBoxParts.every(Number.isFinite) ? viewBoxParts[3] : height;
+          const sourceWidth = viewBoxWidth || width || 960;
+          const sourceHeight = viewBoxHeight || height || 540;
+          const exportScale = Math.max(1, Math.min(4, 1180 / sourceWidth));
+          const exportWidth = Math.round(sourceWidth * exportScale);
+          const exportHeight = Math.round(sourceHeight * exportScale);
+          clone.setAttribute("width", String(exportWidth));
+          clone.setAttribute("height", String(exportHeight));
+          clone.setAttribute("preserveAspectRatio", "xMidYMid meet");
+
+          const xml = new XMLSerializer().serializeToString(clone);
+          const href = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(xml);
+          const link = document.createElement("a");
+          link.href = href;
+          link.setAttribute("data-src", href);
+          link.setAttribute("data-fancybox", "post");
+          link.setAttribute("data-type", "image");
+          link.setAttribute("data-width", String(exportWidth));
+          link.setAttribute("data-height", String(exportHeight));
+          link.setAttribute("data-mermaid-fancybox", "true");
+          link.setAttribute("aria-label", "Open Mermaid diagram");
+          link.className = "mermaid-fancybox";
+          link.style.cursor = "zoom-in";
+          svg.replaceWith(link);
+          link.appendChild(svg);
+        });
+      });
+    });
+  }
+</script><script>
+  (function() {
+    // Add data-fancybox="post" to article images that don't already have a group
+    var articleImgs = document.querySelectorAll('.md-text.content img, .md-text article img');
+    articleImgs.forEach(function(img) {
+      if (!img.getAttribute('data-fancybox')) {
+        img.setAttribute('data-fancybox', 'post');
+      }
+    });
+    // Also tag timeline images
+    var timelineImgs = document.querySelectorAll('.timenode p>img');
+    timelineImgs.forEach(function(img) {
+      if (!img.getAttribute('data-fancybox')) {
+        img.setAttribute('data-fancybox', 'post');
+      }
+    });
+
+    var selector = '[data-fancybox]:not(.error)';
+    if (!document.querySelectorAll(selector).length && !document.querySelectorAll('code.language-mermaid, .mermaid').length) return;
+
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = 'https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css';
+    document.head.appendChild(link);
+    var mermaidStyle = document.createElement('style');
+    mermaidStyle.textContent = [
+      '.fancybox__container .fancybox__slide:has([src^="data:image/svg+xml"]) { padding: 72px 28px 44px; }',
+      '.fancybox__container img[src^="data:image/svg+xml"] {',
+      '  background: #fff;',
+      '  border-radius: 12px;',
+      '  box-shadow: 0 18px 70px rgba(0, 0, 0, 0.36);',
+      '  max-width: min(1180px, calc(100vw - 56px));',
+      '  max-height: calc(100vh - 116px);',
+      '  object-fit: contain;',
+      '}'
+    ].join('\n');
+    document.head.appendChild(mermaidStyle);
+    var script = document.createElement('script');
+    script.src = 'https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js';
+    script.onload = function() {
+      Fancybox.bind(selector, {
+        hideScrollbar: false,
+        Thumbs: { autoStart: false },
+        caption: function(fancybox, slide) {
+          return slide.triggerEl.alt || slide.triggerEl.dataset.caption || null;
+        }
+      });
+    };
+    document.body.appendChild(script);
+  })();
+</script></body></html>
