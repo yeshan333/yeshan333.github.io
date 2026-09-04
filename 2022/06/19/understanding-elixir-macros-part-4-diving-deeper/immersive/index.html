@@ -22,7 +22,7 @@
           };
         </script><script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><link rel="stylesheet" href="/_astro/content.CMKvXNdM.css"><style>.img-wrap[data-astro-cid-4nxy5lhk]{line-height:0;position:relative;overflow:hidden}.img-wrap[data-astro-cid-4nxy5lhk].bg{z-index:0;position:absolute;inset:0}.img-wrap[data-astro-cid-4nxy5lhk].bg .bg-blur[data-astro-cid-4nxy5lhk]{object-fit:cover;filter:blur(20px)brightness(.8);z-index:-1;width:100%;height:100%;position:absolute;inset:0;transform:scale(1.1)}.img-wrap[data-astro-cid-4nxy5lhk].loading:after{content:"";background:linear-gradient(90deg, var(--block,#eee) 25%, var(--bg-a50,#f5f5f5) 50%, var(--block,#eee) 75%);background-size:200% 100%;animation:1.5s infinite shimmer;position:absolute;inset:0}.img-wrap[data-astro-cid-4nxy5lhk].loading img[data-astro-cid-4nxy5lhk]{opacity:0}.img-wrap[data-astro-cid-4nxy5lhk] img[data-astro-cid-4nxy5lhk]{opacity:1;transition:opacity .4s,transform .4s}.img-wrap[data-astro-cid-4nxy5lhk]:hover img[data-astro-cid-4nxy5lhk]:not(.bg-blur){transform:scale(1.03)}@keyframes shimmer{0%{background-position:200% 0}to{background-position:-200% 0}}
 .music-source-link[data-astro-cid-wur4uk6v]{color:var(--text-p3);opacity:.7;align-items:center;gap:4px;margin-top:8px;font-size:13px;text-decoration:none;transition:opacity .2s;display:inline-flex}.music-source-link[data-astro-cid-wur4uk6v]:hover{opacity:1;color:#e60026}
-</style><link rel="stylesheet" href="/_astro/BaseLayout.CpSEVikC.css"><link rel="stylesheet" href="/_astro/style.CSyC6ryz.css"></head><body><div class="l_body content immersive-mode" id="start" layout="post" type="tech"><aside class="l_left"><div class="sidebg"></div><div class="leftbar-container"><header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="https://ospy.shan333.cn/blog/blog.avatar.jpg" alt="ShanSan"></a><a class="title" href="/"><div class="main">ShanSan</div><div class="sub cap">个人博客</div></a></div></header><div class="nav-area"><nav class="menu dis-select"><a class="nav-item active" title="博文" href="/archives/"><span>博文</span></a><a class="nav-item" title="关于" href="/about/"><span>关于</span></a><a class="nav-item" title="友链" href="/friends/"><span>友链</span></a><a class="nav-item" title="Bio" href="/wiki/bio/"><span>Bio</span></a></nav></div><div class="widgets"><div class="search-wrapper" id="search-wrapper"><form class="search-form"><button type="button" class="search-button" aria-label="搜索" onclick="document.getElementById('search-input').focus();"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path class="search-handle" d="m21 21-4.3-4.3"></path></svg></button><input type="text" class="search-input" id="search-input" placeholder="站内搜索"></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div><script>
+</style><link rel="stylesheet" href="/_astro/BaseLayout.D86ERxnw.css"><link rel="stylesheet" href="/_astro/style.CSyC6ryz.css"></head><body><div class="l_body content immersive-mode" id="start" layout="post" type="tech"><aside class="l_left"><div class="sidebg"></div><div class="leftbar-container"><header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="https://ospy.shan333.cn/blog/blog.avatar.jpg" alt="ShanSan"></a><a class="title" href="/"><div class="main">ShanSan</div><div class="sub cap">个人博客</div></a></div></header><div class="nav-area"><nav class="menu dis-select"><a class="nav-item active" title="博文" href="/archives/"><span>博文</span></a><a class="nav-item" title="关于" href="/about/"><span>关于</span></a><a class="nav-item" title="友链" href="/friends/"><span>友链</span></a><a class="nav-item" title="Bio" href="/wiki/bio/"><span>Bio</span></a></nav></div><div class="widgets"><div class="search-wrapper" id="search-wrapper"><form class="search-form"><button type="button" class="search-button" aria-label="搜索" onclick="document.getElementById('search-input').focus();"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path class="search-handle" d="m21 21-4.3-4.3"></path></svg></button><input type="text" class="search-input" id="search-input" placeholder="站内搜索"></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div><script>
 (function () {
   var pagefind = null;
   var input = document.getElementById("search-input");
@@ -627,7 +627,26 @@
         item.classList.remove('is-loading');
       }
 
+      function retryImage(img) {
+        var item = img.closest('.gallery-item');
+        if (!item) return;
+        item.classList.remove('is-error');
+        item.classList.add('is-loading');
+        img.classList.remove('error');
+        img.addEventListener('load', function() { settleImage(img, true); }, { once: true });
+        img.addEventListener('error', function() { settleImage(img, false); }, { once: true });
+        img.src = img.currentSrc || img.src;
+      }
+
       images.forEach(function(img) {
+        var retry = document.createElement('button');
+        retry.className = 'gallery-retry';
+        retry.type = 'button';
+        retry.textContent = '重新加载图片';
+        img.insertAdjacentElement('afterend', retry);
+        retry.addEventListener('click', function() {
+          retryImage(img);
+        });
         if (img.complete) {
           settleImage(img, img.naturalWidth > 0);
           return;
