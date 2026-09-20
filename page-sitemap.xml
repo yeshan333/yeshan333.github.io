@@ -289,9 +289,6 @@
     <loc>https://shansan.top/archives/2026/07/</loc>
   </url>
   <url>
-    <loc>https://shansan.top/archives/2026/08/</loc>
-  </url>
-  <url>
     <loc>https://shansan.top/archives/page/10/</loc>
   </url>
   <url>
@@ -685,6 +682,12 @@
     <loc>https://shansan.top/drafts/validate-jenkins-with-llms/immersive/</loc>
   </url>
   <url>
+    <loc>https://shansan.top/drafts/xrepotest-deep-dive/</loc>
+  </url>
+  <url>
+    <loc>https://shansan.top/drafts/xrepotest-deep-dive/immersive/</loc>
+  </url>
+  <url>
     <loc>https://shansan.top/friends/</loc>
   </url>
   <url>
@@ -905,9 +908,6 @@
   </url>
   <url>
     <loc>https://shansan.top/tags/BeautifulSoup/</loc>
-  </url>
-  <url>
-    <loc>https://shansan.top/tags/Benchmark/</loc>
   </url>
   <url>
     <loc>https://shansan.top/tags/C-C/</loc>
@@ -1162,9 +1162,6 @@
     <loc>https://shansan.top/tags/Qwen3-Coder/</loc>
   </url>
   <url>
-    <loc>https://shansan.top/tags/RAG/</loc>
-  </url>
-  <url>
     <loc>https://shansan.top/tags/RSS-Reader/</loc>
   </url>
   <url>
@@ -1202,9 +1199,6 @@
   </url>
   <url>
     <loc>https://shansan.top/tags/Sider/</loc>
-  </url>
-  <url>
-    <loc>https://shansan.top/tags/Software-Testing/</loc>
   </url>
   <url>
     <loc>https://shansan.top/tags/Stellar/</loc>
