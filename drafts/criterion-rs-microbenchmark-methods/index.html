@@ -9,7 +9,7 @@
           document.documentElement.setAttribute('data-layout', 'card');
         }
       })();
-    </script><link rel="stylesheet" href="/_astro/content.CMKvXNdM.css"><style>#artalk_container:not([data-admin=true]) [data-action=open-sidebar]{display:none!important}
+    </script><link rel="stylesheet" href="/_astro/content.CMKvXNdM.css"><style>#artalk_container [data-action=open-sidebar],#artalk_container[data-owner=true] .atk-send-btn,#artalk_container[data-owner=true] .atk-textarea-wrap{display:none!important}#comment-admin-entry{border:1px solid var(--block-border);color:var(--text-p2);font:inherit;cursor:pointer;background:0 0;border-radius:999px;padding:4px 12px;font-size:12px}#comment-admin-entry[hidden],#comment-admin-note[hidden]{display:none!important}#comment-admin-note{color:var(--text-p3);font-size:12px}
 .img-wrap[data-astro-cid-4nxy5lhk]{line-height:0;position:relative;overflow:hidden}.img-wrap[data-astro-cid-4nxy5lhk].bg{z-index:0;position:absolute;inset:0}.img-wrap[data-astro-cid-4nxy5lhk].bg .bg-blur[data-astro-cid-4nxy5lhk]{object-fit:cover;filter:blur(20px)brightness(.8);z-index:-1;width:100%;height:100%;position:absolute;inset:0;transform:scale(1.1)}.img-wrap[data-astro-cid-4nxy5lhk].loading:after{content:"";background:linear-gradient(90deg, var(--block,#eee) 25%, var(--bg-a50,#f5f5f5) 50%, var(--block,#eee) 75%);background-size:200% 100%;animation:1.5s infinite shimmer;position:absolute;inset:0}.img-wrap[data-astro-cid-4nxy5lhk].loading img[data-astro-cid-4nxy5lhk]{opacity:0}.img-wrap[data-astro-cid-4nxy5lhk] img[data-astro-cid-4nxy5lhk]{opacity:1;transition:opacity .4s,transform .4s}.img-wrap[data-astro-cid-4nxy5lhk]:hover img[data-astro-cid-4nxy5lhk]:not(.bg-blur){transform:scale(1.03)}@keyframes shimmer{0%{background-position:200% 0}to{background-position:-200% 0}}
 .music-source-link[data-astro-cid-wur4uk6v]{color:var(--text-p3);opacity:.7;align-items:center;gap:4px;margin-top:8px;font-size:13px;text-decoration:none;transition:opacity .2s;display:inline-flex}.music-source-link[data-astro-cid-wur4uk6v]:hover{opacity:1;color:#e60026}
 </style><link rel="stylesheet" href="/_astro/BaseLayout.D1IzWOdW.css"><link rel="stylesheet" href="/_astro/style.CSyC6ryz.css"></head><body><div class="l_body content" id="start" layout="post" type="tech"><aside class="l_left"><div class="sidebg"></div><div class="leftbar-container"><header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="https://ospy.shan333.cn/blog/blog.avatar.jpg" alt="ShanSan"></a><a class="title" href="/"><div class="main">ShanSan</div><div class="sub cap">个人博客</div></a></div></header><div class="nav-area"><nav class="menu dis-select"><a class="nav-item active" title="博文" href="/archives/"><span>博文</span></a><a class="nav-item" title="关于" href="/about/"><span>关于</span></a><a class="nav-item" title="友链" href="/friends/"><span>友链</span></a><a class="nav-item" title="Bio" href="/wiki/bio/"><span>Bio</span></a></nav></div><div class="widgets"><div class="search-wrapper" id="search-wrapper"><form class="search-form"><button type="button" class="search-button" aria-label="搜索" onclick="document.getElementById('search-input').focus();"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path class="search-handle" d="m21 21-4.3-4.3"></path></svg></button><input type="text" class="search-input" id="search-input" placeholder="站内搜索"></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div><script>
@@ -1049,9 +1049,22 @@
     });
   }
 })();
-</script></div><div class="related-wrap md-text" id="comments"><section class="header cmt-title cap theme"><p>ShanSan</p></section><section class="body cmt-body artalk"><div class="artalk with-fancybox" id="artalk_container"><svg class="loading" style="vertical-align:middle;fill:currentColor;overflow:hidden;" viewBox="0 0 1024 1024" version="1.1"><path d="M832 512c0-176-144-320-320-320V128c211.2 0 384 172.8 384 384h-64zM192 512c0 176 144 320 320 320v64C300.8 896 128 723.2 128 512h64z"></path></svg></div></section></div><script>(() => {
+</script></div><div class="related-wrap md-text" id="comments"><section class="header cmt-title cap theme"><p>ShanSan</p><button id="comment-admin-entry" type="button" hidden>控制中心 ↗</button></section><p id="comment-admin-note" hidden>管理员回复与审核请在独立控制中心完成。</p><section class="body cmt-body artalk"><div class="artalk with-fancybox" id="artalk_container"><svg class="loading" style="vertical-align:middle;fill:currentColor;overflow:hidden;" viewBox="0 0 1024 1024" version="1.1"><path d="M832 512c0-176-144-320-320-320V128c211.2 0 384 172.8 384 384h-64zM192 512c0 176 144 320 320 320v64C300.8 896 128 723.2 128 512h64z"></path></svg></div></section></div><script>(() => {
   const el = document.getElementById('artalk_container');
   if (!el) return;
+  if (window.top !== window.self) {
+    const link = document.createElement('a'); link.href = window.location.href;
+    link.target = '_blank'; link.rel = 'noopener noreferrer'; link.textContent = '请打开博客原页面查看和参与评论';
+    el.replaceChildren(link); return;
+  }
+  const serverOrigin = new URL("https://shansan-comments.yeshan333-ye.workers.dev", window.location.href).origin;
+  try {
+    const cached = JSON.parse(localStorage.getItem('ArtalkUser') || '{}');
+    if (cached.token || cached.is_admin || cached.isAdmin) {
+      delete cached.token; cached.is_admin = false; delete cached.isAdmin;
+      localStorage.setItem('ArtalkUser', JSON.stringify(cached));
+    }
+  } catch {}
 
   const loadCss = (href) => {
     if (document.querySelector('link[data-artalk-css]')) return;
@@ -1080,8 +1093,8 @@
   };
 
   function initArtalk() {
-    loadCss('https://gcore.jsdelivr.net/npm/artalk@2.9.1/dist/Artalk.css');
-    loadJs('https://gcore.jsdelivr.net/npm/artalk@2.9.1/dist/Artalk.js').then(function () {
+    loadCss(serverOrigin + '/dist/Artalk.css');
+    loadJs(serverOrigin + '/dist/Artalk.js').then(function () {
       if (el.dataset.loaded === 'true') return;
       const path = el.getAttribute('comment_id') ?? decodeURI(window.location.pathname);
       const instance = Artalk.init({
@@ -1094,60 +1107,34 @@
         pvAdd: false,
       });
       const ctx = instance.ctx;
-      const serverOrigin = new URL("https://shansan-comments.yeshan333-ye.workers.dev", window.location.href).origin;
-      let lastToken = ctx.get('user').getData().token || '';
-      let verifiedToken = '';
-      const syncAdminEntry = () => {
+      const adminEntry = document.getElementById('comment-admin-entry');
+      const adminNote = document.getElementById('comment-admin-note');
+      let sequence = 0;
+      const refreshEntry = async () => {
         const user = ctx.get('user').getData();
-        el.dataset.admin = user.is_admin && user.email && user.name && verifiedToken === user.token ? 'true' : 'false';
-        if (/^atk_[a-f0-9]{64}$/.test(lastToken) && lastToken !== user.token) {
-          fetch(serverOrigin + '/api/v2/user/logout', { method: 'POST', headers: { Authorization: 'Bearer ' + lastToken }, keepalive: true }).catch(() => {});
-        }
-        lastToken = user.token || '';
-        if (user.is_admin && /^atk_[a-f0-9]{64}$/.test(user.token || '') && verifiedToken !== user.token) {
-          const candidate = user.token;
-          fetch(serverOrigin + '/api/v2/user', { headers: { Authorization: 'Bearer ' + candidate } }).then(response => response.json()).then(data => {
-            const current = ctx.get('user').getData();
-            if (current.token === candidate && data.is_login && data.user?.is_admin && data.user.email.toLowerCase() === current.email.toLowerCase()) {
-              verifiedToken = candidate;
-              if (current.name !== data.user.name) {
-                ctx.get('user').update({ name: data.user.name });
-                const nameInput = el.querySelector('input[name="name"]');
-                if (nameInput) nameInput.value = data.user.name;
-              }
-              syncAdminEntry();
-            }
-          }).catch(() => {});
-        }
-      };
-      ctx.on('user-changed', syncAdminEntry);
-      syncAdminEntry();
-      // Discard delayed role hints when the reader has already changed emails.
-      const checkAdmin = ctx.checkAdmin.bind(ctx);
-      ctx.checkAdmin = async (options) => {
-        const email = (ctx.get('user').getData().email || '').trim().toLowerCase();
+        // The blog never retains a management bearer, including cached sessions from older releases.
+        if (user.token || user.is_admin) { ctx.get('user').update({ token: '', is_admin: false }); return; }
+        const email = (user.email || '').trim().toLowerCase();
+        const current = ++sequence;
+        adminEntry.hidden = true; adminNote.hidden = true; el.dataset.owner = 'false';
+        if (!email) return;
         try {
           const response = await fetch(serverOrigin + '/api/v2/user/status?email=' + encodeURIComponent(email));
           const data = await response.json();
-          if (response.ok && data.is_admin && email === (ctx.get('user').getData().email || '').trim().toLowerCase()) checkAdmin(options);
-          else options?.onCancel?.();
-        } catch { options?.onCancel?.(); }
+          if (current !== sequence || email !== (ctx.get('user').getData().email || '').trim().toLowerCase()) return;
+          if (response.ok && data.is_admin) { adminEntry.hidden = false; adminNote.hidden = false; el.dataset.owner = 'true'; }
+        } catch {}
       };
-      // Hand a short-lived session to the official UI through an origin-checked
-      // channel. The stock iframe transport would put the session in its URL.
-      ctx.showSidebar = () => {
-        const user = ctx.get('user').getData();
-        if (!user.is_admin || !/^atk_[a-f0-9]{64}$/.test(user.token || '')) return;
-        const popup = window.open(serverOrigin + '/sidebar/?site=ShanSan', '_blank');
-        if (!popup) return;
-        const handoff = (event) => {
-          if (event.source !== popup || event.origin !== serverOrigin || event.data?.type !== 'shansan-artalk-ready') return;
-          popup.postMessage({ type: 'shansan-artalk-session', user: { name: user.name, email: user.email, token: user.token } }, serverOrigin);
-          window.removeEventListener('message', handoff);
-        };
-        window.addEventListener('message', handoff);
-        window.setTimeout(() => window.removeEventListener('message', handoff), 20000);
+      ctx.on('user-changed', refreshEntry);
+      const openAdmin = () => {
+        if (adminEntry.hidden) return;
+        window.open(serverOrigin + '/admin', '_blank', 'noopener,noreferrer');
       };
+      adminEntry.onclick = openAdmin;
+      // Management lives on the isolated Worker origin. No postMessage session handoff to the blog.
+      ctx.checkAdmin = async options => { await refreshEntry(); options?.onCancel?.(); };
+      ctx.showSidebar = openAdmin;
+      refreshEntry();
       el.dataset.loaded = 'true';
     });
   }
