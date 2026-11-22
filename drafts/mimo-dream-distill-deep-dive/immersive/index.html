@@ -275,7 +275,7 @@
 <p>同样，<code>distill</code> 在 Phase 3 会执行一个聚合查询，查明究竟什么工具/指令在过去 30 天内执行次数最多，从而避免主观臆测：</p>
 <figure class="highlight sql code-window" data-code-title="sql"><div class="code-toolbar"><span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span><div class="code-files"><span class="code-filename">sql</span></div><div class="code-actions" hidden><button type="button" class="code-copy" aria-label="复制代码" title="复制代码"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="13" rx="2"></rect><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"></path></svg></button><button type="button" class="code-expand" aria-label="展开代码" title="展开代码" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5"></path></svg></button><span class="code-status" role="status" aria-live="polite"></span></div></div><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/><span class="line">10</span><br/><span class="line">11</span><br/><span class="line">12</span></pre></td><td class="code"><pre><span class="line"><span class="comment">-- packages/opencode/src/agent/prompt/distill.txt:106-118 (42e7da3)</span></span><br/><span class="line"><span class="keyword">SELECT</span> json_extract(p.data, <span class="string">&#39;$.tool&#39;</span>) <span class="keyword">as</span> tool,</span><br/><span class="line">       substr(json_extract(p.data, <span class="string">&#39;$.state.input&#39;</span>), <span class="number">1</span>, <span class="number">200</span>) <span class="keyword">as</span> input_preview,</span><br/><span class="line">       <span class="built_in">count</span>(<span class="operator">*</span>) <span class="keyword">as</span> n</span><br/><span class="line"><span class="keyword">FROM</span> message m</span><br/><span class="line"><span class="keyword">JOIN</span> part p <span class="keyword">ON</span> p.message_id <span class="operator">=</span> m.id</span><br/><span class="line"><span class="keyword">WHERE</span> json_extract(m.data, <span class="string">&#39;$.role&#39;</span>) <span class="operator">=</span> <span class="string">&#39;assistant&#39;</span></span><br/><span class="line">  <span class="keyword">AND</span> json_extract(p.data, <span class="string">&#39;$.type&#39;</span>) <span class="operator">=</span> <span class="string">&#39;tool&#39;</span></span><br/><span class="line">  <span class="keyword">AND</span> m.time_created <span class="operator">&gt;</span> <span class="operator">&lt;</span>CUTOFF_MS<span class="operator">&gt;</span></span><br/><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> tool, input_preview</span><br/><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> n <span class="keyword">DESC</span></span><br/><span class="line">LIMIT <span class="number">50</span>;</span></pre></td></tr></tbody></table></figure>
 <h4 id="423-为什么这样设计">4.2.3 为什么这样设计</h4>
-<p>这种**「上层 NLP 意图提取 + 底层 SQL 关系化事实校验」**的双重验证（Double-Check）模式，将 LLM 的推理生成和确定性的数据库统计有机结合。FTS 快速定位“有什么想法”，SQLite SQL 查询判定“该想法是否符合客观历史事实”，极大提升了进化产物的可信度。</p>
+<p>这种<strong>「上层 NLP 意图提取 + 底层 SQL 关系化事实校验」</strong>的双重验证（Double-Check）模式，将 LLM 的推理生成和确定性的数据库统计有机结合。FTS 快速定位“有什么想法”，SQLite SQL 查询判定“该想法是否符合客观历史事实”，极大提升了进化产物的可信度。</p>
 <h4 id="424-trade-off取舍">4.2.4 Trade-off（取舍）</h4>
 <ul>
 <li><strong>性能消耗</strong>：每次执行 FTS 搜索或重新索引时需要解析所有 Markdown 文件。如果记忆文件超长、超大，会导致延迟。这也是为什么系统严格限制 <code>MEMORY.md</code> 必须在 200 行以内的原因之一。</li>
@@ -767,36 +767,134 @@ OpenClaw 特别强调本地文件的主权，采用每日日志（<code>memory/Y
       var target = selector ? document.querySelector(selector) : null;
       if (!target) return;
       event.preventDefault();
+      stopHashAnchorTracking();
       target.scrollIntoView({ behavior: 'smooth', block: 'start' });
       sidebar.dismiss();
     }
   });
   window.switchTheme = switchTheme;
   syncThemeToggle();
-  var hashScrollTimer = null;
-  function scrollHashIntoView() {
-    if (!window.location.hash) return;
+  var hashAnchorCleanup = null;
+  function getHashTarget() {
+    if (!window.location.hash) return null;
     var id = '';
     try {
       id = decodeURIComponent(window.location.hash.slice(1));
     } catch (_e) {
       id = window.location.hash.slice(1);
     }
-    var target = document.getElementById(id);
-    if (target) target.scrollIntoView({ block: 'start' });
+    return id ? document.getElementById(id) : null;
   }
-  function keepHashInView() {
-    if (!window.location.hash) return;
-    if (hashScrollTimer) clearInterval(hashScrollTimer);
-    scrollHashIntoView();
-    var stopAt = Date.now() + 6000;
-    hashScrollTimer = setInterval(function() {
-      scrollHashIntoView();
-      if (Date.now() >= stopAt) clearInterval(hashScrollTimer);
-    }, 250);
+  function getDocTop(el) {
+    return Math.round(el.getBoundingClientRect().top + window.scrollY);
   }
-  window.addEventListener('load', keepHashInView);
-  window.addEventListener('hashchange', keepHashInView);
+  function instantScrollToTarget(target) {
+    var prevBehavior = document.documentElement.style.scrollBehavior;
+    document.documentElement.style.scrollBehavior = 'auto';
+    try {
+      target.scrollIntoView({ behavior: 'instant', block: 'start' });
+    } catch (_e) {
+      target.scrollIntoView({ block: 'start' });
+    }
+    document.documentElement.style.scrollBehavior = prevBehavior;
+  }
+  function stopHashAnchorTracking() {
+    if (hashAnchorCleanup) {
+      hashAnchorCleanup();
+      hashAnchorCleanup = null;
+    }
+  }
+  function keepHashInView(isInitialLoad) {
+    stopHashAnchorTracking();
+    var target = getHashTarget();
+    if (!target) return;
+    if (isInitialLoad) {
+      instantScrollToTarget(target);
+    }
+    var lastDocTop = getDocTop(target);
+    var arrived = Boolean(isInitialLoad);
+    var lastScrollY = Math.round(window.scrollY);
+    var stopAt = Date.now() + 4000;
+    var timer = null;
+
+    var onUserInterrupt = function(event) {
+      if (event.type === 'pointerdown' || event.type === 'mousedown') {
+        if (event.target && event.target.closest && event.target.closest('a[href^="#"]')) return;
+      }
+      if (event.type === 'keydown') {
+        var k = event.key;
+        if (k !== 'ArrowUp' && k !== 'ArrowDown' && k !== 'PageUp' && k !== 'PageDown' && k !== 'Home' && k !== 'End' && k !== ' ') return;
+      }
+      stopHashAnchorTracking();
+    };
+
+    var onScroll = function() {
+      var curDocTop = getDocTop(target);
+      if (Math.abs(curDocTop - lastDocTop) > 2) return;
+      var rectTop = target.getBoundingClientRect().top;
+      if (!arrived && Math.abs(rectTop) <= 64) {
+        arrived = true;
+        lastScrollY = Math.round(window.scrollY);
+        return;
+      }
+      if (arrived && Math.abs(Math.round(window.scrollY) - lastScrollY) > 24) {
+        stopHashAnchorTracking();
+      }
+    };
+
+    var checkShift = function() {
+      if (!document.contains(target) || Date.now() >= stopAt) {
+        stopHashAnchorTracking();
+        return;
+      }
+      var curDocTop = getDocTop(target);
+      if (Math.abs(curDocTop - lastDocTop) > 2) {
+        lastDocTop = curDocTop;
+        instantScrollToTarget(target);
+        arrived = true;
+        lastScrollY = Math.round(window.scrollY);
+      }
+    };
+
+    window.addEventListener('wheel', onUserInterrupt, { passive: true });
+    window.addEventListener('touchstart', onUserInterrupt, { passive: true });
+    window.addEventListener('pointerdown', onUserInterrupt, { passive: true });
+    window.addEventListener('keydown', onUserInterrupt);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    timer = setInterval(checkShift, 200);
+
+    hashAnchorCleanup = function() {
+      if (timer) clearInterval(timer);
+      window.removeEventListener('wheel', onUserInterrupt);
+      window.removeEventListener('touchstart', onUserInterrupt);
+      window.removeEventListener('pointerdown', onUserInterrupt);
+      window.removeEventListener('keydown', onUserInterrupt);
+      window.removeEventListener('scroll', onScroll);
+    };
+  }
+  var userInteractedBeforeLoad = false;
+  var markEarlyInteraction = function(event) {
+    if (event.type === 'keydown') {
+      var k = event.key;
+      if (k !== 'ArrowUp' && k !== 'ArrowDown' && k !== 'PageUp' && k !== 'PageDown' && k !== 'Home' && k !== 'End' && k !== ' ') return;
+    }
+    userInteractedBeforeLoad = true;
+  };
+  window.addEventListener('wheel', markEarlyInteraction, { passive: true, once: true });
+  window.addEventListener('touchstart', markEarlyInteraction, { passive: true, once: true });
+  window.addEventListener('keydown', markEarlyInteraction, { once: true });
+  window.addEventListener('load', function() {
+    window.removeEventListener('wheel', markEarlyInteraction);
+    window.removeEventListener('touchstart', markEarlyInteraction);
+    window.removeEventListener('keydown', markEarlyInteraction);
+    if (userInteractedBeforeLoad) return;
+    var navEntry = window.performance && window.performance.getEntriesByType
+      ? window.performance.getEntriesByType('navigation')[0]
+      : null;
+    if (navEntry && (navEntry.type === 'back_forward' || navEntry.type === 'reload')) return;
+    keepHashInView(true);
+  });
+  window.addEventListener('hashchange', function() { keepHashInView(false); });
   if (window.matchMedia) {
     var themeQuery = window.matchMedia('(prefers-color-scheme: dark)');
     var onSystemThemeChange = function() {
@@ -1016,31 +1114,30 @@ OpenClaw 特别强调本地文件的主权，采用每日日志（<code>memory/Y
     var tocEl = document.querySelector('#data-toc .toc');
     if (!tocEl) return;
     var links = document.querySelectorAll('#data-toc a.toc-link');
-    var headers = Array.from(links).map(function(link) {
+    var entries = Array.from(links).map(function(link) {
       var href = link.getAttribute('href');
-      return href && href.charAt(0) === '#' ? document.getElementById(href.slice(1)) : null;
+      var el = href && href.charAt(0) === '#' ? document.getElementById(href.slice(1)) : null;
+      return el ? { link: link, el: el } : null;
     }).filter(Boolean);
-    if (!headers.length) return;
+    if (!entries.length) return;
     var scrollOffset = 48;
 
     function activeTOC() {
       var scrollTop = window.scrollY || document.documentElement.scrollTop;
       var topSeg = null;
-      for (var i = 0; i < headers.length; i++) {
-        var rect = headers[i].getBoundingClientRect();
+      for (var i = 0; i < entries.length; i++) {
+        var rect = entries[i].el.getBoundingClientRect();
         var top = rect.top + scrollTop - document.documentElement.clientTop;
         if (top > scrollTop + scrollOffset) continue;
         if (!topSeg || top >= topSeg.top) {
-          topSeg = { el: headers[i], top: top };
+          topSeg = { link: entries[i].link, top: top };
         }
       }
       for (var j = 0; j < links.length; j++) {
         links[j].classList.remove('active');
       }
       if (topSeg) {
-        var href = '#' + topSeg.el.getAttribute('id');
-        var active = document.querySelector('#data-toc a.toc-link[href="' + href + '"]');
-        if (active) active.classList.add('active');
+        topSeg.link.classList.add('active');
       } else if (links.length) {
         links[0].classList.add('active');
       }
@@ -1063,7 +1160,7 @@ OpenClaw 特别强调本地文件的主权，采用每日日志（<code>memory/Y
       activeTOC();
       if (timeout !== null) clearTimeout(timeout);
       timeout = setTimeout(scrollTOC, 50);
-    });
+    }, { passive: true });
     activeTOC();
   })();
 </script><script type="module">

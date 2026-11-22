@@ -289,6 +289,9 @@
     <loc>https://shansan.top/archives/2026/07/</loc>
   </url>
   <url>
+    <loc>https://shansan.top/archives/2026/11/</loc>
+  </url>
+  <url>
     <loc>https://shansan.top/archives/page/10/</loc>
   </url>
   <url>
@@ -964,6 +967,9 @@
     <loc>https://shansan.top/tags/Copilot/</loc>
   </url>
   <url>
+    <loc>https://shansan.top/tags/Coyote/</loc>
+  </url>
+  <url>
     <loc>https://shansan.top/tags/Deps/</loc>
   </url>
   <url>
@@ -1096,10 +1102,16 @@
     <loc>https://shansan.top/tags/Lexer/</loc>
   </url>
   <url>
+    <loc>https://shansan.top/tags/Lincheck/</loc>
+  </url>
+  <url>
     <loc>https://shansan.top/tags/Linux/</loc>
   </url>
   <url>
     <loc>https://shansan.top/tags/Load-Balance/</loc>
+  </url>
+  <url>
+    <loc>https://shansan.top/tags/Loom/</loc>
   </url>
   <url>
     <loc>https://shansan.top/tags/Lua/</loc>
@@ -1192,6 +1204,9 @@
     <loc>https://shansan.top/tags/Runtime/</loc>
   </url>
   <url>
+    <loc>https://shansan.top/tags/Rust/</loc>
+  </url>
+  <url>
     <loc>https://shansan.top/tags/SSE/</loc>
   </url>
   <url>
@@ -1205,6 +1220,9 @@
   </url>
   <url>
     <loc>https://shansan.top/tags/Shadow-Memory/</loc>
+  </url>
+  <url>
+    <loc>https://shansan.top/tags/Shuttle/</loc>
   </url>
   <url>
     <loc>https://shansan.top/tags/Sider/</loc>
@@ -1223,6 +1241,9 @@
   </url>
   <url>
     <loc>https://shansan.top/tags/Test-Coverage/</loc>
+  </url>
+  <url>
+    <loc>https://shansan.top/tags/Testing/</loc>
   </url>
   <url>
     <loc>https://shansan.top/tags/ThreadSanitizer/</loc>
@@ -1331,6 +1352,9 @@
   </url>
   <url>
     <loc>https://shansan.top/tags/n8n/</loc>
+  </url>
+  <url>
+    <loc>https://shansan.top/tags/synctest/</loc>
   </url>
   <url>
     <loc>https://shansan.top/tags/tcpdump/</loc>

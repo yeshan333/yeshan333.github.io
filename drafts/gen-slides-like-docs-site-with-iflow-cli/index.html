@@ -339,36 +339,134 @@
       var target = selector ? document.querySelector(selector) : null;
       if (!target) return;
       event.preventDefault();
+      stopHashAnchorTracking();
       target.scrollIntoView({ behavior: 'smooth', block: 'start' });
       sidebar.dismiss();
     }
   });
   window.switchTheme = switchTheme;
   syncThemeToggle();
-  var hashScrollTimer = null;
-  function scrollHashIntoView() {
-    if (!window.location.hash) return;
+  var hashAnchorCleanup = null;
+  function getHashTarget() {
+    if (!window.location.hash) return null;
     var id = '';
     try {
       id = decodeURIComponent(window.location.hash.slice(1));
     } catch (_e) {
       id = window.location.hash.slice(1);
     }
-    var target = document.getElementById(id);
-    if (target) target.scrollIntoView({ block: 'start' });
+    return id ? document.getElementById(id) : null;
   }
-  function keepHashInView() {
-    if (!window.location.hash) return;
-    if (hashScrollTimer) clearInterval(hashScrollTimer);
-    scrollHashIntoView();
-    var stopAt = Date.now() + 6000;
-    hashScrollTimer = setInterval(function() {
-      scrollHashIntoView();
-      if (Date.now() >= stopAt) clearInterval(hashScrollTimer);
-    }, 250);
+  function getDocTop(el) {
+    return Math.round(el.getBoundingClientRect().top + window.scrollY);
   }
-  window.addEventListener('load', keepHashInView);
-  window.addEventListener('hashchange', keepHashInView);
+  function instantScrollToTarget(target) {
+    var prevBehavior = document.documentElement.style.scrollBehavior;
+    document.documentElement.style.scrollBehavior = 'auto';
+    try {
+      target.scrollIntoView({ behavior: 'instant', block: 'start' });
+    } catch (_e) {
+      target.scrollIntoView({ block: 'start' });
+    }
+    document.documentElement.style.scrollBehavior = prevBehavior;
+  }
+  function stopHashAnchorTracking() {
+    if (hashAnchorCleanup) {
+      hashAnchorCleanup();
+      hashAnchorCleanup = null;
+    }
+  }
+  function keepHashInView(isInitialLoad) {
+    stopHashAnchorTracking();
+    var target = getHashTarget();
+    if (!target) return;
+    if (isInitialLoad) {
+      instantScrollToTarget(target);
+    }
+    var lastDocTop = getDocTop(target);
+    var arrived = Boolean(isInitialLoad);
+    var lastScrollY = Math.round(window.scrollY);
+    var stopAt = Date.now() + 4000;
+    var timer = null;
+
+    var onUserInterrupt = function(event) {
+      if (event.type === 'pointerdown' || event.type === 'mousedown') {
+        if (event.target && event.target.closest && event.target.closest('a[href^="#"]')) return;
+      }
+      if (event.type === 'keydown') {
+        var k = event.key;
+        if (k !== 'ArrowUp' && k !== 'ArrowDown' && k !== 'PageUp' && k !== 'PageDown' && k !== 'Home' && k !== 'End' && k !== ' ') return;
+      }
+      stopHashAnchorTracking();
+    };
+
+    var onScroll = function() {
+      var curDocTop = getDocTop(target);
+      if (Math.abs(curDocTop - lastDocTop) > 2) return;
+      var rectTop = target.getBoundingClientRect().top;
+      if (!arrived && Math.abs(rectTop) <= 64) {
+        arrived = true;
+        lastScrollY = Math.round(window.scrollY);
+        return;
+      }
+      if (arrived && Math.abs(Math.round(window.scrollY) - lastScrollY) > 24) {
+        stopHashAnchorTracking();
+      }
+    };
+
+    var checkShift = function() {
+      if (!document.contains(target) || Date.now() >= stopAt) {
+        stopHashAnchorTracking();
+        return;
+      }
+      var curDocTop = getDocTop(target);
+      if (Math.abs(curDocTop - lastDocTop) > 2) {
+        lastDocTop = curDocTop;
+        instantScrollToTarget(target);
+        arrived = true;
+        lastScrollY = Math.round(window.scrollY);
+      }
+    };
+
+    window.addEventListener('wheel', onUserInterrupt, { passive: true });
+    window.addEventListener('touchstart', onUserInterrupt, { passive: true });
+    window.addEventListener('pointerdown', onUserInterrupt, { passive: true });
+    window.addEventListener('keydown', onUserInterrupt);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    timer = setInterval(checkShift, 200);
+
+    hashAnchorCleanup = function() {
+      if (timer) clearInterval(timer);
+      window.removeEventListener('wheel', onUserInterrupt);
+      window.removeEventListener('touchstart', onUserInterrupt);
+      window.removeEventListener('pointerdown', onUserInterrupt);
+      window.removeEventListener('keydown', onUserInterrupt);
+      window.removeEventListener('scroll', onScroll);
+    };
+  }
+  var userInteractedBeforeLoad = false;
+  var markEarlyInteraction = function(event) {
+    if (event.type === 'keydown') {
+      var k = event.key;
+      if (k !== 'ArrowUp' && k !== 'ArrowDown' && k !== 'PageUp' && k !== 'PageDown' && k !== 'Home' && k !== 'End' && k !== ' ') return;
+    }
+    userInteractedBeforeLoad = true;
+  };
+  window.addEventListener('wheel', markEarlyInteraction, { passive: true, once: true });
+  window.addEventListener('touchstart', markEarlyInteraction, { passive: true, once: true });
+  window.addEventListener('keydown', markEarlyInteraction, { once: true });
+  window.addEventListener('load', function() {
+    window.removeEventListener('wheel', markEarlyInteraction);
+    window.removeEventListener('touchstart', markEarlyInteraction);
+    window.removeEventListener('keydown', markEarlyInteraction);
+    if (userInteractedBeforeLoad) return;
+    var navEntry = window.performance && window.performance.getEntriesByType
+      ? window.performance.getEntriesByType('navigation')[0]
+      : null;
+    if (navEntry && (navEntry.type === 'back_forward' || navEntry.type === 'reload')) return;
+    keepHashInView(true);
+  });
+  window.addEventListener('hashchange', function() { keepHashInView(false); });
   if (window.matchMedia) {
     var themeQuery = window.matchMedia('(prefers-color-scheme: dark)');
     var onSystemThemeChange = function() {
@@ -588,31 +686,30 @@
     var tocEl = document.querySelector('#data-toc .toc');
     if (!tocEl) return;
     var links = document.querySelectorAll('#data-toc a.toc-link');
-    var headers = Array.from(links).map(function(link) {
+    var entries = Array.from(links).map(function(link) {
       var href = link.getAttribute('href');
-      return href && href.charAt(0) === '#' ? document.getElementById(href.slice(1)) : null;
+      var el = href && href.charAt(0) === '#' ? document.getElementById(href.slice(1)) : null;
+      return el ? { link: link, el: el } : null;
     }).filter(Boolean);
-    if (!headers.length) return;
+    if (!entries.length) return;
     var scrollOffset = 48;
 
     function activeTOC() {
       var scrollTop = window.scrollY || document.documentElement.scrollTop;
       var topSeg = null;
-      for (var i = 0; i < headers.length; i++) {
-        var rect = headers[i].getBoundingClientRect();
+      for (var i = 0; i < entries.length; i++) {
+        var rect = entries[i].el.getBoundingClientRect();
         var top = rect.top + scrollTop - document.documentElement.clientTop;
         if (top > scrollTop + scrollOffset) continue;
         if (!topSeg || top >= topSeg.top) {
-          topSeg = { el: headers[i], top: top };
+          topSeg = { link: entries[i].link, top: top };
         }
       }
       for (var j = 0; j < links.length; j++) {
         links[j].classList.remove('active');
       }
       if (topSeg) {
-        var href = '#' + topSeg.el.getAttribute('id');
-        var active = document.querySelector('#data-toc a.toc-link[href="' + href + '"]');
-        if (active) active.classList.add('active');
+        topSeg.link.classList.add('active');
       } else if (links.length) {
         links[0].classList.add('active');
       }
@@ -635,7 +732,7 @@
       activeTOC();
       if (timeout !== null) clearTimeout(timeout);
       timeout = setTimeout(scrollTOC, 50);
-    });
+    }, { passive: true });
     activeTOC();
   })();
 </script><script type="module">
