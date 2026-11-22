@@ -57,7 +57,7 @@
 
 ### 系统底层 & 安全
 
-- [可控并发测试实战指南：告别偶发 Flaky，像导演一样精准抓出深层竞态 Bug](https://shansan.top/2026/11/22/controlled-concurrency-testing-deep-dive/): 全面拆解开源社区主流可控并发测试技术与 Go 1.25 testing/synctest：从跨锁竞态（TOCTOU）讲起，通过 7 个等轴测互动演示看懂 PCT、URW、DPOR 调度算法与 Shuttle、Loom、Lincheck、Coyote 工程选型。
+- [可控并发测试实战指南：告别偶发 Flaky，像导演一样精准抓出深层竞态 Bug](https://shansan.top/2026/11/22/controlled-concurrency-testing-deep-dive/): 从余额超扣和缓存失效看懂 PCT、URW、DPOR 与 Go synctest，再用 ConDpor、Tamias 和 REINS 解释如何联合探索输入与调度、控制多进程服务、验证 AI 提出的交错。
 - [Emscripten 的 WebAssembly 编译实现解析](https://shansan.top/2026/06/09/emscripten-wasm-compilation-deep-dive/): Emscripten 解决的核心问题是如何将 POSIX 语义的 C/C++ 程序，在保持可接受性能的前提下，编译为浏览器可执行的安全代码。
 - [cluacov 的分支覆盖率统计：从行级近似到指令级精确](https://shansan.top/2026/05/02/cluacov-branch-coverage/): 深入剖析 cluacov 的两套分支覆盖率方案——基于行级调试钩子的近似实现与基于指令级计数钩子的精确实现，涵盖 Lua 字节码、调试钩子、Proto 元数据生命周期与 GC 安全设计。
 - [Sanitizer 全景：从编译插桩到硬件标签的内存安全检测演进](https://shansan.top/2026/04/22/blog-sanitizers-deep-dive/): 系统梳理 ASan、TSan、MSan、HWASan、UBSan 与 ARM MTE 等内存安全检测技术演进。
