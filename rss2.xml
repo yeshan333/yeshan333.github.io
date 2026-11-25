@@ -473,7 +473,7 @@ $$\frac{8}{9} \times \frac{7}{8} \times \frac{6}{7} \times \frac{5}{6} \times \f
 &lt;p&gt;搜索空间的两个估计也要分别解读。JMC 即使估到「检查了约 80%」，分母也只是指定边界和等价关系下的类数，不能据此计算程序正确的概率。CoEst 关心的是改用更粗等价关系能少查多少个类。维护这种关系本身有成本，类数之比只能帮助预估收益，实际耗时还要测量。&lt;a href=&quot;https://www.comp.nus.edu.sg/~umathur/publications/2026-pldi-balasubramanian-dpor-estimation/&quot;&gt;PLDI 2026 论文页&lt;/a&gt; · &lt;a href=&quot;https://arxiv.org/abs/2611.18069&quot;&gt;CoEst 预印本&lt;/a&gt;&lt;/p&gt;
 &lt;h3&gt;策略 5：让上一轮的观察引导下一轮调度&lt;/h3&gt;
 &lt;p&gt;还看那个 &lt;code&gt;ready&lt;/code&gt; 开关。假设程序先把它初始化为 &lt;code&gt;false&lt;/code&gt;，A 随后又写了一次 &lt;code&gt;false&lt;/code&gt;。无论 B 读到哪一次写入的值，执行的代码和走过的分支都可能一样。&lt;strong&gt;读值相同，读的来源却有两种。&lt;/strong&gt; RFF（ASPLOS 2024）把这种 reads-from 关系当作反馈，用有偏随机搜索去尝试可能产生新读写关系的邻近调度。同一个术语在上一节和这里有两种用途：CoEst 用它计算等价类，RFF 用它选择下一轮测试。&lt;a href=&quot;https://focs-lab.comp.nus.edu.sg/publication/2024/greybox-fuzzing-for-concurrency-testing/&quot;&gt;RFF 论文&lt;/a&gt; · &lt;a href=&quot;https://github.com/dylanjwolff/RFF&quot;&gt;公开实现&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;如果被测对象是分布式协议，可以观察更高层的事件。Fest（NSDI 2026）在 &lt;strong&gt;P 语言的分布式系统设计模型&lt;/strong&gt;中运行，根据已观察到的行为调整后续调度，探索更多协议场景。对 Skynet 可以借鉴这个思路：给同一 session 的请求、超时取消和迟到响应加上关联标识，把「响应先到」和「取消先发生」记为两种反馈。测试再单独断言该请求只能完成一次。这是业务侧反馈的设计示例，论文的实验对象是 P 模型。&lt;a href=&quot;https://www.usenix.org/conference/nsdi26/presentation/li&quot;&gt;Fest 论文&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;如果被测对象是分布式协议，可以观察更高层的事件。Fest（NSDI 2026）在 &lt;strong&gt;P 语言的分布式系统设计模型&lt;/strong&gt;中运行，根据已观察到的行为调整后续调度，探索更多协议场景。&lt;a href=&quot;https://www.usenix.org/conference/nsdi26/presentation/li&quot;&gt;Fest 论文&lt;/a&gt;&lt;/p&gt;
 &lt;hr&gt;
 &lt;h2&gt;5. Go 1.25 标准库大招：&lt;code&gt;testing/synctest&lt;/code&gt; 的测试隔离域与虚拟时钟&lt;/h2&gt;
 &lt;p&gt;如果你的日常工作主要写 &lt;strong&gt;Go 语言&lt;/strong&gt;，那么好消息来了：&lt;strong&gt;从 Go 1.25 开始，官方标准库直接内置了确定性时间与协程同步测试工具 &lt;code&gt;testing/synctest&lt;/code&gt;！&lt;/strong&gt;&lt;/p&gt;
@@ -596,10 +596,9 @@ $$\frac{8}{9} \times \frac{7}{8} \times \frac{6}{7} \times \frac{5}{6} \times \f
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;p&gt;如果一次测试已经走到了「请求发出、响应待投递」，下一轮可以重用到达这里的前缀，再探索不同的后缀。论文把这种策略称为 &lt;strong&gt;replay–explore&lt;/strong&gt;。测试器保留产生新分支覆盖的用例，可以同时改变客户端输入与后续调度。它在上述系统上检验的是&lt;strong&gt;同一测试能否给出稳定的分支覆盖反馈&lt;/strong&gt;。完整执行仍可能有细节差异，原型的调度点也不涵盖任意机器指令，虚拟时间暂未模拟节点之间的时钟偏移。&lt;a href=&quot;https://www.cs.purdue.edu/homes/pfonseca/papers/sosp26-tamias.pdf&quot;&gt;Tamias 论文，§3–4&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;放到 Skynet，要实测哪一步？&lt;/strong&gt; Tamias 是独立进程消息与时间控制的候选。论文没有评估 Skynet，开源实现需要相应的运行环境、目标镜像和测试负载。第一组兼容性用例可以只用两个服务和一个带超时的 RPC，看能否稳定切换上面的两种顺序。如果还要指定恢复哪一个 Lua 协程，就得确认 Skynet 内部的恢复点能否暴露给调度器。观察到了 Lua 解释器的 C 分支，也还要另记 session 是否已取消、响应是否迟到，才能判断测到了哪种业务行为。这些是根据控制边界提出的适配问题。&lt;a href=&quot;https://github.com/tamias-dev/tamias&quot;&gt;Tamias 实现与环境要求&lt;/a&gt;&lt;/p&gt;
 &lt;h3&gt;REINS 怎样把 AI 的猜测变成能验证的调度？&lt;/h3&gt;
 &lt;p&gt;回到开头的余额例子。模型如果只说「检查和扣款之间可能有竞态」，还无法判断这个用例会不会失败。一个可检验的假设需要给出&lt;strong&gt;状态条件&lt;/strong&gt;（余额 100 元，A、B 各请求 100 元）和&lt;strong&gt;事件顺序&lt;/strong&gt;（A 检查成功并松锁，B 检查并完成扣款，A 再扣款）。调度器执行后看两件事：轨迹是否满足约束，余额非负的断言是否失败。如果第一项都没满足，这次运行就不足以判断假设。若两项都符合预期，就可以保存输入和调度轨迹，重放这次超扣。&lt;/p&gt;
-&lt;p&gt;这是 REINS 方法的示意。REINS 从运行时观测和静态程序信息提出假设，把它翻译成事件顺序和变量状态约束，由受控调度器执行，再用结果修订或否定假设。该工作于 &lt;strong&gt;2026 年 10 月 9 日&lt;/strong&gt;首次提交，本文按预印本介绍。原型面向 C/C++ 共享内存多线程程序。要把约束用在 Lua 的消息和协程上，需要相应的观测和调度接口。&lt;a href=&quot;https://arxiv.org/abs/2610.13421&quot;&gt;REINS 预印本与版本记录&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;这是 REINS 方法的示意。REINS 从运行时观测和静态程序信息提出假设，把它翻译成事件顺序和变量状态约束，由受控调度器执行，再用结果修订或否定假设。该工作于 &lt;strong&gt;2026 年 10 月 9 日&lt;/strong&gt;首次提交，本文按预印本介绍。原型面向 C/C++ 共享内存多线程程序。&lt;a href=&quot;https://arxiv.org/abs/2610.13421&quot;&gt;REINS 预印本与版本记录&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;比较性能时要同时看&lt;strong&gt;调度轮数&lt;/strong&gt;和&lt;strong&gt;首次触发的实际耗时&lt;/strong&gt;。在 SCTBench 与 ConVul 的小程序上，REINS 找到的缺陷都在约 100 次受控调度内触发，但算上 Agent 推理，首次触发的耗时比基线高两到三个数量级。这个实验说明约束可以缩小搜索范围，也给出了使用这套方法要付出的时间成本。&lt;a href=&quot;https://arxiv.org/html/2610.13421v2#S5.SS2&quot;&gt;REINS 全文，§5.2、图 3&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Themis（NSDI 2026）把 AI 用到了更早的一步。有时连需要比较的两个 RPC 都没被测试发出来，此时单换线程顺序没有作用。Themis 先用静态分析找 RPC 相关的潜在冲突，再让大模型生成能调用相应操作的测试，通过定向模糊测试调整输入参数。它和 ConDpor、Tamias 都关注输入是否能把程序带到目标位置，三者分别借助测试生成、符号约束和反馈变异来探索输入。&lt;a href=&quot;https://www.usenix.org/conference/nsdi26/presentation/cao&quot;&gt;Themis 论文&lt;/a&gt;&lt;/p&gt;
 &lt;h3&gt;怎样把 JVM 测试、跨语言调用和内核代码纳入检查？&lt;/h3&gt;
@@ -640,7 +639,6 @@ $$\frac{8}{9} \times \frac{7}{8} \times \frac{6}{7} \times \frac{5}{6} \times \f
 &lt;/ol&gt;
 &lt;h2&gt;总结&lt;/h2&gt;
 &lt;p&gt;从一个会失败的断言出发，工具通常比较好选。Go 的订单超时用例需要控制时间并等后台协程停稳，可以用 &lt;code&gt;testing/synctest&lt;/code&gt;。缓存或余额的跨锁竞态需要改变交错，可以用 Shuttle、Lincheck 或 Coyote。要系统检查有界组件，则先确认 Loom 或 GenMC 能观察哪些操作、支持哪种内存语义。&lt;/p&gt;
-&lt;p&gt;如果正在给 &lt;strong&gt;Skynet&lt;/strong&gt; 做测试平台，可以带着三个问题读论文。要确认独立进程中的响应与超时能否交换，先读 &lt;strong&gt;Tamias&lt;/strong&gt;。要把对重复完成的怀疑写成可执行约束，先读 &lt;strong&gt;REINS&lt;/strong&gt;。如果换了许多次调度，测试仍进不了目标分支，先读 &lt;strong&gt;ConDpor&lt;/strong&gt;。有了可重复的用例，再借鉴 RFF 和 Fest，把同一 session 中完成、取消和销毁的先后次序记作反馈，就能观察新增的探索预算究竟测到了哪些新行为。&lt;/p&gt;
 </content:encoded><category>技术分析xAI</category><category>Concurrency</category><category>Testing</category><category>Go</category><category>Rust</category><category>Shuttle</category><category>Loom</category><category>Lincheck</category><category>Coyote</category><category>synctest</category></item><item><title>深入 vLLM：从网关请求到 GPU 批处理的推理引擎实现</title><link>https://shansan.top/2026/07/12/vllm-inference-engine-deep-dive/</link><guid isPermaLink="true">https://shansan.top/2026/07/12/vllm-inference-engine-deep-dive/</guid><description>vLLM, inference engine, PagedAttention, KV Cache, scheduler, OpenAI API, GPU serving</description><pubDate>Sun, 12 Jul 2026 10:30:00 GMT</pubDate><content:encoded>&lt;p&gt;import TldrawBoard from “../../astro-site/src/components/TldrawBoard.astro”;
 import {
 VllmRequestPipelineFlow,
@@ -8602,12 +8600,12 @@ $$&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;与 Kafka 相关的几个问题：&lt;/p&gt;
-&lt;div class=&quot;tag-plugin tabs&quot; id=&quot;tab-kafka-problem-p9d2je&quot;&gt;&lt;div class=&quot;nav-tabs&quot;&gt;&lt;div class=&quot;tab active&quot;&gt;&lt;a href=&quot;#tab-kafka-problem-p9d2je-1&quot;&gt;Kafka 实现高可用的手段&lt;/a&gt;&lt;/div&gt;&lt;div class=&quot;tab&quot;&gt;&lt;a href=&quot;#tab-kafka-problem-p9d2je-2&quot;&gt;Kafka 实现伸缩性的手段&lt;/a&gt;&lt;/div&gt;&lt;div class=&quot;tab&quot;&gt;&lt;a href=&quot;#tab-kafka-problem-p9d2je-3&quot;&gt;Zookeeper在Kafka中的作用&lt;/a&gt;&lt;/div&gt;&lt;div class=&quot;tab&quot;&gt;&lt;a href=&quot;#tab-kafka-problem-p9d2je-4&quot;&gt;Kafka如何实现消息的有序&lt;/a&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;tab-content&quot;&gt;&lt;div class=&quot;tab-pane active&quot; id=&quot;tab-kafka-problem-p9d2je-1&quot;&gt;&lt;ul&gt;
+&lt;div class=&quot;tag-plugin tabs&quot; id=&quot;tab-kafka-problem-ay2vyx&quot;&gt;&lt;div class=&quot;nav-tabs&quot;&gt;&lt;div class=&quot;tab active&quot;&gt;&lt;a href=&quot;#tab-kafka-problem-ay2vyx-1&quot;&gt;Kafka 实现高可用的手段&lt;/a&gt;&lt;/div&gt;&lt;div class=&quot;tab&quot;&gt;&lt;a href=&quot;#tab-kafka-problem-ay2vyx-2&quot;&gt;Kafka 实现伸缩性的手段&lt;/a&gt;&lt;/div&gt;&lt;div class=&quot;tab&quot;&gt;&lt;a href=&quot;#tab-kafka-problem-ay2vyx-3&quot;&gt;Zookeeper在Kafka中的作用&lt;/a&gt;&lt;/div&gt;&lt;div class=&quot;tab&quot;&gt;&lt;a href=&quot;#tab-kafka-problem-ay2vyx-4&quot;&gt;Kafka如何实现消息的有序&lt;/a&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;tab-content&quot;&gt;&lt;div class=&quot;tab-pane active&quot; id=&quot;tab-kafka-problem-ay2vyx-1&quot;&gt;&lt;ul&gt;
 &lt;li&gt;Broker 分布式部署&lt;/li&gt;
 &lt;li&gt;备份机制（Replacation），把相同的数据拷贝到多台机器上。即 Kafka Replica，Leader Replica 提供数据的读写操作，Follower Replica 负责同步数据。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;/div&gt;&lt;div class=&quot;tab-pane&quot; id=&quot;tab-kafka-problem-p9d2je-2&quot;&gt;&lt;p&gt;Partition 机制，一个 Topic 划分为多个 Partition，防止单台 Broker 机器无法容纳太多的数据，Partition 机制与 Replica 机制联系紧密，每个 Partition 可以有多个 Replica（1 Leader + N Followers）。&lt;/p&gt;
-&lt;/div&gt;&lt;div class=&quot;tab-pane&quot; id=&quot;tab-kafka-problem-p9d2je-3&quot;&gt;&lt;blockquote&gt;
+&lt;/div&gt;&lt;div class=&quot;tab-pane&quot; id=&quot;tab-kafka-problem-ay2vyx-2&quot;&gt;&lt;p&gt;Partition 机制，一个 Topic 划分为多个 Partition，防止单台 Broker 机器无法容纳太多的数据，Partition 机制与 Replica 机制联系紧密，每个 Partition 可以有多个 Replica（1 Leader + N Followers）。&lt;/p&gt;
+&lt;/div&gt;&lt;div class=&quot;tab-pane&quot; id=&quot;tab-kafka-problem-ay2vyx-3&quot;&gt;&lt;blockquote&gt;
 &lt;p&gt;Zookeeper 可为分布式系统提供分布式配置服务、同步服务和命名注册服务。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;ul&gt;
@@ -8630,7 +8628,7 @@ $$&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/41953232&quot;&gt;源码解说zookeeper在kafka中的作用&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;/div&gt;&lt;div class=&quot;tab-pane&quot; id=&quot;tab-kafka-problem-p9d2je-4&quot;&gt;&lt;p&gt;从前文可知，Kafka 的消息存储在 Topic 中，一个 Topic 又可以划分为多个 Partition，多 Partition 时，Kafka 只能保证 Partition 内的消息有序（Offset保证有序），如需保证 Topic 消息的有序，那么只能使用单个Partition了。如果仍要使用多个 Partition，消息的分区写入策略应选择按键（Key）保存。&lt;/p&gt;
+&lt;/div&gt;&lt;div class=&quot;tab-pane&quot; id=&quot;tab-kafka-problem-ay2vyx-4&quot;&gt;&lt;p&gt;从前文可知，Kafka 的消息存储在 Topic 中，一个 Topic 又可以划分为多个 Partition，多 Partition 时，Kafka 只能保证 Partition 内的消息有序（Offset保证有序），如需保证 Topic 消息的有序，那么只能使用单个Partition了。如果仍要使用多个 Partition，消息的分区写入策略应选择按键（Key）保存。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;https://www.cnblogs.com/listenfwind/p/12465409.html&quot;&gt;详细解析kafka之kafka分区和副本&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
